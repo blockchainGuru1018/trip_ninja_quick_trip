@@ -1,1 +1,0 @@
-# trip_ninja_quick_trip

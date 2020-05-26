@@ -1,6 +1,6 @@
 import React from 'react';
 import './NavBar.css';
-import logo from './trip_ninja_logo.png';
+import logo from '../assets/images/trip_ninja_logo.png';
 
 class NavBar extends React.Component {
   render() {

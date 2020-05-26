@@ -9,3 +9,7 @@ body {
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
 }
+
+a:hover, a:active {
+  color: #222;
+}

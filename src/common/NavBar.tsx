@@ -5,7 +5,7 @@ import logo from '../assets/images/trip_ninja_logo.png';
 class NavBar extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-light navbar-expand-lg">
         <a className="navbar-brand" href="/">
           <img src={logo} width="106" height="32" alt="" loading="lazy" />
         </a>

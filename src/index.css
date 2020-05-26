@@ -22,3 +22,19 @@ body {
 a:hover, a:active {
   color: #222;
 }
+
+h1 {
+  text-align: left;
+  font-family: 'NeuzeitGro-Bol';
+  font-size: 40px;
+  letter-spacing: 0px;
+  color: #45565E;
+}
+
+h4 {
+  text-align: left;
+  font-family: 'NeuzeitGro-Reg';
+  font-size: 24px;
+  letter-spacing: 0px;
+  color: #45565E;
+}

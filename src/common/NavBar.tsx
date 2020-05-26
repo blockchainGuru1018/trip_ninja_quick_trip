@@ -15,7 +15,7 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href="/">Flight Search<span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/search/">Flight Search<span className="sr-only">(current)</span></a>
               </li>
             </ul>
           </div>

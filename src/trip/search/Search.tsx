@@ -1,4 +1,12 @@
 import React from 'react';
-import './search.css';
+import './Search.css';
 
-class Search extends React.Component {}
+class Search extends React.Component {
+  render() {
+    return (
+      <p></p>
+    )
+  }
+}
+
+export default Search;

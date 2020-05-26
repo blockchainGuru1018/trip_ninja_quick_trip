@@ -9,3 +9,7 @@
 .nav-link {
   color: #45565E;
 }
+
+.navbar-nav {
+	padding-left: 25px;
+}

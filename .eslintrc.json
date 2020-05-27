@@ -1,13 +1,13 @@
 {
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "modules": true
     }
-	},
-	"rules": {
-		"indent": ["error", 2]
-	}
+  },
+  "rules": {
+    "indent": ["error", 2]
+  }
 }

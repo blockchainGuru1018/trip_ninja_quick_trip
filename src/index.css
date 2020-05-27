@@ -38,3 +38,11 @@ h4 {
   letter-spacing: 0px;
   color: #45565E;
 }
+
+.btn-primary {
+  background-color: #0DBE7CEB;
+  color: #fff;
+  border-radius: 2px;
+  border-color: #0DBE7CEB;
+  padding: 15px 19px;
+}

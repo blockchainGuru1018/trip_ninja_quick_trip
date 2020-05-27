@@ -6,3 +6,19 @@
   padding: 45px 65px;
   margin-top: 75px;
 }
+
+input, select {
+  width: 100%;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #CACDD6;
+  border-radius: 2px 2px 0px 0px;
+  padding: 17px 17px;
+}
+
+input:hover, input:active, select:hover, select:active {
+  border-bottom: 2px solid #0DBE7CEB;
+}
+
+.flight-input {
+  padding: 15px 0px;
+}

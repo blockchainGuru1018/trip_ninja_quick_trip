@@ -1,9 +1,10 @@
 import React from 'react';
+import CabinSelect from './CabinSelect';
 
 class FlightInput extends React.Component {
   render() {
     return (
-      <div className="row">
+      <div className="row flight-input">
         <div className="col-sm-3">
           <input type="text" placeholder="From" />
         </div>
@@ -14,9 +15,7 @@ class FlightInput extends React.Component {
           <input type="text" placeholder="Depart" />
         </div>
         <div className="col-sm-3">
-          <select>
-            <option value="E">Economy</option>
-          </select>
+          <CabinSelect />
         </div>
       </div>
     )

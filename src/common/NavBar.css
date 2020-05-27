@@ -6,7 +6,7 @@
   font-family: 'NeuzeitGro-Bol';
 }
 
-.nav-light {
+.navbar-light .navbar-nav .nav-link {
   color: #45565E;
 }
 

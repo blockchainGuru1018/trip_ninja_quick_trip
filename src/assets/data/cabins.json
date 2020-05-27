@@ -1,0 +1,7 @@
+[
+  {"name": "Economy", "code": "E"},
+  {"name": "Premium Economy", "code": "PE"},
+  {"name": "Business Class", "code": "BC"},
+  {"name": "First Class", "code": "FC"},
+  {"name": "Premium First Class", "code": "PFC"}
+]

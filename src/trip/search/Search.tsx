@@ -27,7 +27,7 @@ class Search extends React.Component {
         </div>
         {flights}
         <div className="row">
-          <button className="btn" onClick={this.onAddFlight}>Add Flight</button>
+          <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
         </div>
         <hr/>
         <div className="row">
@@ -48,10 +48,10 @@ class Search extends React.Component {
         </div>
         <hr/>
         <div className="row">
-          <div className="col-sm-9">
+          <div className="col-lg-9 col-md-8">
             <TripPath />
           </div>
-          <div className="col-sm-3">
+          <div className="col-lg-3 col-md-4">
             <SearchButton />
           </div>
         </div>

@@ -22,3 +22,9 @@ input:hover, input:active, select:hover, select:active {
 .flight-input {
   padding: 15px 0px;
 }
+
+.btn-add-flights {
+  color: #4BAFD7;
+  text-align: left;
+  font-family: 'NeuzeitGro-Bol';
+}

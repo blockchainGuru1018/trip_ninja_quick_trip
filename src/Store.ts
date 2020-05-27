@@ -1,4 +1,4 @@
-import { createStore, compose, Store } from 'redux';
+import { createStore, Store } from 'redux';
 import rootReducer from './reducers/index';
 
 const defaultState: object = {

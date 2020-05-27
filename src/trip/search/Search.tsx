@@ -8,7 +8,16 @@ import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
 
 class Search extends React.Component {
+  state = {
+    numberFlights: 1
+  }
   render() {
+    const flights = [];
+
+    for (let i = 0; i < this.state.numberFlights; i += 1) {
+      flights.push(<FlightInput key={i} />);
+    };
+
     return (
       <div id="search-form">
         <div className="row">
@@ -16,7 +25,10 @@ class Search extends React.Component {
             <h1>Flight Search</h1>
           </div>
         </div>
-        <FlightInput />
+        {flights}
+        <div className="row">
+          <button className="btn" onClick={this.onAddFlight}>Add Flight</button>
+        </div>
         <hr/>
         <div className="row">
           <div className="col-lg">
@@ -45,6 +57,18 @@ class Search extends React.Component {
         </div>
       </div>
     )
+  }
+
+  onAddFlight = () => {
+    this.setState({
+      numberFlights: this.state.numberFlights + 1
+    });
+  }
+
+  onRemoveFlight = () => {
+    this.setState({
+      numberFlights: this.state.numberFlights - 1
+    });
   }
 }
 

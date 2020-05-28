@@ -35,8 +35,8 @@ class FlightInput extends React.Component<FlightInputProps> {
               defaultValue={this.getDestinationByName(this.props.flight.origin)}
               renderInput={(params) =>
                 <TextField {...params}
-                  label="From"
                   variant="outlined"
+                  placeholder="From"
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (
@@ -62,8 +62,8 @@ class FlightInput extends React.Component<FlightInputProps> {
               defaultValue={this.getDestinationByName(this.props.flight.destination)}
               renderInput={(params) =>
                 <TextField {...params}
-                  label="To"
                   variant="outlined"
+                  placeholder="To"
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (

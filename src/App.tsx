@@ -23,7 +23,7 @@ class App extends React.Component<IAppProps> {
     return (
       <div className="App">
         <NavBar {...this.props}/>
-        <div className="container">
+        <div className="container-fluid">
           <Router>
             <div>
               <Route exact path="/" component={Home} />

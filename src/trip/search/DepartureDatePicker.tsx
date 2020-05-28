@@ -1,6 +1,5 @@
 import 'date-fns';
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -20,9 +19,11 @@ export default function DepartureDatePicker() {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
         disableToolbar
+        disablePast
         variant="inline"
+        inputVariant="outlined"
         format="MM/dd/yyyy"
-        margin="normal"
+        margin="none"
         id="date-picker-inline"
         value={selectedDate}
         onChange={handleDateChange}

@@ -30,40 +30,42 @@ class Search extends React.Component<SearchProps> {
     );
 
     return (
-      <div id="search-form">
-        <div className="row">
-          <div className="col-lg">
-            <h1>Flight Search</h1>
+      <div className="row">
+        <div className="col-md-8 offset-md-2" id="search-form">
+          <div className="row">
+            <div className="col-lg">
+              <h1>Flight Search</h1>
+            </div>
           </div>
-        </div>
-        {flights}
-        <div className="row">
-          <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
-        </div>
-        <hr/>
-        <div className="row">
-          <div className="col-lg">
-            <h4>Additional Details</h4>
+          {flights}
+          <div className="row">
+            <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-3">
-            <PassengerSelect />
+          <hr/>
+          <div className="row">
+            <div className="col-lg">
+              <h4>Additional Details</h4>
+            </div>
           </div>
-          <div className="col-sm-3">
-            <CurrencySelect />
+          <div className="row">
+            <div className="col-sm-3">
+              <PassengerSelect />
+            </div>
+            <div className="col-sm-3">
+              <CurrencySelect />
+            </div>
+            <div className="col-sm-6">
+              <TripOptions />
+            </div>
           </div>
-          <div className="col-sm-6">
-            <TripOptions />
-          </div>
-        </div>
-        <hr/>
-        <div className="row">
-          <div className="col-lg-9 col-md-8">
-            <TripPath />
-          </div>
-          <div className="col-lg-3 col-md-4">
-            <SearchButton />
+          <hr/>
+          <div className="row">
+            <div className="col-lg-9 col-md-8">
+              <TripPath />
+            </div>
+            <div className="col-lg-3 col-md-4">
+              <SearchButton />
+            </div>
           </div>
         </div>
       </div>

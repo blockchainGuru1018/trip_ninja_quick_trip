@@ -10,6 +10,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -32,17 +33,11 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
-    },
   },
 }))(MenuItem);
 
 export default function CustomizedMenus() {
-  let passengers = [{"Adult": 1}]
+  let passengersList = [{"type": "Adult", "count": 1}, {"type": "Child", "count": 0}, {"type": "Infant", "count": 0}];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -53,6 +48,18 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
+  const passengers = passengersList.map((passenger, index) => (
+    <StyledMenuItem key={index}>
+      <ListItemText primary={passenger.type} />
+      <Button>
+        <RemoveIcon fontSize="small" />
+      </Button>
+      <span className="passenger-count">{passenger.count}</span>
+      <Button>
+        <AddIcon fontSize="small" />
+      </Button>         
+    </StyledMenuItem>
+  ));
   return (
     <div>
       <Button
@@ -72,16 +79,7 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemText primary="Adults" />
-          <Button>
-            <RemoveIcon fontSize="small" />
-          </Button>
-          <span>{passengers[0].Adult}</span>
-          <Button>
-            <AddIcon fontSize="small" />
-          </Button>         
-        </StyledMenuItem>
+        {passengers}
       </StyledMenu>
     </div>
   );

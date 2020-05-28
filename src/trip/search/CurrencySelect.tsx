@@ -11,10 +11,11 @@ class CurrencySelect extends React.Component {
       <MenuItem key={index} value={item.code}>{item.code}</MenuItem>
     ));
     return (
-      <FormControl>
+      <FormControl fullWidth>
         <Select
           id="currency"
           value={selectedCurrency}
+          variant="outlined"
         >
           {currencies}
         </Select>

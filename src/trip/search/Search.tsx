@@ -1,11 +1,11 @@
 import React from 'react';
-import './Search.css';
 import FlightInput from './FlightInput';
 import PassengerSelect from './PassengerSelect';
 import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
+import './Search.css';
 
 class Search extends React.Component {
   state = {

@@ -22,16 +22,15 @@ class FlightInput extends React.Component {
   render() {
     const destinations = DestinationList
    
-
     return (
       <div className="row flight-input">
-        <div className="col-sm-3">
-          <FormControl>
+        <div className="col-sm-4">
+          <FormControl fullWidth>
             <Autocomplete
               id="from-destination"
               options={destinations}
               getOptionLabel={(option) => option.name}
-              renderInput={(params) => <TextField {...params} label="From" variant="standard" InputProps={{
+              renderInput={(params) => <TextField {...params} label="From" variant="outlined" InputProps={{
                 ...params.InputProps,
                 startAdornment: (
                   <InputAdornment position="start">
@@ -42,13 +41,13 @@ class FlightInput extends React.Component {
             />
           </FormControl>
         </div>
-        <div className="col-sm-3">
-          <FormControl>
+        <div className="col-sm-4">
+          <FormControl fullWidth>
             <Autocomplete
               id="to-destination"
               options={destinations}
               getOptionLabel={(option) => option.name}
-              renderInput={(params) => <TextField {...params} label="To" variant="standard" InputProps={{
+              renderInput={(params) => <TextField {...params} label="To" variant="outlined" InputProps={{
                 ...params.InputProps,
                 startAdornment: (
                   <InputAdornment position="start">
@@ -59,10 +58,10 @@ class FlightInput extends React.Component {
             />
           </FormControl>
         </div>
-        <div className="col-sm-3">
+        <div className="col-sm-2">
          
         </div>
-        <div className="col-sm-3">
+        <div className="col-sm-2">
           <CabinSelect />
         </div>
       </div>

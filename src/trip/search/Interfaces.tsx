@@ -10,7 +10,7 @@ export interface Flight {
   cabinClass: string;
 }
 
-export const defaultFlight: Flight = {
+export const defaultFlight: Object = {
   'origin': '',
   'destination': '',
   'departureDate': '',

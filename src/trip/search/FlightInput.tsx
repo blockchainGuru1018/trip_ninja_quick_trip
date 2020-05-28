@@ -9,46 +9,71 @@ import DestinationList from '../../assets/data/airports.json';
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { updateFlightValue } from '../../actions/SearchActions';
+import { Flight } from './Interfaces';
 
+interface FlightInputProps {
+  i: number
+  flight: Flight
+  updateFlightValue: typeof updateFlightValue
+}
 
-
-class FlightInput extends React.Component {
+class FlightInput extends React.Component<FlightInputProps> {
+  state = {
+    destinations: DestinationList
+  }
   render() {
-    const destinations = DestinationList
-
     return (
       <div className="row flight-input">
         <div className="col-sm-4">
           <FormControl fullWidth>
             <Autocomplete
-              id="from-destination"
-              options={destinations}
+              id={"from-destination" + this.props.i}
+              options={this.state.destinations}
               getOptionLabel={(option) => option.name}
-              renderInput={(params) => <TextField {...params} label="From" variant="outlined" InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FlightTakeoff />
-                  </InputAdornment>
-                ),
-              }}  />}
+              onChange={(_, values) => this.updateFlightType(values, 'origin')}
+              defaultValue={this.getDestinationByName(this.props.flight.origin)}
+              renderInput={(params) =>
+                <TextField {...params}
+                  label="From"
+                  variant="outlined"
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FlightTakeoff />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              }
             />
           </FormControl>
         </div>
         <div className="col-sm-4">
           <FormControl fullWidth>
             <Autocomplete
-              id="to-destination"
-              options={destinations}
+              id={"to-destination" + this.props.i}
+              options={this.state.destinations}
               getOptionLabel={(option) => option.name}
-              renderInput={(params) => <TextField {...params} label="To" variant="outlined" InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FlightLand />
-                  </InputAdornment>
-                ),
-              }}  />}
+              onChange={(_, values) =>
+                this.updateFlightType(values, 'destination')
+              }
+              defaultValue={this.getDestinationByName(this.props.flight.destination)}
+              renderInput={(params) =>
+                <TextField {...params}
+                  label="To"
+                  variant="outlined"
+                  InputProps={{
+                    ...params.InputProps,
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FlightLand />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              }
             />
           </FormControl>
         </div>
@@ -61,6 +86,19 @@ class FlightInput extends React.Component {
       </div>
     )
   }
+
+  getDestinationByName = (name: string) => {
+    const destinationsList: Array<any> = this.state.destinations;
+    const index: number = destinationsList.findIndex(
+      (destination: any) => destination.name === name
+    );
+    return destinationsList[index];
+  }
+
+  updateFlightType = (values: any, flightType: string) =>
+    values
+      ? this.props.updateFlightValue(this.props.i, flightType, values.name)
+      : '';
 }
 
 export default FlightInput;

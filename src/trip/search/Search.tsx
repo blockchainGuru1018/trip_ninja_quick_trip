@@ -6,24 +6,27 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { setValue, addFlight } from '../../actions/SearchActions';
-import { SearchDetails, defaultFlight } from './Interfaces';
+import { setValue, addFlight, updateFlightValue } from '../../actions/SearchActions';
+import { SearchDetails, Flight } from './Interfaces';
 import './Search.css'
 
 interface SearchProps {
   searchDetails: SearchDetails,
   setValue: typeof setValue;
   addFlight: typeof addFlight;
+  updateFlightValue: typeof updateFlightValue
 }
 
 class Search extends React.Component<SearchProps> {
-  componentDidMount() {
-    console.log('mounted')
-  }
 
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
-      (_:any, index: number) => <FlightInput key={index} />
+      (flight: Flight, index: number) =>
+        <FlightInput
+          key={index}
+          i={index}
+          updateFlightValue={this.props.updateFlightValue}
+          flight={flight}/>
     );
 
     return (
@@ -67,9 +70,13 @@ class Search extends React.Component<SearchProps> {
     )
   }
 
-  onAddFlight = () => {
-    this.props.addFlight(defaultFlight);
-  }
+  onAddFlight = () =>
+    this.props.addFlight({
+      'origin': '',
+      'destination': '',
+      'departureDate': '',
+      'cabinClass': ''
+    });
 
   // onRemoveFlight = () => {
   //   this.setState({

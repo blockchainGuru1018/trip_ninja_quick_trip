@@ -1,18 +1,21 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './common/NavBar';
+import Home from './common/Home';
 import Search from './trip/search/Search';
 import './App.css';
-import { setValue, addFlight } from './actions/SearchActions';
+import { setValue, addFlight, updateFlightValue } from './actions/SearchActions';
+import { Flight } from './trip/search/Interfaces';
 
 interface IAppProps {
   searchDetails: SearchDetails;
   setValue: typeof setValue;
-  addFlight: typeof addFlight
+  addFlight: typeof addFlight;
+  updateFlightValue: typeof updateFlightValue;
 }
 
 interface SearchDetails {
-  flights: Array<any>
+  flights: Array<Flight>
 }
 
 class App extends React.Component<IAppProps> {
@@ -23,12 +26,13 @@ class App extends React.Component<IAppProps> {
         <div className="container">
           <Router>
             <div>
-              <Route exact path="/" component={Search} />
+              <Route exact path="/" component={Home} />
               <Route exact path="/search/" component={() =>
                 <Search
                   searchDetails={this.props.searchDetails}
                   setValue={this.props.setValue}
                   addFlight={this.props.addFlight}
+                  updateFlightValue={this.props.updateFlightValue}
                 />
               }
               />

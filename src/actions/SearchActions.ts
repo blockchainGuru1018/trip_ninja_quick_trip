@@ -1,11 +1,12 @@
-export function fetchSearch(tripDetails: object) {
+
+export function fetchSearch(tripDetails: Object) {
   return {
     type: 'FETCH_SEARCH',
     tripDetails
   };
 }
 
-export function newSearch(searchDetails: object) {
+export function newSearch(searchDetails: Object) {
   return {
     type: 'NEW_SEARCH',
     searchDetails
@@ -24,5 +25,14 @@ export function addFlight(flight: Object) {
   return {
     type: 'ADD_FLIGHT',
     flight
+  }
+}
+
+export function updateFlightValue(index: number, key: string, value: string) {
+  return {
+    type: 'UPDATE_FLIGHT_VALUE',
+    index,
+    key,
+    value
   }
 }

@@ -13,6 +13,8 @@
     "@types/react-dom": "^16.9.6",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-router-redux": "^5.0.18",
+    "babel-preset-env": "^1.7.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.0.0",
     "bootstrap": "^4.5.0",
@@ -24,6 +26,7 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3"
   },

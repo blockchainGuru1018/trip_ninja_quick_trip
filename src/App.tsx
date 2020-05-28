@@ -4,24 +4,22 @@ import NavBar from './common/NavBar';
 import Search from './trip/search/Search';
 import './App.css';
 
-const routing = (
-  <Router>
-    <div>
-      <Route exact path="/" component={Search} />
-      <Route exact path="/search/" component={Search} />
-    </div>
-  </Router>
-)
-
-function App() {
-  return (
-    <div className="App">
-      <NavBar />
-      <div className="container">
-        {routing}    
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <NavBar {...this.props}/>
+        <div className="container">
+          <Router>
+            <div>
+              <Route exact path="/" component={Search} />
+              <Route exact path="/search/" component={() => <Search {...this.props} />} />
+            </div>
+          </Router>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

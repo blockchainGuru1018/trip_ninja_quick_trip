@@ -1,15 +1,24 @@
 import React from 'react';
 import CabinList from '../../assets/data/cabins.json';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class CabinSelect extends React.Component {
   render() {
+    let selectedCabin: string = CabinList[0].code
     const cabins = CabinList.map((item, index) => (
-      <option key={index} value={item.code}>{item.name}</option>
+      <MenuItem key={index} value={item.code}>{item.name}</MenuItem>
     ));
     return (
-      <select>
-        {cabins}
-      </select>
+      <FormControl>
+        <Select
+          id="cabin"
+          value={selectedCabin}
+        >
+          {cabins}
+        </Select>
+      </FormControl>
     )
   }
 }

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import './Search.css';
 import FlightInput from './FlightInput';
 import PassengerSelect from './PassengerSelect';
 import CurrencySelect from './CurrencySelect';
@@ -9,6 +8,7 @@ import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
 import { setValue, addFlight } from '../../actions/SearchActions';
 import { SearchDetails } from './Interfaces';
+import './Search.css'
 
 interface SearchProps {
   searchDetails: SearchDetails,

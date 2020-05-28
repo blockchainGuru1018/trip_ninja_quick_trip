@@ -11,10 +11,11 @@ class CabinSelect extends React.Component {
       <MenuItem key={index} value={item.code}>{item.name}</MenuItem>
     ));
     return (
-      <FormControl>
+      <FormControl fullWidth>
         <Select
           id="cabin"
           value={selectedCabin}
+          variant="outlined"
         >
           {cabins}
         </Select>

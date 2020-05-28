@@ -1,8 +1,24 @@
+@font-face {
+  font-family: 'NeuzeitGro-Reg';
+  src: url(./assets/fonts/NeuzeitGro-Reg.otf)format('opentype');
+}
+
+@font-face {
+  font-family: 'NeuzeitGro-Bol';
+  src: url(./assets/fonts/NeuzeitGro-Bol.otf)format('opentype');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'NeuzeitGro-Reg', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #45565E0D 0% 0% no-repeat padding-box;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  color: #45565E;
+}
+
+a:hover, a:active {
+  color: #222;
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './Search.css';
 import FlightInput from './FlightInput';
@@ -6,11 +7,27 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
+import { setValue } from '../../actions/SearchActions';
 
-class Search extends React.Component {
+interface ISearchProps {
+  searchDetails: SearchDetails,
+  setValue: typeof setValue;
+}
+
+interface SearchDetails {
+  flights: Array<any>
+}
+
+class Search extends React.Component<ISearchProps> {
   state = {
     numberFlights: 1
   }
+
+  componentDidMount() {
+    console.log(this.props.searchDetails.flights);
+    // this.props.setValue('randomThing', '12')
+  }
+
   render() {
     const flights = [];
 

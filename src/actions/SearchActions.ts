@@ -11,3 +11,11 @@ export function newSearch(searchDetails: object) {
     searchDetails
   }
 }
+
+export function setValue(valueType: string, value: any) {
+  return {
+    type: 'SET_SEARCH_VALUE',
+    valueType,
+    value
+  }
+}

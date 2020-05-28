@@ -1,5 +1,6 @@
 import React from 'react';
 import CabinSelect from './CabinSelect';
+import DepartureDatePicker from './DepartureDatePicker';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff';
@@ -9,19 +10,12 @@ import DestinationList from '../../assets/data/airports.json';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import 'date-fns';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 
 class FlightInput extends React.Component {
   render() {
     const destinations = DestinationList
-   
+
     return (
       <div className="row flight-input">
         <div className="col-sm-4">
@@ -59,7 +53,7 @@ class FlightInput extends React.Component {
           </FormControl>
         </div>
         <div className="col-sm-2">
-         
+          <DepartureDatePicker />
         </div>
         <div className="col-sm-2">
           <CabinSelect />

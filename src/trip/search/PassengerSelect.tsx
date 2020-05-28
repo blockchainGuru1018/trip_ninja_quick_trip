@@ -1,4 +1,5 @@
 import React from 'react';
+import PassengerList from '../../assets/data/passengers.json';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
@@ -6,8 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
@@ -37,7 +36,6 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function CustomizedMenus() {
-  let passengersList = [{"type": "Adult", "count": 1}, {"type": "Child", "count": 0}, {"type": "Infant", "count": 0}];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -48,7 +46,7 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
-  const passengers = passengersList.map((passenger, index) => (
+  const passengers = PassengerList.map((passenger, index) => (
     <StyledMenuItem key={index}>
       <ListItemText primary={passenger.type} />
       <Button>
@@ -84,3 +82,5 @@ export default function CustomizedMenus() {
     </div>
   );
 }
+
+

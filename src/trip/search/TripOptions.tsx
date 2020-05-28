@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 class TripOptions extends React.Component {
   render() {
     return (
-      <div>
+      <div className="trip-options">
         <FormControlLabel
           value="end"
           control={<Checkbox color="default" />}

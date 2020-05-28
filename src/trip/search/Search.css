@@ -16,3 +16,11 @@
   text-align: left;
   font-family: 'NeuzeitGro-Bol';
 }
+
+.trip-path {
+  padding-top: 16px;
+}
+
+.trip-options {
+  padding-top: 8px;
+}

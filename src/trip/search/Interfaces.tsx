@@ -1,6 +1,6 @@
 
 export interface SearchDetails {
-  flights: Array<any>
+  flights: Array<Flight>
 }
 
 export interface Flight {
@@ -8,4 +8,11 @@ export interface Flight {
   destination: string;
   departureDate: string;
   cabinClass: string;
+}
+
+export const defaultFlight: Flight = {
+  'origin': '',
+  'destination': '',
+  'departureDate': '',
+  'cabinClass': ''
 }

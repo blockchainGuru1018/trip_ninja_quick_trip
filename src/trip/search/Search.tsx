@@ -7,7 +7,7 @@ import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
 import { setValue, addFlight } from '../../actions/SearchActions';
-import { SearchDetails } from './Interfaces';
+import { SearchDetails, defaultFlight } from './Interfaces';
 import './Search.css'
 
 interface SearchProps {
@@ -17,16 +17,13 @@ interface SearchProps {
 }
 
 class Search extends React.Component<SearchProps> {
-  state = {
-
-  }
   componentDidMount() {
     console.log('mounted')
   }
 
   render() {
-    const flights = this.props.searchDetails.flights.map(
-      (_:Array<any>, index: number) => <FlightInput key={index} />
+    const flights: Array<any> = this.props.searchDetails.flights.map(
+      (_:any, index: number) => <FlightInput key={index} />
     );
 
     return (
@@ -71,7 +68,7 @@ class Search extends React.Component<SearchProps> {
   }
 
   onAddFlight = () => {
-    this.props.addFlight({});
+    this.props.addFlight(defaultFlight);
   }
 
   // onRemoveFlight = () => {

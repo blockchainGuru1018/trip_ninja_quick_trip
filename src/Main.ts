@@ -2,12 +2,11 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import * as searchActions from './actions/SearchActions';
 import App from './App';
+import { State } from './Store';
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: State) {
   return {
     searchDetails: state.searchDetails,
-    resultsDetails: state.resultsDetails,
-    itineraryDetails: state.itineraryDetails
   }
 }
 

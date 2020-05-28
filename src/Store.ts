@@ -1,9 +1,13 @@
 import { createStore, Store } from 'redux';
 import rootReducer from './reducers/index';
+import { SearchDetails } from './trip/search/Interfaces';
 
-const defaultState: object = {
+export interface State {
+  searchDetails: SearchDetails
+}
+
+const defaultState: Object = {
   searchDetails: {
-    randomThing: '12',
     flights: [
       {
         'origin': '',

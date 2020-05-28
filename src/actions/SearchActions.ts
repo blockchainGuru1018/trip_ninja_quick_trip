@@ -19,3 +19,10 @@ export function setValue(valueType: string, value: any) {
     value
   }
 }
+
+export function addFlight(flight: Object) {
+  return {
+    type: 'ADD_FLIGHT',
+    flight
+  }
+}

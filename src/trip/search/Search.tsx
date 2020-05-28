@@ -7,33 +7,27 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { setValue } from '../../actions/SearchActions';
+import { setValue, addFlight } from '../../actions/SearchActions';
+import { SearchDetails } from './Interfaces';
 
-interface ISearchProps {
+interface SearchProps {
   searchDetails: SearchDetails,
   setValue: typeof setValue;
+  addFlight: typeof addFlight;
 }
 
-interface SearchDetails {
-  flights: Array<any>
-}
-
-class Search extends React.Component<ISearchProps> {
+class Search extends React.Component<SearchProps> {
   state = {
-    numberFlights: 1
-  }
 
+  }
   componentDidMount() {
-    console.log(this.props.searchDetails.flights);
-    // this.props.setValue('randomThing', '12')
+    console.log('mounted')
   }
 
   render() {
-    const flights = [];
-
-    for (let i = 0; i < this.state.numberFlights; i += 1) {
-      flights.push(<FlightInput key={i} />);
-    };
+    const flights = this.props.searchDetails.flights.map(
+      (_:Array<any>, index: number) => <FlightInput key={index} />
+    );
 
     return (
       <div id="search-form">
@@ -77,16 +71,14 @@ class Search extends React.Component<ISearchProps> {
   }
 
   onAddFlight = () => {
-    this.setState({
-      numberFlights: this.state.numberFlights + 1
-    });
+    this.props.addFlight({});
   }
 
-  onRemoveFlight = () => {
-    this.setState({
-      numberFlights: this.state.numberFlights - 1
-    });
-  }
+  // onRemoveFlight = () => {
+  //   this.setState({
+  //     numberFlights: this.state.numberFlights - 1
+  //   });
+  // }
 }
 
 export default Search;

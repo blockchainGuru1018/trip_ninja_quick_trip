@@ -5,8 +5,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 class CabinSelect extends React.Component {
+  state = {
+    cabin: "E"
+  }
+
+  handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    this.setState({ cabin: event.target.value })
+  }
+
   render() {
-    let selectedCabin: string = CabinList[0].code
     const cabins = CabinList.map((item, index) => (
       <MenuItem key={index} value={item.code}>{item.name}</MenuItem>
     ));
@@ -14,8 +21,9 @@ class CabinSelect extends React.Component {
       <FormControl fullWidth>
         <Select
           id="cabin"
-          value={selectedCabin}
+          value={this.state.cabin}
           variant="outlined"
+          onChange={this.handleChange}
         >
           {cabins}
         </Select>

@@ -10,7 +10,7 @@ interface TripPathProps {
 class TripPath extends React.Component<TripPathProps> {
 
   render() {   
-    let flightList = this.props.flights.filter(this.checkDestinationsExist);
+    let flightList = this.props.flights.filter(this.checkForOriginDestinationPair);
     const path = flightList.map((item, index) => (
       <span key={index}>
         <span className="path-iata">{iataCode(item.origin)}</span>
@@ -29,7 +29,7 @@ class TripPath extends React.Component<TripPathProps> {
     )
   }
 
-  checkDestinationsExist = (flight: Flight) => {
+  checkForOriginDestinationPair = (flight: Flight) => {
     return flight.origin && flight.destination;
   }
 }

@@ -31,7 +31,7 @@ class Search extends React.Component<SearchProps> {
 
     return (
       <div className="row">
-        <div className="col-md-8 offset-md-2" id="search-form">
+        <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
           <div className="row">
             <div className="col-lg">
               <h1>Flight Search</h1>
@@ -51,10 +51,10 @@ class Search extends React.Component<SearchProps> {
             <div className="col-sm-3">
               <PassengerSelect />
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-2">
               <CurrencySelect />
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-7">
               <TripOptions />
             </div>
           </div>

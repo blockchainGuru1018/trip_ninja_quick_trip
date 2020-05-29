@@ -1,6 +1,7 @@
 import 'date-fns';
 import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
+import FormControl from '@material-ui/core/FormControl';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -16,22 +17,24 @@ export default function DepartureDatePicker() {
   };
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        disableToolbar
-        disablePast
-        variant="inline"
-        inputVariant="outlined"
-        format="MM/dd/yyyy"
-        margin="none"
-        id="date-picker-inline"
-        value={selectedDate}
-        onChange={handleDateChange}
-        InputAdornmentProps={{ position: "start" }}
-        KeyboardButtonProps={{
-          'aria-label': 'Without label',
-        }}
-      />
-    </MuiPickersUtilsProvider>
+    <FormControl fullWidth>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          disablePast
+          variant="inline"
+          inputVariant="outlined"
+          format="MM/dd/yyyy"
+          margin="none"
+          id="date-picker-inline"
+          value={selectedDate}
+          onChange={handleDateChange}
+          InputAdornmentProps={{ position: "start" }}
+          KeyboardButtonProps={{
+            'aria-label': 'Without label',
+          }}
+        />
+      </MuiPickersUtilsProvider>
+    </FormControl>
   );
 }

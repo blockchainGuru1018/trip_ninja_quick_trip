@@ -6,7 +6,17 @@ import API from './api'
 class App extends React.Component {
   componentDidMount() {
     console.log('the component mounted')
-    API.get('get_all_users/')
+    API({
+      method: 'post',
+      url: 'auth/login/',
+      headers: {
+        'X-CSRFToken': '1234'
+      },
+      data: {
+        'email': 'testing1@tripninja.io',
+        'password': '123'
+      }
+    })
       .then((response: JSON) => console.log(response))
   }
   render() {

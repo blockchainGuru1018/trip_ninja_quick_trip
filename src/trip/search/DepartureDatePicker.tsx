@@ -17,11 +17,7 @@ interface DepartureDatePickerProps {
 class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
   render() {
 
-    const handleDateChange = (date: Date | null) => {
-      console.log(date)
-    };
-
-    return (
+    return(
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker

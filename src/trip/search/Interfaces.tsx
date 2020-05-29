@@ -1,7 +1,8 @@
 import { setValue, addFlight, updateFlightValue } from '../../actions/SearchActions';
 
 export interface SearchDetails {
-  flights: Array<Flight>
+  flights: Array<Flight>;
+  currency: string;
 }
 
 export interface Flight {

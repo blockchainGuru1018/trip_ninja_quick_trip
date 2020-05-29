@@ -5,17 +5,13 @@ import Home from './common/Home';
 import Search from './trip/search/Search';
 import './App.css';
 import { setValue, addFlight, updateFlightValue } from './actions/SearchActions';
-import { Flight } from './trip/search/Interfaces';
+import { Flight, SearchDetails } from './trip/search/Interfaces';
 
 interface IAppProps {
   searchDetails: SearchDetails;
   setValue: typeof setValue;
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
-}
-
-interface SearchDetails {
-  flights: Array<Flight>
 }
 
 class App extends React.Component<IAppProps> {

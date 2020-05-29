@@ -44,7 +44,10 @@ class Search extends React.Component<SearchProps> {
               <PassengerSelect />
             </div>
             <div className="col-sm-2">
-              <CurrencySelect />
+              <CurrencySelect
+                currency={this.props.searchDetails.currency}
+                setValue={this.props.setValue}
+              />
             </div>
             <div className="col-sm-7">
               <TripOptions />

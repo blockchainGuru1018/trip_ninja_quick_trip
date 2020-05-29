@@ -15,7 +15,7 @@ export function newSearch(searchDetails: Object) {
 
 export function setValue(valueType: string, value: any) {
   return {
-    type: 'SET_SEARCH_VALUE',
+    type: 'SET_VALUE',
     valueType,
     value
   }

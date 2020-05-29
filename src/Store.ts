@@ -10,8 +10,11 @@ const defaultState: Object = {
   searchDetails: {
     flights: [
       defaultFlight
-    ]
-  }
+    ],
+    currency: 'USD'
+  },
+  userCreds: {},
+
 };
 
 const store: Store = createStore(rootReducer, defaultState);

@@ -12,7 +12,7 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
     case 'NEW_SEARCH':
       return state
 
-    case 'SET_SEARCH_VALUE':
+    case 'SET_VALUE':
       let newState: Object = {...state};
       newState[action.valueType] = action.value;
       return newState

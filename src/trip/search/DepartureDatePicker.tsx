@@ -26,7 +26,7 @@ export default function DepartureDatePicker() {
           inputVariant="outlined"
           format="MM/dd/yyyy"
           margin="none"
-          id="date-picker-inline"
+          id="departure-date"
           value={selectedDate}
           onChange={handleDateChange}
           InputAdornmentProps={{ position: "start" }}

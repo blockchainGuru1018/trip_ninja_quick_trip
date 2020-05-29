@@ -6,35 +6,57 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { updateFlightValue } from '../../actions/SearchActions';
 
-export default function DepartureDatePicker() {
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date(),
-  );
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-
-  return (
-    <FormControl fullWidth>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          disableToolbar
-          disablePast
-          variant="inline"
-          inputVariant="outlined"
-          format="MM/dd/yyyy"
-          margin="none"
-          id="departure-date"
-          value={selectedDate}
-          onChange={handleDateChange}
-          InputAdornmentProps={{ position: "start" }}
-          KeyboardButtonProps={{
-            'aria-label': 'Without label',
-          }}
-        />
-      </MuiPickersUtilsProvider>
-    </FormControl>
-  );
+interface DepartureDatePickerProps {
+  i: number;
+  departureDate: string;
+  updateFlightValue: typeof updateFlightValue;
 }
+
+class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
+  render() {
+
+    const handleDateChange = (date: Date | null) => {
+      console.log(date)
+    };
+
+    return (
+      <FormControl fullWidth>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            disablePast
+            variant="inline"
+            inputVariant="outlined"
+            format="MM/dd/yyyy"
+            margin="none"
+            id="departure-date"
+            value={
+              this.props.departureDate === ''
+                ? new Date()
+                : this.props.departureDate
+            }
+            onChange={e =>
+              this.props.updateFlightValue(
+                this.props.i, 'departureDate', e?.toISOString()!
+              )
+            }
+            InputAdornmentProps={{ position: "start" }}
+            KeyboardButtonProps={{
+              'aria-label': 'Without label',
+            }}
+          />
+        </MuiPickersUtilsProvider>
+      </FormControl>
+    )
+  }
+
+  setDate = (date: Date | null) => {
+    console.log(date)
+    console.log(typeof(date))
+    console.log(date?.toISOString())
+  }
+}
+
+export default DepartureDatePicker;

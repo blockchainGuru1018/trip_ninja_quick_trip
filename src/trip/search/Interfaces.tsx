@@ -1,3 +1,4 @@
+import { setValue, addFlight, updateFlightValue } from '../../actions/SearchActions';
 
 export interface SearchDetails {
   flights: Array<Flight>
@@ -15,4 +16,11 @@ export const defaultFlight: Object = {
   'destination': '',
   'departureDate': '',
   'cabinClass': ''
+}
+
+export interface SearchProps {
+  searchDetails: SearchDetails,
+  setValue: typeof setValue;
+  addFlight: typeof addFlight;
+  updateFlightValue: typeof updateFlightValue
 }

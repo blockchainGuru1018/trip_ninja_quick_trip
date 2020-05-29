@@ -22,6 +22,7 @@ class FlightInput extends React.Component<FlightInputProps> {
   state = {
     destinations: DestinationList
   }
+
   render() {
     return (
       <div className="row flight-input">
@@ -78,10 +79,16 @@ class FlightInput extends React.Component<FlightInputProps> {
           </FormControl>
         </div>
         <div className="col-sm-2">
-          <DepartureDatePicker />
+          <DepartureDatePicker
+            i={this.props.i}
+            departureDate={this.props.flight.departureDate}
+            updateFlightValue={this.props.updateFlightValue}/>
         </div>
         <div className="col-sm-2">
-          <CabinSelect />
+          <CabinSelect
+            i={this.props.i}
+            cabinClass={this.props.flight.cabinClass}
+            updateFlightValue={this.props.updateFlightValue}/>
         </div>
       </div>
     )

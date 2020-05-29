@@ -6,16 +6,8 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { setValue, addFlight, updateFlightValue } from '../../actions/SearchActions';
-import { SearchDetails, Flight } from './Interfaces';
+import { Flight, SearchProps } from './Interfaces';
 import './Search.css'
-
-interface SearchProps {
-  searchDetails: SearchDetails,
-  setValue: typeof setValue;
-  addFlight: typeof addFlight;
-  updateFlightValue: typeof updateFlightValue
-}
 
 class Search extends React.Component<SearchProps> {
 

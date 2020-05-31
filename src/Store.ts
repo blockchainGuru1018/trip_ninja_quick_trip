@@ -11,7 +11,8 @@ const defaultState: Object = {
     flights: [
       defaultFlight
     ],
-    currency: 'USD'
+    currency: 'USD',
+    route_flexible: false
   },
   userCreds: {},
 

@@ -3,6 +3,7 @@ import { setValue, addFlight, updateFlightValue } from '../../actions/SearchActi
 export interface SearchDetails {
   flights: Array<Flight>;
   currency: string;
+  route_flexible: boolean;
 }
 
 export interface Flight {

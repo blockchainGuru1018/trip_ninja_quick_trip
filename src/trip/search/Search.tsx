@@ -50,7 +50,10 @@ class Search extends React.Component<SearchProps> {
               />
             </div>
             <div className="col-sm-7">
-              <TripOptions />
+              <TripOptions
+                route_flexible={this.props.searchDetails.route_flexible}
+                setValue = {this.props.setValue}
+              />
             </div>
           </div>
           <hr/>

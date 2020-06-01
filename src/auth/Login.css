@@ -1,13 +1,21 @@
 .login-form {
-    background-color: #ffffff;
-    padding: 125px 75px;
+  background-color: #ffffff;
+  padding: 125px 75px;
 }
 
 .marketing-panel {
-    padding: 250px 100px;
+  padding: 250px 100px;
 }
 
 .login-link {
-    color: #4BAFD7;
+  color: #4BAFD7;
+}
+
+.login-button-row {
+  padding-top: 25px;
+}
+
+#login-button {
+  float: right;
 }
 

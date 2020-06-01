@@ -7,6 +7,7 @@ import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers }
   from './actions/SearchActions';
 import { Flight, SearchDetails } from './trip/search/Interfaces';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -16,29 +17,39 @@ interface IAppProps {
   updatePassengers: typeof updatePassengers;
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#0DBE7CEB'
+    }
+  },
+});
+
 class App extends React.Component<IAppProps> {
   render() {
     return (
-      <div className="App">
-        <NavBar {...this.props}/>
-        <div className="container-fluid">
-          <Router>
-            <div>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/search/" component={() =>
-                <Search
-                  searchDetails={this.props.searchDetails}
-                  setValue={this.props.setValue}
-                  addFlight={this.props.addFlight}
-                  updateFlightValue={this.props.updateFlightValue}
-                  updatePassengers={this.props.updatePassengers}
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <NavBar {...this.props}/>
+          <div className="container-fluid">
+            <Router>
+              <div>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/search/" component={() =>
+                  <Search
+                    searchDetails={this.props.searchDetails}
+                    setValue={this.props.setValue}
+                    addFlight={this.props.addFlight}
+                    updateFlightValue={this.props.updateFlightValue}
+                    updatePassengers={this.props.updatePassengers}
+                  />
+                }
                 />
-              }
-              />
-            </div>
-          </Router>
+              </div>
+            </Router>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
   }
 }

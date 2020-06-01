@@ -7,10 +7,10 @@ class Login extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-sm-4">
+        <div className="col-sm-4 login-form">
           <LoginForm />
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-8 marketing-panel">
           <MarketingPanel />
         </div>
       </div>

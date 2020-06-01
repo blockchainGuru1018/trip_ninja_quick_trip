@@ -1,4 +1,13 @@
 .login-form {
     background-color: #ffffff;
-    padding: 75px 25px;
+    padding: 125px 75px;
 }
+
+.marketing-panel {
+    padding: 250px 100px;
+}
+
+.login-link {
+    color: #4BAFD7;
+}
+

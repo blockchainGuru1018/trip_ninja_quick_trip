@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
+import Login from './auth/Login';
 import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   updateFlightOriginDestination } from './actions/SearchActions';
@@ -38,6 +39,7 @@ class App extends React.Component<IAppProps> {
             <Router>
               <div>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/login/" component={Login} />
                 <Route exact path="/search/" component={() =>
                   <Search
                     searchDetails={this.props.searchDetails}

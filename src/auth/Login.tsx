@@ -1,20 +1,21 @@
 import React from 'react';
-import './login.css';
+import './Login.css';
+import LoginForm from './LoginForm';
+import MarketingPanel from './MarketingPanel';
 
 class Login extends React.Component {
-  add(x: number, y: number) {
-    return x + y
-  }
-
-  addString(x: number, y: number) {
-    return '$' + this.add(x, y);
-  }
-
   render() {
     return (
-      <h3>Login</h3>
+      <div className="row">
+        <div className="col-sm-4">
+          <LoginForm />
+        </div>
+        <div className="col-sm-8">
+          <MarketingPanel />
+        </div>
+      </div>
     )
   }
 }
 
-export default Login
+export default Login;

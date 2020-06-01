@@ -14,7 +14,7 @@ class TripPath extends React.Component<TripPathProps> {
     const path = flightList.map((item, index) => (
       <span key={index}>
         <span className="path-iata">{iataCode(item.origin)}</span>
-        <FlightIcon className="rotate-90"/>
+        <FlightIcon className="rotate-90" color="primary"/>
         <span className="path-iata">{iataCode(item.destination)}</span>
         {index < this.props.flights.length-1 &&
           <span className="divider-light">|</span>

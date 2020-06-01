@@ -2,6 +2,7 @@ import React from 'react';
 import { SearchDetails, Flight } from './Interfaces';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
+import Button from '@material-ui/core/Button';
 
 interface SearchButtonProps {
   searchDetails: SearchDetails
@@ -42,9 +43,13 @@ class SearchButton extends React.Component<SearchButtonProps> {
   render() {
     return (
       <div className="float-right">
-        <button
-          className="btn btn-primary"
-          onClick={this.searchForFlights}>Search Flights</button>
+        <Button 
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={this.searchForFlights}>
+            Search Flights
+        </Button>
       </div>
     )
   }

@@ -22,7 +22,8 @@ interface IAppProps {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#0DBE7CEB'
+      main: '#0DBE7CEB',
+      contrastText: '#ffffff'
     }
   },
 });

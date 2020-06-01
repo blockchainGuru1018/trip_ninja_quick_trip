@@ -84,7 +84,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             />
           </FormControl>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-3">
           <DepartureDatePicker
             i={this.props.i}
             departureDate={flight.departureDate}
@@ -97,7 +97,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             updateFlightValue={this.props.updateFlightValue}/>
         </div>
         {this.props.flights.length > 1
-          ? <div className='col-sm-2 flight-remove-container'>
+          ? <div className='col-sm-1 flight-remove-container'>
             <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
               <CloseIcon fontSize="small" />
             </IconButton>

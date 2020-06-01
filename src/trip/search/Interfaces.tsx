@@ -4,7 +4,8 @@ import { setValue, addFlight, updateFlightValue, updatePassengers }
 export interface SearchDetails {
   flights: Array<Flight>;
   currency: string;
-  passengers: Array<Passenger>
+  passengers: Array<Passenger>;
+  route_flexible: boolean;
 }
 
 export interface Flight {

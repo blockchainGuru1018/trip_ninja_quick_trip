@@ -1,8 +1,0 @@
-[
-  {"type": "Adult", "count": 1, "code": "ADT"},
-  {"type": "Child", "count": 0, "code": "CHD"},
-  {"type": "Infant", "count": 0, "code": "INF"},
-  {"type": "Student", "count": 0, "code": "STU"},
-  {"type": "Youth", "count": 0, "code": "YTH"}
-]
-  

@@ -52,13 +52,18 @@ class Search extends React.Component<SearchProps> {
               />
             </div>
             <div className="col-sm-7">
-              <TripOptions />
+              <TripOptions
+                routeFlexible={this.props.searchDetails.route_flexible}
+                setValue = {this.props.setValue}
+              />
             </div>
           </div>
           <hr/>
           <div className="row">
             <div className="col-lg-9 col-md-8">
-              <TripPath />
+              <TripPath
+                flights={this.props.searchDetails.flights}
+              />
             </div>
             <div className="col-lg-3 col-md-4">
               <SearchButton />

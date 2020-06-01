@@ -1,5 +1,4 @@
 import React from 'react';
-import PassengerList from '../../assets/data/passengers.json';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -60,8 +59,6 @@ const CustomizedMenus = (props: CustomizedMenusProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
 
   const classes = useStyles();
 

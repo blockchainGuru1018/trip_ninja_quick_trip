@@ -12,7 +12,8 @@ const defaultState: Object = {
       defaultFlight
     ],
     currency: 'USD',
-    passengers: defaultPassengerList
+    passengers: defaultPassengerList,
+    route_flexible: false
   },
 };
 

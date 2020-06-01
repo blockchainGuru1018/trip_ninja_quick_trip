@@ -31,3 +31,12 @@
   font-family: 'NeuzeitGro-Bol';
   padding: 0px 10px;
 }
+
+.path-iata {
+  padding: 0px 5px;
+}
+
+.divider-light {
+  color: #CACDD6;
+  padding: 0px 5px;
+}

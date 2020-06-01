@@ -38,7 +38,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
                 this.props.i, 'departureDate', e?.toISOString()!
               )
             }
-            InputAdornmentProps={{ position: "start" }}
+            InputAdornmentProps={{ position: 'start'}}
             KeyboardButtonProps={{
               'aria-label': 'Without label',
             }}

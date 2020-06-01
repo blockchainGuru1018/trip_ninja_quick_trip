@@ -42,7 +42,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                     ...params.InputProps,
                     startAdornment: (
                       <InputAdornment position="start">
-                        <FlightTakeoff />
+                        <FlightTakeoff color="primary"/>
                       </InputAdornment>
                     ),
                   }}
@@ -69,7 +69,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                     ...params.InputProps,
                     startAdornment: (
                       <InputAdornment position="start">
-                        <FlightLand />
+                        <FlightLand color="primary"/>
                       </InputAdornment>
                     ),
                   }}

@@ -88,7 +88,7 @@ const CustomizedMenus = (props: CustomizedMenusProps) => {
         size="large"
         onClick={handleClick}
       >
-        <PersonAddOutlinedIcon />
+        <PersonAddOutlinedIcon color="primary" className="passengers-icon"/>
         Passengers
       </Button>
       <StyledMenu

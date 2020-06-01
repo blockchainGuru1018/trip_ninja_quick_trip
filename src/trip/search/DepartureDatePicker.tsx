@@ -28,11 +28,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             format="MM/dd/yyyy"
             margin="none"
             id="departure-date"
-            value={
-              this.props.departureDate === ''
-                ? new Date()
-                : this.props.departureDate
-            }
+            value={new Date(this.props.departureDate)}
             onChange={e =>
               this.props.updateFlightValue(
                 this.props.i, 'departureDate', e?.toISOString()!
@@ -46,12 +42,6 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
         </MuiPickersUtilsProvider>
       </FormControl>
     )
-  }
-
-  setDate = (date: Date | null) => {
-    console.log(date)
-    console.log(typeof(date))
-    console.log(date?.toISOString())
   }
 }
 

@@ -1,4 +1,4 @@
-import { SearchDetails, Passenger } from '../trip/search/Interfaces';
+import { SearchDetails, Passenger, Flight } from '../trip/search/Interfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
   switch(action.type) {
@@ -22,14 +22,13 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       return {...state, flights: flights}
 
     case 'UPDATE_FLIGHT_VALUE':
-      const newFlight = state.flights[action.index]
-      newFlight[action.key] = action.value
-      const updatedFlights = [
-        ...state.flights.slice(0, action.index),
-        {...newFlight},
-        ...state.flights.slice(action.index + 1)
-      ]
-      return {...state, flights: updatedFlights}
+      return updateFlightsWithValue(state, action)
+
+    case 'UPDATE_FLIGHT_ORIGIN_DESTINATION':
+      const stateUpdate1 = updateFlightsWithValue(state, action);
+      action.key = 'endType';
+      action.value = action.value.includes('All Airports') ? 'C' : 'A';
+      return updateFlightsWithValue(stateUpdate1, action);
 
     case 'UPDATE_PASSENGERS':
       const passengerUpdateIndex: number = state.passengers.findIndex(passenger =>
@@ -47,9 +46,26 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       ]
       return {...state, passengers: updatedPassengers}
 
+    case 'REMOVE_FLIGHT':
+      const flightsAfterDeletion: Array<Flight> =  [
+        ...state.flights.slice(0, action.flightIndex),
+        ...state.flights.slice(action.flightIndex + 1)
+      ]
+      return {...state, flights: flightsAfterDeletion}
     default:
       return state;
   }
+}
+
+function updateFlightsWithValue(state: any, action: any) {
+  const newFlight = state.flights[action.index]
+  newFlight[action.key] = action.value
+  const updatedFlights = [
+    ...state.flights.slice(0, action.index),
+    {...newFlight},
+    ...state.flights.slice(action.index + 1)
+  ]
+  return {...state, flights: updatedFlights}
 }
 
 export default searchDetailsReducer;

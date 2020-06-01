@@ -6,16 +6,20 @@ import FormControl from '@material-ui/core/FormControl';
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff';
 import FlightLand from '@material-ui/icons/FlightLand';
 import DestinationList from '../../assets/data/airports.json';
-
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { updateFlightValue } from '../../actions/SearchActions';
+import { updateFlightValue, updateFlightOriginDestination, removeFlight }
+  from '../../actions/SearchActions';
 import { Flight } from './Interfaces';
 
 interface FlightInputProps {
-  i: number
-  flight: Flight
-  updateFlightValue: typeof updateFlightValue
+  i: number;
+  updateFlightValue: typeof updateFlightValue;
+  updateFlightOriginDestination: typeof updateFlightOriginDestination;
+  removeFlight: typeof removeFlight;
+  flights: Array<Flight>;
 }
 
 class FlightInput extends React.Component<FlightInputProps> {
@@ -24,16 +28,18 @@ class FlightInput extends React.Component<FlightInputProps> {
   }
 
   render() {
+    const flight = this.props.flights[this.props.i];
+
     return (
       <div className="row flight-input">
-        <div className="col-sm-4">
+        <div className="col-sm-3">
           <FormControl fullWidth>
             <Autocomplete
               id={"from-destination" + this.props.i}
               options={this.state.destinations}
               getOptionLabel={(option) => option.name}
               onChange={(_, values) => this.updateFlightType(values, 'origin')}
-              defaultValue={this.getDestinationByName(this.props.flight.origin)}
+              defaultValue={this.getDestinationByName(flight.origin)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
@@ -51,7 +57,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             />
           </FormControl>
         </div>
-        <div className="col-sm-4">
+        <div className="col-sm-3">
           <FormControl fullWidth>
             <Autocomplete
               id={"to-destination" + this.props.i}
@@ -60,7 +66,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'destination')
               }
-              defaultValue={this.getDestinationByName(this.props.flight.destination)}
+              defaultValue={this.getDestinationByName(flight.destination)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
@@ -81,15 +87,23 @@ class FlightInput extends React.Component<FlightInputProps> {
         <div className="col-sm-2">
           <DepartureDatePicker
             i={this.props.i}
-            departureDate={this.props.flight.departureDate}
+            departureDate={flight.departureDate}
             updateFlightValue={this.props.updateFlightValue}/>
         </div>
         <div className="col-sm-2">
           <CabinSelect
             i={this.props.i}
-            cabinClass={this.props.flight.cabinClass}
+            cabinClass={flight.cabinClass}
             updateFlightValue={this.props.updateFlightValue}/>
         </div>
+        {this.props.flights.length > 1
+          ? <div className='col-sm-2 flight-remove-container'>
+            <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </div>
+          : ''
+        }
       </div>
     )
   }
@@ -102,10 +116,11 @@ class FlightInput extends React.Component<FlightInputProps> {
     return destinationsList[index];
   }
 
-  updateFlightType = (values: any, flightType: string) =>
-    values
-      ? this.props.updateFlightValue(this.props.i, flightType, values.name)
+  updateFlightType = (values: any, flightType: string) => {
+    return values
+      ? this.props.updateFlightOriginDestination(this.props.i, flightType, values.name)
       : '';
+  }
 }
 
 export default FlightInput;

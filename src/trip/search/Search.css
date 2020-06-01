@@ -40,3 +40,10 @@
   color: #CACDD6;
   padding: 0px 5px;
 }
+
+.flight-remove-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  max-height: 56px;
+}

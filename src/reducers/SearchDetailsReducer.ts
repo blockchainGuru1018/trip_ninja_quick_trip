@@ -1,4 +1,4 @@
-import { SearchDetails } from '../trip/search/Interfaces';
+import { SearchDetails, Passenger } from '../trip/search/Interfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
   switch(action.type) {
@@ -30,6 +30,22 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
         ...state.flights.slice(action.index + 1)
       ]
       return {...state, flights: updatedFlights}
+
+    case 'UPDATE_PASSENGERS':
+      const passengerUpdateIndex: number = state.passengers.findIndex(passenger =>
+        passenger.type === action.passengerType
+      );
+      let newPassenger: Passenger = state.passengers[passengerUpdateIndex]
+      newPassenger.count += action.value;
+      if(newPassenger.count < 0) {
+        newPassenger.count = 0
+      };
+      const updatedPassengers: Array<Passenger> = [
+        ...state.passengers.slice(0, passengerUpdateIndex),
+        {...newPassenger},
+        ...state.passengers.slice(passengerUpdateIndex + 1),
+      ]
+      return {...state, passengers: updatedPassengers}
 
     default:
       return state;

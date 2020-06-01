@@ -10,7 +10,6 @@ import { Flight, SearchProps } from './Interfaces';
 import './Search.css'
 
 class Search extends React.Component<SearchProps> {
-
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (flight: Flight, index: number) =>
@@ -41,7 +40,10 @@ class Search extends React.Component<SearchProps> {
           </div>
           <div className="row">
             <div className="col-sm-3">
-              <PassengerSelect />
+              <PassengerSelect
+                passengers={this.props.searchDetails.passengers}
+                updatePassengers={this.props.updatePassengers}
+              />
             </div>
             <div className="col-sm-2">
               <CurrencySelect

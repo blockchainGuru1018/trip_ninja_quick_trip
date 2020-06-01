@@ -1,6 +1,6 @@
 import { createStore, Store } from 'redux';
 import rootReducer from './reducers/index';
-import { SearchDetails, defaultFlight } from './trip/search/Interfaces';
+import { SearchDetails, defaultFlight, defaultPassengerList } from './trip/search/Interfaces';
 
 export interface State {
   searchDetails: SearchDetails
@@ -11,10 +11,9 @@ const defaultState: Object = {
     flights: [
       defaultFlight
     ],
-    currency: 'USD'
+    currency: 'USD',
+    passengers: defaultPassengerList
   },
-  userCreds: {},
-
 };
 
 const store: Store = createStore(rootReducer, defaultState);

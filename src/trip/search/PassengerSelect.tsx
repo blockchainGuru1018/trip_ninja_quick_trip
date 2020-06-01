@@ -9,6 +9,8 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Passenger } from './Interfaces';
+import { updatePassengers } from '../../actions/SearchActions';
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +45,12 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+interface CustomizedMenusProps {
+  passengers: Array<Passenger>
+  updatePassengers: typeof updatePassengers
+}
+
+const CustomizedMenus = (props: CustomizedMenusProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,26 +61,20 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
-  const onAddPassenger = () => {
-    console.log("ADD");
-  }
-  
-  const onRemovePassenger = () => {
-    console.log("REMOVE");
-  }
-  
+
+
   const classes = useStyles();
 
-  const passengerMenu = PassengerList.map((passenger, index) => (
+  const passengerMenu = props.passengers.map((passenger, index) => (
     <StyledMenuItem key={index}>
       <ListItemText primary={passenger.type} />
-      <IconButton onClick={onRemovePassenger}>
+      <IconButton onClick={() => props.updatePassengers(passenger.type, -1)}>
         <RemoveIcon fontSize="small" />
       </IconButton>
       <span className="passenger-count">{passenger.count}</span>
-      <IconButton onClick={onAddPassenger}>
+      <IconButton onClick={() => props.updatePassengers(passenger.type, 1)}>
         <AddIcon fontSize="small" />
-      </IconButton>         
+      </IconButton>
     </StyledMenuItem>
   ));
   return (
@@ -91,7 +92,7 @@ export default function CustomizedMenus() {
         onClick={handleClick}
       >
         <PersonAddOutlinedIcon />
-        Passengers  
+        Passengers
       </Button>
       <StyledMenu
         id="customized-menu"
@@ -106,4 +107,5 @@ export default function CustomizedMenus() {
   );
 }
 
+export default CustomizedMenus;
 

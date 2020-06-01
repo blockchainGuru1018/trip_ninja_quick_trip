@@ -4,7 +4,8 @@ import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
 import './App.css';
-import { setValue, addFlight, updateFlightValue } from './actions/SearchActions';
+import { setValue, addFlight, updateFlightValue, updatePassengers }
+  from './actions/SearchActions';
 import { Flight, SearchDetails } from './trip/search/Interfaces';
 
 interface IAppProps {
@@ -12,6 +13,7 @@ interface IAppProps {
   setValue: typeof setValue;
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
+  updatePassengers: typeof updatePassengers;
 }
 
 class App extends React.Component<IAppProps> {
@@ -29,6 +31,7 @@ class App extends React.Component<IAppProps> {
                   setValue={this.props.setValue}
                   addFlight={this.props.addFlight}
                   updateFlightValue={this.props.updateFlightValue}
+                  updatePassengers={this.props.updatePassengers}
                 />
               }
               />

@@ -36,3 +36,11 @@ export function updateFlightValue(index: number, key: string, value: string) {
     value
   }
 }
+
+export function updatePassengers(passengerType: string, value: number) {
+  return {
+    type: 'UPDATE_PASSENGERS',
+    passengerType,
+    value
+  }
+}

@@ -7,6 +7,11 @@ import { login } from '../actions/AuthActions';
 interface LoginFormProps {
   login: typeof login
 }
+
+const LoginTextField = styled(TextField)({
+  margin: '10px 0px',
+});
+
 class LoginForm extends React.Component<LoginFormProps> {
   state = {
     'email': 'thing',
@@ -18,11 +23,8 @@ class LoginForm extends React.Component<LoginFormProps> {
     // set some sort of loading screen
     // this.props.login(this.state.email, this.state.password)
   }
-  render() {
-    const LoginTextField = styled(TextField)({
-      margin: '10px 0px',
-    });
 
+  render() {
     return (
       <div>
         <h1 className="text-center">Welcome Back!</h1>

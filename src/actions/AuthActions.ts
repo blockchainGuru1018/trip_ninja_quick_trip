@@ -1,12 +1,40 @@
 import API from '../Api'
+import store from '../Store'
+import { setValue } from './SearchActions'
 
-export function login(email: string, password: string) {
-  console.log('in here')
-  const request: any = API.post('/token/', {'email': email, 'password': password})
-  request.then((response: any) => console.log(response.data.access))
-  // return request.then((response: any) => setAuthToken(dispatch, response.data.access))
-  //
-  return setUser(email)
+export const login = (email: string, password: string) => {
+  return function(dispatch: any) {
+    API.post('/token/', {'email': email, 'password': password})
+      .then(
+        (response: any) => {
+          localStorage.setItem('token', response.data.access)
+        }
+      )
+      .then(() => dispatch(fetchUserParameters()))
+      .catch(
+
+      )
+  }
+}
+
+export function logout() {
+  localStorage.removeItem('token')
+  return {
+    type: 'AUTHENTICATE_USER',
+    authenticated: false
+  }
+}
+
+export const fetchUserParameters = () => (dispatch: any) => {
+  dispatch({type: 'AUTHENTICATE_USER', authenticated: true})
+  API.get('/get_user_details/')
+    .then((response: any) => {
+      dispatch({
+        type: 'SET_USER_PARAMETERS',
+        parameters: response.data
+      })
+      dispatch(setValue('currency', response.data.currency));
+    })
 }
 
 function setUser(email: string) {
@@ -17,9 +45,6 @@ function setUser(email: string) {
 }
 
 function setAuthToken(authToken: string) {
-  console.log('setting', authToken)
-  return {
-    type: 'SET_AUTH_TOKEN',
-    authToken
-  }
+  localStorage.setItem('token', authToken)
 }
+

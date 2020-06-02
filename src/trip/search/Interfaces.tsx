@@ -27,6 +27,7 @@ export const defaultFlight: Object = {
 
 export interface SearchProps {
   searchDetails: SearchDetails,
+  defaultCurrency: string;
   setValue: typeof setValue;
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;

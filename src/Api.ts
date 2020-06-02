@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './Store';
 
 let endpoint: any
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -10,5 +11,11 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     baseURL: ''
   });
 }
+
+endpoint.interceptors.request.use((config: any) => {
+    const token: string = localStorage.getItem('token') || ''
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+  });
 
 export default endpoint;

@@ -1,13 +1,13 @@
 import { AuthDetails } from '../auth/AuthInterfaces';
 
 function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
-  console.log(state)
+
   switch(action.type) {
 
     case 'SET_USER':
       return {
         ...state,
-        items: action.payload
+        userEmail: action.email
       }
 
     case 'SET_AUTH_TOKEN':
@@ -17,6 +17,18 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         authToken: action.authToken
       }
 
+    case 'AUTHENTICATE_USER':
+      return {
+        ...state,
+        authenticated: action.authenticated
+      }
+
+    case 'SET_USER_PARAMETERS':
+      return {
+        ...state,
+        dateType: action.parameters.date_type,
+        studentAndYouth: action.parameters.student_and_youth
+      }
     default:
       return state;
   }

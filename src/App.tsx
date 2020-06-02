@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
@@ -9,19 +9,21 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   updateFlightOriginDestination } from './actions/SearchActions';
 import { SearchDetails } from './trip/search/Interfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
-import { login } from './actions/AuthActions';
+import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
   login: typeof login;
+  logout: typeof logout;
   setValue: typeof setValue;
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
   updatePassengers: typeof updatePassengers;
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
-  removeFlight: typeof removeFlight
+  removeFlight: typeof removeFlight;
+  fetchUserParameters: typeof fetchUserParameters;
 }
 
 const theme = createMuiTheme({
@@ -34,15 +36,30 @@ const theme = createMuiTheme({
 });
 
 class App extends React.Component<IAppProps> {
+
+  componentDidMount() {
+    const token: string =  localStorage.getItem('token') || '';
+    if(token !== '') {
+      this.props.fetchUserParameters()
+    }
+  }
+
   render() {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <NavBar {...this.props}/>
+          {
+            this.props.authDetails.authenticated &&
+            <NavBar logout={this.props.logout}/>
+          }
           <div className="container-fluid">
             <Router>
               <div>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={() =>
+                  <Home
+                    auth={this.props.authDetails}
+                  />
+                } />
                 <Route exact path="/login/" component={() =>
                   <Login
                     authDetails={this.props.authDetails}
@@ -51,6 +68,7 @@ class App extends React.Component<IAppProps> {
                 } />
                 <Route exact path="/search/" component={() =>
                   <Search
+                    defaultCurrency={this.props.authDetails.currency}
                     searchDetails={this.props.searchDetails}
                     setValue={this.props.setValue}
                     addFlight={this.props.addFlight}

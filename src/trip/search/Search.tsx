@@ -19,7 +19,7 @@ class Search extends React.Component<SearchProps> {
           updateFlightValue={this.props.updateFlightValue}
           updateFlightOriginDestination={this.props.updateFlightOriginDestination}
           flights={this.props.searchDetails.flights}
-          removeFlight={this.props.removeFlight}/>
+          removeFlight={this.props.removeFlight} />
     );
 
     return (
@@ -50,6 +50,7 @@ class Search extends React.Component<SearchProps> {
             <div className="col-sm-2">
               <CurrencySelect
                 currency={this.props.searchDetails.currency}
+                defaultCurrency={this.props.defaultCurrency}
                 setValue={this.props.setValue}
               />
             </div>

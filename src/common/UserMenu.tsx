@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
+import { styled } from '@material-ui/core/styles';
 
 export default function UserMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -19,12 +20,23 @@ export default function UserMenu() {
     setAnchorEl(null);
   };
 
+  const UserAvatar = styled(Avatar)({
+    backgroundColor: '#ffffff',
+    color: '#45565E',
+    border: 'solid 2px #45565E'
+  });
+
+  const LogoutMenuItem = styled(MenuItem)({
+    float: 'right',
+    color: '#4BAFD7'
+  });
+
   const userDetails = 
     <MenuItem>
       <ListItemAvatar>
-        <Avatar>
+        <UserAvatar>
           {parseUserInitials("Rob")}
-        </Avatar>
+        </UserAvatar>
       </ListItemAvatar>
       <ListItemText primary="Rob Dumont" secondary="rob.dumont@tripninja.io" />
     </MenuItem>
@@ -37,9 +49,9 @@ export default function UserMenu() {
         size="large"
         endIcon={<ExpandMoreIcon />}
         onClick={handleClick}>
-        <Avatar>
+        <UserAvatar>
           {parseUserInitials("Rob")}
-        </Avatar>
+        </UserAvatar>
       </Button>
       <Menu
         id="user-menu"
@@ -60,7 +72,7 @@ export default function UserMenu() {
       >
         {userDetails}
         <Divider variant="middle" />
-        <MenuItem onClick={handleClose}>Sign out</MenuItem>
+        <LogoutMenuItem onClick={handleClose}>Sign out</LogoutMenuItem>
       </Menu>
     </div>
   );

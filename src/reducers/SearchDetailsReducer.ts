@@ -1,6 +1,7 @@
 import { SearchDetails, Passenger, Flight } from '../trip/search/Interfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
+  console.log(state)
   switch(action.type) {
 
     case 'FETCH_SEARCH':

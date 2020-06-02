@@ -2,16 +2,19 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
+import { login } from '../actions/AuthActions';
 
-
-class LoginForm extends React.Component {
+interface LoginFormProps {
+  login: typeof login
+}
+class LoginForm extends React.Component<LoginFormProps> {
   state = {
     'email': 'thing',
     'password': 'new_thing'
   }
 
-  login = (e: any) => {
-    console.log(e)
+  loginUser = () => {
+    this.props.login('testing1@tripninja.io', '123')
     // set some sort of loading screen
     // this.props.login(this.state.email, this.state.password)
   }
@@ -53,7 +56,7 @@ class LoginForm extends React.Component {
                   color="primary"
                   id="login-button"
                   size="large"
-                  onClick={(e) => this.login(e)}>
+                  onClick={this.loginUser}>
                   Log in
                 </Button>
               </div>

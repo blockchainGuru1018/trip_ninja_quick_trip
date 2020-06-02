@@ -8,10 +8,14 @@ import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   updateFlightOriginDestination } from './actions/SearchActions';
 import { SearchDetails } from './trip/search/Interfaces';
+import { AuthDetails } from './auth/AuthInterfaces';
+import { login } from './actions/AuthActions';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 interface IAppProps {
   searchDetails: SearchDetails;
+  authDetails: AuthDetails;
+  login: typeof login;
   setValue: typeof setValue;
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
@@ -39,7 +43,12 @@ class App extends React.Component<IAppProps> {
             <Router>
               <div>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/login/" component={Login} />
+                <Route exact path="/login/" component={() =>
+                  <Login
+                    authDetails={this.props.authDetails}
+                    login={this.props.login}
+                  />
+                } />
                 <Route exact path="/search/" component={() =>
                   <Search
                     searchDetails={this.props.searchDetails}

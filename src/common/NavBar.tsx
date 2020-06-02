@@ -2,6 +2,7 @@ import React from 'react';
 import './NavBar.css';
 import logo from '../assets/images/trip_ninja_logo.png';
 import { logout } from '../actions/AuthActions';
+import UserMenu from '../common/UserMenu';
 
 interface NavBarProps {
   logout: typeof logout
@@ -24,7 +25,7 @@ class NavBar extends React.Component<NavBarProps> {
             </li>
           </ul>
         </div>
-        <button className='btn' onClick={this.props.logout}>Logout</button>
+        <UserMenu/>
       </nav>
     )
   }

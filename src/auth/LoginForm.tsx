@@ -26,7 +26,7 @@ class LoginForm extends React.Component<LoginFormProps> {
 
   render() {
     return (
-      <div>
+      <div className="login-form">
         <h1 className="text-center">Welcome Back!</h1>
         <div className="row">
           <div className="col-sm-10 offset-sm-1">

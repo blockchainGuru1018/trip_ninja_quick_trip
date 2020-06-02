@@ -1,7 +1,10 @@
-.login-form {
+.login-col {
   background-color: #ffffff;
-  padding: 125px 75px;
   height: 100vh;
+}
+
+.login-form {
+  padding: 125px 75px;
 }
 
 .marketing-panel {
@@ -16,7 +19,10 @@
   padding-top: 25px;
 }
 
+.logo-img {
+  margin: 25px;
+}
+
 #login-button {
   float: right;
 }
-

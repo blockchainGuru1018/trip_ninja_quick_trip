@@ -1,5 +1,5 @@
 import React from 'react';
-
+import marketingImage from '../assets/images/login_marketing_image.png';
 
 class MarketingPanel extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class MarketingPanel extends React.Component {
           <h4>Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
         </div>
         <div className="col-sm-6">
-          
+          <img src={marketingImage} width="100%" alt="" loading="lazy" />
         </div>        
       </div>
     )

@@ -31,7 +31,7 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       return updateFlightsWithValue(stateUpdate1, action);
 
     case 'UPDATE_PASSENGERS':
-      const passengerUpdateIndex: number = state.passengers.findIndex(passenger =>
+      const passengerUpdateIndex: number = state.passengers.findIndex((passenger: Passenger) =>
         passenger.type === action.passengerType
       );
       let newPassenger: Passenger = state.passengers[passengerUpdateIndex]

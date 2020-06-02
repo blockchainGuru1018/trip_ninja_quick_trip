@@ -5,6 +5,16 @@ import { styled } from '@material-ui/core/styles';
 
 
 class LoginForm extends React.Component {
+  state = {
+    'email': 'thing',
+    'password': 'new_thing'
+  }
+
+  login = (e: any) => {
+    console.log(e)
+    // set some sort of loading screen
+    // this.props.login(this.state.email, this.state.password)
+  }
   render() {
     const LoginTextField = styled(TextField)({
       margin: '10px 0px',
@@ -16,19 +26,23 @@ class LoginForm extends React.Component {
         <div className="row">
           <div className="col-sm-10 offset-sm-1">
             <h4>Sign in</h4>
-            <LoginTextField 
-              id="login-email" 
+            <LoginTextField
+              id="login-email"
               label="Email"
               variant="outlined"
               fullWidth
-              required /> 
-            <LoginTextField 
-              id="login-password" 
+              required
+              value={this.state.email}
+              onChange={e => this.setState({'email': e.target.value})}/>
+            <LoginTextField
+              id="login-password"
               label="Password"
-              variant="outlined" 
               type="password"
+              variant="outlined"
               fullWidth
-              required /> 
+              required
+              value={this.state.password}
+              onChange={e => this.setState({'password': e.target.value})}/>
             <div className="row login-button-row">
               <div className="col-sm-8">
                 <a href="/" className="login-link">Forgot Password?</a>
@@ -38,18 +52,19 @@ class LoginForm extends React.Component {
                   variant="contained"
                   color="primary"
                   id="login-button"
-                  size="large">
+                  size="large"
+                  onClick={(e) => this.login(e)}>
                   Log in
                 </Button>
               </div>
-            </div> 
+            </div>
             <hr/>
             <p>
-              Don't have an account yet? 
+              Don't have an account yet?
               <a href="/" className="login-link"> Start your free trial</a>
-            </p>            
+            </p>
           </div>
-        </div>         
+        </div>
       </div>
 
     )

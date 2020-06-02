@@ -32,7 +32,7 @@ class MarketingPanel extends React.Component {
           </div>
         </div>
         <div className="col-xl-6">
-          <img src={marketingImage} width="100%" alt="" loading="lazy" />
+          <img src={marketingImage} width="100%" alt="" />
         </div>        
       </div>
     )

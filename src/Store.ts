@@ -1,9 +1,10 @@
 import { createStore, Store, applyMiddleware } from 'redux';
 import rootReducer from './reducers/index';
-import { SearchDetails, defaultFlight, defaultPassengerList }
+import { SearchDetails, defaultSearchDetails }
   from './trip/search/Interfaces';
 import { AuthDetails, defaultAuth } from './auth/AuthInterfaces';
 import thunk from 'redux-thunk';
+import { jwtMiddleware } from './Middleware';
 
 export interface State {
   searchDetails: SearchDetails,
@@ -11,19 +12,12 @@ export interface State {
 }
 
 const defaultState: Object = {
-  searchDetails: {
-    flights: [
-      defaultFlight
-    ],
-    currency: 'USD',
-    passengers: defaultPassengerList,
-    route_flexible: false
-  },
-  authDetails: {
-    ...defaultAuth
-  }
+  searchDetails: defaultSearchDetails,
+  authDetails: defaultAuth
 };
 
-const store: Store = createStore(rootReducer, defaultState, applyMiddleware(thunk));
+const store: Store = createStore(
+  rootReducer, defaultState, applyMiddleware(jwtMiddleware, thunk)
+);
 
 export default store;

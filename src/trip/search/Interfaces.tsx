@@ -33,7 +33,8 @@ export interface SearchProps {
   updateFlightValue: typeof updateFlightValue;
   updatePassengers: typeof updatePassengers;
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
-  removeFlight: typeof removeFlight
+  removeFlight: typeof removeFlight;
+  authenticated: boolean;
 }
 
 export interface Passenger {
@@ -49,3 +50,12 @@ export const defaultPassengerList: Array<Passenger> = [
   {'type': "Student", 'count': 0, 'code': "STU"},
   {'type': "Youth", 'count': 0, 'code': "YTH"}
 ]
+
+export const defaultSearchDetails: Object = {
+  flights: [
+    defaultFlight
+  ],
+  currency: 'USD',
+  passengers: defaultPassengerList,
+  route_flexible: false
+}

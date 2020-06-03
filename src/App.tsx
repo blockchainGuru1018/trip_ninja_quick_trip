@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
@@ -76,6 +76,7 @@ class App extends React.Component<IAppProps> {
                     updatePassengers={this.props.updatePassengers}
                     updateFlightOriginDestination={this.props.updateFlightOriginDestination}
                     removeFlight={this.props.removeFlight}
+                    authenticated={this.props.authDetails.authenticated}
                   />
                 } />
               </div>

@@ -10,7 +10,6 @@ export interface AuthDetails {
 export const defaultAuth = {
   userEmail: '',
   authenticated: false,
-  currency: 'USD',
   dateType: 'USA',
   studentAndYouth: false
 };

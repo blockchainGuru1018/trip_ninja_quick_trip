@@ -8,8 +8,13 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import { styled } from '@material-ui/core/styles';
+import { logout } from '../actions/AuthActions';
 
-export default function UserMenu() {
+interface UserMenuProps {
+  logout: typeof logout
+}
+
+export default function UserMenu(props: UserMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -17,6 +22,7 @@ export default function UserMenu() {
   };
 
   const handleClose = () => {
+    props.logout();
     setAnchorEl(null);
   };
 
@@ -31,7 +37,7 @@ export default function UserMenu() {
     color: '#4BAFD7'
   });
 
-  const userDetails = 
+  const userDetails =
     <MenuItem>
       <ListItemAvatar>
         <UserAvatar>
@@ -43,8 +49,8 @@ export default function UserMenu() {
 
   return (
     <div>
-      <Button 
-        aria-controls="user-menu" 
+      <Button
+        aria-controls="user-menu"
         aria-haspopup="true"
         size="large"
         endIcon={<ExpandMoreIcon />}

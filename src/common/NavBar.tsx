@@ -25,7 +25,9 @@ class NavBar extends React.Component<NavBarProps> {
             </li>
           </ul>
         </div>
-        <UserMenu/>
+        <UserMenu
+          logout={this.props.logout}
+        />
       </nav>
     )
   }

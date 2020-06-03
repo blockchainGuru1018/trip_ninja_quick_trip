@@ -1,7 +1,7 @@
-import { SearchDetails, Passenger, Flight } from '../trip/search/Interfaces';
+import { SearchDetails, Passenger, Flight, defaultSearchDetails }
+  from '../trip/search/Interfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
-  console.log('these are running')
   switch(action.type) {
 
     case 'FETCH_SEARCH':
@@ -14,15 +14,16 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       return state
 
     case 'SET_VALUE':
-      console.log('here')
       let newState: Object = {...state};
       newState[action.valueType] = action.value;
-      console.log(newState)
       return newState
 
     case 'ADD_FLIGHT':
       let flights = [...state.flights, action.flight];
       return {...state, flights: flights}
+
+    case 'RESET_SEARCH':
+      return defaultSearchDetails
 
     case 'UPDATE_FLIGHT_VALUE':
       return updateFlightsWithValue(state, action)

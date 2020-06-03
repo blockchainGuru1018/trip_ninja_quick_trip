@@ -1,6 +1,5 @@
-import API from '../Api'
-import store from '../Store'
-import { setValue } from './SearchActions'
+import API from '../Api';
+import { setValue, resetSearch } from './SearchActions';
 
 export const login = (email: string, password: string) => {
   return function(dispatch: any) {
@@ -8,25 +7,28 @@ export const login = (email: string, password: string) => {
       .then(
         (response: any) => {
           localStorage.setItem('token', response.data.access)
+          localStorage.setItem('refreshToken', response.data.refresh)
+          dispatch(fetchUserParameters())
         }
       )
-      .then(() => dispatch(fetchUserParameters()))
       .catch(
-
+        
       )
   }
 }
 
-export function logout() {
-  localStorage.removeItem('token')
-  return {
-    type: 'AUTHENTICATE_USER',
-    authenticated: false
+export const logout: any = () => {
+  return function(dispatch: any) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    dispatch(authenticateUser(false));
+    dispatch(resetAuth());
+    dispatch(resetSearch());
   }
 }
 
 export const fetchUserParameters = () => (dispatch: any) => {
-  dispatch({type: 'AUTHENTICATE_USER', authenticated: true})
+  dispatch(authenticateUser(true))
   API.get('/get_user_details/')
     .then((response: any) => {
       dispatch({
@@ -37,14 +39,16 @@ export const fetchUserParameters = () => (dispatch: any) => {
     })
 }
 
-function setUser(email: string) {
+function resetAuth() {
   return {
-    type: 'SET_USER',
-    email
+    type: 'RESET_AUTH'
   }
 }
 
-function setAuthToken(authToken: string) {
-  localStorage.setItem('token', authToken)
+function authenticateUser(authenticate: boolean) {
+  return {
+    type: 'AUTHENTICATE_USER',
+    authenticate
+  }
 }
 

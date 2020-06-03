@@ -1,5 +1,4 @@
 import axios from 'axios';
-import store from './Store';
 
 let endpoint: any
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {

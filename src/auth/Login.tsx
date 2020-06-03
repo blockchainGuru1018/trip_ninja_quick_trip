@@ -19,6 +19,7 @@ class Login extends React.Component<LoginProps> {
           <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
           <LoginForm
             login={this.props.login}
+            authenticated={this.props.authDetails.authenticated}
           />
         </div>
         <div className="col-xl-8 col-lg-6 marketing-panel">

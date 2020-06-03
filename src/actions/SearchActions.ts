@@ -13,6 +13,12 @@ export function newSearch(searchDetails: Object) {
   }
 }
 
+export function resetSearch() {
+  return {
+    type: 'RESET_SEARCH'
+  }
+}
+
 export function setValue(valueType: string, value: any) {
   return {
     type: 'SET_VALUE',

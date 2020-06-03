@@ -22,7 +22,6 @@ export default function UserMenu(props: UserMenuProps) {
   };
 
   const handleClose = () => {
-    props.logout();
     setAnchorEl(null);
   };
 
@@ -78,7 +77,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <LogoutMenuItem onClick={handleClose}>Sign out</LogoutMenuItem>
+        <LogoutMenuItem onClick={() => {props.logout()}}>Sign out</LogoutMenuItem>
       </Menu>
     </div>
   );

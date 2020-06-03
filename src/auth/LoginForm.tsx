@@ -79,7 +79,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                 <hr/>
                 <p>
                   Don't have an account yet?
-                  <a href="/" className="login-link"> Start your free trial</a>
+                  <a href="https://www.tripninja.io/book-a-demo" className="login-link"> Start your free trial</a>
                 </p>
               </div>
             </div>

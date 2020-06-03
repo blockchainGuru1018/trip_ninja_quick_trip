@@ -28,7 +28,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             inputVariant="outlined"
             format="MM/dd/yyyy"
             margin="none"
-            id="departure-date"
+            id={"departure-date"+this.props.i}
             value={new Date(this.props.departureDate)}
             onChange={e =>
               this.props.updateFlightValue(

@@ -88,5 +88,10 @@ export default function UserMenu(props: UserMenuProps) {
 }
 
 const parseUserInitials = (firstName: string, lastName: string) => {
-  return firstName.charAt(0)+lastName.charAt(0);
+  if (firstName && lastName) {
+    return firstName.charAt(0)+lastName.charAt(0);
+  } else {
+    return "TN";
+  }
+  
 }

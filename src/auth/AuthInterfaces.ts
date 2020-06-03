@@ -11,8 +11,8 @@ export interface AuthDetails {
 
 export const defaultAuth = {
   userEmail: '',
-  userFirstName: 'Trip',
-  userLastName: 'Ninja',
+  userFirstName: '',
+  userLastName: '',
   authenticated: false,
   dateType: 'USA',
   studentAndYouth: false

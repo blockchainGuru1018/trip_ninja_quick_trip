@@ -68,7 +68,7 @@ export default function UserMenu(props: UserMenuProps) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        elevation={0}
+        elevation={1}
         getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',

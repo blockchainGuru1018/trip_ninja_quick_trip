@@ -15,7 +15,8 @@ const useStyles = makeStyles({
   root: {
     height: '56px',
     textTransform: 'none',
-    justifyContent: 'left'
+    justifyContent: 'left',
+    fontFamily: 'NeuzeitGro-Reg'
   },
 });
 

@@ -7,6 +7,7 @@ import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
 import { SearchProps } from './Interfaces';
+import Button from '@material-ui/core/Button';
 import './Search.css'
 
 class Search extends React.Component<SearchProps> {
@@ -28,7 +29,11 @@ class Search extends React.Component<SearchProps> {
           <h1>Flight Search</h1>
           {flights}
           <div className="row">
-            <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
+            <Button 
+              color="secondary" 
+              onClick={this.onAddFlight}>
+              Add Flight
+            </Button>
           </div>
           <hr/>
           <h4>Additional Details</h4>

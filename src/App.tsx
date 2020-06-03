@@ -30,6 +30,15 @@ const theme = createMuiTheme({
       contrastText: '#ffffff'
     }
   },
+  overrides: {
+    MuiButton: {
+      root: {
+        fontFamily: 'NeuzeitGro-Bol',
+        textTransform: 'none',
+        fontSize: '16px'
+      },
+    },
+  },
 });
 
 class App extends React.Component<IAppProps> {

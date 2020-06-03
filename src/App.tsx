@@ -30,6 +30,12 @@ const theme = createMuiTheme({
       contrastText: '#ffffff'
     }
   },
+  typography: {
+    fontFamily: [
+      'NeuzeitGro-Reg',
+      'NeuzeitGro-Bol'
+    ].join(','),
+  },
   overrides: {
     MuiButton: {
       root: {

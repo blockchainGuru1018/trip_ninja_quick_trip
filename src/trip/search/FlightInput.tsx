@@ -97,12 +97,11 @@ class FlightInput extends React.Component<FlightInputProps> {
             updateFlightValue={this.props.updateFlightValue}/>
         </div>
         {this.props.flights.length > 1
-          ? <div className='col-sm-1 flight-remove-container'>
+          && <div className='col-sm-1 flight-remove-container'>
             <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </div>
-          : ''
         }
       </div>
     )

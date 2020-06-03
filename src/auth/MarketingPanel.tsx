@@ -25,7 +25,8 @@ class MarketingPanel extends React.Component {
               <MarketingButton
                 variant="contained"
                 id="website-link-button"
-                size="large">
+                size="large"
+                href="https://www.tripninja.io/book-a-demo">
                 See how Trip Ninja increases agent efficiency
               </MarketingButton>
             </div>

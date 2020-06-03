@@ -54,7 +54,9 @@ class App extends React.Component<IAppProps> {
           />
           {
             this.props.authDetails.authenticated &&
-            <NavBar logout={this.props.logout}/>
+            <NavBar 
+              logout={this.props.logout}
+              authDetails={this.props.authDetails}/>
           }
           <div className="container-fluid">
             <Router>

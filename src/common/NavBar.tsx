@@ -3,9 +3,11 @@ import './NavBar.css';
 import logo from '../assets/images/trip_ninja_logo.png';
 import { logout } from '../actions/AuthActions';
 import UserMenu from '../common/UserMenu';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 interface NavBarProps {
   logout: typeof logout
+  authDetails: AuthDetails
 }
 
 class NavBar extends React.Component<NavBarProps> {
@@ -27,6 +29,7 @@ class NavBar extends React.Component<NavBarProps> {
         </div>
         <UserMenu
           logout={this.props.logout}
+          authDetails={this.props.authDetails}
         />
       </nav>
     )

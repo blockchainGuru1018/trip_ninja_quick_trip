@@ -27,6 +27,8 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
       return {
         ...state,
         userEmail: action.parameters.user_email,
+        userFirstName: action.parameters.first_name,
+        userLastName: action.parameters.last_name,
         dateType: action.parameters.date_type,
         studentAndYouth: action.parameters.student_and_youth
       }

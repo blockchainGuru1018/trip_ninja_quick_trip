@@ -1,6 +1,8 @@
 
 export interface AuthDetails {
   userEmail: string;
+  userFirstName: string;
+  userLastName: string;
   authenticated: boolean;
   currency: string;
   dateType: string;
@@ -9,6 +11,8 @@ export interface AuthDetails {
 
 export const defaultAuth = {
   userEmail: '',
+  userFirstName: 'Trip',
+  userLastName: 'Ninja',
   authenticated: false,
   dateType: 'USA',
   studentAndYouth: false

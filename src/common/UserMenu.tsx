@@ -9,9 +9,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import { styled } from '@material-ui/core/styles';
 import { logout } from '../actions/AuthActions';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 interface UserMenuProps {
   logout: typeof logout
+  authDetails: AuthDetails
 }
 
 export default function UserMenu(props: UserMenuProps) {
@@ -40,10 +42,12 @@ export default function UserMenu(props: UserMenuProps) {
     <MenuItem>
       <ListItemAvatar>
         <UserAvatar>
-          {parseUserInitials("Rob")}
+          {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
         </UserAvatar>
       </ListItemAvatar>
-      <ListItemText primary="Rob Dumont" secondary="rob.dumont@tripninja.io" />
+      <ListItemText 
+        primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
+        secondary={props.authDetails.userEmail} />
     </MenuItem>
 
   return (
@@ -55,7 +59,7 @@ export default function UserMenu(props: UserMenuProps) {
         endIcon={<ExpandMoreIcon />}
         onClick={handleClick}>
         <UserAvatar>
-          {parseUserInitials("Rob")}
+          {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
         </UserAvatar>
       </Button>
       <Menu
@@ -83,7 +87,6 @@ export default function UserMenu(props: UserMenuProps) {
   );
 }
 
-const parseUserInitials = (user: string) => {
-  // TODO Pass user object and get user.firstname and user.lastname
-  return user.charAt(0)+user.charAt(0);
+const parseUserInitials = (firstName: string, lastName: string) => {
+  return firstName.charAt(0)+lastName.charAt(0);
 }

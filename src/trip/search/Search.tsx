@@ -25,35 +25,27 @@ class Search extends React.Component<SearchProps> {
     return (
       <div className="row">
         <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
-          <div className="row">
-            <div className="col-lg">
-              <h1>Flight Search</h1>
-            </div>
-          </div>
+          <h1>Flight Search</h1>
           {flights}
           <div className="row">
             <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
           </div>
           <hr/>
+          <h4>Additional Details</h4>
           <div className="row">
-            <div className="col-lg">
-              <h4>Additional Details</h4>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-3">
+            <div className="col-md-3 col-sm-4">
               <PassengerSelect
                 passengers={this.props.searchDetails.passengers}
                 updatePassengers={this.props.updatePassengers}
               />
             </div>
-            <div className="col-sm-2">
+            <div className="col-md-2 col-sm-3">
               <CurrencySelect
                 currency={this.props.searchDetails.currency}
                 setValue={this.props.setValue}
               />
             </div>
-            <div className="col-sm-7">
+            <div className="col-md-7 col-sm-5">
               <TripOptions
                 routeFlexible={this.props.searchDetails.route_flexible}
                 setValue = {this.props.setValue}

@@ -2,6 +2,7 @@ import 'date-fns';
 import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
+import TodayIcon from '@material-ui/icons/Today';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -38,6 +39,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             KeyboardButtonProps={{
               'aria-label': 'Without label',
             }}
+            keyboardIcon={<TodayIcon color="primary"/>}
           />
         </MuiPickersUtilsProvider>
       </FormControl>

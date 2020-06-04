@@ -8,7 +8,7 @@ export interface AuthDetails {
   dateType: string;
   studentAndYouth: string;
   invalidAuth: boolean;
-};
+}
 
 export const defaultAuth = {
   userEmail: '',

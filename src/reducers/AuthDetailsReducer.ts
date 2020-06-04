@@ -11,7 +11,6 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
       }
 
     case 'SET_AUTH_TOKEN':
-      console.log('setting token')
       return {
         ...state,
         authToken: action.authToken

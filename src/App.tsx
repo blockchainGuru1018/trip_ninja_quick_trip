@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import IdleTimerContainer from './common/IdleTimeContainer';
+import IdleTimerContainer from './common/IdleTimerContainer';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';

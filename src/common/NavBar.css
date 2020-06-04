@@ -3,7 +3,7 @@
   font-size: 16px;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
-  font-family: 'NeuzeitGro-Bol';
+  font-family: 'NeuzeitGro-Bol', sans-serif;
 }
 
 .navbar-light .navbar-nav .nav-link {

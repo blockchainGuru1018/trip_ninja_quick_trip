@@ -18,7 +18,7 @@ class TripOptions extends React.Component<TripOptionsProps> {
             id="route-flexible"
             checked={this.props.routeFlexible}
             color="default"
-            onChange={e => this.props.setValue('route_flexible', e.target.checked)}
+            onChange={e => this.props.setValue('routeFlexible', e.target.checked)}
           />}
           label="Route Flexible"
           labelPlacement="end"

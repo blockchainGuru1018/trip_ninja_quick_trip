@@ -70,6 +70,9 @@ export function removeFlight(flightIndex: number) {
   }
 }
 
-export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) => {
-  API.post('/fare_structure/', searchPayload).then((response: any) => console.log(response))
+export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolean) => (dispatch: any) => {
+  const url: string = rootFlexible
+    ? '/multicitysearch/'
+    : '/fare_structure/'
+  API.post(url, searchPayload).then((response: any) => console.log(response))
 }

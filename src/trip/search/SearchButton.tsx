@@ -29,7 +29,7 @@ class SearchButton extends React.Component<SearchButtonProps> {
       travellers: this.createPassengerPayload(),
       alliance: ''
     };
-    this.props.searchFlights(searchPayload);
+    this.props.searchFlights(searchPayload, this.props.searchDetails.routeFlexible);
   }
 
   createFlightPayload = () => {

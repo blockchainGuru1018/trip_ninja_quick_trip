@@ -6,7 +6,7 @@ export interface SearchDetails {
   flights: Array<Flight>;
   currency: string;
   passengers: Array<Passenger>;
-  route_flexible: boolean;
+  routeFlexible: boolean;
 }
 
 export interface Flight {

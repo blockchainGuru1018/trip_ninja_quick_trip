@@ -5,10 +5,12 @@ import { styled } from '@material-ui/core/styles';
 import { login } from '../actions/AuthActions';
 import  { Redirect } from 'react-router-dom';
 import { getAdminUrl } from '../helpers/AdminUrlHelper';
+import Alert from '@material-ui/lab/Alert';
 
 interface LoginFormProps {
   login: typeof login,
   authenticated: boolean
+  invalidAuth: boolean
 }
 
 const LoginTextField = styled(TextField)({
@@ -59,6 +61,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     required
                     value={this.state.password}
                     onChange={e => this.setState({'password': e.target.value})}/>
+                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}            
                   <div className="row login-button-row">
                     <div className="col-sm-6">
                       <a href={getAdminUrl()} className="login-link">Forgot Password?</a>

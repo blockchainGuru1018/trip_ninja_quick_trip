@@ -6,14 +6,16 @@ export const login = (email: string, password: string) => {
     API.post('/token/', {'email': email, 'password': password})
       .then(
         (response: any) => {
-          localStorage.setItem('token', response.data.access)
-          localStorage.setItem('refreshToken', response.data.refresh)
-          dispatch(fetchUserParameters())
+          localStorage.setItem('token', response.data.access);
+          localStorage.setItem('refreshToken', response.data.refresh);
+          dispatch(fetchUserParameters());
         }
       )
       .catch(
-
-      )
+        (error: any) => {
+          dispatch(invalidAuthentication(true));
+        }
+      );
   }
 }
 
@@ -42,6 +44,13 @@ export const fetchUserParameters = () => (dispatch: any) => {
 function resetAuth() {
   return {
     type: 'RESET_AUTH'
+  }
+}
+
+function invalidAuthentication(status: boolean) {
+  return {
+    type: 'SET_AUTH_INVALID',
+    status
   }
 }
 

@@ -33,6 +33,12 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         studentAndYouth: action.parameters.student_and_youth
       }
 
+    case 'SET_AUTH_INVALID':
+      return {
+        ...state,
+        invalidAuth: action.status
+      }
+
     case 'RESET_AUTH':
       return defaultAuth
 

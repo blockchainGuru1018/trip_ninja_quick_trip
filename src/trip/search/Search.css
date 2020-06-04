@@ -14,7 +14,7 @@
 .btn-add-flights {
   color: #4BAFD7;
   text-align: left;
-  font-family: 'NeuzeitGro-Bol';
+  font-family: 'NeuzeitGro-Bol', sans-serif;
 }
 
 .trip-path {
@@ -28,7 +28,7 @@
 
 .passenger-count {
   color: #0DBE7CEB;
-  font-family: 'NeuzeitGro-Bol';
+  font-family: 'NeuzeitGro-Bol', sans-serif;
   padding: 0px 10px;
 }
 

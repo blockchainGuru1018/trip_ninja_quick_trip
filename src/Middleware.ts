@@ -10,7 +10,7 @@ export const jwtMiddleware: Middleware = () => next => async action => {
     const decoded: any = jwt(token);
     const expiration: Date = new Date(decoded.exp * 1000);
     if(expiration < new Date()) {
-      await refreshToken()
+      await getRefreshToken()
       return next(action);
     }
     else {
@@ -22,7 +22,7 @@ export const jwtMiddleware: Middleware = () => next => async action => {
   }
 };
 
-const refreshToken = async() => {
+const getRefreshToken = async() => {
   const refreshToken: string = localStorage.getItem('refreshToken') || ''
   if(refreshToken !== '') {
     return await API.post('/token/refresh/', {'refresh': refreshToken})

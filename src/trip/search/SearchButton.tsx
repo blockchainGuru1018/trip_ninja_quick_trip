@@ -4,6 +4,7 @@ import { searchFlights } from '../../actions/SearchActions';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import Button from '@material-ui/core/Button';
+import iataCode from '../../helpers/IataCode';
 
 interface SearchButtonProps {
   searchDetails: SearchDetails;
@@ -37,8 +38,8 @@ class SearchButton extends React.Component<SearchButtonProps> {
       id: index + 1,
       departure_date: flight.departureDate,
       cabin_class: flight.cabinClass,
-      from_city: flight.origin.substring(0, 3),
-      to_city: flight.destination.substring(0, 3),
+      from_city: iataCode(flight.origin),
+      to_city: iataCode(flight.destination),
       end_type: flight.endType
     }));
     return flightPayload;

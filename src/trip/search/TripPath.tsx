@@ -1,7 +1,7 @@
 import React from 'react';
 import FlightIcon from '@material-ui/icons/Flight';
 import { Flight } from './SearchInterfaces';
-import iataCode from '../../helpers/iataCode';
+import iataCode from '../../helpers/IataCode';
 
 interface TripPathProps {
   flights: Array<Flight>;

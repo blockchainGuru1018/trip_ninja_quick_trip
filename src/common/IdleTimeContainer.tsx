@@ -16,7 +16,7 @@ function IdleTimerContainer (props: IdleTimerContainterProps) {
         onIdle={() => props.logout()}
       />
     </div>
-  )
+  );
 }
 
 export default IdleTimerContainer;

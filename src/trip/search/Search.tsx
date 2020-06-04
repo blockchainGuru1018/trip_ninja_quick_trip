@@ -27,39 +27,41 @@ class Search extends React.Component<SearchProps> {
 
     return (
       <div className="row">
-        <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
-          <h1>Flight Search</h1>
-          {flights}
-          <div className="row">
-            <Button
-              color="secondary"
-              onClick={this.onAddFlight}>
-              Add Flight
-            </Button>
-          </div>
-          <hr/>
-          <h4>Additional Details</h4>
-          <div className="row">
-            <div className="col-md-3 col-sm-4">
-              <PassengerSelect
-                passengers={this.props.searchDetails.passengers}
-                updatePassengers={this.props.updatePassengers}
-              />
-            </div>
-            <div className="col-md-2 col-sm-3">
-              <CurrencySelect
-                currency={this.props.searchDetails.currency}
-                setValue={this.props.setValue}
-                defaultCurrency={this.props.defaultCurrency}
-              />
-            </div>
-            <div className="col-md-7 col-sm-5">
-              <TripOptions
-                routeFlexible={this.props.searchDetails.route_flexible}
-                setValue = {this.props.setValue}
-              />
+        {this.props.authenticated
+          ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
+            <h1>Flight Search</h1>
+            {flights}
+            <div className="row">
+              <Button
+                color="secondary"
+                onClick={this.onAddFlight}>
+                Add Flight
+              </Button>
             </div>
             <hr/>
+            <h4>Additional Details</h4>
+            <div className="row">
+              <div className="col-md-3 col-sm-4">
+                <PassengerSelect
+                  passengers={this.props.searchDetails.passengers}
+                  updatePassengers={this.props.updatePassengers}
+                />
+              </div>
+              <div className="col-md-2 col-sm-3">
+                <CurrencySelect
+                  currency={this.props.searchDetails.currency}
+                  setValue={this.props.setValue}
+                  defaultCurrency={this.props.defaultCurrency}
+                />
+              </div>
+              <div className="col-md-7 col-sm-5">
+                <TripOptions
+                  routeFlexible={this.props.searchDetails.route_flexible}
+                  setValue = {this.props.setValue}
+                />
+              </div>
+              <hr/>
+            </div>
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <TripPath
@@ -74,8 +76,8 @@ class Search extends React.Component<SearchProps> {
               </div>
             </div>
           </div>
-        </div>
-        </div>
+          : <Redirect to='/login/' />}
+      </div>
     );
   }
   onAddFlight = () =>

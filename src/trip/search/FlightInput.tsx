@@ -39,7 +39,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               options={this.state.destinations}
               getOptionLabel={(option) => option.name}
               onChange={(_, values) => this.updateFlightType(values, 'origin')}
-              defaultValue={this.getDestinationByName(flight.origin)}
+              defaultValue={this.getPreviousFlightDestination(flight.origin)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
@@ -107,7 +107,14 @@ class FlightInput extends React.Component<FlightInputProps> {
     );
   }
 
-  getDestinationByName = (name: string) => {
+  getPreviousFlightDestination = (destination: string) => {
+    if (this.props.i > 0 && !destination) {
+      destination = this.props.flights[this.props.i-1].destination;
+    }
+    return this.getDestinationByName(destination);
+  }
+
+  getDestinationByName = (name: string) => {    
     const destinationsList: Array<any> = this.state.destinations;
     const index: number = destinationsList.findIndex(
       (destination: any) => destination.name === name

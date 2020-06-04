@@ -12,7 +12,9 @@ export const login = (email: string, password: string) => {
         }
       )
       .catch(
-        
+        (error: any) => {
+          dispatch(invalidAuthentication(true))
+        }
       )
   }
 }
@@ -42,6 +44,13 @@ export const fetchUserParameters = () => (dispatch: any) => {
 function resetAuth() {
   return {
     type: 'RESET_AUTH'
+  }
+}
+
+function invalidAuthentication(status: boolean) {
+  return {
+    type: 'SET_AUTH_INVALID',
+    status
   }
 }
 

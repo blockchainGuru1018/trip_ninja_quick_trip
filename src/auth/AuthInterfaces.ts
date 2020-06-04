@@ -7,6 +7,7 @@ export interface AuthDetails {
   currency: string;
   dateType: string;
   studentAndYouth: string;
+  invalidAuth: boolean;
 };
 
 export const defaultAuth = {
@@ -15,5 +16,6 @@ export const defaultAuth = {
   userLastName: '',
   authenticated: false,
   dateType: 'USA',
-  studentAndYouth: false
+  studentAndYouth: false,
+  invalidAuth: false
 };

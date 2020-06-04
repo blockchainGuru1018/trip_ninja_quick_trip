@@ -58,7 +58,7 @@ export const defaultSearchDetails: Object = {
   ],
   currency: 'USD',
   passengers: defaultPassengerList,
-  route_flexible: false
+  routeFlexible: false
 };
 
 export interface SearchPayload {

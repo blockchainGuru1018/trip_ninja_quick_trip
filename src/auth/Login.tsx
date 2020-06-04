@@ -20,6 +20,7 @@ class Login extends React.Component<LoginProps> {
           <LoginForm
             login={this.props.login}
             authenticated={this.props.authDetails.authenticated}
+            invalidAuth={this.props.authDetails.invalidAuth}
           />
         </div>
         <div className="col-xl-8 col-lg-6 marketing-panel">

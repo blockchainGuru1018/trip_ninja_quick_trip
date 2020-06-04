@@ -7,8 +7,8 @@ import Search from './trip/search/Search';
 import Login from './auth/Login';
 import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
-  updateFlightOriginDestination } from './actions/SearchActions';
-import { SearchDetails } from './trip/search/Interfaces';
+  updateFlightOriginDestination, searchFlights } from './actions/SearchActions';
+import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -25,6 +25,7 @@ interface IAppProps {
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
+  searchFlights: typeof searchFlights
 }
 
 const theme = createMuiTheme({
@@ -41,7 +42,7 @@ class App extends React.Component<IAppProps> {
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
     if(token !== '') {
-      this.props.fetchUserParameters()
+      this.props.fetchUserParameters();
     }
   }
 
@@ -49,12 +50,12 @@ class App extends React.Component<IAppProps> {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <IdleTimerContainer 
+          <IdleTimerContainer
             logout={this.props.logout}
           />
           {
             this.props.authDetails.authenticated &&
-            <NavBar 
+            <NavBar
               logout={this.props.logout}
               authDetails={this.props.authDetails}/>
           }
@@ -83,6 +84,7 @@ class App extends React.Component<IAppProps> {
                     updateFlightOriginDestination={this.props.updateFlightOriginDestination}
                     removeFlight={this.props.removeFlight}
                     authenticated={this.props.authDetails.authenticated}
+                    searchFlights={this.props.searchFlights}
                   />
                 } />
               </div>

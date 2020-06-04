@@ -1,5 +1,5 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
-  updateFlightOriginDestination, removeFlight }
+  updateFlightOriginDestination, removeFlight, searchFlights }
   from '../../actions/SearchActions';
 
 export interface SearchDetails {
@@ -21,9 +21,9 @@ export const defaultFlight: Object = {
   'origin': '',
   'destination': '',
   'departureDate': new Date().toISOString(),
-  'cabinClass': '',
+  'cabinClass': 'E',
   'endType': ''
-}
+};
 
 export interface SearchProps {
   searchDetails: SearchDetails,
@@ -35,6 +35,7 @@ export interface SearchProps {
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   authenticated: boolean;
+  searchFlights: typeof searchFlights;
 }
 
 export interface Passenger {
@@ -49,13 +50,26 @@ export const defaultPassengerList: Array<Passenger> = [
   {'type': "Infant", 'count': 0, 'code': "INF"},
   {'type': "Student", 'count': 0, 'code': "STU"},
   {'type': "Youth", 'count': 0, 'code': "YTH"}
-]
+];
 
 export const defaultSearchDetails: Object = {
   flights: [
-    defaultFlight
+    {...defaultFlight}
   ],
   currency: 'USD',
   passengers: defaultPassengerList,
   route_flexible: false
+};
+
+export interface SearchPayload {
+  currency: string;
+  flights: Array<Flight>;
+  travellers: object;
+  alliance: string;
 }
+
+// export interface FlightPayload {
+//   cabin_class: string;
+//   departure_date: string;
+//   end_type:
+// };

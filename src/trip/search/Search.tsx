@@ -6,11 +6,12 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { SearchProps } from './Interfaces';
-import './Search.css'
+import { SearchProps, defaultFlight } from './SearchInterfaces';
+import './Search.css';
 import { Redirect } from 'react-router-dom';
 
 class Search extends React.Component<SearchProps> {
+
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) =>
@@ -24,7 +25,6 @@ class Search extends React.Component<SearchProps> {
     );
 
     return (
-
       <div className="row">
         {this.props.authenticated
           ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
@@ -74,23 +74,18 @@ class Search extends React.Component<SearchProps> {
               <div className="col-lg-3 col-md-4">
                 <SearchButton
                   searchDetails={this.props.searchDetails}
+                  searchFlights={this.props.searchFlights}
                 />
               </div>
             </div>
           </div>
           : <Redirect to='/login/' />}
       </div>
-    )
+    );
   }
 
   onAddFlight = () =>
-    this.props.addFlight({
-      'origin': '',
-      'destination': '',
-      'departureDate': '',
-      'cabinClass': '',
-      'endType': ''
-    })
+    this.props.addFlight({...defaultFlight})
 }
 
 export default Search;

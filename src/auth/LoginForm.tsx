@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import { login } from '../actions/AuthActions';
-import  { Redirect } from 'react-router-dom'
+import  { Redirect } from 'react-router-dom';
+import { getAdminUrl } from '../helpers/AdminUrlHelper';
 
 interface LoginFormProps {
   login: typeof login,
@@ -21,15 +22,13 @@ class LoginForm extends React.Component<LoginFormProps> {
   }
 
   loginUser = () => {
-    this.props.login(this.state.email, this.state.password)
-    // set some sort of loading screen
-    // this.props.login(this.state.email, this.state.password)
+    this.props.login(this.state.email, this.state.password);
   }
 
   componentDidMount() {
     return this.props.authenticated
       ? <Redirect to='/search/' />
-      : ''
+      : '';
   }
 
   render() {
@@ -62,7 +61,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     onChange={e => this.setState({'password': e.target.value})}/>
                   <div className="row login-button-row">
                     <div className="col-sm-6">
-                      <a href="/" className="login-link">Forgot Password?</a>
+                      <a href={getAdminUrl()} className="login-link">Forgot Password?</a>
                     </div>
                     <div className="col-sm-6">
                       <Button
@@ -86,7 +85,7 @@ class LoginForm extends React.Component<LoginFormProps> {
           </div>
         }
       </div>
-    )
+    );
   }
 }
 

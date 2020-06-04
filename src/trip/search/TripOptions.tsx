@@ -24,7 +24,7 @@ class TripOptions extends React.Component<TripOptionsProps> {
           labelPlacement="end"
         />
       </div>
-    )
+    );
   }
 }
 

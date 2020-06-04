@@ -1,5 +1,5 @@
 import { SearchDetails, Passenger, Flight, defaultSearchDetails }
-  from '../trip/search/Interfaces';
+  from '../trip/search/SearchInterfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
   switch(action.type) {

@@ -41,7 +41,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
           />
         </MuiPickersUtilsProvider>
       </FormControl>
-    )
+    );
   }
 }
 

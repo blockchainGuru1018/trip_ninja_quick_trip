@@ -1,3 +1,5 @@
+import { SearchPayload } from '../trip/search/SearchInterfaces';
+import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {
   return {
@@ -66,4 +68,8 @@ export function removeFlight(flightIndex: number) {
     type: 'REMOVE_FLIGHT',
     flightIndex
   }
+}
+
+export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) => {
+  API.post('/fare_structure/', searchPayload).then((response: any) => console.log(response))
 }

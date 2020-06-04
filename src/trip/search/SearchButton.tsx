@@ -18,7 +18,6 @@ class SearchButton extends React.Component<SearchButtonProps> {
     return searchValidated
       ? this.submitSearch()
       : ''; // show some sort of error message
-    // Create search payload
     // Send search - show loading screen
     // if a successful response then change the screen url.
   }
@@ -26,11 +25,23 @@ class SearchButton extends React.Component<SearchButtonProps> {
   submitSearch = () => {
     const searchPayload: SearchPayload = {
       currency: this.props.searchDetails.currency,
-      flights: this.props.searchDetails.flights,
+      flights: this.createFlightPayload(),
       travellers: this.createPassengerPayload(),
       alliance: ''
     };
     this.props.searchFlights(searchPayload);
+  }
+
+  createFlightPayload = () => {
+    const flightPayload = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({
+      id: index + 1,
+      departure_date: flight.departureDate,
+      cabin_class: flight.cabinClass,
+      from_city: flight.origin.substring(0, 3),
+      to_city: flight.destination.substring(0, 3),
+      end_type: flight.endType
+    }));
+    return flightPayload;
   }
 
   createPassengerPayload = ()  => {

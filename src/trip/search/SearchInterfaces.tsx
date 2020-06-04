@@ -63,7 +63,7 @@ export const defaultSearchDetails: Object = {
 
 export interface SearchPayload {
   currency: string;
-  flights: Array<Flight>;
+  flights: Array<object>;
   travellers: object;
   alliance: string;
 }

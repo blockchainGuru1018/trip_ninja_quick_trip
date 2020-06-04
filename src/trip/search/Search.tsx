@@ -6,11 +6,13 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { SearchProps } from './Interfaces';
+import { SearchProps, defaultFlight } from './SearchInterfaces';
+import './Search.css';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import './Search.css'
 
 class Search extends React.Component<SearchProps> {
+
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) =>
@@ -20,7 +22,7 @@ class Search extends React.Component<SearchProps> {
           updateFlightValue={this.props.updateFlightValue}
           updateFlightOriginDestination={this.props.updateFlightOriginDestination}
           flights={this.props.searchDetails.flights}
-          removeFlight={this.props.removeFlight}/>
+          removeFlight={this.props.removeFlight} />
     );
 
     return (
@@ -29,8 +31,8 @@ class Search extends React.Component<SearchProps> {
           <h1>Flight Search</h1>
           {flights}
           <div className="row">
-            <Button 
-              color="secondary" 
+            <Button
+              color="secondary"
               onClick={this.onAddFlight}>
               Add Flight
             </Button>
@@ -48,6 +50,7 @@ class Search extends React.Component<SearchProps> {
               <CurrencySelect
                 currency={this.props.searchDetails.currency}
                 setValue={this.props.setValue}
+                defaultCurrency={this.props.defaultCurrency}
               />
             </div>
             <div className="col-md-7 col-sm-5">
@@ -56,33 +59,27 @@ class Search extends React.Component<SearchProps> {
                 setValue = {this.props.setValue}
               />
             </div>
-          </div>
-          <hr/>
-          <div className="row">
-            <div className="col-lg-9 col-md-8">
-              <TripPath
-                flights={this.props.searchDetails.flights}
-              />
-            </div>
-            <div className="col-lg-3 col-md-4">
-              <SearchButton
-                searchDetails={this.props.searchDetails}
-              />
+            <hr/>
+            <div className="row">
+              <div className="col-lg-9 col-md-8">
+                <TripPath
+                  flights={this.props.searchDetails.flights}
+                />
+              </div>
+              <div className="col-lg-3 col-md-4">
+                <SearchButton
+                  searchDetails={this.props.searchDetails}
+                  searchFlights={this.props.searchFlights}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+        </div>
+    );
   }
-
   onAddFlight = () =>
-    this.props.addFlight({
-      'origin': '',
-      'destination': '',
-      'departureDate': '',
-      'cabinClass': '',
-      'endType': ''
-    })
+    this.props.addFlight({...defaultFlight})
 }
 
 export default Search;

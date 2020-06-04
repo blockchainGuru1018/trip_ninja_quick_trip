@@ -7,6 +7,7 @@ import { setValue } from '../../actions/SearchActions';
 
 interface CurrencySelectProps {
   currency: string;
+  defaultCurrency: string;
   setValue: typeof setValue;
 }
 

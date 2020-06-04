@@ -1,12 +1,17 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
-class Home extends React.Component {
+interface HomeProps {
+  auth: AuthDetails;
+}
+
+class Home extends React.Component<HomeProps> {
   state = {
     loggedIn: true
   }
   render() {
-    return this.state.loggedIn
+    return this.props.auth.authenticated
       ? <Redirect to='/search/' />
       : <Redirect to='/login/' />
   }

@@ -1,0 +1,28 @@
+.login-col {
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+.login-form {
+  padding: 125px 75px;
+}
+
+.marketing-panel {
+  padding: 250px 100px;
+}
+
+.login-link {
+  color: #4BAFD7;
+}
+
+.login-button-row {
+  padding-top: 25px;
+}
+
+.logo-img {
+  margin: 25px;
+}
+
+#login-button {
+  float: right;
+}

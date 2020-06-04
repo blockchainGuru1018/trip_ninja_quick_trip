@@ -8,7 +8,7 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Passenger } from './Interfaces';
+import { Passenger } from './SearchInterfaces';
 import { updatePassengers } from '../../actions/SearchActions';
 
 const useStyles = makeStyles({
@@ -103,7 +103,7 @@ const CustomizedMenus = (props: CustomizedMenusProps) => {
       </StyledMenu>
     </div>
   );
-}
+};
 
 export default CustomizedMenus;
 

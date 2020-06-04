@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { updateFlightValue, updateFlightOriginDestination, removeFlight }
   from '../../actions/SearchActions';
-import { Flight } from './Interfaces';
+import { Flight } from './SearchInterfaces';
 
 interface FlightInputProps {
   i: number;
@@ -104,7 +104,7 @@ class FlightInput extends React.Component<FlightInputProps> {
           </div>
         }
       </div>
-    )
+    );
   }
 
   getDestinationByName = (name: string) => {

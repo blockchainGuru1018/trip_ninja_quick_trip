@@ -9,7 +9,7 @@ import DestinationList from '../../assets/data/airports.json';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { updateFlightValue, updateFlightOriginDestination, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';

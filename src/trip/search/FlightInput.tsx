@@ -13,6 +13,7 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { updateFlightValue, updateFlightOriginDestination, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
+import matchSorter from 'match-sorter';
 
 interface FlightInputProps {
   i: number;
@@ -33,12 +34,7 @@ class FlightInput extends React.Component<FlightInputProps> {
 
   render() {
     const flight = this.props.flights[this.props.i];
-    const filterOptions = createFilterOptions({
-      limit: 10,
-      stringify: (option: any) => {
-        return option.name.slice(0, 3);
-      }
-    });
+    const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue, {keys: [(item: any) => item.name]});
 
     return (
       <div className="row flight-input">

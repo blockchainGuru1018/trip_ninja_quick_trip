@@ -41,7 +41,8 @@ class FlightInput extends React.Component<FlightInputProps> {
         <div className="col-sm-3">
           <FormControl fullWidth>
             <Autocomplete
-              debug
+              autoHighlight
+              autoSelect
               filterOptions={filterOptions}
               id={"from-destination" + this.props.i}
               options={this.state.destinations}
@@ -74,7 +75,8 @@ class FlightInput extends React.Component<FlightInputProps> {
         <div className="col-sm-3">
           <FormControl fullWidth>
             <Autocomplete
-              debug
+              autoHighlight
+              autoSelect
               filterOptions={filterOptions}
               id={"to-destination" + this.props.i}
               options={this.state.destinations}

@@ -27,12 +27,6 @@ class LoginForm extends React.Component<LoginFormProps> {
     this.props.login(this.state.email, this.state.password);
   }
 
-  componentDidMount() {
-    return this.props.authenticated
-      ? <Redirect to='/search/' />
-      : '';
-  }
-
   render() {
     return (
       <div>
@@ -61,7 +55,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     required
                     value={this.state.password}
                     onChange={e => this.setState({'password': e.target.value})}/>
-                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}            
+                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}
                   <div className="row login-button-row">
                     <div className="col-sm-6">
                       <a href={getAdminUrl()} className="login-link">Forgot Password?</a>

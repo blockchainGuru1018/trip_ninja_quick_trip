@@ -6,7 +6,7 @@ import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
 import SearchButton from './SearchButton';
-import { SearchProps, defaultFlight } from './SearchInterfaces';
+import { SearchProps, defaultFlight, Flight } from './SearchInterfaces';
 import './Search.css';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -80,8 +80,11 @@ class Search extends React.Component<SearchProps> {
       </div>
     );
   }
-  onAddFlight = () =>
-    this.props.addFlight({...defaultFlight})
+  onAddFlight = () => {
+    const flights: Array<Flight> = this.props.searchDetails.flights;
+    const origin: string = flights[flights.length - 1].destination || '';
+    this.props.addFlight({...defaultFlight, origin: origin});
+  }
 }
 
 export default Search;

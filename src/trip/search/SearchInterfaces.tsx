@@ -7,6 +7,7 @@ export interface SearchDetails {
   currency: string;
   passengers: Array<Passenger>;
   routeFlexible: boolean;
+  loading: boolean;
 }
 
 export interface Flight {
@@ -58,18 +59,21 @@ export const defaultSearchDetails: Object = {
   ],
   currency: 'USD',
   passengers: defaultPassengerList,
-  routeFlexible: false
+  routeFlexible: false,
+  loading: false,
 };
 
 export interface SearchPayload {
   currency: string;
   flights: Array<object>;
   travellers: object;
-  alliance: string;
 }
 
-// export interface FlightPayload {
-//   cabin_class: string;
-//   departure_date: string;
-//   end_type:
-// };
+export interface FlightPayload {
+  id: number;
+  cabin_class: string;
+  departure_date: string;
+  end_type: string;
+  from_city: string;
+  to_city: string;
+};

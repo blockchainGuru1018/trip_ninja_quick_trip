@@ -8,12 +8,12 @@ import { jwtMiddleware } from './Middleware';
 
 export interface State {
   searchDetails: SearchDetails,
-  authDetails: AuthDetails
+  authDetails: AuthDetails,
 }
 
 const defaultState: Object = {
   searchDetails: defaultSearchDetails,
-  authDetails: defaultAuth
+  authDetails: defaultAuth,
 };
 
 const store: Store = createStore(

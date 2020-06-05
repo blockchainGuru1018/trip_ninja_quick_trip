@@ -8,7 +8,7 @@ import { State } from './Store';
 function mapStateToProps(state: State) {
   return {
     authDetails: state.authDetails,
-    searchDetails: state.searchDetails
+    searchDetails: state.searchDetails,
   }
 }
 

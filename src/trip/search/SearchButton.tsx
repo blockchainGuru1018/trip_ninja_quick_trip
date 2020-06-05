@@ -1,5 +1,6 @@
 import React from 'react';
-import { SearchDetails, Flight, SearchPayload } from './SearchInterfaces';
+import { SearchDetails, Flight, SearchPayload, FlightPayload }
+  from './SearchInterfaces';
 import { searchFlights } from '../../actions/SearchActions';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
@@ -27,14 +28,13 @@ class SearchButton extends React.Component<SearchButtonProps> {
     const searchPayload: SearchPayload = {
       currency: this.props.searchDetails.currency,
       flights: this.createFlightPayload(),
-      travellers: this.createPassengerPayload(),
-      alliance: ''
+      travellers: this.createPassengerPayload()
     };
     this.props.searchFlights(searchPayload, this.props.searchDetails.routeFlexible);
   }
 
   createFlightPayload = () => {
-    const flightPayload = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({
+    const flightPayload: Array<FlightPayload> = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({
       id: index + 1,
       departure_date: flight.departureDate,
       cabin_class: flight.cabinClass,

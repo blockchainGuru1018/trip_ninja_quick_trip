@@ -56,6 +56,10 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
         ...state.flights.slice(action.flightIndex + 1)
       ]
       return {...state, flights: flightsAfterDeletion}
+
+    case 'SEARCH_LOADING':
+      return {...state, loading: action.value}
+    
     default:
       return state;
   }

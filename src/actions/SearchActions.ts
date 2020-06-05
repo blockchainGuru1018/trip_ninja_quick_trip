@@ -1,4 +1,4 @@
-import { SearchPayload } from '../trip/search/SearchInterfaces';
+import { SearchPayload, Flight } from '../trip/search/SearchInterfaces';
 import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {
@@ -29,7 +29,7 @@ export function setValue(valueType: string, value: any) {
   }
 }
 
-export function addFlight(flight: Object) {
+export function addFlight(flight: object) {
   return {
     type: 'ADD_FLIGHT',
     flight
@@ -70,9 +70,20 @@ export function removeFlight(flightIndex: number) {
   }
 }
 
+export function searchLoading(value: boolean) {
+  return {
+    type: 'SEARCH_LOADING',
+    value
+  }
+}
+
 export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolean) => (dispatch: any) => {
+  dispatch(searchLoading(true));
   const url: string = rootFlexible
     ? '/multicitysearch/'
     : '/fare_structure/'
-  API.post(url, searchPayload).then((response: any) => console.log(response))
+  API.post(url, searchPayload).then((response: any) => {
+    console.log(response)
+    searchLoading(false);
+  })
 }

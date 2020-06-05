@@ -12,6 +12,7 @@ import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import SearchModal from './common/modals/SearchModal';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -25,7 +26,7 @@ interface IAppProps {
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
-  searchFlights: typeof searchFlights
+  searchFlights: typeof searchFlights;
 }
 
 const theme = createMuiTheme({
@@ -69,6 +70,10 @@ class App extends React.Component<IAppProps> {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
+          <SearchModal
+            loading={this.props.searchDetails.loading}
+            flights={this.props.searchDetails.flights}
+          />
           <IdleTimerContainer
             logout={this.props.logout}
           />

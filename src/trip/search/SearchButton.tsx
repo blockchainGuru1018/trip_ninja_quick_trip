@@ -6,6 +6,7 @@ import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import Button from '@material-ui/core/Button';
 import iataCode from '../../helpers/IataCode';
+import Alert from '@material-ui/lab/Alert';
 
 interface SearchButtonProps {
   searchDetails: SearchDetails;
@@ -13,18 +14,19 @@ interface SearchButtonProps {
 }
 
 class SearchButton extends React.Component<SearchButtonProps> {
+  state = {
+    searchDetailsValid: true
+  }
 
   searchForFlights = () => {
     const searchValidated: boolean = this.validateSearchDetails();
-    console.log(searchValidated);
     return searchValidated
       ? this.submitSearch()
-      : ''; // show some sort of error message
-    // Send search - show loading screen
-    // if a successful response then change the screen url.
+      : this.setState({'searchDetailsValid': false});
   }
 
   submitSearch = () => {
+    this.setState({'searchDetailsValid': true});
     const searchPayload: SearchPayload = {
       currency: this.props.searchDetails.currency,
       flights: this.createFlightPayload(),
@@ -83,6 +85,11 @@ class SearchButton extends React.Component<SearchButtonProps> {
           onClick={this.searchForFlights}>
             Search Flights
         </Button>
+        {!this.state.searchDetailsValid &&
+        <Alert severity="error" className='validationErrorAlert'>
+          Invalid search details - please check dates and flights are correct.
+        </Alert>
+        }
       </div>
     );
   }

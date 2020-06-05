@@ -83,7 +83,6 @@ export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolea
     ? '/multicitysearch/'
     : '/fare_structure/'
   API.post(url, searchPayload).then((response: any) => {
-    console.log(response)
-    searchLoading(false);
+    dispatch(searchLoading(false));
   })
 }

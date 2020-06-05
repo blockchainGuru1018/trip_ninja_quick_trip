@@ -58,7 +58,6 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       return {...state, flights: flightsAfterDeletion}
 
     case 'SEARCH_LOADING':
-      console.log(action.value)
       return {...state, loading: action.value}
 
     default:

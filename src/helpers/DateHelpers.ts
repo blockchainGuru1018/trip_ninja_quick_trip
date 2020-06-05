@@ -9,4 +9,4 @@ export function datesAreOnSameDayOrLater(first: Date, second: Date) {
           ? first.getDate() >= second.getDate()
           : false
       : false
-};
+}

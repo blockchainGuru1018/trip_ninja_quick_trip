@@ -76,4 +76,4 @@ export interface FlightPayload {
   end_type: string;
   from_city: string;
   to_city: string;
-};
+}

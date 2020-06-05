@@ -1,4 +1,4 @@
-import { SearchPayload, Flight } from '../trip/search/SearchInterfaces';
+import { SearchPayload } from '../trip/search/SearchInterfaces';
 import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {

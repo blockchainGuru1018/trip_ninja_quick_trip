@@ -42,7 +42,7 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
       newPassenger.count += action.value;
       if(newPassenger.count < 0) {
         newPassenger.count = 0
-      };
+      }
       const updatedPassengers: Array<Passenger> = [
         ...state.passengers.slice(0, passengerUpdateIndex),
         {...newPassenger},

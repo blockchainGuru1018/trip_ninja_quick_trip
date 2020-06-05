@@ -45,12 +45,12 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-interface CustomizedMenusProps {
+interface PassengerSelectProps {
   passengers: Array<Passenger>
   updatePassengers: typeof updatePassengers
 }
 
-const CustomizedMenus = (props: CustomizedMenusProps) => {
+const PassengerSelect = (props: PassengerSelectProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -105,5 +105,5 @@ const CustomizedMenus = (props: CustomizedMenusProps) => {
   );
 };
 
-export default CustomizedMenus;
+export default PassengerSelect;
 

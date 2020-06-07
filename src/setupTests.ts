@@ -3,3 +3,11 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
+
+import enzyme from 'enzyme';
+import EnzymeAdapter from 'enzyme-adapter-react-16';
+
+enzyme.configure({
+  adapter: new EnzymeAdapter(),
+  disableLifecycleMethods: true
+})

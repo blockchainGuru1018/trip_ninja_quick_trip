@@ -1,8 +1,16 @@
 import React from 'react';
 import './NavBar.css';
 import logo from '../assets/images/trip_ninja_logo.png';
+import { logout } from '../actions/AuthActions';
+import UserMenu from '../common/UserMenu';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
-class NavBar extends React.Component {
+interface NavBarProps {
+  logout: typeof logout
+  authDetails: AuthDetails
+}
+
+class NavBar extends React.Component<NavBarProps> {
   render() {
     return (
       <nav className="navbar navbar-light navbar-expand-lg">
@@ -19,6 +27,10 @@ class NavBar extends React.Component {
             </li>
           </ul>
         </div>
+        <UserMenu
+          logout={this.props.logout}
+          authDetails={this.props.authDetails}
+        />
       </nav>
     )
   }

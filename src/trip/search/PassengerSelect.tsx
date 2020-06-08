@@ -16,7 +16,12 @@ const useStyles = makeStyles({
     height: '56px',
     textTransform: 'none',
     justifyContent: 'left',
-    fontFamily: 'NeuzeitGro-Reg'
+    fontFamily: 'NeuzeitGro-Reg',
+    '&:hover': {
+      borderColor: '#CACDD6',
+      borderBottom: 'solid 3px #0DBE7CEB',
+      backgroundColor: '#fff'
+    }
   },
 });
 
@@ -40,11 +45,6 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-  },
-}))(MenuItem);
-
 interface PassengerSelectProps {
   passengers: Array<Passenger>
   updatePassengers: typeof updatePassengers
@@ -64,7 +64,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
   const classes = useStyles();
 
   const passengerMenu = props.passengers.map((passenger, index) => (
-    <StyledMenuItem key={index}>
+    <MenuItem key={index}>
       <ListItemText primary={passenger.type} />
       <IconButton onClick={() => props.updatePassengers(passenger.type, -1)}>
         <RemoveIcon fontSize="small" />
@@ -73,7 +73,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
       <IconButton onClick={() => props.updatePassengers(passenger.type, 1)}>
         <AddIcon fontSize="small" />
       </IconButton>
-    </StyledMenuItem>
+    </MenuItem>
   ));
   return (
     <div>

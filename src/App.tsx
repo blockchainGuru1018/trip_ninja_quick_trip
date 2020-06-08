@@ -11,8 +11,9 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
+import Theme from './Theme';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -29,33 +30,7 @@ interface IAppProps {
   searchFlights: typeof searchFlights;
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#0DBE7CEB',
-      contrastText: '#ffffff'
-    },
-    secondary: {
-      main: '#4BAFD7',
-      contrastText: '#ffffff'
-    }
-  },
-  typography: {
-    fontFamily: [
-      'NeuzeitGro-Reg',
-      'NeuzeitGro-Bol'
-    ].join(','),
-  },
-  overrides: {
-    MuiButton: {
-      root: {
-        fontFamily: 'NeuzeitGro-Bol',
-        textTransform: 'none',
-        fontSize: '16px'
-      },
-    },
-  },
-});
+const theme = Theme;
 
 class App extends React.Component<IAppProps> {
 

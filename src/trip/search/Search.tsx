@@ -5,7 +5,7 @@ import PassengerSelect from './PassengerSelect';
 import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
-import SearchButton from './SearchButton';
+import SearchRequest from './SearchRequest';
 import { SearchProps, defaultFlight, Flight } from './SearchInterfaces';
 import './Search.css';
 import { Redirect } from 'react-router-dom';
@@ -71,7 +71,7 @@ class Search extends React.Component<SearchProps> {
                 />
               </div>
               <div className="col-lg-3 col-md-4">
-                <SearchButton
+                <SearchRequest
                   searchDetails={this.props.searchDetails}
                   searchFlights={this.props.searchFlights}
                 />

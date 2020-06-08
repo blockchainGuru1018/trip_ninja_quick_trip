@@ -8,12 +8,12 @@ import Button from '@material-ui/core/Button';
 import iataCode from '../../helpers/IataCode';
 import Alert from '@material-ui/lab/Alert';
 
-interface SearchButtonProps {
+interface SearchRequestProps {
   searchDetails: SearchDetails;
   searchFlights: typeof searchFlights
 }
 
-class SearchButton extends React.Component<SearchButtonProps> {
+class SearchRequest extends React.Component<SearchRequestProps> {
   state = {
     searchDetailsValid: true
   }
@@ -95,4 +95,4 @@ class SearchButton extends React.Component<SearchButtonProps> {
   }
 }
 
-export default SearchButton;
+export default SearchRequest;

@@ -13,6 +13,7 @@ interface DepartureDatePickerProps {
   i: number;
   departureDate: string;
   updateFlightValue: typeof updateFlightValue;
+  dateFormat: string
 }
 
 class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
@@ -36,7 +37,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             disablePast
             variant="inline"
             inputVariant="outlined"
-            format="MM/dd/yyyy"
+            format={this.props.dateFormat}
             margin="none"
             id={"departure-date"+this.props.i}
             value={new Date(this.props.departureDate)}

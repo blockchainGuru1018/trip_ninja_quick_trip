@@ -37,6 +37,7 @@ export interface SearchProps {
   removeFlight: typeof removeFlight;
   authenticated: boolean;
   searchFlights: typeof searchFlights;
+  dateFormat: string;
 }
 
 export interface Passenger {

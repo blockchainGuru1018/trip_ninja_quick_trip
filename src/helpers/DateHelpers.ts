@@ -10,3 +10,8 @@ export function datesAreOnSameDayOrLater(first: Date, second: Date) {
           : false
       : false
 }
+
+export const dateFormats = {
+  UK: 'dd/MM/yyyy',
+  USA: 'MMM dd yyyy'
+}

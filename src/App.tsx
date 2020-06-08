@@ -100,6 +100,7 @@ class App extends React.Component<IAppProps> {
                 <Route exact path="/search/" component={() =>
                   <Search
                     defaultCurrency={this.props.authDetails.currency}
+                    dateFormat={this.props.authDetails.dateType}
                     searchDetails={this.props.searchDetails}
                     setValue={this.props.setValue}
                     addFlight={this.props.addFlight}

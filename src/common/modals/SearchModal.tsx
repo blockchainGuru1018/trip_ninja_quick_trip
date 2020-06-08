@@ -42,7 +42,7 @@ export default function SearchModal(props: SearchModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  useEffect(() => setOpen(props.loading));
+  useEffect(() => setOpen(props.loading), [props.loading]);
 
   return (
     <div>

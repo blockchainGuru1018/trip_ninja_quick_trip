@@ -22,7 +22,9 @@ class Search extends React.Component<SearchProps> {
           updateFlightValue={this.props.updateFlightValue}
           updateFlightOriginDestination={this.props.updateFlightOriginDestination}
           flights={this.props.searchDetails.flights}
-          removeFlight={this.props.removeFlight} />
+          removeFlight={this.props.removeFlight}
+          dateFormat={this.props.dateFormat}
+        />
     );
 
     return (

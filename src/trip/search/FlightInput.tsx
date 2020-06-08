@@ -21,6 +21,7 @@ interface FlightInputProps {
   updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   flights: Array<Flight>;
+  dateFormat: string;
 }
 
 class FlightInput extends React.Component<FlightInputProps> {
@@ -110,7 +111,9 @@ class FlightInput extends React.Component<FlightInputProps> {
           <DepartureDatePicker
             i={this.props.i}
             departureDate={flight.departureDate}
-            updateFlightValue={this.props.updateFlightValue}/>
+            updateFlightValue={this.props.updateFlightValue}
+            dateFormat={this.props.dateFormat}
+          />
         </div>
         <div className="col-sm-2">
           <CabinSelect

@@ -22,14 +22,15 @@ const Theme = createMuiTheme({
       root: {
         fontFamily: 'NeuzeitGro-Bol',
         textTransform: 'none',
-        fontSize: '16px'
+        fontSize: '16px',
+        borderRadius: '2px'
       },
     },
     MuiOutlinedInput: {
       root: {
         borderRadius: '2px',
-        "&:hover $notchedOutline": {
-          borderColor: "#CACDD6",
+        '&:hover $notchedOutline': {
+          borderColor: '#CACDD6',
           borderBottom: 'solid 3px #0DBE7CEB'
         }
       }

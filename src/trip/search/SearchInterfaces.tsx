@@ -18,7 +18,7 @@ export interface Flight {
   endType: string;
 }
 
-export const defaultFlight: Object = {
+export const defaultFlight: Flight = {
   'origin': '',
   'destination': '',
   'departureDate': new Date().toISOString(),
@@ -54,7 +54,7 @@ export const defaultPassengerList: Array<Passenger> = [
   {'type': "Youth", 'count': 0, 'code': "YTH"}
 ];
 
-export const defaultSearchDetails: Object = {
+export const defaultSearchDetails: SearchDetails = {
   flights: [
     {...defaultFlight}
   ],

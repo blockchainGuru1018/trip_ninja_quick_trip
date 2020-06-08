@@ -34,7 +34,7 @@ class FlightInput extends React.Component<FlightInputProps> {
 
   render() {
     const flight = this.props.flights[this.props.i];
-    const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue, {keys: [(item: any) => item.name]});
+    const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue, {keys: [(item: any) => item.name]}).slice(0,10);
 
     return (
       <div className="row flight-input">
@@ -140,7 +140,7 @@ class FlightInput extends React.Component<FlightInputProps> {
   updateFlightType = (values: any, flightType: string) => {
     return values
       ? this.props.updateFlightOriginDestination(this.props.i, flightType, values.name)
-      : '';
+      : this.props.updateFlightOriginDestination(this.props.i, flightType, '');
   }
 }
 

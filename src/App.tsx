@@ -5,6 +5,9 @@ import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
 import Login from './auth/Login';
+import FlexTripResult from './trip/results/FlexTripResult';
+import ItineraryResult from './trip/results/ItineraryResult';
+import SegmentSelection from './trip/results/SegmentSelection';
 import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   updateFlightOriginDestination, searchFlights } from './actions/SearchActions';
@@ -86,6 +89,15 @@ class App extends React.Component<IAppProps> {
                     authenticated={this.props.authDetails.authenticated}
                     searchFlights={this.props.searchFlights}
                   />
+                } />
+                <Route exact path="/results/flex-trip/" component={() =>
+                  <FlexTripResult />
+                } />
+                <Route exact path="/results/itinerary/" component={() =>
+                  <ItineraryResult />
+                } />
+                <Route exact path="/results/segment/:index" component={() =>
+                  <SegmentSelection />
                 } />
               </div>
             </Router>

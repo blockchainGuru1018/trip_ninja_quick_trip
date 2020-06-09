@@ -51,9 +51,9 @@ interface PassengerSelectProps {
 }
 
 const PassengerSelect = (props: PassengerSelectProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -66,11 +66,15 @@ const PassengerSelect = (props: PassengerSelectProps) => {
   const passengerMenu = props.passengers.map((passenger, index) => (
     <MenuItem key={index}>
       <ListItemText primary={passenger.type} />
-      <IconButton onClick={() => props.updatePassengers(passenger.type, -1)}>
+      <IconButton onClick={() =>
+        props.updatePassengers(passenger.type, -1)
+      }>
         <RemoveIcon fontSize="small" />
       </IconButton>
       <span className="passenger-count">{passenger.count}</span>
-      <IconButton onClick={() => props.updatePassengers(passenger.type, 1)}>
+      <IconButton onClick={() =>
+        props.updatePassengers(passenger.type, 1)
+      }>
         <AddIcon fontSize="small" />
       </IconButton>
     </MenuItem>

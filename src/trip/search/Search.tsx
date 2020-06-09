@@ -83,10 +83,13 @@ class Search extends React.Component<SearchProps> {
       </div>
     );
   }
+  
   onAddFlight = () => {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
     this.props.addFlight({...defaultFlight, origin: origin});
+    // const flightInput: any = this.refs.flightInput0;
+    // flightInput.refs.origin0.focus();
   }
 }
 

@@ -39,9 +39,9 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             inputVariant="outlined"
             format={this.props.dateFormat}
             margin="none"
-            id={"departure-date"+this.props.i}
+            id={"departure-date" + this.props.i}
             value={new Date(this.props.departureDate)}
-            onChange={e => this.setDateChange(e)}
+            onChange={(e: any) => this.setDateChange(e)}
             InputAdornmentProps={{ position: 'start'}}
             KeyboardButtonProps={{
               'aria-label': 'Without label',

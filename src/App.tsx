@@ -75,7 +75,7 @@ class App extends React.Component<IAppProps> {
                     login={this.props.login}
                   />
                 } />
-                <Route exact path="/search/" component={() =>
+                <Route exact path="/search/" render={() =>
                   <Search
                     defaultCurrency={this.props.authDetails.currency}
                     dateFormat={this.props.authDetails.dateType}

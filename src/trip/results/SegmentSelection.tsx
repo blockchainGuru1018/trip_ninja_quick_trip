@@ -5,7 +5,8 @@ class SegmentSelection extends React.Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row" id="segment-selection">
+        <h1>Select Segments</h1>
       </div>
     );
   }

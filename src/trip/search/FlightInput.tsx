@@ -29,13 +29,14 @@ class FlightInput extends React.Component<FlightInputProps> {
     destinations: DestinationList,
     origin: '',
     destination: '',
-    originOpen: false,
-    destinationOpen: false
   }
 
   render() {
     const flight = this.props.flights[this.props.i];
-    const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue, {keys: [(item: any) => item.name]}).slice(0,10);
+    const filterOptions = (options: any, { inputValue }: any) =>
+      matchSorter(options, inputValue, {keys: [
+        (item: any) => item.name
+      ]}).slice(0,10);
 
     return (
       <div className="row flight-input">
@@ -47,7 +48,6 @@ class FlightInput extends React.Component<FlightInputProps> {
               filterOptions={filterOptions}
               id={"from-destination" + this.props.i}
               options={this.state.destinations}
-              open={this.state.originOpen}
               getOptionLabel={(option) => option.name}
               onChange={(_, values) =>
                 this.updateFlightType(values, 'origin')
@@ -57,9 +57,6 @@ class FlightInput extends React.Component<FlightInputProps> {
                 <TextField {...params}
                   variant="outlined"
                   placeholder="From"
-                  onChange={(event) =>
-                    this.setState({'origin': event.target.value, 'originOpen': event.target.value !== ''})
-                  }
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (
@@ -85,15 +82,11 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'destination')
               }
-              open={this.state.destinationOpen}
               defaultValue={this.getDestinationByName(flight.destination)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
                   placeholder="To"
-                  onChange={(event) =>
-                    this.setState({'destinationIndex': event.target.value, 'destinationOpen': event.target.value !== ''})
-                  }
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (

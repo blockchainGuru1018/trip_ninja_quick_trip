@@ -26,7 +26,7 @@ class Search extends React.Component<SearchProps> {
           dateFormat={this.props.dateFormat}
         />
     );
-
+    
     return (
       <div className="row">
         {this.props.authenticated
@@ -87,6 +87,8 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
     this.props.addFlight({...defaultFlight, origin: origin});
+    // const flightInput: any = this.refs.flightInput0;
+    // flightInput.refs.origin0.focus();
   }
 }
 

@@ -26,9 +26,7 @@ interface FlightInputProps {
 
 class FlightInput extends React.Component<FlightInputProps> {
   state = {
-    destinations: DestinationList,
-    origin: '',
-    destination: '',
+    destinations: DestinationList
   }
 
   render() {
@@ -52,7 +50,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'origin')
               }
-              defaultValue={this.getDestinationByName(flight.origin)}
+              value={this.getDestinationByName(flight.origin)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
@@ -82,7 +80,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'destination')
               }
-              defaultValue={this.getDestinationByName(flight.destination)}
+              value={this.getDestinationByName(flight.destination)}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"

@@ -13,5 +13,5 @@ export function datesAreOnSameDayOrLater(first: Date, second: Date) {
 
 export const dateFormats = {
   UK: 'dd/MM/yyyy',
-  USA: 'MMM dd yyyy'
+  USA: 'MM/dd/yyyy'
 }

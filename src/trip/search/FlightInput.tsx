@@ -50,7 +50,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'origin')
               }
-              value={this.getDestinationByName(flight.origin)}
+              value={this.getDestinationByName(flight.origin) || null}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
@@ -80,7 +80,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               onChange={(_, values) =>
                 this.updateFlightType(values, 'destination')
               }
-              value={this.getDestinationByName(flight.destination)}
+              value={this.getDestinationByName(flight.destination) || null}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"

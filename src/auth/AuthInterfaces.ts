@@ -6,7 +6,7 @@ export interface AuthDetails {
   authenticated: boolean;
   currency: string;
   dateType: string;
-  studentAndYouth: string;
+  studentAndYouth: boolean;
   invalidAuth: boolean;
 }
 

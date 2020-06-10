@@ -1,4 +1,5 @@
 import { AuthDetails, defaultAuth } from '../auth/AuthInterfaces';
+import { dateFormats } from '../helpers/DateHelpers';
 
 function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
 
@@ -28,7 +29,7 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         userEmail: action.parameters.user_email,
         userFirstName: action.parameters.first_name,
         userLastName: action.parameters.last_name,
-        dateType: action.parameters.date_type,
+        dateType: dateFormats[action.parameters.date_type] || 'dd/MM/yyyy',
         studentAndYouth: action.parameters.student_and_youth
       }
 

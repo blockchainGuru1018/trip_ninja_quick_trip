@@ -8,14 +8,20 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Passenger } from './Interfaces';
+import { Passenger } from './SearchInterfaces';
 import { updatePassengers } from '../../actions/SearchActions';
 
 const useStyles = makeStyles({
   root: {
     height: '56px',
     textTransform: 'none',
-    justifyContent: 'left'
+    justifyContent: 'left',
+    fontFamily: 'NeuzeitGro-Reg',
+    '&:hover': {
+      borderColor: '#CACDD6',
+      borderBottom: 'solid 3px #0DBE7CEB',
+      backgroundColor: '#fff'
+    }
   },
 });
 
@@ -39,20 +45,15 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-  },
-}))(MenuItem);
-
 interface PassengerSelectProps {
   passengers: Array<Passenger>
   updatePassengers: typeof updatePassengers
 }
 
 const PassengerSelect = (props: PassengerSelectProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -63,16 +64,20 @@ const PassengerSelect = (props: PassengerSelectProps) => {
   const classes = useStyles();
 
   const passengerMenu = props.passengers.map((passenger, index) => (
-    <StyledMenuItem key={index}>
+    <MenuItem key={index}>
       <ListItemText primary={passenger.type} />
-      <IconButton onClick={() => props.updatePassengers(passenger.type, -1)}>
+      <IconButton onClick={() =>
+        props.updatePassengers(passenger.type, -1)
+      }>
         <RemoveIcon fontSize="small" />
       </IconButton>
       <span className="passenger-count">{passenger.count}</span>
-      <IconButton onClick={() => props.updatePassengers(passenger.type, 1)}>
+      <IconButton onClick={() =>
+        props.updatePassengers(passenger.type, 1)
+      }>
         <AddIcon fontSize="small" />
       </IconButton>
-    </StyledMenuItem>
+    </MenuItem>
   ));
   return (
     <div>
@@ -102,7 +107,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
       </StyledMenu>
     </div>
   );
-}
+};
 
 export default PassengerSelect;
 

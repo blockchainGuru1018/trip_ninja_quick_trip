@@ -1,3 +1,5 @@
+import { SearchPayload } from '../trip/search/SearchInterfaces';
+import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {
   return {
@@ -27,11 +29,12 @@ export function setValue(valueType: string, value: any) {
   }
 }
 
-export function addFlight(flight: Object) {
-  return {
+export const addFlight = (flight: object) => async (dispatch: any) => {
+  await dispatch({
     type: 'ADD_FLIGHT',
     flight
-  }
+  })
+  return Promise.resolve()
 }
 
 export function updateFlightValue(index: number, key: string, value: string) {
@@ -42,16 +45,6 @@ export function updateFlightValue(index: number, key: string, value: string) {
     value
   }
 }
-
-export function updateFlightOriginDestination(index: number, key: string,
-  value: string) {
-    return {
-      type: 'UPDATE_FLIGHT_ORIGIN_DESTINATION',
-      index,
-      key,
-      value
-    }
-  }
 
 export function updatePassengers(passengerType: string, value: number) {
   return {
@@ -66,4 +59,21 @@ export function removeFlight(flightIndex: number) {
     type: 'REMOVE_FLIGHT',
     flightIndex
   }
+}
+
+export function searchLoading(value: boolean) {
+  return {
+    type: 'SEARCH_LOADING',
+    value
+  }
+}
+
+export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolean) => (dispatch: any) => {
+  dispatch(searchLoading(true));
+  const url: string = rootFlexible
+    ? '/multicitysearch/'
+    : '/fare_structure/'
+  API.post(url, searchPayload).then((response: any) => {
+    dispatch(searchLoading(false));
+  })
 }

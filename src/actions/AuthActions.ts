@@ -6,16 +6,16 @@ export const login = (email: string, password: string) => {
     API.post('/token/', {'email': email, 'password': password})
       .then(
         (response: any) => {
-          localStorage.setItem('token', response.data.access)
-          localStorage.setItem('refreshToken', response.data.refresh)
-          dispatch(fetchUserParameters())
+          localStorage.setItem('token', response.data.access);
+          localStorage.setItem('refreshToken', response.data.refresh);
+          dispatch(fetchUserParameters());
         }
       )
       .catch(
         (error: any) => {
-          dispatch(invalidAuthentication(true))
+          dispatch(invalidAuthentication(true));
         }
-      )
+      );
   }
 }
 

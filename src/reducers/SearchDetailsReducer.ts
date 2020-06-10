@@ -1,5 +1,5 @@
 import { SearchDetails, Passenger, Flight, defaultSearchDetails }
-  from '../trip/search/Interfaces';
+  from '../trip/search/SearchInterfaces';
 
 function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
   switch(action.type) {
@@ -28,12 +28,6 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
     case 'UPDATE_FLIGHT_VALUE':
       return updateFlightsWithValue(state, action)
 
-    case 'UPDATE_FLIGHT_ORIGIN_DESTINATION':
-      const stateUpdate1 = updateFlightsWithValue(state, action);
-      action.key = 'endType';
-      action.value = action.value.includes('All Airports') ? 'C' : 'A';
-      return updateFlightsWithValue(stateUpdate1, action);
-
     case 'UPDATE_PASSENGERS':
       const passengerUpdateIndex: number = state.passengers.findIndex((passenger: Passenger) =>
         passenger.type === action.passengerType
@@ -56,6 +50,10 @@ function searchDetailsReducer(state: SearchDetails = {} as any, action: any) {
         ...state.flights.slice(action.flightIndex + 1)
       ]
       return {...state, flights: flightsAfterDeletion}
+
+    case 'SEARCH_LOADING':
+      return {...state, loading: action.value}
+
     default:
       return state;
   }

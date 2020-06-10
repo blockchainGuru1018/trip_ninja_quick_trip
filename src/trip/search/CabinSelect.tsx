@@ -32,7 +32,7 @@ class CabinSelect extends React.Component<CabinSelectProps> {
           {cabins}
         </Select>
       </FormControl>
-    )
+    );
   }
   getCabinClassByName = () => {
     const cabinListIndex: number = CabinList.findIndex(
@@ -40,7 +40,7 @@ class CabinSelect extends React.Component<CabinSelectProps> {
     );
     return cabinListIndex >= 0
       ? CabinList[cabinListIndex].code
-      : CabinList[0].code
+      : CabinList[0].code;
   }
 }
 

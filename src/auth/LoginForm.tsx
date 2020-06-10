@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import { login } from '../actions/AuthActions';
-import  { Redirect } from 'react-router-dom'
+import  { Redirect } from 'react-router-dom';
+import { getAdminUrl } from '../helpers/AdminUrlHelper';
 import Alert from '@material-ui/lab/Alert';
 
 interface LoginFormProps {
@@ -22,14 +23,9 @@ class LoginForm extends React.Component<LoginFormProps> {
     'password': ''
   }
 
-  loginUser = () => {
-    this.props.login(this.state.email, this.state.password)
-  }
-
-  componentDidMount() {
-    return this.props.authenticated
-      ? <Redirect to='/search/' />
-      : ''
+  loginUser = (event: any) => {
+    event.preventDefault();
+    this.props.login(this.state.email, this.state.password);
   }
 
   render() {
@@ -60,10 +56,10 @@ class LoginForm extends React.Component<LoginFormProps> {
                     required
                     value={this.state.password}
                     onChange={e => this.setState({'password': e.target.value})}/>
-                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}            
+                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}
                   <div className="row login-button-row">
                     <div className="col-sm-6">
-                      <a href="/" className="login-link">Forgot Password?</a>
+                      <a href={getAdminUrl()} className="login-link">Forgot Password?</a>
                     </div>
                     <div className="col-sm-6">
                       <Button
@@ -71,6 +67,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                         color="primary"
                         id="login-button"
                         size="large"
+                        type="submit"
                         onClick={this.loginUser}>
                         Log in
                       </Button>
@@ -87,7 +84,7 @@ class LoginForm extends React.Component<LoginFormProps> {
           </div>
         }
       </div>
-    )
+    );
   }
 }
 

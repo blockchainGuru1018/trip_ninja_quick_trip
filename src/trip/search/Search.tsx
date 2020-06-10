@@ -5,66 +5,71 @@ import PassengerSelect from './PassengerSelect';
 import CurrencySelect from './CurrencySelect';
 import TripPath from './TripPath';
 import TripOptions from './TripOptions';
-import SearchButton from './SearchButton';
-import { SearchProps } from './Interfaces';
-import './Search.css'
+import SearchRequest from './SearchRequest';
+import { SearchProps, defaultFlight, Flight } from './SearchInterfaces';
+import './Search.css';
 import { Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class Search extends React.Component<SearchProps> {
+
+  componentDidMount() {
+    this.setInputFocus();
+  }
+
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
-      (_, index: number) =>
-        <FlightInput
+      (_, index: number) => {
+        return <FlightInput
           key={index}
           i={index}
+          ref={'flightInput' + index}
           updateFlightValue={this.props.updateFlightValue}
-          updateFlightOriginDestination={this.props.updateFlightOriginDestination}
           flights={this.props.searchDetails.flights}
-          removeFlight={this.props.removeFlight} />
+          removeFlight={this.props.removeFlight}
+          dateFormat={this.props.dateFormat}
+        />;
+      }
     );
 
     return (
-
       <div className="row">
         {this.props.authenticated
           ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
-            <div className="row">
-              <div className="col-lg">
-                <h1>Flight Search</h1>
-              </div>
-            </div>
+            <h1>Flight Search</h1>
             {flights}
             <div className="row">
-              <button className="btn btn-add-flights" onClick={this.onAddFlight}>Add Flight</button>
+              <Button
+                color="secondary"
+                onClick={this.onAddFlight}>
+                Add Flight
+              </Button>
             </div>
             <hr/>
+            <h4>Additional Details</h4>
             <div className="row">
-              <div className="col-lg">
-                <h4>Additional Details</h4>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-3">
+              <div className="col-md-3 col-sm-4">
                 <PassengerSelect
                   passengers={this.props.searchDetails.passengers}
                   updatePassengers={this.props.updatePassengers}
                 />
               </div>
-              <div className="col-sm-2">
+              <div className="col-md-2 col-sm-3">
                 <CurrencySelect
                   currency={this.props.searchDetails.currency}
-                  defaultCurrency={this.props.defaultCurrency}
                   setValue={this.props.setValue}
+                  defaultCurrency={this.props.defaultCurrency}
                 />
               </div>
-              <div className="col-sm-7">
+              <div className="col-md-7 col-sm-5">
                 <TripOptions
-                  routeFlexible={this.props.searchDetails.route_flexible}
-                  setValue = {this.props.setValue}
+                  routeFlexible={this.props.searchDetails.routeFlexible}
+                  setValue={this.props.setValue}
+                  flights={this.props.searchDetails.flights}
                 />
               </div>
+              <hr/>
             </div>
-            <hr/>
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <TripPath
@@ -72,25 +77,33 @@ class Search extends React.Component<SearchProps> {
                 />
               </div>
               <div className="col-lg-3 col-md-4">
-                <SearchButton
+                <SearchRequest
                   searchDetails={this.props.searchDetails}
+                  searchFlights={this.props.searchFlights}
                 />
               </div>
             </div>
           </div>
           : <Redirect to='/login/' />}
       </div>
-    )
+    );
   }
 
-  onAddFlight = () =>
-    this.props.addFlight({
-      'origin': '',
-      'destination': '',
-      'departureDate': '',
-      'cabinClass': '',
-      'endType': ''
-    })
+  onAddFlight = async () => {
+    const flights: Array<Flight> = this.props.searchDetails.flights;
+    const origin: string = flights[flights.length - 1].destination || '';
+    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin});
+    addFlight.then(() => this.setInputFocus());
+  }
+
+  setInputFocus = () => {
+    if(this.refs) {
+      let ref: any = this.refs['flightInput' + (this.props.searchDetails.flights.length - 1)];
+      return ref
+        ? ref.refs.flightInputRef.firstElementChild.firstElementChild.click()
+        : '';
+    }
+  }
 }
 
 export default Search;

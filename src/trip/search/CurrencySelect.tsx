@@ -29,7 +29,7 @@ class CurrencySelect extends React.Component<CurrencySelectProps> {
           {currencies}
         </Select>
       </FormControl>
-    )
+    );
   }
 }
 

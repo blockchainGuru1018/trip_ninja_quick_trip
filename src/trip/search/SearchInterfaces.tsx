@@ -1,12 +1,13 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
-  updateFlightOriginDestination, removeFlight }
+  removeFlight, searchFlights }
   from '../../actions/SearchActions';
 
 export interface SearchDetails {
   flights: Array<Flight>;
   currency: string;
   passengers: Array<Passenger>;
-  route_flexible: boolean;
+  routeFlexible: boolean;
+  loading: boolean;
 }
 
 export interface Flight {
@@ -14,16 +15,18 @@ export interface Flight {
   destination: string;
   departureDate: string;
   cabinClass: string;
+  startType: string;
   endType: string;
 }
 
-export const defaultFlight: Object = {
+export const defaultFlight: Flight = {
   'origin': '',
   'destination': '',
   'departureDate': new Date().toISOString(),
-  'cabinClass': '',
+  'cabinClass': 'E',
+  'startType': '',
   'endType': ''
-}
+};
 
 export interface SearchProps {
   searchDetails: SearchDetails,
@@ -32,9 +35,10 @@ export interface SearchProps {
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
   updatePassengers: typeof updatePassengers;
-  updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   authenticated: boolean;
+  searchFlights: typeof searchFlights;
+  dateFormat: string;
 }
 
 export interface Passenger {
@@ -49,13 +53,30 @@ export const defaultPassengerList: Array<Passenger> = [
   {'type': "Infant", 'count': 0, 'code': "INF"},
   {'type': "Student", 'count': 0, 'code': "STU"},
   {'type': "Youth", 'count': 0, 'code': "YTH"}
-]
+];
 
-export const defaultSearchDetails: Object = {
+export const defaultSearchDetails: SearchDetails = {
   flights: [
-    defaultFlight
+    {...defaultFlight}
   ],
   currency: 'USD',
   passengers: defaultPassengerList,
-  route_flexible: false
+  routeFlexible: true,
+  loading: false,
+};
+
+export interface SearchPayload {
+  currency: string;
+  flights: Array<object>;
+  travellers: object;
+}
+
+export interface FlightPayload {
+  id: number;
+  cabin_class: string;
+  departure_date: string;
+  end_type: string;
+  start_type: string;
+  from_city: string;
+  to_city: string;
 }

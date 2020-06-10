@@ -2,6 +2,7 @@ import 'date-fns';
 import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
+import TodayIcon from '@material-ui/icons/Today';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -12,11 +13,22 @@ interface DepartureDatePickerProps {
   i: number;
   departureDate: string;
   updateFlightValue: typeof updateFlightValue;
+  dateFormat: string
 }
 
 class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
-  render() {
 
+  setDateChange = (dateEvent: any) => {
+    return dateEvent
+      ? isNaN(dateEvent.valueOf())
+        ? ''
+        : this.props.updateFlightValue(
+          this.props.i, 'departureDate', dateEvent?.toISOString()!
+        )
+      : '';
+  };
+
+  render() {
     return(
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -25,23 +37,20 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             disablePast
             variant="inline"
             inputVariant="outlined"
-            format="MM/dd/yyyy"
+            format={this.props.dateFormat}
             margin="none"
-            id="departure-date"
+            id={"departure-date" + this.props.i}
             value={new Date(this.props.departureDate)}
-            onChange={e =>
-              this.props.updateFlightValue(
-                this.props.i, 'departureDate', e?.toISOString()!
-              )
-            }
+            onChange={(e: any) => this.setDateChange(e)}
             InputAdornmentProps={{ position: 'start'}}
             KeyboardButtonProps={{
               'aria-label': 'Without label',
             }}
+            keyboardIcon={<TodayIcon color="primary"/>}
           />
         </MuiPickersUtilsProvider>
       </FormControl>
-    )
+    );
   }
 }
 

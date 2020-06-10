@@ -15,7 +15,7 @@ export const defaultAuth = {
   userFirstName: '',
   userLastName: '',
   authenticated: false,
-  dateType: 'USA',
+  dateType: 'MMM dd yyyy',
   studentAndYouth: false,
   invalidAuth: false
 };

@@ -40,7 +40,7 @@ class ItineraryResult extends React.Component {
           </div>
           <hr/>
           <h1>Your Itinerary</h1>
-          <h4><strong>Total:</strong>{CurrencySymbol("CAD")} $10,000 | 1 ADT</h4>
+          <h4><strong>Total:</strong> {CurrencySymbol("EUR")}10,000 | 1 ADT</h4>
           <div className="row">
             <div className="col-md-8">
 

@@ -23,7 +23,8 @@ class LoginForm extends React.Component<LoginFormProps> {
     'password': ''
   }
 
-  loginUser = () => {
+  loginUser = (event: any) => {
+    event.preventDefault();
     this.props.login(this.state.email, this.state.password);
   }
 
@@ -66,6 +67,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                         color="primary"
                         id="login-button"
                         size="large"
+                        type="submit"
                         onClick={this.loginUser}>
                         Log in
                       </Button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import FlightIcon from '@material-ui/icons/Flight';
 import { Flight } from './SearchInterfaces';
-import iataCode from '../../helpers/IataCode';
+import iataCodeHelper from '../../helpers/IataCodeHelper';
 
 interface TripPathProps {
   flights: Array<Flight>;
@@ -13,9 +13,9 @@ class TripPath extends React.Component<TripPathProps> {
     let flightList = this.props.flights.filter(this.checkForOriginDestinationPair);
     const path = flightList.map((item, index) => (
       <span key={index}>
-        <span className="path-iata">{iataCode(item.origin)}</span>
+        <span className="path-iata">{iataCodeHelper(item.origin)}</span>
         <FlightIcon className="rotate-90" color="primary"/>
-        <span className="path-iata">{iataCode(item.destination)}</span>
+        <span className="path-iata">{iataCodeHelper(item.destination)}</span>
         {index < this.props.flights.length-1 &&
           <span className="divider-light">|</span>
         }

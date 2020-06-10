@@ -2,25 +2,43 @@ import React from 'react';
 import './ItineraryResult.css';
 import ItineraryPath from './ItineraryPath';
 import SegmentNav from './SegmentNav';
+import PricingRequest from './PricingRequest';
+import Button from '@material-ui/core/Button';
 
 class ItineraryResult extends React.Component {
 
   render() {
     return (
       <div id="itinerary-result">
-        <div className="row">
-          <div className="col-md-10">
-            <ItineraryPath />
+        <div className="itinerary-header">
+          <div className="row">
+            <div className="col-xl-10 col-lg-9">
+              <ItineraryPath />
+            </div>
+            <div className="col-xl-2 col-lg-3">
+              <div className="float-right">
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  href="/search">
+                  Change Search
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="col-md-2">
-            <span>Change Search</span>
+          <hr/>
+          <h1>Your Itinerary</h1>
+          <h4><strong>Total:</strong> $10,000 | 1 ADT</h4>
+          <div className="row">
+            <div className="col-md-8">
+
+            </div>
+            <div className="col-md-4">
+              <PricingRequest />
+            </div>
           </div>
         </div>
-        <hr/>
-        <h1>Your Itinerary</h1>
-        <div className="row">
-          <h4>Total Price: $10,000 | 1 ADT</h4>
-        </div>
+        
         <div className="row">
           <div className="col-sm-3">
             <SegmentNav />

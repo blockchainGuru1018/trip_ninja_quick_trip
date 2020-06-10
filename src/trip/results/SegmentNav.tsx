@@ -4,7 +4,7 @@ class SegmentNav extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="segment-nav">
       </div>
     );
   }

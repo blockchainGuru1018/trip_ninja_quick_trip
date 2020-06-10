@@ -1,5 +1,17 @@
 #itinerary-result {
   background-color: #ffffff;
   height: 100vh;
+}
+
+#segment-nav {
+  background-color: #45565E0D;
+}
+
+.itinerary-header {
+  border-bottom: solid 1px #C1BDBD;
   padding: 25px 100px;
+}
+
+.itinerary-path {
+  padding-top: 10px;
 }

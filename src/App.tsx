@@ -88,13 +88,13 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                   />
                 } />
-                <Route exact path="/results/flex-trip/" component={() =>
+                <Route exact path="/results/flex-trip/" render={() =>
                   <FlexTripResult />
                 } />
-                <Route exact path="/results/itinerary/" component={() =>
+                <Route exact path="/results/itinerary/" render={() =>
                   <ItineraryResult />
                 } />
-                <Route exact path="/results/segment/:index" component={() =>
+                <Route exact path="/results/segment/:index" render={() =>
                   <SegmentSelection />
                 } />
               </div>

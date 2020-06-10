@@ -42,7 +42,8 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       cabin_class: flight.cabinClass,
       from_city: iataCode(flight.origin),
       to_city: iataCode(flight.destination),
-      end_type: flight.endType
+      start_type: flight.origin.includes('All Airports') ? 'C' : 'A',
+      end_type: flight.destination.includes('All Airports') ? 'C' : 'A'
     }));
     return flightPayload;
   }

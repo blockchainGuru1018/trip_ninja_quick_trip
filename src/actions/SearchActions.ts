@@ -46,16 +46,6 @@ export function updateFlightValue(index: number, key: string, value: string) {
   }
 }
 
-export function updateFlightOriginDestination(index: number, key: string,
-  value: string) {
-    return {
-      type: 'UPDATE_FLIGHT_ORIGIN_DESTINATION',
-      index,
-      key,
-      value
-    }
-  }
-
 export function updatePassengers(passengerType: string, value: number) {
   return {
     type: 'UPDATE_PASSENGERS',

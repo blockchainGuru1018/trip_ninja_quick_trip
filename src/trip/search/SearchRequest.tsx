@@ -5,7 +5,7 @@ import { searchFlights } from '../../actions/SearchActions';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import Button from '@material-ui/core/Button';
-import iataCode from '../../helpers/IataCode';
+import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
 
 interface SearchRequestProps {
@@ -40,8 +40,8 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       id: index + 1,
       departure_date: flight.departureDate,
       cabin_class: flight.cabinClass,
-      from_city: iataCode(flight.origin),
-      to_city: iataCode(flight.destination),
+      from_city: iataCodeHelper(flight.origin),
+      to_city: iataCodeHelper(flight.destination),
       start_type: flight.origin.includes('All Airports') ? 'C' : 'A',
       end_type: flight.destination.includes('All Airports') ? 'C' : 'A'
     }));

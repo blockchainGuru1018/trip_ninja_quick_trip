@@ -29,11 +29,12 @@ export function setValue(valueType: string, value: any) {
   }
 }
 
-export function addFlight(flight: object) {
-  return {
+export const addFlight = (flight: object) => async (dispatch: any) => {
+  await dispatch({
     type: 'ADD_FLIGHT',
     flight
-  }
+  })
+  return Promise.resolve()
 }
 
 export function updateFlightValue(index: number, key: string, value: string) {

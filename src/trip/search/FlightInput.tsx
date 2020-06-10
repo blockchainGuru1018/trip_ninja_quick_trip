@@ -38,7 +38,7 @@ class FlightInput extends React.Component<FlightInputProps> {
 
     return (
       <div className="row flight-input">
-        <div className="col-sm-3">
+        <div className="col-sm-3" ref={"flightInputRef"}>
           <FormControl fullWidth>
             <Autocomplete
               autoHighlight

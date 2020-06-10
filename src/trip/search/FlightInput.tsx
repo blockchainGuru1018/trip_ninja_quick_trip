@@ -26,7 +26,9 @@ interface FlightInputProps {
 
 class FlightInput extends React.Component<FlightInputProps> {
   state = {
-    destinations: DestinationList
+    destinations: DestinationList,
+    originOpen: false,
+    destinationOpen: false
   }
 
   render() {
@@ -46,15 +48,18 @@ class FlightInput extends React.Component<FlightInputProps> {
               filterOptions={filterOptions}
               id={"from-destination" + this.props.i}
               options={this.state.destinations}
-              getOptionLabel={(option) => option.name}
-              onChange={(_, values) =>
-                this.updateFlightType(values, 'origin')
-              }
+              getOptionLabel={(option: any) => option.name}
+              onChange={(_, values) => {
+                this.setState({'originOpen': false});
+                this.updateFlightType(values, 'origin');
+              }}
+              open={this.state.originOpen}
               value={this.getDestinationByName(flight.origin) || null}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
                   placeholder="From"
+                  onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (
@@ -77,14 +82,17 @@ class FlightInput extends React.Component<FlightInputProps> {
               id={"to-destination" + this.props.i}
               options={this.state.destinations}
               getOptionLabel={(option) => option.name}
-              onChange={(_, values) =>
-                this.updateFlightType(values, 'destination')
-              }
+              open={this.state.destinationOpen}
+              onChange={(_, values) => {
+                this.setState({'destinationOpen': false});
+                this.updateFlightType(values, 'destination');
+              }}
               value={this.getDestinationByName(flight.destination) || null}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
                   placeholder="To"
+                  onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (

@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { updateFlightValue, updateFlightOriginDestination, removeFlight }
+import { updateFlightValue, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
@@ -18,7 +18,6 @@ import matchSorter from 'match-sorter';
 interface FlightInputProps {
   i: number;
   updateFlightValue: typeof updateFlightValue;
-  updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   flights: Array<Flight>;
   dateFormat: string;
@@ -141,8 +140,8 @@ class FlightInput extends React.Component<FlightInputProps> {
 
   updateFlightType = (values: any, flightType: string) => {
     return values
-      ? this.props.updateFlightOriginDestination(this.props.i, flightType, values.name)
-      : this.props.updateFlightOriginDestination(this.props.i, flightType, '');
+      ? this.props.updateFlightValue(this.props.i, flightType, values.name)
+      : this.props.updateFlightValue(this.props.i, flightType, '');
   }
 }
 

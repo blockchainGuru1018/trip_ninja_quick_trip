@@ -7,7 +7,7 @@ import Search from './trip/search/Search';
 import Login from './auth/Login';
 import './App.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
-  updateFlightOriginDestination, searchFlights } from './actions/SearchActions';
+  searchFlights } from './actions/SearchActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
@@ -24,7 +24,6 @@ interface IAppProps {
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
   updatePassengers: typeof updatePassengers;
-  updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
@@ -81,7 +80,6 @@ class App extends React.Component<IAppProps> {
                     addFlight={this.props.addFlight}
                     updateFlightValue={this.props.updateFlightValue}
                     updatePassengers={this.props.updatePassengers}
-                    updateFlightOriginDestination={this.props.updateFlightOriginDestination}
                     removeFlight={this.props.removeFlight}
                     authenticated={this.props.authDetails.authenticated}
                     searchFlights={this.props.searchFlights}

@@ -1,5 +1,5 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
-  updateFlightOriginDestination, removeFlight, searchFlights }
+  removeFlight, searchFlights }
   from '../../actions/SearchActions';
 
 export interface SearchDetails {
@@ -15,6 +15,7 @@ export interface Flight {
   destination: string;
   departureDate: string;
   cabinClass: string;
+  startType: string;
   endType: string;
 }
 
@@ -23,6 +24,7 @@ export const defaultFlight: Flight = {
   'destination': '',
   'departureDate': new Date().toISOString(),
   'cabinClass': 'E',
+  'startType': '',
   'endType': ''
 };
 
@@ -33,7 +35,6 @@ export interface SearchProps {
   addFlight: typeof addFlight;
   updateFlightValue: typeof updateFlightValue;
   updatePassengers: typeof updatePassengers;
-  updateFlightOriginDestination: typeof updateFlightOriginDestination;
   removeFlight: typeof removeFlight;
   authenticated: boolean;
   searchFlights: typeof searchFlights;
@@ -75,6 +76,7 @@ export interface FlightPayload {
   cabin_class: string;
   departure_date: string;
   end_type: string;
+  start_type: string;
   from_city: string;
   to_city: string;
 }

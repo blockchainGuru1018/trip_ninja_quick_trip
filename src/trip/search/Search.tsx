@@ -25,7 +25,6 @@ class Search extends React.Component<SearchProps> {
           i={index}
           ref={'flightInput' + index}
           updateFlightValue={this.props.updateFlightValue}
-          updateFlightOriginDestination={this.props.updateFlightOriginDestination}
           flights={this.props.searchDetails.flights}
           removeFlight={this.props.removeFlight}
           dateFormat={this.props.dateFormat}

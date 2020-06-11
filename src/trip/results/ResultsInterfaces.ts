@@ -29,7 +29,7 @@ export interface Segment {
   price: number;
   basePrice: number;
   taxes: number;
-  fess: number;
+  fees: number;
   transportationTime: number;
   fareType: string;
   baggage: Baggage;

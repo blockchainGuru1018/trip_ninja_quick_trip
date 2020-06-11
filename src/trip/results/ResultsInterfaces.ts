@@ -2,7 +2,7 @@
 export interface ResultsDetails {
   fareStructureResults?: FareStructureResults;
   flexTripResults?: FlexTripResults;
-};
+}
 
 export const defaultResultsDetails: ResultsDetails = {}
 

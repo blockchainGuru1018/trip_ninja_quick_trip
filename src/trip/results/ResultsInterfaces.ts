@@ -1,21 +1,16 @@
 
 export interface ResultsDetails {
-  fareStructureResults?: FareStructureResults;
-  flexTripResults?: FlexTripResults;
+  fareStructureResults?: Results;
+  flexTripResults?: Results;
 }
 
 export const defaultResultsDetails: ResultsDetails = {}
 
-export interface FareStructureResults {
+export interface Results {
   tripId: string;
   markup: number;
   segments: Array<Array<Segment>>
   flightDetails: Array<FlightResultsDetails>
-}
-
-// TODO: work on this
-export interface FlexTripResults {
-
 }
 
 export interface FlexTripResults {

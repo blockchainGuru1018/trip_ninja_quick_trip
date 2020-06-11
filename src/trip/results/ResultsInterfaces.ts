@@ -13,10 +13,6 @@ export interface Results {
   flightDetails: Array<FlightResultsDetails>
 }
 
-export interface FlexTripResults {
-  tripId: string;
-}
-
 export interface Segment {
   source: string;
   origin: string;

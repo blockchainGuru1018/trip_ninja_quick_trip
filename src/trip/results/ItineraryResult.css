@@ -1,3 +1,4 @@
+
 #itinerary-result {
   background-color: #ffffff;
 }
@@ -5,6 +6,12 @@
 #segment-nav {
   background-color: #45565E0D;
   text-align: center;
+  padding: 25px 0px;
+}
+
+.segment-nav-link {
+  color: #45565E;
+  margin-bottom: 20px;
 }
 
 .itinerary-header {
@@ -14,4 +21,19 @@
 
 .itinerary-path {
   padding-top: 10px;
+}
+
+.divider {
+  color: #707070;
+  padding: 0px 10px;
+}
+
+.segment-preview {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #C1BDBD;
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 28px;
 }

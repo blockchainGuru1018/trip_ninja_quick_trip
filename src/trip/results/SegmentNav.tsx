@@ -10,13 +10,13 @@ class SegmentNav extends React.Component {
     ];
     const segments = pathSequence.map((item, index) => (
       <div>
-        <a key={index} href="/results/segment/0">{item}</a>
+        <a className="segment-nav-link" key={index} href="/results/segment/0">{item}</a>
       </div>
     ));
     return (
       <div id="segment-nav">
-        <h4>Itinerary</h4>
-        <p>Overview</p>
+        <h3>Itinerary</h3>
+        <a className="segment-nav-link" href="/results/itinerary">Overview</a>
         {segments}
       </div>
     );

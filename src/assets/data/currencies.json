@@ -11,7 +11,7 @@
 	{"code":"MXN", "symbol":"$"},
 	{"code":"NZD", "symbol":"$"},
 	{"code":"SGD", "symbol":"S$"},
-	{"code":"USD", "symbol":"$;"},
+	{"code":"USD", "symbol":"$"},
 	{"code":"UYU", "symbol":"$U"},
 	{"code":"COP", "symbol": "$"}
 ]

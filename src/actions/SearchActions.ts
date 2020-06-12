@@ -1,4 +1,5 @@
 import { SearchPayload } from '../trip/search/SearchInterfaces';
+import { setSearchResults } from './ResultsActions';
 import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {
@@ -73,7 +74,10 @@ export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolea
   const url: string = rootFlexible
     ? '/multicitysearch/'
     : '/fare_structure/'
-  API.post(url, searchPayload).then((response: any) => {
+  return API.post(url, searchPayload).then((response: any) => {
     dispatch(searchLoading(false));
+    dispatch(setSearchResults(response.data));
+    console.log(response)
+    return true
   })
 }

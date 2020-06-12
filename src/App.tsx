@@ -1,26 +1,30 @@
 import React from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 import IdleTimerContainer from './common/IdleTimerContainer';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
 import Login from './auth/Login';
+import PreResults from './trip/results/PreResults';
 import FlexTripResult from './trip/results/FlexTripResult';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
-import './App.css';
+import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
+import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
 import Theme from './Theme';
+import History from './History';
 
 interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
+  resultsDetails: ResultsDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -61,7 +65,7 @@ class App extends React.Component<IAppProps> {
               authDetails={this.props.authDetails}/>
           }
           <div className="container-fluid">
-            <Router>
+            <Router history={History}>
               <div>
                 <Route exact path="/" component={() =>
                   <Home
@@ -88,6 +92,15 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                   />
                 } />
+                {this.props.resultsDetails
+                  ? <Route exact path="/results/pre-results/" render={() =>
+
+                    <PreResults
+                      resultsDetails={this.props.resultsDetails}
+                    />
+                  } />
+                  : ''
+                }
                 <Route exact path="/results/flex-trip/" render={() =>
                   <FlexTripResult />
                 } />

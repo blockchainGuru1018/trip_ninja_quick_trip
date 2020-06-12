@@ -15,3 +15,8 @@ export const dateFormats = {
   UK: 'dd/MM/yyyy',
   USA: 'MM/dd/yyyy'
 }
+
+export function numberOfDaysDifference(first: Date, second: Date): number {
+  const differenceInTime = second.getTime() - first.getTime();
+  return differenceInTime / (1000 * 3600 * 24);
+}

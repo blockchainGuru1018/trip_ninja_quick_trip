@@ -5,7 +5,8 @@ import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreview from './SegmentPreview';
 import { CurrencySymbol } from '../../helpers/CurrencySymbolHelper';
-
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 
 class ItineraryResult extends React.Component {
   render() {
@@ -57,6 +58,11 @@ class ItineraryResult extends React.Component {
           "flight_details": []
         }
       };
+
+    const trip_price: number = trip.fare_structure.segments.reduce((total, segment) =>
+    {return total + segment[0].price;},0
+    );
+
     const selectedSegments = 
       <div className="row">
         <div className="col-xl">
@@ -71,7 +77,7 @@ class ItineraryResult extends React.Component {
           <h1 className="your-itinerary">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
-            {CurrencySymbol("USD")}21.00
+            {CurrencySymbol("USD")}{trip_price.toFixed()}
             <span className="divider">|</span>
             1 ADT
           </h4>

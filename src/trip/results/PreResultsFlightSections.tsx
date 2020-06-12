@@ -7,16 +7,18 @@ import { Results, Segment } from './ResultsInterfaces';
 import { numberOfDaysDifference } from '../../helpers/DateHelpers';
 
 interface PreResultsFlightSectionsProps {
-  searchResults: Results | null
+  resultsDetails: Results | undefined
 }
 
-class PreResultsFlightSections extends React.Component {
+class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsProps> {
+
   componentDidMount() {
-    // const results: Results = this.props.searchResults;
-    // const locations = results.segments.map((segment: Segment) => {
-    //   const origin = segment.origin_name.split(',')[0];
-    //   const destination = segment.origin_name.split(',')[0];
-    // })
+    if(this.props.resultsDetails) {
+      const results: Results = this.props.resultsDetails;
+      const locations = results.segments.map((segment: Array<Segment>) => {
+        const origin = segment.origin_name.split(',')[0];
+        const destination = segment.origin_name.split(',')[0];
+      })
 
   }
   render() {

@@ -64,7 +64,7 @@ class PreResults extends React.Component<PreResultsProps> {
                   1 ADT, 2 CHD
                 </p>
                 <hr/>
-                <PreResultsFlightSections />
+                <PreResultsFlightSections resultsDetails={this.props.resultsDetails.fareStructureResults}/>
               </div>
               <div className="flight-options-btn-container">
                 <Button
@@ -85,7 +85,7 @@ class PreResults extends React.Component<PreResultsProps> {
                   1 ADT, 2 CHD
                 </p>
                 <hr/>
-                <PreResultsFlightSections />
+                <PreResultsFlightSections resultsDetails={this.props.resultsDetails.flexTripResults}/>
               </div>
               <div className="flight-options-btn-container">
                 <Button

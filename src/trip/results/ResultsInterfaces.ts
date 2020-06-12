@@ -29,9 +29,9 @@ export interface Segment {
   price: number;
   base_price: number;
   taxes: number;
-  fess: number;
+  fees: number;
   transportation_time: number;
-  fare_type: string;
+  fareType: string;
   baggage: Baggage;
   additional_details: AdditionalDetails;
   cabin_class: string;

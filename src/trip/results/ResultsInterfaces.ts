@@ -7,53 +7,53 @@ export interface ResultsDetails {
 export const defaultResultsDetails: ResultsDetails = {}
 
 export interface Results {
-  tripId: string;
+  trip_id: string;
   markup: number;
   segments: Array<Array<Segment>>
-  flightDetails: Array<FlightResultsDetails>
+  flight_details: Array<FlightResultsDetails>
 }
 
 export interface Segment {
   source: string;
   origin: string;
   destination: string;
-  itineraryType: string;
-  itineraryId: string;
-  segmentPosition: number;
-  optionId?: string;
-  optionPart?: string;
-  virtualInterline: boolean;
-  viType?: string;
-  viPosition?: string;
+  itinerary_type: string;
+  itinerary_id: string;
+  segment_position: number;
+  option_id?: string;
+  option_part?: string;
+  virtual_interline: boolean;
+  vi_type?: string;
+  vi_position?: string;
   weight: number;
   price: number;
-  basePrice: number;
+  base_price: number;
   taxes: number;
-  fess: number;
-  transportationTime: number;
+  fees: number;
+  transportation_time: number;
   fareType: string;
   baggage: Baggage;
-  additionalDetails: AdditionalDetails;
-  cabinClass: string;
+  additional_details: AdditionalDetails;
+  cabin_class: string;
   alliance: string;
-  privateFare: string;
-  pricedPassengers: string;
-  segmentTimeWithConnections: number;
+  private_fare: string;
+  priced_passengers: string;
+  segment_time_with_connections: number;
   flights: Array<FlightResult>
   brands?: Array<Brands>
 }
 
 export interface Baggage {
-  numberOfPieces: number;
+  number_of_pieces: number;
 }
 
 export interface AdditionalDetails {
-  eTicketability: boolean;
-  latestTicketingTime: string;
+  e_ticketability: boolean;
+  latest_ticketing_time: string;
   refundable: string;
-  cancelPenalty: Penalty;
-  changePenalty: Penalty;
-  fareTypesInfo: string;
+  cancel_penalty: Penalty;
+  change_penalty: Penalty;
+  fare_types_info: string;
 }
 
 export interface Penalty {
@@ -62,11 +62,11 @@ export interface Penalty {
 }
 
 export interface FlightResult {
-  flightDetailRef: number;
-  bookingCode: string;
-  fareType: string;
-  fareBasisCode: string;
-  cabinClass: string;
+  flight_detail_ref: number;
+  booking_code: string;
+  fare_type: string;
+  fare_basis_code: string;
+  cabin_class: string;
   brand?: Brand
 }
 
@@ -75,27 +75,27 @@ export interface Brands {
 }
 
 export interface Brand {
-  brandDescription: string;
-  brandServices: Array<BrandServices>;
+  brand_description: string;
+  brand_services: Array<BrandServices>;
   carrier: string;
   name: string;
-  tagInfo: string;
+  tag_info: string;
   service: Array<BrandService>;
 }
 
 export interface BrandServices {
-  checkedBaggage: boolean;
-  mealsAndBeverages: boolean;
+  checked_baggage: boolean;
+  meals_and_beverages: boolean;
   rebooking: boolean;
   refund: boolean;
-  seatAssignment: string;
+  seat_assignment: string;
 }
 
 export interface BrandService {
   classification: string;
   description: string;
   group: string;
-  marketingCarrier: string;
+  marketing_carrier: string;
   status: string;
 }
 
@@ -103,9 +103,9 @@ export interface FlightResultsDetails {
   reference: string;
   origin: string;
   destination: string;
-  departureTime: Date;
-  arrivalTime: Date;
-  flightNumber: number;
+  departure_time: Date;
+  arrival_time: Date;
+  flight_number: number;
   carrier: string;
-  flightTime: number;
+  flight_time: number;
 }

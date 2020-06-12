@@ -25,7 +25,7 @@ class ItineraryResult extends React.Component {
       <div id="itinerary-result">
         <div className="itinerary-header">
           <ResultsHeader/>
-          <h1>Your Itinerary</h1>
+          <h1 className="your-itinerary">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
             {CurrencySymbol(trip.currency)}{trip.price}

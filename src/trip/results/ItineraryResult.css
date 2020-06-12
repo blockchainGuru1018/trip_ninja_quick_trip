@@ -12,6 +12,7 @@
 .segment-nav-link {
   color: #45565E;
   margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
 .itinerary-header {

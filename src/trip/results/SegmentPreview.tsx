@@ -8,23 +8,23 @@ class SegmentPreview extends React.Component {
     return (
       <div className="row segment-preview">
         <div className="col-sm-2">
-          <p>LGW-SIN</p>
-          <p>May 16</p>
+          <p className="text-bold">LGW-SIN</p>
+          <p className="text-small">May 16</p>
         </div>
         <div className="col-sm-2">
-          <p>UA1234</p>
-          <p>United</p>
+          <p className="text-bold">UA1234</p>
+          <p className="text-small">United</p>
         </div>
         <div className="col-sm-2">
-          <p>15:00-16:00</p>
-          <p>1 h 20 m</p>
+          <p className="text-bold">15:00-16:00</p>
+          <p className="text-small">1 h 20 m</p>
         </div>
         <div className="col-sm-2">
-          <p>Direct</p>
+          <p className="text-bold">Direct</p>
         </div>
         <div className="col-sm-2">
-          <p>Pub. Fare</p>
-          <p>X Class</p>
+          <p className="text-bold">Pub. Fare</p>
+          <p className="text-small">X Class</p>
         </div>
         <div className="col-sm-1">
           <CardTravelIcon color="primary" fontSize="large"/><p>1 pc</p>

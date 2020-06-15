@@ -21,6 +21,7 @@ export interface Results {
   markup: number;
   segments: Array<Array<Segment>>
   flight_details: Array<FlightResultsDetails>
+  path_sequence: Array<string>
 }
 
 export interface Segment {

@@ -73,15 +73,6 @@ h4 {
   font-size: 14px;
 }
 
-.btn-primary {
-  background-color: #0DBE7CEB;
-  color: #fff;
-  border-radius: 2px;
-  border-color: #0DBE7CEB;
-  padding: 15px 19px;
-  font-family: 'NeuzeitGro-Bol', sans-serif;
-}
-
 .rotate-90 {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);

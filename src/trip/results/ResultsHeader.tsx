@@ -1,8 +1,8 @@
 import React from 'react';
+import Moment from 'react-moment';
 import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
-import { dateFormatMonthDay } from '../../helpers/DateHelpers';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 
 const ChangeSearchButton = styled(Button)({
@@ -55,7 +55,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   getDepartureDate = (flightDetailRef: number) => {
     const firstFlight: FlightResultsDetails = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
-    return <span>{dateFormatMonthDay(new Date(firstFlight[0].departure_time))}</span>;
+    return <span><Moment format="MMM DD">{firstFlight[0].departure_time}</Moment></span>;
   }
 }
 

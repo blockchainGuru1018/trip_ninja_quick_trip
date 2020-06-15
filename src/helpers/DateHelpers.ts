@@ -20,7 +20,3 @@ export function numberOfDaysDifference(first: Date, second: Date): number {
   const differenceInTime = second.getTime() - first.getTime();
   return Math.round(differenceInTime / (1000 * 3600 * 24));
 }
-
-export function dateFormatMonthDay(dateX: Date) {
-  return dateX.getMonth() + " " + dateX.getDay();
-}

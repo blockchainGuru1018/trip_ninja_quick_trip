@@ -42,7 +42,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div id="itinerary-result">
         <div className="itinerary-header">
           <ResultsHeader tripInfo={selectedTrip} flights={trip.fareStructureResults?.flight_details}/>
-          <h1 className="your-itinerary">Your Itinerary</h1>
+          <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
             {CurrencySymbol("USD")}{totalPrice.toFixed()}

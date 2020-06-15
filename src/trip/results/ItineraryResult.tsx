@@ -59,6 +59,38 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 "flights": [],
                 "brands": [ ]
               }
+            ],
+            [
+              {
+                "source": "travelport",
+                "origin": "LHR",
+                "destination": "YUL",
+                "itinerary_type": "ONE_WAY",
+                "itinerary_id": "ad76ah7dhasd76asb76",
+                "itinerary_structure": [],
+                "segment_position": 0,
+                "option_id": "vi65s76sdf9",
+                "option_part": "1/2",
+                "virtual_interline": true,
+                "vi_type": "OPEN_JAW",
+                "vi_position": 1,
+                "weight": 239,
+                "price": 197.1,
+                "base_price": 0,
+                "taxes": 119.1,
+                "fees": 0,
+                "transportation_time": 425,
+                "fare_type": "Published",
+                "baggage": {},
+                "additional_details": {},
+                "cabin_class": "Economic Standard",
+                "alliance": "*A",
+                "private_fare": false,
+                "priced_passengers": [],
+                "segment_time_w_connections": 75,
+                "flights": [],
+                "brands": [ ]
+              }
             ]
           ],
           "flight_details": []
@@ -71,17 +103,23 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
     const segments = ["LGW-DXB•May 19 | DXB-LGW•May 24 | LGW-DXB•May 27 | DXB-LGW•May 29|LGW-DXB•May 35"]; //: string[] = trip.fare_structure.segments.map();
 
+    let selectedTrip = [];
+    for (let segment in trip.fare_structure.segments) {
+      selectedTrip.push(trip.fare_structure.segments[segment][0]);
+    }
+
+    
     const selectedSegments = 
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview segments={segments} />
+          <SegmentPreview segments={selectedTrip} />
         </div>        
       </div>;
 
     return (
       <div id="itinerary-result">
         <div className="itinerary-header">
-          <ResultsHeader tripInfo={segments}/>
+          <ResultsHeader tripInfo={selectedTrip}/>
           <h1 className="your-itinerary">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 

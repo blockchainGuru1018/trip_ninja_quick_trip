@@ -2,6 +2,7 @@ import React from 'react';
 import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
+import { Segment } from './ResultsInterfaces';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -20,11 +21,10 @@ interface ResultsHeaderProps {
 class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   render() {
-    //const segmentPath = this.props.tripInfo.map((item: string, index: number) => (
-    //  <span>{item.origin}-{item.destination}•May 19 | </span>
-    //));
+    const segmentPath = this.props.tripInfo.map((item: Segment, index: number) => (
+      <span key={index.toString()}>{item.origin}-{item.destination}•May 19 | </span>
+    ));
 
-    const segmentPath = this.props.tripInfo;
     return (
       <div>
         <div className="row">

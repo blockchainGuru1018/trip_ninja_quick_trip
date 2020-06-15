@@ -1,6 +1,7 @@
 import React from 'react';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Segment } from './ResultsInterfaces';
 
 interface SegmentPreviewProps {
   segments: any
@@ -9,10 +10,10 @@ interface SegmentPreviewProps {
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   render() {
-    return (
-      <div className="row segment-preview">
+    const segments = this.props.segments.map((segment: Segment, index: number) => (
+      <div className="row segment-preview" key={index.toString()}>
         <div className="col-sm-2">
-          <p className="text-bold">LGW-SIN</p>
+          <p className="text-bold">{segment.origin}-{segment.destination}</p>
           <p className="text-small">May 16</p>
         </div>
         <div className="col-sm-2">
@@ -27,7 +28,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           <p className="text-bold">Direct</p>
         </div>
         <div className="col-sm-2">
-          <p className="text-bold">Pub. Fare</p>
+          <p className="text-bold">{segment.fare_type}</p>
           <p className="text-small">X Class</p>
         </div>
         <div className="col-sm-1">
@@ -36,6 +37,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         <div className="col-sm-1">
           <ExpandMoreIcon color="secondary" fontSize="large"/>
         </div>
+      </div>
+    ));
+    return (
+      <div>
+        {segments}
       </div>
     );
   }

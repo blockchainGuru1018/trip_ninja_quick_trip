@@ -31,7 +31,7 @@ export interface Segment {
   taxes: number;
   fees: number;
   transportation_time: number;
-  fareType: string;
+  fare_type: string;
   baggage: Baggage;
   additional_details: AdditionalDetails;
   cabin_class: string;

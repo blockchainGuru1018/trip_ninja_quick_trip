@@ -60,10 +60,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
         
         <div className="row full-height">
-          <div className="col-sm-3 no-padding">
+          <div className="col-md-3 no-padding">
             <SegmentNav pathSequence={trip.fareStructureResults!.path_sequence}/>
           </div>
-          <div className="col-sm-9">
+          <div className="col-md-9">
             {selectedSegments}
           </div>
         </div>

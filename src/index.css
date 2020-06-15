@@ -114,6 +114,14 @@ h4 {
   cursor: pointer;
 }
 
+.container-fluid {
+  padding: 0;
+}
+
 .App {
   height: 100vh;
+}
+
+.row {
+  margin: 0
 }

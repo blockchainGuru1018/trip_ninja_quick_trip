@@ -7,12 +7,11 @@ import SegmentPreview from './SegmentPreview';
 import { CurrencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails } from './ResultsInterfaces';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
+  currency: string
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -41,7 +40,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
-            {CurrencySymbol("USD")}{totalPrice.toFixed()}
+            {CurrencySymbol(this.props.currency)}{totalPrice.toFixed()}
             <span className="divider">|</span>
             {createPassengersString(trip.segments[0])}
           </h4>

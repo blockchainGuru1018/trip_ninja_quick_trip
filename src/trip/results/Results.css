@@ -1,0 +1,65 @@
+
+.pre-results-title {
+  text-align: center;
+  padding-top: 20px;
+  color: var(--main)
+}
+
+.pre-result-subtitle {
+  font-size: 20px;
+  font-family: 'NeuzeitGro-Bol', sans-serif;
+  color: var(--primary-dark);
+  min-height: 60px;
+}
+
+.flight-option-box {
+  max-width: 290px;
+  min-width: 233px;
+  min-height: 500px;
+  padding: 28px 24px;
+  width: 100%;
+}
+
+.flight-option-container-fare {
+  display: grid;
+  justify-items: flex-end;
+}
+
+.flight-option-container-flex {
+  display: grid;
+  justify-content: flex-start;
+}
+
+.flight-icon {
+  margin-right: 10px;
+}
+
+.flight-section {
+  padding-bottom: 50px;
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 40px 1fr;
+  min-height:100px;
+}
+
+.dotted-connector {
+  height: 65%;
+  top: 30%;
+  position: absolute;
+  border-left: 1px dashed;
+  left: 11px;
+}
+
+.btn-flight-options {
+  background-color: var(--primary-dark) !important;
+  color: #fff !important;
+}
+
+.flight-options-btn-container {
+  display: grid;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  max-width: 290px;
+}

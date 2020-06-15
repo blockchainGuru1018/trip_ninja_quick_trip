@@ -4,6 +4,7 @@ import logo from '../assets/images/trip_ninja_logo.png';
 import { logout } from '../actions/AuthActions';
 import UserMenu from '../common/UserMenu';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import history from '../History';
 
 interface NavBarProps {
   logout: typeof logout
@@ -23,7 +24,7 @@ class NavBar extends React.Component<NavBarProps> {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/search/">Flight Search<span className="sr-only">(current)</span></a>
+              <div className="nav-link" onClick={() => history.push('/search/')}>Flight Search<span className="sr-only">(current)</span></div>
             </li>
           </ul>
         </div>
@@ -32,7 +33,7 @@ class NavBar extends React.Component<NavBarProps> {
           authDetails={this.props.authDetails}
         />
       </nav>
-    )
+    );
   }
 }
 

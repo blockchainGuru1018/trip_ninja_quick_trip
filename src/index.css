@@ -8,6 +8,11 @@
   src: url(./assets/fonts/NeuzeitGro-Bol.otf)format('opentype');
 }
 
+:root {
+  --primary-dark: #45565E;
+  --main: #0DBE7CEB
+}
+
 body {
   margin: 0;
   font-family: 'NeuzeitGro-Reg', sans-serif;
@@ -16,7 +21,7 @@ body {
   background: #45565E0D 0% 0% no-repeat padding-box;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  color: #45565E;
+  color: var(--primary-dark);
 }
 
 a:hover, a:active {
@@ -35,7 +40,7 @@ h3 {
   font-family: 'NeuzeitGro-Bol', sans-serif;
   font-size: 24;
   letter-spacing: 0px;
-  color: #45565E;
+  color: var(--primary-dark);
   padding-bottom: 20px;
 }
 
@@ -44,11 +49,28 @@ h4 {
   font-family: 'NeuzeitGro-Reg', sans-serif;
   font-size: 24px;
   letter-spacing: 0px;
-  color: #45565E;
+  color: var(--primary-dark);
+  padding: 0px;
 }
 
 .container-fluid {
   padding: 0px;
+}
+
+.standard-text {
+  font-family: 'NeuzeitGro-Reg', sans-serif;
+  font-size: 16px;
+  color: var(--primary-dark);
+  margin: 0;
+  font-weight: normal;
+}
+
+.bold-text {
+  font-weight: bold
+}
+
+.small-standard-text {
+  font-size: 14px;
 }
 
 .btn-primary {
@@ -75,4 +97,23 @@ h4 {
 
 .text-small {
   font-size: 13px;
+}
+
+.default-box-styles {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #45565E29;
+  border: 1px solid #45565E80;
+  border-radius: 5px;
+}
+
+.container-fluid {
+  margin-bottom: 150px;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.App {
+  height: 100vh;
 }

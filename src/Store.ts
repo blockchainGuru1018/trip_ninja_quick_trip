@@ -16,7 +16,7 @@ export interface State {
 const defaultState: any = {
   searchDetails: defaultSearchDetails,
   authDetails: defaultAuth,
-  resultsDetails: defaultResultsDetails
+  resultsDetails: defaultResultsDetails,
 };
 
 const store: Store = createStore(

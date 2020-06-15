@@ -25,12 +25,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       selectedTrip.push(trip.segments[segment][0]); // trip.segments.filter((segment: Segment) => { return segment.selected === true })
     }
 
-    const totalPrice: number = selectedTrip.reduce((total, segment) =>
-    {return total + segment.price;},0
-    );
-
-
-    const passengersString = createPassengersString(this.props.resultsDetails.fareStructureResults?.segments[0]);
+    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
     
     const selectedSegments = 
       <div className="row">
@@ -48,15 +43,14 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <strong>Total: </strong> 
             {CurrencySymbol("USD")}{totalPrice.toFixed()}
             <span className="divider">|</span>
-            {passengersString}
+            {createPassengersString(trip.segments[0])}
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">
               <PricingRequest />
             </div>
           </div>
-        </div>
-        
+        </div>        
         <div className="row">
           <div className="col-md-3 no-padding">
             <SegmentNav pathSequence={trip.path_sequence}/>

@@ -103,6 +103,7 @@ class App extends React.Component<IAppProps> {
                   ? <Route exact path="/results/pre-results/" render={() =>
                     <PreResults
                       resultsDetails={this.props.resultsDetails}
+                      currency={this.props.searchDetails.currency}
                     />
                   } />
                   : ''

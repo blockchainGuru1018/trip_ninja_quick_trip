@@ -96,7 +96,7 @@ class PreResults extends React.Component<PreResultsProps> {
   }
 
   createPathSequence = (pathSequence: Array<string>) => {
-    const path: Array<string> = pathSequence.map((path: string) => path.slice(0,3));
+    const path: Array<string> = pathSequence.map((pathItem: string) => pathItem.slice(0,3));
     path.push(pathSequence[0].slice(4));
   }
 
@@ -110,7 +110,7 @@ class PreResults extends React.Component<PreResultsProps> {
       return total += nPassengersOfType.length > 0
         ? ' ' + nPassengersOfType.length + ' ' + potentialPassenger
         : '';
-    }, '');;
+    }, '');
   }
 
   compareFlexTripPrice = () => {

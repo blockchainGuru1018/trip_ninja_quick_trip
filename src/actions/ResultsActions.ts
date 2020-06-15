@@ -11,3 +11,10 @@ export function setResults(results: ResultsDetails) {
     results
   }
 }
+
+export function setErrorDetails(value: boolean) {
+  return {
+    type: 'SET_ERROR_DETAILS',
+    value
+  }
+}

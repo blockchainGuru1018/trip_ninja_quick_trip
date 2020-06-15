@@ -51,6 +51,7 @@ h4 {
   font-size: 16px;
   color: var(--primary-dark);
   margin: 0;
+  font-weight: normal;
 }
 
 .bold-text {
@@ -87,4 +88,12 @@ h4 {
 
 .container-fluid {
   margin-bottom: 150px;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.App {
+  height: 100vh;
 }

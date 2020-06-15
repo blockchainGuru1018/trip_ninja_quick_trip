@@ -18,5 +18,5 @@ export const dateFormats = {
 
 export function numberOfDaysDifference(first: Date, second: Date): number {
   const differenceInTime = second.getTime() - first.getTime();
-  return differenceInTime / (1000 * 3600 * 24);
+  return Math.round(differenceInTime / (1000 * 3600 * 24));
 }

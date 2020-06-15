@@ -37,12 +37,10 @@ class SearchRequest extends React.Component<SearchRequestProps> {
     searchResult.then((result: boolean) => this.handleSearchResult(result));
   }
 
-  handleSearchResult = (result: boolean) => {
-    if(result) {
-      console.log(this.props);
-      history.push('/results/pre-results/');
-    }
-  }
+  handleSearchResult = (result: any) =>
+    result
+      ? history.push('/results/pre-results/')
+      : ''
 
   createFlightPayload = () => {
     const flightPayload: Array<FlightPayload> = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({

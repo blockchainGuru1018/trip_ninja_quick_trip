@@ -12,12 +12,14 @@ import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
+import { setErrorDetails } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
+import ErrorModal from './common/modals/ErrorModal';
 import Theme from './Theme';
 import History from './History';
 
@@ -34,6 +36,7 @@ interface IAppProps {
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
+  setErrorDetails: typeof setErrorDetails;
 }
 
 const theme = Theme;
@@ -54,6 +57,10 @@ class App extends React.Component<IAppProps> {
           <SearchModal
             loading={this.props.searchDetails.loading}
             flights={this.props.searchDetails.flights}
+          />
+          <ErrorModal
+            errors={this.props.resultsDetails.errors}
+            setErrorDetails={this.props.setErrorDetails}
           />
           <IdleTimerContainer
             logout={this.props.logout}
@@ -92,9 +99,8 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                   />
                 } />
-                {this.props.resultsDetails
+                {this.props.resultsDetails.fareStructureResults
                   ? <Route exact path="/results/pre-results/" render={() =>
-
                     <PreResults
                       resultsDetails={this.props.resultsDetails}
                     />

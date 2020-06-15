@@ -50,7 +50,7 @@ h4 {
   font-size: 24px;
   letter-spacing: 0px;
   color: var(--primary-dark);
-  padding: 0px;
+  padding-bottom: 20px;
 }
 
 .container-fluid {

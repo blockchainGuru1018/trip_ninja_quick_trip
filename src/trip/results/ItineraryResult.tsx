@@ -5,10 +5,16 @@ import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreview from './SegmentPreview';
 import { CurrencySymbol } from '../../helpers/CurrencySymbolHelper';
+import { ResultsDetails } from './ResultsInterfaces';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 
-class ItineraryResult extends React.Component {
+
+interface ItineraryResultsProps {
+  resultsDetails: ResultsDetails
+}
+
+class ItineraryResult extends React.Component<ItineraryResultsProps> {
   render() {
     const trip = 
       {
@@ -59,25 +65,27 @@ class ItineraryResult extends React.Component {
         }
       };
 
-    const trip_price: number = trip.fare_structure.segments.reduce((total, segment) =>
+    const totalPrice: number = trip.fare_structure.segments.reduce((total, segment) =>
     {return total + segment[0].price;},0
     );
+
+    const segments = ["LGW-DXB•May 19 | DXB-LGW•May 24 | LGW-DXB•May 27 | DXB-LGW•May 29|LGW-DXB•May 35"]; //: string[] = trip.fare_structure.segments.map();
 
     const selectedSegments = 
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview />
+          <SegmentPreview segments={segments} />
         </div>        
       </div>;
 
     return (
       <div id="itinerary-result">
         <div className="itinerary-header">
-          <ResultsHeader/>
+          <ResultsHeader tripInfo={segments}/>
           <h1 className="your-itinerary">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
-            {CurrencySymbol("USD")}{trip_price.toFixed()}
+            {CurrencySymbol("USD")}{totalPrice.toFixed()}
             <span className="divider">|</span>
             1 ADT
           </h4>

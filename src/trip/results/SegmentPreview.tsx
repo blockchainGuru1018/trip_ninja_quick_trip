@@ -2,7 +2,11 @@ import React from 'react';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-class SegmentPreview extends React.Component {
+interface SegmentPreviewProps {
+  segments: any
+}
+
+class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   render() {
     return (

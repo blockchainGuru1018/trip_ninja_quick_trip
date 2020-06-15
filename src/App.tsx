@@ -13,6 +13,7 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
+import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
@@ -21,6 +22,7 @@ import Theme from './Theme';
 interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
+  resultsDetails: ResultsDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -92,7 +94,9 @@ class App extends React.Component<IAppProps> {
                   <FlexTripResult />
                 } />
                 <Route exact path="/results/itinerary/" render={() =>
-                  <ItineraryResult />
+                  <ItineraryResult 
+                    resultsDetails={this.props.resultsDetails}
+                  />
                 } />
                 <Route exact path="/results/segment/:index" render={() =>
                   <SegmentSelection />

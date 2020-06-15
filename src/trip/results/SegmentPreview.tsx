@@ -13,7 +13,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     const segments = this.props.segments.map((segment: Segment, index: number) => (
       <div className="row segment-preview" key={index.toString()}>
         <div className="col-sm-2">
-          <p className="text-bold">{segment.origin}-{segment.destination}</p>
+          <p className="origin-destination">{segment.origin}<span className="circle-divider">•</span>{segment.destination}</p>
           <p className="text-small">May 16</p>
         </div>
         <div className="col-sm-2">

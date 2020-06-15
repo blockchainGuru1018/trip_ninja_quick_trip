@@ -44,6 +44,10 @@
   padding-top: 10px;
 }
 
+.circle-divider {
+  color: #45565E21;
+}
+
 .divider {
   color: #707070;
   padding: 0px 10px;
@@ -58,3 +62,9 @@
   padding: 25px;
   margin-top: 28px;
 }
+
+.origin-destination {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+

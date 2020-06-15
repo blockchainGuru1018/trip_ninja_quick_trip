@@ -5,6 +5,7 @@ import PreResultsFlightSections from './PreResultsFlightSections';
 import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
+import { createPassengersString } from '../../helpers/PassengersListHelper';
 
 interface PreResultsProps {
   resultsDetails: ResultsDetails;
@@ -24,10 +25,10 @@ class PreResults extends React.Component<PreResultsProps> {
     this.compareFlexTripPrice();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
-        fareStructurePassengersString: this.createPassengersString(
+        fareStructurePassengersString: createPassengersString(
           this.props.resultsDetails.fareStructureResults?.segments[0]
         ),
-        flexTripPassengersString: this.createPassengersString(
+        flexTripPassengersString: createPassengersString(
           this.props.resultsDetails.flexTripResults?.segments[0]
         )
       })
@@ -99,19 +100,6 @@ class PreResults extends React.Component<PreResultsProps> {
   createPathSequence = (pathSequence: Array<string>) => {
     const path: Array<string> = pathSequence.map((pathItem: string) => pathItem.slice(0,3));
     path.push(pathSequence[0].slice(4));
-  }
-
-  createPassengersString = (segments: any) => {
-    const pricedPassengers: Array<string>  = segments[0].priced_passengers;
-    const potentialPassengers = ['ADT', 'CHD', 'YTH', 'STU', 'INF'];
-    return potentialPassengers.reduce((total: string, potentialPassenger: string) => {
-      const nPassengersOfType: Array<any> = pricedPassengers.filter((pricedPassenger: string) =>
-        pricedPassenger === potentialPassenger
-      );
-      return total += nPassengersOfType.length > 0
-        ? ' ' + nPassengersOfType.length + ' ' + potentialPassenger
-        : '';
-    }, '');
   }
 
   compareFlexTripPrice = () => {

@@ -20,18 +20,16 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     console.log(this.props.resultsDetails);
     const trip = this.props.resultsDetails;
      
-
     const totalPrice: number = trip.fareStructureResults!.segments.reduce((total, segment) =>
     {return total + segment[0].price;},0
     );
-
-    const segments = ["LGW-DXB•May 19 | DXB-LGW•May 24 | LGW-DXB•May 27 | DXB-LGW•May 29|LGW-DXB•May 35"]; //: string[] = trip.fare_structure.segments.map();
 
     let selectedTrip = [];
     for (let segment in trip.fareStructureResults!.segments) {
       selectedTrip.push(trip.fareStructureResults!.segments[segment][0]);
     }
 
+    const passengersString = createPassengersString(this.props.resultsDetails.fareStructureResults?.segments[0]);
     
     const selectedSegments = 
       <div className="row">
@@ -49,7 +47,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <strong>Total: </strong> 
             {CurrencySymbol("USD")}{totalPrice.toFixed()}
             <span className="divider">|</span>
-            1 ADT
+            {passengersString}
           </h4>
           <div className="row">
             <div className="col-md-8">

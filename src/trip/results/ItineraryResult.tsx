@@ -22,7 +22,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
      
     let selectedTrip = [];
     for (let segment in trip.segments) {
-      selectedTrip.push(trip.segments[segment][0]);
+      selectedTrip.push(trip.segments[segment][0]); // trip.segments.filter((segment: Segment) => { return segment.selected === true })
     }
 
     const totalPrice: number = selectedTrip.reduce((total, segment) =>

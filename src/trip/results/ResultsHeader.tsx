@@ -7,10 +7,10 @@ import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
-  color: '#45565E',
-  border: 'solid 2px #45565E',
+  color: 'var(--primary-dark)',
+  border: 'solid 2px var(--primary-dark)',
   '&:hover': {
-    backgroundColor: '#45565E',
+    backgroundColor: 'var(--primary-dark)',
     color: '#ffffff',
   }
 });

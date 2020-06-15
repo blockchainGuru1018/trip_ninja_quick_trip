@@ -13,6 +13,7 @@
 
 .itinerary-title {
   color: var(--main);
+  padding-top: 15px;
 }
 
 .segment-nav-item {
@@ -20,7 +21,7 @@
 }
 
 .segment-nav-link {
-  color: #45565E;
+  color: var(--primary-dark);
   text-transform: uppercase;
 }
 

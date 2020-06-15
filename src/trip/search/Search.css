@@ -16,7 +16,7 @@
 }
 
 .btn-add-flights {
-  color: #4BAFD7;
+  color: var(--secondary);
   text-align: left;
   font-family: 'NeuzeitGro-Bol', sans-serif;
 }
@@ -31,7 +31,7 @@
 }
 
 .passenger-count {
-  color: #0DBE7CEB;
+  color: var(--main);
   font-family: 'NeuzeitGro-Bol', sans-serif;
   padding: 0px 10px;
 }

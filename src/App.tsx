@@ -6,7 +6,6 @@ import Home from './common/Home';
 import Search from './trip/search/Search';
 import Login from './auth/Login';
 import PreResults from './trip/results/PreResults';
-import FlexTripResult from './trip/results/FlexTripResult';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';
@@ -103,13 +102,11 @@ class App extends React.Component<IAppProps> {
                   ? <Route exact path="/results/pre-results/" render={() =>
                     <PreResults
                       resultsDetails={this.props.resultsDetails}
+                      currency={this.props.searchDetails.currency}
                     />
                   } />
                   : ''
                 }
-                <Route exact path="/results/flex-trip/" render={() =>
-                  <FlexTripResult />
-                } />
                 <Route exact path="/results/itinerary/" render={() =>
                   <ItineraryResult 
                     resultsDetails={this.props.resultsDetails}

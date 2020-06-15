@@ -79,7 +79,7 @@ export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolea
     .then((response: any) => {
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
-      dispatch(setErrorDetails(true));
+      dispatch(setErrorDetails(false));
       return true
     })
     .catch((error: any) => {

@@ -14,7 +14,7 @@ export const defaultResultsDetails: ResultsDetails = {
   errors: {
     errorFound: false
   }
-}
+};
 
 export interface Results {
   trip_id: string;

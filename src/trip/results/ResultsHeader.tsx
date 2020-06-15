@@ -2,7 +2,8 @@ import React from 'react';
 import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
-import { Segment } from './ResultsInterfaces';
+import { dateFormatMonthDay } from '../../helpers/DateHelpers';
+import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -16,13 +17,17 @@ const ChangeSearchButton = styled(Button)({
 
 interface ResultsHeaderProps {
   tripInfo: any
+  flights: any
 }
 
 class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   render() {
-    const segmentPath = this.props.tripInfo.map((item: Segment, index: number) => (
-      <span key={index.toString()}>{item.origin}-{item.destination}•May 19 | </span>
+    const segmentPath = this.props.tripInfo.map((segment: Segment, index: number) => (
+      <span key={index.toString()}>
+        {segment.origin}-{segment.destination}•{this.getDepartureDate(segment.flights[0].flight_detail_ref)}
+        {index < this.props.tripInfo.length-1 && <span> | </span>}
+      </span>
     ));
 
     return (
@@ -46,6 +51,11 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
         <hr/>
       </div>  
     );
+  }
+
+  getDepartureDate = (flightDetailRef: number) => {
+    const firstFlight: FlightResultsDetails = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
+    return <span>{dateFormatMonthDay(new Date(firstFlight[0].departure_time))}</span>;
   }
 }
 

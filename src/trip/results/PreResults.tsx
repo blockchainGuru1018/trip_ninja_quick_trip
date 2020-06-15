@@ -7,7 +7,8 @@ import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 
 interface PreResultsProps {
-  resultsDetails: ResultsDetails
+  resultsDetails: ResultsDetails;
+  currency: string
 }
 
 class PreResults extends React.Component<PreResultsProps> {
@@ -45,7 +46,7 @@ class PreResults extends React.Component<PreResultsProps> {
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">Your Trip</p>
                 <p className="standard-text">
-                  {'From ' + this.state.farePrice + ' CAD'}
+                  {'From: ' + this.state.farePrice + ' ' + this.props.currency}
                 </p>
                 <p className="standard-text small-standard-text">
                   {this.state.fareStructurePassengersString}
@@ -67,12 +68,12 @@ class PreResults extends React.Component<PreResultsProps> {
             <div className="col-xl-4 offset-xl-2 col-md-8 offset-md-2 flight-option-container-flex">
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">
-                  Reorder destinations to save up to: $300
+                  {'Reorder destinations to save up to: $' + (this.state.farePrice - this.state.flexPrice)}
                 </p>
                 <p className="standard-text">
-                  {'From ' + this.state.flexPrice + 'CAD'}
+                  {'From: ' + this.state.flexPrice + ' ' + this.props.currency}
                 </p>
-                <p className='standard-text small-standard-text'>ß
+                <p className='standard-text small-standard-text'>
                   {this.state.flexTripPassengersString}
                 </p>
                 <hr/>
@@ -123,8 +124,8 @@ class PreResults extends React.Component<PreResultsProps> {
       {return total + segment[0].price;},0
       );
       this.setState({
-        farePrice: farePrice,
-        flexPrice: flexPrice
+        farePrice: Math.round(farePrice),
+        flexPrice: Math.round(flexPrice)
       });
       return flexPrice >= farePrice ? history.push('/results/itinerary/') : '';
     }

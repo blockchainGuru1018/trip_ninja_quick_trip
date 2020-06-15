@@ -18,16 +18,17 @@ interface ItineraryResultsProps {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
   render() {
     console.log(this.props.resultsDetails);
-    const trip = this.props.resultsDetails;
+    const trip = this.props.resultsDetails.fareStructureResults!; // ADD CHECK FOR IF FS or FT WAS SELECTED
      
-    const totalPrice: number = trip.fareStructureResults!.segments.reduce((total, segment) =>
-    {return total + segment[0].price;},0
+    let selectedTrip = [];
+    for (let segment in trip.segments) {
+      selectedTrip.push(trip.segments[segment][0]);
+    }
+
+    const totalPrice: number = selectedTrip.reduce((total, segment) =>
+    {return total + segment.price;},0
     );
 
-    let selectedTrip = [];
-    for (let segment in trip.fareStructureResults!.segments) {
-      selectedTrip.push(trip.fareStructureResults!.segments[segment][0]);
-    }
 
     const passengersString = createPassengersString(this.props.resultsDetails.fareStructureResults?.segments[0]);
     
@@ -41,7 +42,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     return (
       <div id="itinerary-result">
         <div className="itinerary-header">
-          <ResultsHeader tripInfo={selectedTrip} flights={trip.fareStructureResults?.flight_details}/>
+          <ResultsHeader tripInfo={selectedTrip} flights={trip.flight_details}/>
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong> 
@@ -50,10 +51,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             {passengersString}
           </h4>
           <div className="row">
-            <div className="col-md-8">
-
-            </div>
-            <div className="col-md-4">
+            <div className="col-md-4 offset-md-8">
               <PricingRequest />
             </div>
           </div>
@@ -61,7 +59,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         
         <div className="row full-height">
           <div className="col-md-3 no-padding">
-            <SegmentNav pathSequence={trip.fareStructureResults!.path_sequence}/>
+            <SegmentNav pathSequence={trip.path_sequence}/>
           </div>
           <div className="col-md-9">
             {selectedSegments}

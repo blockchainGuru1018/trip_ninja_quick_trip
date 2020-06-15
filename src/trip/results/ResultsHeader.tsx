@@ -24,7 +24,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   render() {
     const segmentPath = this.props.tripInfo.map((segment: Segment, index: number) => (
-      <span key={index.toString()}>
+      <span key={index.toString()} className="itinerary-path-text">
         {segment.origin}-{segment.destination}•{this.getDepartureDate(segment.flights[0].flight_detail_ref)}
         {index < this.props.tripInfo.length-1 && <span> | </span>}
       </span>

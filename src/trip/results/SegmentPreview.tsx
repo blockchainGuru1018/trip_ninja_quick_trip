@@ -40,6 +40,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           {
             flights.map((flight: FlightResultsDetails, index: number) =>
               <img
+                key={'airline-logo-' + index}
                 className={'img-airline-logo ' + "logo-" + index}
                 src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flight.carrier + "_48x48.png"}
                 onError={(e: any) => {
@@ -51,8 +52,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         </div>
         <div>
           {
-            flights.map((flight: FlightResultsDetails) =>
-              <div className="text-bold">{flight.carrier} {flight.flight_number}</div>
+            flights.map((flight: FlightResultsDetails, index: number) =>
+              <div key={'carrier-label-' + index} className="text-bold">{flight.carrier} {flight.flight_number}</div>
             )
           }
           {
@@ -76,8 +77,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         }
         {
           flights.length > 1
-            ? this.calculateHoursBetween(flights).map((stopOver: any) =>
-              <div className='text-small'>
+            ? this.calculateHoursBetween(flights).map((stopOver: any, index: number) =>
+              <div key={"stop-over-times-" + index} className='text-small'>
                 {Object.keys(stopOver)[0] + ": " + Object.values(stopOver)[0]}
               </div>
             )

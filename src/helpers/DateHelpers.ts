@@ -26,7 +26,7 @@ export function numberOfNightsDifference(first: Date, second: Date): number {
   const firstDate = moment(first);
   const secondDate = moment(second);
   let nDays = 0;
-  let firstDateToMidnight = moment(first).add('hours', 24 - firstDate.hour());
+  let firstDateToMidnight = moment(first).add(24 - firstDate.hour(), 'hours');
   if (firstDateToMidnight.isBefore(secondDate)) {
     nDays += 1;
     nDays += secondDate.diff(firstDateToMidnight, 'days');

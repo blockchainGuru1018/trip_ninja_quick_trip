@@ -18,3 +18,10 @@ export function setErrorDetails(value: boolean) {
     value
   }
 }
+
+export function setTripType(value: string) {
+  return {
+    type: 'SET_TRIP_TYPE',
+    value
+  }
+}

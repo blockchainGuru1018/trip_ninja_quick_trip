@@ -110,6 +110,7 @@ class App extends React.Component<IAppProps> {
                 <Route exact path="/results/itinerary/" render={() =>
                   <ItineraryResult 
                     resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={() =>

@@ -68,8 +68,8 @@ class Search extends React.Component<SearchProps> {
                   flights={this.props.searchDetails.flights}
                 />
               </div>
-              <hr/>
             </div>
+            <hr/>
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <TripPath

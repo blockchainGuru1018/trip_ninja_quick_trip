@@ -3,6 +3,7 @@ export interface ResultsDetails {
   fareStructureResults?: Results;
   flexTripResults?: Results;
   errors: Errors;
+  tripType: string;
 }
 
 export interface Errors {
@@ -13,7 +14,8 @@ export interface Errors {
 export const defaultResultsDetails: ResultsDetails = {
   errors: {
     errorFound: false
-  }
+  },
+  tripType: 'farestructure'
 };
 
 export interface Results {

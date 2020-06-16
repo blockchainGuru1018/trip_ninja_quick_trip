@@ -17,7 +17,8 @@ interface ItineraryResultsProps {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
   render() {
     console.log(this.props.resultsDetails);
-    const trip = this.props.resultsDetails.fareStructureResults!; // ADD CHECK FOR IF FS or FT WAS SELECTED
+    const trip = this.props.resultsDetails.tripType === 'farestructure' 
+      ? this.props.resultsDetails.fareStructureResults! : this.props.resultsDetails.flexTripResults!;
      
     let selectedTrip = [];
     for (let segment in trip.segments) {

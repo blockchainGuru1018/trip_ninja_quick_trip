@@ -125,6 +125,5 @@ export interface FlightResultsDetails {
 export interface Location {
   origin: string;
   destination: string;
-  nDays: number;
-
+  nNights: number;
 }

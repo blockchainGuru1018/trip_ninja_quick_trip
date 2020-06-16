@@ -39,10 +39,10 @@ class PreResults extends React.Component<PreResultsProps> {
 
     return (
       <div className="row">
-        <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
+        <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 default-form" id="pre-results-form">
           <h1 className="pre-results-title">Your Trip</h1>
           <div className="row">
-            <div className="col-xl-4 offset-xl-1 col-md-8 offset-md-2 flight-option-container-fare">
+            <div className="col-xl-4 offset-xl-1 col-md-4 offset-md-4 col-sm-6 offset-sm-3 flight-option-container-fare" id='fare-structure-pre-result'>
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">Your Trip</p>
                 <p className="standard-text">
@@ -65,7 +65,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 >See flight options</Button>
               </div>
             </div>
-            <div className="col-xl-4 offset-xl-2 col-md-8 offset-md-2 flight-option-container-flex">
+            <div className="col-xl-4 offset-xl-2 col-md-4 offset-md-4 flight-option-container-flex col-sm-6 offset-sm-3" id='flex-trip-pre-result'>
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">
                   {'Reorder destinations to save up to: $' + (this.state.farePrice - this.state.flexPrice)}
@@ -94,11 +94,6 @@ class PreResults extends React.Component<PreResultsProps> {
         </div>
       </div>
     );
-  }
-
-  createPathSequence = (pathSequence: Array<string>) => {
-    const path: Array<string> = pathSequence.map((pathItem: string) => pathItem.slice(0,3));
-    path.push(pathSequence[0].slice(4));
   }
 
   createPassengersString = (segments: any) => {

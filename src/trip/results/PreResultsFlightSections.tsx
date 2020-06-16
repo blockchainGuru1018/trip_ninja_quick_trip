@@ -4,7 +4,7 @@ import FlightLand from '@material-ui/icons/FlightLand';
 import './Results.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Results, Segment, FlightResult, FlightResultsDetails, Location } from './ResultsInterfaces';
-import { numberOfDaysDifference, numberOfNightsDifference } from '../../helpers/DateHelpers';
+import { numberOfNightsDifference } from '../../helpers/DateHelpers';
 
 interface PreResultsFlightSectionsProps {
   resultsDetails: Results | undefined

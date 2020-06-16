@@ -17,20 +17,14 @@ interface ItineraryResultsProps {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
    
   componentDidMount() {
-    console.log("MOUNTEEDDDDDDD");
     this.setActiveSegments();    
   }
 
   render() {
-    this.setActiveSegments();
     const trip = this.props.resultsDetails.tripType === 'flexTripResults' 
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
-
-    console.log(this.props.resultsDetails.tripType);
-    console.log(trip);
     
     let selectedTrip = this.getActiveSegments(trip);
-   
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment!.price;},0);
     
     const selectedSegments = 
@@ -78,9 +72,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   getActiveSegments = (trip: Results) => {
     let selectedTrip = [];
     for (let segment in trip.segments) {
-      selectedTrip.push(trip.segments[segment].find((segment: Segment) => { return segment.status === 'active'; })); // 
+      selectedTrip.push(trip.segments[segment].find((segment: Segment) => { return segment.status === 'active'; }) || trip.segments[segment][0]);
     }
-    console.log(selectedTrip);
     return selectedTrip;
   }
 }

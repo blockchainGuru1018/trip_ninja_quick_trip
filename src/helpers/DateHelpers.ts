@@ -34,3 +34,10 @@ export function numberOfNightsDifference(first: Date, second: Date): number {
   }
   return nDays;
 }
+
+export function timeDifference(first: Date, second: Date) {
+  const timeDifference = moment(second).diff(moment(first), 'milliseconds');
+  const hours = Math.floor(timeDifference / (1000*60*60))
+  const minutes = Math.round(60 * (timeDifference / (1000*60*60) % 1))
+  return hours + 'h ' + minutes + 'm'
+}

@@ -65,7 +65,7 @@
   border-radius: 10px;
   padding: 20px 5px 20px 20px;
   margin-top: 28px;
-  max-height: 90px;
+  min-height: 90px;
 }
 
 .flight-preview-grey-border {
@@ -82,10 +82,11 @@
 }
 
 .img-airline-logo {
-  width: 20px;
+  width: 40px;
+  background-color: white;
 }
 
-.img-logo-top {
+.logo-1 {
   position: absolute;
   top: 4px;
   left: 19px;
@@ -93,7 +94,7 @@
 
 .airline-logo-container {
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 55px 1fr;
 }
 
 .baggage-icon-container {
@@ -112,4 +113,8 @@
 .icon-expand-preview {
   display: grid;
   justify-content: flex-end;
+}
+
+.preview-flight-path-container {
+  display: grid;
 }

@@ -7,7 +7,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   });
 } else {
   endpoint = axios.create({
-    baseURL: 'http://mcfs-dev.us-east-1.elasticbeanstalk.com/api/v1/'
+    baseURL: 'http://quicktrip-dev-1.us-east-1.elasticbeanstalk.com/api/v1/'
   });
 }
 

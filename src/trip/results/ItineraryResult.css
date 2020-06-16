@@ -1,7 +1,6 @@
 
 #itinerary-result {
   background-color: #ffffff;
-  height: 100vh;
 }
 
 #segment-nav {
@@ -66,6 +65,10 @@
   border-radius: 10px;
   padding: 25px;
   margin-top: 28px;
+}
+
+.segment-list {
+  padding: 25px 25px 150px 25px;
 }
 
 .origin-destination {

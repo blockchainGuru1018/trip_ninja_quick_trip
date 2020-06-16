@@ -59,8 +59,13 @@
   box-shadow: 0px 3px 6px #00000029;
   border: 1px solid #C1BDBD;
   border-radius: 10px;
-  padding: 25px;
+  padding: 20px 5px 20px 20px;
   margin-top: 28px;
+  max-height: 90px;
+}
+
+.flight-preview-grey-border {
+  border-right: 1px solid #45565E71
 }
 
 .origin-destination {
@@ -68,3 +73,35 @@
   margin-bottom: 0px;
 }
 
+.img-airline-logo {
+  width: 20px;
+}
+
+.img-logo-top {
+  position: absolute;
+  top: 4px;
+  left: 19px;
+}
+
+.airline-logo-container {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+}
+
+.baggage-icon-container {
+  padding: 0;
+  display: grid;
+  height: 100%;
+  align-items: center;
+  grid-auto-flow: column;
+  justify-items: center;
+}
+
+.card-travel-icon {
+  width: 25px;
+}
+
+.icon-expand-preview {
+  display: grid;
+  justify-content: flex-end;
+}

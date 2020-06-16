@@ -19,7 +19,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   render() {
     console.log(this.props.resultsDetails);
     const trip = this.props.resultsDetails;
-     
+
 
     const totalPrice: number = trip.fareStructureResults!.segments.reduce((total, segment) =>
     {return total + segment[0].price;},0
@@ -32,12 +32,15 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       selectedTrip.push(trip.fareStructureResults!.segments[segment][0]);
     }
 
-    
-    const selectedSegments = 
+
+    const selectedSegments =
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview segments={selectedTrip} />
-        </div>        
+          <SegmentPreview
+            segments={selectedTrip}
+            flightDetails={trip.fareStructureResults!.flight_details}
+          />
+        </div>
       </div>;
 
     return (
@@ -46,7 +49,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <ResultsHeader tripInfo={selectedTrip}/>
           <h1 className="your-itinerary">Your Itinerary</h1>
           <h4>
-            <strong>Total: </strong> 
+            <strong>Total: </strong>
             {CurrencySymbol("USD")}{totalPrice.toFixed()}
             <span className="divider">|</span>
             1 ADT
@@ -60,7 +63,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
           </div>
         </div>
-        
+
         <div className="row full-height">
           <div className="col-sm-3">
             <SegmentNav pathSequence={trip.fareStructureResults!.path_sequence}/>

@@ -4,7 +4,7 @@ import FlightLand from '@material-ui/icons/FlightLand';
 import './Results.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Results, Segment, FlightResult, FlightResultsDetails, Location } from './ResultsInterfaces';
-import { numberOfDaysDifference } from '../../helpers/DateHelpers';
+import { numberOfNightsDifference } from '../../helpers/DateHelpers';
 
 interface PreResultsFlightSectionsProps {
   resultsDetails: Results | undefined
@@ -51,13 +51,13 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
           (flightResult: FlightResultsDetails) =>
             flightResult.reference === first_segment_flights[0].flight_detail_ref
         );
-        const nDays: number = index !== 0 && index !== results.segments.length
-          ? this.getNumberOfDays(index, departingFlight, results)
+        const nNights: number = index !== 0 && index !== results.segments.length
+          ? this.getNumberOfNights(index, departingFlight, results)
           : 0;
         return {
           origin,
           destination,
-          nDays
+          nNights
         };
       });
       return locations;
@@ -67,23 +67,26 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
     }
   }
 
-  getNumberOfDays = (index: number, departingFlight: Array<FlightResultsDetails>, results: Results) => {
+  getNumberOfNights = (index: number, departingFlight: Array<FlightResultsDetails>, results: Results) => {
     const lastFlight: FlightResultsDetails | Array<any> = results.flight_details.filter(
       (flightResult: FlightResultsDetails) => {
         const segment = results.segments[index - 1][0];
         return flightResult.reference === segment.flights[segment.flights.length - 1].flight_detail_ref;
       });
-    return numberOfDaysDifference(
-      new Date(lastFlight[0].departure_time), new Date(departingFlight[0].arrival_time)
+    return numberOfNightsDifference(
+      new Date(lastFlight[0].arrival_time), new Date(departingFlight[0].departure_time)
     );
   }
 
   getFlightSelectionHTML = (index: number, location: Location) => {
     const flightTakeOff: boolean = index === 0;
     const flightLanding: boolean = index === this.state.locations.length;
+    const landingSection = flightLanding
+      ? 'landing-section'
+      : '';
     return (
       <div
-        className="standard-text bold-text flight-section"
+        className={"standard-text bold-text flight-section " + landingSection}
         key={"flight-section" + index}
       >
         {
@@ -93,14 +96,18 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
               ? <FlightLand className="flight-icon" color="primary" />
               : <RadioButtonUncheckedIcon className="flight-icon" />
         }
-        {index === 0 || index === this.state.locations.length
+        {index === 0
           ? <div>
             <p className='standard-text bold-text'>{location.origin}</p>
           </div>
-          : <div>
-            <p className='standard-text'>{location.origin}</p>
-            <p className='standard-text small-standard-text'>{location.nDays + ' days'}</p>
-          </div>
+          : index === this.state.locations.length
+            ? <div>
+              <p className='standard-text bold-text'>{location.destination}</p>
+            </div>
+            : <div>
+              <p className='standard-text'>{location.origin}</p>
+              <p className='standard-text small-standard-text'>{location.nNights + ' nights'}</p>
+            </div>
         }
         {
           flightLanding

@@ -23,11 +23,13 @@
 .flight-option-container-fare {
   display: grid;
   justify-items: flex-end;
+  grid-auto-rows: minmax(min-content, max-content);
 }
 
 .flight-option-container-flex {
   display: grid;
   justify-content: flex-start;
+  grid-auto-rows: minmax(min-content, max-content);
 }
 
 .flight-icon {
@@ -40,7 +42,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 40px 1fr;
-  min-height:100px;
+  min-height: 100px
 }
 
 .dotted-connector {
@@ -62,4 +64,9 @@
   padding: 10px;
   width: 100%;
   max-width: 290px;
+}
+
+.landing-section {
+  padding: 0;
+  min-height: 50px;
 }

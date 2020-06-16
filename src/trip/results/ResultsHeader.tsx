@@ -4,6 +4,7 @@ import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import history from '../../History';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -42,7 +43,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             <div className="float-right">
               <ChangeSearchButton
                 variant="contained"
-                href="/search">
+                onClick={() => history.push('/search/')}>
                 Change Search
               </ChangeSearchButton>
             </div>

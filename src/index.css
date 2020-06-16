@@ -56,6 +56,7 @@ h4 {
 
 .container-fluid {
   padding: 0px;
+  margin-bottom: 150px;
 }
 
 .standard-text {
@@ -98,16 +99,8 @@ h4 {
   border-radius: 5px;
 }
 
-.container-fluid {
-  margin-bottom: 150px;
-}
-
 .nav-link:hover {
   cursor: pointer;
-}
-
-.container-fluid {
-  padding: 0;
 }
 
 .App {

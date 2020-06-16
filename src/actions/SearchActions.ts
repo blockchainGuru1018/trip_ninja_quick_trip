@@ -69,22 +69,22 @@ export function searchLoading(value: boolean) {
   }
 }
 
-export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolean) => (dispatch: any) => {
+export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boolean) => (dispatch: any) => {
   dispatch(searchLoading(true));
-  const url: string = rootFlexible
+  const url: string = routeFlexible
     ? '/multicitysearch/'
-    : '/fare_structure/'
+    : '/fare_structure/';
   searchPayload.dummy = true;
   return API.post(url, searchPayload)
     .then((response: any) => {
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
       dispatch(setErrorDetails(false));
-      return true
+      return true;
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));
       dispatch(setErrorDetails(true))
-      return false
+      return false;
     })
 }

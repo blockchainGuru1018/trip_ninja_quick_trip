@@ -37,18 +37,14 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     return (
       <div className="col-sm-2 airline-logo-container">
         <div>
-          {
-            flights.map((flight: FlightResultsDetails, index: number) =>
-              <img
-                key={'airline-logo-' + index}
-                className={'img-airline-logo ' + "logo-" + index}
-                src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flight.carrier + "_48x48.png"}
-                onError={(e: any) => {
-                  e.target.onerror = null;
-                  e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_48x48.png';
-                }}
-              ></img>)
-          }
+          <img
+            className='img-airline-logo '
+            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_24x24.png"}
+            onError={(e: any) => {
+              e.target.onerror = null;
+              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_24x24.png';
+            }}
+          ></img>
         </div>
         <div>
           {

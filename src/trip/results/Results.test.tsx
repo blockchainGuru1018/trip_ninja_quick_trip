@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import ItineraryResult from './ItineraryResult';
 import SegmentSelection from './SegmentSelection';
-import PreResults from './PreResults';
 import PreResultsFlightSections from './PreResultsFlightSections';
 import SegmentPreview from './SegmentPreview';
 import { shallow } from 'enzyme';

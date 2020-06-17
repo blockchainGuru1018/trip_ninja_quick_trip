@@ -14,13 +14,13 @@ test('segment selection link renders', () => {
   expect(getByText(/segments/i)).toBeInTheDocument();
 });
 
-const yesterday = new Date().setDate(new Date().getDate() - 1);
+const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
 const testResultsDetails = {
   flight_details: [
     {reference: 1, arrival_time: yesterday, departure_time: yesterday,
       origin: 'YHZ', destination: 'NYC'},
-    {reference: 2, arrival_time: yesterday, departure_time: new Date(),
+    {reference: 2, arrival_time: yesterday, departure_time: new Date().toISOString().slice(0,23) + '+03:00',
       origin: 'BER', destination: 'MIA'}
   ],
   segments: [

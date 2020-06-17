@@ -34,13 +34,14 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
-  setFlightLogoHTML = (segment: Segment, flights: Array<FlightResultsDetails>) =>
+  setFlightLogoHTML = (flights: Array<FlightResultsDetails>) =>
     (
       <div className="col-sm-2 airline-logo-container">
         <div>
           <img
             className='img-airline-logo '
             src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_24x24.png"}
+            alt='flight-logo'
             onError={(e: any) => {
               e.target.onerror = null;
               e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_24x24.png';
@@ -113,7 +114,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <p className="text-small flight-preview-grey-border">
                 {moment(segmentFlightDetails[0].departure_time).format('MMM DD')}</p>
             </div>
-            {this.setFlightLogoHTML(segment, segmentFlightDetails)}
+            {this.setFlightLogoHTML(segmentFlightDetails)}
             {this.setFlightTimeHTML(segmentFlightDetails)}
             {this.setStopsHTML(segment, segmentFlightDetails)}
             {this.setSegmentTypesHTML(segment)}

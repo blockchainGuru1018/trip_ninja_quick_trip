@@ -7,6 +7,7 @@ import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import Button from '@material-ui/core/Button';
 import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
+import history from '../../History';
 
 interface SearchRequestProps {
   searchDetails: SearchDetails;
@@ -32,8 +33,14 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       flights: this.createFlightPayload(),
       travellers: this.createPassengerPayload()
     };
-    this.props.searchFlights(searchPayload, this.props.searchDetails.routeFlexible);
+    let searchResult: any = this.props.searchFlights(searchPayload, this.props.searchDetails.routeFlexible);
+    searchResult.then((result: boolean) => this.handleSearchResult(result));
   }
+
+  handleSearchResult = (result: any) =>
+    result
+      ? history.push('/results/pre-results/')
+      : ''
 
   createFlightPayload = () => {
     const flightPayload: Array<FlightPayload> = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({

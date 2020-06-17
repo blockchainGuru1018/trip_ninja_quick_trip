@@ -48,7 +48,7 @@ const testSearchDetails = {
   "loading": false
 };
 
-const testFlights: Array<Flight> = [{ "origin": "NYC | New York City, NY, USA - All Airports", "destination": "YHZ | Halifax, NS, Canada", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "A" }, { "origin": "YHZ | Halifax, NS, Canada", "destination": "YTO | Toronto, ON, Canada - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C" }, { "origin": "YTO | Toronto, ON, Canada - All Airports", "destination": "PAR | Paris, France - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C" }];
+const testFlights: Array<Flight> = [{ "origin": "NYC | New York City, NY, USA - All Airports", "destination": "YHZ | Halifax, NS, Canada", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "A", "startType": "C" }, { "origin": "YHZ | Halifax, NS, Canada", "destination": "YTO | Toronto, ON, Canada - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "A" }, { "origin": "YTO | Toronto, ON, Canada - All Airports", "destination": "PAR | Paris, France - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "C" }];
 
 test('datesAreOnSameDayOrLater', () => {
   const today: Date = new Date();

@@ -2,9 +2,19 @@
 export interface ResultsDetails {
   fareStructureResults?: Results;
   flexTripResults?: Results;
+  errors: Errors;
 }
 
-export const defaultResultsDetails: ResultsDetails = {}
+export interface Errors {
+  errorFound: boolean;
+  errorDescription?: string;
+}
+
+export const defaultResultsDetails: ResultsDetails = {
+  errors: {
+    errorFound: false
+  }
+}
 
 export interface Results {
   trip_id: string;
@@ -16,7 +26,9 @@ export interface Results {
 export interface Segment {
   source: string;
   origin: string;
+  origin_name: string;
   destination: string;
+  destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
   segment_position: number;
@@ -37,7 +49,7 @@ export interface Segment {
   cabin_class: string;
   alliance: string;
   private_fare: string;
-  priced_passengers: string;
+  priced_passengers: Array<string>;
   segment_time_with_connections: number;
   flights: Array<FlightResult>
   brands?: Array<Brands>
@@ -100,7 +112,7 @@ export interface BrandService {
 }
 
 export interface FlightResultsDetails {
-  reference: string;
+  reference: number;
   origin: string;
   destination: string;
   departure_time: Date;
@@ -108,4 +120,10 @@ export interface FlightResultsDetails {
   flight_number: number;
   carrier: string;
   flight_time: number;
+}
+
+export interface Location {
+  origin: string;
+  destination: string;
+  nNights: number;
 }

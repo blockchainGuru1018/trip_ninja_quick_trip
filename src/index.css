@@ -67,14 +67,6 @@ h4 {
   font-weight: normal;
 }
 
-.bold-text {
-  font-weight: bold
-}
-
-.small-standard-text {
-  font-size: 14px;
-}
-
 .rotate-90 {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -84,12 +76,12 @@ h4 {
 }
 
 .text-bold {
-  font-family: 'NeuzeitGro-Bol', sans-serif;
+  font-weight: bold;
   margin-bottom: 0px;
 }
 
 .text-small {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .default-box-styles {

@@ -55,10 +55,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3 no-padding">
+          <div className="col-md-2 no-padding">
             <SegmentNav pathSequence={trip.path_sequence}/>
           </div>
-          <div className="col-md-9 segment-list">
+          <div className="col-md-10 segment-list">
             {selectedSegments}
           </div>
         </div>

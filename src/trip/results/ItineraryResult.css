@@ -118,3 +118,33 @@
 .preview-flight-path-container {
   display: grid;
 }
+
+.segment-preview-icon-container {
+  margin-top: 28px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+}
+
+.segment-preview-container {
+  padding-right: 20px;
+}
+
+.segment-preview-dotted-line {
+  height: 80%;
+  top: 70%;
+  position: absolute;
+  border-left: 1px dashed;
+}
+
+.plus-one-indicator {
+  position: absolute;
+  font-size: 10px;
+  left: 90px;
+  top: 0px;
+}
+
+.flight-preview-time {
+  position: relative;
+}

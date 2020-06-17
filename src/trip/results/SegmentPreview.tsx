@@ -6,6 +6,9 @@ import '../../index.css';
 import iataAirports from '../../assets/data/iataAirports.json';
 import { timeDifference } from '../../helpers/DateHelpers';
 import moment from 'moment';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+
 
 interface SegmentPreviewProps {
   segments: Array<Segment>
@@ -31,10 +34,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
-  setFlightLogoHTML = (segment: Segment) => {
-    const flights: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
-
-    return (
+  setFlightLogoHTML = (segment: Segment, flights: Array<FlightResultsDetails>) =>
+    (
       <div className="col-sm-2 airline-logo-container">
         <div>
           <img
@@ -60,10 +61,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         </div>
       </div>
     );
-  }
 
-  setStopsHTML = (segment: Segment) => {
-    const flights: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+  setStopsHTML = (segment: Segment, flights: Array<FlightResultsDetails>) => {
     return (
       <div className="col-sm-2">
         {
@@ -101,31 +100,40 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   }
 
   setSegmentsHTML = () => {
-    return this.props.segments.map((segment: Segment, index: number) => (
-      <div className="row segment-preview" key={index.toString()}>
-        <div className="col-sm-2 preview-flight-path-container">
-          <p className="origin-destination flight-preview-grey-border">{segment.origin}<span className="circle-divider">•</span>{segment.destination}</p>
-          <p className="text-small flight-preview-grey-border">May 16</p>
-        </div>
-        {this.setFlightLogoHTML(segment)}
-        {this.setFlightTimeHTML(segment)}
-        {this.setStopsHTML(segment)}
-        {this.setSegmentTypesHTML(segment)}
-        <div className="col-sm-1 baggage-icon-container">
-          <CardTravelIcon
-            color="primary"
-            fontSize="large"
-            className='card-travel-icon'
-          />
-          <div>
-            {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
+    return this.props.segments.map((segment: Segment, index: number) => {
+      const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+      return(
+        <div className='row segment-preview-container'>
+          {this.setFlightPreviewIcons(index)}
+          <div className="row segment-preview col-md-10" key={index.toString()}>
+            <div className="col-sm-2 preview-flight-path-container">
+              <p className="origin-destination flight-preview-grey-border">{segment.origin}
+                <span className="circle-divider">•</span>{segment.destination}
+              </p>
+              <p className="text-small flight-preview-grey-border">
+                {moment(segmentFlightDetails[0].departure_time).format('MMM DD')}</p>
+            </div>
+            {this.setFlightLogoHTML(segment, segmentFlightDetails)}
+            {this.setFlightTimeHTML(segmentFlightDetails)}
+            {this.setStopsHTML(segment, segmentFlightDetails)}
+            {this.setSegmentTypesHTML(segment)}
+            <div className="col-sm-1 baggage-icon-container">
+              <CardTravelIcon
+                color="primary"
+                fontSize="large"
+                className='card-travel-icon'
+              />
+              <div>
+                {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
+              </div>
+            </div>
+            <div className="col-sm-1 icon-expand-preview">
+              <ExpandMoreIcon color="secondary" fontSize="large"/>
+            </div>
           </div>
         </div>
-        <div className="col-sm-1 icon-expand-preview">
-          <ExpandMoreIcon color="secondary" fontSize="large"/>
-        </div>
-      </div>
-    ));
+      );
+    });
   }
 
   getFlightTypes = (flightResults: Array<FlightResult>) =>
@@ -149,22 +157,49 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     );
   }
 
-  setFlightTimeHTML = (segment: Segment) => {
-    const flights: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
-    const departureTime = moment(flights[0].departure_time);
-    const arrivalTime = moment(flights[flights.length - 1].arrival_time);
+  setFlightTimeHTML = (flights: Array<FlightResultsDetails>) => {
+    console.log(flights[0].departure_time)
+    const departureTime = moment(
+      flights[0].departure_time.slice(0, flights[0].departure_time.length - 6)
+    );
+    const arrivalTime = moment(
+      flights[flights.length - 1].arrival_time.slice(0, flights[0].arrival_time.length - 6)
+    );
     const timeDifference = flights.reduce((total: number, flightResult: FlightResultsDetails) => {
       return total += flightResult.flight_time;
     }, 0);
     const formatType = 'HH:mm';
     return (
       <div className="col-sm-2">
-        <div className="text-bold">{
+        <div className="text-bold flight-preview-time">{
           departureTime.format(formatType) + " - " + arrivalTime.format(formatType)
-        }</div>
+        }
+        {
+          departureTime.hour() + timeDifference / 60 > 24
+            ? <div className='plus-one-indicator'>+1</div>
+            : ''
+        }
+        </div>
         <p className="text-small">
           {Math.floor(timeDifference / 60) + 'h ' + Math.round(60 * (timeDifference / 60 % 1)) + 'm'}
         </p>
+      </div>
+    );
+  }
+
+  setFlightPreviewIcons = (index: number) => {
+    return(
+      <div className='col-md-2 segment-preview-icon-container'>
+        {
+          index === 0 || index === this.props.segments.length - 1
+            ? <FiberManualRecordIcon style={{ fontSize: 30 }}/>
+            : <RadioButtonUncheckedIcon />
+        }
+        {
+          index !== this.props.segments.length - 1
+            ? <div className='segment-preview-dotted-line'></div>
+            : ''
+        }
       </div>
     );
   }

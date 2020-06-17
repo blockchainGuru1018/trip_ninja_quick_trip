@@ -6,7 +6,6 @@ import Home from './common/Home';
 import Search from './trip/search/Search';
 import Login from './auth/Login';
 import PreResults from './trip/results/PreResults';
-import FlexTripResult from './trip/results/FlexTripResult';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';

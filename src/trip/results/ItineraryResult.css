@@ -101,9 +101,12 @@
   padding: 0;
   display: grid;
   height: 100%;
-  align-items: center;
   grid-auto-flow: column;
   justify-items: center;
+}
+
+.baggage-amount-text {
+  padding-top: 10px
 }
 
 .card-travel-icon {

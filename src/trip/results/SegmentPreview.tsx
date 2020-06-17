@@ -103,9 +103,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       return(
-        <div className='row segment-preview-container'>
+        <div className='row segment-preview-container' key={index.toString()}>
           {this.setFlightPreviewIcons(index)}
-          <div className="row segment-preview col-md-10" key={index.toString()}>
+          <div className="row segment-preview col-md-10">
             <div className="col-sm-2 preview-flight-path-container">
               <p className="origin-destination flight-preview-grey-border">{segment.origin}
                 <span className="circle-divider">•</span>{segment.destination}
@@ -123,7 +123,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 fontSize="large"
                 className='card-travel-icon'
               />
-              <div>
+              <div className='baggage-amount-text'>
                 {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
               </div>
             </div>
@@ -158,7 +158,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   }
 
   setFlightTimeHTML = (flights: Array<FlightResultsDetails>) => {
-    console.log(flights[0].departure_time)
     const departureTime = moment(
       flights[0].departure_time.slice(0, flights[0].departure_time.length - 6)
     );

@@ -26,7 +26,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults' 
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     
-    let selectedTrip = this.getActiveSegments(trip);
+    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
     
     const selectedSegments = 
@@ -66,17 +66,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   }
 
   setActiveSegments = () => {
-    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.map((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0)});
+    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0)});
   }
 
   getActiveSegments = (trip: Results) => {
-    let selectedTrip = [];
-    for (let segment in trip.segments) {
-      selectedTrip.push(trip.segments[segment].find((object: Segment) => { return object.status === 'active'; }) || trip.segments[segment][0]);
-    }
-    console.log(trip.segments);
-
-    return selectedTrip;
+    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
   }
 }
 

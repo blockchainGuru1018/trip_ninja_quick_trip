@@ -4,6 +4,7 @@ import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import history from '../../History';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -16,17 +17,17 @@ const ChangeSearchButton = styled(Button)({
 });
 
 interface ResultsHeaderProps {
-  tripInfo: any
-  flights: any
+  segments: Array<Segment>
+  flights: Array<FlightResultsDetails>
 }
 
 class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   render() {
-    const segmentPath = this.props.tripInfo.map((segment: Segment, index: number) => (
+    const segmentPath = this.props.segments.map((segment: Segment, index: number) => (
       <span key={index.toString()} className="itinerary-path-text">
         {segment.origin}-{segment.destination}•{this.getDepartureDate(segment.flights[0].flight_detail_ref)}
-        {index < this.props.tripInfo.length-1 && <span> | </span>}
+        {index < this.props.segments.length-1 && <span> | </span>}
       </span>
     ));
 
@@ -42,7 +43,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             <div className="float-right">
               <ChangeSearchButton
                 variant="contained"
-                href="/search">
+                onClick={() => history.push('/search/')}>
                 Change Search
               </ChangeSearchButton>
             </div>
@@ -54,7 +55,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
   }
 
   getDepartureDate = (flightDetailRef: number) => {
-    const firstFlight: FlightResultsDetails = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
+    const firstFlight: FlightResultsDetails[] = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
     return <span><Moment format="MMM DD">{firstFlight[0].departure_time}</Moment></span>;
   }
 }

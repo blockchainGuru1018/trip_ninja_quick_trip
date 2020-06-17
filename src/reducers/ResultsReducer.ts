@@ -6,11 +6,15 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return {
         fareStructureResults: action.results.fare_structure,
         flexTripResults: action.results.flex_trip,
-        errors: {errorFound: false}
+        errors: {errorFound: false},
+        tripType: 'fareStructureResults'
       };
 
     case 'SET_ERROR_DETAILS':
-      return {...state, errors: {errorFound: action.value}}
+      return {...state, errors: {errorFound: action.value}};
+    
+    case 'SET_TRIP_TYPE':
+      return {...state, tripType: action.value};
 
     default:
       return state;

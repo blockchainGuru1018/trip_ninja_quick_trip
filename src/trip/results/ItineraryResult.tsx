@@ -6,7 +6,7 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreview from './SegmentPreview';
 import { CurrencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
-import { ResultsDetails } from './ResultsInterfaces';
+import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 
 
 interface ItineraryResultsProps {
@@ -15,14 +15,16 @@ interface ItineraryResultsProps {
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
-  render() {
-    const trip = this.props.resultsDetails.tripType === 'farestructure'
-      ? this.props.resultsDetails.fareStructureResults! : this.props.resultsDetails.flexTripResults!;
-    let selectedTrip = [];
-    for (let segment in trip.segments) {
-      selectedTrip.push(trip.segments[segment][0]); // trip.segments.filter((segment: Segment) => { return segment.selected === true })
-    }
 
+  componentDidMount() {
+    this.setActiveSegments();
+  }
+
+  render() {
+    const trip = this.props.resultsDetails.tripType === 'flexTripResults'
+      ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
+
+    let selectedTrip = this.getActiveSegments(trip);
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     const selectedSegments =
@@ -38,7 +40,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     return (
       <div id="itinerary-result">
         <div className="itinerary-header">
-          <ResultsHeader tripInfo={selectedTrip} flights={trip.flight_details}/>
+          <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong>
@@ -62,6 +64,20 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
       </div>
     );
+  }
+
+  setActiveSegments = () => {
+    for (let segment in this.props.resultsDetails[this.props.resultsDetails.tripType].segments) {
+      this.props.resultsDetails[this.props.resultsDetails.tripType].segments[segment][0].status = 'active';
+    }
+  }
+
+  getActiveSegments = (trip: Results) => {
+    let selectedTrip = [];
+    for (let segment in trip.segments) {
+      selectedTrip.push(trip.segments[segment].find((object: Segment) => { return object.status === 'active'; }) || trip.segments[segment][0]);
+    }
+    return selectedTrip;
   }
 }
 

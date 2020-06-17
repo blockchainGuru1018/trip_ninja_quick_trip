@@ -15,7 +15,7 @@ export const defaultResultsDetails: ResultsDetails = {
   errors: {
     errorFound: false
   },
-  tripType: 'farestructure'
+  tripType: 'fareStructureResults'
 };
 
 export interface Results {
@@ -56,6 +56,7 @@ export interface Segment {
   segment_time_with_connections: number;
   flights: Array<FlightResult>
   brands?: Array<Brands>
+  status?: string
 }
 
 export interface Baggage {

@@ -20,7 +20,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
 import ErrorModal from './common/modals/ErrorModal';
 import Theme from './Theme';
-import History from './History';
+import history from './History';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -72,7 +72,7 @@ class App extends React.Component<IAppProps> {
               authDetails={this.props.authDetails}/>
           }
           <div className="container-fluid">
-            <Router history={History}>
+            <Router history={history}>
               <div>
                 <Route exact path="/" component={() =>
                   <Home
@@ -109,12 +109,15 @@ class App extends React.Component<IAppProps> {
                   } />
                   : ''
                 }
-                <Route exact path="/results/itinerary/" render={() =>
-                  <ItineraryResult 
-                    resultsDetails={this.props.resultsDetails}
-                    currency={this.props.searchDetails.currency}
-                  />
-                } />
+                {this.props.resultsDetails.fareStructureResults
+                  ? <Route exact path="/results/itinerary/" render={() =>
+                    <ItineraryResult
+                      resultsDetails={this.props.resultsDetails}
+                      currency={this.props.searchDetails.currency}
+                    />
+                  } />
+                  : history.push('/search/')
+                }
                 <Route exact path="/results/segment/:index" render={() =>
                   <SegmentSelection />
                 } />

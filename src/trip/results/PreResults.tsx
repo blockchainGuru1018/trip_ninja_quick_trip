@@ -8,10 +8,12 @@ import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { setTripType } from '../../actions/ResultsActions';
 
+
 interface PreResultsProps {
   resultsDetails: ResultsDetails;
   currency: string
   setTripType: typeof setTripType
+
 }
 
 class PreResults extends React.Component<PreResultsProps> {
@@ -64,6 +66,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <Button
                   variant="contained"
                   className="btn-flight-options"
+
                   onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}
                 >See flight options</Button>
               </div>

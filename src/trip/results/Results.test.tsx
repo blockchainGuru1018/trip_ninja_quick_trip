@@ -87,6 +87,7 @@ test('getFlightDetailsBySegment', () => {
     destination: "NYC", origin: "YHZ",}]);
 });
 
+
 test('calculateHoursBetween', () => {
   expect(
     segmentPreviewComponentInstance.calculateHoursBetween(testResultsDetails.flight_details)
@@ -101,4 +102,3 @@ test('getFlightTypes', () => {
     segmentPreviewComponentInstance.getFlightTypes(testResultsDetails.segments[1][0].flights)
   ).toBe("Y, Y Class");
 });
-

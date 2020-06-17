@@ -18,6 +18,7 @@ export const defaultResultsDetails: ResultsDetails = {
   tripType: 'fareStructureResults'
 };
 
+
 export interface Results {
   trip_id: string;
   markup: number;

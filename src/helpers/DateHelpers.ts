@@ -17,7 +17,7 @@ export const dateFormats = {
   USA: 'MM/dd/yyyy'
 };
 
-export function timeDifference(first: Date, second: Date) {
+export function getTimeDifference(first: Date, second: Date) {
   const timeDifference = moment(second).diff(moment(first), 'milliseconds');
   const hours = Math.floor(timeDifference / (1000*60*60))
   const minutes = Math.round(60 * (timeDifference / (1000*60*60) % 1))

@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
 import '../../index.css';
 import iataAirports from '../../assets/data/iataAirports.json';
-import { timeDifference } from '../../helpers/DateHelpers';
+import { getTimeDifference } from '../../helpers/DateHelpers';
 import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -90,7 +90,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         return '';
       }
       else {
-        const stopOverTime = timeDifference(
+        const stopOverTime = getTimeDifference(
           new Date(flight.arrival_time), new Date(flights[index + 1].departure_time)
         );
         stopOverTimeDetails.push({[flight.destination]: stopOverTime});

@@ -22,6 +22,8 @@
 .segment-nav-link {
   color: var(--primary-dark);
   text-transform: uppercase;
+  border: none;
+  background-color: inherit;
 }
 
 .segment-nav-link:hover {

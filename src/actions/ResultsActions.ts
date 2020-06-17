@@ -24,3 +24,11 @@ export function setTripType(value: string) {
     value
   };
 }
+
+export function setActiveSegment(itineraryIndex: number, segmentIndex: number){
+  return {
+    type: 'SET_ACTIVE_SEGMENT',
+    itineraryIndex,
+    segmentIndex
+  };
+}

@@ -25,8 +25,6 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 }
 
 function setSegmentStatus(state: any, action: any) {
-  console.log(state);
-  console.log(action);
   const segments = state[state.tripType].segments[action.itineraryIndex];
   segments.map((segment: Segment) => {return segment.status = 'inactive'});
   segments[action.segmentIndex].status = 'active';

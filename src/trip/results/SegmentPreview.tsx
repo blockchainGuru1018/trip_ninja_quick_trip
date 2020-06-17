@@ -85,7 +85,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   calculateHoursBetween = (flights: Array<FlightResultsDetails>) => {
     let stopOverTimeDetails: Array<any> = [];
-    flights.map((flight: FlightResultsDetails, index: number) => {
+    let _ = flights.map((flight: FlightResultsDetails, index: number) => {
       if(index === flights.length - 1) {
         return '';
       }
@@ -165,7 +165,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     const arrivalTime = moment(
       flights[flights.length - 1].arrival_time.slice(0, flights[0].arrival_time.length - 6)
     );
-    const timeDifference = flights.reduce((total: number, flightResult: FlightResultsDetails) => {
+    const minutesDifference: number = flights.reduce((total: number, flightResult: FlightResultsDetails) => {
       return total += flightResult.flight_time;
     }, 0);
     const formatType = 'HH:mm';
@@ -175,13 +175,16 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           departureTime.format(formatType) + " - " + arrivalTime.format(formatType)
         }
         {
-          departureTime.hour() + timeDifference / 60 > 24
+          departureTime.hour() + minutesDifference / 60 > 24
             ? <div className='plus-one-indicator'>+1</div>
             : ''
         }
         </div>
         <p className="text-small">
-          {Math.floor(timeDifference / 60) + 'h ' + Math.round(60 * (timeDifference / 60 % 1)) + 'm'}
+          {
+            Math.floor(minutesDifference / 60) + 'h ' +
+            Math.round(60 * (minutesDifference / 60 % 1)) + 'm'
+          }
         </p>
       </div>
     );

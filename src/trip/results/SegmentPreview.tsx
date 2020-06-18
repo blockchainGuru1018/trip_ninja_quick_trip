@@ -40,11 +40,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         <div>
           <img
             className='img-airline-logo '
-            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_24x24.png"}
+            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_48x48.png"}
             alt='flight-logo'
             onError={(e: any) => {
               e.target.onerror = null;
-              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_24x24.png';
+              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_48x48.png';
             }}
           ></img>
         </div>
@@ -173,7 +173,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div className="col-sm-2">
         <div className="text-bold flight-preview-time">
           <Moment format={formatType}>{departureTime}</Moment>
-           - 
+           -
           <Moment format={formatType}>{arrivalTime}</Moment>
           {
             departureTime.hour() + minutesDifference / 60 > 24

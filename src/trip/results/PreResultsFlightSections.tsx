@@ -74,7 +74,7 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
         return flightResult.reference === segment.flights[segment.flights.length - 1].flight_detail_ref;
       });
     return numberOfNightsDifference(
-      new Date(lastFlight[0].arrival_time), new Date(departingFlight[0].departure_time)
+      lastFlight[0].arrival_time, departingFlight[0].departure_time
     );
   }
 

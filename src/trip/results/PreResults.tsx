@@ -53,7 +53,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <p className="standard-text">
                   {'From: ' + this.state.farePrice + ' ' + this.props.currency}
                 </p>
-                <p className="standard-text small-standard-text">
+                <p className="standard-text text-small">
                   {this.state.fareStructurePassengersString}
                 </p>
                 <hr/>
@@ -79,7 +79,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <p className="standard-text">
                   {'From: ' + this.state.flexPrice + ' ' + this.props.currency}
                 </p>
-                <p className='standard-text small-standard-text'>
+                <p className='standard-text text-small'>
                   {this.state.flexTripPassengersString}
                 </p>
                 <hr/>

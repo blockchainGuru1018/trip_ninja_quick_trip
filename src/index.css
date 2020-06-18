@@ -98,7 +98,7 @@ h4 {
 }
 
 .text-small {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .default-box-styles {
@@ -135,4 +135,8 @@ h4 {
   border-radius: 5px;
   padding: 45px 65px;
   margin-top: 75px;
+}
+
+.icon-label {
+  margin-left: 10px
 }

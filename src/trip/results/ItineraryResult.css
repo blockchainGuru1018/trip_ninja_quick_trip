@@ -98,7 +98,7 @@
 }
 
 .baggage-icon-container {
-  padding: 0;
+  padding: 10px 0px 0px 0px;
   display: grid;
   height: 100%;
   grid-auto-flow: column;
@@ -150,4 +150,8 @@
 
 .flight-preview-time {
   position: relative;
+}
+
+.fare-family-row {
+  padding: 10px;
 }

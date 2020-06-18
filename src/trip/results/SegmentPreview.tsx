@@ -9,6 +9,7 @@ import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
+import IconButton from '@material-ui/core/IconButton';
 
 
 interface SegmentPreviewProps {
@@ -135,15 +136,15 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 </div>
               </div>
               <div className="col-sm-1 icon-expand-preview">
-                <ExpandMoreIcon
-                  color="secondary"
-                  fontSize="large"
+                <IconButton                  
                   onClick={(() =>
                     this.state.expandedSegment === index
                       ? this.setState({expandedSegment: -1})
                       : this.setState({expandedSegment: index})
                   )}
-                />
+                >
+                  <ExpandMoreIcon fontSize="large" color="secondary"/>
+                </IconButton>
               </div>
             </div>
             {this.state.expandedSegment === index

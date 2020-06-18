@@ -8,6 +8,7 @@ import { getTimeDifference } from '../../helpers/DateHelpers';
 import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import SegmentPreviewDetails from './SegmentPreviewDetails';
 
 
 interface SegmentPreviewProps {
@@ -16,6 +17,10 @@ interface SegmentPreviewProps {
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
+
+  state = {
+    expandedSegment: -1
+  }
 
   render() {
     return (
@@ -106,31 +111,45 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return(
         <div className='row segment-preview-container' key={index.toString()}>
           {this.setFlightPreviewIcons(index)}
-          <div className="row segment-preview col-md-10">
-            <div className="col-sm-2 preview-flight-path-container">
-              <p className="origin-destination flight-preview-grey-border">{segment.origin}
-                <span className="circle-divider">•</span>{segment.destination}
-              </p>
-              <p className="text-small flight-preview-grey-border">
-                {moment(segmentFlightDetails[0].departure_time).format('MMM DD')}</p>
-            </div>
-            {this.setFlightLogoHTML(segmentFlightDetails)}
-            {this.setFlightTimeHTML(segmentFlightDetails)}
-            {this.setStopsHTML(segment, segmentFlightDetails)}
-            {this.setSegmentTypesHTML(segment)}
-            <div className="col-sm-1 baggage-icon-container">
-              <CardTravelIcon
-                color="primary"
-                fontSize="large"
-                className='card-travel-icon'
-              />
-              <div className='baggage-amount-text'>
-                {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
+          <div className="row col-md-10">
+            <div className="row segment-preview col-md-12">
+              <div className="col-sm-2 preview-flight-path-container">
+                <p className="origin-destination flight-preview-grey-border">{segment.origin}
+                  <span className="circle-divider">•</span>{segment.destination}
+                </p>
+                <p className="text-small flight-preview-grey-border">
+                  {moment(segmentFlightDetails[0].departure_time).format('MMM DD')}</p>
+              </div>
+              {this.setFlightLogoHTML(segmentFlightDetails)}
+              {this.setFlightTimeHTML(segmentFlightDetails)}
+              {this.setStopsHTML(segment, segmentFlightDetails)}
+              {this.setSegmentTypesHTML(segment)}
+              <div className="col-sm-1 baggage-icon-container">
+                <CardTravelIcon
+                  color="primary"
+                  fontSize="large"
+                  className='card-travel-icon'
+                />
+                <div className='baggage-amount-text'>
+                  {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
+                </div>
+              </div>
+              <div className="col-sm-1 icon-expand-preview">
+                <ExpandMoreIcon
+                  color="secondary"
+                  fontSize="large"
+                  onClick={(() =>
+                    this.state.expandedSegment === index
+                      ? this.setState({expandedSegment: -1})
+                      : this.setState({expandedSegment: index})
+                  )}
+                />
               </div>
             </div>
-            <div className="col-sm-1 icon-expand-preview">
-              <ExpandMoreIcon color="secondary" fontSize="large"/>
-            </div>
+            {this.state.expandedSegment === index
+              ? <SegmentPreviewDetails segment={segment} flightDetails={segmentFlightDetails}/>
+              : ''
+            }
           </div>
         </div>
       );

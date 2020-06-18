@@ -119,7 +119,9 @@ export interface BrandService {
 export interface FlightResultsDetails {
   reference: number;
   origin: string;
+  origin_name: string;
   destination: string;
+  destination_name: string;
   departure_time: string;
   arrival_time: string;
   flight_number: number;

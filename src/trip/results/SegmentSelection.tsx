@@ -3,6 +3,7 @@ import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
 import './SegmentSelection.css';
 import FlightIcon from '@material-ui/icons/Flight';
+import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,21 +13,25 @@ import {
 
 
 interface SegmentSelectionProps {
-
+  resultsDetails: ResultsDetails
+  currency: string
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps> {
-
+  
   render() {
-    let index = this.props;
-    console.log(index);
+    const trip = this.props.resultsDetails.tripType === 'flexTripResults'
+      ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
+    const segmentIndex = 0;
+    const currentSegments = trip.segments[segmentIndex];
+    //const index = this.props.match.params.index;
     return (
-      <div className="row" id="segment-selection">
-        <div className="itinerary-header">
-          <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
+      <div id="segment-selection">
+        <div className="results-header">
+         
           <h1>
-            LGW
-            <FlightIcon color="primary" className="rotate-90"/>
+            LGW 
+            <FlightIcon color="primary" className="rotate-90" fontSize="large"/>
             PAR
           </h1>
         </div>

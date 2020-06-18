@@ -6,13 +6,12 @@ import Home from './common/Home';
 import Search from './trip/search/Search';
 import Login from './auth/Login';
 import PreResults from './trip/results/PreResults';
-import FlexTripResult from './trip/results/FlexTripResult';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
-import { setErrorDetails } from './actions/ResultsActions';
+import { setErrorDetails, setTripType, setActiveSegment } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -37,6 +36,8 @@ interface IAppProps {
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
   setErrorDetails: typeof setErrorDetails;
+  setTripType: typeof setTripType;
+  setActiveSegment: typeof setActiveSegment;
 }
 
 const theme = Theme;
@@ -104,15 +105,17 @@ class App extends React.Component<IAppProps> {
                     <PreResults
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
+                      setTripType={this.props.setTripType}
                     />
                   } />
                   : ''
                 }
-                <Route exact path="/results/flex-trip/" render={() =>
-                  <FlexTripResult />
-                } />
                 <Route exact path="/results/itinerary/" render={() =>
-                  <ItineraryResult />
+                  <ItineraryResult 
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                    setActiveSegment={this.props.setActiveSegment}
+                  />
                 } />
                 <Route exact path="/results/segment/:index" render={() =>
                   <SegmentSelection />

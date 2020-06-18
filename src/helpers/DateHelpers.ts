@@ -9,13 +9,13 @@ export function datesAreOnSameDayOrLater(first: Date, second: Date) {
         : first.getMonth() === second.getMonth()
           ? first.getDate() >= second.getDate()
           : false
-      : false
+      : false;
 }
 
 export const dateFormats = {
   UK: 'dd/MM/yyyy',
   USA: 'MM/dd/yyyy'
-}
+};
 
 export function numberOfDaysDifference(first: Date, second: Date): number {
   const differenceInTime = second.getTime() - first.getTime();

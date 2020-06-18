@@ -36,7 +36,7 @@ class Search extends React.Component<SearchProps> {
       <div className="row">
         {this.props.authenticated
           ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
-            <h1>Flight Search</h1>
+            <h1 className="flight-search">Flight Search</h1>
             {flights}
             <div className="row">
               <Button
@@ -68,8 +68,8 @@ class Search extends React.Component<SearchProps> {
                   flights={this.props.searchDetails.flights}
                 />
               </div>
-              <hr/>
             </div>
+            <hr/>
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <TripPath

@@ -5,10 +5,13 @@ import PreResultsFlightSections from './PreResultsFlightSections';
 import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
+import { createPassengersString } from '../../helpers/PassengersListHelper';
+import { setTripType } from '../../actions/ResultsActions';
 
 interface PreResultsProps {
   resultsDetails: ResultsDetails;
   currency: string
+  setTripType: typeof setTripType
 }
 
 class PreResults extends React.Component<PreResultsProps> {
@@ -24,10 +27,10 @@ class PreResults extends React.Component<PreResultsProps> {
     this.compareFlexTripPrice();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
-        fareStructurePassengersString: this.createPassengersString(
+        fareStructurePassengersString: createPassengersString(
           this.props.resultsDetails.fareStructureResults?.segments[0]
         ),
-        flexTripPassengersString: this.createPassengersString(
+        flexTripPassengersString: createPassengersString(
           this.props.resultsDetails.flexTripResults?.segments[0]
         )
       })
@@ -48,7 +51,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <p className="standard-text">
                   {'From: ' + this.state.farePrice + ' ' + this.props.currency}
                 </p>
-                <p className="standard-text small-standard-text">
+                <p className="standard-text text-small">
                   {this.state.fareStructurePassengersString}
                 </p>
                 <hr/>
@@ -61,7 +64,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <Button
                   variant="contained"
                   className="btn-flight-options"
-                  onClick={() => history.push('/results/itinerary/')}
+                  onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}
                 >See flight options</Button>
               </div>
             </div>
@@ -73,7 +76,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <p className="standard-text">
                   {'From: ' + this.state.flexPrice + ' ' + this.props.currency}
                 </p>
-                <p className='standard-text small-standard-text'>
+                <p className='standard-text text-small'>
                   {this.state.flexTripPassengersString}
                 </p>
                 <hr/>
@@ -86,7 +89,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 <Button
                   variant="contained"
                   className="btn-flight-options"
-                  onClick={() => history.push('/results/flex-trip/')}
+                  onClick={() => {this.props.setTripType('flexTripResults'); history.push('/results/itinerary/');}}
                 >See flight options</Button>
               </div>
             </div>
@@ -94,19 +97,6 @@ class PreResults extends React.Component<PreResultsProps> {
         </div>
       </div>
     );
-  }
-
-  createPassengersString = (segments: any) => {
-    const pricedPassengers: Array<string>  = segments[0].priced_passengers;
-    const potentialPassengers = ['ADT', 'CHD', 'YTH', 'STU', 'INF'];
-    return potentialPassengers.reduce((total: string, potentialPassenger: string) => {
-      const nPassengersOfType: Array<any> = pricedPassengers.filter((pricedPassenger: string) =>
-        pricedPassenger === potentialPassenger
-      );
-      return total += nPassengersOfType.length > 0
-        ? ' ' + nPassengersOfType.length + ' ' + potentialPassenger
-        : '';
-    }, '');
   }
 
   compareFlexTripPrice = () => {

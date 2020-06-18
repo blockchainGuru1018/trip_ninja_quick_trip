@@ -13,13 +13,13 @@ export function newSearch(searchDetails: Object) {
   return {
     type: 'NEW_SEARCH',
     searchDetails
-  }
+  };
 }
 
 export function resetSearch() {
   return {
     type: 'RESET_SEARCH'
-  }
+  };
 }
 
 export function setValue(valueType: string, value: any) {
@@ -27,16 +27,16 @@ export function setValue(valueType: string, value: any) {
     type: 'SET_VALUE',
     valueType,
     value
-  }
+  };
 }
 
 export const addFlight = (flight: object) => async (dispatch: any) => {
   await dispatch({
     type: 'ADD_FLIGHT',
     flight
-  })
-  return Promise.resolve()
-}
+  });
+  return Promise.resolve();
+};
 
 export function updateFlightValue(index: number, key: string, value: string) {
   return {
@@ -44,7 +44,7 @@ export function updateFlightValue(index: number, key: string, value: string) {
     index,
     key,
     value
-  }
+  };
 }
 
 export function updatePassengers(passengerType: string, value: number) {
@@ -52,39 +52,39 @@ export function updatePassengers(passengerType: string, value: number) {
     type: 'UPDATE_PASSENGERS',
     passengerType,
     value
-  }
+  };
 }
 
 export function removeFlight(flightIndex: number) {
   return {
     type: 'REMOVE_FLIGHT',
     flightIndex
-  }
+  };
 }
 
 export function searchLoading(value: boolean) {
   return {
     type: 'SEARCH_LOADING',
     value
-  }
+  };
 }
 
-export const searchFlights = (searchPayload: SearchPayload, rootFlexible: boolean) => (dispatch: any) => {
+export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boolean) => (dispatch: any) => {
   dispatch(searchLoading(true));
-  const url: string = rootFlexible
+  const url: string = routeFlexible
     ? '/multicitysearch/'
-    : '/fare_structure/'
+    : '/fare_structure/';
   searchPayload.dummy = true;
   return API.post(url, searchPayload)
     .then((response: any) => {
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
       dispatch(setErrorDetails(false));
-      return true
+      return true;
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));
-      dispatch(setErrorDetails(true))
-      return false
-    })
-}
+      dispatch(setErrorDetails(true));
+      return false;
+    });
+};

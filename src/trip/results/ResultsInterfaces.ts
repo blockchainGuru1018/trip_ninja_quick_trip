@@ -3,6 +3,7 @@ export interface ResultsDetails {
   fareStructureResults?: Results;
   flexTripResults?: Results;
   errors: Errors;
+  tripType: string;
 }
 
 export interface Errors {
@@ -13,14 +14,16 @@ export interface Errors {
 export const defaultResultsDetails: ResultsDetails = {
   errors: {
     errorFound: false
-  }
-}
+  },
+  tripType: 'fareStructureResults'
+};
 
 export interface Results {
   trip_id: string;
   markup: number;
   segments: Array<Array<Segment>>
   flight_details: Array<FlightResultsDetails>
+  path_sequence: Array<string>
 }
 
 export interface Segment {
@@ -43,7 +46,7 @@ export interface Segment {
   taxes: number;
   fees: number;
   transportation_time: number;
-  fareType: string;
+  fare_type: string;
   baggage: Baggage;
   additional_details: AdditionalDetails;
   cabin_class: string;
@@ -53,6 +56,7 @@ export interface Segment {
   segment_time_with_connections: number;
   flights: Array<FlightResult>
   brands?: Array<Brands>
+  status?: string
 }
 
 export interface Baggage {

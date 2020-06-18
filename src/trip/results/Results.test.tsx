@@ -1,27 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import FlexTripResult from './FlexTripResult';
-import ItineraryResult from './ItineraryResult';
 import SegmentSelection from './SegmentSelection';
-import PreResults from './PreResults';
 import PreResultsFlightSections from './PreResultsFlightSections';
 import { shallow } from 'enzyme';
 
-test('itinerary results link renders', () => {
-  const { getByText } = render(
-	  <ItineraryResult/>
-  );
-
-  expect(getByText(/itinerary/i)).toBeInTheDocument();
-});
-
-test('flextrip results link renders', () => {
-  const { getByText } = render(
-	  <FlexTripResult/>
-  );
-
-  expect(getByText(/flextrip/i)).toBeInTheDocument();
-});
 
 test('segment selection link renders', () => {
   const { getByText } = render(
@@ -35,49 +17,49 @@ const yesterday = new Date().setDate(new Date().getDate() - 1);
 
 const testResultsDetails = {
   flight_details: [
-    {reference: 1, arrival_time: new Date, departure_time: yesterday},
-    {reference: 2, arrival_time: new Date, departure_time: yesterday}
+    {reference: 1, arrival_time: yesterday, departure_time: yesterday,
+      origin: 'YHZ', destination: 'NYC'},
+    {reference: 2, arrival_time: yesterday, departure_time: new Date(),
+      origin: 'BER', destination: 'MIA'}
   ],
   segments: [
     [
       {
-        flights: [{flight_detail_ref: 1}],
+        flights: [{flight_detail_ref: 1, booking_code: 'X'}],
         origin_name: 'London, ',
-        destination_name: 'Berlin, '
+        destination_name: 'Berlin, ',
+        baggage: {
+          number_of_pieces: 0
+        }
       }
     ],
     [
       {
-        flights: [{flight_detail_ref: 2}],
+        flights: [
+          {flight_detail_ref: 2, booking_code: 'Y'},
+          {flight_detail_ref: 1, booking_code: 'Y'}
+        ],
         origin_name: 'Berlin, ',
-        destination_name: 'Paris, '
+        destination_name: 'Paris, ',
+        baggage: {
+          number_of_pieces: 0
+        }
       }
     ]
   ]
 };
 
 const expectedOutcome =  [
-  {"destination": "Berlin", "nDays": 0, "origin": "London"},
-  {"destination": "Paris", "nDays": 1, "origin": "Berlin"}
+  {"destination": "Berlin", "nNights": 0, "origin": "London"},
+  {"destination": "Paris", "nNights": 1, "origin": "Berlin"}
 ];
 
-test('createPassengerString', () => {
-  const component: any = shallow(<PreResults />);
-  const instance = component.instance();
-  expect(instance.createPassengersString(
-    [{priced_passengers: ["ADT"]}]
-  )).toBe(' 1 ADT');
-  expect(instance.createPassengersString(
-    [{priced_passengers: ["ADT", "ADT", "CHD"]}]
-  )).toBe(' 2 ADT 1 CHD');
-});
-
-test('getNumberOfDays', () => {
+test('getNumberOfNights', () => {
   const component: any = shallow(
     <PreResultsFlightSections resultsDetails={testResultsDetails} />
   );
   const instance = component.instance();
-  expect(instance.getNumberOfDays(1, [{arrival_time: new Date()}], testResultsDetails)).toBe(1);
+  expect(instance.getNumberOfNights(1, [{departure_time: new Date()}], testResultsDetails)).toBe(1);
 });
 
 test('setLocations', () => {

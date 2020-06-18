@@ -10,7 +10,8 @@
 
 :root {
   --primary-dark: #45565E;
-  --main: #0DBE7CEB
+  --main: #0DBE7CEB;
+  --secondary: #4BAFD7;
 }
 
 body {
@@ -33,6 +34,13 @@ h1 {
   font-family: 'NeuzeitGro-Bol', sans-serif;
   font-size: 40px;
   letter-spacing: 0px;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'NeuzeitGro-Bol', sans-serif;
+  font-size: 24;
+  letter-spacing: 0px;
   color: var(--primary-dark);
   padding-bottom: 20px;
 }
@@ -43,7 +51,12 @@ h4 {
   font-size: 24px;
   letter-spacing: 0px;
   color: var(--primary-dark);
-  padding: 20px 0px;
+  padding-bottom: 20px;
+}
+
+.container-fluid {
+  padding: 0px;
+  margin-bottom: 150px;
 }
 
 .standard-text {
@@ -54,29 +67,21 @@ h4 {
   font-weight: normal;
 }
 
-.bold-text {
-  font-weight: bold
-}
-
-.small-standard-text {
-  font-size: 14px;
-}
-
-.btn-primary {
-  background-color: #0DBE7CEB;
-  color: #fff;
-  border-radius: 2px;
-  border-color: #0DBE7CEB;
-  padding: 15px 19px;
-  font-family: 'NeuzeitGro-Bol', sans-serif;
-}
-
 .rotate-90 {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
+}
+
+.text-bold {
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.text-small {
+  font-size: 14px;
 }
 
 .default-box-styles {
@@ -86,16 +91,20 @@ h4 {
   border-radius: 5px;
 }
 
-.container-fluid {
-  margin-bottom: 150px;
-}
-
 .nav-link:hover {
   cursor: pointer;
 }
 
 .App {
   height: 100vh;
+}
+
+.row {
+  margin: 0
+}
+
+.no-padding {
+  padding: 0px;
 }
 
 .default-form {

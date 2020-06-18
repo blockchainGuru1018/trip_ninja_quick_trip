@@ -88,12 +88,6 @@
   background-color: white;
 }
 
-.logo-1 {
-  position: absolute;
-  top: 4px;
-  left: 19px;
-}
-
 .airline-logo-container {
   display: grid;
   grid-template-columns: 55px 1fr;
@@ -146,7 +140,7 @@
 .plus-one-indicator {
   position: absolute;
   font-size: 10px;
-  left: 90px;
+  left: 80px;
   top: 0px;
 }
 

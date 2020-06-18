@@ -8,7 +8,7 @@ import { getTimeDifference } from '../../helpers/DateHelpers';
 import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
+import Moment from 'react-moment';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>
@@ -171,14 +171,15 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     const formatType = 'HH:mm';
     return (
       <div className="col-sm-2">
-        <div className="text-bold flight-preview-time">{
-          departureTime.format(formatType) + " - " + arrivalTime.format(formatType)
-        }
-        {
-          departureTime.hour() + minutesDifference / 60 > 24
-            ? <div className='plus-one-indicator'>+1</div>
-            : ''
-        }
+        <div className="text-bold flight-preview-time">
+          <Moment format={formatType}>{departureTime}</Moment>
+           - 
+          <Moment format={formatType}>{arrivalTime}</Moment>
+          {
+            departureTime.hour() + minutesDifference / 60 > 24
+              ? <div className='plus-one-indicator'>+1</div>
+              : ''
+          }
         </div>
         <p className="text-small">
           {

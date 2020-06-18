@@ -18,6 +18,7 @@ export const defaultResultsDetails: ResultsDetails = {
   tripType: 'fareStructureResults'
 };
 
+
 export interface Results {
   trip_id: string;
   markup: number;
@@ -119,8 +120,8 @@ export interface FlightResultsDetails {
   reference: number;
   origin: string;
   destination: string;
-  departure_time: Date;
-  arrival_time: Date;
+  departure_time: string;
+  arrival_time: string;
   flight_number: number;
   carrier: string;
   flight_time: number;

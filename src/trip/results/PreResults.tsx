@@ -8,10 +8,12 @@ import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { setTripType } from '../../actions/ResultsActions';
 
+
 interface PreResultsProps {
   resultsDetails: ResultsDetails;
   currency: string
   setTripType: typeof setTripType
+
 }
 
 class PreResults extends React.Component<PreResultsProps> {

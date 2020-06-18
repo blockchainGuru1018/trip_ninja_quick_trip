@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import SegmentSelection from './SegmentSelection';
 import PreResultsFlightSections from './PreResultsFlightSections';
+import SegmentPreview from './SegmentPreview';
 import { shallow } from 'enzyme';
 
 
@@ -13,13 +14,13 @@ test('segment selection link renders', () => {
   expect(getByText(/segments/i)).toBeInTheDocument();
 });
 
-const yesterday = new Date().setDate(new Date().getDate() - 1);
+const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
 const testResultsDetails = {
   flight_details: [
     {reference: 1, arrival_time: yesterday, departure_time: yesterday,
       origin: 'YHZ', destination: 'NYC'},
-    {reference: 2, arrival_time: yesterday, departure_time: new Date(),
+    {reference: 2, arrival_time: yesterday, departure_time: new Date().toISOString().slice(0,23) + '+03:00',
       origin: 'BER', destination: 'MIA'}
   ],
   segments: [
@@ -70,4 +71,34 @@ test('setLocations', () => {
   expect(instance.setLocations()).toStrictEqual(expectedOutcome);
 });
 
+const segmentPreviewComponent: any = shallow(
+  <SegmentPreview
+    segments={testResultsDetails.segments[0]}
+    flightDetails={testResultsDetails.flight_details} />
+);
 
+const segmentPreviewComponentInstance = segmentPreviewComponent.instance();
+
+
+test('getFlightDetailsBySegment', () => {
+  expect(
+    segmentPreviewComponentInstance.getFlightDetailsBySegment(testResultsDetails.segments[0][0])
+  ).toStrictEqual([{reference: 1, arrival_time: yesterday, departure_time: yesterday,
+    destination: "NYC", origin: "YHZ",}]);
+});
+
+
+test('calculateHoursBetween', () => {
+  expect(
+    segmentPreviewComponentInstance.calculateHoursBetween(testResultsDetails.flight_details)
+  ).toStrictEqual([{"NYC": "24h 0m"}]);
+});
+
+test('getFlightTypes', () => {
+  expect(
+    segmentPreviewComponentInstance.getFlightTypes(testResultsDetails.segments[0][0].flights)
+  ).toBe("X Class");
+  expect(
+    segmentPreviewComponentInstance.getFlightTypes(testResultsDetails.segments[1][0].flights)
+  ).toBe("Y, Y Class");
+});

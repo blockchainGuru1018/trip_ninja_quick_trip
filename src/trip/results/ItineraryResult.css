@@ -65,8 +65,13 @@
   box-shadow: 0px 3px 6px #00000029;
   border: 1px solid #C1BDBD;
   border-radius: 10px;
-  padding: 25px;
+  padding: 20px 5px 10px 20px;
   margin-top: 28px;
+  min-height: 90px;
+}
+
+.flight-preview-grey-border {
+  border-right: 1px solid #45565E71;
 }
 
 .segment-list {
@@ -78,3 +83,67 @@
   margin-bottom: 0px;
 }
 
+.img-airline-logo {
+  width: 40px;
+  background-color: white;
+}
+
+.airline-logo-container {
+  display: grid;
+  grid-template-columns: 55px 1fr;
+}
+
+.baggage-icon-container {
+  padding: 0;
+  display: grid;
+  height: 100%;
+  grid-auto-flow: column;
+  justify-items: center;
+}
+
+.baggage-amount-text {
+  padding-top: 10px;
+}
+
+.card-travel-icon {
+  width: 25px;
+}
+
+.icon-expand-preview {
+  display: grid;
+  justify-content: flex-end;
+}
+
+.preview-flight-path-container {
+  display: grid;
+}
+
+.segment-preview-icon-container {
+  margin-top: 28px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+}
+
+.segment-preview-container {
+  padding-right: 20px;
+}
+
+.segment-preview-dotted-line {
+  height: 80%;
+  top: 70%;
+  position: absolute;
+  border-left: 1px dashed;
+}
+
+.plus-one-indicator {
+  position: absolute;
+  font-size: 10px;
+  left: 80px;
+  top: 0px;
+}
+
+.flight-preview-time {
+  position: relative;
+}

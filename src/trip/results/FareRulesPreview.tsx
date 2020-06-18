@@ -20,47 +20,47 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         <p className="text-center text-bold">Fare Rules</p>
         <p className="text-center text-small">Selected Fare Family: Flex</p>
         <div className="row fare-family-row">
-          <div className="col-sm-2 offset-sm-2">
+          <div className="col-md-2 offset-md-2">
             <BusinessCenterIcon color="primary"/>
             <span className="icon-label">1 pc</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <SwapHorizontalCircleIcon color="primary"/>
             <span className="icon-label">$102 CAD</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <ConfirmationNumberOutlinedIcon color="primary"/>
             <span className="icon-label">SATA Fare</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <WifiIcon color="primary"/>
             <span className="icon-label">Wifi</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <AirlineSeatLegroomNormalOutlinedIcon color="primary"/>
             <span className="icon-label">$10</span>
           </div>
         </div>
         <div className="row fare-family-row">
-          <div className="col-sm-2 offset-sm-2">
+          <div className="col-md-2 offset-md-2">
             <CardTravelIcon color="primary"/>
             <span className="icon-label">1 pc</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <CancelOutlinedIcon color="primary"/>
             <span className="icon-label">No cancellation</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <LanguageIcon color="primary"/>
             <span className="icon-label">Travelport</span>
           </div>
-          <div className="col-sm-2">
+          <div className="col-md-2">
             <FlightIcon color="primary"/>
             <span className="icon-label">Boeing 787</span>
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-10 offset-sm-2">
+          <div className="col-md-10 offset-md-2">
             <p className="text-small">*Edit fare family from the flight selection</p>
           </div>
         </div>

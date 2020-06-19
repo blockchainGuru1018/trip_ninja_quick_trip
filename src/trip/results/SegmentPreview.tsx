@@ -77,7 +77,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div className="col-sm-2">
         {
           flights.length > 1
-            ? <div className="text-bold">{flights.length - 1} Stop{flights.length > 2 ? "s" : ""}, self transfer</div>
+            ? <div className="text-bold">{flights.length - 1} Stop{flights.length > 2 ? "s" : ""}</div>
             : <p className="text-bold">Direct</p>
         }
         {

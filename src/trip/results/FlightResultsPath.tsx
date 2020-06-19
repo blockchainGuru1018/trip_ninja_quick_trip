@@ -10,6 +10,7 @@ import { numberOfNightsDifference } from '../../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import iataAirports from '../../assets/data/iataAirports.json';
+import { cityName } from '../../helpers/CityNameHelper';
 import './FlightResultsPath.css';
 
 interface FlightResultsPathProps {
@@ -88,14 +89,13 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
       : numberOfNightsDifference(
         this.props.flightDetails[index - 1].departure_time, flightDetail.arrival_time
       ) > 0;
-    if(index === flightDetailsLength) {
+    if (index === flightDetailsLength) {
       return (
         <div className='text-small'>
           <Moment format="HH:mm">{flightDetail.arrival_time.slice(0, 19)}</Moment>
           {
             arrivalTimeNextDay
-              ? ' (+1)'
-              : ''
+              && ' (+1)'
           }
         </div>
       );
@@ -134,11 +134,10 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
           <div>
             {
               index !== 0
-                ? <FlightLand className='flight-icon' color='primary' />
-                : ''
+                && <FlightLand className='flight-icon' color='primary' />
             }
             <div className='text-bold origin-destination-text-container'>
-              {flightDetail.origin_name.split(', ')[0] + ' (' + flightDetail.origin + ')'}
+              {cityName(flightDetail.origin_name) + ' (' + flightDetail.origin + ')'}
             </div>
             <FlightTakeoff className="flight-icon" color="primary" />
           </div>
@@ -155,7 +154,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
         <div>
           <FlightLand className='flight-icon' color='primary' />
           <div className='text-bold origin-destination-text-container'>
-            {finalFlightDetail.destination_name.split(', ')[0] + ' (' + finalFlightDetail.destination + ')'}
+            {cityName(finalFlightDetail.destination_name) + ' (' + finalFlightDetail.destination + ')'}
           </div>
         </div>
         <div>

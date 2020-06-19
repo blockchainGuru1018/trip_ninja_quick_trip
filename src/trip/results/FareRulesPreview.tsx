@@ -48,38 +48,34 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           <div className='col-md-8 offset-md-2'>
             <div className='row text-small'>
               {this.state.carryOn
-                ? <div className="col-lg-3 fare-rules-type">
+                && <div className="col-lg-3 fare-rules-type">
                   <BusinessCenterIcon color="primary"/>
                   <span className="icon-label">
                     {this.state.carryOn + (this.state.carryOn! > 1 ? 'pcs' : 'pc')}
                   </span>
                 </div>
-                : ''
               }
               {this.state.changePenalty
-                ? <div className="col-lg-3 fare-rules-type">
+                && <div className="col-lg-3 fare-rules-type">
                   <SwapHorizontalCircleIcon color="primary"/>
                   <span className="icon-label">{this.state.changePenalty}</span>
                 </div>
-                : ''
               }
               <div className="col-lg-3 fare-rules-type">
                 <ConfirmationNumberOutlinedIcon color="primary"/>
                 <span className="icon-label">{this.props.segment.fare_type}</span>
               </div>
               {this.state.wifi
-                ? <div className="col-lg-3 fare-rules-type">
+                && <div className="col-lg-3 fare-rules-type">
                   <WifiIcon color="primary"/>
                   <span className="icon-label">Wifi</span>
                 </div>
-                : ''
               }
               {this.state.seatAssignment
-                ? <div className="col-lg-3 fare-rules-type">
+                && <div className="col-lg-3 fare-rules-type">
                   <AirlineSeatLegroomNormalOutlinedIcon color="primary"/>
                   <span className="icon-label">{this.state.seatAssignment}</span>
                 </div>
-                : ''
               }
               <div className="col-lg-3 fare-rules-type">
                 <CardTravelIcon color="primary"/>
@@ -88,11 +84,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </span>
               </div>
               {this.state.cancelPenalty
-                ? <div className="col-lg-3 fare-rules-type">
+                && <div className="col-lg-3 fare-rules-type">
                   <CancelOutlinedIcon color="primary"/>
                   <span className="icon-label">{this.state.cancelPenalty}</span>
                 </div>
-                : ''
               }
               <div className="col-lg-3 fare-rules-type">
                 <LanguageIcon color="primary"/>
@@ -137,7 +132,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           ? additionalDetails.cancel_penalty + " %"
           : undefined
       : undefined;
-    if(brands) {
+    if (brands) {
       const brandServices: any = this.getBrand().brand_services;
       wifi = brandServices.wifi || false;
       seatAssignment = brandServices.seat_assignment
@@ -146,7 +141,6 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           : 'Available'
         : 'Unavilable';
       carryOn = brandServices.carry_on_hand_baggage || undefined;
-
     }
     this.setState({
       numBaggage,

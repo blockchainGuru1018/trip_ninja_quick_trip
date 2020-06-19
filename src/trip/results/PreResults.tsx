@@ -25,12 +25,19 @@ class PreResults extends React.Component<PreResultsProps> {
     flexTripPassengersString: ''
   }
 
+  componentWillMount() {
+    console.log(this.props.resultsDetails.fareStructureResults && this.props.resultsDetails.flexTripResults);
+    return this.props.resultsDetails.fareStructureResults && this.props.resultsDetails.flexTripResults
+      ? ''
+      : history.push('/results/itinerary/');
+  }
   componentDidMount() {
     this.compareFlexTripPrice();
+    console.log(this.props.resultsDetails.fareStructureResults);
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
-          this.props.resultsDetails.fareStructureResults?.segments[0]
+          this.props.resultsDetails.fareStructureResults.segments[0]
         ),
         flexTripPassengersString: createPassengersString(
           this.props.resultsDetails.flexTripResults?.segments[0]
@@ -116,6 +123,8 @@ class PreResults extends React.Component<PreResultsProps> {
         flexPrice: Math.round(flexPrice)
       });
       return flexPrice >= farePrice ? history.push('/results/itinerary/') : '';
+    } else {
+      return history.push('/results/itinerary/');
     }
   }
 }

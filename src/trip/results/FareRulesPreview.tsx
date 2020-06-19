@@ -39,9 +39,9 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         <p className="text-center text-small">
           {
             'Selected Fare Family: ' +
-            this.props.segment.brands
+            (this.props.segment.brands
               ? firstLetterCapital(this.getBrand().name)
-              : 'Default'
+              : 'Default')
           }
         </p>
         <div className="row fare-family-row">

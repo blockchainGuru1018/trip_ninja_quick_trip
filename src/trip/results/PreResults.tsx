@@ -33,7 +33,6 @@ class PreResults extends React.Component<PreResultsProps> {
   }
   componentDidMount() {
     this.compareFlexTripPrice();
-    console.log(this.props.resultsDetails.fareStructureResults);
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(

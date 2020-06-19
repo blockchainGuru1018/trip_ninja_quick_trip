@@ -95,4 +95,8 @@
 
 .fare-rules-type {
   padding-bottom: 40px;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
 }

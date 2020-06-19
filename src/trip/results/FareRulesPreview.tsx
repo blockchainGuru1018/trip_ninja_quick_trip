@@ -1,6 +1,5 @@
 import React from 'react';
 import WifiIcon from '@material-ui/icons/Wifi';
-import FlightIcon from '@material-ui/icons/Flight';
 import SwapHorizontalCircleIcon from '@material-ui/icons/SwapHorizontalCircle';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import ConfirmationNumberOutlinedIcon from '@material-ui/icons/ConfirmationNumberOutlined';
@@ -8,7 +7,7 @@ import AirlineSeatLegroomNormalOutlinedIcon from '@material-ui/icons/AirlineSeat
 import LanguageIcon from '@material-ui/icons/Language';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
-import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../../helpers/MiscHelpers';
 
@@ -141,7 +140,11 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     if(brands) {
       const brandServices: any = this.getBrand().brand_services;
       wifi = brandServices.wifi || false;
-      seatAssignment = brandServices.seat_assignment || undefined;
+      seatAssignment = brandServices.seat_assignment
+        ? brandServices.seat_assignment === '$'
+          ? 'At a cost'
+          : 'Available'
+        : 'Unavilable';
       carryOn = brandServices.carry_on_hand_baggage || undefined;
 
     }

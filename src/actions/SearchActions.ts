@@ -73,7 +73,6 @@ export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boole
   dispatch(searchLoading(true));
   const url: string = routeFlexible
     ? '/multicitysearch/'
-
     : '/fare_structure/';
   searchPayload.dummy = true;
   return API.post(url, searchPayload)
@@ -81,11 +80,11 @@ export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boole
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
       dispatch(setErrorDetails(false));
-      return true;
+      return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));
-      dispatch(setErrorDetails(true))
-      return false;
-    })
+      dispatch(setErrorDetails(true));
+      return {'success': false};
+    });
 }

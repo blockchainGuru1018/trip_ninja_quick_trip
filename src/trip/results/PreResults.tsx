@@ -25,12 +25,6 @@ class PreResults extends React.Component<PreResultsProps> {
     flexTripPassengersString: ''
   }
 
-  componentWillMount() {
-    console.log(this.props.resultsDetails.fareStructureResults && this.props.resultsDetails.flexTripResults);
-    return this.props.resultsDetails.fareStructureResults && this.props.resultsDetails.flexTripResults
-      ? ''
-      : history.push('/results/itinerary/');
-  }
   componentDidMount() {
     this.compareFlexTripPrice();
     return this.props.resultsDetails.fareStructureResults

@@ -5,7 +5,9 @@ import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces
 import '../../index.css';
 import iataAirports from '../../assets/data/iataAirports.json';
 import { getTimeDifference } from '../../helpers/DateHelpers';
+import { baggageLabel } from '../../helpers/BaggageHelper';
 import moment from 'moment';
+import Moment from 'react-moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
@@ -80,12 +82,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         }
         {
           flights.length > 1
-            ? this.calculateHoursBetween(flights).map((stopOver: any, index: number) =>
+            && this.calculateHoursBetween(flights).map((stopOver: any, index: number) =>
               <div key={"stop-over-times-" + index} className='text-small'>
                 {Object.keys(stopOver)[0] + ": " + Object.values(stopOver)[0]}
               </div>
             )
-            : ''
         }
       </div>
     );
@@ -94,10 +95,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   calculateHoursBetween = (flights: Array<FlightResultsDetails>) => {
     let stopOverTimeDetails: Array<any> = [];
     let _ = flights.map((flight: FlightResultsDetails, index: number) => {
-      if(index === flights.length - 1) {
+      if (index === flights.length - 1) {
         return '';
-      }
-      else {
+      } else {
         const stopOverTime = getTimeDifference(
           new Date(flight.arrival_time), new Date(flights[index + 1].departure_time)
         );
@@ -121,7 +121,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   <span className="circle-divider">•</span>{segment.destination}
                 </p>
                 <p className="text-small flight-preview-grey-border">
-                  {moment(segmentFlightDetails[0].departure_time).format('MMM DD')}</p>
+                  <Moment format="MMM DD">{segmentFlightDetails[0].departure_time}</Moment>
+                </p>
               </div>
               {this.setFlightLogoHTML(segmentFlightDetails)}
               {this.setFlightTimeHTML(segmentFlightDetails)}
@@ -134,7 +135,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   className='card-travel-icon'
                 />
                 <div className='baggage-amount-text'>
-                  {segment.baggage.number_of_pieces}{segment.baggage.number_of_pieces === 1 ? 'pcs' : 'pc'}
+                  {baggageLabel(segment.baggage.number_of_pieces)}
                 </div>
               </div>
               <div className="col-sm-1 icon-expand-preview">
@@ -169,10 +170,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   getFlightTypes = (flightResults: Array<FlightResult>) =>
     flightResults.reduce((total: string, flightResult: FlightResult, index: number) => {
       total += flightResult.booking_code;
-      if(index !== flightResults.length - 1){
+      if (index !== flightResults.length - 1) {
         total += ', ';
-      }
-      else {
+      } else {
         return total += ' Class';
       }
       return total;
@@ -197,17 +197,16 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     const minutesDifference: number = flights.reduce((total: number, flightResult: FlightResultsDetails) => {
       return total += flightResult.flight_time;
     }, 0);
-    const formatType = 'HH:mm';
     return (
       <div className="col-sm-2">
-        <div className="text-bold flight-preview-time">{
-          departureTime.format(formatType) + " - " + arrivalTime.format(formatType)
-        }
-        {
-          departureTime.hour() + minutesDifference / 60 > 24
-            ? <div className='plus-one-indicator'>+1</div>
-            : ''
-        }
+        <div className="text-bold flight-preview-time">
+          <Moment format="HH:mm">{departureTime}</Moment>
+          <span> - </span>
+          <Moment format="HH:mm">{arrivalTime}</Moment>
+          {
+            departureTime.hour() + minutesDifference / 60 > 24
+              && <div className='plus-one-indicator'>+1</div>
+          }
         </div>
         <p className="text-small">
           {
@@ -229,8 +228,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         }
         {
           index !== this.props.segments.length - 1
-            ? <div className='segment-preview-dotted-line'></div>
-            : ''
+            && <div className='segment-preview-dotted-line'></div>
         }
       </div>
     );

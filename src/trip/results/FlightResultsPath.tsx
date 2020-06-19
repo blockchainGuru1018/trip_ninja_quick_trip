@@ -125,7 +125,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
     const finalFlightDetail: FlightResultsDetails = this.props.flightDetails[flightDetailsLength - 1];
     const flightDetails: Array<any> = this.props.flightDetails.map( (flightDetail: FlightResultsDetails, index: number) => {
       return(
-        <div className={
+        <div key={index.toString()} className={
           "col-md-" + 12 / (flightDetailsLength + 1) +
           ' flight-detail-container' + (index !== 0 ? ' middle-flight-detail-container' : '')}
         >

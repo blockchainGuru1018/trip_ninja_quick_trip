@@ -88,3 +88,11 @@
 .expand-icon {
   transition: 0.5s !important;
 }
+
+.expand-icon:focus {
+  outline: none;
+}
+
+.fare-rules-type {
+  padding-bottom: 40px;
+}

@@ -9,11 +9,13 @@ import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
+import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 
 interface SegmentPreviewProps {
-  segments: Array<Segment>
-  flightDetails: Array<FlightResultsDetails>
+  segments: Array<Segment>;
+  flightDetails: Array<FlightResultsDetails>;
+  currency: string;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -136,23 +138,26 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 </div>
               </div>
               <div className="col-sm-1 icon-expand-preview">
-                <ExpandMoreIcon
-                  color="secondary"
-                  fontSize="large"
-                  className={'expand-icon' + (this.state.expandedSegment === index ? ' rotated-180' : '')}
+                <IconButton
+                  className={'expand-icon' + (open ? ' rotated-180' : '')}
                   onClick={(() =>
                     this.state.expandedSegment === index
                       ? this.setState({expandedSegment: -1})
                       : this.setState({expandedSegment: index})
                   )}
-                />
+                >
+                  <ExpandMoreIcon fontSize="large" color="secondary"/>
+                </IconButton>
               </div>
             </div>
             <Fade
               in={open}
               style={{display: open ? 'block' : 'none', width: '100%'}}>
               <div>
-                <SegmentPreviewDetails segment={segment} flightDetails={segmentFlightDetails}/>
+                <SegmentPreviewDetails
+                  segment={segment}
+                  flightDetails={segmentFlightDetails}
+                  currency={this.props.currency}/>
               </div>
             </Fade>
           </div>

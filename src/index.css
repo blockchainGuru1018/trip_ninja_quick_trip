@@ -98,7 +98,7 @@ h4 {
 }
 
 .text-small {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .default-box-styles {
@@ -139,4 +139,8 @@ h4 {
 
 .rotated-180 {
   transform: rotate(180deg);
+}
+
+.icon-label {
+  margin-left: 10px;
 }

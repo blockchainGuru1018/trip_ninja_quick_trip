@@ -8,6 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { numberOfNightsDifference } from '../../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import iataAirports from '../../assets/data/iataAirports.json';
 import './FlightResultsPath.css';
 
@@ -40,7 +41,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
           {
             Array(flightDetailsLength + 1).fill(0).map((_: number, index: number )=>
               <Step key={index.toString()}>
-                <StepLabel StepIconComponent={FiberManualRecordIcon}>
+                <StepLabel StepIconComponent={index === 0 || index === flightDetailsLength ? FiberManualRecordIcon : RadioButtonUncheckedIcon}>
                   {index !== 0 && index !== flightDetailsLength ? "1hr 45min" : '' }
                 </StepLabel>
               </Step>
@@ -55,23 +56,27 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
   getStepperFlightDetailsHTML = () =>
     <div className='flight-path-timing-container row'>
       {
-        this.props.flightDetails.map((flightDetail: FlightResultsDetails) => {
+        this.props.flightDetails.map((flightDetail: FlightResultsDetails, index: number) => {
           const flightTimeHours: number = Math.floor(flightDetail.flight_time / 60);
           const flightTimeMinutes: number = flightDetail.flight_time % 60;
-          return(<div
-            className={
-              "col-md-" + (12 / this.props.flightDetails.length) +
-              " flight-path-timing-details text-small"
-            }
-          >
-            <div>
-              {flightTimeHours + (flightTimeHours > 1 ? 'hrs ' : 'hr ')}
-              {flightTimeMinutes + (flightTimeMinutes > 1 ? 'mins' : 'min')}
+          return(
+            <div
+              key={index.toString()}
+              className={
+                "col-md-" + (12 / this.props.flightDetails.length) +
+                " flight-path-timing-details text-small"
+              }
+              style={{paddingLeft: index === 0 ? '40px' : '', paddingRight: index === this.props.flightDetails.length - 1 ? '40px': ''}}
+            >
+              <div>
+                {flightTimeHours + (flightTimeHours > 1 ? 'hrs ' : 'hr ')}
+                {flightTimeMinutes + (flightTimeMinutes > 1 ? 'mins' : 'min')}
+              </div>
+              <div>
+                {iataAirports[flightDetail.carrier]}
+              </div>
             </div>
-            <div>
-              {iataAirports[flightDetail.carrier]}
-            </div>
-          </div>);
+          );
         })
       }
     </div>
@@ -125,15 +130,15 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
           ' flight-detail-container' + (index !== 0 ? ' middle-flight-detail-container' : '')}
         >
           <div>
-            <FlightTakeoff className="flight-icon" color="primary" />
-            <div className='text-bold origin-destination-text-container'>
-              {flightDetail.origin_name.split(', ')[0] + ' (' + flightDetail.origin + ')'}
-            </div>
             {
               index !== 0
                 ? <FlightLand className='flight-icon' color='primary' />
                 : ''
             }
+            <div className='text-bold origin-destination-text-container'>
+              {flightDetail.origin_name.split(', ')[0] + ' (' + flightDetail.origin + ')'}
+            </div>
+            <FlightTakeoff className="flight-icon" color="primary" />
           </div>
           <div>
             {this.getDepartingTimesHTML(flightDetail, index)}

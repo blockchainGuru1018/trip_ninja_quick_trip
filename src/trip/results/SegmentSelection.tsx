@@ -26,10 +26,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const segmentIndex = this.props.match.params.index;
     const currentSegments = trip.segments[segmentIndex];
     const firstSegment = currentSegments[0];
+    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     return (
       <div id="segment-selection">
         <div className="results-header">
-
+          <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
             {firstSegment.origin} 
             <FlightIcon color="primary" className="rotate-90" fontSize="large"/>
@@ -46,6 +47,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         </div>
       </div>
     );
+  }
+  getActiveSegments = (trip: Results) => {
+    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
   }
 }
 

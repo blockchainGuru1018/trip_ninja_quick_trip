@@ -129,7 +129,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
         : additionalDetails.cancel_penalty.percentage
-          ? additionalDetails.cancel_penalty + " %"
+          ? additionalDetails.cancel_penalty.percentage + " %"
           : undefined
       : undefined;
     if (brands) {

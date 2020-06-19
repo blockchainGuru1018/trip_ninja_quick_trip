@@ -22,13 +22,13 @@ class SegmentSelection extends React.Component<SegmentSelectionProps> {
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
-    const segmentIndex = 0;
+    const segmentIndex = 1;
     const currentSegments = trip.segments[segmentIndex];
     //const index = this.props.match.params.index;
     return (
       <div id="segment-selection">
         <div className="results-header">
-         
+
           <h1>
             LGW 
             <FlightIcon color="primary" className="rotate-90" fontSize="large"/>
@@ -37,7 +37,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps> {
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence}/>
+            <SegmentNav pathSequence={trip.path_sequence} currentIndex={segmentIndex}/>
           </div>
           <div className="col-md-10 segment-list">
 

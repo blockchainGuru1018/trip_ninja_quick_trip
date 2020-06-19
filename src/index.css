@@ -136,3 +136,7 @@ h4 {
   padding: 45px 65px;
   margin-top: 75px;
 }
+
+.rotated-180 {
+  transform: rotate(180deg);
+}

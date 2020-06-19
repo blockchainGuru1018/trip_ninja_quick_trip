@@ -9,7 +9,7 @@ import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
-
+import Fade from '@material-ui/core/Fade';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>
@@ -108,6 +108,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   setSegmentsHTML = () => {
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+      const open: boolean = this.state.expandedSegment === index;
       return(
         <div className='row segment-preview-container' key={index.toString()}>
           {this.setFlightPreviewIcons(index)}
@@ -138,6 +139,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 <ExpandMoreIcon
                   color="secondary"
                   fontSize="large"
+                  className={'expand-icon' + (this.state.expandedSegment === index ? ' rotated-180' : '')}
                   onClick={(() =>
                     this.state.expandedSegment === index
                       ? this.setState({expandedSegment: -1})
@@ -146,10 +148,13 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 />
               </div>
             </div>
-            {this.state.expandedSegment === index
-              ? <SegmentPreviewDetails segment={segment} flightDetails={segmentFlightDetails}/>
-              : ''
-            }
+            <Fade
+              in={open}
+              style={{display: open ? 'block' : 'none', width: '100%'}}>
+              <div>
+                <SegmentPreviewDetails segment={segment} flightDetails={segmentFlightDetails}/>
+              </div>
+            </Fade>
           </div>
         </div>
       );

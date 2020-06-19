@@ -35,13 +35,9 @@ export function numberOfNightsDifference(first: string, second: string): number 
   let nDays = 0;
   let firstDateToMidnight = moment(first.slice(0, 19)).add(24 - firstDate.hour(), 'hours');
   if (firstDateToMidnight.isBefore(secondDate)) {
-    console.log('in here')
     nDays += 1;
     nDays += secondDate.diff(firstDateToMidnight, 'days');
-    console.log(nDays)
     return nDays;
-  } else {
-    console.log('else')
   }
   return nDays;
 }

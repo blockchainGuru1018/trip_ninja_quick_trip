@@ -72,7 +72,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       </div>
     );
 
-  setStopsHTML = (segment: Segment, flights: Array<FlightResultsDetails>) => {
+  setStopsHTML = (flights: Array<FlightResultsDetails>) => {
     return (
       <div className="col-sm-2">
         {
@@ -126,7 +126,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               </div>
               {this.setFlightLogoHTML(segmentFlightDetails)}
               {this.setFlightTimeHTML(segmentFlightDetails)}
-              {this.setStopsHTML(segment, segmentFlightDetails)}
+              {this.setStopsHTML(segmentFlightDetails)}
               {this.setSegmentTypesHTML(segment)}
               <div className="col-sm-1 baggage-icon-container">
                 <CardTravelIcon

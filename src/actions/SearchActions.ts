@@ -80,11 +80,11 @@ export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boole
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
       dispatch(setErrorDetails(false));
-      return true;
+      return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));
       dispatch(setErrorDetails(true));
-      return false;
+      return {'success': false};
     });
-};
+}

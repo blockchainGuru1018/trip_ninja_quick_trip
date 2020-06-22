@@ -94,7 +94,7 @@
 }
 
 .baggage-icon-container {
-  padding: 0;
+  padding: 10px 0px 0px 0px;
   display: grid;
   height: 100%;
   grid-auto-flow: column;
@@ -109,17 +109,11 @@
   width: 25px;
 }
 
-.icon-expand-preview {
-  display: grid;
-  justify-content: flex-end;
-}
-
 .preview-flight-path-container {
   display: grid;
 }
 
 .segment-preview-icon-container {
-  margin-top: 28px;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -131,19 +125,35 @@
 }
 
 .segment-preview-dotted-line {
-  height: 80%;
-  top: 70%;
   position: absolute;
   border-left: 1px dashed;
+}
+
+.segment-preview-dotted-line-top {
+  top: 54%;
+  height: 46%;
+}
+
+.segment-preview-dotted-line-bottom {
+  top: 0px;
+  height: 54%;
+}
+
+.segment-preview-dotted-line-middle {
+  height: 100%;
 }
 
 .plus-one-indicator {
   position: absolute;
   font-size: 10px;
-  left: 80px;
+  left: 90px;
   top: 0px;
 }
 
 .flight-preview-time {
   position: relative;
+}
+
+.fare-family-row {
+  padding: 10px;
 }

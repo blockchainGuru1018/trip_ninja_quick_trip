@@ -55,9 +55,14 @@ export interface Segment {
   private_fare: string;
   priced_passengers: Array<string>;
   segment_time_with_connections: number;
-  flights: Array<FlightResult>
-  brands?: Array<Brands>
-  status?: string
+  flights: Array<FlightResult>;
+  brands?: Array<Brands>;
+  status?: string;
+  fare_info?: FareInfo;
+}
+
+export interface FareInfo {
+  [reference: string]: FlightResult;
 }
 
 export interface Baggage {
@@ -84,7 +89,7 @@ export interface FlightResult {
   fare_type: string;
   fare_basis_code: string;
   cabin_class: string;
-  brand?: Brand
+  brand?: Brand;
 }
 
 export interface Brands {
@@ -119,7 +124,9 @@ export interface BrandService {
 export interface FlightResultsDetails {
   reference: number;
   origin: string;
+  origin_name: string;
   destination: string;
+  destination_name: string;
   departure_time: string;
   arrival_time: string;
   flight_number: number;

@@ -29,16 +29,15 @@ export function numberOfDaysDifference(first: Date, second: Date): number {
   return Math.round(differenceInTime / (1000 * 3600 * 24));
 }
 
-export function numberOfNightsDifference(first: Date, second: Date): number {
-  const firstDate = moment(first);
-  const secondDate = moment(second);
+export function numberOfNightsDifference(first: string, second: string): number {
+  const firstDate = moment(first.slice(0, 19));
+  const secondDate = moment(second.slice(0, 19));
   let nDays = 0;
-  let firstDateToMidnight = moment(first).add(24 - firstDate.hour(), 'hours');
+  let firstDateToMidnight = moment(first.slice(0, 19)).add(24 - firstDate.hour(), 'hours');
   if (firstDateToMidnight.isBefore(secondDate)) {
     nDays += 1;
     nDays += secondDate.diff(firstDateToMidnight, 'days');
     return nDays;
   }
   return nDays;
-
 }

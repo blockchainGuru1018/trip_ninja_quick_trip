@@ -13,13 +13,13 @@ export function newSearch(searchDetails: Object) {
   return {
     type: 'NEW_SEARCH',
     searchDetails
-  }
+  };
 }
 
 export function resetSearch() {
   return {
     type: 'RESET_SEARCH'
-  }
+  };
 }
 
 export function setValue(valueType: string, value: any) {
@@ -27,16 +27,16 @@ export function setValue(valueType: string, value: any) {
     type: 'SET_VALUE',
     valueType,
     value
-  }
+  };
 }
 
 export const addFlight = (flight: object) => async (dispatch: any) => {
   await dispatch({
     type: 'ADD_FLIGHT',
     flight
-  })
-  return Promise.resolve()
-}
+  });
+  return Promise.resolve();
+};
 
 export function updateFlightValue(index: number, key: string, value: string) {
   return {
@@ -44,7 +44,7 @@ export function updateFlightValue(index: number, key: string, value: string) {
     index,
     key,
     value
-  }
+  };
 }
 
 export function updatePassengers(passengerType: string, value: number) {
@@ -52,21 +52,21 @@ export function updatePassengers(passengerType: string, value: number) {
     type: 'UPDATE_PASSENGERS',
     passengerType,
     value
-  }
+  };
 }
 
 export function removeFlight(flightIndex: number) {
   return {
     type: 'REMOVE_FLIGHT',
     flightIndex
-  }
+  };
 }
 
 export function searchLoading(value: boolean) {
   return {
     type: 'SEARCH_LOADING',
     value
-  }
+  };
 }
 
 export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boolean) => (dispatch: any) => {

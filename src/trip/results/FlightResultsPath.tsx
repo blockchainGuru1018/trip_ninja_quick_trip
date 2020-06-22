@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { numberOfNightsDifference } from '../../helpers/DateHelpers';
+import { numberOfNightsDifference, getTimeDifference } from '../../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import iataAirports from '../../assets/data/iataAirports.json';
@@ -43,7 +43,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
             Array(flightDetailsLength + 1).fill(0).map((_: number, index: number )=>
               <Step key={index.toString()}>
                 <StepLabel StepIconComponent={index === 0 || index === flightDetailsLength ? FiberManualRecordIcon : RadioButtonUncheckedIcon}>
-                  {index !== 0 && index !== flightDetailsLength ? "1hr 45min" : '' }
+                  {index !== 0 && index !== flightDetailsLength ? this.getLayoverTime(index) : '' }
                 </StepLabel>
               </Step>
             )
@@ -87,7 +87,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
     const arrivalTimeNextDay = index === 0
       ? false
       : numberOfNightsDifference(
-        this.props.flightDetails[index - 1].departure_time, flightDetail.arrival_time
+        this.props.flightDetails[index - 1].departure_time, this.props.flightDetails[index - 1].arrival_time
       ) > 0;
     if (index === flightDetailsLength) {
       return (
@@ -164,6 +164,12 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
     );
 
     return flightDetails;
+  }
+
+  getLayoverTime = (index: number) => {
+    const arrivingFlightTime: Date = new Date(this.props.flightDetails[index - 1].arrival_time);
+    const departingFlightTime: Date = new Date(this.props.flightDetails[index].departure_time);
+    return getTimeDifference(arrivingFlightTime, departingFlightTime);
   }
 }
 

@@ -87,7 +87,7 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
       : '';
     return (
       <div
-        className={"standard-text bold-text flight-section " + landingSection}
+        className={"standard-text text-bold flight-section " + landingSection}
         key={"flight-section" + index}
       >
         {
@@ -99,15 +99,15 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
         }
         {index === 0
           ? <div>
-            <p className='standard-text bold-text'>{location.origin}</p>
+            <p className='standard-text text-bold'>{location.origin}</p>
           </div>
           : index === this.state.locations.length
             ? <div>
-              <p className='standard-text bold-text'>{location.destination}</p>
+              <p className='standard-text text-bold'>{location.destination}</p>
             </div>
             : <div>
               <p className='standard-text'>{location.origin}</p>
-              <p className='standard-text small-standard-text'>{location.nNights + ' nights'}</p>
+              <p className='standard-text text-small'>{location.nNights + ' nights'}</p>
             </div>
         }
         {

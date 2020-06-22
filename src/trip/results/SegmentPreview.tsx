@@ -7,12 +7,12 @@ import iataAirports from '../../assets/data/iataAirports.json';
 import { getTimeDifference } from '../../helpers/DateHelpers';
 import { baggageLabel } from '../../helpers/BaggageHelper';
 import moment from 'moment';
-import Moment from 'react-moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
+import Moment from 'react-moment';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -49,11 +49,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         <div>
           <img
             className='img-airline-logo '
-            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_24x24.png"}
+            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_48x48.png"}
             alt='flight-logo'
             onError={(e: any) => {
               e.target.onerror = null;
-              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_24x24.png';
+              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_48x48.png';
             }}
           ></img>
         </div>

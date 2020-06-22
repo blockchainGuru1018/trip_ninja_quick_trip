@@ -5,6 +5,7 @@ import './Results.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { Results, Segment, FlightResult, FlightResultsDetails, Location } from './ResultsInterfaces';
 import { numberOfNightsDifference } from '../../helpers/DateHelpers';
+import { cityName } from '../../helpers/CityNameHelper';
 
 interface PreResultsFlightSectionsProps {
   resultsDetails: Results | undefined
@@ -44,8 +45,8 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
     if(this.props.resultsDetails) {
       const results: Results = this.props.resultsDetails;
       const locations: Array<Location> = results.segments.map((segment: Array<Segment>, index: number) => {
-        const origin = segment[0].origin_name.split(',')[0];
-        const destination = segment[0].destination_name.split(',')[0];
+        const origin = cityName(segment[0].origin_name);
+        const destination = cityName(segment[0].destination_name);
         const first_segment_flights: Array<FlightResult> = segment[0].flights;
         const departingFlight: Array<FlightResultsDetails> = results.flight_details.filter(
           (flightResult: FlightResultsDetails) =>
@@ -74,7 +75,7 @@ class PreResultsFlightSections extends React.Component<PreResultsFlightSectionsP
         return flightResult.reference === segment.flights[segment.flights.length - 1].flight_detail_ref;
       });
     return numberOfNightsDifference(
-      new Date(lastFlight[0].arrival_time), new Date(departingFlight[0].departure_time)
+      lastFlight[0].arrival_time, departingFlight[0].departure_time
     );
   }
 

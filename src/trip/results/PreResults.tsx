@@ -30,7 +30,7 @@ class PreResults extends React.Component<PreResultsProps> {
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
-          this.props.resultsDetails.fareStructureResults?.segments[0]
+          this.props.resultsDetails.fareStructureResults.segments[0]
         ),
         flexTripPassengersString: createPassengersString(
           this.props.resultsDetails.flexTripResults?.segments[0]
@@ -58,8 +58,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 </p>
                 <hr/>
                 {results
-                  ? <PreResultsFlightSections resultsDetails={results.fareStructureResults}/>
-                  : ''
+                  && <PreResultsFlightSections resultsDetails={results.fareStructureResults}/>
                 }
               </div>
               <div className="flight-options-btn-container">
@@ -83,8 +82,7 @@ class PreResults extends React.Component<PreResultsProps> {
                 </p>
                 <hr/>
                 {results
-                  ? <PreResultsFlightSections resultsDetails={results.flexTripResults}/>
-                  : ''
+                  && <PreResultsFlightSections resultsDetails={results.flexTripResults}/>
                 }
               </div>
               <div className="flight-options-btn-container">
@@ -103,7 +101,7 @@ class PreResults extends React.Component<PreResultsProps> {
 
   compareFlexTripPrice = () => {
     const results: ResultsDetails = this.props.resultsDetails;
-    if(results.flexTripResults && results.fareStructureResults) {
+    if (results.flexTripResults && results.fareStructureResults) {
       const flexPrice: number = results.flexTripResults.segments.reduce((total, segment) =>
       {return total + segment[0].price;}, 0
       );
@@ -115,6 +113,8 @@ class PreResults extends React.Component<PreResultsProps> {
         flexPrice: Math.round(flexPrice)
       });
       return flexPrice >= farePrice ? history.push('/results/itinerary/') : '';
+    } else {
+      return history.push('/results/itinerary/');
     }
   }
 }

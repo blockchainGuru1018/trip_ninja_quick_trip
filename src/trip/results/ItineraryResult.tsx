@@ -4,7 +4,7 @@ import SegmentNav from './SegmentNav';
 import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreview from './SegmentPreview';
-import { CurrencySymbol } from '../../helpers/CurrencySymbolHelper';
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { setActiveSegment } from '../../actions/ResultsActions';
@@ -35,6 +35,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <SegmentPreview
             segments={selectedTrip}
             flightDetails={trip.flight_details}
+            currency={this.props.currency}
           />
         </div>
       </div>;
@@ -46,7 +47,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong>
-            {CurrencySymbol(this.props.currency)}{totalPrice.toFixed()}
+            {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
             <span className="divider">|</span>
             {createPassengersString(trip.segments[0])}
           </h4>

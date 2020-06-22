@@ -34,13 +34,13 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       travellers: this.createPassengerPayload()
     };
     let searchResult: any = this.props.searchFlights(searchPayload, this.props.searchDetails.routeFlexible);
-    searchResult.then((result: boolean) => this.handleSearchResult(result));
+    searchResult.then((result: any) => this.handleSearchResult(result));
   }
 
   handleSearchResult = (result: any) =>
-    result
+    result.flex_trip
       ? history.push('/results/pre-results/')
-      : ''
+      : history.push('/results/itinerary/');
 
   createFlightPayload = () => {
     const flightPayload: Array<FlightPayload> = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({

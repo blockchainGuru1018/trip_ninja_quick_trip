@@ -17,11 +17,6 @@ import matchSorter from 'match-sorter';
 import {styled} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
-const RemoveIconButton = styled(IconButton)({
-  paddingLeft: '0px',
-});
-
-
 interface FlightInputProps {
   i: number;
   updateFlightValue: typeof updateFlightValue;
@@ -120,7 +115,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             dateFormat={this.props.dateFormat}
           />
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-2 cabin-selector-container">
           <CabinSelect
             i={this.props.i}
             cabinClass={flight.cabinClass}
@@ -128,9 +123,9 @@ class FlightInput extends React.Component<FlightInputProps> {
         </div>
         {this.props.flights.length > 1
           && <div className='col-sm-1 flight-remove-container'>
-            <RemoveIconButton onClick={() => this.props.removeFlight(this.props.i)}>
+            <IconButton  onClick={() => this.props.removeFlight(this.props.i)}>
               <CloseIcon fontSize="large" />
-            </RemoveIconButton>
+            </IconButton >
           </div>
         }
       </div>

@@ -64,13 +64,19 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
             )
           }
           {
-            flights.length > 1
+            this.multipleAirlines(flights)
               ? <div className="text-small">{"Multiple Airlines"}</div>
               : <div className="text-small">{iataAirports[flights[0].carrier]}</div>
           }
         </div>
       </div>
     );
+
+  multipleAirlines = (flights: Array<FlightResultsDetails>) =>
+    flights.filter((flight: FlightResultsDetails) =>
+      flight.carrier === flights[0].carrier
+    ).length !== flights.length;
+
 
   setStopsHTML = (flights: Array<FlightResultsDetails>) => {
     return (
@@ -223,12 +229,19 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div className='col-md-2 segment-preview-icon-container'>
         {
           index === 0 || index === this.props.segments.length - 1
-            ? <FiberManualRecordIcon style={{ fontSize: 30 }}/>
-            : <RadioButtonUncheckedIcon />
+            ? <FiberManualRecordIcon style={{ fontSize: 30, marginTop: '28px', zIndex: 2 }}/>
+            : <RadioButtonUncheckedIcon
+              style={
+                {marginTop: '28px', zIndex: 2, backgroundColor: 'white'}
+              }
+            />
         }
         {
-          index !== this.props.segments.length - 1
-            && <div className='segment-preview-dotted-line'></div>
+          index === 0
+            ? <div className='segment-preview-dotted-line segment-preview-dotted-line-top'></div>
+            : index === this.props.segments.length - 1
+              ? <div className='segment-preview-dotted-line segment-preview-dotted-line-bottom'></div>
+              : <div className='segment-preview-dotted-line segment-preview-dotted-line-middle'></div>
         }
       </div>
     );

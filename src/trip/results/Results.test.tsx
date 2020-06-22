@@ -60,7 +60,7 @@ test('getNumberOfNights', () => {
     <PreResultsFlightSections resultsDetails={testResultsDetails} />
   );
   const instance = component.instance();
-  expect(instance.getNumberOfNights(1, [{departure_time: new Date().toISOString}], testResultsDetails)).toBe(1);
+  expect(instance.getNumberOfNights(1, [{departure_time: new Date().toISOString()}], testResultsDetails)).toBe(1);
 });
 
 test('setLocations', () => {

@@ -10,6 +10,7 @@ import CardTravelIcon from '@material-ui/icons/CardTravel';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../../helpers/MiscHelpers';
+import { baggageLabel } from '../../helpers/BaggageHelper';
 
 interface FareRulesProps {
   segment: Segment;
@@ -24,7 +25,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     changePenalty: undefined,
     cancelPenalty: undefined,
     wifi: false,
-    carryOn: undefined,
+    carryOn: -1,
     seatAssignment: undefined
   }
 
@@ -47,11 +48,11 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         <div className="row fare-family-row">
           <div className='col-md-8 offset-md-2'>
             <div className='row text-small'>
-              {this.state.carryOn
+              {this.state.carryOn >= 0
                 && <div className="col-lg-3 fare-rules-type">
                   <BusinessCenterIcon color="primary"/>
                   <span className="icon-label">
-                    {this.state.carryOn + (this.state.carryOn! > 1 ? 'pcs' : 'pc')}
+                    {baggageLabel(this.state.carryOn)}
                   </span>
                 </div>
               }
@@ -80,7 +81,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
               <div className="col-lg-3 fare-rules-type">
                 <CardTravelIcon color="primary"/>
                 <span className="icon-label">
-                  {this.state.numBaggage + (this.state.numBaggage > 1 ? 'pcs' : 'pc')}
+                  {baggageLabel(this.state.numBaggage)}
                 </span>
               </div>
               {this.state.cancelPenalty
@@ -124,7 +125,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     const brands = segment.brands;
     let wifi: boolean = false;
     let seatAssignment: string | undefined = undefined;
-    let carryOn = undefined;
+    let carryOn: number = -1;
     const cancelPenalty = additionalDetails.cancel_penalty
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
@@ -140,7 +141,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           ? 'At a cost'
           : 'Available'
         : 'Unavilable';
-      carryOn = brandServices.carry_on_hand_baggage || undefined;
+      carryOn = brandServices.carry_on_hand_baggage || -1;
     }
     this.setState({
       numBaggage,

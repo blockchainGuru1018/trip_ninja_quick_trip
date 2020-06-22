@@ -14,7 +14,6 @@ import { updateFlightValue, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
-import {styled} from "@material-ui/core";
 
 interface FlightInputProps {
   i: number;

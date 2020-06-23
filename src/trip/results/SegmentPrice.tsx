@@ -11,7 +11,7 @@ interface SegmentPriceProps {
 class SegmentPrice extends React.Component<SegmentPriceProps> {
   render() {
     return (
-      <div className="col-sm-1">
+      <div className="col-sm-2">
         <p className="text-bold text-center segment-price">{currencySymbol(this.props.currency)}{this.props.segment.price.toFixed()}</p>
       </div>
     );

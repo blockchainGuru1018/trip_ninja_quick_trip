@@ -13,7 +13,6 @@ import SegmentBaggage from './SegmentBaggage';
 import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
-import SegmentSource from './SegmentSource';
 import SegmentPrice from './SegmentPrice';
 
 
@@ -63,9 +62,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
-              {this.props.segmentSelect 
-              && <SegmentSource source={segment.source} />
-              }
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
               {this.props.segmentSelect 
               && <SegmentPrice segment={segment} currency={this.props.currency} />

@@ -44,41 +44,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
-  setStopsHTML = (flights: Array<FlightResultsDetails>) => {
-    return (
-      <div className="col-sm-2">
-        {
-          flights.length > 1
-            ? <div className="text-bold">{flights.length - 1} Stop{flights.length > 2 ? "s" : ""}</div>
-            : <p className="text-bold">Direct</p>
-        }
-        {
-          flights.length > 1
-            && this.calculateHoursBetween(flights).map((stopOver: any, index: number) =>
-              <div key={"stop-over-times-" + index} className='text-small'>
-                {Object.keys(stopOver)[0] + ": " + Object.values(stopOver)[0]}
-              </div>
-            )
-        }
-      </div>
-    );
-  }
-
-  calculateHoursBetween = (flights: Array<FlightResultsDetails>) => {
-    let stopOverTimeDetails: Array<any> = [];
-    let _ = flights.map((flight: FlightResultsDetails, index: number) => {
-      if (index === flights.length - 1) {
-        return '';
-      } else {
-        const stopOverTime = getTimeDifference(
-          new Date(flight.arrival_time), new Date(flights[index + 1].departure_time)
-        );
-        stopOverTimeDetails.push({[flight.destination]: stopOverTime});
-      }
-    });
-    return stopOverTimeDetails;
-  }
-
   setSegmentsHTML = () => {
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
@@ -99,7 +64,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightLogo flights={segmentFlightDetails} />
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
-              {this.setStopsHTML(segmentFlightDetails)}
+              <FlightTypes segment={segment} />
               {this.setSegmentTypesHTML(segment)}
               <FlightBaggage baggage={segment.baggage.number_of_pieces}/>
               <div className="col-sm-1 icon-expand-preview">

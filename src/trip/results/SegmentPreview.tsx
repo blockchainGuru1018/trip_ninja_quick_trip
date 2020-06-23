@@ -13,6 +13,7 @@ import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 import Moment from 'react-moment';
+import FlightLogo from './FlightLogo';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -42,41 +43,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       );
       return filteredFlightDetails[0];
     });
-
-  setFlightLogoHTML = (flights: Array<FlightResultsDetails>) =>
-    (
-      <div className="col-sm-2 airline-logo-container">
-        <div>
-          <img
-            className='img-airline-logo '
-            src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + flights[0].carrier + "_48x48.png"}
-            alt='flight-logo'
-            onError={(e: any) => {
-              e.target.onerror = null;
-              e.target.src='https://s3-us-west-2.amazonaws.com/tn-airline-logos/airplane_48x48.png';
-            }}
-          ></img>
-        </div>
-        <div>
-          {
-            flights.map((flight: FlightResultsDetails, index: number) =>
-              <div key={'carrier-label-' + index} className="text-bold">{flight.carrier} {flight.flight_number}</div>
-            )
-          }
-          {
-            this.multipleAirlines(flights)
-              ? <div className="text-small">{"Multiple Airlines"}</div>
-              : <div className="text-small">{iataAirports[flights[0].carrier]}</div>
-          }
-        </div>
-      </div>
-    );
-
-  multipleAirlines = (flights: Array<FlightResultsDetails>) =>
-    flights.filter((flight: FlightResultsDetails) =>
-      flight.carrier === flights[0].carrier
-    ).length !== flights.length;
-
 
   setStopsHTML = (flights: Array<FlightResultsDetails>) => {
     return (
@@ -130,7 +96,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   <Moment format="MMM DD">{segmentFlightDetails[0].departure_time}</Moment>
                 </p>
               </div>
-              {this.setFlightLogoHTML(segmentFlightDetails)}
+              <FlightLogo flights={segmentFlightDetails} />
               {this.setFlightTimeHTML(segmentFlightDetails)}
               {this.setStopsHTML(segmentFlightDetails)}
               {this.setSegmentTypesHTML(segment)}

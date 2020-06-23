@@ -59,7 +59,7 @@
   padding: 0px 10px;
 }
 
-.segment-preview {
+.segment {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0px 3px 6px #00000029;
@@ -121,7 +121,7 @@
   position: relative;
 }
 
-.segment-preview-container {
+.segment-container {
   padding-right: 20px;
 }
 

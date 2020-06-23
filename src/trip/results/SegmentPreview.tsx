@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 import Moment from 'react-moment';
 import FlightLogo from './FlightLogo';
+import FlightTime from './FlightTime';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -97,7 +98,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 </p>
               </div>
               <FlightLogo flights={segmentFlightDetails} />
-              {this.setFlightTimeHTML(segmentFlightDetails)}
+              <FlightTime flights={segmentFlightDetails} />
               {this.setStopsHTML(segmentFlightDetails)}
               {this.setSegmentTypesHTML(segment)}
               <div className="col-sm-1 baggage-icon-container">
@@ -155,37 +156,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div className="col-sm-2">
         <p className="text-bold">{segment.fare_type}</p>
         <p className="text-small">{this.getFlightTypes(segment.flights)}</p>
-      </div>
-    );
-  }
-
-  setFlightTimeHTML = (flights: Array<FlightResultsDetails>) => {
-    const departureTime = moment(
-      flights[0].departure_time.slice(0, flights[0].departure_time.length - 6)
-    );
-    const arrivalTime = moment(
-      flights[flights.length - 1].arrival_time.slice(0, flights[0].arrival_time.length - 6)
-    );
-    const minutesDifference: number = flights.reduce((total: number, flightResult: FlightResultsDetails) => {
-      return total += flightResult.flight_time;
-    }, 0);
-    return (
-      <div className="col-sm-2">
-        <div className="text-bold flight-preview-time">
-          <Moment format="HH:mm">{departureTime}</Moment>
-          <span> - </span>
-          <Moment format="HH:mm">{arrivalTime}</Moment>
-          {
-            departureTime.hour() + minutesDifference / 60 > 24
-              && <div className='plus-one-indicator'>+1</div>
-          }
-        </div>
-        <p className="text-small">
-          {
-            Math.floor(minutesDifference / 60) + 'h ' +
-            Math.round(60 * (minutesDifference / 60 % 1)) + 'm'
-          }
-        </p>
       </div>
     );
   }

@@ -56,6 +56,10 @@
   max-height: 56px;
 }
 
+.cabin-selector-container {
+  padding-right: 0px;
+}
+
 .validationErrorAlert {
   position: absolute;
   min-width: 300px;

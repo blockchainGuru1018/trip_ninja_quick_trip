@@ -113,7 +113,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             dateFormat={this.props.dateFormat}
           />
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-2 cabin-selector-container">
           <CabinSelect
             i={this.props.i}
             cabinClass={flight.cabinClass}
@@ -122,7 +122,7 @@ class FlightInput extends React.Component<FlightInputProps> {
         {this.props.flights.length > 1
           && <div className='col-sm-1 flight-remove-container'>
             <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
-              <CloseIcon fontSize="small" />
+              <CloseIcon fontSize="large" />
             </IconButton>
           </div>
         }

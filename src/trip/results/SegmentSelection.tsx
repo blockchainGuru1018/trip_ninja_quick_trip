@@ -5,7 +5,7 @@ import SegmentPreview from './SegmentPreview';
 import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
-import './SegmentSelection.css';
+import './Results.css';
 
 interface MatchParams {
   index: string;

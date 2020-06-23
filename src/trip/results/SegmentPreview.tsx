@@ -2,9 +2,6 @@ import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
 import '../../index.css';
-import iataAirports from '../../assets/data/iataAirports.json';
-import { getTimeDifference } from '../../helpers/DateHelpers';
-import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
@@ -14,6 +11,8 @@ import Moment from 'react-moment';
 import FlightLogo from './FlightLogo';
 import FlightTime from './FlightTime';
 import FlightBaggage from './FlightBaggage';
+import FlightStops from './FlightStops';
+import FlightTypes from './FlightTypes';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -65,7 +64,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
-              {this.setSegmentTypesHTML(segment)}
               <FlightBaggage baggage={segment.baggage.number_of_pieces}/>
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
@@ -94,26 +92,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         </div>
       );
     });
-  }
-
-  getFlightTypes = (flightResults: Array<FlightResult>) =>
-    flightResults.reduce((total: string, flightResult: FlightResult, index: number) => {
-      total += flightResult.booking_code;
-      if (index !== flightResults.length - 1) {
-        total += ', ';
-      } else {
-        return total += ' Class';
-      }
-      return total;
-    }, '')
-
-  setSegmentTypesHTML = (segment: Segment) => {
-    return (
-      <div className="col-sm-2">
-        <p className="text-bold">{segment.fare_type}</p>
-        <p className="text-small">{this.getFlightTypes(segment.flights)}</p>
-      </div>
-    );
   }
 
   setFlightPreviewIcons = (index: number) => {

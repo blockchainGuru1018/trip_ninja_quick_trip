@@ -79,6 +79,11 @@
   background-color: #ffffff;
 }
 
+.select-segment-list {
+  padding: 75px 25px 50px 100px;
+  background-color: #ffffff;
+}
+
 .origin-destination {
   font-size: 20px;
   margin-bottom: 0px;

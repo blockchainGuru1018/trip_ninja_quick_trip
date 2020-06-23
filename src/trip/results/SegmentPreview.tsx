@@ -14,6 +14,7 @@ import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentSource from './SegmentSource';
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 
 
 interface SegmentPreviewProps {
@@ -66,7 +67,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               && <SegmentSource source={segment.source} />
               }
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
-              {this.props.segmentSelect && this.getSegmentPrice()}
+              {this.props.segmentSelect && this.getSegmentPrice(segment)}
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
                   className={'expand-icon' + (open ? ' rotated-180' : '')}
@@ -96,10 +97,10 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     });
   }
 
-  getSegmentPrice = () => {
+  getSegmentPrice = (segment: Segment) => {
     return(
       <div className="col-md-1">
-        <p className="text-bold">$99</p>
+        <p className="text-bold segment-price">{currencySymbol(this.props.currency)}{segment.price.toFixed()}</p>
       </div>
     );
   }

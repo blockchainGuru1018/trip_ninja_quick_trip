@@ -1,23 +1,26 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import '../../index.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
-import Moment from 'react-moment';
 import FlightLogo from './FlightLogo';
 import FlightTime from './FlightTime';
 import FlightBaggage from './FlightBaggage';
 import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
+import SegmentOriginDestination from './SegmentOriginDestination';
+import SegmentSource from './SegmentSource';
+
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
+  segmentSelect: boolean;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -48,23 +51,22 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const open: boolean = this.state.expandedSegment === index;
       return(
-        <div className='row segment-preview-container' key={index.toString()}>
-          {this.setFlightPreviewIcons(index)}
+        <div className='row segment-container' key={index.toString()}>
+          {!this.props.segmentSelect && this.setFlightPreviewIcons(index)}
           <div className="row col-md-10">
-            <div className="row segment-preview col-md-12">
-              <div className="col-sm-2 preview-flight-path-container">
-                <p className="origin-destination flight-preview-grey-border">{segment.origin}
-                  <span className="circle-divider">•</span>{segment.destination}
-                </p>
-                <p className="text-small flight-preview-grey-border">
-                  <Moment format="MMM DD">{segmentFlightDetails[0].departure_time}</Moment>
-                </p>
-              </div>
+            <div className="row segment col-md-12">
+              {!this.props.segmentSelect 
+              && <SegmentOriginDestination segment={segment} departure={segmentFlightDetails[0].departure_time} />
+              } 
               <FlightLogo flights={segmentFlightDetails} />
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
-              <FlightBaggage baggage={segment.baggage.number_of_pieces}/>
+              {this.props.segmentSelect 
+              && <SegmentSource source={segment.source} />
+              }
+              <FlightBaggage baggage={segment.baggage.number_of_pieces} />
+              {this.props.segmentSelect && this.getSegmentPrice}
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
                   className={'expand-icon' + (open ? ' rotated-180' : '')}
@@ -92,6 +94,14 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         </div>
       );
     });
+  }
+
+  getSegmentPrice = () => {
+    return(
+      <div className="col-md-1">
+        <p className="text-bold">$100</p>
+      </div>
+    );
   }
 
   setFlightPreviewIcons = (index: number) => {

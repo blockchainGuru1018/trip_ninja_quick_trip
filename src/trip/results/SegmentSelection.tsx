@@ -52,6 +52,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   segments={selectedSegment}
                   flightDetails={trip.flight_details}
                   currency={this.props.currency}
+                  segmentSelect={true}
                 />
                 <hr className="segment-divider"/>
                 <h5>Other Departure Times</h5>
@@ -59,6 +60,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   segments={currentSegments}
                   flightDetails={trip.flight_details}
                   currency={this.props.currency}
+                  segmentSelect={true}
                 />
                 <hr/>
                 <h5>Other Options</h5>

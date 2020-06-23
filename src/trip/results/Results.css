@@ -99,3 +99,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.segment-divider {
+  margin: 75px;
+}

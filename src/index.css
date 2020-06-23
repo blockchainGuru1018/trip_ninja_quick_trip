@@ -55,6 +55,14 @@ h4 {
   padding-bottom: 20px;
 }
 
+h5 {
+  text-align: left;
+  font-family: 'NeuzeitGro-Bol', sans-serif;
+  font-size: 21px;
+  color: var(--primary-dark);
+  padding-bottom: 0px;
+}
+
 .container-fluid {
   padding: 0px;
 }

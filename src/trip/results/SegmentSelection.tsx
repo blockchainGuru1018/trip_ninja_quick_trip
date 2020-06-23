@@ -1,10 +1,11 @@
 import React from 'react';
 import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
-import './SegmentSelection.css';
+import SegmentPreview from './SegmentPreview';
 import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
+import './SegmentSelection.css';
 
 interface MatchParams {
   index: string;
@@ -27,6 +28,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const currentSegments = trip.segments[segmentIndex];
     const firstSegment = currentSegments[0];
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    let selectedSegment: Array<Segment> = []
+    selectedSegment[0] = selectedTrip[segmentIndex];
     return (
       <div id="segment-selection">
         <div className="results-header">
@@ -42,7 +45,26 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
           </div>
           <div className="col-md-10 segment-list">
-
+            <div className="row">
+              <div className="col-xl">
+                <h5>Selected Flight</h5>
+                <SegmentPreview
+                  segments={selectedSegment}
+                  flightDetails={trip.flight_details}
+                  currency={this.props.currency}
+                />
+                <hr className="segment-divider"/>
+                <h5>Other Departure Times</h5>
+                <SegmentPreview
+                  segments={currentSegments}
+                  flightDetails={trip.flight_details}
+                  currency={this.props.currency}
+                />
+                <hr/>
+                <h5>Other Options</h5>
+                <p>Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,11 +1,9 @@
 import React from 'react';
-import CardTravelIcon from '@material-ui/icons/CardTravel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
 import '../../index.css';
 import iataAirports from '../../assets/data/iataAirports.json';
 import { getTimeDifference } from '../../helpers/DateHelpers';
-import { baggageLabel } from '../../helpers/BaggageHelper';
 import moment from 'moment';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -15,6 +13,7 @@ import Fade from '@material-ui/core/Fade';
 import Moment from 'react-moment';
 import FlightLogo from './FlightLogo';
 import FlightTime from './FlightTime';
+import FlightBaggage from './FlightBaggage';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -99,18 +98,10 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               </div>
               <FlightLogo flights={segmentFlightDetails} />
               <FlightTime flights={segmentFlightDetails} />
+              <FlightStops flights={segmentFlightDetails} />
               {this.setStopsHTML(segmentFlightDetails)}
               {this.setSegmentTypesHTML(segment)}
-              <div className="col-sm-1 baggage-icon-container">
-                <CardTravelIcon
-                  color="primary"
-                  fontSize="large"
-                  className='card-travel-icon'
-                />
-                <div className='baggage-amount-text'>
-                  {baggageLabel(segment.baggage.number_of_pieces)}
-                </div>
-              </div>
+              <FlightBaggage baggage={segment.baggage.number_of_pieces}/>
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
                   className={'expand-icon' + (open ? ' rotated-180' : '')}

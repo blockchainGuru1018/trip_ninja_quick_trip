@@ -35,6 +35,7 @@ export interface Segment {
   destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
+  itinerary_structure: string;
   segment_position: number;
   option_id?: string;
   option_part?: string;

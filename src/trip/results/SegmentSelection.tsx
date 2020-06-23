@@ -47,7 +47,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
-              <div className="col-xl">
+              <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
                 <SegmentPreview
                   segments={selectedSegment}

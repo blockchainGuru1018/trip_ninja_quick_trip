@@ -28,7 +28,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const currentSegments = trip.segments[segmentIndex];
     const firstSegment = currentSegments[0];
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
-    let selectedSegment: Array<Segment> = []
+    let selectedSegment: Array<Segment> = [];
     selectedSegment[0] = selectedTrip[segmentIndex];
     return (
       <div id="segment-selection">
@@ -36,7 +36,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
             {firstSegment.origin} 
-            <FlightIcon color="primary" className="rotate-90" fontSize="large"/>
+            <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
             {firstSegment.destination}
           </h1>
         </div>

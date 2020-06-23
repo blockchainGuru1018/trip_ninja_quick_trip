@@ -30,6 +30,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     let selectedSegment: Array<Segment> = [];
     selectedSegment[0] = selectedTrip[segmentIndex];
+    //let alternateSegments = this.getInactiveSegments(currentSegments);
     return (
       <div id="segment-selection">
         <div className="results-header">
@@ -75,6 +76,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
   getActiveSegments = (trip: Results) => {
     return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
   }
+
 }
 
 export default SegmentSelection;

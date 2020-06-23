@@ -8,7 +8,7 @@ interface SegmentSourceProps {
 class SegmentSource extends React.Component<SegmentSourceProps> {
   render() {
     return (
-      <div className="col-sm-2">
+      <div className="col-md-1">
         <p className="text-bold">{firstLetterCapital(this.props.source)}</p>
       </div>
     );

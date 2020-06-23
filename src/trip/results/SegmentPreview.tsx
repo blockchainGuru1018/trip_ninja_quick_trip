@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 import FlightLogo from './FlightLogo';
 import FlightTime from './FlightTime';
-import FlightBaggage from './FlightBaggage';
+import SegmentBaggage from './SegmentBaggage';
 import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
@@ -65,8 +65,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               {this.props.segmentSelect 
               && <SegmentSource source={segment.source} />
               }
-              <FlightBaggage baggage={segment.baggage.number_of_pieces} />
-              {this.props.segmentSelect && this.getSegmentPrice}
+              <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
+              {this.props.segmentSelect && this.getSegmentPrice()}
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
                   className={'expand-icon' + (open ? ' rotated-180' : '')}
@@ -99,7 +99,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   getSegmentPrice = () => {
     return(
       <div className="col-md-1">
-        <p className="text-bold">$100</p>
+        <p className="text-bold">$99</p>
       </div>
     );
   }

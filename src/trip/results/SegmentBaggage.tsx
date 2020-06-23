@@ -2,11 +2,11 @@ import React from 'react';
 import { baggageLabel } from '../../helpers/BaggageHelper';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 
-interface FlightBaggageProps {
+interface SegmentBaggageProps {
   baggage: number
 }
 
-class FlightBaggage extends React.Component<FlightBaggageProps> {
+class SegmentBaggage extends React.Component<SegmentBaggageProps> {
   render() {
     return (
       <div className="col-sm-1 baggage-icon-container">
@@ -24,4 +24,4 @@ class FlightBaggage extends React.Component<FlightBaggageProps> {
 
 }
 
-export default FlightBaggage;
+export default SegmentBaggage;

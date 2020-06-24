@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
+import FareSelect from './FareSelect';
 
 interface SegmentPreviewDetailsProps {
   segment: Segment;
@@ -22,6 +23,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
           currency={this.props.currency}
         />
+        <FareSelect />
       </div>
     );
   }

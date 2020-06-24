@@ -79,6 +79,11 @@
   background-color: #ffffff;
 }
 
+.select-segment-list {
+  padding: 75px 25px;
+  background-color: #ffffff;
+}
+
 .origin-destination {
   font-size: 20px;
   margin-bottom: 0px;
@@ -95,7 +100,7 @@
 }
 
 .baggage-icon-container {
-  padding: 10px 0px 0px 0px;
+  padding: 5px 0px 0px 0px;
   display: grid;
   height: 100%;
   grid-auto-flow: column;
@@ -104,6 +109,7 @@
 
 .baggage-amount-text {
   padding-top: 10px;
+  font-weight: bold;
 }
 
 .card-travel-icon {

@@ -5,7 +5,7 @@ import SegmentPreview from './SegmentPreview';
 import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
-import './SegmentSelection.css';
+import './Results.css';
 
 interface MatchParams {
   index: string;
@@ -47,9 +47,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           <div className="col-md-2 no-padding">
             <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
           </div>
-          <div className="col-md-10 segment-list">
+          <div className="col-md-10 select-segment-list">
             <div className="row">
-              <div className="col-xl">
+              <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
                 <SegmentPreview
                   segments={selectedSegment}
@@ -68,7 +68,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                       />
-                      <hr/>
+                      <hr className="segment-divider"/>
                     </div>
                     : ''
                 }

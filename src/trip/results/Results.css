@@ -1,3 +1,6 @@
+#segment-selection {
+  background-color: #ffffff;
+}
 
 .pre-results-title {
   text-align: center;
@@ -101,9 +104,13 @@
 }
 
 .segment-divider {
-  margin: 75px;
+  margin: 75px 0px;
 }
 
 .segment-icon {
   margin: 0px 10px;
+}
+
+.segment-price {
+  padding-top: 15px;
 }

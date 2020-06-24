@@ -20,6 +20,9 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'SET_ACTIVE_SEGMENT':
       return setSegmentsAsActive(state);
 
+    case 'UPDATE_ACTIVES':
+      return updateActives(state, action);
+
     case 'SET_ALTERNATES':
       return setSegmentsAlternates(state);
 
@@ -114,6 +117,14 @@ function getOtherPositionsInItineraryStructure(segment: Segment) {
 function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: string) {
   return segmentOptions.find((potentialLinkedSegment: Segment) => potentialLinkedSegment.itinerary_id === itineraryId
   );
+}
+
+function updateActives(state: ResultsDetails, action: any) {
+  // action.segmentOptionIndex action.segmentIndex
+  const trip: Results = state[state.tripType];
+  const selectedSegment = trip.segments[action.segmentOptionIndex][action.segmentIndex]
+  activateSegment(selectedSegment, state, action.optionIndex);
+
 }
 
 export default resultsReducer;

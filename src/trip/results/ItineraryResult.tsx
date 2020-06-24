@@ -67,13 +67,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
   }
 
-  // setActiveSegments = () => {
-  //   this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.orderSegmentOptions(index, 0)});
-  // }
-
-  getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
-  }
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
 }
 
 export default ItineraryResult;

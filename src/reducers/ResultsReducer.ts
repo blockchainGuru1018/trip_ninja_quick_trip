@@ -7,7 +7,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         fareStructureResults: action.results.fare_structure,
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
-        tripType: 'fareStructureResults'
+        tripType: 'fareStructureResults',
+        activeSegments: new Map()
       };
 
     case 'SET_ERROR_DETAILS':
@@ -29,14 +30,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
 function setSegmentsAsActive(state: ResultsDetails) {
   const trip = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, position: number) =>
-    segmentOptions.forEach((segment: Segment, index: number) => {
-      if(index === 0){
-        activateSegment(segment, state, position);
-      }else {
-        segment.status = 'inactive'; //Can we do this by setting a default to all Segment type variables?
-      }
-    })
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) =>
+    activateSegment(segmentOptions[0], state, segmentOptionsIndex)
   );
   return state;
 }
@@ -44,14 +39,7 @@ function setSegmentsAsActive(state: ResultsDetails) {
 function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number) {
   // This should be used anywhere segment status is set to active
   segment.status = 'active';
-  state.activeSegments[segmentPosition] = segment;
-}
-
-function setSegmentStatus(state: any, action: any) {
-  const segments = state[state.tripType].segments[action.itineraryIndex];
-  segments.map((segment: Segment) => {return segment.status = 'inactive';});
-  segments[action.segmentIndex].status = 'active';
-  return {...state};
+  state.activeSegments.set(segmentPosition, segment);
 }
 
 function getFlightDetailsArray(segment: Segment): Array<number> {
@@ -70,6 +58,7 @@ function setSegmentsAlternates(state: ResultsDetails) {
       // TODO deal with error
     }
   });
+  return state;
 }
 
 function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segmentOptions: Array<Segment>, trip: Results) {
@@ -79,7 +68,8 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
     }
     else if(segment.itinerary_structure === activeSegment!.itinerary_structure) {
       identifyCompatibleSegments(state, activeSegment, segment, trip);
-    } else {
+    }
+    else {
       segment.status = 'incompatible';
     }
   });
@@ -88,23 +78,28 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
 function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segment, segment: Segment, trip: Results) {
   if (segment.itinerary_type === 'ONE_WAY') {
     segment.status = 'compatible';
-  } else {
+  }
+  else {
     const otherPositionsInItineraryStructure: Array<number> = getOtherPositionsInItineraryStructure(segment);
     let status: string = 'compatible';
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
       // TODO: [Q for Kieran] why use trip and not get the information from state?
       const linkedSegment: Segment | undefined = getSegmentInItinerary(trip.segments[linkedSegmentPosition], activeSegment!.itinerary_id);
-      let activeSegmentInLinkPosition = state.activeSegments[linkedSegmentPosition];
-      if (!segmentsAreCompatible(linkedSegment!, activeSegmentInLinkPosition)) {
-        status = 'incompatible'; // TODO: [Note to Kieran] I don't think we'll need a break here since status is not being reset to 'compatible' in the loop
+      if(linkedSegment) {
+        let activeSegmentInLinkPosition = state.activeSegments[linkedSegmentPosition];
+        if (!segmentsAreCompatible(linkedSegment!, activeSegmentInLinkPosition)) {
+          status = 'incompatible';
+        }
       }
-      segment.status = status;
+      else {
+        // TODO some sort of error handling here
+      }
+    segment.status = status;
     });
   }
 }
 
 function segmentsAreCompatible(firstSegment: Segment, secondSegment: Segment) {
-  // TODO: [Note to Kieran] fare_basis_code is already inside flightDetails, so if they have the same flight_detail_ref that's the same
   return getFlightDetailsArray(firstSegment) === getFlightDetailsArray(secondSegment)
       && firstSegment.baggage.number_of_pieces === secondSegment.baggage.number_of_pieces;
 }
@@ -117,8 +112,6 @@ function getOtherPositionsInItineraryStructure(segment: Segment) {
 }
 
 function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: string) {
-  // TODO: [Q for Kieran] should we raise an error if segment is not found?
-  // this can be put to a utility for general usage
   return segmentOptions.find((potentialLinkedSegment: Segment) => potentialLinkedSegment.itinerary_id === itineraryId
   );
 }

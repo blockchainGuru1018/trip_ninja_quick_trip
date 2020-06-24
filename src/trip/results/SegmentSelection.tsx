@@ -20,23 +20,25 @@ interface SegmentSelectionProps {
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
-  
+
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments = trip.segments[segmentIndex];
+    const currentSegments: Array<Segment> = trip.segments[segmentIndex];
+    const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
+    const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const firstSegment = currentSegments[0];
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     let selectedSegment: Array<Segment> = [];
     selectedSegment[0] = selectedTrip[segmentIndex];
-    //let alternateSegments = this.getInactiveSegments(currentSegments);
+
     return (
       <div id="segment-selection">
         <div className="results-header">
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
-            {firstSegment.origin} 
+            {firstSegment.origin}
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
             {firstSegment.destination}
           </h1>
@@ -56,16 +58,34 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   segmentSelect={true}
                 />
                 <hr className="segment-divider"/>
-                <h5>Other Departure Times</h5>
-                <SegmentPreview
-                  segments={currentSegments}
-                  flightDetails={trip.flight_details}
-                  currency={this.props.currency}
-                  segmentSelect={true}
-                />
-                <hr/>
-                <h5>Other Options</h5>
-                <p>Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.</p>
+                {
+                  compatibleSegments.length > 0
+                    ? <div>
+                      <h5>Other Departure Times</h5>
+                      <SegmentPreview
+                        segments={compatibleSegments}
+                        flightDetails={trip.flight_details}
+                        currency={this.props.currency}
+                        segmentSelect={true}
+                      />
+                      <hr/>
+                    </div>
+                    : ''
+                }
+                {
+                  incompatibleSegments.length > 0
+                    ? <div>
+                      <h5>Other Options</h5>
+                      <p>Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.</p>
+                      <SegmentPreview
+                        segments={incompatibleSegments}
+                        flightDetails={trip.flight_details}
+                        currency={this.props.currency}
+                        segmentSelect={true}
+                      />
+                    </div>
+                    : ''
+                }
               </div>
             </div>
           </div>
@@ -74,7 +94,10 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     );
   }
   getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
+    return trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
+
   }
 
 }

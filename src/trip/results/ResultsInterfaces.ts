@@ -4,6 +4,7 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
+  activeSegments: Map<number, Segment>
 }
 
 export interface Errors {
@@ -12,6 +13,7 @@ export interface Errors {
 }
 
 export const defaultResultsDetails: ResultsDetails = {
+  activeSegments: new Map(),
   errors: {
     errorFound: false
   },

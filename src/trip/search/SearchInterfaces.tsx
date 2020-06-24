@@ -69,7 +69,7 @@ export interface SearchPayload {
   currency: string;
   flights: Array<object>;
   travellers: object;
-  dummy?: boolean;
+  route_flexible: boolean;
 }
 
 export interface FlightPayload {

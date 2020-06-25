@@ -148,10 +148,11 @@ function updateActives(state: ResultsDetails, action: any) {
   const selectedSegment: Segment = trip.segments[action.segmentOptionIndex][action.segmentIndex];
   const isCompatible = selectedSegment.status === 'compatible';
   const oldActiveSegment = {...state.activeSegments.get(action.segmentOptionIndex)!};
+  // if its compatible just update the actives
   activateSegment(selectedSegment, state, action.optionIndex);
   activateLinkedSegments(selectedSegment, state, action.optionIndex, trip);
   if (!isCompatible) {
-    setAlternatesStatus(state, selectedSegment, trip.segments[action.segmentOptionIndex]);
+    // if incompatible - always reset the statuses
     if (selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure) {
       const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
       const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
@@ -160,7 +161,9 @@ function updateActives(state: ResultsDetails, action: any) {
         activateBestOneWay(trip.segments[positionIndex], state, positionIndex);
       });
     }
+    setAlternatesStatus(state, selectedSegment, trip.segments[action.segmentOptionIndex]);
   }
+  return state;
 }
 
 export default resultsReducer;

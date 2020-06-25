@@ -36,9 +36,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         <div className="results-header">
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
-            {firstSegment.origin} 
+            {trip.path_sequence[segmentIndex].substring(0, 3)} 
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
-            {firstSegment.destination}
+            {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
         </div>
         <div className="row">

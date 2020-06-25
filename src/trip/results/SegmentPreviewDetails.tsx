@@ -23,7 +23,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
           currency={this.props.currency}
         />
-        <FareSelect />
+        <FareSelect brands={this.props.segment.brands}/>
       </div>
     );
   }

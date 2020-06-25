@@ -73,7 +73,7 @@ export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boole
   dispatch(searchLoading(true));
   const url: string = routeFlexible
     ? '/multicitysearch/'
-    : '/fare_structure/';
+    : '/multicitysearch/';
   searchPayload.dummy = true;
   return API.post(url, searchPayload)
     .then((response: any) => {

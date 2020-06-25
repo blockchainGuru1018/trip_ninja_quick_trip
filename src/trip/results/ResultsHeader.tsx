@@ -8,10 +8,10 @@ import history from '../../History';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
-  color: 'var(--primary-dark)',
-  border: 'solid 2px var(--primary-dark)',
+  color: 'var(--secondary)',
+  border: 'solid 2px var(--secondary)',
   '&:hover': {
-    backgroundColor: 'var(--primary-dark)',
+    backgroundColor: 'var(--secondary)',
     color: '#ffffff',
   }
 });

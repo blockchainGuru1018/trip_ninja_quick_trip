@@ -14,7 +14,7 @@ const FareTableCell = styled(TableCell)({
 });
 
 const FareTableHeader = styled(TableCell)({
-  backgroundColor: 'var(--primary-dark)',
+  backgroundColor: 'var(--secondary)',
   color: '#ffffff',
   border: 'solid 1px #CACDD6',
 });

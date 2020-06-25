@@ -30,7 +30,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const currentSegments: Array<Segment> = trip.segments[segmentIndex];
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
-    const firstSegment = currentSegments[0];
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
 
@@ -39,9 +38,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         <div className="results-header">
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
-            {firstSegment.origin}
+            {trip.path_sequence[segmentIndex].substring(0, 3)}
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
-            {firstSegment.destination}
+            {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
         </div>
         <div className="row">

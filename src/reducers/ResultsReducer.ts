@@ -71,7 +71,7 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
     if(segment.status === 'active') {
       return;
     }
-    else if(segment.itinerary_structure === activeSegment!.itinerary_structure) {
+    else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
       identifyCompatibleSegments(state, activeSegment, segment);
     }
     else {
@@ -90,11 +90,11 @@ function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segmen
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
       // TODO: [Q for Kieran] why use trip and not get the information from state?
       const linkedSegment: Segment | undefined = getSegmentInItinerary(
-        state[state.tripType].segments[linkedSegmentPosition], activeSegment!.itinerary_id
+        state[state.tripType].segments[linkedSegmentPosition], activeSegment.itinerary_id
       );
       if(linkedSegment) {
         let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
-        if (!segmentsAreCompatible(linkedSegment!, activeSegmentInLinkPosition!)) {
+        if (!segmentsAreCompatible(linkedSegment, activeSegmentInLinkPosition!)) {
           status = 'incompatible';
         }
       }

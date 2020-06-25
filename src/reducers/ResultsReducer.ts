@@ -44,7 +44,6 @@ function activateSegment(segment: Segment, state: ResultsDetails, segmentPositio
   if(state.activeSegments.has(segmentPosition)) {
     state.activeSegments.get(segmentPosition)!.status = 'compatible';
   }
-
   state.activeSegments.set(segmentPosition, segment);
 }
 
@@ -124,12 +123,44 @@ function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: stri
   );
 }
 
+function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails, optionIndex: number, trip: Results) {
+  if(selectedSegment.itinerary_type === 'OPEN_JAW'){
+    const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
+    otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
+      let linkedSegment: Segment | undefined = trip.segments[linkedSegmentPosition].find((segment: Segment) => segment.itinerary_id === selectedSegment.itinerary_id);
+      activateSegment(linkedSegment!, state, linkedSegmentPosition);
+    });
+  }
+}
+
+function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
+  let bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) => segment.itinerary_type === 'ONE_WAY');
+  if (bestOneWay) {
+    activateSegment(bestOneWay, state, segmentPosition);
+  } else {
+    // possible?
+  }
+}
+
 function updateActives(state: ResultsDetails, action: any) {
   // action.segmentOptionIndex, action.segmentIndex
   const trip: Results = state[state.tripType];
-  const selectedSegment = trip.segments[action.segmentOptionIndex][action.segmentIndex]
+  const selectedSegment: Segment = trip.segments[action.segmentOptionIndex][action.segmentIndex];
+  const isCompatible = selectedSegment.status === 'compatible';
+  const oldActiveSegment = {...state.activeSegments.get(action.segmentOptionIndex)!};
   activateSegment(selectedSegment, state, action.optionIndex);
-
+  activateLinkedSegments(selectedSegment, state, action.optionIndex, trip);
+  if (!isCompatible) {
+    setAlternatesStatus(state, selectedSegment, trip.segments[action.segmentOptionIndex]);
+    if (selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure) {
+      const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
+      const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
+      const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
+      difference.forEach((positionIndex: number) => {
+        activateBestOneWay(trip.segments[positionIndex], state, positionIndex);
+      });
+    }
+  }
 }
 
 export default resultsReducer;

@@ -116,11 +116,13 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
             />
         }
         {
-          index === 0
-            ? <div className='segment-preview-dotted-line segment-preview-dotted-line-top'></div>
-            : index === this.props.segments.length - 1
-              ? <div className='segment-preview-dotted-line segment-preview-dotted-line-bottom'></div>
-              : <div className='segment-preview-dotted-line segment-preview-dotted-line-middle'></div>
+          this.props.segments.length === 1
+            ? ''
+            : index === 0
+              ? <div className='segment-preview-dotted-line segment-preview-dotted-line-top'></div>
+              : index === this.props.segments.length - 1
+                ? <div className='segment-preview-dotted-line segment-preview-dotted-line-bottom'></div>
+                : <div className='segment-preview-dotted-line segment-preview-dotted-line-middle'></div>
         }
       </div>
     );

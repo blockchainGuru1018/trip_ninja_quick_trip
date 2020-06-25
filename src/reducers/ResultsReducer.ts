@@ -47,8 +47,10 @@ function activateSegment(segment: Segment, state: ResultsDetails, segmentPositio
   state.activeSegments.set(segmentPosition, segment);
 }
 
-function getFlightDetailsArray(segment: Segment): Array<number> {
-  return segment.flights.map((flight: FlightResult) => flight.flight_detail_ref);
+function getFlightDetailsString(segment: Segment): string {
+  return segment.flights.reduce((total: string, flight: FlightResult) =>
+    total += flight.flight_detail_ref, ''
+  );
 }
 
 function setSegmentsAlternates(state: ResultsDetails) {
@@ -90,7 +92,7 @@ function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segmen
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
       // TODO: [Q for Kieran] why use trip and not get the information from state?
       const linkedSegment: Segment | undefined = getSegmentInItinerary(
-        state[state.tripType].segments[linkedSegmentPosition], activeSegment.itinerary_id
+        state[state.tripType].segments[linkedSegmentPosition], segment.itinerary_id
       );
       if(linkedSegment) {
         let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
@@ -107,7 +109,7 @@ function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segmen
 }
 
 function segmentsAreCompatible(firstSegment: Segment, secondSegment: Segment) {
-  return getFlightDetailsArray(firstSegment) === getFlightDetailsArray(secondSegment)
+  return getFlightDetailsString(firstSegment) === getFlightDetailsString(secondSegment)
     && firstSegment.baggage.number_of_pieces === secondSegment.baggage.number_of_pieces;
 }
 
@@ -162,11 +164,11 @@ function updateActives(state: ResultsDetails, action: any) {
 
 function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number, trip: Results) {
   const isCompatible = selectedSegment.status === 'compatible';
-  const oldActiveSegment = {...state.activeSegments.get(segmentOptionIndex)!};
+  const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentOptionIndex);
   // if its compatible just update the actives
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state, trip);
-  if (!isCompatible) {
+  if (!isCompatible && oldActiveSegment) {
     // if incompatible - always reset the statuses
     if (selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure) {
       const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
@@ -177,6 +179,8 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
       });
     }
     setAlternatesStatus(state, selectedSegment, trip.segments[segmentOptionIndex]);
+  } else {
+    // TODO: Do some logging here
   }
 }
 

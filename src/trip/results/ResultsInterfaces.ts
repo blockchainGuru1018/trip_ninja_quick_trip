@@ -87,7 +87,7 @@ export interface Penalty {
 }
 
 export interface FlightResult {
-  flight_detail_ref: number;
+  flight_detail_ref: string;
   booking_code: string;
   fare_type: string;
   fare_basis_code: string;
@@ -125,7 +125,7 @@ export interface BrandService {
 }
 
 export interface FlightResultsDetails {
-  reference: number;
+  reference: string;
   origin: string;
   origin_name: string;
   destination: string;

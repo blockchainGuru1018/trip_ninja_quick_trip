@@ -28,7 +28,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
           currency={this.props.currency}
         />
-        {this.props.updateActives
+        {this.props.updateActives && this.props.segment.status !== 'active'
           ? <div className='btn-segment-selection-container'>
             <Button
               variant="contained"

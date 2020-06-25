@@ -37,7 +37,7 @@
   border-bottom: solid 2px var(--main);
 }
 
-.itinerary-header {
+.results-header {
   border-bottom: solid 1px #C1BDBD;
   padding: 25px 100px;
 }
@@ -59,7 +59,7 @@
   padding: 0px 10px;
 }
 
-.segment-preview {
+.segment {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0px 3px 6px #00000029;
@@ -76,6 +76,12 @@
 
 .segment-list {
   padding: 25px 25px 150px 25px;
+  background-color: #ffffff;
+}
+
+.select-segment-list {
+  padding: 75px 25px;
+  background-color: #ffffff;
 }
 
 .origin-destination {
@@ -94,7 +100,7 @@
 }
 
 .baggage-icon-container {
-  padding: 10px 0px 0px 0px;
+  padding: 5px 0px 0px 0px;
   display: grid;
   height: 100%;
   grid-auto-flow: column;
@@ -103,6 +109,7 @@
 
 .baggage-amount-text {
   padding-top: 10px;
+  font-weight: bold;
 }
 
 .card-travel-icon {
@@ -120,7 +127,7 @@
   position: relative;
 }
 
-.segment-preview-container {
+.segment-container {
   padding-right: 20px;
 }
 

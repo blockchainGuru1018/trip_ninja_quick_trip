@@ -36,13 +36,14 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}
+            segmentSelect={false}
           />
         </div>
       </div>;
 
     return (
       <div id="itinerary-result">
-        <div className="itinerary-header">
+        <div className="results-header">
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>

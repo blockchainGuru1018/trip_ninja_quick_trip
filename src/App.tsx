@@ -120,8 +120,12 @@ class App extends React.Component<IAppProps> {
                   } />
                   : history.push('/search/')
                 }
-                <Route exact path="/results/segment/:index" render={() =>
-                  <SegmentSelection />
+                <Route exact path="/results/segment/:index" render={(routeProps) =>
+                  <SegmentSelection
+                    {...routeProps}
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                  />
                 } />
               </div>
             </Router>

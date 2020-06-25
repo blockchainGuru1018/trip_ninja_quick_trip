@@ -69,12 +69,9 @@ export function searchLoading(value: boolean) {
   };
 }
 
-export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boolean) => (dispatch: any) => {
+export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) => {
   dispatch(searchLoading(true));
-  const url: string = routeFlexible
-    ? '/multicitysearch/'
-    : '/multicitysearch/';
-  searchPayload.dummy = true;
+  const url: string = '/multicitysearch/';
   return API.post(url, searchPayload)
     .then((response: any) => {
       dispatch(searchLoading(false));
@@ -87,4 +84,4 @@ export const searchFlights = (searchPayload: SearchPayload, routeFlexible: boole
       dispatch(setErrorDetails(true));
       return {'success': false};
     });
-}
+};

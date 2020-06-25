@@ -26,7 +26,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
     const currentSegments = trip.segments[segmentIndex];
-    const firstSegment = currentSegments[0];
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     let selectedSegment: Array<Segment> = [];
     selectedSegment[0] = selectedTrip[segmentIndex];

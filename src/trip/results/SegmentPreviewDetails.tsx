@@ -12,6 +12,8 @@ interface SegmentPreviewDetailsProps {
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
   render() {
+    const brands = this.props.segment.brands ? this.props.segment.brands : {};
+    const segment_id = Object.keys(brands);
     return(
       <div className="col-md-12 segment-preview-details-container">
         <FlightResultsPath
@@ -23,7 +25,9 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
           currency={this.props.currency}
         />
-        <FareSelect brands={this.props.segment.brands}/>
+        { this.props.segment.brands 
+        && <FareSelect brands={this.props.segment.brands![segment_id[0]]} currency={this.props.currency} /> 
+        }
       </div>
     );
   }

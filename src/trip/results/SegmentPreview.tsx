@@ -51,9 +51,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const open: boolean = this.state.expandedSegment === index;
       return(
-        <div className='row segment-container' key={index.toString()}>
+        <div className="row segment-container" key={index.toString()}>
           {!this.props.segmentSelect && this.setFlightPreviewIcons(index)}
-          <div className="row col-md-10">
+          <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
             <div className="row segment col-md-12">
               {!this.props.segmentSelect 
               && <SegmentOriginDestination segment={segment} departure={segmentFlightDetails[0].departure_time} />

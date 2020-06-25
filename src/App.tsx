@@ -11,7 +11,7 @@ import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
-import { setErrorDetails, setTripType } from './actions/ResultsActions';
+import { setErrorDetails, setTripType, updateActives } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -37,6 +37,7 @@ interface IAppProps {
   searchFlights: typeof searchFlights;
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
+  updateActives: typeof updateActives;
 }
 
 const theme = Theme;
@@ -123,6 +124,7 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
+                    updateActives={this.props.updateActives}
                   />
                 } />
               </div>

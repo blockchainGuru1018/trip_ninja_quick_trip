@@ -50,7 +50,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
           </div>
         </div>
         <hr/>
-      </div>  
+      </div>
     );
   }
 

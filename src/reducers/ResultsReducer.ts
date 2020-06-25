@@ -93,8 +93,8 @@ function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segmen
         state[state.tripType].segments[linkedSegmentPosition], activeSegment!.itinerary_id
       );
       if(linkedSegment) {
-        let activeSegmentInLinkPosition = state.activeSegments[linkedSegmentPosition];
-        if (!segmentsAreCompatible(linkedSegment!, activeSegmentInLinkPosition)) {
+        let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
+        if (!segmentsAreCompatible(linkedSegment!, activeSegmentInLinkPosition!)) {
           status = 'incompatible';
         }
       }
@@ -119,15 +119,18 @@ function getOtherPositionsInItineraryStructure(segment: Segment) {
 }
 
 function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: string) {
-  return segmentOptions.find((potentialLinkedSegment: Segment) => potentialLinkedSegment.itinerary_id === itineraryId
+  return segmentOptions.find((potentialLinkedSegment: Segment) =>
+    potentialLinkedSegment.itinerary_id === itineraryId
   );
 }
 
-function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails, optionIndex: number, trip: Results) {
+function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails, trip: Results) {
   if(selectedSegment.itinerary_type === 'OPEN_JAW'){
     const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
-      let linkedSegment: Segment | undefined = trip.segments[linkedSegmentPosition].find((segment: Segment) => segment.itinerary_id === selectedSegment.itinerary_id);
+      let linkedSegment: Segment | undefined = trip.segments[linkedSegmentPosition].find((segment: Segment) =>
+        segment.itinerary_id === selectedSegment.itinerary_id
+      );
       activateSegment(linkedSegment!, state, linkedSegmentPosition);
     });
   }
@@ -145,12 +148,24 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 function updateActives(state: ResultsDetails, action: any) {
   // action.segmentOptionIndex, action.segmentIndex
   const trip: Results = state[state.tripType];
-  const selectedSegment: Segment = trip.segments[action.segmentOptionIndex][action.segmentIndex];
+  const selectedSegment: Segment | undefined = trip.segments[action.segmentOptionIndex].find((segment: Segment) =>
+    segment.itinerary_id === action.segmentItineraryRef
+  );
+  if (selectedSegment) {
+    updateSegmentActivesAndAlternates(selectedSegment, state, action.segmentOptionIndex, trip)
+  }
+  else {
+    // Complete some sort of logging here
+  }
+  return {...state};
+}
+
+function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number, trip: Results) {
   const isCompatible = selectedSegment.status === 'compatible';
-  const oldActiveSegment = {...state.activeSegments.get(action.segmentOptionIndex)!};
+  const oldActiveSegment = {...state.activeSegments.get(segmentOptionIndex)!};
   // if its compatible just update the actives
-  activateSegment(selectedSegment, state, action.optionIndex);
-  activateLinkedSegments(selectedSegment, state, action.optionIndex, trip);
+  activateSegment(selectedSegment, state, segmentOptionIndex);
+  activateLinkedSegments(selectedSegment, state, trip);
   if (!isCompatible) {
     // if incompatible - always reset the statuses
     if (selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure) {
@@ -161,9 +176,9 @@ function updateActives(state: ResultsDetails, action: any) {
         activateBestOneWay(trip.segments[positionIndex], state, positionIndex);
       });
     }
-    setAlternatesStatus(state, selectedSegment, trip.segments[action.segmentOptionIndex]);
+    setAlternatesStatus(state, selectedSegment, trip.segments[segmentOptionIndex]);
   }
-  return state;
 }
+
 
 export default resultsReducer;

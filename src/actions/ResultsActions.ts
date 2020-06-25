@@ -34,6 +34,14 @@ export function setActiveSegments(){
   };
 }
 
+export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string) {
+  return {
+    type: 'UPDATE_ACTIVES',
+    segmentOptionIndex,
+    segmentItineraryRef
+  }
+}
+
 export function setAlternates() {
   return {
     type: 'SET_ALTERNATES'

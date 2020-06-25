@@ -6,6 +6,7 @@ import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
+import { updateActives } from '../../actions/ResultsActions';
 
 interface MatchParams {
   index: string;
@@ -16,7 +17,8 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
-  currency: string
+  currency: string;
+  updateActives: typeof updateActives
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -29,9 +31,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const firstSegment = currentSegments[0];
-    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
-    let selectedSegment: Array<Segment> = [];
-    selectedSegment[0] = selectedTrip[segmentIndex];
+    const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
 
     return (
       <div id="segment-selection">
@@ -52,10 +53,12 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
               <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
                 <SegmentPreview
+                  segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
                   flightDetails={trip.flight_details}
                   currency={this.props.currency}
                   segmentSelect={true}
+                  updateActives={this.props.updateActives}
                 />
                 <hr className="segment-divider"/>
                 {
@@ -63,10 +66,12 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                     ? <div>
                       <h5>Other Departure Times</h5>
                       <SegmentPreview
+                        segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={compatibleSegments}
                         flightDetails={trip.flight_details}
                         currency={this.props.currency}
                         segmentSelect={true}
+                        updateActives={this.props.updateActives}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -76,12 +81,16 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   incompatibleSegments.length > 0
                     ? <div>
                       <h5>Other Options</h5>
-                      <p>Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.</p>
+                      <p>
+                        Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
+                      </p>
                       <SegmentPreview
+                        segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={incompatibleSegments}
                         flightDetails={trip.flight_details}
                         currency={this.props.currency}
                         segmentSelect={true}
+                        updateActives={this.props.updateActives}
                       />
                     </div>
                     : ''
@@ -97,7 +106,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     return trip.segments.map((segments: Array<Segment>) =>
       segments.find((object: Segment) => object.status === 'active') || segments[0]
     );
-
   }
 
 }

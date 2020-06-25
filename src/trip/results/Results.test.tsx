@@ -1,18 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import SegmentSelection from './SegmentSelection';
 import PreResultsFlightSections from './PreResultsFlightSections';
 import SegmentPreview from './SegmentPreview';
 import { shallow } from 'enzyme';
-
-
-test('segment selection link renders', () => {
-  const { getByText } = render(
-	  <SegmentSelection/>
-  );
-
-  expect(getByText(/segments/i)).toBeInTheDocument();
-});
+import FlightStops from './FlightStops';
+import FlightTypes from './FlightTypes';
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
@@ -90,15 +82,16 @@ test('getFlightDetailsBySegment', () => {
 
 test('calculateHoursBetween', () => {
   expect(
-    segmentPreviewComponentInstance.calculateHoursBetween(testResultsDetails.flight_details)
+    shallow(<FlightStops flights={testResultsDetails.flight_details}/>).instance().calculateHoursBetween(testResultsDetails.flight_details)
   ).toStrictEqual([{"NYC": "24h 0m"}]);
 });
 
 test('getFlightTypes', () => {
+  const flightTypesComponent = shallow(<FlightTypes segment={testResultsDetails.segments[0][0]}/>).instance();
   expect(
-    segmentPreviewComponentInstance.getFlightTypes(testResultsDetails.segments[0][0].flights)
+    flightTypesComponent.getFlightTypes(testResultsDetails.segments[0][0].flights)
   ).toBe("X Class");
   expect(
-    segmentPreviewComponentInstance.getFlightTypes(testResultsDetails.segments[1][0].flights)
+    flightTypesComponent.getFlightTypes(testResultsDetails.segments[1][0].flights)
   ).toBe("Y, Y Class");
 });

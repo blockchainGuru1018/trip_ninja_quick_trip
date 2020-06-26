@@ -1,4 +1,4 @@
-import {FlightResult, Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
+import {FlightResult, Results, ResultsDetails, Segment, ActiveSegmentsMap} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -8,7 +8,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
         tripType: 'fareStructureResults',
-        activeSegments: new Map()
+        activeSegments: new ActiveSegmentsMap()
       };
 
     case 'SET_ERROR_DETAILS':
@@ -23,9 +23,6 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_ACTIVES':
       return updateActives(state, action);
 
-    case 'SET_ALTERNATES':
-      return setSegmentsAlternates(state);
-
     default:
       return state;
   }
@@ -33,34 +30,36 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
 function setSegmentsAsActive(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) =>
-    activateSegment(segmentOptions[0], state, segmentOptionsIndex)
-  );
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
+    let segment = segmentOptions[0];
+    segment.status = 'active';
+    state.activeSegments.set(segmentOptionsIndex, segment);
+    setAlternatesStatus(state, segment, segmentOptions);
+  });
   return state;
 }
 
 function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number) {
+  const isNotCompatible = segment.status !== 'compatible';
+  const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentPosition);
+  const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
   if(state.activeSegments.has(segmentPosition)) {
     state.activeSegments.get(segmentPosition).status = 'compatible';
   }
   state.activeSegments.set(segmentPosition, segment);
+  if (isNotCompatible) {
+    if (structureChanged(segment, oldActiveSegment)) {
+      selectOneWaysForMissingPositions(segment, oldActiveSegment, state);
+    }
+    setAlternatesStatus(state, segment, segmentOptions);
+  }
 }
 
 function getFlightDetailsString(segment: Segment): string {
   return segment.flights.reduce((total: string, flight: FlightResult) =>
     total += flight.flight_detail_ref, ''
   );
-}
-
-function setSegmentsAlternates(state: ResultsDetails) {
-  const tripType = state.tripType;
-  const trip: Results = state[tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, position: number) => {
-    const activeSegment: Segment = state.activeSegments.get(position);
-    setAlternatesStatus(state, activeSegment, segmentOptions);
-  });
-  return state;
 }
 
 function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segmentOptions: Array<Segment>) {
@@ -136,6 +135,8 @@ function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails)
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
   let bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) => segment.itinerary_type === 'ONE_WAY');
   if (bestOneWay) {
+    bestOneWay.status = 'compatible';
+    setAlternatesStatus(state, bestOneWay, segmentOptions);
     activateSegment(bestOneWay, state, segmentPosition);
   } else {
     throw `No segment with ONE_WAY structure found at position ${segmentPosition}`;
@@ -155,51 +156,24 @@ function updateActives(state: ResultsDetails, action: any) {
   return {...state};
 }
 
+function structureChanged(selectedSegment: Segment, oldActiveSegment: Segment) {
+  return selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure;
+}
+
+function selectOneWaysForMissingPositions(selectedSegment: Segment,
+  oldActiveSegment: Segment, state: ResultsDetails) {
+  const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
+  const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
+  const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
+  difference.forEach((positionIndex: number) => {
+    const segmentOptions = state[state.tripType].segments[positionIndex]
+    activateBestOneWay(segmentOptions, state, positionIndex)
+  });
+}
+
 function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number) {
-  const isNotCompatible = selectedSegment.status !== 'compatible';
-  const oldActiveSegments: Map<number, Segment> = new Map(state.activeSegments);
-  const oldActiveSegment: Segment | undefined = oldActiveSegments.get(segmentOptionIndex);
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state);
-  if (isNotCompatible && oldActiveSegment) {
-    if (structureChanged(selectedSegment, oldActiveSegment)) {
-      selectOneWaysForMissingPositions(selectedSegment, oldActiveSegment, oldActiveSegments, segmentOptionIndex);
-    }
-    setSegmentsAlternates(state);
-  }
-
-  function structureChanged(selectedSegment: Segment, oldActiveSegment: Segment) {
-    return selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure;
-  }
-
-  function selectOneWaysForMissingPositions(selectedSegment: Segment,
-    oldActiveSegment: Segment, oldActiveSegments: Map<number, Segment>,
-    segmentOptionIndex: number) {
-    const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
-    const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
-    const difference: Array<number> = getDifference(activeSegmentStructure,
-      oldActiveSegmentStructure, oldActiveSegments, segmentOptionIndex);
-    difference.forEach((positionIndex: number) => {
-      let segmentOptions: Array<Segment> = state[state.tripType].segments[positionIndex];
-      activateBestOneWay(segmentOptions, state, positionIndex);
-    });
-  }
-
-  function getDifference(activeStructure: Array<number>,
-    oldActiveStructure: Array<number>, oldActiveMap: Map<number, Segment>,
-    segmentOptionIndex: number) {
-    oldActiveStructure.splice(oldActiveStructure.indexOf(segmentOptionIndex))
-    activeStructure.splice(activeStructure.indexOf(segmentOptionIndex))
-    let segmentDifferencePositions: Array<number> = [];
-    const structureDifferences: Array<number> = [...oldActiveStructure, ...activeStructure]
-    structureDifferences.forEach(difference => {
-      const oldActiveLinkedStructure = JSON.parse(oldActiveMap.get(difference)!.itinerary_structure)
-      segmentDifferencePositions.push(...oldActiveLinkedStructure.filter((x: number) =>
-        !activeStructure.includes(x))
-      )
-    });
-    return segmentDifferencePositions;
-  }
 }
 
 export default resultsReducer;

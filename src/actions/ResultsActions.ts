@@ -41,9 +41,3 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
     segmentItineraryRef
   }
 }
-
-export function setAlternates() {
-  return {
-    type: 'SET_ALTERNATES'
-  }
-}

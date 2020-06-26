@@ -77,8 +77,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                     : ''
                 }
                 {
-                  incompatibleSegments.length > 0
-                    ? <div>
+                  incompatibleSegments.length > 0 &&
+                    <div>
                       <h5>Other Options</h5>
                       <p>
                         Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
@@ -92,7 +92,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateActives={this.props.updateActives}
                       />
                     </div>
-                    : ''
                 }
               </div>
             </div>

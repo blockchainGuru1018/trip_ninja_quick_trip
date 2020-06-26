@@ -32,7 +32,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 }
 
 function setSegmentsAsActive(state: ResultsDetails) {
-  const trip = state[state.tripType];
+  const trip: Results = state[state.tripType];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) =>
     activateSegment(segmentOptions[0], state, segmentOptionsIndex)
   );
@@ -55,13 +55,12 @@ function getFlightDetailsString(segment: Segment): string {
 
 function setSegmentsAlternates(state: ResultsDetails) {
   const tripType = state.tripType;
-  const trip = state[tripType];
+  const trip: Results = state[tripType];
   trip.segments.forEach((segmentOptions: Array<Segment>, position: number) => {
     const activeSegment: Segment | undefined = state.activeSegments.get(position);
     if (activeSegment) {
       setAlternatesStatus(state, activeSegment, segmentOptions);
-    }
-    else {
+    } else {
       // Make some sort of logging here
     }
   });
@@ -72,11 +71,9 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
   segmentOptions.forEach((segment: Segment) => {
     if(segment.status === 'active') {
       return;
-    }
-    else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
+    } else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
       identifyCompatibleSegments(state, activeSegment, segment);
-    }
-    else {
+    } else {
       segment.status = 'incompatible';
     }
   });
@@ -85,26 +82,28 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
 function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segment, segment: Segment) {
   if (segment.itinerary_type === 'ONE_WAY') {
     segment.status = 'compatible';
-  }
-  else {
+  } else {
     const otherPositionsInItineraryStructure: Array<number> = getOtherPositionsInItineraryStructure(segment);
     let status: string = 'compatible';
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
-      // TODO: [Q for Kieran] why use trip and not get the information from state?
-      const linkedSegment: Segment | undefined = getSegmentInItinerary(
-        state[state.tripType].segments[linkedSegmentPosition], segment.itinerary_id
-      );
-      if(linkedSegment) {
-        let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
-        if (!segmentsAreCompatible(linkedSegment, activeSegmentInLinkPosition!)) {
-          status = 'incompatible';
-        }
-      }
-      else {
-        // TODO some sort of error handling here
-      }
-    segment.status = status;
+      status = checkLinkedSegmentCompatibility(segment.itinerary_id, linkedSegmentPosition);
     });
+    segment.status = status;
+  }
+
+  // I tried out this local function creation, let me know if it's useful
+  function checkLinkedSegmentCompatibility(itinerary_id: string, linkedSegmentPosition: number) {
+    let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+    const linkedSegment: Segment | undefined = getSegmentInItinerary(linkedSegmentOptions, segment.itinerary_id);
+    if (linkedSegment) {
+      let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
+      if (!segmentsAreCompatible(linkedSegment, activeSegmentInLinkPosition!)) {
+        return 'incompatible';
+      }
+    } else {
+      // TODO some sort of error handling here
+    }
+    return 'compatible';
   }
 }
 
@@ -126,11 +125,12 @@ function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: stri
   );
 }
 
-function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails, trip: Results) {
+function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails) {
   if(selectedSegment.itinerary_type === 'OPEN_JAW'){
     const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
-      let linkedSegment: Segment | undefined = trip.segments[linkedSegmentPosition].find((segment: Segment) =>
+      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
         segment.itinerary_id === selectedSegment.itinerary_id
       );
       activateSegment(linkedSegment!, state, linkedSegmentPosition);
@@ -149,25 +149,24 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 
 function updateActives(state: ResultsDetails, action: any) {
   // action.segmentOptionIndex, action.segmentIndex
-  const trip: Results = state[state.tripType];
-  const selectedSegment: Segment | undefined = trip.segments[action.segmentOptionIndex].find((segment: Segment) =>
+  const segmentOptions: Array<Segment> = state[state.tripType].segments[action.segmentOptionIndex];
+  const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_id === action.segmentItineraryRef
   );
   if (selectedSegment) {
-    updateSegmentActivesAndAlternates(selectedSegment, state, action.segmentOptionIndex, trip)
-  }
-  else {
+    updateSegmentActivesAndAlternates(selectedSegment, state, action.segmentOptionIndex);
+  } else {
     // Complete some sort of logging here
   }
   return {...state};
 }
 
-function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number, trip: Results) {
+function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number) {
   const isCompatible = selectedSegment.status === 'compatible';
   const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentOptionIndex);
   // if its compatible just update the actives
   activateSegment(selectedSegment, state, segmentOptionIndex);
-  activateLinkedSegments(selectedSegment, state, trip);
+  activateLinkedSegments(selectedSegment, state);
   if (!isCompatible && oldActiveSegment) {
     // if incompatible - always reset the statuses
     if (selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure) {
@@ -175,10 +174,11 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
       const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
       const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
       difference.forEach((positionIndex: number) => {
-        activateBestOneWay(trip.segments[positionIndex], state, positionIndex);
+        let segmentOptions: Array<Segment> = state[state.tripType].segments[positionIndex];
+        activateBestOneWay(segmentOptions, state, positionIndex);
       });
     }
-    setAlternatesStatus(state, selectedSegment, trip.segments[segmentOptionIndex]);
+    setSegmentsAlternates(state);
   } else {
     // TODO: Do some logging here
   }

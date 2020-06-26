@@ -68,14 +68,14 @@ function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segm
     if(segment.status === 'active') {
       return;
     } else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
-      identifyCompatibleSegments(state, activeSegment, segment);
+      identifyCompatibleSegments(state, segment);
     } else {
       segment.status = 'incompatible';
     }
   });
 }
 
-function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segment, segment: Segment) {
+function identifyCompatibleSegments(state: ResultsDetails, segment: Segment) {
   if (segment.itinerary_type === 'ONE_WAY') {
     segment.status = 'compatible';
   } else {
@@ -87,7 +87,6 @@ function identifyCompatibleSegments(state: ResultsDetails, activeSegment: Segmen
     segment.status = status;
   }
 
-  // I tried out this local function creation, let me know if it's useful
   function checkLinkedSegmentCompatibility(itinerary_id: string, linkedSegmentPosition: number) {
     let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
     const linkedSegment: Segment | undefined = getSegmentInItinerary(linkedSegmentOptions, segment.itinerary_id);
@@ -158,12 +157,13 @@ function updateActives(state: ResultsDetails, action: any) {
 
 function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number) {
   const isNotCompatible = selectedSegment.status !== 'compatible';
-  const oldActiveSegment: Segment = state.activeSegments.get(segmentOptionIndex);
+  const oldActiveSegments: Map<number, Segment> = new Map(state.activeSegments);
+  const oldActiveSegment: Segment | undefined = oldActiveSegments.get(segmentOptionIndex);
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state);
-  if (isNotCompatible) {
+  if (isNotCompatible && oldActiveSegment) {
     if (structureChanged(selectedSegment, oldActiveSegment)) {
-      selectOneWaysForMissingPositions(selectedSegment, oldActiveSegment);
+      selectOneWaysForMissingPositions(selectedSegment, oldActiveSegment, oldActiveSegments, segmentOptionIndex);
     }
     setSegmentsAlternates(state);
   }
@@ -172,16 +172,34 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
     return selectedSegment.itinerary_structure !== oldActiveSegment.itinerary_structure;
   }
 
-  function selectOneWaysForMissingPositions(selectedSegment: Segment, oldActiveSegment: Segment) {
+  function selectOneWaysForMissingPositions(selectedSegment: Segment,
+    oldActiveSegment: Segment, oldActiveSegments: Map<number, Segment>,
+    segmentOptionIndex: number) {
     const activeSegmentStructure: Array<number> = JSON.parse(selectedSegment.itinerary_structure);
     const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
-    const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
+    const difference: Array<number> = getDifference(activeSegmentStructure,
+      oldActiveSegmentStructure, oldActiveSegments, segmentOptionIndex);
     difference.forEach((positionIndex: number) => {
       let segmentOptions: Array<Segment> = state[state.tripType].segments[positionIndex];
       activateBestOneWay(segmentOptions, state, positionIndex);
     });
   }
-}
 
+  function getDifference(activeStructure: Array<number>,
+    oldActiveStructure: Array<number>, oldActiveMap: Map<number, Segment>,
+    segmentOptionIndex: number) {
+    oldActiveStructure.splice(oldActiveStructure.indexOf(segmentOptionIndex))
+    activeStructure.splice(activeStructure.indexOf(segmentOptionIndex))
+    let segmentDifferencePositions: Array<number> = [];
+    const structureDifferences: Array<number> = [...oldActiveStructure, ...activeStructure]
+    structureDifferences.forEach(difference => {
+      const oldActiveLinkedStructure = JSON.parse(oldActiveMap.get(difference)!.itinerary_structure)
+      segmentDifferencePositions.push(...oldActiveLinkedStructure.filter((x: number) =>
+        !activeStructure.includes(x))
+      )
+    });
+    return segmentDifferencePositions;
+  }
+}
 
 export default resultsReducer;

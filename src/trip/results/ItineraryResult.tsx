@@ -15,10 +15,6 @@ interface ItineraryResultsProps {
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
-  componentDidMount() {
-    // this.setActiveSegments();
-  }
-
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;

@@ -24,14 +24,12 @@ interface SegmentSelectionProps {
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
 
   render() {
-    console.log('running');
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
     const currentSegments: Array<Segment> = trip.segments[segmentIndex];
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
-    console.log(compatibleSegments);
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
 

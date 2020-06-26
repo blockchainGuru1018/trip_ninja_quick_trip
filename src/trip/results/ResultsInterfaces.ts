@@ -4,7 +4,19 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
-  activeSegments: Map<number, Segment>
+  activeSegments: ActiveSegmentsMap
+}
+
+export class ActiveSegmentsMap extends Map<number, Segment>{
+
+  get(key: number): Segment {
+    const value: Segment | undefined = super.get(key);
+    if (value) {
+      return value;
+    } else {
+      throw `Active segment is not set for position ${key}`;
+    }
+  }
 }
 
 export interface Errors {

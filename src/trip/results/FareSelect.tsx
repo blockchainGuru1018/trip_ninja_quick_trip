@@ -41,57 +41,54 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 
   render() {
-    const brandList =  this.props.brands!;
-    if (!this.props.brands) {
-      return <div><p>No fare families available.</p></div>;
-    }
+    const brandsList =  this.props.brands!;
 
-    const brandNamesRow = brandList.map((brand: any, index) => (
+    const brandNamesRow = brandsList.map((brand: any, index) => (
       <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
     ));
 
-    const brandDescriptionRow = brandList.map((brand: any, index) => (
+    const brandDescriptionRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">
         {brand.fare_info[0].brand.tag_line ? brand.fare_info[0].brand.tag_line : 'N/A'}
       </FareTableCell>
     ));
 
-    const checkedBagsRow = brandList.map((brand: any, index) => (
+    const checkedBagsRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{brand.baggage_info.pieces} {brand.baggage_info.units}</FareTableCell>
     ));
 
-    const cabinBagsRow = brandList.map((brand: any, index) => (
+    const cabinBagsRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">
-        {this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage) ? brand.fare_info[0].brand.brand_services.carry_on_hand_baggage : 'N/A'}
+        {brand.fare_info[0].brand.brand_services.carry_on_hand_baggage ? this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage) : 'N/A'}
       </FareTableCell>
     ));
 
-    const seatSelectionRow = brandList.map((brand: any, index) => (
+    const seatSelectionRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
     ));
 
-    const changesRow = brandList.map((brand: any, index) => (
+    const changesRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
     ));
 
-    const refundableRow = brandList.map((brand: any, index) => (
+    const refundableRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
     ));
 
-    const bookingCodeRow = brandList.map((brand: any, index) => (
+    const bookingCodeRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{brand.fare_info[0].booking_code}</FareTableCell>
     ));
 
-    const fareBasisRow = brandList.map((brand: any, index) => (
+    const fareBasisRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">{brand.fare_info[0].fare_basis}</FareTableCell>
     ));
 
-    const fareSelectionRow = brandList.map((brand: any, index) => (
+    const fareSelectionRow = brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">
         <Button
           variant="contained"
           color="secondary">
-          {this.calculateRelativePrice(brand.price, Number(brandList[this.state.activeBrandIndex].price))}
+          {this.calculateRelativePrice(brand.price, Number(brandsList[this.state.activeBrandIndex].price))}
         </Button>
       </FareTableCell>
     ));

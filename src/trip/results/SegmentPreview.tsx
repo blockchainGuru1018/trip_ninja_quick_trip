@@ -86,7 +86,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 <SegmentPreviewDetails
                   segment={segment}
                   flightDetails={segmentFlightDetails}
-                  currency={this.props.currency}/>
+                  currency={this.props.currency}
+                  segmentSelect={this.props.segmentSelect}/>
               </div>
             </Fade>
           </div>

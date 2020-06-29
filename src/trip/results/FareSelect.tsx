@@ -29,6 +29,7 @@ const FareTableHeader = styled(TableCell)({
   border: 'solid 1px #CACDD6',
 });
 
+
 interface FareSelectProps {
   brands: Array<Brands> | undefined
   currency: string
@@ -41,23 +42,18 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   render() {
     const brandList =  this.props.brands!;
+    if (!this.props.brands) {
+      return <div><p>No fare families available.</p></div>;
+    }
 
-    const test = [
-      { "label": "Description", "path": "brand.fare_info[0].brand.name", "icon": false },
-      { "label": "Checked Bags", "path": "brand.fare_info[0].brand.name", "icon": false },
-      { "label": "Cabin Bags", "path": "brand.fare_info[0].brand.name", "icon": false },
-      { "label": "Seat Selection", "path": "brand.fare_info[0].brand.name", "icon": false },
-      { "label": "Description", "path": "brand.fare_info[0].brand.name", "icon": false },
-
-    ];
-
-    console.log(brandList);
     const brandNamesRow = brandList.map((brand: any, index) => (
       <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
     ));
 
     const brandDescriptionRow = brandList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{brand.fare_info[0].brand.tag_line}</FareTableCell>
+      <FareTableCell key={index} align="center">
+        {brand.fare_info[0].brand.tag_line ? brand.fare_info[0].brand.tag_line : 'N/A'}
+      </FareTableCell>
     ));
 
     const checkedBagsRow = brandList.map((brand: any, index) => (
@@ -65,7 +61,9 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
 
     const cabinBagsRow = brandList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage)}</FareTableCell>
+      <FareTableCell key={index} align="center">
+        {this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage) ? brand.fare_info[0].brand.brand_services.carry_on_hand_baggage : 'N/A'}
+      </FareTableCell>
     ));
 
     const seatSelectionRow = brandList.map((brand: any, index) => (
@@ -109,7 +107,7 @@ class FareSelect extends React.Component<FareSelectProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
+              <TableRow className={classes.table}>
                 <FareTableLabelCell align="left">Description</FareTableLabelCell>
                 {brandDescriptionRow}
               </TableRow>
@@ -159,7 +157,7 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
     let relativePrice = currentPrice - lowestPrice;
-    return (relativePrice > 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + relativePrice.toFixed();
+    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + relativePrice.toFixed();
   }
 }
 

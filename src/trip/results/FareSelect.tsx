@@ -41,6 +41,17 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   render() {
     const brandList =  this.props.brands!;
+
+    const test = [
+      { "label": "Description", "path": "brand.fare_info[0].brand.name", "icon": false },
+      { "label": "Checked Bags", "path": "brand.fare_info[0].brand.name", "icon": false },
+      { "label": "Cabin Bags", "path": "brand.fare_info[0].brand.name", "icon": false },
+      { "label": "Seat Selection", "path": "brand.fare_info[0].brand.name", "icon": false },
+      { "label": "Description", "path": "brand.fare_info[0].brand.name", "icon": false },
+
+    ];
+
+    console.log(brandList);
     const brandNamesRow = brandList.map((brand: any, index) => (
       <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
     ));
@@ -82,8 +93,7 @@ class FareSelect extends React.Component<FareSelectProps> {
         <Button
           variant="contained"
           color="secondary">
-          {currencySymbol(this.props.currency)}
-          {this.calculateRelativePrice(brand.price)}
+          {this.calculateRelativePrice(brand.price, Number(brandList[this.state.activeBrandIndex].price))}
         </Button>
       </FareTableCell>
     ));
@@ -147,9 +157,9 @@ class FareSelect extends React.Component<FareSelectProps> {
     return icons[value];
   }
 
-  calculateRelativePrice = (price: number) => {
-    let relativePrice = price - 0; 
-    return relativePrice.toFixed();
+  calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
+    let relativePrice = currentPrice - lowestPrice;
+    return (relativePrice > 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + relativePrice.toFixed();
   }
 }
 

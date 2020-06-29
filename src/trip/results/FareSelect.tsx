@@ -107,7 +107,7 @@ class FareSelect extends React.Component<FareSelectProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow className={classes.table}>
+              <TableRow>
                 <FareTableLabelCell align="left">Description</FareTableLabelCell>
                 {brandDescriptionRow}
               </TableRow>

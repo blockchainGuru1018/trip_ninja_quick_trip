@@ -120,7 +120,7 @@ function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: stri
 }
 
 function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails) {
-  if(selectedSegment.itinerary_type === 'OPEN_JAW'){
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
     const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
     otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
       let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];

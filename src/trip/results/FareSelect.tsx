@@ -48,7 +48,7 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
 
     const brandDescriptionRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">
+      <FareTableCell key={index} align="center" className={!brand.fare_info[0].brand.tag_line ? 'no-brand-info' : ''}>
         {brand.fare_info[0].brand.tag_line ? brand.fare_info[0].brand.tag_line : 'N/A'}
       </FareTableCell>
     ));
@@ -58,7 +58,7 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
 
     const cabinBagsRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">
+      <FareTableCell key={index} align="center" className={!brand.fare_info[0].brand.brand_services.carry_on_hand_baggage ? 'no-brand-info' : ''}>
         {brand.fare_info[0].brand.brand_services.carry_on_hand_baggage ? this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage) : 'N/A'}
       </FareTableCell>
     ));

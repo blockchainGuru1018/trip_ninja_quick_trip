@@ -27,6 +27,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    console.log(selectedTrip);
+    console.log("trip", trip);
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     const selectedSegments =
@@ -54,7 +56,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">
-              <PricingRequest />
+              <PricingRequest
+                resultsDetails={this.props.resultsDetails}
+                currency={this.props.currency}
+                totalPrice={totalPrice}
+              />
             </div>
           </div>
         </div>

@@ -86,7 +86,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               in={open}
               style={{display: open ? 'block' : 'none', width: '100%'}}>
               <div>
-                <SegmentPreviewDetails
+                { open 
+                && <SegmentPreviewDetails
                   segmentOptionsIndex={this.props.segmentOptionsIndex}
                   segment={segment}
                   flightDetails={segmentFlightDetails}
@@ -95,6 +96,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   updateActives={this.props.updateActives}
                   closeAllDropDowns={this.closeAllDropDowns}
                 />
+                }
               </div>
             </Fade>
           </div>

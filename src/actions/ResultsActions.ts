@@ -1,7 +1,8 @@
 
 import { ResultsDetails } from '../trip/results/ResultsInterfaces';
+import { Dispatch } from 'redux';
 
-export const setSearchResults = (results: ResultsDetails) => (dispatch: any) => {
+export const setSearchResults = (results: ResultsDetails) => (dispatch: Dispatch<any>) => {
   dispatch(setResults(results));
 };
 
@@ -27,10 +28,16 @@ export function setTripType(value: string) {
   };
 }
 
-export function setActiveSegment(itineraryIndex: number, segmentIndex: number){
+export function setActiveSegments(){
   return {
-    type: 'SET_ACTIVE_SEGMENT',
-    itineraryIndex,
-    segmentIndex
+    type: 'SET_ACTIVE_SEGMENT'
   };
+}
+
+export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string) {
+  return {
+    type: 'UPDATE_ACTIVES',
+    segmentOptionIndex,
+    segmentItineraryRef
+  }
 }

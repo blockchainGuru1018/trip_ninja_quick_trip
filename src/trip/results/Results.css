@@ -114,3 +114,8 @@
 .segment-price {
   padding-top: 15px;
 }
+
+.btn-segment-selection-container {
+  display: grid;
+  justify-content: flex-end;
+}

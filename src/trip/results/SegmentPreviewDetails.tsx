@@ -3,15 +3,22 @@ import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
 import FareSelect from './FareSelect';
+import Button from '@material-ui/core/Button';
+import { updateActives } from '../../actions/ResultsActions';
+
 
 interface SegmentPreviewDetailsProps {
   segment: Segment;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
+  updateActives?: typeof updateActives;
+  segmentOptionsIndex?: number;
+  closeAllDropDowns?: () => void;
 }
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
+
   render() {
     const brands = this.props.segment.brands ? this.props.segment.brands : {};
     const segment_id = Object.keys(brands);
@@ -31,8 +38,28 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
         {this.props.segment.brands && this.props.segmentSelect 
         && <FareSelect brands={this.props.segment.brands![segment_id[0]]} currency={this.props.currency} /> 
         }
+        {this.props.updateActives && this.props.segment.status !== 'active'
+          ? <div className='btn-segment-selection-container'>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={() =>
+                this.updateActives()
+              } >
+              Select segment
+            </Button>
+          </div>
+          : ''
+        }
       </div>
     );
+  }
+
+  updateActives = () => {
+    this.props.updateActives!(this.props.segmentOptionsIndex!, this.props.segment.itinerary_id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.props.closeAllDropDowns!();
   }
 }
 

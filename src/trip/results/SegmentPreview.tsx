@@ -23,7 +23,7 @@ interface SegmentPreviewProps {
   currency: string;
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
-  segmentOptionsIndex?: number
+  segmentOptionsIndex?: number;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -52,6 +52,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   setSegmentsHTML = () => {
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+      const activeSegment: Segment = this.props.segments.find((object: Segment) => object.status === 'active') || this.props.segments[0];
       const open: boolean = this.state.expandedSegment === index;
       return(
         <div className="row segment-container" key={index.toString()}>
@@ -67,7 +68,10 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightTypes segment={segment} />
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
               {this.props.segmentSelect
-              && <SegmentPrice segment={segment} currency={this.props.currency} />
+              && <SegmentPrice 
+                segment={segment} 
+                currency={this.props.currency}
+                activeSegmentPrice={activeSegment.price} />
               }
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton

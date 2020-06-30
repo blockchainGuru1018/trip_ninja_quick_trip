@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfaces';
 import '../../index.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -15,7 +15,7 @@ import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import { updateActives } from '../../actions/ResultsActions';
-
+import { updateActiveSegments } from '../../helpers/CompatibilityHelpers';
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -24,6 +24,7 @@ interface SegmentPreviewProps {
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
   segmentOptionsIndex?: number;
+  resultsDetails?: ResultsDetails;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -49,10 +50,23 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
+  setIncompatibleRelativePrice = (index: number) => {
+    const dummyActives = updateActiveSegments(
+      this.props.resultsDetails!, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentIndex: index}
+    );
+  }
+
+  setCompatibleRelativePrice = (segment: Segment, activeSegment: Segment) => {
+    return segment.price - activeSegment.price;
+  }
+
   setSegmentsHTML = () => {
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const activeSegment: Segment = this.props.segments.find((object: Segment) => object.status === 'active') || this.props.segments[0];
+      const relativePrice: number = this.props.resultsDetails
+        ? this.setIncompatibleRelativePrice(index)
+        : this.setCompatibleRelativePrice(segment, activeSegment);
       const open: boolean = this.state.expandedSegment === index;
       return(
         <div className="row segment-container" key={index.toString()}>
@@ -68,10 +82,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightTypes segment={segment} />
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
               {this.props.segmentSelect
-              && <SegmentPrice 
-                segment={segment} 
+              && <SegmentPrice
+                segment={segment}
                 currency={this.props.currency}
-                activeSegmentPrice={activeSegment.price} />
+                relativePrice={relativePrice}
+              />
               }
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton
@@ -90,7 +105,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               in={open}
               style={{display: open ? 'block' : 'none', width: '100%'}}>
               <div>
-                { open 
+                { open
                 && <SegmentPreviewDetails
                   segmentOptionsIndex={this.props.segmentOptionsIndex}
                   segment={segment}

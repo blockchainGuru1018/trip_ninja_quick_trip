@@ -90,6 +90,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        resultsDetails={this.props.resultsDetails}
                       />
                     </div>
                 }

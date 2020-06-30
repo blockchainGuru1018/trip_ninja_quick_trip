@@ -105,6 +105,7 @@ export interface FlightResult {
   fare_basis_code: string;
   cabin_class: string;
   brand?: Brand;
+  brand_identifier: string;
 }
 
 export interface Brands {

@@ -15,17 +15,17 @@ export interface Itineraries{
     plating_carrier?: string;
     credentials?: string; //TODO: Credentials object.
     itinerary_type?:string;
-    segments?: string; //TODO: Array<FlightSegment>
+    segments?: Array<FlightSegment>;
 }
 
 
 export interface FlightSegment{
     segment_id: string;
-    flights: Array<Flight>;
+    flights: Array<Flight> ; //TODO: Array<Flight>
 }
 
 export interface Flight{
-    key: string;
+    key: number;
     origin: string;
     destination: string;
     booking_code: string;

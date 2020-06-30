@@ -60,6 +60,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
                 totalPrice={totalPrice}
+                selectedTrip= {selectedTrip}
               />
             </div>
           </div>

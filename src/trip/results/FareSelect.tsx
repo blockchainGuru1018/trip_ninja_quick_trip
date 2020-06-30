@@ -13,6 +13,7 @@ import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const FareTableCell = styled(TableCell)({
   border: 'solid 1px #CACDD6',
@@ -43,56 +44,6 @@ class FareSelect extends React.Component<FareSelectProps> {
   render() {
     const brandsList =  this.props.brands!;
 
-    const brandNamesRow = brandsList.map((brand: any, index) => (
-      <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
-    ));
-
-    const brandDescriptionRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center" className={!brand.fare_info[0].brand.tag_line ? 'no-brand-info' : ''}>
-        {brand.fare_info[0].brand.tag_line ? brand.fare_info[0].brand.tag_line : 'N/A'}
-      </FareTableCell>
-    ));
-
-    const checkedBagsRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{brand.baggage_info.pieces} {brand.baggage_info.units}</FareTableCell>
-    ));
-
-    const cabinBagsRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center" className={!brand.fare_info[0].brand.brand_services.carry_on_hand_baggage ? 'no-brand-info' : ''}>
-        {brand.fare_info[0].brand.brand_services.carry_on_hand_baggage ? this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage) : 'N/A'}
-      </FareTableCell>
-    ));
-
-    const seatSelectionRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
-    ));
-
-    const changesRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
-    ));
-
-    const refundableRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
-    ));
-
-    const bookingCodeRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{brand.fare_info[0].booking_code}</FareTableCell>
-    ));
-
-    const fareBasisRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">{brand.fare_info[0].fare_basis}</FareTableCell>
-    ));
-
-    const fareSelectionRow = brandsList.map((brand: any, index) => (
-      <FareTableCell key={index} align="center">
-        <Button
-          variant="contained"
-          color="secondary">
-          {this.calculateRelativePrice(brand.price, Number(brandsList[this.state.activeBrandIndex].price))}
-        </Button>
-      </FareTableCell>
-    ));
-
     return(
       <div>
         <TableContainer component={Paper}>
@@ -100,45 +51,45 @@ class FareSelect extends React.Component<FareSelectProps> {
             <TableHead>
               <TableRow>
                 <FareTableHeader>Features</FareTableHeader>
-                {brandNamesRow}
+                {this.brandNamesRow(brandsList)}
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <FareTableLabelCell align="left">Description</FareTableLabelCell>
-                {brandDescriptionRow}
+                {this.brandDescriptionRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Checked Bags</FareTableLabelCell>
-                {checkedBagsRow}
+                {this.checkedBagsRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Cabin Bags</FareTableLabelCell>
-                {cabinBagsRow}
+                {this.cabinBagsRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Seat Selection</FareTableLabelCell>
-                {seatSelectionRow}
+                {this.seatSelectionRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Changes</FareTableLabelCell>
-                {changesRow}
+                {this.changesRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Refundable</FareTableLabelCell>
-                {refundableRow}
+                {this.refundableRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Booking Code</FareTableLabelCell>
-                {bookingCodeRow}
+                {this.bookingCodeRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left">Fare Basis</FareTableLabelCell>
-                {fareBasisRow}
+                {this.fareBasisRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left"></FareTableLabelCell>
-                {fareSelectionRow}
+                {this.fareSelectionButtonRow(brandsList)}
               </TableRow>
             </TableBody>
           </Table>
@@ -147,6 +98,88 @@ class FareSelect extends React.Component<FareSelectProps> {
     );
   }
   
+  brandNamesRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
+    ));
+  }
+
+  brandDescriptionRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      brand.fare_info[0].brand.tag_line
+        ? <FareTableCell key={index} align="center">
+          {brand.fare_info[0].brand.tag_line}
+        </FareTableCell>
+        : this.brandNotAvailableCell(index)       
+    ));
+  }
+
+  checkedBagsRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{brand.baggage_info.pieces} {brand.baggage_info.units}</FareTableCell>
+    ));
+  }
+  
+  cabinBagsRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      brand.fare_info[0].brand.brand_services.carry_on_hand_baggage
+        ? <FareTableCell key={index} align="center">
+          this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage)
+        </FareTableCell>
+        : this.brandNotAvailableCell(index)
+    ));
+  }
+  
+  seatSelectionRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
+    ));
+  }
+  
+  changesRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
+    ));
+  }
+
+  refundableRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
+    ));
+  }
+  
+  bookingCodeRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{brand.fare_info[0].booking_code}</FareTableCell>
+    ));
+  }
+
+  fareBasisRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">{brand.fare_info[0].fare_basis}</FareTableCell>
+    ));
+  }
+
+  fareSelectionButtonRow = (brandsList: Array<Brands>) => {
+    return brandsList.map((brand: any, index) => (
+      <FareTableCell key={index} align="center">
+        <Button
+          variant="contained"
+          color="secondary">
+          {this.calculateRelativePrice(brand.price, Number(brandsList[this.state.activeBrandIndex].price))}
+        </Button>
+      </FareTableCell>
+    ));
+  }
+
+  brandNotAvailableCell = (index: number) => {
+    return <Tooltip title="Information not available" placement="top">
+      <FareTableCell key={index.toString()} align="center" className="no-brand-info">
+        N/A
+      </FareTableCell>
+    </Tooltip>;
+  }
+
   brandedFaresIcon = (value: string) => {
     const icons = {"false": <CloseIcon />, "true": <CheckIcon />, "$": <AttachMoneyIcon/>};
     return icons[value];
@@ -154,7 +187,7 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
     let relativePrice = currentPrice - lowestPrice;
-    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + relativePrice.toFixed();
+    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
   }
 }
 

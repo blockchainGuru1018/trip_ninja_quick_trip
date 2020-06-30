@@ -24,6 +24,10 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       relativePrice = price - this.props.activeSegmentPrice;
     } else {
       // Do openjaw magic
+      // CASE1: oneway -> oneway
+      // CASE2: openjaw -> oneway (need to add oneway to other side of oj)
+      // CASE3: openjaw -> openjaw (need to be the same indexes)
+      // CASE4: oneway -> openjaw (swap out other oneway to add both ends -- if other is openjaw of diff structure uhoh)
     }
     return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed(); //set to absolute value
   }

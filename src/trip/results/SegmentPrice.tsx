@@ -13,17 +13,13 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
   render() {
     return (
       <div className="col-sm-2">
-        <p className="text-bold text-center segment-price">{this.props.relativePrice}</p>
+        <p className="text-bold text-center segment-price">{this.setRelativePriceString()}</p>
       </div>
     );
   }
 
   setRelativePriceString = () =>
-    this.props.relativePrice >= 0 ? '+ ' : '- ' + 
-    currencySymbol(this.props.currency) +
-    Math.abs(this.props.relativePrice).toFixed();
-
-
+    `${this.props.relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${Math.abs(this.props.relativePrice).toFixed()}`
 }
 
 export default SegmentPrice;

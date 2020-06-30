@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, ResultsDetails, Results } from './ResultsInterfaces';
 import '../../index.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -50,10 +50,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
-  setIncompatibleRelativePrice = (index: number) => {
+  setIncompatibleRelativePrice = (segment: Segment) => {
     const dummyActives = updateActiveSegments(
-      this.props.resultsDetails!, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentIndex: index}
+      this.props.resultsDetails!, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
     );
+    return Array.from(dummyActives.activeSegments).reduce((total: number, activeSegment: any) => total += activeSegment[1].price, 0);
   }
 
   setCompatibleRelativePrice = (segment: Segment, activeSegment: Segment) => {
@@ -65,7 +66,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const activeSegment: Segment = this.props.segments.find((object: Segment) => object.status === 'active') || this.props.segments[0];
       const relativePrice: number = this.props.resultsDetails
-        ? this.setIncompatibleRelativePrice(index)
+        ? this.setIncompatibleRelativePrice(segment)
         : this.setCompatibleRelativePrice(segment, activeSegment);
       const open: boolean = this.state.expandedSegment === index;
       return(

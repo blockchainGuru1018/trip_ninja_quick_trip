@@ -2,13 +2,14 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
 import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
-
+import { priceFlights } from '../../actions/PricingActions';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
   currency: string,
   totalPrice: number,
   selectedTrip: Array<any>,
+  priceFlights: typeof priceFlights,
 }
 
 
@@ -28,7 +29,10 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       itineraries: this.createItinerariesPayload(trip),
     };
 
-    return pricingPayload
+    console.log("submitted pricing payload:", pricingPayload)
+
+    let pricingResult: any = this.props.priceFlights(pricingPayload);
+    //pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
   createItinerariesPayload = (trip: Results) => {

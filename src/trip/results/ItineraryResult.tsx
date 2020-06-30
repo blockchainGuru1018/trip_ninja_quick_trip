@@ -8,7 +8,7 @@ import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { setActiveSegment } from '../../actions/ResultsActions';
-
+import { priceFlights } from '../../actions/PricingActions'
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
@@ -61,6 +61,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 currency={this.props.currency}
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
+                priceFlights = {priceFlights}
               />
             </div>
           </div>

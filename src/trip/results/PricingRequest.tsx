@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
 import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 
+
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
   currency: string,
@@ -12,20 +13,15 @@ interface PricingRequestProps{
 
 
 class PricingRequest extends React.Component<PricingRequestProps>{
-  priceFlights = () => {
+ 
+  submitPricingRequest = () => {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    console.log("trip:",trip);
-    console.log("selected segments:", this.props.selectedTrip);
-    console.log(this.submitPricingRequest(trip));
-  }
-
-  submitPricingRequest = (trip: Results) => {
     const pricingPayload: PricingPayload = {
       trip_id: trip.trip_id,
-      trip_type: this.props.resultsDetails.tripType,
-      traveller_list: trip.segments[0][0].priced_passengers, //TODO: Fix this.
+      trip_type: this.props.resultsDetails.tripType == "fareStructureResults" ? "FareStructure" : "FlexTrip" ,
+      traveller_list: trip.segments[0][0].priced_passengers, //TODO: Fix this to pick up from search request. Wait until move to itinerary-level anyways.
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
@@ -40,16 +36,15 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     var itineraries_counter = 1;
   
     this.props.selectedTrip.forEach(itinerary_element => {
-
       const itinerary_structure = JSON.parse(itinerary_element.itinerary_structure);
 
-      if (itinerary_element.segment_position == itinerary_structure[0]){ //Sends only first part of multi-segment itineraries
+      if (itinerary_element.segment_position == itinerary_structure[0]){
         itinerariesPayload.push({
           itinerary_reference: itineraries_counter,
-          plating_carrier: "", //TODO: fix this once we have plating carriers returned.
-          credentials: "creds", //TODO: change to an actual element
+          plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.
+          credentials: this.createCredentialsPayload(itinerary_element), 
           itinerary_type: itinerary_element.itinerary_type,
-          segments: this.createSegmentsPayload(trip, itinerary_structure), //TODO: Change to an actual element.
+          segments: this.createSegmentsPayload(trip, itinerary_structure),
         });
         itineraries_counter += 1
       };
@@ -59,31 +54,25 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createSegmentsPayload = (trip: Results, itinerary_structure:Array<any>) => {
-    //TODO: Need to iterate through all segments tied to the itinerary_id
     var segmentsPayload: Array<FlightSegment> = [];
 
     itinerary_structure.forEach(segment_index => {
       segmentsPayload.push({
-        segment_id: "123",
+        segment_id: segment_index,
         flights: this.createFlightsPayload(trip, segment_index)
       });
-
     });
+
     return segmentsPayload
   }
 
   createFlightsPayload = (trip: Results, segment_index: any) => {    
     var flightsPayload : Array<Flight> = [];
 
-    console.log("Selected segment:", segment_index);
-    console.log("Selected segment flights:",this.props.selectedTrip[segment_index].flights);
 
     this.props.selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
-      //console.log("flight:", flightResult)
 
       const flightDetail = trip.flight_details.find(flight => flight.reference == flightResult.flight_detail_ref)
-      console.log("selected flight details", flightDetail)
-
       if (flightDetail){
         flightsPayload.push({
           key: flightResult.flight_detail_ref,
@@ -99,9 +88,19 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           brand_identifier: "",
         })
       };
+
     });
 
     return flightsPayload
+  }
+
+  createCredentialsPayload = (itinerary_element: any) => {
+
+    const credentialsPayload : Credentials = {
+      data_source: itinerary_element.source
+    }
+
+    return credentialsPayload
   }
 
   render() {
@@ -110,7 +109,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
         <Button
           color="primary"
           variant="contained"
-          onClick={this.priceFlights}>
+          onClick={this.submitPricingRequest}>
           Continue to Price Confirm
         </Button>
       </div>

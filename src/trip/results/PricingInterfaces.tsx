@@ -7,6 +7,7 @@ export interface PricingPayload {
     currency: string;
     price: number;
     markup?: number;
+    source: string;
     itineraries?: Array<object>;
   }
 

@@ -119,3 +119,10 @@
   display: grid;
   justify-content: flex-end;
 }
+
+.incompatible-info-icon {
+  position: absolute;
+  width: 15px !important;
+  top: 0px;
+  left: 5px;
+}

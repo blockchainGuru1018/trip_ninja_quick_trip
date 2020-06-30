@@ -15,15 +15,18 @@ import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import { updateActives } from '../../actions/ResultsActions';
+import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
+  activeSegment?: Segment;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
   segmentOptionsIndex?: number
+  pathSequence?: Array<string>
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -58,6 +61,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           {!this.props.segmentSelect && this.setFlightPreviewIcons(index)}
           <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
             <div className="row segment col-md-12">
+              {segment.status === 'incompatible' && this.props.activeSegment
+              && <IncompatibleInfoTooltip activeSegment={this.props.activeSegment} segment={segment} pathSequence={this.props.pathSequence!}/>
+              }
               {!this.props.segmentSelect
               && <SegmentOriginDestination segment={segment} departure={segmentFlightDetails[0].departure_time} />
               }

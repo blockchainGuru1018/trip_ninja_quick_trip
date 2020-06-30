@@ -58,6 +58,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   currency={this.props.currency}
                   segmentSelect={true}
                   updateActives={this.props.updateActives}
+                  pathSequence={trip.path_sequence}
                 />
                 <hr className="segment-divider"/>
                 {
@@ -71,6 +72,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        pathSequence={trip.path_sequence}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -90,6 +92,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        pathSequence={trip.path_sequence}
+                        activeSegment={selectedSegment[0]}
                       />
                     </div>
                 }

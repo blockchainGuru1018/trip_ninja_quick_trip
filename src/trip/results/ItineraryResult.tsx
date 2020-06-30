@@ -14,6 +14,7 @@ interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   setActiveSegment: typeof setActiveSegment
+  priceFlights: typeof priceFlights
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -61,7 +62,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 currency={this.props.currency}
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
-                priceFlights = {priceFlights}
+                priceFlights = {this.props.priceFlights}
               />
             </div>
           </div>

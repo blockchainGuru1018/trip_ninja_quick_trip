@@ -11,6 +11,7 @@ import SegmentSelection from './trip/results/SegmentSelection';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
+import { priceFlights } from './actions/PricingActions';
 import { setErrorDetails, setTripType, setActiveSegment } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -35,6 +36,7 @@ interface IAppProps {
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
+  priceFlights: typeof priceFlights;
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
   setActiveSegment: typeof setActiveSegment;
@@ -116,6 +118,7 @@ class App extends React.Component<IAppProps> {
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
                       setActiveSegment={this.props.setActiveSegment}
+                      priceFlights={this.props.priceFlights}
                     />
                   } />
                   : history.push('/search/')

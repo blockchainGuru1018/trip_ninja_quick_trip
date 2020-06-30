@@ -4,6 +4,7 @@ import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfac
 import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 
+
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
   currency: string,

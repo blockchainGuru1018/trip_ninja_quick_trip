@@ -165,7 +165,8 @@ class FareSelect extends React.Component<FareSelectProps> {
       <FareTableCell key={index} align="center">
         <Button
           variant="contained"
-          color="secondary">
+          color="secondary"
+          onClick={this.updateSegmentFareFamily}>
           {this.calculateRelativePrice(brand.price, Number(brandsList[this.state.activeBrandIndex].price))}
         </Button>
       </FareTableCell>
@@ -188,6 +189,11 @@ class FareSelect extends React.Component<FareSelectProps> {
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
     let relativePrice = currentPrice - lowestPrice;
     return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
+  }
+
+  updateSegmentFareFamily = () => {
+    console.log("updating the fare family");
+    
   }
 }
 

@@ -23,7 +23,7 @@ interface SegmentPreviewProps {
   currency: string;
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
-  updateFareFamily: typeof updateFareFamily;
+  updateFareFamily?: typeof updateFareFamily;
   segmentOptionsIndex?: number
 }
 

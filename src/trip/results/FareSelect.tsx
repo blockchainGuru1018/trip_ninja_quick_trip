@@ -197,7 +197,7 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   updateSegmentFareFamily = (brand: BrandInfo) => {
     console.log("updating the fare family");
-    this.props.updateFareFamily(this.props.segment, brand);
+    this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brand);
     this.props.updateActives();
   }
 }

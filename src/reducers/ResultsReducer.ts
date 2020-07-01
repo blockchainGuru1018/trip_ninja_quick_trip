@@ -1,4 +1,4 @@
-import {FlightResult, Results, ResultsDetails, Segment, ActiveSegmentsMap} from '../trip/results/ResultsInterfaces';
+import {FlightResult, Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -22,7 +22,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_ACTIVES':
       return updateActives(state, action);
-
+    
+    case 'UPDATE_FARE_FAMILY':
+      return updateSegmentFareFamily(state, action);
+    
     default:
       return state;
   }
@@ -175,5 +178,25 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state);
 }
+
+function updateSegmentFareFamily(state: ResultsDetails, action: any) {
+  let segment: Segment = action.segment;
+  let brand: BrandInfo = action.brand;
+  segment.base_price = brand.base_price;
+  segment.taxes = brand.taxes;
+  segment.price = brand.price;
+  segment.baggage.number_of_pieces = brand.baggage_info.pieces;
+  segment.flights.forEach((flight: any, index) => {
+    flight.booking_code = brand.fare_info[index].booking_code;
+    //flight.brand_identifier = brand.fare_info[index].brand.name;
+    flight.cabin_class = brand.fare_info[index].cabin_class;
+    flight.fare_basis_code = brand.fare_info[index].fare_basis;
+  });
+  //
+  // >> need to handle the other related segments if they exist!!
+  //
+  return {...state};
+}
+
 
 export default resultsReducer;

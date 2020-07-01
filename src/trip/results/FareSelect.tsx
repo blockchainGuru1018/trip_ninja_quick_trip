@@ -7,14 +7,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { Brands, Brand } from './ResultsInterfaces';
-import { Segment, FlightResult } from './ResultsInterfaces';
+import { Brands, BrandInfo, Segment, FlightResult } from './ResultsInterfaces';
 import { styled } from '@material-ui/core/styles';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Tooltip from '@material-ui/core/Tooltip';
+import { updateFareFamily } from '../../actions/ResultsActions';
 
 const FareTableCell = styled(TableCell)({
   border: 'solid 1px #CACDD6',
@@ -33,9 +33,11 @@ const FareTableHeader = styled(TableCell)({
 
 
 interface FareSelectProps {
-  brands: Array<Brands> | undefined
-  currency: string
-  segment: Segment
+  brands: Array<Brands> | undefined;
+  currency: string;
+  segment: Segment;
+  updateActives: () => void;
+  updateFareFamily?: typeof updateFareFamily;
 }
 
 class FareSelect extends React.Component<FareSelectProps> {
@@ -193,18 +195,10 @@ class FareSelect extends React.Component<FareSelectProps> {
     return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
   }
 
-  updateSegmentFareFamily = (brand: any) => {
+  updateSegmentFareFamily = (brand: BrandInfo) => {
     console.log("updating the fare family");
-    this.props.segment.base_price = brand.base_price;
-    this.props.segment.taxes = brand.taxes;
-    this.props.segment.price = brand.price;
-    this.props.segment.baggage.number_of_pieces = brand.baggage_info.pieces;
-    this.props.segment.flights.forEach((flight: FlightResult) => {
-      flight.booking_code = brand.fare_info[0].booking_code;
-      flight.brand_identifier = brand.fare_info[0].brand.tier ? brand.fare_info[0].brand.tier : brand.fare_info[0].brand.name;
-      flight.cabin_class = brand.fare_info[0].cabin_class;
-      flight.fare_basis_code = brand.fare_info[0].fare_basis;
-    });
+    this.props.updateFareFamily(this.props.segment, brand);
+    this.props.updateActives();
   }
 }
 

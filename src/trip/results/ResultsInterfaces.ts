@@ -121,6 +121,14 @@ export interface Brand {
   service: Array<BrandService>;
 }
 
+export interface BrandInfo {
+  base_price: number;
+  taxes: number;
+  price: number;
+  baggage_info: BaggageInfo 
+  fare_info: Array<FareInfo>
+}
+
 export interface BrandServices {
   checked_baggage: boolean;
   meals_and_beverages: boolean;
@@ -154,4 +162,9 @@ export interface Location {
   origin: string;
   destination: string;
   nNights: number;
+}
+
+export interface BaggageInfo {
+  pieces: number;
+  units: string;
 }

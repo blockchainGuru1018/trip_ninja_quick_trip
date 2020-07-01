@@ -14,7 +14,7 @@ import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
-import { updateActives } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 
 
 interface SegmentPreviewProps {
@@ -23,6 +23,7 @@ interface SegmentPreviewProps {
   currency: string;
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
+  updateFareFamily: typeof updateFareFamily;
   segmentOptionsIndex?: number
 }
 
@@ -94,6 +95,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   currency={this.props.currency}
                   segmentSelect={this.props.segmentSelect}
                   updateActives={this.props.updateActives}
+                  updateFareFamily={this.props.updateFareFamily}
                   closeAllDropDowns={this.closeAllDropDowns}
                 />
                 }

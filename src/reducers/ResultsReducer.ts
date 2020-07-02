@@ -180,9 +180,25 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
 }
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
-  let segment: Segment = action.segment;
-  let brand: BrandInfo = action.brand;
-  segment.selected_brand_index = action.index;
+  const selectedSegment: Segment = action.segment;
+  const brand: BrandInfo = action.brand;
+  setSegmentFareFamily(selectedSegment, brand, action.index);
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+    const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
+    relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
+      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
+        segment.itinerary_id === selectedSegment.itinerary_id
+      );
+      linkedSegment && setSegmentFareFamily(linkedSegment, brand, action.index);
+    });
+  }
+
+  return {...state};
+}
+
+function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: number) {
+  segment.selected_brand_index = brandIndex;
   segment.base_price = brand.base_price;
   segment.taxes = brand.taxes;
   segment.price = brand.price;
@@ -193,14 +209,6 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
     flight.cabin_class = brand.fare_info[index].cabin_class;
     flight.fare_basis_code = brand.fare_info[index].fare_basis;
   });
-  if (segment.itinerary_type !== 'ONE_WAY') {
-    console.log("openjaw!!");
-  }
-  //
-  // >> need to handle the other related segments if they exist!!
-  //
-  return {...state};
 }
-
 
 export default resultsReducer;

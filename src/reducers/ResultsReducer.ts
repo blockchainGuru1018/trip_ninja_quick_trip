@@ -47,7 +47,7 @@ function activateSegment(segment: Segment, state: ResultsDetails, segmentPositio
   const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentPosition);
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
-  if(state.activeSegments.has(segmentPosition)) {
+  if (state.activeSegments.has(segmentPosition)) {
     state.activeSegments.get(segmentPosition).status = 'compatible';
   }
   state.activeSegments.set(segmentPosition, segment);

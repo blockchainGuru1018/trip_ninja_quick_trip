@@ -71,7 +71,7 @@ export interface Segment {
   priced_passengers: Array<string>;
   segment_time_with_connections: number;
   flights: Array<FlightResult>;
-  brands?: Array<Brands>;
+  brands?: Array<BrandInfo>;
   selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
@@ -119,10 +119,11 @@ export interface Brands {
 
 export interface Brand {
   brand_description: string;
-  brand_services: Array<BrandServices>;
+  brand_services: BrandServices;
   carrier: string;
   name: string;
   tag_info: string;
+  tag_line: string;
   service: Array<BrandService>;
 }
 
@@ -137,9 +138,10 @@ export interface BrandInfo {
 export interface BrandServices {
   checked_baggage: boolean;
   meals_and_beverages: boolean;
-  rebooking: boolean;
-  refund: boolean;
+  rebooking: string;
+  refund: string;
   seat_assignment: string;
+  carry_on_hand_baggage: string;
 }
 
 export interface BrandService {

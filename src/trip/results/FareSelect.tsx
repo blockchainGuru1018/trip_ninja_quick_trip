@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { Brands, BrandInfo, Segment, FlightResult } from './ResultsInterfaces';
+import { Brands, BrandInfo, Segment, Brand } from './ResultsInterfaces';
 import { styled } from '@material-ui/core/styles';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import CheckIcon from '@material-ui/icons/Check';
@@ -33,7 +33,7 @@ const FareTableHeader = styled(TableCell)({
 
 
 interface FareSelectProps {
-  brands: Array<Brands> | undefined;
+  brands: Array<BrandInfo> | undefined;
   currency: string;
   segment: Segment;
   updateActives: () => void;
@@ -99,14 +99,14 @@ class FareSelect extends React.Component<FareSelectProps> {
     );
   }
   
-  brandNamesRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  brandNamesRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
     ));
   }
 
-  brandDescriptionRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  brandDescriptionRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       brand.fare_info[0].brand.tag_line
         ? <FareTableCell key={index} align="center">
           {brand.fare_info[0].brand.tag_line}
@@ -115,14 +115,14 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
   }
 
-  checkedBagsRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  checkedBagsRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{brand.baggage_info.pieces} {brand.baggage_info.units}</FareTableCell>
     ));
   }
   
-  cabinBagsRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  cabinBagsRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       brand.fare_info[0].brand.brand_services.carry_on_hand_baggage
         ? <FareTableCell key={index} align="center">
           this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage)
@@ -131,39 +131,39 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
   }
   
-  seatSelectionRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  seatSelectionRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
     ));
   }
   
-  changesRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  changesRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
     ));
   }
 
-  refundableRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  refundableRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
     ));
   }
   
-  bookingCodeRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  bookingCodeRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{brand.fare_info[0].booking_code}</FareTableCell>
     ));
   }
 
-  fareBasisRow = (brandsList: Array<Brands>) => {
-    return brandsList.map((brand: any, index) => (
+  fareBasisRow = (brandsList: Array<BrandInfo>) => {
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{brand.fare_info[0].fare_basis}</FareTableCell>
     ));
   }
 
-  fareSelectionButtonRow = (brandsList: Array<Brands>) => {
+  fareSelectionButtonRow = (brandsList: Array<BrandInfo>) => {
     let activeBrandIndex = this.props.segment.selected_brand_index ? this.props.segment.selected_brand_index : 0;
-    return brandsList.map((brand: any, index) => (
+    return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">
         <Button
           variant="contained"

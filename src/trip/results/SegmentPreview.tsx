@@ -15,7 +15,7 @@ import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import { updateActives } from '../../actions/ResultsActions';
-import { updateActiveSegments } from '../../helpers/CompatibilityHelpers';
+
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
@@ -50,24 +50,12 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
-  setIncompatibleRelativePrice = (segment: Segment) => {
-    const dummyActives = updateActiveSegments(
-      this.props.resultsDetails!, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
-    );
-    return Array.from(dummyActives.activeSegments).reduce((total: number, activeSegment: any) => total += activeSegment[1].price, 0);
-  }
-
-  setCompatibleRelativePrice = (segment: Segment, activeSegment: Segment) => {
-    return segment.price - activeSegment.price;
-  }
-
   setSegmentsHTML = () => {
+    // doesn't contain active for compatibel and isNotCompatible
+    const activeSegment: Segment | undefined = this.props.segments.find((object: Segment) => object.status === 'active');
+    console.log(activeSegment);
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
-      const activeSegment: Segment = this.props.segments.find((object: Segment) => object.status === 'active') || this.props.segments[0];
-      const relativePrice: number = this.props.resultsDetails
-        ? this.setIncompatibleRelativePrice(segment)
-        : this.setCompatibleRelativePrice(segment, activeSegment);
       const open: boolean = this.state.expandedSegment === index;
       return(
         <div className="row segment-container" key={index.toString()}>
@@ -86,7 +74,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               && <SegmentPrice
                 segment={segment}
                 currency={this.props.currency}
-                relativePrice={relativePrice}
+                activeSegment={activeSegment!}
+                resultsDetails={this.props.resultsDetails!}
+                segmentOptionsIndex={this.props.segmentOptionsIndex!}
               />
               }
               <div className="col-sm-1 icon-expand-preview">

@@ -105,6 +105,7 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 }
 
 export function updateActiveSegments(state: ResultsDetails, action: any) {
+  console.log('this is going')
   const segmentOptions: Array<Segment> = state[state.tripType].segments[action.segmentOptionIndex];
   const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_id === action.segmentItineraryRef
@@ -114,7 +115,7 @@ export function updateActiveSegments(state: ResultsDetails, action: any) {
   } else {
     throw `Selected segment with itinerary id ${action.segmentItineraryRef} not found in list of options at position ${action.segmentOptionIndex}`;
   }
-  return state;
+  return {...state};
 }
 
 function structureChanged(selectedSegment: Segment, oldActiveSegment: Segment) {

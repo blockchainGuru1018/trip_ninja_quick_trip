@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { Brands, BrandInfo, Segment, Brand } from './ResultsInterfaces';
+import { BrandInfo, Segment } from './ResultsInterfaces';
 import { styled } from '@material-ui/core/styles';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import CheckIcon from '@material-ui/icons/Check';

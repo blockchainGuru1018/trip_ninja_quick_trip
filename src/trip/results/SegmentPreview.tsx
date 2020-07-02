@@ -15,10 +15,12 @@ import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import { updateActives } from '../../actions/ResultsActions';
+import _ from 'lodash';
 
 
 interface SegmentPreviewProps {
   segments: Array<Segment>;
+  activeSegment?: Segment
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
@@ -50,10 +52,12 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
 
+  getTotalPrice = () =>
+    Array.from(this.props.resultsDetails!.activeSegments).reduce((total: number, activeSegment: any) =>
+      total += activeSegment[1].price, 0);
+
   setSegmentsHTML = () => {
-    // doesn't contain active for compatibel and isNotCompatible
-    const activeSegment: Segment | undefined = this.props.segments.find((object: Segment) => object.status === 'active');
-    console.log(activeSegment);
+    const totalPrice: number = this.props.resultsDetails ? this.getTotalPrice() : 0;
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const open: boolean = this.state.expandedSegment === index;
@@ -70,14 +74,16 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
-              {this.props.segmentSelect
-              && <SegmentPrice
-                segment={segment}
-                currency={this.props.currency}
-                activeSegment={activeSegment!}
-                resultsDetails={this.props.resultsDetails!}
-                segmentOptionsIndex={this.props.segmentOptionsIndex!}
-              />
+              {this.props.activeSegment
+                ? <SegmentPrice
+                  segment={segment}
+                  currency={this.props.currency}
+                  activeSegment={this.props.activeSegment}
+                  resultsDetails={_.cloneDeep(this.props.resultsDetails!)}
+                  segmentOptionsIndex={this.props.segmentOptionsIndex!}
+                  totalPrice={totalPrice}
+                />
+                : this.props.segmentSelect && <div className="col-sm-2"></div>
               }
               <div className="col-sm-1 icon-expand-preview">
                 <IconButton

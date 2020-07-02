@@ -9,15 +9,19 @@ interface SegmentPriceProps {
   segment: Segment;
   currency: string;
   resultsDetails: ResultsDetails;
-  activeSegment: Segment;
+  activeSegment?: Segment;
   segmentOptionsIndex: number;
+  totalPrice: number;
 }
 
 class SegmentPrice extends React.Component<SegmentPriceProps> {
   render() {
-    const relativePrice: number = this.props.resultsDetails
-      ? this.setIncompatibleRelativePrice(this.props.segment)
-      : this.setCompatibleRelativePrice(this.props.segment, this.props.activeSegment);
+    const relativePrice: number = this.props.activeSegment
+      ? this.props.resultsDetails
+        ? this.setIncompatibleRelativePrice(this.props.segment)
+        : this.setCompatibleRelativePrice(this.props.segment, this.props.activeSegment)
+      : 0;
+
     return (
       <div className="col-sm-2">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(relativePrice)}</p>
@@ -26,10 +30,13 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
   }
 
   setIncompatibleRelativePrice = (segment: Segment) => {
+    // This isnt comparing total price
     const dummyActives = updateActiveSegments(
-      _.cloneDeep(this.props.resultsDetails!), {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
+      this.props.resultsDetails, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
     );
-    return Array.from(dummyActives.activeSegments).reduce((total: number, activeSegment: any) => total += activeSegment[1].price, 0);
+    return Array.from(dummyActives.activeSegments).reduce((total: number, activeSegment: any) =>
+      total += activeSegment[1].price, 0
+    ) - this.props.totalPrice;
   }
 
   setCompatibleRelativePrice = (segment: Segment, activeSegment: Segment) => {

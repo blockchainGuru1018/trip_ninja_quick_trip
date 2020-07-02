@@ -71,6 +71,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        activeSegment={selectedSegment[0]}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -91,6 +92,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
                         resultsDetails={this.props.resultsDetails}
+                        activeSegment={selectedSegment[0]}
                       />
                     </div>
                 }

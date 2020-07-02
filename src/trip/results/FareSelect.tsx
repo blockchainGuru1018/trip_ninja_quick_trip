@@ -41,9 +41,6 @@ interface FareSelectProps {
 }
 
 class FareSelect extends React.Component<FareSelectProps> {
-  state = {
-    activeBrandIndex: 0
-  }
 
   render() {
     const brandsList =  this.props.brands!;
@@ -165,20 +162,21 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 
   fareSelectionButtonRow = (brandsList: Array<Brands>) => {
+    let activeBrandIndex = this.props.segment.selected_brand_index ? this.props.segment.selected_brand_index : 0;
     return brandsList.map((brand: any, index) => (
       <FareTableCell key={index} align="center">
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => this.updateSegmentFareFamily(brand)}>
-          {this.calculateRelativePrice(brand.price, Number(brandsList[this.state.activeBrandIndex].price))}
+          onClick={() => this.updateSegmentFareFamily(brand, index)}>
+          {this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price))}
         </Button>
       </FareTableCell>
     ));
   }
 
   brandNotAvailableCell = (index: number) => {
-    return <Tooltip title="Information not available" placement="top">
+    return <Tooltip key={index.toString()} title="Information not available" placement="top">
       <FareTableCell key={index.toString()} align="center" className="no-brand-info">
         N/A
       </FareTableCell>
@@ -195,10 +193,11 @@ class FareSelect extends React.Component<FareSelectProps> {
     return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
   }
 
-  updateSegmentFareFamily = (brand: BrandInfo) => {
-    console.log("updating the fare family");
-    this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brand);
-    this.props.updateActives();
+  updateSegmentFareFamily = (brand: BrandInfo, index: number) => {
+    this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brand, index);
+    if (this.props.segment.status !== 'active') {
+      this.props.updateActives();
+    }
   }
 }
 

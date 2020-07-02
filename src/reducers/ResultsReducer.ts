@@ -169,8 +169,8 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
-    const segmentOptions = state[state.tripType].segments[positionIndex]
-    activateBestOneWay(segmentOptions, state, positionIndex)
+    const segmentOptions = state[state.tripType].segments[positionIndex];
+    activateBestOneWay(segmentOptions, state, positionIndex);
   });
 }
 
@@ -182,16 +182,20 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
   let segment: Segment = action.segment;
   let brand: BrandInfo = action.brand;
+  segment.selected_brand_index = action.index;
   segment.base_price = brand.base_price;
   segment.taxes = brand.taxes;
   segment.price = brand.price;
   segment.baggage.number_of_pieces = brand.baggage_info.pieces;
   segment.flights.forEach((flight: any, index) => {
     flight.booking_code = brand.fare_info[index].booking_code;
-    //flight.brand_identifier = brand.fare_info[index].brand.name;
+    flight.brand_identifier = brand.fare_info[index].brand.name;
     flight.cabin_class = brand.fare_info[index].cabin_class;
     flight.fare_basis_code = brand.fare_info[index].fare_basis;
   });
+  if (segment.itinerary_type !== 'ONE_WAY') {
+    console.log("openjaw!!");
+  }
   //
   // >> need to handle the other related segments if they exist!!
   //

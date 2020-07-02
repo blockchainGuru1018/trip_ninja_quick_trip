@@ -72,12 +72,17 @@ export interface Segment {
   segment_time_with_connections: number;
   flights: Array<FlightResult>;
   brands?: Array<Brands>;
+  selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
 }
 
 export interface FareInfo {
-  [reference: string]: FlightResult;
+  booking_code: string;
+  cabin_class: string;
+  fare_basis: string;
+  name: string;
+  brand: Brand;
 }
 
 export interface Baggage {
@@ -109,7 +114,7 @@ export interface FlightResult {
 }
 
 export interface Brands {
-  [reference: string]: Array<Segment>
+  [reference: string]: Array<BrandInfo>
 }
 
 export interface Brand {

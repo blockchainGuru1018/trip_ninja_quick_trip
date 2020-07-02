@@ -42,10 +42,11 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
   };
 }
 
-export function updateFareFamily(segment: Segment, brand: BrandInfo) {
+export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
   return {
     type: 'UPDATE_FARE_FAMILY',
     segment,
-    brand
+    brand,
+    index
   };
 }

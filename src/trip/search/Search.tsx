@@ -10,6 +10,12 @@ import { SearchProps, defaultFlight, Flight } from './SearchInterfaces';
 import './Search.css';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { styled } from '@material-ui/core/styles';
+
+const AddFlightButton = styled(Button)({
+  color: 'var(--tertiary)',
+});
+
 
 class Search extends React.Component<SearchProps> {
 
@@ -39,11 +45,10 @@ class Search extends React.Component<SearchProps> {
             <h1 className="flight-search">Flight Search</h1>
             {flights}
             <div className="row">
-              <Button
-                color="secondary"
+              <AddFlightButton
                 onClick={this.onAddFlight}>
                 Add Flight
-              </Button>
+              </AddFlightButton>
             </div>
             <hr/>
             <h4>Additional Details</h4>

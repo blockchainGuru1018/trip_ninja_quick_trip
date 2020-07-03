@@ -5,13 +5,13 @@
 .pre-results-title {
   text-align: center;
   padding: 20px 0px;
-  color: var(--main)
+  color: var(--primary)
 }
 
 .pre-result-subtitle {
   font-size: 20px;
   font-family: 'NeuzeitGro-Bol', sans-serif;
-  color: var(--primary-dark);
+  color: var(--secondary);
   min-height: 60px;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .btn-flight-options {
-  background-color: var(--primary-dark) !important;
+  background-color: var(--secondary) !important;
   color: #fff !important;
 }
 
@@ -125,4 +125,8 @@
   width: 15px !important;
   top: 0px;
   left: 5px;
+}
+
+.MuiTableCell-body.no-brand-info {
+  color: #D8DCDE;
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment, ResultsDetails } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActiveSegments } from '../../helpers/CompatibilityHelpers';
-import _ from 'lodash';
 
 
 interface SegmentPriceProps {

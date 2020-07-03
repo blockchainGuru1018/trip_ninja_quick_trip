@@ -22,7 +22,7 @@ export interface Itineraries{
 
 export interface FlightSegment{
     segment_id: string;
-    flights: Array<Flight> ; //TODO: Array<Flight>
+    flights: Array<Flight>
 }
 
 export interface Flight{
@@ -45,4 +45,3 @@ export interface Credentials{
     provider?: string;
     region?: string;
 }
-

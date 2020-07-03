@@ -25,7 +25,7 @@ function getFlightDetailsString(segment: Segment): string {
 
 export function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segmentOptions: Array<Segment>) {
   segmentOptions.forEach((segment: Segment) => {
-    if(segment.status === 'active') {
+    if (segment.status === 'active') {
       return;
     } else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
       identifyCompatibleSegments(state, segment);

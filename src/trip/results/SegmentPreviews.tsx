@@ -14,7 +14,7 @@ interface SegmentPreviewsProps {
   updateActives?: typeof updateActives;
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
-  updateFareFamily: typeof updateFareFamily;
+  updateFareFamily?: typeof updateFareFamily;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {

@@ -38,8 +38,8 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createItinerariesPayload = (trip: Results) => {
-    var itinerariesPayload : Array<Itineraries> = [];
-    var itineraries_counter = 1;
+    let itinerariesPayload : Array<Itineraries> = [];
+    let itinerariesCounter = 1;
   
     this.props.selectedTrip.forEach(itinerary_element => {
       const itinerary_structure = JSON.parse(itinerary_element.itinerary_structure);

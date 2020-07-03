@@ -11,7 +11,7 @@ export interface PricingPayload {
     itineraries?: Array<object>;
   }
 
-export interface Itineraries{
+export interface Itineraries {
     itinerary_reference: number;
     plating_carrier?: string;
     credentials: Credentials; //TODO: Credentials object.

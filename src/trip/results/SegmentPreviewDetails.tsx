@@ -29,7 +29,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
         />
         <hr/>
-        {!this.props.segmentSelect 
+        {!this.props.segmentSelect
         && <FareRulesPreview
           segment={this.props.segment}
           flightDetails={this.props.flightDetails}

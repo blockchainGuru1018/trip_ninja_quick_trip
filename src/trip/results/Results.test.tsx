@@ -1,6 +1,6 @@
 import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
 import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
@@ -63,7 +63,7 @@ test('setLocations', () => {
 });
 
 const segmentPreviewComponent: any = shallow(
-  <SegmentPreview
+  <SegmentPreviews
     segments={testResultsDetails.segments[0]}
     flightDetails={testResultsDetails.flight_details} />
 );

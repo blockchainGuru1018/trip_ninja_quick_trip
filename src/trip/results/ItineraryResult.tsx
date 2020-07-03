@@ -3,7 +3,7 @@ import './ItineraryResult.css';
 import SegmentNav from './SegmentNav';
 import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
@@ -25,7 +25,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const selectedSegments =
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview
+          <SegmentPreviews
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}

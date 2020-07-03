@@ -1,4 +1,4 @@
-import { ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import {ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -9,6 +9,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         errors: {errorFound: false},
         tripType: 'fareStructureResults'
       };
+
+    case 'SET_VALUE_FOR_SEGMENT':
+      state.segmentPositionMap.setValue(action.segmentPosition, action.valueType, action.value);
+      return state;
 
     case 'SET_ERROR_DETAILS':
       return {...state, errors: {errorFound: action.value}};

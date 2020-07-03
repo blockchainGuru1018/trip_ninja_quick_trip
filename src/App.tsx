@@ -21,6 +21,8 @@ import SearchModal from './common/modals/SearchModal';
 import ErrorModal from './common/modals/ErrorModal';
 import Theme from './Theme';
 import history from './History';
+import { setSegmentValue } from './actions/ResultsActions';
+
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -38,6 +40,7 @@ interface IAppProps {
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
   setActiveSegment: typeof setActiveSegment;
+  setSegmentValue: typeof setSegmentValue;
 }
 
 const theme = Theme;
@@ -125,6 +128,7 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
+                    setSegmentValue={this.props.setSegmentValue}
                   />
                 } />
               </div>

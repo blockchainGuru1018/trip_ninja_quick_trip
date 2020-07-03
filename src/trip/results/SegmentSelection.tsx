@@ -6,6 +6,9 @@ import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
+import SortOption from "./SortOption";
+import CurrencySelect from "../search/CurrencySelect";
+import {setSegmentValue} from "../../actions/ResultsActions";
 
 interface MatchParams {
   index: string;
@@ -17,6 +20,7 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string
+  setSegmentValue: typeof setSegmentValue
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -43,6 +47,12 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         <div className="row">
           <div className="col-md-2 no-padding">
             <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
+            <SortOption
+              segmentPosition={parseInt(segmentIndex)}
+              sortBy={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortBy')}
+              setValue={this.props.setSegmentValue}
+              default={this.props.resultsDetails.defaultSortBy}
+            />
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">

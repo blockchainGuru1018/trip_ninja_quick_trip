@@ -34,3 +34,12 @@ export function setActiveSegment(itineraryIndex: number, segmentIndex: number){
     segmentIndex
   };
 }
+
+export function setSegmentValue(segmentPosition: number, valueType: string, value: any) {
+  return {
+    type: 'SET_VALUE_FOR_SEGMENT',
+    segmentPosition,
+    valueType,
+    value
+  };
+}

@@ -4,6 +4,37 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
+  segmentPositionMap: SegmentPositionMap;
+  defaultSortBy: string;
+}
+export class SegmentPositionMap extends Map<number, SegmentValueMap> {
+
+  getValue(segmentPosition: number, valueType: string): any {
+    const segmentValueMap: SegmentValueMap = this.getSegmentValueMap(segmentPosition);
+    const value = segmentValueMap.get(valueType);
+    if (value) {
+      return value;
+    } else {
+      throw `${valueType} is not set for segment position ${segmentPosition}`;
+    }
+  }
+
+  getSegmentValueMap(segmentPosition: number): SegmentValueMap {
+    let segmentValueMap: SegmentValueMap | undefined = super.get(segmentPosition);
+    if (!segmentValueMap) {
+      segmentValueMap = new SegmentValueMap();
+      super.set(segmentPosition, segmentValueMap);
+    }
+    return segmentValueMap;
+  }
+
+  setValue(segmentPosition: number, valueType: string, value: any){
+    const segmentValueMap: SegmentValueMap = this.getSegmentValueMap(segmentPosition);
+    segmentValueMap.set(valueType, value);
+  }
+}
+
+export class SegmentValueMap extends Map<string, any> {
 }
 
 export interface Errors {
@@ -15,7 +46,9 @@ export const defaultResultsDetails: ResultsDetails = {
   errors: {
     errorFound: false
   },
-  tripType: 'fareStructureResults'
+  tripType: 'fareStructureResults',
+  segmentPositionMap: new SegmentPositionMap(),
+  defaultSortBy: 'best',
 };
 
 

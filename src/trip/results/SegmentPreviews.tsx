@@ -2,7 +2,7 @@ import React from 'react';
 import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfaces';
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
-import { updateActives } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 
 
 interface SegmentPreviewsProps {
@@ -14,6 +14,7 @@ interface SegmentPreviewsProps {
   updateActives?: typeof updateActives;
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
+  updateFareFamily: typeof updateFareFamily;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -56,6 +57,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
           segmentOptionsIndex={this.props.segmentOptionsIndex}
           resultsDetails={this.props.resultsDetails}
           updateActives={this.props.updateActives}
+          updateFareFamily={this.props.updateFareFamily}
         />
       );
     });

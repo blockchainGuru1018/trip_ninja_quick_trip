@@ -86,14 +86,17 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               in={open}
               style={{display: open ? 'block' : 'none', width: '100%'}}>
               <div>
-                <SegmentPreviewDetails
+                { open 
+                && <SegmentPreviewDetails
                   segmentOptionsIndex={this.props.segmentOptionsIndex}
                   segment={segment}
                   flightDetails={segmentFlightDetails}
                   currency={this.props.currency}
+                  segmentSelect={this.props.segmentSelect}
                   updateActives={this.props.updateActives}
                   closeAllDropDowns={this.closeAllDropDowns}
                 />
+                }
               </div>
             </Fade>
           </div>

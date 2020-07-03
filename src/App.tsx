@@ -18,7 +18,7 @@ import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
-import ErrorModal from './common/modals/ErrorModal';
+import SearchErrorModal from './common/modals/SearchErrorModal';
 import Theme from './Theme';
 import history from './History';
 
@@ -60,7 +60,7 @@ class App extends React.Component<IAppProps> {
             loading={this.props.searchDetails.loading}
             flights={this.props.searchDetails.flights}
           />
-          <ErrorModal
+          <SearchErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
           />

@@ -28,15 +28,15 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           flightDetails={this.props.flightDetails}
         />
         <hr/>
-        {!this.props.segmentSelect 
+        {!this.props.segmentSelect
         && <FareRulesPreview
           segment={this.props.segment}
           flightDetails={this.props.flightDetails}
           currency={this.props.currency}
         />
         }
-        {this.props.segment.brands && this.props.segmentSelect 
-        && <FareSelect brands={this.props.segment.brands![segment_id[0]]} currency={this.props.currency} /> 
+        {this.props.segment.brands && this.props.segmentSelect
+        && <FareSelect brands={this.props.segment.brands![segment_id[0]]} currency={this.props.currency} />
         }
         {!this.props.segment.brands && this.props.updateActives && this.props.segment.status !== 'active'
           ? <div className='btn-segment-selection-container'>

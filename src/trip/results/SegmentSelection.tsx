@@ -1,7 +1,7 @@
 import React from 'react';
 import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
@@ -51,7 +51,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             <div className="row">
               <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
-                <SegmentPreview
+                <SegmentPreviews
                   segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
                   flightDetails={trip.flight_details}
@@ -64,7 +64,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   compatibleSegments.length > 0
                     ? <div>
                       <h5>Other Departure Times</h5>
-                      <SegmentPreview
+                      <SegmentPreviews
                         segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={compatibleSegments}
                         flightDetails={trip.flight_details}
@@ -84,7 +84,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       <p>
                         Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
                       </p>
-                      <SegmentPreview
+                      <SegmentPreviews
                         segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={incompatibleSegments}
                         flightDetails={trip.flight_details}

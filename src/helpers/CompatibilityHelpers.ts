@@ -1,4 +1,4 @@
-import {FlightResult, Results, ResultsDetails, Segment, ActiveSegmentsMap} from '../trip/results/ResultsInterfaces';
+import {FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
 
 function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number) {
   const isNotCompatible = segment.status !== 'compatible';
@@ -105,7 +105,6 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 }
 
 export function updateActiveSegments(state: ResultsDetails, action: any) {
-  console.log('this is going')
   const segmentOptions: Array<Segment> = state[state.tripType].segments[action.segmentOptionIndex];
   const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_id === action.segmentItineraryRef

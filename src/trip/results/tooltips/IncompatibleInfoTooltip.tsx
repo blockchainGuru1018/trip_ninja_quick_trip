@@ -48,12 +48,12 @@ export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipPr
     <HtmlTooltip
       title={
         <React.Fragment>
-          <h5 className='bold-text'>Selecting this segment will effect the following segments</h5>
+          <h5 className='bold-text'>Selecting this segment will effect the following segments:</h5>
           {segmentDifferences.map((difference: number) => getDifferenceHTML(difference))}
         </React.Fragment>
       }
     >
-      <InfoIcon className='incompatible-info-icon'/>
+      <InfoIcon className='incompatible-info-icon' color='primary'/>
     </HtmlTooltip>
   );
 }

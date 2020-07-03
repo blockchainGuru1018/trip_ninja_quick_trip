@@ -48,7 +48,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
           <div className="row segment col-md-12">
             {this.props.segment.status === 'incompatible' && this.props.activeSegment
-            && <IncompatibleInfoTooltip activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
+            && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
             }
             {!this.props.segmentSelect
             && <SegmentOriginDestination segment={this.props.segment} departure={this.props.segmentFlightDetails[0].departure_time} />

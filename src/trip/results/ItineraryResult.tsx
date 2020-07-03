@@ -7,20 +7,13 @@ import SegmentPreview from './SegmentPreview';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
-import { setActiveSegment } from '../../actions/ResultsActions';
-
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
-  setActiveSegment: typeof setActiveSegment
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
-
-  componentDidMount() {
-    this.setActiveSegments();
-  }
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -70,13 +63,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
   }
 
-  setActiveSegments = () => {
-    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0)});
-  }
-
-  getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
-  }
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
 }
 
 export default ItineraryResult;

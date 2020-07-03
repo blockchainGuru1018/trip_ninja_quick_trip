@@ -4,6 +4,19 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
+  activeSegments: ActiveSegmentsMap
+}
+
+export class ActiveSegmentsMap extends Map<number, Segment>{
+
+  get(key: number): Segment {
+    const value: Segment | undefined = super.get(key);
+    if (value) {
+      return value;
+    } else {
+      throw `Active segment is not set for position ${key}`;
+    }
+  }
 }
 
 export interface Errors {
@@ -12,6 +25,7 @@ export interface Errors {
 }
 
 export const defaultResultsDetails: ResultsDetails = {
+  activeSegments: new Map(),
   errors: {
     errorFound: false
   },
@@ -35,6 +49,7 @@ export interface Segment {
   destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
+  itinerary_structure: string;
   segment_position: number;
   option_id?: string;
   option_part?: string;
@@ -84,7 +99,7 @@ export interface Penalty {
 }
 
 export interface FlightResult {
-  flight_detail_ref: number;
+  flight_detail_ref: string;
   booking_code: string;
   fare_type: string;
   fare_basis_code: string;
@@ -122,7 +137,7 @@ export interface BrandService {
 }
 
 export interface FlightResultsDetails {
-  reference: number;
+  reference: string;
   origin: string;
   origin_name: string;
   destination: string;

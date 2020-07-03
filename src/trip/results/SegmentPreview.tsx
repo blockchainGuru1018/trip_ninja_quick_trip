@@ -14,6 +14,7 @@ import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
 import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
+import { updateActives } from '../../actions/ResultsActions';
 
 
 interface SegmentPreviewProps {
@@ -21,6 +22,8 @@ interface SegmentPreviewProps {
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
+  updateActives?: typeof updateActives;
+  segmentOptionsIndex?: number
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -55,15 +58,15 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           {!this.props.segmentSelect && this.setFlightPreviewIcons(index)}
           <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
             <div className="row segment col-md-12">
-              {!this.props.segmentSelect 
+              {!this.props.segmentSelect
               && <SegmentOriginDestination segment={segment} departure={segmentFlightDetails[0].departure_time} />
-              } 
+              }
               <FlightLogo flights={segmentFlightDetails} />
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
-              {this.props.segmentSelect 
+              {this.props.segmentSelect
               && <SegmentPrice segment={segment} currency={this.props.currency} />
               }
               <div className="col-sm-1 icon-expand-preview">
@@ -84,9 +87,13 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               style={{display: open ? 'block' : 'none', width: '100%'}}>
               <div>
                 <SegmentPreviewDetails
+                  segmentOptionsIndex={this.props.segmentOptionsIndex}
                   segment={segment}
                   flightDetails={segmentFlightDetails}
-                  currency={this.props.currency}/>
+                  currency={this.props.currency}
+                  updateActives={this.props.updateActives}
+                  closeAllDropDowns={this.closeAllDropDowns}
+                />
               </div>
             </Fade>
           </div>
@@ -109,15 +116,19 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
             />
         }
         {
-          index === 0
-            ? <div className='segment-preview-dotted-line segment-preview-dotted-line-top'></div>
-            : index === this.props.segments.length - 1
-              ? <div className='segment-preview-dotted-line segment-preview-dotted-line-bottom'></div>
-              : <div className='segment-preview-dotted-line segment-preview-dotted-line-middle'></div>
+          this.props.segments.length === 1
+            ? ''
+            : index === 0
+              ? <div className='segment-preview-dotted-line segment-preview-dotted-line-top'></div>
+              : index === this.props.segments.length - 1
+                ? <div className='segment-preview-dotted-line segment-preview-dotted-line-bottom'></div>
+                : <div className='segment-preview-dotted-line segment-preview-dotted-line-middle'></div>
         }
       </div>
     );
   }
+
+  closeAllDropDowns = () => this.setState({expandedSegment: -1})
 }
 
 export default SegmentPreview;

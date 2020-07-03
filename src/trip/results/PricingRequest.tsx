@@ -52,7 +52,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           itinerary_type: itinerary_element.itinerary_type,
           segments: this.createSegmentsPayload(trip, itinerary_structure),
         });
-        itineraries_counter += 1
+        itinerariesCounter += 1
       };
     });
 

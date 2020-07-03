@@ -30,9 +30,6 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       source: 'amadeus',
       itineraries: this.createItinerariesPayload(trip),
     };
-
-    console.log("submitted pricing payload:", pricingPayload)
-
     let pricingResult: any = this.props.priceFlights(pricingPayload);
     //pricingResult.then((result: any) => this.handlePricingResult(result));
   }

@@ -19,18 +19,14 @@ export function setPricingErrorDetails(value: boolean) {
 
 export const priceFlights = (pricingPayload: PricingPayload) => (dispatch: any) => {
     dispatch(pricingLoading(true));
-
     const url: string = '/confirmflight/';
 
     return API.post(url, pricingPayload)
       .then((response: any) => {
         dispatch(pricingLoading(false));
-
         console.log("response:", response);
         dispatch(setPricingResults(response.data));
-
         dispatch(setPricingErrorDetails(false));
-
         return {'success': true};
       })
       .catch((error: any) => {
@@ -40,4 +36,3 @@ export const priceFlights = (pricingPayload: PricingPayload) => (dispatch: any) 
       });
   };
   
-

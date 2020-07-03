@@ -31,7 +31,6 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       itineraries: this.createItinerariesPayload(trip),
     };
     let pricingResult: any = this.props.priceFlights(pricingPayload);
-    //pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
   createItinerariesPayload = (trip: Results) => {

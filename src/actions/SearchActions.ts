@@ -77,7 +77,12 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) =
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
       dispatch(setErrorDetails(false));
-      return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+      if (response.data.detail) {
+        dispatch(setErrorDetails(true));
+        return {'success': false};
+      } else {
+        return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+      }
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));

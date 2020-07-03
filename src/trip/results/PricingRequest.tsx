@@ -100,13 +100,12 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     return flightsPayload
   }
 
-  createCredentialsPayload = (itinerary_element: any) => {
-
-    const credentialsPayload : Credentials = {
-      data_source: itinerary_element.source
+  createCredentialsPayload = (itineraryElement: any) => {
+    const credentialsPayload: Credentials = {
+      data_source: itineraryElement.source;
     }
 
-    return credentialsPayload
+    return credentialsPayload;
   }
 
   render() {
@@ -125,4 +124,3 @@ class PricingRequest extends React.Component<PricingRequestProps>{
 }
 
 export default PricingRequest;
-

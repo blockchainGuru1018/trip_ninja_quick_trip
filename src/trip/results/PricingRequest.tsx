@@ -69,9 +69,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createFlightsPayload = (trip: Results, segment_index: any) => {    
-    var flightsPayload : Array<Flight> = [];
-
-
+    let flightsPayload : Array<Flight> = [];
     this.props.selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
       const flightDetail = trip.flight_details.find(flight => flight.reference == flightResult.flight_detail_ref);
       if (flightDetail) {

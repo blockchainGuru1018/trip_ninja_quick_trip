@@ -4,6 +4,7 @@ import { SearchDetails, Flight, SearchPayload, FlightPayload }
 import { searchFlights } from '../../actions/SearchActions';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
+import { createPassengerPayload } from '../../helpers/PassengersListHelper';
 import Button from '@material-ui/core/Button';
 import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
@@ -31,7 +32,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
     const searchPayload: SearchPayload = {
       currency: this.props.searchDetails.currency,
       flights: this.createFlightPayload(),
-      travellers: this.createPassengerPayload(),
+      travellers: createPassengerPayload(this.props.searchDetails.passengers),
       route_flexible: this.props.searchDetails.routeFlexible
     };
     let searchResult: any = this.props.searchFlights(searchPayload);
@@ -56,12 +57,6 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       end_type: flight.destination.includes('All Airports') ? 'C' : 'A'
     }));
     return flightPayload;
-  }
-
-  createPassengerPayload = ()  => {
-    let passengerPayload = {};
-    this.props.searchDetails.passengers.map(passenger => passengerPayload[passenger.type.toLowerCase()] = passenger.count);
-    return passengerPayload;
   }
 
   validateSearchDetails = () => {

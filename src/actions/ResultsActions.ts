@@ -1,5 +1,5 @@
 
-import { ResultsDetails } from '../trip/results/ResultsInterfaces';
+import { ResultsDetails, Segment, BrandInfo } from '../trip/results/ResultsInterfaces';
 import { Dispatch } from 'redux';
 
 export const setSearchResults = (results: ResultsDetails) => (dispatch: Dispatch<any>) => {
@@ -11,7 +11,7 @@ export function setResults(results: ResultsDetails) {
   return {
     type: 'SET_RESULTS',
     results
-  }
+  };
 }
 
 export function setErrorDetails(value: boolean) {
@@ -39,5 +39,14 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
     type: 'UPDATE_ACTIVES',
     segmentOptionIndex,
     segmentItineraryRef
-  }
+  };
+}
+
+export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
+  return {
+    type: 'UPDATE_FARE_FAMILY',
+    segment,
+    brand,
+    index
+  };
 }

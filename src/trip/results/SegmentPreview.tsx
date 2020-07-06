@@ -12,7 +12,7 @@ import SegmentOriginDestination from './SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import _ from 'lodash';
-import { updateActives } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -30,6 +30,7 @@ interface SegmentPreviewProps {
   resultsDetails?: ResultsDetails;
   currency: string;
   updateActives?: typeof updateActives;
+  updateFareFamily?: typeof updateFareFamily;
   pathSequence?: Array<string>
 }
 
@@ -95,6 +96,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 segmentSelect={this.props.segmentSelect}
                 updateActives={this.props.updateActives}
                 closeAllDropDowns={this.closeAllDropDowns}
+                updateFareFamily={this.props.updateFareFamily}
               />
               }
             </div>

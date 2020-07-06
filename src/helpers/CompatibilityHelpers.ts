@@ -67,7 +67,7 @@ function segmentsAreCompatible(firstSegment: Segment, secondSegment: Segment) {
     && firstSegment.baggage.number_of_pieces === secondSegment.baggage.number_of_pieces;
 }
 
-function getOtherPositionsInItineraryStructure(segment: Segment) {
+export function getOtherPositionsInItineraryStructure(segment: Segment) {
   const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
   const segmentPositionIndex: number = itineraryStructure.indexOf(segment.segment_position);
   itineraryStructure.splice(segmentPositionIndex, 1);
@@ -127,8 +127,8 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
-    const segmentOptions = state[state.tripType].segments[positionIndex]
-    activateBestOneWay(segmentOptions, state, positionIndex)
+    const segmentOptions = state[state.tripType].segments[positionIndex];
+    activateBestOneWay(segmentOptions, state, positionIndex);
   });
 }
 

@@ -15,7 +15,7 @@ export interface Itineraries {
     itinerary_reference: number;
     plating_carrier?: string;
     credentials: Credentials; //TODO: Credentials object.
-    itinerary_type:string;
+    itinerary_type: string;
     segments: Array<FlightSegment>;
 }
 

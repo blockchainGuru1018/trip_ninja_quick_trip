@@ -7,10 +7,12 @@ import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
+import { priceFlights } from '../../actions/PricingActions';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
+  priceFlights: typeof priceFlights
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -20,6 +22,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     const selectedSegments =
@@ -47,7 +50,13 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">
-              <PricingRequest />
+              <PricingRequest
+                resultsDetails={this.props.resultsDetails}
+                currency={this.props.currency}
+                totalPrice={totalPrice}
+                selectedTrip= {selectedTrip}
+                priceFlights = {this.props.priceFlights}
+              />
             </div>
           </div>
         </div>

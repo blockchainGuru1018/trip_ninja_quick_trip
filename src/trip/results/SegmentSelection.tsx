@@ -6,7 +6,7 @@ import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
-import { updateActives } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 
 interface MatchParams {
   index: string;
@@ -18,7 +18,8 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string;
-  updateActives: typeof updateActives
+  updateActives: typeof updateActives;
+  updateFareFamily: typeof updateFareFamily;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -58,6 +59,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   currency={this.props.currency}
                   segmentSelect={true}
                   updateActives={this.props.updateActives}
+                  updateFareFamily={this.props.updateFareFamily}
                 />
                 <hr className="segment-divider"/>
                 {
@@ -71,6 +73,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
                       />
                       <hr className="segment-divider"/>
@@ -91,6 +94,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         currency={this.props.currency}
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
+                        updateFareFamily={this.props.updateFareFamily}
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}

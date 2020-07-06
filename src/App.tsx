@@ -12,7 +12,8 @@ import Book from './trip/book/Book';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
-import { setErrorDetails, setTripType, updateActives } from './actions/ResultsActions';
+import { priceFlights } from './actions/PricingActions';
+import { setErrorDetails, setTripType, updateActives, updateFareFamily } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -36,9 +37,11 @@ interface IAppProps {
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
+  priceFlights: typeof priceFlights;
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
+  updateFareFamily: typeof updateFareFamily;
 }
 
 const theme = Theme;
@@ -116,6 +119,7 @@ class App extends React.Component<IAppProps> {
                     <ItineraryResult
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
+                      priceFlights={this.props.priceFlights}
                     />
                   } />
                   : history.push('/search/')
@@ -126,6 +130,7 @@ class App extends React.Component<IAppProps> {
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
                     updateActives={this.props.updateActives}
+                    updateFareFamily={this.props.updateFareFamily}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

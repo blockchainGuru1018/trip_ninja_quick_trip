@@ -71,13 +71,18 @@ export interface Segment {
   priced_passengers: Array<string>;
   segment_time_with_connections: number;
   flights: Array<FlightResult>;
-  brands?: Array<Brands>;
+  brands?: Array<BrandInfo>;
+  selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
 }
 
 export interface FareInfo {
-  [reference: string]: FlightResult;
+  booking_code: string;
+  cabin_class: string;
+  fare_basis: string;
+  name: string;
+  brand: Brand;
 }
 
 export interface Baggage {
@@ -105,27 +110,38 @@ export interface FlightResult {
   fare_basis_code: string;
   cabin_class: string;
   brand?: Brand;
+  brand_identifier: string;
 }
 
 export interface Brands {
-  [reference: string]: Array<Segment>
+  [reference: string]: Array<BrandInfo>
 }
 
 export interface Brand {
   brand_description: string;
-  brand_services: Array<BrandServices>;
+  brand_services: BrandServices;
   carrier: string;
   name: string;
   tag_info: string;
+  tag_line: string;
   service: Array<BrandService>;
+}
+
+export interface BrandInfo {
+  base_price: number;
+  taxes: number;
+  price: number;
+  baggage_info: BaggageInfo 
+  fare_info: Array<FareInfo>
 }
 
 export interface BrandServices {
   checked_baggage: boolean;
   meals_and_beverages: boolean;
-  rebooking: boolean;
-  refund: boolean;
+  rebooking: string;
+  refund: string;
   seat_assignment: string;
+  carry_on_hand_baggage: string;
 }
 
 export interface BrandService {
@@ -144,7 +160,7 @@ export interface FlightResultsDetails {
   destination_name: string;
   departure_time: string;
   arrival_time: string;
-  flight_number: number;
+  flight_number: string;
   carrier: string;
   flight_time: number;
 }
@@ -153,4 +169,9 @@ export interface Location {
   origin: string;
   destination: string;
   nNights: number;
+}
+
+export interface BaggageInfo {
+  pieces: number;
+  units: string;
 }

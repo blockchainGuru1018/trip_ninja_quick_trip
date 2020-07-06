@@ -9,9 +9,9 @@
 }
 
 :root {
-  --primary-dark: #45565E;
-  --main: #0DBE7CEB;
-  --secondary: #4BAFD7;
+  --primary: #0DBE7CEB;
+  --secondary: #45565E;
+  --tertiary: #4BAFD7;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
   background: #45565E0D 0% 0% no-repeat padding-box;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  color: var(--primary-dark);
+  color: var(--secondary);
 }
 
 a:hover, a:active {
@@ -42,7 +42,7 @@ h3 {
   font-size: 24;
   letter-spacing: 0px;
 
-  color: var(--primary-dark);
+  color: var(--secondary);
   padding-bottom: 20px;
 }
 
@@ -51,7 +51,7 @@ h4 {
   font-family: 'NeuzeitGro-Reg', sans-serif;
   font-size: 24px;
   letter-spacing: 0px;
-  color: var(--primary-dark);
+  color: var(--secondary);
   padding-bottom: 20px;
 }
 
@@ -59,7 +59,7 @@ h5 {
   text-align: left;
   font-family: 'NeuzeitGro-Bol', sans-serif;
   font-size: 21px;
-  color: var(--primary-dark);
+  color: var(--secondary);
   padding-bottom: 0px;
 }
 
@@ -70,7 +70,7 @@ h5 {
 .standard-text {
   font-family: 'NeuzeitGro-Reg', sans-serif;
   font-size: 16px;
-  color: var(--primary-dark);
+  color: var(--secondary);
   margin: 0;
   font-weight: normal;
 }

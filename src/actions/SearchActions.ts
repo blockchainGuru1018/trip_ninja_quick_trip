@@ -1,5 +1,6 @@
 import { SearchPayload } from '../trip/search/SearchInterfaces';
-import { setSearchResults, setErrorDetails } from './ResultsActions';
+import { setSearchResults, setErrorDetails, setActiveSegments }
+  from './ResultsActions';
 import API from '../Api';
 
 export function fetchSearch(tripDetails: Object) {
@@ -76,8 +77,14 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) =
     .then((response: any) => {
       dispatch(searchLoading(false));
       dispatch(setSearchResults(response.data));
+      dispatch(setActiveSegments());
       dispatch(setErrorDetails(false));
-      return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+      if (response.data.detail) {
+        dispatch(setErrorDetails(true));
+        return {'success': false};
+      } else {
+        return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+      }
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));

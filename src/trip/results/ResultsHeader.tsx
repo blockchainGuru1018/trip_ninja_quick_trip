@@ -8,10 +8,10 @@ import history from '../../History';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
-  color: 'var(--primary-dark)',
-  border: 'solid 2px var(--primary-dark)',
+  color: 'var(--secondary)',
+  border: 'solid 2px var(--secondary)',
   '&:hover': {
-    backgroundColor: 'var(--primary-dark)',
+    backgroundColor: 'var(--secondary)',
     color: '#ffffff',
   }
 });
@@ -50,11 +50,11 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
           </div>
         </div>
         <hr/>
-      </div>  
+      </div>
     );
   }
 
-  getDepartureDate = (flightDetailRef: number) => {
+  getDepartureDate = (flightDetailRef: string) => {
     const firstFlight: FlightResultsDetails[] = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
     return <span><Moment format="MMM DD">{firstFlight[0].departure_time}</Moment></span>;
   }

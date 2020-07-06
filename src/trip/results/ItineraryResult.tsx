@@ -3,25 +3,19 @@ import './ItineraryResult.css';
 import SegmentNav from './SegmentNav';
 import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
-import { setActiveSegment } from '../../actions/ResultsActions';
 import { priceFlights } from '../../actions/PricingActions'
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
-  setActiveSegment: typeof setActiveSegment
   priceFlights: typeof priceFlights
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
-
-  componentDidMount() {
-    this.setActiveSegments();
-  }
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -34,7 +28,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const selectedSegments =
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview
+          <SegmentPreviews
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}
@@ -78,13 +72,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
   }
 
-  setActiveSegments = () => {
-    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0)});
-  }
-
-  getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
-  }
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
 }
 
 export default ItineraryResult;

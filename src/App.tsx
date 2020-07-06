@@ -12,14 +12,14 @@ import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
-import { setErrorDetails, setTripType, setActiveSegment } from './actions/ResultsActions';
+import { setErrorDetails, setTripType, updateActives } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
-import ErrorModal from './common/modals/ErrorModal';
+import SearchErrorModal from './common/modals/SearchErrorModal';
 import Theme from './Theme';
 import history from './History';
 
@@ -39,7 +39,7 @@ interface IAppProps {
   priceFlights: typeof priceFlights;
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
-  setActiveSegment: typeof setActiveSegment;
+  updateActives: typeof updateActives;
 }
 
 const theme = Theme;
@@ -61,7 +61,7 @@ class App extends React.Component<IAppProps> {
             loading={this.props.searchDetails.loading}
             flights={this.props.searchDetails.flights}
           />
-          <ErrorModal
+          <SearchErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
           />
@@ -117,8 +117,6 @@ class App extends React.Component<IAppProps> {
                     <ItineraryResult
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
-                      setActiveSegment={this.props.setActiveSegment}
-                      priceFlights={this.props.priceFlights}
                     />
                   } />
                   : history.push('/search/')
@@ -128,6 +126,7 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
+                    updateActives={this.props.updateActives}
                   />
                 } />
               </div>

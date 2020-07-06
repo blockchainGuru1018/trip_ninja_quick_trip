@@ -39,9 +39,11 @@ class SearchRequest extends React.Component<SearchRequestProps> {
   }
 
   handleSearchResult = (result: any) =>
-    result.flex_trip
-      ? history.push('/results/pre-results/')
-      : history.push('/results/itinerary/');
+    result.success
+      ? result.flex_trip
+        ? history.push('/results/pre-results/')
+        : history.push('/results/itinerary/')
+      : '';
 
   createFlightPayload = () => {
     const flightPayload: Array<FlightPayload> = this.props.searchDetails.flights.map((flight: Flight, index: number) => ({

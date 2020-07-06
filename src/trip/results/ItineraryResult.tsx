@@ -7,7 +7,7 @@ import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
-import { priceFlights } from '../../actions/PricingActions'
+import { priceFlights } from '../../actions/PricingActions';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails

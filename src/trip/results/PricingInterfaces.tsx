@@ -14,7 +14,7 @@ export interface PricingPayload {
 export interface Itineraries {
     itinerary_reference: number;
     plating_carrier?: string;
-    credentials: Credentials; //TODO: Credentials object.
+    credentials: Credentials;
     itinerary_type: string;
     segments: Array<FlightSegment>;
 }

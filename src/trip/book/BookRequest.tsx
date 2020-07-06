@@ -10,23 +10,21 @@ class BookRequest extends React.Component<BookRequestProps> {
   render() {
 
     return (
-      <div className="row">
-        <div className="col-md-6">
-          <Button 
-            variant="outlined" 
-            color="primary"
-          >
-            Book and Save
-          </Button>
-        </div>
-        <div className="col-md-6">
-          <Button
-            variant="contained" 
-            color="primary"
-          >
-            Book and Ticket
-          </Button>
-        </div>
+      <div className="float-right">
+        <Button 
+          variant="outlined" 
+          color="primary"
+          className="book-button"
+        >
+          Book and Save
+        </Button>
+        <Button
+          variant="contained" 
+          color="primary"
+          className="book-button"
+        >
+          Book and Ticket
+        </Button>
       </div>
     );
   }

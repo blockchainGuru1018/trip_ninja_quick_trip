@@ -28,14 +28,14 @@ class Book extends React.Component<BookProps> {
             <BackButton>
               <KeyboardBackspaceIcon 
                 onClick={() => history.push('/results/itinerary/')} 
-              />
+              /> 
               Back to Results
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-sm-7">
+              <div className="col-sm-6">
                 <h1>Itinerary Summary</h1>
               </div>
-              <div className="col-sm-5">
+              <div className="col-sm-6">
                 <BookRequest />
               </div>          
             </div>

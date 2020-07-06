@@ -120,6 +120,13 @@
   justify-content: flex-end;
 }
 
+.incompatible-info-icon {
+  position: absolute;
+  width: 15px !important;
+  top: 0px;
+  left: 5px;
+}
+
 .MuiTableCell-body.no-brand-info {
   color: #D8DCDE;
 }

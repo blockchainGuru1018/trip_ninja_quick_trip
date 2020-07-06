@@ -92,6 +92,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         segmentSelect={true}
                         updateActives={this.props.updateActives}
                         resultsDetails={this.props.resultsDetails}
+                        pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
                       />
                     </div>

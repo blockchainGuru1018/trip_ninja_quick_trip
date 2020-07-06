@@ -136,3 +136,4 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state);
 }
+

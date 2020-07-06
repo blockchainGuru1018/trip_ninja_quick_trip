@@ -22,6 +22,7 @@ class BookRequest extends React.Component<BookRequestProps> {
           variant="contained" 
           color="primary"
           className="book-button"
+          disableElevation
         >
           Book and Ticket
         </Button>

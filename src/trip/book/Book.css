@@ -1,9 +1,10 @@
 #book-itinerary {
   background-color: #ffffff;
+  padding-bottom: 50px;
 }
 
 .book-header {
-  border-bottom: solid 1px #C1BDBD;
+  border-bottom: solid 1px #45565E40;
   padding: 15px 0px 25px 0px;
 }
 
@@ -11,9 +12,12 @@
   padding-top: 20px;
 }
 
-.paper-container {
+.book-container {
   padding: 25px;
   margin-bottom: 50px;
+  border: 1px solid #45565E40;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 5px;
 }
 
 .itinerary-details {

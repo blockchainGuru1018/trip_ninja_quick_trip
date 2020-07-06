@@ -20,7 +20,6 @@ interface BookProps {
 class Book extends React.Component<BookProps> {
 
   render() {
-
     return (
       <div className="row" id="book-itinerary">
         <div className="col-lg-10 offset-lg-1">
@@ -53,7 +52,6 @@ class Book extends React.Component<BookProps> {
       </div>
     );
   }
-
 }
 
 export default Book;

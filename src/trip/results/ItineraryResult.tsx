@@ -20,6 +20,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   componentDidMount() {
     this.setActiveSegments();
+    this.createSortingDefaults();
+    const segmentPositionCount = this.props.resultsDetails.fareStructureResults?.segments.length;
   }
 
   render() {
@@ -76,6 +78,15 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   getActiveSegments = (trip: Results) => {
     return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
+  }
+
+  private createSortingDefaults() {
+    const segments = this.props.resultsDetails.fareStructureResults?.segments;
+    const segmentPositionCount: number = segments ? segments.length : 0;
+    for (let step = 0; step < segmentPositionCount; step++) {
+      console.log("resultsDetails", this.props.resultsDetails);
+      this.props.resultsDetails.segmentPositionMap.setValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
+    }
   }
 }
 

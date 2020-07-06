@@ -8,46 +8,30 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { setSegmentValue } from '../../actions/ResultsActions';
 import CabinList from "../../assets/data/cabins.json";
+import SortIcon from '@material-ui/icons/Sort';
 
 interface SortOptionProps {
   segmentPosition: number
-  sortBy: string
-  default: string
+  sortOrder: string
   setValue:  typeof setSegmentValue
 }
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-const sortOptionList = ["cheapest","best","fastest"];
+const sortOptionList = ["cheapest","best","fastest"]; //TODO: make this enum?
 class SortOption extends React.Component<SortOptionProps> {
   render() {
     const sortOptions = sortOptionList.map((item, index) => (
       <MenuItem key={index} value={item}>{item}</MenuItem>
     ));
 
-    const classes = useStyles();
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-      setAge(event.target.value as string);
-    };
-
     return (
       <div>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="sort-label">Sort By</InputLabel>
+        <FormControl>
+          <InputLabel id="sort-label"><SortIcon color="primary"/>Sort By</InputLabel>
           <Select
             labelId="sort-label"
             id="sort"
-            value={this.props.sortBy}
-            onChange={(e) => this.props.setValue(this.props.segmentPosition, 'sortBy', e.target.value)}
+            value={this.props.sortOrder}
+            onChange={(e) => this.props.setValue(this.props.segmentPosition, 'sortOrder', e.target.value)}
           >
             {sortOptions}
           </Select>

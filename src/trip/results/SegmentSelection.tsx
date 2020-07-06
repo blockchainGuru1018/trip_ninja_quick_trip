@@ -45,14 +45,17 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </h1>
         </div>
         <div className="row">
-          <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
+          <div className="col-xl">
             <SortOption
               segmentPosition={parseInt(segmentIndex)}
-              sortBy={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortBy')}
+              sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
               setValue={this.props.setSegmentValue}
-              default={this.props.resultsDetails.defaultSortBy}
             />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-2 no-padding">
+            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
@@ -66,11 +69,13 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                 />
                 <hr className="segment-divider"/>
                 <h5>Other Departure Times</h5>
+                {console.log("segmentPositionMap", this.props.resultsDetails.segmentPositionMap)}
                 <SegmentPreview
                   segments={currentSegments}
                   flightDetails={trip.flight_details}
                   currency={this.props.currency}
                   segmentSelect={true}
+                  sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
                 />
                 <hr className="segment-divider"/>
                 <h5>Other Options</h5>

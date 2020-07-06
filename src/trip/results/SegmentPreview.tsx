@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import {FlightResultsDetails, Segment} from './ResultsInterfaces';
 import '../../index.css';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -17,6 +17,7 @@ import SegmentPrice from './SegmentPrice';
 
 
 interface SegmentPreviewProps {
+  sortOrder?: string;
   segments: Array<Segment>;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
@@ -45,9 +46,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       );
       return filteredFlightDetails[0];
     });
-
   setSegmentsHTML = () => {
-    return this.props.segments.map((segment: Segment, index: number) => {
+    console.log(`SegmentPreview: segmentPosition ${this.props.segments[0].segment_position}, sort order selected -> ${this.props.sortOrder}`);
+    const sortedSegments = this.props.sortOrder ? this.props.segments.sort(this.sortFunction) : this.props.segments;
+    console.log("sorted segments: ", sortedSegments);
+    return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const open: boolean = this.state.expandedSegment === index;
       return(
@@ -55,15 +58,15 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
           {!this.props.segmentSelect && this.setFlightPreviewIcons(index)}
           <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
             <div className="row segment col-md-12">
-              {!this.props.segmentSelect 
+              {!this.props.segmentSelect
               && <SegmentOriginDestination segment={segment} departure={segmentFlightDetails[0].departure_time} />
-              } 
+              }
               <FlightLogo flights={segmentFlightDetails} />
               <FlightTime flights={segmentFlightDetails} />
               <FlightStops flights={segmentFlightDetails} />
               <FlightTypes segment={segment} />
               <SegmentBaggage baggage={segment.baggage.number_of_pieces} />
-              {this.props.segmentSelect 
+              {this.props.segmentSelect
               && <SegmentPrice segment={segment} currency={this.props.currency} />
               }
               <div className="col-sm-1 icon-expand-preview">
@@ -118,6 +121,21 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       </div>
     );
   }
+
+  sortFunction = (a: Segment, b: Segment) => {
+    console.log("sort order -> ", this.props.sortOrder);
+    switch (this.props.sortOrder) {
+      case 'best':
+        return a.weight - b.weight;
+      case 'cheapest':
+        return a.price = b.price;
+      case 'fastest':
+        return a.segment_time_with_connections - b.segment_time_with_connections;
+      default:
+        return a.weight - b.weight;
+    }
+  }
 }
+
 
 export default SegmentPreview;

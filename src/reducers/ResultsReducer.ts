@@ -1,4 +1,4 @@
-import {ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
+import {ResultsDetails, Segment, SegmentPositionMap} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -7,12 +7,15 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         fareStructureResults: action.results.fare_structure,
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
-        tripType: 'fareStructureResults'
+        tripType: 'fareStructureResults',
+        segmentPositionMap: new SegmentPositionMap(),
+        defaultSortBy: 'fastest', //TODO: make this a constant to prevent different defaultS! or merge the ResultsDetails default setting
       };
 
     case 'SET_VALUE_FOR_SEGMENT':
       state.segmentPositionMap.setValue(action.segmentPosition, action.valueType, action.value);
-      return state;
+      console.log(`SET_VALUE_FOR_SEGMENT: segmentPosition ${action.segmentPosition}, sort order selected -> ${action.value}, segmentPositionMap -> `, state.segmentPositionMap);
+      return {...state};
 
     case 'SET_ERROR_DETAILS':
       return {...state, errors: {errorFound: action.value}};

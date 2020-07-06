@@ -95,7 +95,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
 
   createCredentialsPayload = (itineraryElement: any) => {
     const credentialsPayload: Credentials = {
-      data_source: itineraryElement.source;
+      data_source: itineraryElement.source
     }
 
     return credentialsPayload;

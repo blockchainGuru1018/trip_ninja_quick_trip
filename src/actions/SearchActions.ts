@@ -75,14 +75,15 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) =
   const url: string = '/multicitysearch/';
   return API.post(url, searchPayload)
     .then((response: any) => {
-      dispatch(searchLoading(false));
-      dispatch(setSearchResults(response.data));
-      dispatch(setActiveSegments());
-      dispatch(setErrorDetails(false));
       if (response.data.detail) {
+        dispatch(searchLoading(false));
         dispatch(setErrorDetails(true));
         return {'success': false};
       } else {
+        dispatch(setSearchResults(response.data));
+        dispatch(setActiveSegments());
+        dispatch(setErrorDetails(false));
+        dispatch(searchLoading(false));
         return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
       }
     })

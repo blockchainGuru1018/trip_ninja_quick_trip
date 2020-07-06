@@ -15,6 +15,7 @@ interface SegmentPreviewsProps {
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
   updateFareFamily?: typeof updateFareFamily;
+  pathSequence?: Array<string>;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -58,6 +59,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
           resultsDetails={this.props.resultsDetails}
           updateActives={this.props.updateActives}
           updateFareFamily={this.props.updateFareFamily}
+          pathSequence={this.props.pathSequence}
         />
       );
     });

@@ -13,6 +13,7 @@ import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import _ from 'lodash';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
@@ -30,6 +31,7 @@ interface SegmentPreviewProps {
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
+  pathSequence?: Array<string>
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -46,6 +48,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         {!this.props.segmentSelect && this.setFlightPreviewIcons(this.props.index)}
         <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
           <div className="row segment col-md-12">
+            {this.props.segment.status === 'incompatible' && this.props.activeSegment
+            && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
+            }
             {!this.props.segmentSelect
             && <SegmentOriginDestination segment={this.props.segment} departure={this.props.segmentFlightDetails[0].departure_time} />
             }

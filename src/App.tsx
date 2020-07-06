@@ -12,7 +12,7 @@ import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
-import { setErrorDetails, setTripType, updateActives } from './actions/ResultsActions';
+import { setErrorDetails, setTripType, updateActives, updateFareFamily } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -40,6 +40,7 @@ interface IAppProps {
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
+  updateFareFamily: typeof updateFareFamily;
 }
 
 const theme = Theme;
@@ -128,6 +129,7 @@ class App extends React.Component<IAppProps> {
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
                     updateActives={this.props.updateActives}
+                    updateFareFamily={this.props.updateFareFamily}
                   />
                 } />
               </div>

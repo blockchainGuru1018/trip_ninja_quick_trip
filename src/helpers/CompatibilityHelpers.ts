@@ -5,7 +5,7 @@ function activateSegment(segment: Segment, state: ResultsDetails, segmentPositio
   const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentPosition);
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
-  if(state.activeSegments.has(segmentPosition)) {
+  if (state.activeSegments.has(segmentPosition)) {
     state.activeSegments.get(segmentPosition).status = 'compatible';
   }
   state.activeSegments.set(segmentPosition, segment);
@@ -25,7 +25,7 @@ function getFlightDetailsString(segment: Segment): string {
 
 export function setAlternatesStatus(state: ResultsDetails, activeSegment: Segment, segmentOptions: Array<Segment>) {
   segmentOptions.forEach((segment: Segment) => {
-    if(segment.status === 'active') {
+    if (segment.status === 'active') {
       return;
     } else if(segment.itinerary_structure === activeSegment.itinerary_structure) {
       identifyCompatibleSegments(state, segment);
@@ -67,7 +67,7 @@ function segmentsAreCompatible(firstSegment: Segment, secondSegment: Segment) {
     && firstSegment.baggage.number_of_pieces === secondSegment.baggage.number_of_pieces;
 }
 
-function getOtherPositionsInItineraryStructure(segment: Segment) {
+export function getOtherPositionsInItineraryStructure(segment: Segment) {
   const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
   const segmentPositionIndex: number = itineraryStructure.indexOf(segment.segment_position);
   itineraryStructure.splice(segmentPositionIndex, 1);
@@ -127,8 +127,8 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const oldActiveSegmentStructure: Array<number> = JSON.parse(oldActiveSegment.itinerary_structure);
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
-    const segmentOptions = state[state.tripType].segments[positionIndex]
-    activateBestOneWay(segmentOptions, state, positionIndex)
+    const segmentOptions = state[state.tripType].segments[positionIndex];
+    activateBestOneWay(segmentOptions, state, positionIndex);
   });
 }
 
@@ -136,3 +136,4 @@ function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: Resu
   activateSegment(selectedSegment, state, segmentOptionIndex);
   activateLinkedSegments(selectedSegment, state);
 }
+

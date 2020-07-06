@@ -37,7 +37,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     let itinerariesPayload : Array<Itineraries> = [];
     let itinerariesCounter = 1;
   
-    this.props.selectedTrip.forEach(itineraryElement => {
+    this.props.selectedTrip.forEach((itineraryElement: Segment) => {
       const itineraryStructure = JSON.parse(itineraryElement.itineraryStructure);
 
       if (itineraryElement.segment_position == itineraryStructure[0]){

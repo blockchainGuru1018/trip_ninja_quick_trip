@@ -1,0 +1,21 @@
+#book-itinerary {
+  background-color: #ffffff;
+}
+
+.book-header {
+  border-bottom: solid 1px #C1BDBD;
+  padding: 15px 0px 25px 0px;
+}
+
+.itinerary-summary {
+  padding-top: 20px;
+}
+
+.paper-container {
+  padding: 25px;
+  margin-bottom: 50px;
+}
+
+.itinerary-details {
+  padding-top: 50px;
+}

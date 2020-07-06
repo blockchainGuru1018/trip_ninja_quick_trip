@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -9,7 +9,7 @@ import FlightPath from '../../trip/search/TripPath';
 import { Flight } from '../../trip/search/SearchInterfaces';
 import './Modals.css';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     modal: {
       display: 'flex',
@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '5px',
       top: '142px',
       left: '130px',
-      width: '1107px',
-      height: '482px'
+      width: '800px',
+      height: 'auto'
     },
     backDrop: {
       height: '100vh'
@@ -58,8 +58,8 @@ export default function SearchModal(props: SearchModalProps) {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper + ' centeredContainer'}>
-            <h2 id="transition-modal-title">Finding the best route and flight options</h2>
+          <div className={classes.paper + ' centered-container search-modal-container'}>
+            <h2 id="transition-modal-title" className='search-modal-title'>Finding the best route and flight options</h2>
             <div>
               <CircularProgress />
             </div>

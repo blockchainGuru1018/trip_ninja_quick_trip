@@ -56,7 +56,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createSegmentsPayload = (trip: Results, itinerary_structure:Array<any>) => {
-    var segmentsPayload: Array<FlightSegment> = [];
+    let segmentsPayload: Array<FlightSegment> = [];
 
     itinerary_structure.forEach(segment_index => {
       segmentsPayload.push({

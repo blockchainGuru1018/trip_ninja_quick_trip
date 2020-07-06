@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
 import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
-
+import history from '../../History';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
@@ -31,8 +31,14 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       itineraries: this.createItinerariesPayload(trip),
     };
     let pricingResult: any = this.props.priceFlights(pricingPayload);
+    pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
+  handlePricingResult = (result: any) =>
+    result.success
+      ? history.push('/book/')
+      : history.push('/itinerary/result/');
+    
   createItinerariesPayload = (trip: Results) => {
     let itinerariesPayload : Array<Itineraries> = [];
     let itinerariesCounter = 1;

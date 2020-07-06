@@ -9,7 +9,7 @@ interface PricingRequestProps{
   resultsDetails: ResultsDetails,
   currency: string,
   totalPrice: number,
-  selectedTrip: Array<any>,
+  selectedTrip: Array<Segment>,
   priceFlights: typeof priceFlights,
 }
 

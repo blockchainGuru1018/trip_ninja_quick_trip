@@ -8,6 +8,7 @@ import Login from './auth/Login';
 import PreResults from './trip/results/PreResults';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
+import Book from './trip/book/Book';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
@@ -125,6 +126,10 @@ class App extends React.Component<IAppProps> {
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
                     updateActives={this.props.updateActives}
+                  />
+                } />
+                <Route exact path="/book/" render={() =>
+                  <Book
                   />
                 } />
               </div>

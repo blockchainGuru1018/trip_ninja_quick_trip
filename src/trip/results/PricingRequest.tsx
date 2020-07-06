@@ -37,35 +37,35 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     let itinerariesPayload : Array<Itineraries> = [];
     let itinerariesCounter = 1;
   
-    this.props.selectedTrip.forEach(itinerary_element => {
-      const itinerary_structure = JSON.parse(itinerary_element.itinerary_structure);
+    this.props.selectedTrip.forEach(itineraryElement => {
+      const itineraryStructure = JSON.parse(itineraryElement.itineraryStructure);
 
-      if (itinerary_element.segment_position == itinerary_structure[0]){
+      if (itineraryElement.segment_position == itineraryStructure[0]){
         itinerariesPayload.push({
-          itinerary_reference: itineraries_counter,
+          itinerary_reference: itinerariesCounter,
           plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.
-          credentials: this.createCredentialsPayload(itinerary_element), 
-          itinerary_type: itinerary_element.itinerary_type,
-          segments: this.createSegmentsPayload(trip, itinerary_structure),
+          credentials: this.createCredentialsPayload(itineraryElement), 
+          itinerary_type: itineraryElement.itinerary_type,
+          segments: this.createSegmentsPayload(trip, itineraryStructure),
         });
-        itinerariesCounter += 1
+        itinerariesCounter += 1;
       };
     });
 
-    return itinerariesPayload
+    return itinerariesPayload;
   }
 
-  createSegmentsPayload = (trip: Results, itinerary_structure:Array<any>) => {
+  createSegmentsPayload = (trip: Results, itineraryStructure:Array<any>) => {
     let segmentsPayload: Array<FlightSegment> = [];
 
-    itinerary_structure.forEach(segment_index => {
+    itineraryStructure.forEach(segment_index => {
       segmentsPayload.push({
         segment_id: segment_index,
         flights: this.createFlightsPayload(trip, segment_index)
       });
     });
 
-    return segmentsPayload
+    return segmentsPayload;
   }
 
   createFlightsPayload = (trip: Results, segment_index: any) => {    
@@ -85,18 +85,18 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           departure_time: flightDetail.departure_time,
           arrival_time: flightDetail.arrival_time,
           brand_identifier: "",
-        })
+        });
       };
 
     });
 
-    return flightsPayload
+    return flightsPayload;
   }
 
   createCredentialsPayload = (itineraryElement: any) => {
     const credentialsPayload: Credentials = {
       data_source: itineraryElement.source
-    }
+    };
 
     return credentialsPayload;
   }

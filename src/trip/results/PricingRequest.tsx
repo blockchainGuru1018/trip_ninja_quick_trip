@@ -40,7 +40,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     this.props.selectedTrip.forEach((itineraryElement: Segment) => {
       const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);
 
-      if (itineraryElement.segment_position == itineraryStructure[0]){
+      if (itineraryElement.segment_position === itineraryStructure[0]) {
         itinerariesPayload.push({
           itinerary_reference: itinerariesCounter,
           plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.

@@ -9,6 +9,7 @@ import './Results.css';
 import SortOption from "./SortOption";
 import CurrencySelect from "../search/CurrencySelect";
 import {setSegmentPositionMapValue} from "../../actions/ResultsActions";
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 
 interface MatchParams {
   index: string;
@@ -24,7 +25,7 @@ interface SegmentSelectionProps {
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
-  
+
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
@@ -32,6 +33,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const currentSegments = trip.segments[segmentIndex];
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     let selectedSegment: Array<Segment> = [];
+    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
     selectedSegment[0] = selectedTrip[segmentIndex];
     //let alternateSegments = this.getInactiveSegments(currentSegments);
     return (
@@ -39,19 +41,19 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         <div className="results-header">
           <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
           <h1>
-            {trip.path_sequence[segmentIndex].substring(0, 3)} 
+            {trip.path_sequence[segmentIndex].substring(0, 3)}
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
             {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
-        </div>
-        <div className="row">
-          <div className="col-xl">
-            <SortOption
-              segmentPosition={parseInt(segmentIndex)}
-              sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
-              setSegmentPositionMapValue={this.props.setSegmentValue}
-            />
-          </div>
+          <h4 style={{paddingBottom: '0'}}>
+            <strong>Total: </strong>
+            {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
+          </h4>
+          <SortOption
+            segmentPosition={parseInt(segmentIndex)}
+            sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+            setSegmentPositionMapValue={this.props.setSegmentValue}
+          />
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">

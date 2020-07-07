@@ -24,12 +24,15 @@ class SortOption extends React.Component<SortOptionProps> {
     ));
 
     return (
-      <div>
-        <FormControl>
-          <InputLabel id="sort-label"><SortIcon color="primary"/>Sort By</InputLabel>
+      <div className='sort-select-container'>
+        <div className='sort-icon-container'><SortIcon color="primary" />
+          <div className='text-bold'>Sort By:</div>
+        </div>
+        <FormControl color="primary">
           <Select
             labelId="sort-label"
             id="sort"
+            color="primary"
             value={this.props.sortOrder}
             onChange={(e) => this.props.setSegmentPositionMapValue(this.props.segmentPosition, 'sortOrder', e.target.value)}
           >

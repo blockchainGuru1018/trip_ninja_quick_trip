@@ -160,7 +160,7 @@ export interface FlightResultsDetails {
   destination_name: string;
   departure_time: string;
   arrival_time: string;
-  flight_number: number;
+  flight_number: string;
   carrier: string;
   flight_time: number;
 }

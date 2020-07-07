@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as searchActions from './actions/SearchActions';
 import * as authActions from './actions/AuthActions';
 import * as resultsActions from './actions/ResultsActions';
+import * as priceActions from './actions/PricingActions';
 import App from './App';
 import { State } from './Store';
 
@@ -16,7 +17,7 @@ function mapStateToProps(state: State) {
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators({...searchActions, ...authActions,
-    ...resultsActions}, dispatch);
+    ...resultsActions, ...priceActions}, dispatch);
 }
 
 const Main = connect(mapStateToProps, mapDispatchToProps)(App);

@@ -45,13 +45,13 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
   setSegmentsHTML = () => {
     const totalPrice: number = this.props.resultsDetails ? this.getTotalPrice() : 0;
     const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
-    return this.props.segments.map((segment: Segment, index: number) => {
+    return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       return(
         <SegmentPreview
           totalPrice={totalPrice}
           segment={segment}
-          segments={this.props.segments}
+          segments={sortedSegments}
           index={index}
           segmentFlightDetails={segmentFlightDetails}
           segmentSelect={this.props.segmentSelect}

@@ -22,7 +22,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   componentDidMount() {
 
     this.createSortingDefaults();
-    const segmentPositionCount = this.props.resultsDetails.fareStructureResults?.segments.length;
   }
 
   render() {

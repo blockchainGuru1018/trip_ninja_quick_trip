@@ -7,7 +7,6 @@ import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
-import CurrencySelect from "../search/CurrencySelect";
 import {setSegmentPositionMapValue} from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';

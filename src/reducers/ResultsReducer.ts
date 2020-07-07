@@ -1,5 +1,5 @@
 import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo , SegmentPositionMap} from '../trip/results/ResultsInterfaces';
+import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {

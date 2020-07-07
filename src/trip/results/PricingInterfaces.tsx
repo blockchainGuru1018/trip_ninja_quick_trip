@@ -55,3 +55,50 @@ export interface Credentials {
   provider?: string;
   region?: string;
 }
+
+export interface PricingResults {
+  trip_id: string;
+  pricing: Pricing;
+  itinerary: Array<Itinerary>;
+}
+
+export interface Pricing {
+  confirmed_total_price: number;
+  original_total_price: number;
+  base_fare: number;
+  taxes: number;
+  fees: number;
+  markup: number;
+  currency: string;
+}
+
+export interface Itinerary {
+  itinerary_reference: number;
+  plating_carrier: string;
+  credentials: Credentials;
+  itinerary_type: string;
+  segments: Array<SegmentPricingInfo>
+}
+
+export interface SegmentPricingInfo {
+  segment_id: string;
+  baggage: BaggageDetails;
+  flight_details: Array<FlightDetails>;
+}
+
+export interface BaggageDetails {
+  applicable_bags: string;
+  applicable_carry_on_bags: string;
+  baggage_cost: string;
+  baggage_restrictions: string;
+  carryon_cost: number;
+  carryon_restrictions: string;
+}
+
+export interface FlightDetails {
+  flight_number: string;
+  in_flight_services: Array<string>;
+  meals: Array<string>;
+  origin_terminal: number;
+  destination_terminal: number;
+}

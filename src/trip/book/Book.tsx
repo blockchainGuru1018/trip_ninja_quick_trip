@@ -24,10 +24,10 @@ class Book extends React.Component<BookProps> {
       <div className="row" id="book-itinerary">
         <div className="col-lg-10 offset-lg-1">
           <div className="book-header">
-            <BackButton>
-              <KeyboardBackspaceIcon 
-                onClick={() => history.push('/results/itinerary/')} 
-              /> 
+            <BackButton 
+              onClick={() => history.push('/results/itinerary/')} 
+            >
+              <KeyboardBackspaceIcon /> 
               Back to Results
             </BackButton>
             <div className="row itinerary-summary">

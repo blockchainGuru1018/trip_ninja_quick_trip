@@ -15,7 +15,6 @@ export const defaultPricingDetails: PricingDetails = {
   loading: false,
   trip_id: '',
   trip_type: 'fare_structure',
-  traveller_list: [],
   currency: '',
   price: 0,
   source: ''

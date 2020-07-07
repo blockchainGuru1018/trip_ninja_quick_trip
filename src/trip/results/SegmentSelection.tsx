@@ -71,7 +71,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                 />
                 <hr className="segment-divider"/>
                 <h5>Other Departure Times</h5>
-                {console.log("segmentPositionMap", this.props.resultsDetails.segmentPositionMap)}
                 <SegmentPreview
                   segments={currentSegments}
                   flightDetails={trip.flight_details}
@@ -90,7 +89,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     );
   }
   getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
+    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0];});
   }
 
 }

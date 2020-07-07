@@ -12,7 +12,6 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
       state.segmentPositionMap.setValue(action.segmentPosition, action.valueType, action.value);
-      console.log(`SET_VALUE_FOR_SEGMENT: segmentPosition ${action.segmentPosition}, sort order selected -> ${action.value}, segmentPositionMap -> `, state.segmentPositionMap);
       return {...state};
 
     case 'SET_ERROR_DETAILS':
@@ -31,7 +30,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
 function setSegmentStatus(state: any, action: any) {
   const segments = state[state.tripType].segments[action.itineraryIndex];
-  segments.map((segment: Segment) => {return segment.status = 'inactive'});
+  segments.map((segment: Segment) => {return segment.status = 'inactive';});
   segments[action.segmentIndex].status = 'active';
   return {...state};
 }

@@ -47,9 +47,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       return filteredFlightDetails[0];
     });
   setSegmentsHTML = () => {
-    console.log(`SegmentPreview: segmentPosition ${this.props.segments[0].segment_position}, sort order selected -> ${this.props.sortOrder}`);
     const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
-    console.log("sorted segments: ", sortedSegments);
     return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       const open: boolean = this.state.expandedSegment === index;
@@ -124,7 +122,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   sortBySortOrder = () => {
     return this.props.segments.sort((a: Segment, b: Segment) => {
-      console.log("sort order -> ", this.props.sortOrder);
       switch (this.props.sortOrder) {
         case 'best':
           return a.weight - b.weight;

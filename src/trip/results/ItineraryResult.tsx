@@ -74,11 +74,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   }
 
   setActiveSegments = () => {
-    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0)});
+    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0);});
   }
 
   getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
+    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0];});
   }
 
   createSortingDefaults = () => {
@@ -86,7 +86,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const segments = this.props.resultsDetails.fareStructureResults?.segments;
     const segmentPositionCount: number = segments ? segments.length : 0;
     for (let step = 0; step < segmentPositionCount; step++) {
-      console.log("initial resultsDetails", this.props.resultsDetails);
       this.props.setSegmentPositionMapValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
     }
   }

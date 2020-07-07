@@ -17,9 +17,11 @@ import { setErrorDetails, setTripType, updateActives, updateFareFamily } from '.
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
+import { PricingDetails } from './trip/results/PricingInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
+import PricingModal from './common/modals/PricingModal';
 import SearchErrorModal from './common/modals/SearchErrorModal';
 import Theme from './Theme';
 import history from './History';
@@ -28,6 +30,7 @@ interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
+  pricingDetails: PricingDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -66,6 +69,9 @@ class App extends React.Component<IAppProps> {
           <SearchErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
+          />
+          <PricingModal
+            loading={this.props.pricingDetails.loading}
           />
           <IdleTimerContainer
             logout={this.props.logout}

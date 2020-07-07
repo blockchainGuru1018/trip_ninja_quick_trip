@@ -12,7 +12,8 @@ function mapStateToProps(state: State) {
     authDetails: state.authDetails,
     searchDetails: state.searchDetails,
     resultsDetails: state.resultsDetails,
-  }
+    pricingDetails: state.pricingDetails,
+  };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
@@ -22,4 +23,4 @@ function mapDispatchToProps(dispatch: Dispatch) {
 
 const Main = connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default Main
+export default Main;

@@ -1,6 +1,6 @@
 
 
-export interface PricingPayload {
+export interface PricingDetails {
     trip_id: string;
     trip_type: string;
     traveller_list: Array<string>;
@@ -9,7 +9,18 @@ export interface PricingPayload {
     markup?: number;
     source: string;
     itineraries?: Array<object>;
+    loading: boolean;
   }
+
+export const defaultPricingDetails: PricingDetails = {
+  loading: false,
+  trip_id: '',
+  trip_type: 'fare_structure',
+  traveller_list: [],
+  currency: '',
+  price: 0,
+  source: ''
+};
 
 export interface Itineraries {
     itinerary_reference: number;

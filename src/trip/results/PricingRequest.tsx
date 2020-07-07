@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
+import { PricingDetails, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 
@@ -20,7 +20,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    const pricingPayload: PricingPayload = {
+    const pricingPayload: PricingDetails = {
       trip_id: trip.trip_id,
       trip_type: this.props.resultsDetails.tripType == "fareStructureResults" ? "fare_structure" : "flex_trip" ,
       traveller_list: trip.segments[0][0].priced_passengers, //TODO: Fix this to pick up from search request. Wait until move to itinerary-level anyways.
@@ -29,6 +29,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       markup: 0,
       source: 'amadeus',
       itineraries: this.createItinerariesPayload(trip),
+      loading: false
     };
     let pricingResult: any = this.props.priceFlights(pricingPayload);
     pricingResult.then((result: any) => this.handlePricingResult(result));

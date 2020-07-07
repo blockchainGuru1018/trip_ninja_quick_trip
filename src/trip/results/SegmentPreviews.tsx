@@ -16,6 +16,7 @@ interface SegmentPreviewsProps {
   resultsDetails?: ResultsDetails;
   updateFareFamily?: typeof updateFareFamily;
   pathSequence?: Array<string>;
+  sortOrder?: string;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -43,6 +44,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
 
   setSegmentsHTML = () => {
     const totalPrice: number = this.props.resultsDetails ? this.getTotalPrice() : 0;
+    const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
     return this.props.segments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       return(
@@ -64,6 +66,22 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       );
     });
   }
+
+  sortBySortOrder = () => {
+    return this.props.segments.sort((a: Segment, b: Segment) => {
+      switch (this.props.sortOrder) {
+        case 'best':
+          return a.weight - b.weight;
+        case 'cheapest':
+          return a.price - b.price;
+        case 'fastest':
+          return a.segment_time_w_connections - b.segment_time_w_connections;
+        default:
+          return -1;
+      }
+    });
+  }
+
 }
 
 export default SegmentPreviews;

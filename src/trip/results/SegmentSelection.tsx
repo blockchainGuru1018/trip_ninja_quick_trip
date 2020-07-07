@@ -38,6 +38,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
+    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     return (
       <div id="segment-selection">
@@ -113,6 +114,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
+                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
                       />
                     </div>
                 }

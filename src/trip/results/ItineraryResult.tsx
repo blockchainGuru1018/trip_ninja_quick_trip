@@ -20,7 +20,7 @@ interface ItineraryResultsProps {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   componentDidMount() {
-    this.setActiveSegments();
+
     this.createSortingDefaults();
     const segmentPositionCount = this.props.resultsDetails.fareStructureResults?.segments.length;
   }

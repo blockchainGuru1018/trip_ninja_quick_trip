@@ -24,8 +24,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
 
     const pricingPayload: PricingDetails = {
       trip_id: trip.trip_id,
-      trip_type: this.props.resultsDetails.tripType == "fareStructureResults" ? "fare_structure" : "flex_trip" ,
-      traveller_list: trip.segments[0][0].priced_passengers, //TODO: Fix this to pick up from search request. Wait until move to itinerary-level anyways.
+      trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip" ,
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
@@ -49,9 +48,10 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     this.props.selectedTrip.forEach((itineraryElement: Segment) => {
       const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);
 
-      if (itineraryElement.segment_position == itineraryStructure[0]){
+      if (itineraryElement.segment_position === itineraryStructure[0]) {
         itinerariesPayload.push({
           itinerary_reference: itinerariesCounter,
+          traveller_list: itineraryElement.priced_passengers,
           plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.
           credentials: this.createCredentialsPayload(itineraryElement),
           itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
@@ -80,7 +80,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   createFlightsPayload = (trip: Results, segment_index: any) => {
     let flightsPayload : Array<Flight> = [];
     this.props.selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
-      const flightDetail = trip.flight_details.find(flight => flight.reference == flightResult.flight_detail_ref);
+      const flightDetail = trip.flight_details.find(flight => flight.reference === flightResult.flight_detail_ref);
       if (flightDetail) {
         flightsPayload.push({
           key: flightResult.flight_detail_ref,

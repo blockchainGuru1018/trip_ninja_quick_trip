@@ -3,7 +3,6 @@ import { Errors } from '../../common/CommonInterfaces';
 export interface PricingDetails {
     trip_id: string;
     trip_type: string;
-    traveller_list: Array<string>;
     currency: string;
     price: number;
     markup?: number;
@@ -17,7 +16,6 @@ export const defaultPricingDetails: PricingDetails = {
   loading: false,
   trip_id: '',
   trip_type: 'fare_structure',
-  traveller_list: [],
   currency: '',
   price: 0,
   source: '',
@@ -28,6 +26,7 @@ export const defaultPricingDetails: PricingDetails = {
 
 export interface Itineraries {
     itinerary_reference: number;
+    traveller_list: Array<string>;
     plating_carrier?: string;
     credentials: Credentials;
     itinerary_type: string;

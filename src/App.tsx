@@ -119,6 +119,7 @@ class App extends React.Component<IAppProps> {
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
                       priceFlights={this.props.priceFlights}
+                      passengers={this.props.searchDetails.passengers}
                     />
                   } />
                   : history.push('/search/')

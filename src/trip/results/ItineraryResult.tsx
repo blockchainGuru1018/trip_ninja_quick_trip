@@ -5,14 +5,16 @@ import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { createPassengersString } from '../../helpers/PassengersListHelper';
+import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
+import { Passenger } from '../search/SearchInterfaces';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   priceFlights: typeof priceFlights
+  passengers: Array<Passenger>
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -46,7 +48,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
             <span className="divider">|</span>
-            {createPassengersString(trip.segments[0])}
+            {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">

@@ -1,4 +1,4 @@
-import { PricingPayload } from '../trip/results/PricingInterfaces';
+import { PricingDetails } from '../trip/results/PricingInterfaces';
 //import { setPricingResults } from './BookActions';
 import API from '../Api';
 
@@ -17,7 +17,7 @@ export function setPricingErrorDetails(value: boolean) {
   };
 }
 
-export const priceFlights = (pricingPayload: PricingPayload) => (dispatch: any) => {
+export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) => {
   dispatch(pricingLoading(true));
   const url: string = '/confirmflight/';
 

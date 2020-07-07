@@ -9,7 +9,7 @@ export interface PricingDetails {
   source: string;
   itineraries?: Array<object>;
   loading: boolean;
-  }
+}
 
 export const defaultPricingDetails: PricingDetails = {
   loading: false,
@@ -30,12 +30,12 @@ export interface Itineraries {
 }
 
 
-export interface FlightSegment{
+export interface FlightSegment {
   segment_id: string;
   flights: Array<Flight>
 }
 
-export interface Flight{
+export interface Flight {
   key: string;
   origin: string;
   destination: string;
@@ -49,7 +49,7 @@ export interface Flight{
   brand_identifier?: string;
 }
 
-export interface Credentials{
+export interface Credentials {
   data_source: string;
   pcc?: string;
   provider?: string;

@@ -35,3 +35,24 @@ export interface PaymentInfo {
   card_cvv: string;
   card_expiration_date: string;
 }
+
+export interface PricingResults {
+  trip_id: string;
+  pricing: Pricing;
+  itinerary: Array<Itinerary>;
+}
+
+export interface Pricing {
+  confirmed_total_price: number;
+  original_total_price: number;
+  base_fare: number;
+  taxes: number;
+  fees: number;
+  markup: number;
+  currency: string;
+}
+
+export interface Itinerary {
+
+}
+

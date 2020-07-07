@@ -15,7 +15,7 @@ const BackButton = styled(Button)({
 });
 
 interface BookProps {
-
+  pricingDetails: PricingDetails;
 }
 
 class Book extends React.Component<BookProps> {
@@ -46,7 +46,8 @@ class Book extends React.Component<BookProps> {
             </div>
             <div className="col-sm-5">
               <FareBreakdown />
-              <PassengerDetails />
+              <PassengerDetails 
+              />
             </div>
           </div>
         </div>

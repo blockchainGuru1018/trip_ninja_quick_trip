@@ -74,7 +74,7 @@ export interface Pricing {
 
 export interface Itinerary {
   itinerary_reference: number;
-  plating_carrier: string;
+  plating_carrier?: string;
   credentials: Credentials;
   itinerary_type: string;
   segments: Array<SegmentPricingInfo>

@@ -23,11 +23,15 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
 
   return API.post(url, pricingPayload)
     .then((response: any) => {
-      dispatch(pricingLoading(false));
-      console.log("response:", response);
-      //dispatch(setPricingResults(response.data));
-      //dispatch(setPricingErrorDetails(false));
-      return {'success': true};
+      if (response.data.status) {
+        throw 'error';
+      } else {
+        dispatch(pricingLoading(false));
+        dispatch(setPricingErrorDetails(false));
+        console.log("response:", response);
+        //dispatch(setPricingResults(response.data));
+        return {'success': true};
+      }
     })
     .catch((error: any) => {
       dispatch(pricingLoading(false));
@@ -35,4 +39,4 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
       return {'success': false};
     });
 };
-  
+

@@ -1,3 +1,4 @@
+import { Errors } from '../../common/CommonInterfaces';
 
 export interface ResultsDetails {
   fareStructureResults?: Results;
@@ -17,11 +18,6 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
       throw `Active segment is not set for position ${key}`;
     }
   }
-}
-
-export interface Errors {
-  errorFound: boolean;
-  errorDescription?: string;
 }
 
 export const defaultResultsDetails: ResultsDetails = {
@@ -131,7 +127,7 @@ export interface BrandInfo {
   base_price: number;
   taxes: number;
   price: number;
-  baggage_info: BaggageInfo 
+  baggage_info: BaggageInfo
   fare_info: Array<FareInfo>
 }
 

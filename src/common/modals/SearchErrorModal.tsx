@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useEffect } from 'react';
-import { Errors } from '../../trip/results/ResultsInterfaces';
+import { Errors } from '../CommonInterfaces';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
 import { setErrorDetails } from '../../actions/ResultsActions';

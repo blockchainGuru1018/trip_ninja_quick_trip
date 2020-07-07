@@ -4,6 +4,7 @@ import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfac
 import { PricingDetails, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
@@ -11,11 +12,12 @@ interface PricingRequestProps{
   totalPrice: number,
   selectedTrip: Array<Segment>,
   priceFlights: typeof priceFlights,
+  authDetails: AuthDetails
 }
 
 
 class PricingRequest extends React.Component<PricingRequestProps>{
- 
+
   submitPricingRequest = () => {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
@@ -39,11 +41,11 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     result.success
       ? history.push('/book/')
       : history.push('/itinerary/result/');
-    
+
   createItinerariesPayload = (trip: Results) => {
     let itinerariesPayload : Array<Itineraries> = [];
     let itinerariesCounter = 1;
-  
+
     this.props.selectedTrip.forEach((itineraryElement: Segment) => {
       const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);
 
@@ -51,8 +53,8 @@ class PricingRequest extends React.Component<PricingRequestProps>{
         itinerariesPayload.push({
           itinerary_reference: itinerariesCounter,
           plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.
-          credentials: this.createCredentialsPayload(itineraryElement), 
-          itinerary_type: itineraryElement.itinerary_type,
+          credentials: this.createCredentialsPayload(itineraryElement),
+          itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
           segments: this.createSegmentsPayload(trip, itineraryStructure),
         });
         itinerariesCounter += 1;
@@ -75,7 +77,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     return segmentsPayload;
   }
 
-  createFlightsPayload = (trip: Results, segment_index: any) => {    
+  createFlightsPayload = (trip: Results, segment_index: any) => {
     let flightsPayload : Array<Flight> = [];
     this.props.selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
       const flightDetail = trip.flight_details.find(flight => flight.reference == flightResult.flight_detail_ref);
@@ -88,7 +90,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           cabin_class: flightResult.cabin_class,
           carrier: flightDetail.carrier,
           flight_time: flightDetail.flight_time,
-          flight_number: flightDetail.flight_number,  
+          flight_number: flightDetail.flight_number,
           departure_time: flightDetail.departure_time,
           arrival_time: flightDetail.arrival_time,
           brand_identifier: "",
@@ -100,8 +102,11 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createCredentialsPayload = (itineraryElement: any) => {
+    const authDetails: AuthDetails = this.props.authDetails
     const credentialsPayload: Credentials = {
-      data_source: itineraryElement.source
+      data_source: itineraryElement.source,
+      provider: authDetails.provider,
+      pcc: authDetails.pcc
     };
 
     return credentialsPayload;

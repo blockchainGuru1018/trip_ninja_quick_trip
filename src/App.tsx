@@ -22,6 +22,7 @@ import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
 import PricingModal from './common/modals/PricingModal';
+import PricingErrorModal from './common/modals/PricingErrorModal';
 import SearchErrorModal from './common/modals/SearchErrorModal';
 import Theme from './Theme';
 import history from './History';
@@ -69,6 +70,9 @@ class App extends React.Component<IAppProps> {
           <SearchErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
+          />
+          <PricingErrorModal
+            errors={this.props.pricingDetails.errors!}
           />
           <PricingModal
             loading={this.props.pricingDetails.loading}
@@ -127,6 +131,7 @@ class App extends React.Component<IAppProps> {
                       currency={this.props.searchDetails.currency}
                       priceFlights={this.props.priceFlights}
                       passengers={this.props.searchDetails.passengers}
+                      authDetails={this.props.authDetails}
                     />
                   } />
                   : history.push('/search/')

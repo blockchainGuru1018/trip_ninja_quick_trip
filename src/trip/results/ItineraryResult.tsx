@@ -9,12 +9,14 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   priceFlights: typeof priceFlights
   passengers: Array<Passenger>
+  authDetails: AuthDetails
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -24,7 +26,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
-    
+
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     const selectedSegments =
@@ -58,6 +60,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
+                authDetails={this.props.authDetails}
               />
             </div>
           </div>

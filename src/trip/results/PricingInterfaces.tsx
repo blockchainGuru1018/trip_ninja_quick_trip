@@ -1,4 +1,4 @@
-
+import { Errors } from '../../common/CommonInterfaces';
 
 export interface PricingDetails {
     trip_id: string;
@@ -10,6 +10,7 @@ export interface PricingDetails {
     source: string;
     itineraries?: Array<object>;
     loading: boolean;
+    errors?: Errors
   }
 
 export const defaultPricingDetails: PricingDetails = {
@@ -19,7 +20,10 @@ export const defaultPricingDetails: PricingDetails = {
   traveller_list: [],
   currency: '',
   price: 0,
-  source: ''
+  source: '',
+  errors: {
+    errorFound: false
+  },
 };
 
 export interface Itineraries {

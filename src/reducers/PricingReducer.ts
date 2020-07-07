@@ -6,6 +6,9 @@ function pricingReducer(state: PricingDetails = {} as any, action: any) {
     case 'PRICING_LOADING':
       return {...state, loading: action.value};
 
+    case 'SET_PRICING_ERROR_DETAILS':
+      return {...state, errors: {errorFound: action.value}};
+
     default:
       return state;
   }

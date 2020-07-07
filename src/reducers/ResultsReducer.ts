@@ -1,4 +1,5 @@
-import {ResultsDetails, Segment, SegmentPositionMap} from '../trip/results/ResultsInterfaces';
+import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
+import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo , SegmentPositionMap} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -8,6 +9,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
         tripType: 'fareStructureResults',
+        activeSegments: new ActiveSegmentsMap()
       };
 
     case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
@@ -16,23 +18,65 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'SET_ERROR_DETAILS':
       return {...state, errors: {errorFound: action.value}};
-    
+
     case 'SET_TRIP_TYPE':
       return {...state, tripType: action.value};
 
     case 'SET_ACTIVE_SEGMENT':
-      return setSegmentStatus(state, action);
+      return setSegmentsAsActive(state);
+
+    case 'UPDATE_ACTIVES':
+      return updateActiveSegments(state, action);
+
+    case 'UPDATE_FARE_FAMILY':
+      return updateSegmentFareFamily(state, action);
 
     default:
       return state;
   }
 }
 
-function setSegmentStatus(state: any, action: any) {
-  const segments = state[state.tripType].segments[action.itineraryIndex];
-  segments.map((segment: Segment) => {return segment.status = 'inactive';});
-  segments[action.segmentIndex].status = 'active';
+function setSegmentsAsActive(state: ResultsDetails) {
+  const trip: Results = state[state.tripType];
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
+    let segment = segmentOptions[0];
+    segment.status = 'active';
+    state.activeSegments.set(segmentOptionsIndex, segment);
+    setAlternatesStatus(state, segment, segmentOptions);
+  });
+  return state;
+}
+
+function updateSegmentFareFamily(state: ResultsDetails, action: any) {
+  const selectedSegment: Segment = action.segment;
+  const brand: BrandInfo = action.brand;
+  setSegmentFareFamily(selectedSegment, brand, action.index);
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+    const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
+    relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
+      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
+        segment.itinerary_id === selectedSegment.itinerary_id
+      );
+      linkedSegment && setSegmentFareFamily(linkedSegment, brand, action.index);
+    });
+  }
+
   return {...state};
+}
+
+function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: number) {
+  segment.selected_brand_index = brandIndex;
+  segment.base_price = brand.base_price;
+  segment.taxes = brand.taxes;
+  segment.price = brand.price;
+  segment.baggage.number_of_pieces = brand.baggage_info.pieces;
+  segment.flights.forEach((flight: any, index) => {
+    flight.booking_code = brand.fare_info[index].booking_code;
+    flight.brand_identifier = brand.fare_info[index].brand.name;
+    flight.cabin_class = brand.fare_info[index].cabin_class;
+    flight.fare_basis_code = brand.fare_info[index].fare_basis;
+  });
 }
 
 export default resultsReducer;

@@ -1,3 +1,3 @@
-export const baggageLabel = (baggageCount: number) => {
-  return baggageCount + (baggageCount > 1 ? 'pcs' : 'pc');
+export const baggageLabel = (baggageCount: number | string) => {
+  return baggageCount + (typeof baggageCount === 'string' ? '' : baggageCount > 1 ? 'pcs' : 'pc');
 };

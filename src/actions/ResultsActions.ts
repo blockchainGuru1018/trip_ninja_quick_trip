@@ -1,7 +1,8 @@
 
-import { ResultsDetails } from '../trip/results/ResultsInterfaces';
+import { ResultsDetails, Segment, BrandInfo } from '../trip/results/ResultsInterfaces';
+import { Dispatch } from 'redux';
 
-export const setSearchResults = (results: ResultsDetails) => (dispatch: any) => {
+export const setSearchResults = (results: ResultsDetails) => (dispatch: Dispatch<any>) => {
   dispatch(setResults(results));
 };
 
@@ -10,7 +11,7 @@ export function setResults(results: ResultsDetails) {
   return {
     type: 'SET_RESULTS',
     results
-  }
+  };
 }
 
 export function setErrorDetails(value: boolean) {
@@ -27,11 +28,26 @@ export function setTripType(value: string) {
   };
 }
 
-export function setActiveSegment(itineraryIndex: number, segmentIndex: number){
+export function setActiveSegments(){
   return {
-    type: 'SET_ACTIVE_SEGMENT',
-    itineraryIndex,
-    segmentIndex
+    type: 'SET_ACTIVE_SEGMENT'
+  };
+}
+
+export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string) {
+  return {
+    type: 'UPDATE_ACTIVES',
+    segmentOptionIndex,
+    segmentItineraryRef
+  };
+}
+
+export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
+  return {
+    type: 'UPDATE_FARE_FAMILY',
+    segment,
+    brand,
+    index
   };
 }
 

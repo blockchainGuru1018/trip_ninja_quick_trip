@@ -1,7 +1,7 @@
 import React from 'react';
 import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import FlightIcon from '@material-ui/icons/Flight';
 import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
@@ -10,6 +10,7 @@ import SortOption from "./SortOption";
 import CurrencySelect from "../search/CurrencySelect";
 import {setSegmentPositionMapValue} from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 
 interface MatchParams {
   index: string;
@@ -22,6 +23,8 @@ interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string
   setSegmentValue: typeof setSegmentPositionMapValue
+  updateActives: typeof updateActives;
+  updateFareFamily: typeof updateFareFamily;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -30,12 +33,12 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments = trip.segments[segmentIndex];
-    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
-    let selectedSegment: Array<Segment> = [];
-    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
-    selectedSegment[0] = selectedTrip[segmentIndex];
-    //let alternateSegments = this.getInactiveSegments(currentSegments);
+    const currentSegments: Array<Segment> = trip.segments[segmentIndex];
+    const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
+    const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
+    const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
+
     return (
       <div id="segment-selection">
         <div className="results-header">
@@ -57,30 +60,62 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)}/>
+            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)} />
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
               <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
-                <SegmentPreview
+                <SegmentPreviews
+                  segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
                   flightDetails={trip.flight_details}
                   currency={this.props.currency}
                   segmentSelect={true}
+                  updateActives={this.props.updateActives}
+                  updateFareFamily={this.props.updateFareFamily}
                 />
                 <hr className="segment-divider"/>
-                <h5>Other Departure Times</h5>
-                <SegmentPreview
-                  segments={currentSegments}
-                  flightDetails={trip.flight_details}
-                  currency={this.props.currency}
-                  segmentSelect={true}
-                  sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
-                />
-                <hr className="segment-divider"/>
-                <h5>Other Options</h5>
-                <p>Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.</p>
+                {
+                  compatibleSegments.length > 0
+                    ? <div>
+                      <h5>Other Departure Times</h5>
+                      <SegmentPreviews
+                        segmentOptionsIndex={parseInt(segmentIndex)}
+                        segments={compatibleSegments}
+                        flightDetails={trip.flight_details}
+                        currency={this.props.currency}
+                        segmentSelect={true}
+                        updateActives={this.props.updateActives}
+                        updateFareFamily={this.props.updateFareFamily}
+                        activeSegment={selectedSegment[0]}
+                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+                      />
+                      <hr className="segment-divider"/>
+                    </div>
+                    : ''
+                }
+                {
+                  incompatibleSegments.length > 0 &&
+                    <div>
+                      <h5>Other Options</h5>
+                      <p>
+                        Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
+                      </p>
+                      <SegmentPreviews
+                        segmentOptionsIndex={parseInt(segmentIndex)}
+                        segments={incompatibleSegments}
+                        flightDetails={trip.flight_details}
+                        currency={this.props.currency}
+                        segmentSelect={true}
+                        updateActives={this.props.updateActives}
+                        updateFareFamily={this.props.updateFareFamily}
+                        resultsDetails={this.props.resultsDetails}
+                        pathSequence={trip.path_sequence}
+                        activeSegment={selectedSegment[0]}
+                      />
+                    </div>
+                }
               </div>
             </div>
           </div>
@@ -88,8 +123,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
       </div>
     );
   }
+
   getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0];});
+    return trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
   }
 
 }

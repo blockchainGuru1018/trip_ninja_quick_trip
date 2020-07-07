@@ -4,8 +4,21 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
+  activeSegments: ActiveSegmentsMap
   segmentPositionMap: SegmentPositionMap;
   defaultSortBy: string;
+}
+
+export class ActiveSegmentsMap extends Map<number, Segment>{
+
+  get(key: number): Segment {
+    const value: Segment | undefined = super.get(key);
+    if (value) {
+      return value;
+    } else {
+      throw `Active segment is not set for position ${key}`;
+    }
+  }
 }
 export class SegmentPositionMap extends Map<number, SegmentValueMap> {
 
@@ -36,13 +49,13 @@ export class SegmentPositionMap extends Map<number, SegmentValueMap> {
 
 export class SegmentValueMap extends Map<string, any> {
 }
-
 export interface Errors {
   errorFound: boolean;
   errorDescription?: string;
 }
 
 export const defaultResultsDetails: ResultsDetails = {
+  activeSegments: new Map(),
   errors: {
     errorFound: false
   },
@@ -68,6 +81,7 @@ export interface Segment {
   destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
+  itinerary_structure: string;
   segment_position: number;
   option_id?: string;
   option_part?: string;
@@ -89,13 +103,18 @@ export interface Segment {
   priced_passengers: Array<string>;
   segment_time_w_connections: number;
   flights: Array<FlightResult>;
-  brands?: Array<Brands>;
+  brands?: Array<BrandInfo>;
+  selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
 }
 
 export interface FareInfo {
-  [reference: string]: FlightResult;
+  booking_code: string;
+  cabin_class: string;
+  fare_basis: string;
+  name: string;
+  brand: Brand;
 }
 
 export interface Baggage {
@@ -117,33 +136,44 @@ export interface Penalty {
 }
 
 export interface FlightResult {
-  flight_detail_ref: number;
+  flight_detail_ref: string;
   booking_code: string;
   fare_type: string;
   fare_basis_code: string;
   cabin_class: string;
   brand?: Brand;
+  brand_identifier: string;
 }
 
 export interface Brands {
-  [reference: string]: Array<Segment>
+  [reference: string]: Array<BrandInfo>
 }
 
 export interface Brand {
   brand_description: string;
-  brand_services: Array<BrandServices>;
+  brand_services: BrandServices;
   carrier: string;
   name: string;
   tag_info: string;
+  tag_line: string;
   service: Array<BrandService>;
+}
+
+export interface BrandInfo {
+  base_price: number;
+  taxes: number;
+  price: number;
+  baggage_info: BaggageInfo
+  fare_info: Array<FareInfo>
 }
 
 export interface BrandServices {
   checked_baggage: boolean;
   meals_and_beverages: boolean;
-  rebooking: boolean;
-  refund: boolean;
+  rebooking: string;
+  refund: string;
   seat_assignment: string;
+  carry_on_hand_baggage: string;
 }
 
 export interface BrandService {
@@ -155,7 +185,7 @@ export interface BrandService {
 }
 
 export interface FlightResultsDetails {
-  reference: number;
+  reference: string;
   origin: string;
   origin_name: string;
   destination: string;
@@ -171,4 +201,9 @@ export interface Location {
   origin: string;
   destination: string;
   nNights: number;
+}
+
+export interface BaggageInfo {
+  pieces: number;
+  units: string;
 }

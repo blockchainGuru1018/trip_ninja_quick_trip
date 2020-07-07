@@ -3,17 +3,17 @@ import './ItineraryResult.css';
 import SegmentNav from './SegmentNav';
 import PricingRequest from './PricingRequest';
 import ResultsHeader from './ResultsHeader';
-import SegmentPreview from './SegmentPreview';
+import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { createPassengersString } from '../../helpers/PassengersListHelper';
-import {ResultsDetails, Results, Segment, SegmentPositionMap} from './ResultsInterfaces';
-import {setActiveSegment, setSegmentPositionMapValue} from '../../actions/ResultsActions';
-
+import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
+import { ResultsDetails, Results, Segment , SegmentPositionMap} from './ResultsInterfaces';
+import { Passenger } from '../search/SearchInterfaces';
+import {setSegmentPositionMapValue} from '../../actions/ResultsActions';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
-  setActiveSegment: typeof setActiveSegment
+  passengers: Array<Passenger>
   setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
 }
 
@@ -35,7 +35,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const selectedSegments =
       <div className="row">
         <div className="col-xl">
-          <SegmentPreview
+          <SegmentPreviews
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}
@@ -53,7 +53,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
             <span className="divider">|</span>
-            {createPassengersString(trip.segments[0])}
+            {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">
@@ -73,13 +73,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
   }
 
-  setActiveSegments = () => {
-    this.props.resultsDetails[this.props.resultsDetails.tripType].segments.forEach((segment: Segment, index: number) => {this.props.setActiveSegment(index, 0);});
-  }
-
-  getActiveSegments = (trip: Results) => {
-    return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0];});
-  }
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
 
   createSortingDefaults = () => {
     this.props.resultsDetails.segmentPositionMap = new SegmentPositionMap();

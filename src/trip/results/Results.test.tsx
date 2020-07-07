@@ -4,6 +4,8 @@ import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
 import FlightStops from './FlightStops';
 import FlightTypes from './FlightTypes';
+import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
+import { Passenger } from '../search/SearchInterfaces';
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
@@ -93,4 +95,27 @@ test('getFlightTypes', () => {
   expect(
     flightTypesComponent.getFlightTypes(testResultsDetails.segments[1][0].flights)
   ).toBe("Y, Y Class");
+});
+
+test('createPassengerStringFromPayload', () => {
+  const passengerExample: Array<Passenger> = [
+    {
+      type: 'adult',
+      count: 1,
+      code: 'ADT',
+    },
+    {
+      type: 'child',
+      count: 1,
+      code: 'CHD',
+    },
+    {
+      type: 'infant',
+      count: 1,
+      code: 'INF',
+    }
+  ];
+  expect(
+    createPassengerStringFromPayload(passengerExample)
+  ).toBe('1 ADT, 1 CHD, 1 INF');
 });

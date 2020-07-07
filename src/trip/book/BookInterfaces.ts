@@ -1,5 +1,5 @@
 
-export interface BookingPayload {
+export interface BookingDetails {
   trip_id: string;
   add_to_ticketing_queue?: boolean;
   ticketing_queue?: string;
@@ -7,7 +7,7 @@ export interface BookingPayload {
   agency?: string;
   passengers: Array<Passenger>;
   billing: Billing;
-  }
+}
 
 export interface Passenger {
   title?: string;

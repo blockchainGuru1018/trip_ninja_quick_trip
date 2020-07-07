@@ -87,7 +87,7 @@ export interface Segment {
   alliance: string;
   private_fare: string;
   priced_passengers: Array<string>;
-  segment_time_with_connections: number;
+  segment_time_w_connections: number;
   flights: Array<FlightResult>;
   brands?: Array<Brands>;
   status?: string;

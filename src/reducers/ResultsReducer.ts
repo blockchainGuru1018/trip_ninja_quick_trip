@@ -3,16 +3,14 @@ import {ResultsDetails, Segment, SegmentPositionMap} from '../trip/results/Resul
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
     case 'SET_RESULTS':
-      return {
+      return {...state,
         fareStructureResults: action.results.fare_structure,
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
         tripType: 'fareStructureResults',
-        segmentPositionMap: new SegmentPositionMap(),
-        defaultSortBy: 'fastest', //TODO: make this a constant to prevent different defaultS! or merge the ResultsDetails default setting
       };
 
-    case 'SET_VALUE_FOR_SEGMENT':
+    case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
       state.segmentPositionMap.setValue(action.segmentPosition, action.valueType, action.value);
       console.log(`SET_VALUE_FOR_SEGMENT: segmentPosition ${action.segmentPosition}, sort order selected -> ${action.value}, segmentPositionMap -> `, state.segmentPositionMap);
       return {...state};

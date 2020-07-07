@@ -6,14 +6,15 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreview from './SegmentPreview';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
-import { setActiveSegment } from '../../actions/ResultsActions';
+import {ResultsDetails, Results, Segment, SegmentPositionMap} from './ResultsInterfaces';
+import {setActiveSegment, setSegmentPositionMapValue} from '../../actions/ResultsActions';
 
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   setActiveSegment: typeof setActiveSegment
+  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -80,12 +81,13 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     return trip.segments.map((segments: Array<Segment>) => {return segments.find((object: Segment) => { return object.status === 'active'; }) || segments[0]});
   }
 
-  private createSortingDefaults() {
+  createSortingDefaults = () => {
+    this.props.resultsDetails.segmentPositionMap = new SegmentPositionMap();
     const segments = this.props.resultsDetails.fareStructureResults?.segments;
     const segmentPositionCount: number = segments ? segments.length : 0;
     for (let step = 0; step < segmentPositionCount; step++) {
-      console.log("resultsDetails", this.props.resultsDetails);
-      this.props.resultsDetails.segmentPositionMap.setValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
+      console.log("initial resultsDetails", this.props.resultsDetails);
+      this.props.setSegmentPositionMapValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
     }
   }
 }

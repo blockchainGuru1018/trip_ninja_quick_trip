@@ -8,7 +8,7 @@ import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
 import CurrencySelect from "../search/CurrencySelect";
-import {setSegmentValue} from "../../actions/ResultsActions";
+import {setSegmentPositionMapValue} from "../../actions/ResultsActions";
 
 interface MatchParams {
   index: string;
@@ -20,7 +20,7 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string
-  setSegmentValue: typeof setSegmentValue
+  setSegmentValue: typeof setSegmentPositionMapValue
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -49,7 +49,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             <SortOption
               segmentPosition={parseInt(segmentIndex)}
               sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
-              setValue={this.props.setSegmentValue}
+              setSegmentPositionMapValue={this.props.setSegmentValue}
             />
           </div>
         </div>

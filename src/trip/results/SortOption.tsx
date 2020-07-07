@@ -6,14 +6,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { setSegmentValue } from '../../actions/ResultsActions';
+import { setSegmentPositionMapValue } from '../../actions/ResultsActions';
 import CabinList from "../../assets/data/cabins.json";
 import SortIcon from '@material-ui/icons/Sort';
 
 interface SortOptionProps {
   segmentPosition: number
   sortOrder: string
-  setValue:  typeof setSegmentValue
+  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
 }
 
 const sortOptionList = ["cheapest","best","fastest"]; //TODO: make this enum?
@@ -31,7 +31,7 @@ class SortOption extends React.Component<SortOptionProps> {
             labelId="sort-label"
             id="sort"
             value={this.props.sortOrder}
-            onChange={(e) => this.props.setValue(this.props.segmentPosition, 'sortOrder', e.target.value)}
+            onChange={(e) => this.props.setSegmentPositionMapValue(this.props.segmentPosition, 'sortOrder', e.target.value)}
           >
             {sortOptions}
           </Select>

@@ -48,7 +48,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     });
   setSegmentsHTML = () => {
     console.log(`SegmentPreview: segmentPosition ${this.props.segments[0].segment_position}, sort order selected -> ${this.props.sortOrder}`);
-    const sortedSegments = this.props.sortOrder ? this.props.segments.sort(this.sortFunction) : this.props.segments;
+    const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
     console.log("sorted segments: ", sortedSegments);
     return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
@@ -100,11 +100,11 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
 
   setFlightPreviewIcons = (index: number) => {
-    return(
+    return (
       <div className='col-md-2 segment-preview-icon-container'>
         {
           index === 0 || index === this.props.segments.length - 1
-            ? <FiberManualRecordIcon style={{ fontSize: 30, marginTop: '28px', zIndex: 2 }}/>
+            ? <FiberManualRecordIcon style={{fontSize: 30, marginTop: '28px', zIndex: 2}}/>
             : <RadioButtonUncheckedIcon
               style={
                 {marginTop: '28px', zIndex: 2, backgroundColor: 'white'}
@@ -122,20 +122,21 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     );
   }
 
-  sortFunction = (a: Segment, b: Segment) => {
-    console.log("sort order -> ", this.props.sortOrder);
-    switch (this.props.sortOrder) {
-      case 'best':
-        return a.weight - b.weight;
-      case 'cheapest':
-        return a.price = b.price;
-      case 'fastest':
-        return a.segment_time_with_connections - b.segment_time_with_connections;
-      default:
-        return a.weight - b.weight;
-    }
+  sortBySortOrder = () => {
+    return this.props.segments.sort((a: Segment, b: Segment) => {
+      console.log("sort order -> ", this.props.sortOrder);
+      switch (this.props.sortOrder) {
+        case 'best':
+          return a.weight - b.weight;
+        case 'cheapest':
+          return a.price - b.price;
+        case 'fastest':
+          return a.segment_time_w_connections - b.segment_time_w_connections;
+        default:
+          return -1;
+      }
+    });
   }
 }
-
 
 export default SegmentPreview;

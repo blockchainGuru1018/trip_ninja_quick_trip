@@ -35,9 +35,9 @@ export function setActiveSegment(itineraryIndex: number, segmentIndex: number){
   };
 }
 
-export function setSegmentValue(segmentPosition: number, valueType: string, value: any) {
+export function setSegmentPositionMapValue(segmentPosition: number, valueType: string, value: any) {
   return {
-    type: 'SET_VALUE_FOR_SEGMENT',
+    type: 'SET_VALUE_FOR_SEGMENT_POSITION_MAP',
     segmentPosition,
     valueType,
     value

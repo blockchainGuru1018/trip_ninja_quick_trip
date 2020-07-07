@@ -9,6 +9,6 @@ export const setPricingResults = (pricingResults: any) => (dispatch: any) => {
 //TODO: Set the proper type for pricingResults once that interface is built
 export function setResults() {
   return "";
-};
+}
 
 

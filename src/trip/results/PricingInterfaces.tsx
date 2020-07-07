@@ -3,7 +3,6 @@
 export interface PricingPayload {
     trip_id: string;
     trip_type: string;
-    traveller_list: Array<string>;
     currency: string;
     price: number;
     markup?: number;
@@ -13,6 +12,7 @@ export interface PricingPayload {
 
 export interface Itineraries {
     itinerary_reference: number;
+    traveller_list: Array<string>;
     plating_carrier?: string;
     credentials: Credentials;
     itinerary_type: string;

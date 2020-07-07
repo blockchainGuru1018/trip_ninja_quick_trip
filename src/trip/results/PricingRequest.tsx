@@ -49,7 +49,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           segments: this.createSegmentsPayload(trip, itineraryStructure),
         });
         itinerariesCounter += 1;
-      };
+      }
     });
 
     return itinerariesPayload;
@@ -86,7 +86,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           arrival_time: flightDetail.arrival_time,
           brand_identifier: "",
         });
-      };
+      }
 
     });
 

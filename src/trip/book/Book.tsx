@@ -15,7 +15,7 @@ const BackButton = styled(Button)({
 });
 
 interface BookProps {
-  pricingDetails: PricingDetails;
+
 }
 
 class Book extends React.Component<BookProps> {

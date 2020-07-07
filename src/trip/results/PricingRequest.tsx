@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingPayload, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
+import { PricingDetails, Itineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
-
+import history from '../../History';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
@@ -20,7 +20,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    const pricingPayload: PricingPayload = {
+    const pricingPayload: PricingDetails = {
       trip_id: trip.trip_id,
       trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip" ,
       currency: this.props.currency,
@@ -28,10 +28,17 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       markup: 0,
       source: 'amadeus',
       itineraries: this.createItinerariesPayload(trip),
+      loading: false
     };
     let pricingResult: any = this.props.priceFlights(pricingPayload);
+    pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
+  handlePricingResult = (result: any) =>
+    result.success
+      ? history.push('/book/')
+      : history.push('/itinerary/result/');
+    
   createItinerariesPayload = (trip: Results) => {
     let itinerariesPayload : Array<Itineraries> = [];
     let itinerariesCounter = 1;
@@ -87,7 +94,6 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           brand_identifier: "",
         });
       }
-
     });
 
     return flightsPayload;

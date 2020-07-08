@@ -7,12 +7,14 @@ import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { ResultsDetails, Results, Segment , SegmentPositionMap} from './ResultsInterfaces';
+import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {setSegmentPositionMapValue} from '../../actions/ResultsActions';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
+  priceFlights: typeof priceFlights
   passengers: Array<Passenger>
   setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
 }
@@ -55,7 +57,13 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </h4>
           <div className="row">
             <div className="col-md-4 offset-md-8">
-              <PricingRequest />
+              <PricingRequest
+                resultsDetails={this.props.resultsDetails}
+                currency={this.props.currency}
+                totalPrice={totalPrice}
+                selectedTrip= {selectedTrip}
+                priceFlights = {this.props.priceFlights}
+              />
             </div>
           </div>
         </div>

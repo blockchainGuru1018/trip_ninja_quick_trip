@@ -8,16 +8,20 @@ import Login from './auth/Login';
 import PreResults from './trip/results/PreResults';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
+import Book from './trip/book/Book';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
+import { priceFlights } from './actions/PricingActions';
 import { setErrorDetails, setTripType, updateActives, updateFareFamily } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
+import { PricingDetails } from './trip/results/PricingInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchModal from './common/modals/SearchModal';
+import PricingModal from './common/modals/PricingModal';
 import SearchErrorModal from './common/modals/SearchErrorModal';
 import Theme from './Theme';
 import history from './History';
@@ -28,6 +32,7 @@ interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
+  pricingDetails: PricingDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -37,6 +42,7 @@ interface IAppProps {
   removeFlight: typeof removeFlight;
   fetchUserParameters: typeof fetchUserParameters;
   searchFlights: typeof searchFlights;
+  priceFlights: typeof priceFlights;
   setErrorDetails: typeof setErrorDetails;
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
@@ -66,6 +72,9 @@ class App extends React.Component<IAppProps> {
           <SearchErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
+          />
+          <PricingModal
+            loading={this.props.pricingDetails.loading}
           />
           <IdleTimerContainer
             logout={this.props.logout}
@@ -119,6 +128,7 @@ class App extends React.Component<IAppProps> {
                     <ItineraryResult
                       resultsDetails={this.props.resultsDetails}
                       currency={this.props.searchDetails.currency}
+                      priceFlights={this.props.priceFlights}
                       passengers={this.props.searchDetails.passengers}
                       setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
                     />
@@ -133,6 +143,10 @@ class App extends React.Component<IAppProps> {
                     setSegmentValue={this.props.setSegmentPositionMapValue}
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
+                  />
+                } />
+                <Route exact path="/book/" render={() =>
+                  <Book
                   />
                 } />
               </div>

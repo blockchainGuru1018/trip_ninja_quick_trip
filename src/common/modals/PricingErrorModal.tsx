@@ -13,37 +13,31 @@ const useStyles = makeStyles(() =>
       top: '142px',
       left: '130px',
       width: '640px',
-      height: '336px'
+      height: '250px'
     }
   }),
 );
 
-interface SearchErrorModalProps {
+interface PricingErrorModalProps {
   setOpen: any;
 }
 
-export default function SearchErrorModal(props: SearchErrorModalProps) {
+export default function PricingErrorModal(props: PricingErrorModalProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>No Flights Found</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>Price confirm failed</h2>
       <div className='search-modal-text-container'>
         <p>
-          There were no flights found for your search. Please try a different search.
-        </p>
-        <p>
-          For more information on what might have gone wrong, head to our
-          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledege Base</a>
-          . You can always reach out to our support team at support@tripninja.io
-          for assistance.
+          These flights are no longer available, please try confirming a different flight option or re-running the search.
         </p>
         <Button
           onClick={() => props.setOpen(false)}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>
-          Return to Search
+          Return to Results
         </Button>
       </div>
     </div>

@@ -14,10 +14,12 @@ export function setResults(results: ResultsDetails) {
   };
 }
 
-export function setErrorDetails(value: boolean) {
+export function setErrorDetails(value: boolean, errorType: string) {
+  console.log(errorType)
   return {
     type: 'SET_ERROR_DETAILS',
-    value
+    value,
+    errorType
   };
 }
 

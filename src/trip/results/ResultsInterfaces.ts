@@ -49,21 +49,23 @@ export class SegmentPositionMap extends Map<number, SegmentValueMap> {
 
 export class SegmentValueMap extends Map<string, any> {
 }
-export interface Errors {
-  errorFound: boolean;
-  errorDescription?: string;
-}
 
 export const defaultResultsDetails: ResultsDetails = {
   activeSegments: new Map(),
   errors: {
-    errorFound: false
+    errorFound: false,
+    errorType: ''
   },
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
   defaultSortBy: 'best',
 };
 
+export interface Errors {
+  errorFound: boolean;
+  errorType: string;
+  errorDescription?: string;
+}
 
 export interface Results {
   trip_id: string;

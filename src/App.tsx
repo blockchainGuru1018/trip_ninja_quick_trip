@@ -25,6 +25,8 @@ import SearchModal from './common/modals/SearchModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
+import { setSegmentPositionMapValue } from './actions/ResultsActions';
+
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -45,6 +47,7 @@ interface IAppProps {
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
+  setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
 }
 
 const theme = Theme;
@@ -128,6 +131,7 @@ class App extends React.Component<IAppProps> {
                       priceFlights={this.props.priceFlights}
                       passengers={this.props.searchDetails.passengers}
                       authDetails={this.props.authDetails}
+                      setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
                     />
                   } />
                   : history.push('/search/')
@@ -137,6 +141,7 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
+                    setSegmentValue={this.props.setSegmentPositionMapValue}
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
                   />

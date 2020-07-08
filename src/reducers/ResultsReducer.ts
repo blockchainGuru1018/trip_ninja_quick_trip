@@ -1,16 +1,20 @@
 import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo } from '../trip/results/ResultsInterfaces';
+import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
     case 'SET_RESULTS':
-      return {
+      return {...state,
         fareStructureResults: action.results.fare_structure,
         flexTripResults: action.results.flex_trip,
         errors: {errorFound: false},
         tripType: 'fareStructureResults',
         activeSegments: new ActiveSegmentsMap()
       };
+
+    case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
+      state.segmentPositionMap.setValue(action.segmentPosition, action.valueType, action.value);
+      return {...state};
 
     case 'SET_ERROR_DETAILS':
       return {...state, errors: {

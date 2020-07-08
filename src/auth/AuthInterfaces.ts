@@ -8,6 +8,8 @@ export interface AuthDetails {
   dateType: string;
   studentAndYouth: boolean;
   invalidAuth: boolean;
+  pcc: string;
+  provider: string;
 }
 
 export const defaultAuth = {
@@ -17,5 +19,7 @@ export const defaultAuth = {
   authenticated: false,
   dateType: 'MMM dd yyyy',
   studentAndYouth: false,
-  invalidAuth: false
+  invalidAuth: false,
+  pcc: '',
+  provider: ''
 };

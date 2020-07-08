@@ -30,7 +30,9 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         userFirstName: action.parameters.first_name,
         userLastName: action.parameters.last_name,
         dateType: dateFormats[action.parameters.date_type] || 'dd/MM/yyyy',
-        studentAndYouth: action.parameters.student_and_youth
+        studentAndYouth: action.parameters.student_and_youth,
+        pcc: action.parameters.pcc,
+        provider: action.parameters.provider
       }
 
     case 'SET_AUTH_INVALID':

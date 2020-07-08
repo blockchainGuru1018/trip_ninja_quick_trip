@@ -1,6 +1,6 @@
 import React from 'react';
 import './Book.css';
-import Itinerary from './Itinerary';
+import BookItinerary from './BookItinerary';
 import FareBreakdown from './FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import BookRequest from './BookRequest';
@@ -41,7 +41,7 @@ class Book extends React.Component<BookProps> {
           </div>
           <div className="row itinerary-details">
             <div className="col-sm-7">
-              <Itinerary />
+              <BookItinerary />
             </div>
             <div className="col-sm-5">
               <FareBreakdown />

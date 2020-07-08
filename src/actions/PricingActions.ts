@@ -1,18 +1,12 @@
 import { PricingDetails } from '../trip/results/PricingInterfaces';
 //import { setPricingResults } from './BookActions';
 import API from '../Api';
+import { setErrorDetails } from './ResultsActions';
 
 
 export function pricingLoading(value: boolean) {
   return {
     type: 'PRICING_LOADING',
-    value
-  };
-}
-
-export function setPricingErrorDetails(value: boolean) {
-  return {
-    type: 'SET_PRICING_ERROR_DETAILS',
     value
   };
 }
@@ -27,7 +21,7 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
         throw 'error';
       } else {
         dispatch(pricingLoading(false));
-        dispatch(setPricingErrorDetails(false));
+        dispatch(setErrorDetails(false, 'pricing'));
         console.log("response:", response);
         //dispatch(setPricingResults(response.data));
         return {'success': true};
@@ -35,7 +29,7 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
     })
     .catch((error: any) => {
       dispatch(pricingLoading(false));
-      dispatch(setPricingErrorDetails(true));
+      dispatch(setErrorDetails(true, 'pricing'));
       return {'success': false};
     });
 };

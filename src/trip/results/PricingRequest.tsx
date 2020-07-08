@@ -36,10 +36,12 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
-  handlePricingResult = (result: any) =>
-    result.success
+  handlePricingResult = (result: any) => {
+    console.log(result);
+    return result.success
       ? history.push('/book/')
-      : history.push('/itinerary/result/');
+      : history.push('/results/itinerary/');
+  }
 
   createItinerariesPayload = (trip: Results) => {
     let itinerariesPayload : Array<Itineraries> = [];

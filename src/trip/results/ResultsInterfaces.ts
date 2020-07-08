@@ -1,4 +1,3 @@
-import { Errors } from '../../common/CommonInterfaces';
 
 export interface ResultsDetails {
   fareStructureResults?: Results;
@@ -23,11 +22,17 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
 export const defaultResultsDetails: ResultsDetails = {
   activeSegments: new Map(),
   errors: {
-    errorFound: false
+    errorFound: false,
+    errorType: ''
   },
   tripType: 'fareStructureResults'
 };
 
+export interface Errors {
+  errorFound: boolean;
+  errorType: string;
+  errorDescription?: string;
+}
 
 export interface Results {
   trip_id: string;

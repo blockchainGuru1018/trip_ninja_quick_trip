@@ -77,19 +77,19 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) =
     .then((response: any) => {
       if (response.data.detail) {
         dispatch(searchLoading(false));
-        dispatch(setErrorDetails(true));
+        dispatch(setErrorDetails(true, 'search'));
         return {'success': false};
       } else {
         dispatch(setSearchResults(response.data));
         dispatch(setActiveSegments());
-        dispatch(setErrorDetails(false));
+        dispatch(setErrorDetails(false, 'search'));
         dispatch(searchLoading(false));
         return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
       }
     })
     .catch((error: any) => {
       dispatch(searchLoading(false));
-      dispatch(setErrorDetails(true));
+      dispatch(setErrorDetails(true, 'search'));
       return {'success': false};
     });
 };

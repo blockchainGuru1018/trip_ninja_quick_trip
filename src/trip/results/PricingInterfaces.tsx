@@ -1,22 +1,21 @@
 
-
 export interface PricingDetails {
-  trip_id: string;
-  trip_type: string;
-  currency: string;
-  price: number;
-  markup?: number;
-  source: string;
-  itineraries?: Array<object>;
-  loading: boolean;
-}
+    trip_id: string;
+    trip_type: string;
+    currency: string;
+    markup?: number;
+    source: string;
+    itineraries?: Array<Itineraries>;
+    loading?: boolean;
+    pricing?: Pricing;
+    price?: number;
+  }
 
 export const defaultPricingDetails: PricingDetails = {
   loading: false,
   trip_id: '',
   trip_type: 'fare_structure',
   currency: '',
-  price: 0,
   source: ''
 };
 

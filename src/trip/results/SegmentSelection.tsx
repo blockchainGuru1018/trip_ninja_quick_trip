@@ -48,7 +48,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
             {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
-          <h4 style={{paddingBottom: '0'}}>
+          <h4 id="itinerary-total">
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
           </h4>

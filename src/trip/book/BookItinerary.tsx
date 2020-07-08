@@ -1,10 +1,11 @@
 import React from 'react';
+import SegmentPreviews from '../results/SegmentPreviews';
 
-interface ItineraryProps {
+interface BookItineraryProps {
 
 }
 
-class Itinerary extends React.Component<ItineraryProps> {
+class BookItinerary extends React.Component<BookItineraryProps> {
 
   render() {
 
@@ -20,4 +21,4 @@ class Itinerary extends React.Component<ItineraryProps> {
 
 }
 
-export default Itinerary;
+export default BookItinerary;

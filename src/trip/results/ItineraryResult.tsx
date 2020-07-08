@@ -20,7 +20,6 @@ interface ItineraryResultsProps {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   componentDidMount() {
-
     this.createSortingDefaults();
   }
 

@@ -148,3 +148,7 @@
 .itinerary-total {
   padding-bottom: 0px;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}

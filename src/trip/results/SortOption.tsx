@@ -15,7 +15,7 @@ const sortOptionList = ["cheapest","best","fastest"]; //TODO: make this enum?
 class SortOption extends React.Component<SortOptionProps> {
   render() {
     const sortOptions = sortOptionList.map((item, index) => (
-      <MenuItem key={index} value={item}>{item}</MenuItem>
+      <MenuItem className="capitalize" key={index} value={item}>{item}</MenuItem>
     ));
 
     return (
@@ -23,7 +23,7 @@ class SortOption extends React.Component<SortOptionProps> {
         <div className='sort-icon-container'><SortIcon color="primary" />
           <div className='text-bold'>Sort By:</div>
         </div>
-        <FormControl color="primary">
+        <FormControl className="capitalize" color="primary">
           <Select
             labelId="sort-label"
             id="sort"

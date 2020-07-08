@@ -58,7 +58,7 @@ export interface Credentials {
 export interface PricingResults {
   trip_id: string;
   pricing: Pricing;
-  itinerary: Array<Itinerary>;
+  itinerary: Array<PricingResponseItinerary>;
 }
 
 export interface Pricing {
@@ -71,7 +71,7 @@ export interface Pricing {
   currency: string;
 }
 
-export interface Itinerary {
+export interface PricingResponseItinerary {
   itinerary_reference: number;
   plating_carrier: string;
   credentials: Credentials;

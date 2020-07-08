@@ -4,12 +4,13 @@ import iataAirports from '../../assets/data/iataAirports.json';
 
 interface FlightLogoProps {
   flights: Array<FlightResultsDetails>
+  largerSize?: boolean
 }
 
 class FlightLogo extends React.Component<FlightLogoProps> {
   render() {
     return(
-      <div className="col-sm-2 airline-logo-container">
+      <div className={(this.props.largerSize ? 'col-sm-3' : 'col-sm-2') + ' airline-logo-container'}>
         <div>
           <img
             className='img-airline-logo '

@@ -120,6 +120,10 @@
   display: grid;
 }
 
+.itinerary-origin-dest {
+  padding-top: 15px;
+}
+
 .segment-preview-icon-container {
   display: grid;
   align-items: center;

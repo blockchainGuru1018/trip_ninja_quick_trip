@@ -10,7 +10,6 @@ import { styled } from '@material-ui/core/styles';
 import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails, Segment } from '../results/ResultsInterfaces';
-import { getActiveSegments } from '../../helpers/GetActiveSegmentsHelper';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -23,9 +22,6 @@ interface BookProps {
 
 class Book extends React.Component<BookProps> {
   render() {
-    const trip = this.props.resultsDetails.tripType === 'flexTripResults'
-      ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
-    let selectedTrip: Array<Segment> = getActiveSegments(trip);
 
     return (
       <div className="row" id="book-itinerary">

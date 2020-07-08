@@ -6,11 +6,10 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Segment } from './ResultsInterfaces';
+import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
-import { getActiveSegments } from '../../helpers/GetActiveSegmentsHelper';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
@@ -26,7 +25,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    let selectedTrip: Array<Segment> = getActiveSegments(trip);
+    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
 
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
@@ -77,6 +76,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       </div>
     );
   }
+
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
 }
 
 export default ItineraryResult;

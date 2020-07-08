@@ -5,7 +5,7 @@ export interface PricingDetails {
     currency: string;
     markup?: number;
     source: string;
-    itineraries?: Array<Itineraries>;
+    itineraries?: Array<PricingRequestItineraries>;
     loading?: boolean;
     pricing?: Pricing;
     price?: number;
@@ -19,7 +19,7 @@ export const defaultPricingDetails: PricingDetails = {
   source: ''
 };
 
-export interface Itineraries {
+export interface PricingRequestItineraries {
   itinerary_reference: number;
   traveller_list: Array<string>;
   plating_carrier?: string;
@@ -58,7 +58,7 @@ export interface Credentials {
 export interface PricingResults {
   trip_id: string;
   pricing: Pricing;
-  itinerary: Array<Itinerary>;
+  itinerary: Array<PricingResponseItineraries>;
 }
 
 export interface Pricing {
@@ -71,7 +71,7 @@ export interface Pricing {
   currency: string;
 }
 
-export interface Itinerary {
+export interface PricingResponseItineraries {
   itinerary_reference: number;
   plating_carrier: string;
   credentials: Credentials;

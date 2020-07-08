@@ -144,3 +144,7 @@
 .MuiTableCell-body.no-brand-info {
   color: #D8DCDE;
 }
+
+.itinerary-total {
+  padding-bottom: 0px;
+}

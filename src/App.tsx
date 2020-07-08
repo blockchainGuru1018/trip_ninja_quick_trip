@@ -144,6 +144,7 @@ class App extends React.Component<IAppProps> {
                 <Route exact path="/book/" render={() =>
                   <Book
                     pricingDetails={this.props.pricingDetails}
+                    resultsDetails={this.props.resultsDetails}
                   />
                 } />
               </div>

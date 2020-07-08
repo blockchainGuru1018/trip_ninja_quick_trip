@@ -20,8 +20,8 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
-  currency: string
-  setSegmentValue: typeof setSegmentPositionMapValue
+  currency: string;
+  setSegmentValue: typeof setSegmentPositionMapValue;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
 }

@@ -9,7 +9,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { styled } from '@material-ui/core/styles';
 import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
-import { ResultsDetails, Segment } from '../results/ResultsInterfaces';
+import { ResultsDetails } from '../results/ResultsInterfaces';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',

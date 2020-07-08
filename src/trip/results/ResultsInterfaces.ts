@@ -19,19 +19,20 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
   }
 }
 
-export interface Errors {
-  errorFound: boolean;
-  errorDescription?: string;
-}
-
 export const defaultResultsDetails: ResultsDetails = {
   activeSegments: new Map(),
   errors: {
-    errorFound: false
+    errorFound: false,
+    errorType: ''
   },
   tripType: 'fareStructureResults'
 };
 
+export interface Errors {
+  errorFound: boolean;
+  errorType: string;
+  errorDescription?: string;
+}
 
 export interface Results {
   trip_id: string;
@@ -131,7 +132,7 @@ export interface BrandInfo {
   base_price: number;
   taxes: number;
   price: number;
-  baggage_info: BaggageInfo 
+  baggage_info: BaggageInfo
   fare_info: Array<FareInfo>
 }
 

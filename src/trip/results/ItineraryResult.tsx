@@ -6,15 +6,18 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
+import { ResultsDetails, Segment } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
+import { AuthDetails } from '../../auth/AuthInterfaces';
+import { getActiveSegments } from '../../helpers/GetActiveSegmentsHelper';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   priceFlights: typeof priceFlights
   passengers: Array<Passenger>
+  authDetails: AuthDetails
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -23,8 +26,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
-    
+    let selectedTrip: Array<Segment> = getActiveSegments(trip);
+
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
     const selectedSegments =
@@ -58,6 +61,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
+                authDetails={this.props.authDetails}
               />
             </div>
           </div>
@@ -73,11 +77,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       </div>
     );
   }
-
-  getActiveSegments = (trip: Results) =>
-    trip.segments.map((segments: Array<Segment>) =>
-      segments.find((object: Segment) => object.status === 'active') || segments[0]
-    );
 }
 
 export default ItineraryResult;

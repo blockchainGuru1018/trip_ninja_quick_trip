@@ -20,9 +20,9 @@ import { ResultsDetails } from './trip/results/ResultsInterfaces';
 import { PricingDetails } from './trip/results/PricingInterfaces';
 import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
-import SearchModal from './common/modals/SearchModal';
 import PricingModal from './common/modals/PricingModal';
-import SearchErrorModal from './common/modals/SearchErrorModal';
+import SearchModal from './common/modals/SearchModal';
+import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
 
@@ -62,16 +62,16 @@ class App extends React.Component<IAppProps> {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <SearchModal
-            loading={this.props.searchDetails.loading}
-            flights={this.props.searchDetails.flights}
-          />
-          <SearchErrorModal
+          <DefaultErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
           />
           <PricingModal
-            loading={this.props.pricingDetails.loading}
+            loading={this.props.pricingDetails.loading!}
+          />
+          <SearchModal
+            loading={this.props.searchDetails.loading}
+            flights={this.props.searchDetails.flights}
           />
           <IdleTimerContainer
             logout={this.props.logout}
@@ -127,6 +127,7 @@ class App extends React.Component<IAppProps> {
                       currency={this.props.searchDetails.currency}
                       priceFlights={this.props.priceFlights}
                       passengers={this.props.searchDetails.passengers}
+                      authDetails={this.props.authDetails}
                     />
                   } />
                   : history.push('/search/')
@@ -143,6 +144,7 @@ class App extends React.Component<IAppProps> {
                 <Route exact path="/book/" render={() =>
                   <Book
                     pricingDetails={this.props.pricingDetails}
+                    resultsDetails={this.props.resultsDetails}
                   />
                 } />
               </div>

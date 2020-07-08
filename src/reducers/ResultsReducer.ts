@@ -13,7 +13,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       };
 
     case 'SET_ERROR_DETAILS':
-      return {...state, errors: {errorFound: action.value}};
+      return {...state, errors: {
+        errorFound: action.value,
+        errorType: action.errorType
+      }};
 
     case 'SET_TRIP_TYPE':
       return {...state, tripType: action.value};
@@ -23,7 +26,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_ACTIVES':
       return updateActiveSegments(state, action);
-    
+
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
 

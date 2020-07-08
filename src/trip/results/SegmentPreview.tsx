@@ -39,7 +39,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   state = {
     expandedSegment: -1
   }
-  
+
   render() {
     const open = this.state.expandedSegment === this.props.index;
     return(

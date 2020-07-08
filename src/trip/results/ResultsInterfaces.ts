@@ -5,6 +5,8 @@ export interface ResultsDetails {
   errors: Errors;
   tripType: string;
   activeSegments: ActiveSegmentsMap
+  segmentPositionMap: SegmentPositionMap;
+  defaultSortBy: string;
 }
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
@@ -18,6 +20,35 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
     }
   }
 }
+export class SegmentPositionMap extends Map<number, SegmentValueMap> {
+
+  getValue(segmentPosition: number, valueType: string): any {
+    const segmentValueMap: SegmentValueMap = this.getSegmentValueMap(segmentPosition);
+    const value = segmentValueMap.get(valueType);
+    if (value) {
+      return value;
+    } else {
+      throw `${valueType} is not set for segment position ${segmentPosition}`;
+    }
+  }
+
+  getSegmentValueMap(segmentPosition: number): SegmentValueMap {
+    let segmentValueMap: SegmentValueMap | undefined = super.get(segmentPosition);
+    if (!segmentValueMap) {
+      segmentValueMap = new SegmentValueMap();
+      super.set(segmentPosition, segmentValueMap);
+    }
+    return segmentValueMap;
+  }
+
+  setValue(segmentPosition: number, valueType: string, value: any){
+    const segmentValueMap: SegmentValueMap = this.getSegmentValueMap(segmentPosition);
+    segmentValueMap.set(valueType, value);
+  }
+}
+
+export class SegmentValueMap extends Map<string, any> {
+}
 
 export const defaultResultsDetails: ResultsDetails = {
   activeSegments: new Map(),
@@ -25,7 +56,9 @@ export const defaultResultsDetails: ResultsDetails = {
     errorFound: false,
     errorType: ''
   },
-  tripType: 'fareStructureResults'
+  tripType: 'fareStructureResults',
+  segmentPositionMap: new SegmentPositionMap(),
+  defaultSortBy: 'best',
 };
 
 export interface Errors {
@@ -70,7 +103,7 @@ export interface Segment {
   alliance: string;
   private_fare: string;
   priced_passengers: Array<string>;
-  segment_time_with_connections: number;
+  segment_time_w_connections: number;
   flights: Array<FlightResult>;
   brands?: Array<BrandInfo>;
   selected_brand_index?: number;

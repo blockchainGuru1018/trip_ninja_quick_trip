@@ -1,6 +1,7 @@
 import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Button from '@material-ui/core/Button';
+import PassengerDetailsModal from './PassengerDetailsModal';
 
 interface PassengerDetailsProps {
 
@@ -45,7 +46,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         <h5>Passenger Details</h5>
         <div className="book-container">
           {passengers}
-        </div>          
+        </div>      
+        <PassengerDetailsModal loading={true}/>    
       </div>
     );
   }

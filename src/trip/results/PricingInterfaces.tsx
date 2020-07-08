@@ -3,11 +3,12 @@ export interface PricingDetails {
     trip_id: string;
     trip_type: string;
     currency: string;
-    price: number;
     markup?: number;
     source: string;
-    itineraries?: Array<object>;
-    loading: boolean;
+    itineraries?: Array<Itineraries>;
+    loading?: boolean;
+    pricing?: Pricing;
+    price?: number;
   }
 
 export const defaultPricingDetails: PricingDetails = {
@@ -15,7 +16,6 @@ export const defaultPricingDetails: PricingDetails = {
   trip_id: '',
   trip_type: 'fare_structure',
   currency: '',
-  price: 0,
   source: ''
 };
 
@@ -53,4 +53,13 @@ export interface Credentials{
     pcc?: string;
     provider?: string;
     region?: string;
+}
+
+export interface Pricing {
+  base_fare: number;
+  confirmed_total_price: number;
+  fees: number;
+  markup: number;
+  original_total_price: number;
+  taxes: number;
 }

@@ -9,6 +9,11 @@ function pricingReducer(state: PricingDetails = {} as any, action: any) {
     case 'SET_PRICING_ERROR_DETAILS':
       return {...state, errors: {errorFound: action.value}};
 
+    case 'SET_PRICING_RESULTS':
+      return {
+        ...action.data,
+        loading: false
+      }
     default:
       return state;
   }

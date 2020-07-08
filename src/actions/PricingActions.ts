@@ -11,6 +11,13 @@ export function pricingLoading(value: boolean) {
   };
 }
 
+function setPricingResults(data: PricingDetails) {
+  return {
+    type: 'SET_PRICING_RESULTS',
+    data
+  }
+}
+
 export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) => {
   dispatch(pricingLoading(true));
   const url: string = '/confirmflight/';
@@ -20,10 +27,8 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
       if (response.data.status) {
         throw 'error';
       } else {
-        dispatch(pricingLoading(false));
         dispatch(setErrorDetails(false, 'pricing'));
-        console.log("response:", response);
-        //dispatch(setPricingResults(response.data));
+        dispatch(setPricingResults(response.data));
         return {'success': true};
       }
     })

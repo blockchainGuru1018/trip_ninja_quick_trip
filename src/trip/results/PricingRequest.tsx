@@ -5,6 +5,7 @@ import { PricingDetails, Itineraries, FlightSegment, Flight, Credentials } from 
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';
+import moment from 'moment';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
@@ -29,19 +30,16 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       price: this.props.totalPrice,
       markup: 0,
       source: 'amadeus',
-      itineraries: this.createItinerariesPayload(trip),
-      loading: false
+      itineraries: this.createItinerariesPayload(trip)
     };
-    let pricingResult: any = this.props.priceFlights(pricingPayload);
+    const pricingResult: any = this.props.priceFlights(pricingPayload);
     pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 
-  handlePricingResult = (result: any) => {
-    console.log(result);
-    return result.success
+  handlePricingResult = (result: any) =>
+    result.success
       ? history.push('/book/')
       : history.push('/results/itinerary/');
-  }
 
   createItinerariesPayload = (trip: Results) => {
     let itinerariesPayload : Array<Itineraries> = [];
@@ -67,15 +65,11 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createSegmentsPayload = (trip: Results, itineraryStructure:Array<any>) => {
-    let segmentsPayload: Array<FlightSegment> = [];
-
-    itineraryStructure.forEach(segment_index => {
-      segmentsPayload.push({
+    let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segment_index =>
+      ({
         segment_id: segment_index,
         flights: this.createFlightsPayload(trip, segment_index)
-      });
-    });
-
+      }));
     return segmentsPayload;
   }
 
@@ -93,8 +87,8 @@ class PricingRequest extends React.Component<PricingRequestProps>{
           carrier: flightDetail.carrier,
           flight_time: flightDetail.flight_time,
           flight_number: flightDetail.flight_number,
-          departure_time: flightDetail.departure_time,
-          arrival_time: flightDetail.arrival_time,
+          departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ss'),
+          arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ss'),
           brand_identifier: "",
         });
       }
@@ -104,13 +98,12 @@ class PricingRequest extends React.Component<PricingRequestProps>{
   }
 
   createCredentialsPayload = (itineraryElement: any) => {
-    const authDetails: AuthDetails = this.props.authDetails
+    const authDetails: AuthDetails = this.props.authDetails;
     const credentialsPayload: Credentials = {
       data_source: itineraryElement.source,
       provider: authDetails.provider,
       pcc: authDetails.pcc
     };
-
     return credentialsPayload;
   }
 

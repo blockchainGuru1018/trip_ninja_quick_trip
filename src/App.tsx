@@ -67,7 +67,7 @@ class App extends React.Component<IAppProps> {
             setErrorDetails={this.props.setErrorDetails}
           />
           <PricingModal
-            loading={this.props.pricingDetails.loading}
+            loading={this.props.pricingDetails.loading!}
           />
           <SearchModal
             loading={this.props.searchDetails.loading}

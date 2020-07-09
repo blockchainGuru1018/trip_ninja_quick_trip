@@ -7,6 +7,5 @@ export function getFlightDetailsBySegment(segment: Segment, flightDetails: Array
         flight.flight_detail_ref === flightResultsDetails.reference
     );
     return filteredFlightDetails[0];
-  }
-  );
+  });
 }

@@ -8,18 +8,21 @@ import Button from '@material-ui/core/Button';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { styled } from '@material-ui/core/styles';
 import history from '../../History';
+import { PricingDetails } from '../results/PricingInterfaces';
+import { ResultsDetails } from '../results/ResultsInterfaces';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
 });
 
 interface BookProps {
-
+  pricingDetails: PricingDetails;
+  resultsDetails: ResultsDetails;
 }
 
 class Book extends React.Component<BookProps> {
-
   render() {
+
     return (
       <div className="row" id="book-itinerary">
         <div className="col-lg-10 offset-lg-1">

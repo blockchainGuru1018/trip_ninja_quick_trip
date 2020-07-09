@@ -6,27 +6,32 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Segment } from './ResultsInterfaces';
+import { ResultsDetails, Results, Segment , SegmentPositionMap} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
+import {setSegmentPositionMapValue} from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
-import { getActiveSegments } from '../../helpers/GetActiveSegmentsHelper';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
   currency: string
   priceFlights: typeof priceFlights
   passengers: Array<Passenger>
+  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
   authDetails: AuthDetails
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
+  componentDidMount() {
+    this.createSortingDefaults();
+  }
+
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    let selectedTrip: Array<Segment> = getActiveSegments(trip);
+    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
 
     const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
 
@@ -76,6 +81,20 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
       </div>
     );
+  }
+
+  getActiveSegments = (trip: Results) =>
+    trip.segments.map((segments: Array<Segment>) =>
+      segments.find((object: Segment) => object.status === 'active') || segments[0]
+    );
+
+  createSortingDefaults = () => {
+    this.props.resultsDetails.segmentPositionMap = new SegmentPositionMap();
+    const segments = this.props.resultsDetails.fareStructureResults?.segments;
+    const segmentPositionCount: number = segments ? segments.length : 0;
+    for (let step = 0; step < segmentPositionCount; step++) {
+      this.props.setSegmentPositionMapValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
+    }
   }
 }
 

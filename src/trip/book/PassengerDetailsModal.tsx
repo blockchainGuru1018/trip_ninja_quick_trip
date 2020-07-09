@@ -17,7 +17,7 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '100vh'
+      height: '100vh',
     },
     paper: {
       background: '#FFFFFF 0% 0% no-repeat padding-box',
@@ -27,7 +27,8 @@ const useStyles = makeStyles(() =>
       top: '142px',
       left: '130px',
       width: '1000px',
-      height: 'auto'
+      height: 'auto',
+      padding: '25px'
     },
     backDrop: {
       height: '100vh'
@@ -62,7 +63,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
         <Fade in={open}>
           <div className={classes.paper}>
             <h3 id="transition-modal-title">Passenger Information</h3>
-            <div className="row">
+            <div className="row passenger-form-row">
               <div className="col-sm-3">
                 <TextField id="passenger-first-name" label="First Name" variant="outlined" fullWidth/>
               </div>
@@ -76,7 +77,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <PassengerGenderSelect />
               </div>
             </div>
-            <div className="row">
+            <div className="row passenger-form-row">
               <div className="col-sm-3">
                 <PassengerCountrySelect />               
               </div>
@@ -90,7 +91,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
             <hr/>
             <div>
               <h5>Primary Passenger Contact</h5>
-              <div className="row">
+              <div className="row passenger-form-row">
                 <div className="col-sm-4">
                   <TextField id="primary-email" label="Email" variant="outlined" fullWidth/>
                 </div>
@@ -103,13 +104,15 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               </div>
               <hr/>
             </div>
-            
-            <Button
-              color="secondary"
-              variant="contained"
-            >
-              Save
-            </Button>
+            <div className="text-center">
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={() => props.loading = false}
+              >
+                Save
+              </Button>
+            </div>
           </div>
         </Fade>
       </Modal>

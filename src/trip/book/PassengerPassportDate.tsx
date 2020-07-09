@@ -22,7 +22,7 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             inputVariant="outlined"
             format="yyyy-mm-dd"
             margin="none"
-            id="passport-number"
+            id="passport-date"
             value={new Date()}
             onChange={(e: any) => {}}
           />

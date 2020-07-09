@@ -33,9 +33,10 @@
   padding-top: 6px;
 }
 
-.fare-breakdown-text{
+.fare-breakdown-text {
   padding: 0px;
 }
-.fare-breakdown-price{
+
+.fare-breakdown-price {
   text-align: right;
 }

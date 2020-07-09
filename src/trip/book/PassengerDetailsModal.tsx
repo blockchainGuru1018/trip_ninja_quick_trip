@@ -88,6 +88,9 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <PassengerPassportDate/>
               </div>
             </div>
+            <div className="row passenger-form-row">
+              <p>This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.</p>
+            </div>
             <hr/>
             <div>
               <h5>Primary Passenger Contact</h5>

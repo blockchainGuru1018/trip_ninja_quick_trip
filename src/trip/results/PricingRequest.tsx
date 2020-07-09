@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingDetails, PricingRequestItineraries, FlightSegment, Flight, Credentials } from './PricingInterfaces';
+import { PricingDetails, PricingRequestItinerary, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -42,7 +42,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       : history.push('/results/itinerary/');
 
   createItinerariesPayload = (trip: Results) => {
-    let itinerariesPayload : Array<PricingRequestItineraries> = [];
+    let itinerariesPayload : Array<PricingRequestItinerary> = [];
     let itinerariesCounter = 1;
 
     this.props.selectedTrip.forEach((itineraryElement: Segment) => {

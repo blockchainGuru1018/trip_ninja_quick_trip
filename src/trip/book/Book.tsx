@@ -50,7 +50,7 @@ class Book extends React.Component<BookProps> {
               />
             </div>
             <div className="col-sm-5">
-              <FareBreakdown />
+              <FareBreakdown pricingDetails={this.props.pricingDetails}/>
               <PassengerDetails />
             </div>
           </div>

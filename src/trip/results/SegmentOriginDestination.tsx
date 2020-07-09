@@ -14,11 +14,11 @@ class SegmentOriginDestination extends React.Component<SegmentOriginDestinationP
         <p className={'origin-destination flight-preview-grey-border' + (!this.props.departure ? ' itinerary-origin-dest' : '')} >{this.props.segment.origin}
           <span className="circle-divider">•</span>{this.props.segment.destination} 
         </p>
-        {this.props.departure ? 
+        {this.props.departure &&
           <p className="text-small flight-preview-grey-border">
             <Moment format="MMM DD">{this.props.departure}</Moment>
           </p>
-          : null}
+        }
       </div>
     );
   }

@@ -46,9 +46,8 @@ class Book extends React.Component<BookProps> {
             <div className="col-sm-7">
               <Itinerary />
             </div>
-            {this.props.pricingDetails.pricing} &&
             <div className="col-sm-5">
-              <FareBreakdown pricing={this.props.pricingDetails.pricing!}/>
+              <FareBreakdown pricingDetails={this.props.pricingDetails}/>
               <PassengerDetails />
             </div>
           </div>

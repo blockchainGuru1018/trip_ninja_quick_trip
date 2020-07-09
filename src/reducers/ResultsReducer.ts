@@ -41,18 +41,16 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 }
 
 function setSegmentsAsActive(state: ResultsDetails) {
-  const trip: Results = state[state.tripType];
   setRelatives(state);
-  console.log(state)
+  const trip: Results = state[state.tripType];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
     let segment = segmentOptions[0];
     segment.status = 'active';
-    console.log(segmentOptionsIndex, segment)
     state.activeSegments.set(segmentOptionsIndex, segment);
-    console.log(state.activeSegments)
     setAlternatesStatus(state, segment, segmentOptions);
   });
-  return state;
+  console.table(state[state.tripType].segments[0])
+  return {...state};
 }
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {

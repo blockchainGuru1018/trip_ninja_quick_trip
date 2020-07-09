@@ -4,7 +4,7 @@ import '../../index.css';
 import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
-
+import { sortBySortOrder } from '../../helpers/SortHelper';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -39,15 +39,13 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       return filteredFlightDetails[0];
     });
 
-  getTotalPrice = () =>
-    Array.from(this.props.resultsDetails!.activeSegments).reduce((total: number, activeSegment: any) =>
-      total += activeSegment[1].price, 0);
-
   setSegmentsHTML = () => {
     const totalPrice: number = this.props.resultsDetails
       ? getTotal([...this.props.resultsDetails!.activeSegments.values()], 'price')
       : 0;
-    const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
+    const sortedSegments = this.props.sortOrder
+      ? sortBySortOrder(this.props.segments, this.props.sortOrder)
+      : this.props.segments;
     return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       return(
@@ -69,22 +67,6 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       );
     });
   }
-
-  sortBySortOrder = () => {
-    return this.props.segments.sort((a: Segment, b: Segment) => {
-      switch (this.props.sortOrder) {
-        case 'best':
-          return a.weight - b.weight;
-        case 'cheapest':
-          return a.price - b.price;
-        case 'fastest':
-          return a.segment_time_w_connections - b.segment_time_w_connections;
-        default:
-          return -1;
-      }
-    });
-  }
-
 }
 
 export default SegmentPreviews;

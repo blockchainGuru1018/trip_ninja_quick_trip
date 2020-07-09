@@ -28,14 +28,15 @@
   margin: 5px 30px 0px 0px;
 }
 
-.fare-breakdown-total{
+.fare-breakdown-total {
   border-top: 1px solid #dee2e6;
   padding-top: 6px;
 }
 
-.fare-breakdown-text{
+.fare-breakdown-text {
   padding: 0px;
 }
-.fare-breakdown-price{
+
+.fare-breakdown-price {
   text-align: right;
 }

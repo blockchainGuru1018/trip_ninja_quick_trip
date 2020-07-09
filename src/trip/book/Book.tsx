@@ -10,6 +10,7 @@ import { styled } from '@material-ui/core/styles';
 import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
+import { Passenger } from '../search/SearchInterfaces';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -18,11 +19,12 @@ const BackButton = styled(Button)({
 interface BookProps {
   pricingDetails: PricingDetails;
   resultsDetails: ResultsDetails;
+  passengers: Array<Passenger>;
 }
 
 class Book extends React.Component<BookProps> {
   render() {
-
+    console.log(this.props.passengers);
     return (
       <div className="row" id="book-itinerary">
         <div className="col-lg-10 offset-lg-1">
@@ -48,7 +50,7 @@ class Book extends React.Component<BookProps> {
             </div>
             <div className="col-sm-5">
               <FareBreakdown pricingDetails={this.props.pricingDetails}/>
-              <PassengerDetails />
+              <PassengerDetails passengers={this.props.passengers}/>
             </div>
           </div>
         </div>

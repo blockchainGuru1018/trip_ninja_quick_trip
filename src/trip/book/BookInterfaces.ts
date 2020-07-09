@@ -5,11 +5,11 @@ export interface BookingDetails {
   ticketing_queue?: string;
   agent_email?: string;
   agency?: string;
-  passengers: Array<Passenger>;
+  passengers: Array<PassengerInfo>;
   billing: Billing;
 }
 
-export interface Passenger {
+export interface PassengerInfo {
   title?: string;
   first_name: string;
   last_name: string;

@@ -2,14 +2,17 @@ import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Button from '@material-ui/core/Button';
 import PassengerDetailsModal from './PassengerDetailsModal';
+import { Passenger } from '../search/SearchInterfaces';
+import { PassengerInfo } from './BookInterfaces';
 
 interface PassengerDetailsProps {
-
+  passengers: Array<Passenger>;
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
 
   render() {
+    let passengerInfo: Array<PassengerInfo> = [];
     const passengersList = ['ADT', 'ADT'];
     const passengerAdded: boolean = false;
 

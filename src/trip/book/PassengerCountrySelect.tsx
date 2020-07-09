@@ -23,7 +23,7 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
             <TextField {...params}
               variant="outlined"
               placeholder="Nationality"
-              onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
+              onChange={(e) => {}}
             />
           }
         />

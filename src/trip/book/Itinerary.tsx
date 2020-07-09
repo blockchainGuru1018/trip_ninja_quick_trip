@@ -1,6 +1,5 @@
 import React from 'react';
 import { Segment, FlightResultsDetails, ResultsDetails , Results} from '../results/ResultsInterfaces';
-import { PricingDetails } from '../results/PricingInterfaces';
 import SegmentOriginDestination from '../results/SegmentOriginDestination';
 import FlightLogo from '../results/FlightLogo';
 import FlightTime from '../results/FlightTime';
@@ -10,7 +9,6 @@ import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
 interface ItineraryProps {
-  pricingDetails: PricingDetails;
   resultsDetails: ResultsDetails;
 }
 

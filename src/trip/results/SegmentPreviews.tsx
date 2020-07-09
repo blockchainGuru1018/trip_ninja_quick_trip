@@ -3,6 +3,7 @@ import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfac
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { getTotal } from '../../helpers/MiscHelpers';
 
 
 interface SegmentPreviewsProps {
@@ -43,7 +44,9 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       total += activeSegment[1].price, 0);
 
   setSegmentsHTML = () => {
-    const totalPrice: number = this.props.resultsDetails ? this.getTotalPrice() : 0;
+    const totalPrice: number = this.props.resultsDetails
+      ? getTotal([...this.props.resultsDetails!.activeSegments.values()], 'price')
+      : 0;
     const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
     return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);

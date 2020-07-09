@@ -1,11 +1,5 @@
 
 import { ResultsDetails, Segment, BrandInfo } from '../trip/results/ResultsInterfaces';
-import { Dispatch } from 'redux';
-
-export const setSearchResults = (results: ResultsDetails) => (dispatch: Dispatch<any>) => {
-  dispatch(setResults(results));
-};
-
 
 export function setResults(results: ResultsDetails) {
   return {

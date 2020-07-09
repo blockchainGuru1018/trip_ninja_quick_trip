@@ -29,7 +29,6 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
   }
 
   setIncompatibleRelativePrice = (segment: Segment) => {
-    // This isnt comparing total price
     const dummyActives = updateActiveSegments(
       this.props.resultsDetails, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
     );

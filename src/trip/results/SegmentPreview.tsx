@@ -70,7 +70,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               />
               : this.props.segmentSelect && <div className="col-sm-2"></div>
             }
-            <div className="col-sm-1 icon-expand-preview">
+            <div className="col-sm-1 icon-expand-preview my-auto">
               <IconButton
                 className={'expand-icon' + (open ? ' rotated-180' : '')}
                 onClick={(() =>

@@ -5,13 +5,14 @@ import Moment from 'react-moment';
 interface SegmentOriginDestinationProps {
   segment: Segment
   departure?: string
+  itineraryDisplay?: boolean
 }
 
 class SegmentOriginDestination extends React.Component<SegmentOriginDestinationProps> {
   render() {
     return (
-      <div className="col-sm-2 preview-flight-path-container">
-        <p className={'origin-destination flight-preview-grey-border' + (!this.props.departure ? ' itinerary-origin-dest' : '')} >{this.props.segment.origin}
+      <div className={(this.props.itineraryDisplay ? ' col-sm-3' : 'col-sm-2') + ' my-auto'}>
+        <p className={'origin-destination flight-preview-grey-border' + (this.props.itineraryDisplay ? ' text-center' : '')} >{this.props.segment.origin}
           <span className="circle-divider">•</span>{this.props.segment.destination} 
         </p>
         {this.props.departure &&

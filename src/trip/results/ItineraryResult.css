@@ -65,7 +65,7 @@
   box-shadow: 0px 3px 6px #00000029;
   border: 1px solid #C1BDBD;
   border-radius: 10px;
-  padding: 20px 5px 10px 20px;
+  padding: 15px;
   margin-top: 28px;
   min-height: 90px;
 }
@@ -100,7 +100,7 @@
 }
 
 .baggage-icon-container {
-  padding: 5px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   display: grid;
   height: 100%;
   grid-auto-flow: column;
@@ -108,20 +108,12 @@
 }
 
 .baggage-amount-text {
-  padding-top: 10px;
+  padding-top: 0px;
   font-weight: bold;
 }
 
 .card-travel-icon {
   width: 25px;
-}
-
-.preview-flight-path-container {
-  display: grid;
-}
-
-.itinerary-origin-dest {
-  padding-top: 15px;
 }
 
 .segment-preview-icon-container {

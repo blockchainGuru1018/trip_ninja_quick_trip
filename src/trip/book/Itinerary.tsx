@@ -23,11 +23,11 @@ class Itinerary extends React.Component<ItineraryProps> {
         </p>
         <div className={'row col-md-12'}>
           <div className="row itinerary-segment col-md-12">
-            <SegmentOriginDestination segment={segment}/>
-            <FlightLogo flights={segmentFlightDetails} smallerSize={true}/>
-            <FlightTime flights={segmentFlightDetails} />
-            <FlightStops flights={segmentFlightDetails} offsetSpacing={true}/>
-            <SegmentBaggage baggage={segment.baggage.number_of_pieces} offsetSpacing={true}/>
+            <SegmentOriginDestination segment={segment} itineraryDisplay={true}/>
+            <FlightLogo flights={segmentFlightDetails} itineraryDisplay={true}/>
+            <FlightTime flights={segmentFlightDetails} itineraryDisplay={true}/>
+            <FlightStops flights={segmentFlightDetails} />
+            <SegmentBaggage baggage={segment.baggage.number_of_pieces}itineraryDisplay={true}/>
           </div>
         </div>
       </div>

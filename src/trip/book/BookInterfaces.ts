@@ -11,16 +11,25 @@ export interface BookingDetails {
 
 export interface PassengerInfo {
   title?: string;
-  first_name: string;
-  last_name: string;
-  date_of_birth: string;
-  gender: string;
-  phone_number: string;
+  first_name?: string;
+  last_name?: string;
+  date_of_birth?: string;
+  gender?: string;
+  phone_number?: string;
   passport_country?: string
   passport_number?: string;
   passport_expiration?: string;
   passenger_type: string;
+  email?: string;
 }
+
+export const defaultPassengerInfo: PassengerInfo = {
+  'passenger_type': 'Adult',
+  'first_name': '',
+  'last_name': '',
+  'date_of_birth': new Date().toISOString(),
+  'gender': ''
+};
 
 export interface Billing {
   email: string;

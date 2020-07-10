@@ -10,6 +10,7 @@ import PassengerCountrySelect from './PassengerCountrySelect';
 import PassengerDateOfBirth from './PassengerDateOfBirth';
 import PassengerPassportDate from './PassengerPassportDate';
 import PassengerGenderSelect from './PassengerGenderSelect';
+import { PassengerInfo } from './BookInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -37,15 +38,15 @@ const useStyles = makeStyles(() =>
 );
 
 interface PassengerDetailsModalProps {
-  loading: boolean
+  modalState: boolean,
+  passenger: PassengerInfo
 }
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  useEffect(() => setOpen(props.loading), [props.loading]);
-
+  useEffect(() => setOpen(props.modalState), [props.modalState]);
 
   return (
     <div>
@@ -65,27 +66,44 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
             <h3 id="transition-modal-title">Passenger Information</h3>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
-                <TextField id="passenger-first-name" label="First Name" variant="outlined" fullWidth/>
+                <TextField 
+                  id="passenger-first-name" 
+                  label="First Name" 
+                  variant="outlined" 
+                  value={props.passenger.first_name} 
+                  fullWidth
+                />
               </div>
               <div className="col-sm-3">
-                <TextField id="passenger-last-name" label="Last Name" variant="outlined" fullWidth />
+                <TextField 
+                  id="passenger-last-name" 
+                  label="Last Name" 
+                  variant="outlined" 
+                  value={props.passenger.last_name}
+                  fullWidth 
+                />
               </div>
               <div className="col-sm-3">
-                <PassengerDateOfBirth />
+                <PassengerDateOfBirth dateOfBirth={props.passenger.date_of_birth}/>
               </div>
               <div className="col-sm-3">
-                <PassengerGenderSelect />
+                <PassengerGenderSelect gender={props.passenger.gender}/>
               </div>
             </div>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
-                <PassengerCountrySelect />               
+                <PassengerCountrySelect country={props.passenger.passport_country}/>               
               </div>
               <div className="col-sm-3">
-                <TextField id="passport-number" label="Passport Number" variant="outlined" fullWidth/>                
+                <TextField 
+                  id="passport-number" 
+                  label="Passport Number" 
+                  variant="outlined" 
+                  value={props.passenger.passport_number}
+                  fullWidth/>                
               </div>
               <div className="col-sm-3">
-                <PassengerPassportDate/>
+                <PassengerPassportDate passportDate={props.passenger.passport_expiration}/>
               </div>
             </div>
             <div className="row passenger-form-row">
@@ -96,13 +114,30 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <h5>Primary Passenger Contact</h5>
               <div className="row passenger-form-row">
                 <div className="col-sm-4">
-                  <TextField id="primary-email" label="Email" variant="outlined" fullWidth/>
+                  <TextField 
+                    id="primary-email" 
+                    label="Email" 
+                    variant="outlined"
+                    value={props.passenger.email} 
+                    fullWidth
+                  />
                 </div>
                 <div className="col-sm-2">
-                  <TextField id="primary-area-code" label="Area Code" variant="outlined" fullWidth/>
+                  <TextField 
+                    id="primary-area-code" 
+                    label="Area Code" 
+                    variant="outlined" 
+                    fullWidth
+                  />
                 </div>
                 <div className="col-sm-3">
-                  <TextField id="primary-phone-number" label="Phone Number" variant="outlined" fullWidth/>
+                  <TextField 
+                    id="primary-phone-number" 
+                    label="Phone Number" 
+                    variant="outlined"
+                    value={props.passenger.phone_number} 
+                    fullWidth
+                  />
                 </div>
               </div>
               <hr/>
@@ -111,7 +146,8 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <Button
                 color="secondary"
                 variant="contained"
-                onClick={() => props.loading = false}
+                disableElevation
+                onClick={() => setOpen(false)}
               >
                 Save
               </Button>

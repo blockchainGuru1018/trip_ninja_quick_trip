@@ -5,7 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 interface PassengerDateOfBirthProps {
-
+  dateOfBirth?: string;
 }
 
 class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
@@ -17,10 +17,10 @@ class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             disableToolbar
-            disablePast
+            disableFuture
             variant="inline"
             inputVariant="outlined"
-            format="yyyy-mm-dd"
+            format="dd/mm/yyyy"
             margin="none"
             id="passenger-dob"
             value={new Date()}

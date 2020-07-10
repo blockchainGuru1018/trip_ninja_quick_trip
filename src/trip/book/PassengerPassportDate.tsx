@@ -5,7 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 interface PassengerPassportNumberProps {
-
+  passportDate?: string;
 }
 
 class PassengerPassportNumber extends React.Component<PassengerPassportNumberProps> {
@@ -20,7 +20,7 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             disablePast
             variant="inline"
             inputVariant="outlined"
-            format="yyyy-mm-dd"
+            format="dd/mm/yyyy"
             margin="none"
             id="passport-date"
             value={new Date()}

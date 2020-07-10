@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CountryList from '../../assets/data/countries.json';
 
 interface PassengerCountrySelectProps {
-
+  country?: string;
 }
 
 class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps> {

@@ -25,7 +25,7 @@ class Book extends React.Component<BookProps> {
 
     return (
       <div className="row" id="book-itinerary">
-        <div className="col-lg-10 offset-lg-1">
+        <div className="col-xl-10 offset-xl-1">
           <div className="book-header">
             <BackButton 
               onClick={() => history.push('/results/itinerary/')} 

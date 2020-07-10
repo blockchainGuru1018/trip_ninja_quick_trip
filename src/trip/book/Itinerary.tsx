@@ -21,7 +21,7 @@ class Itinerary extends React.Component<ItineraryProps> {
         <p className="segment-date">
           <Moment format="MMMM Do YYYY">{segmentFlightDetails[0].departure_time}</Moment>
         </p>
-        <div className={'row col-md-12'}>
+        <div className='row col-md-12'>
           <div className="row itinerary-segment col-md-12">
             <SegmentOriginDestination segment={segment} itineraryDisplay={true}/>
             <FlightLogo flights={segmentFlightDetails} itineraryDisplay={true}/>

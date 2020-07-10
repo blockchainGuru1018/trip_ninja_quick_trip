@@ -1,10 +1,10 @@
 import React from 'react';
 import { Segment, FlightResultsDetails, ResultsDetails , Results} from '../results/ResultsInterfaces';
-import SegmentOriginDestination from '../results/SegmentOriginDestination';
-import FlightLogo from '../results/FlightLogo';
-import FlightTime from '../results/FlightTime';
-import SegmentBaggage from '../results/SegmentBaggage';
-import FlightStops from '../results/FlightStops';
+import SegmentOriginDestination from '../../common/SegmentOriginDestination';
+import FlightLogo from '../../common/FlightLogo';
+import FlightTime from '../../common/FlightTime';
+import SegmentBaggage from '../../common/SegmentBaggage';
+import FlightStops from '../../common/FlightStops';
 import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 

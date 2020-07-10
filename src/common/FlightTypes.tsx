@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResult } from './ResultsInterfaces';
+import { Segment, FlightResult } from '../trip/results/ResultsInterfaces';
 
 interface FlightTypesProps {
   segment: Segment

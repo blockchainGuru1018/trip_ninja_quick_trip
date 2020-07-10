@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
-import iataAirports from '../../assets/data/iataAirports.json';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
+import iataAirports from '../assets/data/iataAirports.json';
 
 interface FlightLogoProps {
   flights: Array<FlightResultsDetails>

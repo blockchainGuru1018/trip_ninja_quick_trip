@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import Moment from 'react-moment';
 import moment from 'moment';
 

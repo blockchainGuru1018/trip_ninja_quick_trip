@@ -1,5 +1,5 @@
 import React from 'react';
-import { baggageLabel } from '../../helpers/BaggageHelper';
+import { baggageLabel } from '../helpers/BaggageHelper';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 
 interface SegmentBaggageProps {

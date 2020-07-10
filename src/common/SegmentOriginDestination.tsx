@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment } from './ResultsInterfaces';
+import { Segment } from '../trip/results/ResultsInterfaces';
 import Moment from 'react-moment';
 
 interface SegmentOriginDestinationProps {

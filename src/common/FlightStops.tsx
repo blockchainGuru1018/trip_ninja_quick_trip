@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
-import { getTimeDifference } from '../../helpers/DateHelpers';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
+import { getTimeDifference } from '../helpers/DateHelpers';
 
 interface FlightStopsProps {
   flights: Array<FlightResultsDetails>

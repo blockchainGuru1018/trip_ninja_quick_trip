@@ -5,11 +5,13 @@ import FlightLogo from '../../common/FlightLogo';
 import FlightTime from '../../common/FlightTime';
 import SegmentBaggage from '../../common/SegmentBaggage';
 import FlightStops from '../../common/FlightStops';
+import FlightDetailsDrawer from './FlightDetailsDrawer';
 import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
 interface ItineraryProps {
   resultsDetails: ResultsDetails;
+  currency: string;
 }
 
 class Itinerary extends React.Component<ItineraryProps> {
@@ -57,6 +59,13 @@ class Itinerary extends React.Component<ItineraryProps> {
         <h5>Itinerary</h5>
         <div className="book-container">
           {this.displayItinerarySegments(selectedTrip, trip)}
+          <div className="row">
+            <FlightDetailsDrawer 
+              trip={trip}
+              selectedTrip={selectedTrip}
+              currency={this.props.currency}
+            />
+          </div>
         </div>
       </div>
     );

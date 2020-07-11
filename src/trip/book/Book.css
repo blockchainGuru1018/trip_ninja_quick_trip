@@ -57,3 +57,22 @@
 .fare-breakdown-price {
   text-align: right;
 }
+
+.flight-details-drawer {
+  padding: 25px 50px;
+}
+
+.flight-details-container {
+  padding-top: 35px
+}
+
+.fare-details {
+  background-color: #CACDD61C;
+  border: solid 1px #45565E40;
+  margin-top: 25px;
+}
+
+.flight-details {
+  padding: 15px;
+  margin-top: 25px;
+}

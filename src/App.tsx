@@ -150,6 +150,7 @@ class App extends React.Component<IAppProps> {
                   <Book
                     pricingDetails={this.props.pricingDetails}
                     resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
                   />
                 } />
               </div>

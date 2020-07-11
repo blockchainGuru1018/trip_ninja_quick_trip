@@ -18,6 +18,7 @@ const BackButton = styled(Button)({
 interface BookProps {
   pricingDetails: PricingDetails;
   resultsDetails: ResultsDetails;
+  currency: string;
 }
 
 class Book extends React.Component<BookProps> {
@@ -46,6 +47,7 @@ class Book extends React.Component<BookProps> {
             <div className="col-sm-7">
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
+                currency={this.props.currency}
               />
             </div>
             <div className="col-sm-5">

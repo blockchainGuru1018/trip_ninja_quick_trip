@@ -16,6 +16,7 @@ interface FareRulesProps {
   segment: Segment;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
+  itineraryDisplay?: boolean;
 }
 
 class FareRulesPreview extends React.Component<FareRulesProps> {
@@ -36,15 +37,19 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   render() {
     return(
       <div>
-        <p className="text-center text-bold">Fare Rules</p>
-        <p className="text-center text-small">
-          {
-            'Selected Fare Family: ' +
-            (this.props.segment.brands
-              ? firstLetterCapital(this.getBrand().name)
-              : 'Default')
-          }
-        </p>
+        {!this.props.itineraryDisplay && 
+          <div>
+            <p className="text-center text-bold">Fare Rules</p>
+            <p className="text-center text-small">
+              {
+                'Selected Fare Family: ' +
+                (this.props.segment.brands
+                  ? firstLetterCapital(this.getBrand().name)
+                  : 'Default')
+              }
+            </p>
+          </div>
+        }
         <div className="row fare-family-row">
           <div className='col-md-8 offset-md-2'>
             <div className='row text-small'>
@@ -97,11 +102,13 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-10 offset-md-2">
-            <p className="text-small">*Edit fare family from the flight selection</p>
+        {!this.props.itineraryDisplay &&
+          <div className="row">
+            <div className="col-md-10 offset-md-2">
+              <p className="text-small">*Edit fare family from the flight selection</p>
+            </div>
           </div>
-        </div>
+        }
       </div>
     );
   }

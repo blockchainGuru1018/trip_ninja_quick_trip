@@ -11,6 +11,8 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
+import { updatePassengerInfo } from '../../actions/BookActions';
+import { BookingDetails } from './BookInterfaces';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -19,7 +21,9 @@ const BackButton = styled(Button)({
 interface BookProps {
   pricingDetails: PricingDetails;
   resultsDetails: ResultsDetails;
+  bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
+  updatePassengerInfo: typeof updatePassengerInfo;
 }
 
 class Book extends React.Component<BookProps> {
@@ -50,7 +54,11 @@ class Book extends React.Component<BookProps> {
             </div>
             <div className="col-sm-5">
               <FareBreakdown pricingDetails={this.props.pricingDetails}/>
-              <PassengerDetails passengers={this.props.passengers}/>
+              <PassengerDetails 
+                passengers={this.props.passengers}
+                bookingDetails={this.props.bookingDetails}
+                updatePassengerInfo={updatePassengerInfo}
+              />
             </div>
           </div>
         </div>

@@ -26,6 +26,8 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
 import { setSegmentPositionMapValue } from './actions/ResultsActions';
+import { updatePassengerInfo } from './actions/BookActions';
+import { BookingDetails } from './trip/book/BookInterfaces';
 
 
 interface IAppProps {
@@ -33,6 +35,7 @@ interface IAppProps {
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
   pricingDetails: PricingDetails;
+  bookingDetails: BookingDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -48,6 +51,7 @@ interface IAppProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
+  updatePassengerInfo: typeof updatePassengerInfo;
 }
 
 const theme = Theme;
@@ -150,7 +154,9 @@ class App extends React.Component<IAppProps> {
                   <Book
                     pricingDetails={this.props.pricingDetails}
                     resultsDetails={this.props.resultsDetails}
+                    bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
+                    updatePassengerInfo={updatePassengerInfo}
                   />
                 } />
               </div>

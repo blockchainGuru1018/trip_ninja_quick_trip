@@ -21,19 +21,12 @@ export interface PassengerInfo {
   passport_expiration?: string;
   passenger_type: string;
   email?: string;
+  updated: boolean;
 }
-
-export const defaultPassengerInfo: PassengerInfo = {
-  'passenger_type': 'Adult',
-  'first_name': '',
-  'last_name': '',
-  'date_of_birth': new Date().toISOString(),
-  'gender': ''
-};
 
 export interface Billing {
   email: string;
-  payment_include: boolean;
+  payment_included: boolean;
   payment_info?: PaymentInfo;
 }
 
@@ -45,3 +38,22 @@ export interface PaymentInfo {
   card_expiration_date: string;
 }
 
+export const defaultPassengerInfo: PassengerInfo = {
+  'passenger_type': 'Adult',
+  'first_name': '',
+  'last_name': '',
+  'date_of_birth': new Date().toISOString(),
+  'gender': '',
+  'updated': false
+};
+
+export const defaultBilling: Billing = {
+  'email': '',
+  'payment_included': false
+};
+
+export const defaultBookingDetails: BookingDetails = {
+  'trip_id': '',
+  'passengers': [defaultPassengerInfo],
+  'billing': defaultBilling
+};

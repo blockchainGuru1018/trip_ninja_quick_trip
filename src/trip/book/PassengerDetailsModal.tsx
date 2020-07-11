@@ -39,7 +39,8 @@ const useStyles = makeStyles(() =>
 
 interface PassengerDetailsModalProps {
   modalState: boolean,
-  passenger: PassengerInfo
+  passengers: Array<PassengerInfo>,
+  currentPassengerIndex: number
 }
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
@@ -47,7 +48,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => setOpen(props.modalState), [props.modalState]);
-
+  let passenger: PassengerInfo = props.passengers[props.currentPassengerIndex];
   return (
     <div>
       <Modal
@@ -70,7 +71,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passenger-first-name" 
                   label="First Name" 
                   variant="outlined" 
-                  value={props.passenger.first_name} 
+                  value={passenger.first_name} 
                   fullWidth
                 />
               </div>
@@ -79,31 +80,31 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passenger-last-name" 
                   label="Last Name" 
                   variant="outlined" 
-                  value={props.passenger.last_name}
+                  value={passenger.last_name}
                   fullWidth 
                 />
               </div>
               <div className="col-sm-3">
-                <PassengerDateOfBirth dateOfBirth={props.passenger.date_of_birth}/>
+                <PassengerDateOfBirth dateOfBirth={passenger.date_of_birth}/>
               </div>
               <div className="col-sm-3">
-                <PassengerGenderSelect gender={props.passenger.gender}/>
+                <PassengerGenderSelect gender={passenger.gender}/>
               </div>
             </div>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
-                <PassengerCountrySelect country={props.passenger.passport_country}/>               
+                <PassengerCountrySelect country={passenger.passport_country}/>               
               </div>
               <div className="col-sm-3">
                 <TextField 
                   id="passport-number" 
                   label="Passport Number" 
                   variant="outlined" 
-                  value={props.passenger.passport_number}
+                  value={passenger.passport_number}
                   fullWidth/>                
               </div>
               <div className="col-sm-3">
-                <PassengerPassportDate passportDate={props.passenger.passport_expiration}/>
+                <PassengerPassportDate passportDate={passenger.passport_expiration}/>
               </div>
             </div>
             <div className="row passenger-form-row">
@@ -118,7 +119,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                     id="primary-email" 
                     label="Email" 
                     variant="outlined"
-                    value={props.passenger.email} 
+                    value={passenger.email} 
                     fullWidth
                   />
                 </div>
@@ -135,7 +136,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                     id="primary-phone-number" 
                     label="Phone Number" 
                     variant="outlined"
-                    value={props.passenger.phone_number} 
+                    value={passenger.phone_number} 
                     fullWidth
                   />
                 </div>

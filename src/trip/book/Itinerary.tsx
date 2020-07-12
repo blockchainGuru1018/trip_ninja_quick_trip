@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResultsDetails, ResultsDetails , Results} from '../results/ResultsInterfaces';
+import { Segment, FlightResultsDetails, ResultsDetails, Results} from '../results/ResultsInterfaces';
 import SegmentOriginDestination from '../results/SegmentOriginDestination';
 import FlightLogo from '../results/FlightLogo';
 import FlightTime from '../results/FlightTime';

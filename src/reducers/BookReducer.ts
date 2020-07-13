@@ -1,8 +1,9 @@
 import { BookingDetails, PassengerInfo } from '../trip/book/BookInterfaces';
 
 function bookReducer(state: BookingDetails = {} as any, action: any) {
-  switch(action.type) {
+  switch(action.type) {    
     case 'SET_PASSENGERS':
+      console.log('set passenger info!!!');
       return setNewPassengerInfo(state, action);
 
     case 'UPDATE_PASSENGER_INFO':
@@ -19,10 +20,10 @@ function setNewPassengerInfo(state: any, action: any) {
   let passengerInfo: Array<PassengerInfo> = [];
   console.log(state);
   console.log(state.searchDetails);
-  for (let i = 0; i < state.searchDetails.passengers.length; i++) {
-    if (state.searchDetails.passengers[i].count > 0) {
-      for (let j = 0; j < state.searchDetails.passengers[i].count; j++) {
-        let newPassenger: PassengerInfo = {'passenger_type': state.searchDetails.passengers[i].type, 'updated': false};
+  for (let i = 0; i < action.value.passengers.length; i++) {
+    if (action.value.passengers[i].count > 0) {
+      for (let j = 0; j < action.value.passengers[i].count; j++) {
+        let newPassenger: PassengerInfo = {'passenger_type': action.value.passengers[i].type, 'updated': false};
         passengerInfo.push(newPassenger);
       }
     }

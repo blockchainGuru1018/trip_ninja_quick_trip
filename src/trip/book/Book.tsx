@@ -11,7 +11,7 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { updatePassengerInfo } from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
 
 const BackButton = styled(Button)({
@@ -24,9 +24,15 @@ interface BookProps {
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  setPassengerInfo: typeof setPassengerInfo;
 }
 
 class Book extends React.Component<BookProps> {
+  componentDidMount() {
+    console.log("mounted!");
+    this.props.setPassengerInfo(this.props.passengers);
+  }
+
   render() {
     console.log(this.props.passengers);
     return (

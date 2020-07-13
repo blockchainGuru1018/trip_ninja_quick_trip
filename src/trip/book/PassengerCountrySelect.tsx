@@ -26,7 +26,11 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
             <TextField {...params}
               variant="outlined"
               placeholder="Nationality"
-              onChange={(e) => {}}
+              onChange={(event: any) =>
+                this.props.updatePassengerInfo(
+                  this.props.index, 'passport_country', event.target.value
+                )
+              }
             />
           }
         />

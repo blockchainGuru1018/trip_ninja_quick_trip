@@ -76,6 +76,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   variant="outlined" 
                   value={passenger.first_name} 
                   fullWidth
+                  required
                 />
               </div>
               <div className="col-sm-3">
@@ -84,7 +85,8 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   label="Last Name" 
                   variant="outlined" 
                   value={passenger.last_name}
-                  fullWidth 
+                  fullWidth
+                  required
                 />
               </div>
               <div className="col-sm-3">

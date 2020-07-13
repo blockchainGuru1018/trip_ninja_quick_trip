@@ -13,8 +13,7 @@ interface PassengerDateOfBirthProps {
 
 class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
 
-  render() {
-   
+  render() {   
     return (
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -28,12 +27,22 @@ class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
             margin="none"
             id="passenger-dob"
             value={new Date()}
-            onChange={(e: any) => {}}
+            onChange={(e: any) => this.setDateChange(e)}
           />
         </MuiPickersUtilsProvider>
       </FormControl>
     );
   }
+
+  setDateChange = (dateEvent: any) => {
+    return dateEvent
+      ? isNaN(dateEvent.valueOf())
+        ? ''
+        : this.props.updatePassengerInfo(
+          this.props.index, 'date_of_birth', dateEvent?.toISOString()!
+        )
+      : '';
+  };
  
 }
 

@@ -13,8 +13,7 @@ interface PassengerPassportNumberProps {
 
 class PassengerPassportNumber extends React.Component<PassengerPassportNumberProps> {
 
-  render() {
-   
+  render() {   
     return (
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -28,12 +27,22 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             margin="none"
             id="passport-date"
             value={new Date()}
-            onChange={(e: any) => {}}
+            onChange={(e: any) => this.setDateChange(e)}
           />
         </MuiPickersUtilsProvider>
       </FormControl>
     );
   }
+
+  setDateChange = (dateEvent: any) => {
+    return dateEvent
+      ? isNaN(dateEvent.valueOf())
+        ? ''
+        : this.props.updatePassengerInfo(
+          this.props.index, 'passport_expiration', dateEvent?.toISOString()!
+        )
+      : '';
+  };
  
 }
 

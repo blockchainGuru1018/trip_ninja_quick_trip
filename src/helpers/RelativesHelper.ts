@@ -1,26 +1,67 @@
 import { ResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
-import { updateActiveSegments } from './CompatibilityHelpers';
+import { updateActiveSegments, updateSegmentActivesAndAlternates, setAlternatesStatus,
+  getOtherPositionsInItineraryStructure} from './CompatibilityHelpers';
 import { getTotal } from './MiscHelpers';
-import { sortBySortOrder } from './SortHelper';
 
-export function setRelatives(resultsDetails: ResultsDetails) {
+export function setSegmentsAsActive(resultsDetails: ResultsDetails) {
+  const cheapestTrip = setRelativesGetCheapest(resultsDetails);
+  console.log(cheapestTrip)
+  setActivesFromCheapest(cheapestTrip, resultsDetails);
+  console.log(resultsDetails)
+  return resultsDetails;
+}
+
+function setRelativesGetCheapest(resultsDetails: ResultsDetails) {
   const clonedResults = _.cloneDeep(resultsDetails)
   setActives(clonedResults)
   const results: Results = resultsDetails[resultsDetails.tripType]
   const totals: Array<number> = setTotals(results);
   const totalPrice: number = totals[0];
   const totalWeight: number = totals[1];
-  return results.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    segmentOptions.forEach((segment: Segment) => {
-      const dummyActives: ResultsDetails = updateActiveSegments(
+  let minimumPrice: number = totalPrice;
+  let cheapestTrip: Array<string> = [...clonedResults.activeSegments.values()].map(
+    (segment: Segment) => segment.itinerary_id
+  );
+  console.log('cheapest trip', cheapestTrip)
+  results.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
+    segmentOptions.forEach((segment: Segment, index: number) => {
+      updateActiveSegments(
         clonedResults, {segmentOptionIndex: segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
       );
-      segment.relativePrice = getTotal([...dummyActives.activeSegments.values()], 'price') - totalPrice;
-      segment.relativeWeight = getTotal([...dummyActives.activeSegments.values()], 'weight') - totalWeight;
-    })
-    sortBySortOrder(segmentOptions, 'best')
+      const clonedActives: Array<Segment> = [...clonedResults.activeSegments.values()];
+      const clonedTotalPrice: number = getTotal(clonedActives, 'price');
+      if (clonedTotalPrice < minimumPrice) {
+        minimumPrice = clonedTotalPrice;
+        cheapestTrip = getActivesItineraryIds(clonedActives);
+      }
+      segment.relativePrice = clonedTotalPrice - totalPrice;
+      segment.relativeWeight = getTotal(clonedActives, 'weight') - totalWeight;
+    });
+    const cheapestSegment: Segment | undefined = getSegmentByItineraryId(clonedResults[clonedResults.tripType].segments[segmentOptionsIndex], cheapestTrip[segmentOptionsIndex])
+    console.log(cheapestSegment)
+    setInitialActiveAndAlternates(cheapestSegment!, clonedResults, segmentOptions, segmentOptionsIndex);
   })
+  return cheapestTrip;
+}
+
+function setActivesFromCheapest(cheapestTrip: Array<string>, resultsDetails: ResultsDetails) {
+  const trip: Results = resultsDetails[resultsDetails.tripType];
+  cheapestTrip.forEach((id: string, index: number) => {
+    const cheapestSegment: Segment | undefined = getSegmentByItineraryId(trip.segments[index], id)
+    console.log('cheapest segment', cheapestSegment);
+    if (cheapestSegment) {
+      console.log(cheapestSegment)
+      setInitialActiveAndAlternates(cheapestSegment, resultsDetails, trip.segments[index], index);
+    }
+    else {
+      throw `Improper linked segment for itinerary with id ${id} at segment position ${index}`;
+    }
+  })
+}
+
+function getActivesItineraryIds(activeSegment: Array<Segment>) {
+  return activeSegment.map((segment: Segment) => segment.itinerary_id);
 }
 
 const setTotals = (results: Results) => {
@@ -33,7 +74,45 @@ const setTotals = (results: Results) => {
 }
 
 const setActives = (resultsDetails: ResultsDetails) => {
-  resultsDetails[resultsDetails.tripType].segments.forEach((segments: Array<Segment>, segmentIndex: number) =>
-    resultsDetails.activeSegments.set(segmentIndex, segments[0])
-  );
+  const linkedSegmentMap = {}
+  const trip: Results = resultsDetails[resultsDetails.tripType];
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentIndex: number) => {
+    console.log(linkedSegmentMap)
+    if (linkedSegmentMap[segmentIndex]) {
+      console.log('in the if')
+      setInitialActiveAndAlternates(linkedSegmentMap[segmentIndex], resultsDetails,
+        segmentOptions, segmentIndex)
+    } else {
+      let segment = segmentOptions[0];
+      if (segment.itinerary_type === 'OPEN_JAW') {
+        const linkedSegmentPosition: Array<number> = getOtherPositionsInItineraryStructure(segment);
+        if (linkedSegmentPosition.length > 1) {
+          // deal with single pnr
+        }
+        else {
+          linkedSegmentMap[linkedSegmentPosition[0]] = getSegmentByItineraryId(segmentOptions, segment.itinerary_id);
+        }
+      }
+      setInitialActiveAndAlternates(segment, resultsDetails,
+        segmentOptions, segmentIndex)
+    }
+  });
 };
+
+const setInitialActiveAndAlternates = (segmentToActivate: Segment, state: ResultsDetails,
+  segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
+  segmentToActivate.status = 'active';
+  state.activeSegments.set(segmentOptionsIndex, segmentToActivate);
+  // Doesn't work with open jaws
+  // setAlternatesStatus(state, segmentToActivate, segmentOptions);
+  // if (segmentOptionsIndex === 2) {
+  //   console.log(segmentToActivate)
+  //   console.log(state.activeSegments.get(2))
+  // }
+}
+
+const getSegmentByItineraryId = (segments: Array<Segment>, segment_id: string) =>
+  segments.find(
+    (potentialLinkedSegment: Segment) =>
+      segment_id === potentialLinkedSegment.itinerary_id
+  );

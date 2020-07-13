@@ -1,6 +1,6 @@
 import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
 import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
-import { setRelatives } from '../helpers/RelativesHelper';
+import { setSegmentsAsActive } from '../helpers/RelativesHelper';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -40,18 +40,44 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   }
 }
 
-function setSegmentsAsActive(state: ResultsDetails) {
-  setRelatives(state);
-  const trip: Results = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    let segment = segmentOptions[0];
-    segment.status = 'active';
-    state.activeSegments.set(segmentOptionsIndex, segment);
-    setAlternatesStatus(state, segment, segmentOptions);
-  });
-  console.table(state[state.tripType].segments[0])
-  return {...state};
-}
+// function setSegmentsAsActive(state: ResultsDetails) {
+//   setRelativePriceAndWeight(state);
+  // const trip: Results = state[state.tripType];
+  // trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
+  //   let segment = segmentOptions[0];
+  //   let segmentsToActivateMap = {};
+  //   let matchingSegmentPosition: Array<number> | undefined = segment.fare_type === 'OPEN_JAW' ? getOtherPositionsInItineraryStructure(segment) : undefined;
+  //   if (segmentsToActivateMap[segmentOptionsIndex]) {
+  //     updateSegmentsStatus(segmentsToActivateMap[segmentOptionsIndex], segmentOptionsIndex, state, segmentOptions);
+  //   }
+  //   else if (matchingSegmentPosition) {
+  //     const matchingSegment: Segment | undefined = trip.segments[matchingSegmentPosition[0]].find(
+  //       (potentialMatchingSegment: Segment) =>
+  //         potentialMatchingSegment.itinerary_id === segment.itinerary_id
+  //     );
+  //     if (matchingSegmentPosition.length > 1) {
+  //       // Do something here for single pnr
+  //     } else if (matchingSegmentPosition[0] < segmentOptionsIndex) {
+  //       updateSegmentsStatus(matchingSegment!, matchingSegmentPosition[0],
+  //         state, trip.segments[matchingSegmentPosition[0]]);
+  //     } else if (matchingSegmentPosition[0] > segmentOptionsIndex) {
+  //       segmentsToActivateMap[matchingSegmentPosition[0]] = matchingSegment;
+  //     }
+  //     updateSegmentsStatus(segment, segmentOptionsIndex, state, segmentOptions);
+  //   } else {
+  //     updateSegmentsStatus(segment, segmentOptionsIndex, state, segmentOptions);
+  //   }
+  // });
+//   return {...state};
+// }
+
+// function updateSegmentsStatus(segment: Segment, segmentOptionsIndex: number, state: ResultsDetails, segmentOptions: Array<Segment>) {
+//   const currentActive: Segment | undefined  = segmentOptions.find((segment: Segment) => segment.status === 'active')
+//   currentActive ? currentActive.status = 'compatible' : '';
+//   segment.status = 'active';
+//   state.activeSegments.set(segmentOptionsIndex, segment);
+//   setAlternatesStatus(state, segment, segmentOptions);
+// }
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
   const selectedSegment: Segment = action.segment;

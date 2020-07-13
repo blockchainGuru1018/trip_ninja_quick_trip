@@ -3,8 +3,11 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CountryList from '../../assets/data/countries.json';
+import { updatePassengerInfo } from '../../actions/BookActions';
 
 interface PassengerCountrySelectProps {
+  index: number;
+  updatePassengerInfo: typeof updatePassengerInfo;
   country?: string;
 }
 

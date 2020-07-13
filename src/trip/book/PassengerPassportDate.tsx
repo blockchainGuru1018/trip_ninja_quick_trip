@@ -3,8 +3,11 @@ import FormControl from '@material-ui/core/FormControl';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { updatePassengerInfo } from '../../actions/BookActions';
 
 interface PassengerPassportNumberProps {
+  index: number;
+  updatePassengerInfo: typeof updatePassengerInfo;
   passportDate?: string;
 }
 

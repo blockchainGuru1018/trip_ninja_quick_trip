@@ -66,6 +66,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           modalState={this.state.modalOpen} 
           passengers={passengerInfo}
           currentPassengerIndex={this.state.currentPassengerIndex}
+          updatePassengerInfo={this.props.updatePassengerInfo}
         />    
       </div>
     );

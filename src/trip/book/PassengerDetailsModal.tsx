@@ -11,6 +11,8 @@ import PassengerDateOfBirth from './PassengerDateOfBirth';
 import PassengerPassportDate from './PassengerPassportDate';
 import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
+import { updatePassengerInfo } from '../../actions/BookActions';
+import { update } from 'lodash';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,8 +41,9 @@ const useStyles = makeStyles(() =>
 
 interface PassengerDetailsModalProps {
   modalState: boolean,
-  passengers: Array<PassengerInfo>,
+  passengers: Array<PassengerInfo>
   currentPassengerIndex: number
+  updatePassengerInfo: typeof updatePassengerInfo
 }
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
@@ -85,15 +88,27 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 />
               </div>
               <div className="col-sm-3">
-                <PassengerDateOfBirth dateOfBirth={passenger.date_of_birth}/>
+                <PassengerDateOfBirth 
+                  dateOfBirth={passenger.date_of_birth}
+                  index={props.currentPassengerIndex}
+                  updatePassengerInfo={props.updatePassengerInfo}
+                />
               </div>
               <div className="col-sm-3">
-                <PassengerGenderSelect gender={passenger.gender}/>
+                <PassengerGenderSelect 
+                  gender={passenger.gender}
+                  index={props.currentPassengerIndex}
+                  updatePassengerInfo={props.updatePassengerInfo}
+                />
               </div>
             </div>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
-                <PassengerCountrySelect country={passenger.passport_country}/>               
+                <PassengerCountrySelect 
+                  country={passenger.passport_country}
+                  index={props.currentPassengerIndex}
+                  updatePassengerInfo={props.updatePassengerInfo}
+                />               
               </div>
               <div className="col-sm-3">
                 <TextField 
@@ -104,7 +119,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   fullWidth/>                
               </div>
               <div className="col-sm-3">
-                <PassengerPassportDate passportDate={passenger.passport_expiration}/>
+                <PassengerPassportDate 
+                  passportDate={passenger.passport_expiration}
+                  index={props.currentPassengerIndex}
+                  updatePassengerInfo={props.updatePassengerInfo}
+                />
               </div>
             </div>
             <div className="row passenger-form-row">
@@ -147,7 +166,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <Button
                 color="secondary"
                 variant="contained"
-                font-size="large"
+                size="large"
                 disableElevation
                 onClick={() => setOpen(false)}
               >

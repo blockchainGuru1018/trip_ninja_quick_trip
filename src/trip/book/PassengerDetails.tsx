@@ -21,8 +21,6 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   render() {
     let passengerInfo: Array<PassengerInfo> = this.props.bookingDetails.passengers;
 
-    console.log(passengerInfo);
-
     const passengers = passengerInfo.map((passenger: PassengerInfo, index: number) => (
       <div className="row passenger-row" key={index.toString()}>
         <div className="col-sm-8 passenger-label">
@@ -74,7 +72,6 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
 
   handleModalOpen = (index: number) => {
     this.setState({modalOpen: true, currentPassengerIndex: index});
-    this.props.updatePassengerInfo(index, 'first_name', 'false');
   }
 }
 

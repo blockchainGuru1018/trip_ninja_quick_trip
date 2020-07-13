@@ -63,7 +63,7 @@ class Book extends React.Component<BookProps> {
               <PassengerDetails 
                 passengers={this.props.passengers}
                 bookingDetails={this.props.bookingDetails}
-                updatePassengerInfo={updatePassengerInfo}
+                updatePassengerInfo={this.props.updatePassengerInfo}
               />
             </div>
           </div>

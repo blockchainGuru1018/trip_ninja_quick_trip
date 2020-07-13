@@ -12,7 +12,7 @@ import PassengerPassportDate from './PassengerPassportDate';
 import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
-import { update } from 'lodash';
+
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -74,7 +74,8 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passenger-first-name" 
                   label="First Name" 
                   variant="outlined" 
-                  value={passenger.first_name} 
+                  value={passenger.first_name}
+                  onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'first_name', event.target.value)}
                   fullWidth
                   required
                 />
@@ -85,6 +86,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   label="Last Name" 
                   variant="outlined" 
                   value={passenger.last_name}
+                  onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'last_name', event.target.value)}
                   fullWidth
                   required
                 />
@@ -118,6 +120,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   label="Passport Number" 
                   variant="outlined" 
                   value={passenger.passport_number}
+                  onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'passport_number', event.target.value)}
                   fullWidth/>                
               </div>
               <div className="col-sm-3">
@@ -132,45 +135,43 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <p>This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.</p>
             </div>
             <hr/>
-            <div>
-              <h5>Primary Passenger Contact</h5>
-              <div className="row passenger-form-row">
-                <div className="col-sm-4">
-                  <TextField 
-                    id="primary-email" 
-                    label="Email" 
-                    variant="outlined"
-                    value={passenger.email} 
-                    fullWidth
-                  />
+            { props.currentPassengerIndex === 0 &&
+              <div>
+                <h5>Primary Passenger Contact</h5>
+                <div className="row passenger-form-row">
+                  <div className="col-sm-4">
+                    <TextField 
+                      id="primary-email" 
+                      label="Email" 
+                      variant="outlined"
+                      value={passenger.email}
+                      onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'email', event.target.value)}
+                      fullWidth
+                    />
+                  </div>
+                  <div className="col-sm-3">
+                    <TextField 
+                      id="primary-phone-number" 
+                      label="Phone Number" 
+                      variant="outlined"
+                      value={passenger.phone_number}
+                      onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'phone_number', event.target.value)}
+                      fullWidth
+                    />
+                  </div>
                 </div>
-                <div className="col-sm-2">
-                  <TextField 
-                    id="primary-area-code" 
-                    label="Area Code" 
-                    variant="outlined" 
-                    fullWidth
-                  />
-                </div>
-                <div className="col-sm-3">
-                  <TextField 
-                    id="primary-phone-number" 
-                    label="Phone Number" 
-                    variant="outlined"
-                    value={passenger.phone_number} 
-                    fullWidth
-                  />
-                </div>
+                <hr/>
               </div>
-              <hr/>
-            </div>
+            }
             <div className="text-center">
               <Button
                 color="secondary"
                 variant="contained"
                 size="large"
                 disableElevation
-                onClick={() => setOpen(false)}
+                onClick={() => {setOpen(false);
+                  props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true');
+                }}
               >
                 Save
               </Button>

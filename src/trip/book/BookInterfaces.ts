@@ -6,7 +6,7 @@ export interface BookingDetails {
   agent_email?: string;
   agency?: string;
   passengers: Array<PassengerInfo>;
-  billing: Billing;
+  billing?: Billing;
 }
 
 export interface PassengerInfo {
@@ -40,11 +40,16 @@ export interface PaymentInfo {
 
 export const defaultPassengerInfo: PassengerInfo = {
   'passenger_type': 'Adult',
-  'first_name': '',
-  'last_name': '',
-  'date_of_birth': new Date().toISOString(),
-  'gender': '',
-  'updated': false
+  'first_name': 'Andres',
+  'last_name': 'Collart',
+  'date_of_birth': '1990-10-02',
+  'gender': 'M',
+  'updated': false,
+  'phone_number': '902-240-4649',
+  'passport_country': 'Honduras',
+  'passport_number': 'E512760',
+  'passport_expiration': '2025-01-01',
+  'email': 'andres.collart@tripninja.io'
 };
 
 export const defaultBilling: Billing = {

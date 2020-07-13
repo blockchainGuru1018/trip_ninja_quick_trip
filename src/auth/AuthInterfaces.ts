@@ -10,6 +10,8 @@ export interface AuthDetails {
   invalidAuth: boolean;
   pcc: string;
   provider: string;
+  agency: string;
+  ticketing_queue: string;
 }
 
 export const defaultAuth = {

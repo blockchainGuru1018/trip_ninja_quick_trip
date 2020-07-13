@@ -26,7 +26,7 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
 import { setSegmentPositionMapValue } from './actions/ResultsActions';
-import { updatePassengerInfo } from './actions/BookActions';
+import { updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 
 
@@ -152,11 +152,13 @@ class App extends React.Component<IAppProps> {
                 } />
                 <Route exact path="/book/" render={() =>
                   <Book
-                    pricingDetails={this.props.pricingDetails}
+                    authDetails={this.props.authDetails}
                     resultsDetails={this.props.resultsDetails}
+                    pricingDetails={this.props.pricingDetails}
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={updatePassengerInfo}
+                    bookFlights={bookFlights}
                   />
                 } />
               </div>

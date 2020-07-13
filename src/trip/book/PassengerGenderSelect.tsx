@@ -17,7 +17,7 @@ class PassengerGenderSelect extends React.Component<PassengerGenderSelectProps> 
         <Select
           id="gender"
           value={this.props.gender}
-          variant="outlined"
+          labelId="gender-label"
         >
           <MenuItem value="F">Female</MenuItem>
           <MenuItem value="M">Male</MenuItem>

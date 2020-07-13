@@ -147,6 +147,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <Button
                 color="secondary"
                 variant="contained"
+                font-size="large"
                 disableElevation
                 onClick={() => setOpen(false)}
               >

@@ -20,6 +20,7 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             disablePast
             variant="inline"
             inputVariant="outlined"
+            label="Passport Expiration"
             format="dd/mm/yyyy"
             margin="none"
             id="passport-date"

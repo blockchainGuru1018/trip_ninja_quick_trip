@@ -20,6 +20,7 @@ class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
             disableFuture
             variant="inline"
             inputVariant="outlined"
+            label="Date of Birth"
             format="dd/mm/yyyy"
             margin="none"
             id="passenger-dob"

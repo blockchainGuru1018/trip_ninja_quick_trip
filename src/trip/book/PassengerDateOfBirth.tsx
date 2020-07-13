@@ -24,6 +24,8 @@ class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
             inputVariant="outlined"
             label="Date of Birth"
             format="dd/mm/yyyy"
+            openTo="year"
+            views={["year", "month", "date"]}
             margin="none"
             id="passenger-dob"
             value={new Date()}

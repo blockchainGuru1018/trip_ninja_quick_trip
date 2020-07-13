@@ -24,6 +24,8 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             inputVariant="outlined"
             label="Passport Expiration"
             format="dd/mm/yyyy"
+            openTo="year"
+            views={["year", "month", "date"]}
             margin="none"
             id="passport-date"
             value={new Date()}

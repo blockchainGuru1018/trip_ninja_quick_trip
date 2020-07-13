@@ -1,5 +1,4 @@
 import { PricingDetails } from '../trip/results/PricingInterfaces';
-//import { setPricingResults } from './BookActions';
 import API from '../Api';
 import { setErrorDetails } from './ResultsActions';
 
@@ -15,7 +14,7 @@ function setPricingResults(data: PricingDetails) {
   return {
     type: 'SET_PRICING_RESULTS',
     data
-  }
+  };
 }
 
 export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) => {

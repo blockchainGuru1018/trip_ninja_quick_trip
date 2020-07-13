@@ -54,6 +54,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
           segment={segment}
           segments={sortedSegments}
           index={index}
+          key={index}
           segmentFlightDetails={segmentFlightDetails}
           segmentSelect={this.props.segmentSelect}
           activeSegment={this.props.activeSegment}

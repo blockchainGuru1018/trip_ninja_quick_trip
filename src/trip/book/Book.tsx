@@ -22,15 +22,14 @@ interface BookProps {
 
 class Book extends React.Component<BookProps> {
   render() {
-
     return (
       <div className="row" id="book-itinerary">
         <div className="col-lg-10 offset-lg-1">
           <div className="book-header">
-            <BackButton 
-              onClick={() => history.push('/results/itinerary/')} 
+            <BackButton
+              onClick={() => history.push('/results/itinerary/')}
             >
-              <KeyboardBackspaceIcon /> 
+              <KeyboardBackspaceIcon />
               Back to Results
             </BackButton>
             <div className="row itinerary-summary">
@@ -39,7 +38,7 @@ class Book extends React.Component<BookProps> {
               </div>
               <div className="col-sm-6">
                 <BookRequest />
-              </div>          
+              </div>
             </div>
           </div>
           <div className="row itinerary-details">

@@ -8,18 +8,17 @@ interface BookRequestProps {
 class BookRequest extends React.Component<BookRequestProps> {
 
   render() {
-
     return (
       <div className="float-right">
-        <Button 
-          variant="outlined" 
+        <Button
+          variant="outlined"
           color="primary"
           className="book-button"
         >
           Book and Save
         </Button>
         <Button
-          variant="contained" 
+          variant="contained"
           color="primary"
           className="book-button"
           disableElevation

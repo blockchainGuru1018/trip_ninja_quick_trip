@@ -88,7 +88,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
           variant="contained"
           color="primary"
           size="large"
-          onClick={this.searchForFlights}>
+          onClick={() => this.searchForFlights()}>
             Search Flights
         </Button>
         {!this.state.searchDetailsValid &&

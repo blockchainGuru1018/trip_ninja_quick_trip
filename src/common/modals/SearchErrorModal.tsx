@@ -22,30 +22,31 @@ interface SearchErrorModalProps {
   setOpen: any;
 }
 
-export default function SearchErrorModal(props: SearchErrorModalProps) {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>No Flights Found</h2>
-      <div className='search-modal-text-container'>
-        <p>
-          There were no flights found for your search. Please try a different search.
-        </p>
-        <p>
-          For more information on what might have gone wrong, head to our
-          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledege Base</a>
-          . You can always reach out to our support team at support@tripninja.io
-          for assistance.
-        </p>
-        <Button
-          onClick={() => props.setOpen(false)}
-          color='secondary'
-          variant="contained"
-          style={{display: 'grid', margin: 'auto'}}>
-          Return to Search
-        </Button>
+export default class SearchErrorModal extends React.Component<SearchErrorModalProps> {
+  render() {
+    const classes = useStyles();
+    return (
+      <div className={classes.paper + ' centered-container'}>
+        <h2 id="transition-modal-title" className='search-modal-title'>No Flights Found</h2>
+        <div className='search-modal-text-container'>
+          <p>
+            There were no flights found for your search. Please try a different search.
+          </p>
+          <p>
+            For more information on what might have gone wrong, head to our
+            <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledege Base</a>
+            . You can always reach out to our support team at support@tripninja.io
+            for assistance.
+          </p>
+          <Button
+            onClick={() => this.props.setOpen(false)}
+            color='secondary'
+            variant="contained"
+            style={{display: 'grid', margin: 'auto'}}>
+            Return to Search
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

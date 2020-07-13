@@ -16,7 +16,7 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
     if (value) {
       return value;
     } else {
-      throw `Active segment is not set for position ${key}`;
+      throw new Error(`Active segment is not set for position ${key}`);
     }
   }
 }
@@ -28,7 +28,7 @@ export class SegmentPositionMap extends Map<number, SegmentValueMap> {
     if (value) {
       return value;
     } else {
-      throw `${valueType} is not set for segment position ${segmentPosition}`;
+      throw new Error(`${valueType} is not set for segment position ${segmentPosition}`);
     }
   }
 

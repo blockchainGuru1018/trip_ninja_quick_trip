@@ -29,7 +29,7 @@ class FlightStops extends React.Component<FlightStopsProps> {
 
   calculateHoursBetween = (flights: Array<FlightResultsDetails>) => {
     let stopOverTimeDetails: Array<any> = [];
-    let _ = flights.map((flight: FlightResultsDetails, index: number) => {
+    flights.forEach((flight: FlightResultsDetails, index: number) => {
       if (index === flights.length - 1) {
         return '';
       } else {

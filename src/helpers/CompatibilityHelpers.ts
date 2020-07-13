@@ -56,7 +56,7 @@ function identifyCompatibleSegments(state: ResultsDetails, segment: Segment) {
         return 'incompatible';
       }
     } else {
-      throw `Linked segment with itinerary id ${segment.itinerary_id} not found in list of options at position ${linkedSegmentPosition}`;
+      throw new Error(`Linked segment with itinerary id ${segment.itinerary_id} not found in list of options at position ${linkedSegmentPosition}`);
     }
     return 'compatible';
   }
@@ -100,7 +100,7 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
     setAlternatesStatus(state, bestOneWay, segmentOptions);
     activateSegment(bestOneWay, state, segmentPosition);
   } else {
-    throw `No segment with ONE_WAY structure found at position ${segmentPosition}`;
+    throw new Error(`No segment with ONE_WAY structure found at position ${segmentPosition}`);
   }
 }
 
@@ -112,7 +112,7 @@ export function updateActiveSegments(state: ResultsDetails, action: any) {
   if (selectedSegment) {
     updateSegmentActivesAndAlternates(selectedSegment, state, action.segmentOptionIndex);
   } else {
-    throw `Selected segment with itinerary id ${action.segmentItineraryRef} not found in list of options at position ${action.segmentOptionIndex}`;
+    throw new Error(`Selected segment with itinerary id ${action.segmentItineraryRef} not found in list of options at position ${action.segmentOptionIndex}`);
   }
   return {...state};
 }

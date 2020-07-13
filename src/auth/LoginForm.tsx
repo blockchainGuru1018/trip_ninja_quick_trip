@@ -46,7 +46,8 @@ class LoginForm extends React.Component<LoginFormProps> {
                     fullWidth
                     required
                     value={this.state.email}
-                    onChange={e => this.setState({'email': e.target.value})}/>
+                    onChange={e => this.setState({'email': e.target.value})}
+                    autoComplete='on'/>
                   <LoginTextField
                     id="login-password"
                     label="Password"
@@ -55,7 +56,8 @@ class LoginForm extends React.Component<LoginFormProps> {
                     fullWidth
                     required
                     value={this.state.password}
-                    onChange={e => this.setState({'password': e.target.value})}/>
+                    onChange={e => this.setState({'password': e.target.value})}
+                    autoComplete='on'/>
                   {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}
                   <div className="row login-button-row">
                     <div className="col-sm-6">

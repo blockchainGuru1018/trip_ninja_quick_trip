@@ -1,13 +1,12 @@
 import React from 'react';
 
 interface ItineraryProps {
-  
+
 }
 
 class Itinerary extends React.Component<ItineraryProps> {
 
   render() {
-
     return (
       <div>
         <h5>Itinerary</h5>

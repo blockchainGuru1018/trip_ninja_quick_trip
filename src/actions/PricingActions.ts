@@ -24,7 +24,7 @@ export const priceFlights = (pricingPayload: PricingDetails) => (dispatch: any) 
   return API.post(url, pricingPayload)
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw new Error('error');
       } else {
         dispatch(setErrorDetails(false, 'pricing'));
         dispatch(setPricingResults(response.data));

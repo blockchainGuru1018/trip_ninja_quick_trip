@@ -22,24 +22,25 @@ interface PricingErrorModalProps {
   setOpen: any;
 }
 
-export default function PricingErrorModal(props: PricingErrorModalProps) {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>Price confirm failed</h2>
-      <div className='search-modal-text-container'>
-        <p>
-          These flights are no longer available, please try confirming a different flight option or re-running the search.
-        </p>
-        <Button
-          onClick={() => props.setOpen(false)}
-          color='secondary'
-          variant="contained"
-          style={{display: 'grid', margin: 'auto'}}>
-          Return to Results
-        </Button>
+export default class PricingErrorModal extends React.Component<PricingErrorModalProps> {
+  render() {
+    const classes = useStyles();
+    return (
+      <div className={classes.paper + ' centered-container'}>
+        <h2 id="transition-modal-title" className='search-modal-title'>Price confirm failed</h2>
+        <div className='search-modal-text-container'>
+          <p>
+            These flights are no longer available, please try confirming a different flight option or re-running the search.
+          </p>
+          <Button
+            onClick={() => this.props.setOpen(false)}
+            color='secondary'
+            variant="contained"
+            style={{display: 'grid', margin: 'auto'}}>
+            Return to Results
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

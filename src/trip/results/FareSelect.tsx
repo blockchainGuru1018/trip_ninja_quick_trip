@@ -44,7 +44,6 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   render() {
     const brandsList =  this.props.brands!;
-
     return(
       <div>
         <TableContainer component={Paper}>
@@ -94,11 +93,11 @@ class FareSelect extends React.Component<FareSelectProps> {
               </TableRow>
             </TableBody>
           </Table>
-        </TableContainer>  
+        </TableContainer>
       </div>
     );
   }
-  
+
   brandNamesRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
       <FareTableHeader key={index} align="center">{brand.fare_info[0].brand.name}</FareTableHeader>
@@ -111,7 +110,7 @@ class FareSelect extends React.Component<FareSelectProps> {
         ? <FareTableCell key={index} align="center">
           {brand.fare_info[0].brand.tag_line}
         </FareTableCell>
-        : this.brandNotAvailableCell(index)       
+        : this.brandNotAvailableCell(index)
     ));
   }
 
@@ -120,7 +119,7 @@ class FareSelect extends React.Component<FareSelectProps> {
       <FareTableCell key={index} align="center">{brand.baggage_info.pieces} {brand.baggage_info.units}</FareTableCell>
     ));
   }
-  
+
   cabinBagsRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
       brand.fare_info[0].brand.brand_services.carry_on_hand_baggage
@@ -130,13 +129,13 @@ class FareSelect extends React.Component<FareSelectProps> {
         : this.brandNotAvailableCell(index)
     ));
   }
-  
+
   seatSelectionRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
     ));
   }
-  
+
   changesRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
@@ -148,7 +147,7 @@ class FareSelect extends React.Component<FareSelectProps> {
       <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
     ));
   }
-  
+
   bookingCodeRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">{brand.fare_info[0].booking_code}</FareTableCell>

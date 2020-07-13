@@ -14,6 +14,7 @@ import { Passenger } from '../search/SearchInterfaces';
 import { setPassengerInfo, updatePassengerInfo } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
 
+
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
 });
@@ -29,7 +30,6 @@ interface BookProps {
 
 class Book extends React.Component<BookProps> {
   componentDidMount() {
-    console.log("mounted!");
     this.props.setPassengerInfo(this.props.passengers);
   }
 

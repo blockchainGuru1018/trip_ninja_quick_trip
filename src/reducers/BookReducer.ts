@@ -19,17 +19,17 @@ function setNewPassengerInfo(state: any, action: any) {
   console.log("in the function");
   let passengerInfo: Array<PassengerInfo> = [];
   console.log(state);
-  console.log(state.searchDetails);
-  for (let i = 0; i < action.value.passengers.length; i++) {
-    if (action.value.passengers[i].count > 0) {
-      for (let j = 0; j < action.value.passengers[i].count; j++) {
-        let newPassenger: PassengerInfo = {'passenger_type': action.value.passengers[i].type, 'updated': false};
+  for (let i = 0; i < action.passengers.length; i++) {
+    if (action.passengers[i].count > 0) {
+      for (let j = 0; j < action.passengers[i].count; j++) {
+        let newPassenger: PassengerInfo = {'passenger_type': action.passengers[i].type, 'updated': false};
         passengerInfo.push(newPassenger);
       }
     }
   }
   console.log(passengerInfo);
-  state.bookingDetails.passengers = passengerInfo;
+  console.log(state);
+  state.passengers = passengerInfo;
   return {...state};
 }
 

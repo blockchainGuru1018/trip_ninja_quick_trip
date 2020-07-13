@@ -1,6 +1,4 @@
 import { Passenger } from '../trip/search/SearchInterfaces';
-import { BookingDetails } from '../trip/book/BookInterfaces';
-import { Dispatch } from 'redux';
 
 export function updatePassengerInfo(index: number, key: string, value: string) {
   console.log("update passenger info action");
@@ -12,11 +10,10 @@ export function updatePassengerInfo(index: number, key: string, value: string) {
   };
 }
 
-export function setPassengerInfo(value: Array<Passenger>) {
-  console.log("call reducerr!!!");
+export function setPassengerInfo(passengers: Array<Passenger>) {
   return {
     type: 'SET_PASSENGERS',
-    value
+    passengers
   };
 }
 

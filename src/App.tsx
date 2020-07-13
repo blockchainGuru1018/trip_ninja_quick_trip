@@ -157,8 +157,8 @@ class App extends React.Component<IAppProps> {
                     resultsDetails={this.props.resultsDetails}
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
-                    updatePassengerInfo={updatePassengerInfo}
-                    setPassengerInfo={setPassengerInfo}
+                    updatePassengerInfo={this.props.updatePassengerInfo}
+                    setPassengerInfo={this.props.setPassengerInfo}
                   />
                 } />
               </div>

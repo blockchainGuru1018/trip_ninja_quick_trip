@@ -1,6 +1,6 @@
 
 export interface BookingDetails {
-  trip_id: string;
+  trip_id?: string;
   add_to_ticketing_queue?: boolean;
   ticketing_queue?: string;
   agent_email?: string;

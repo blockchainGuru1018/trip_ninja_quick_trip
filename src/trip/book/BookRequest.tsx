@@ -16,6 +16,11 @@ class BookRequest extends React.Component<BookRequestProps> {
 
   submitBookingRequest = (add_to_ticketing_queue: boolean) => {
 
+
+    console.log("BookingDetails:", this.props.bookingDetails);
+    console.log("AuthDetails:", this.props.authDetails);
+    console.log("pricingDetails:", this.props.pricingDetails);
+
     this.props.bookingDetails.trip_id = this.props.pricingDetails.trip_id;
     this.props.bookingDetails.add_to_ticketing_queue = add_to_ticketing_queue;
     this.props.bookingDetails.ticketing_queue = this.props.authDetails.ticketing_queue;

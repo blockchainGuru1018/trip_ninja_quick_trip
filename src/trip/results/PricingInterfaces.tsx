@@ -87,11 +87,11 @@ export interface SegmentPricingInfo {
 
 export interface BaggageDetails {
   applicable_bags: string;
-  applicable_carry_on_bags: string;
-  baggage_cost: string;
-  baggage_restrictions: string;
-  carryon_cost: number;
-  carryon_restrictions: string;
+  applicable_carry_on_bags?: string;
+  baggage_cost?: string;
+  baggage_restrictions?: string;
+  carryon_cost?: number;
+  carryon_restrictions?: string;
 }
 
 export interface FlightDetails {

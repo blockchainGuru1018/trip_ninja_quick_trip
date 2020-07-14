@@ -1,16 +1,11 @@
 import React from 'react';
-import { Segment, ResultsDetails } from './ResultsInterfaces';
+import { Segment } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActiveSegmentsFromAction } from '../../helpers/CompatibilityHelpers';
-
 
 interface SegmentPriceProps {
   segment: Segment;
   currency: string;
-  resultsDetails: ResultsDetails;
   activeSegment?: Segment;
-  segmentOptionsIndex: number;
-  totalPrice: number;
 }
 
 class SegmentPrice extends React.Component<SegmentPriceProps> {
@@ -25,19 +20,6 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       </div>
     );
   }
-
-  // setIncompatibleRelativePrice = (segment: Segment) => {
-  //   const dummyActives = updateActiveSegmentsFromAction(
-  //     this.props.resultsDetails, {segmentOptionIndex: this.props.segmentOptionsIndex, segmentItineraryRef: segment.itinerary_id}
-  //   );
-  //   return Array.from(dummyActives.activeSegments).reduce((total: number, activeSegment: any) =>
-  //     total += activeSegment[1].price, 0
-  //   ) - this.props.totalPrice;
-  // }
-  //
-  // setCompatibleRelativePrice = (segment: Segment, activeSegment: Segment) => {
-  //   return segment.price - activeSegment.price;
-  // }
 
   setRelativePriceString = (relativePrice: number) =>
     `${relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${Math.abs(relativePrice).toFixed()}`

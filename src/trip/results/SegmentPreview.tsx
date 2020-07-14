@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
@@ -19,7 +19,6 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 
 interface SegmentPreviewProps {
-  totalPrice: number;
   index: number;
   segment: Segment;
   segments: Array<Segment>;
@@ -27,7 +26,6 @@ interface SegmentPreviewProps {
   segmentSelect: boolean;
   activeSegment?: Segment;
   segmentOptionsIndex?: number;
-  resultsDetails?: ResultsDetails;
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
@@ -64,9 +62,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 segment={this.props.segment}
                 currency={this.props.currency}
                 activeSegment={this.props.activeSegment}
-                resultsDetails={_.cloneDeep(this.props.resultsDetails!)}
-                segmentOptionsIndex={this.props.segmentOptionsIndex!}
-                totalPrice={this.props.totalPrice}
               />
               : this.props.segmentSelect && <div className="col-sm-2"></div>
             }

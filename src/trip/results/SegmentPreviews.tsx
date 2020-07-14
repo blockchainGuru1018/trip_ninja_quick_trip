@@ -3,7 +3,6 @@ import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfac
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
-import { getTotal } from '../../helpers/MiscHelpers';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 
 interface SegmentPreviewsProps {
@@ -40,9 +39,6 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     });
 
   setSegmentsHTML = () => {
-    const totalPrice: number = this.props.resultsDetails
-      ? getTotal([...this.props.resultsDetails!.activeSegments.values()], 'price')
-      : 0;
     const sortedSegments = this.props.sortOrder
       ? sortBySortOrder(this.props.segments, this.props.sortOrder)
       : this.props.segments;
@@ -50,7 +46,6 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
       return(
         <SegmentPreview
-          totalPrice={totalPrice}
           segment={segment}
           segments={sortedSegments}
           index={index}
@@ -60,7 +55,6 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
           activeSegment={this.props.activeSegment}
           currency={this.props.currency}
           segmentOptionsIndex={this.props.segmentOptionsIndex}
-          resultsDetails={this.props.resultsDetails}
           updateActives={this.props.updateActives}
           updateFareFamily={this.props.updateFareFamily}
           pathSequence={this.props.pathSequence}

@@ -22,7 +22,7 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       : 0;
 
     return (
-      <div className="col-sm-2">
+      <div className="col-sm-2 my-auto">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(relativePrice)}</p>
       </div>
     );

@@ -2,8 +2,8 @@ import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
 import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
-import FlightStops from './FlightStops';
-import FlightTypes from './FlightTypes';
+import FlightStops from '../../common/FlightStops';
+import FlightTypes from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
 

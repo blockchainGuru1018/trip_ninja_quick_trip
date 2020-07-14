@@ -11,10 +11,10 @@ export interface BookingDetails {
 
 export interface PassengerInfo {
   title?: string;
-  first_name?: string;
-  last_name?: string;
+  first_name: string;
+  last_name: string;
   date_of_birth?: string;
-  gender?: string;
+  gender: string;
   phone_number?: string;
   passport_country?: string
   passport_number?: string;

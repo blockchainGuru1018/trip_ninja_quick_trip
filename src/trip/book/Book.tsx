@@ -34,7 +34,6 @@ class Book extends React.Component<BookProps> {
   }
 
   render() {
-    console.log(this.props.passengers);
     return (
       <div className="row" id="book-itinerary">
         <div className="col-xl-10 offset-xl-1">

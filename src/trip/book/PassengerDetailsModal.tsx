@@ -60,10 +60,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
         className={classes.modal}
         open={open}
         closeAfterTransition
-        BackdropComponent={() => <Backdrop open={open} className={classes.backDrop} />}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        hideBackdrop
       >
         <Fade in={open}>
           <div className={classes.paper}>
@@ -135,7 +132,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <p>This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.</p>
             </div>
             <hr/>
-            { props.currentPassengerIndex === 0 &&
+            {props.currentPassengerIndex === 0 &&
               <div>
                 <h5>Primary Passenger Contact</h5>
                 <div className="row passenger-form-row">

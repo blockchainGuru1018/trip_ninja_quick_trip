@@ -69,3 +69,7 @@
 .passenger-form-row {
   padding: 10px 0px;
 }
+
+.invalid-passenger-alert {
+  margin: 15px 0px;
+}

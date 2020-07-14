@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
@@ -12,6 +11,7 @@ import PassengerPassportDate from './PassengerPassportDate';
 import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles(() =>
@@ -51,6 +51,7 @@ interface PassengerDetailsModalProps {
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [invalidPassenger, setInvalidPassenger] = React.useState(false);
 
   useEffect(() => setOpen(props.modalState), [props.modalState]);
   return (
@@ -167,14 +168,21 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 variant="contained"
                 size="large"
                 disableElevation
-                onClick={() => {setOpen(false);
-                  props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true');
-                  props.handleModalOpen(props.currentPassengerIndex);
+                onClick={() => {
+                  return validatePassengerInput(props.passenger) 
+                    ? (setOpen(false),
+                    props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true'),
+                    props.handleModalOpen(props.currentPassengerIndex)
+                    )
+                    : setInvalidPassenger(true);
                 }}
               >
                 Save
               </Button>
             </div>
+            {invalidPassenger &&
+            <Alert severity="error" className="invalid-passenger-alert">Ensure all required fields are completed!</Alert>
+            }
           </div>
         </Fade>
       </Modal>

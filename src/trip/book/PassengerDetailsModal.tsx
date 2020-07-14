@@ -42,7 +42,7 @@ const useStyles = makeStyles(() =>
 
 interface PassengerDetailsModalProps {
   modalState: boolean,
-  passengers: Array<PassengerInfo>
+  passenger: PassengerInfo
   currentPassengerIndex: number
   updatePassengerInfo: typeof updatePassengerInfo
   handleModalOpen: any
@@ -53,7 +53,6 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => setOpen(props.modalState), [props.modalState]);
-  let passenger: PassengerInfo = props.passengers[props.currentPassengerIndex];
   return (
     <div>
       <Modal
@@ -73,7 +72,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passenger-first-name" 
                   label="First Name" 
                   variant="outlined" 
-                  value={passenger.first_name}
+                  value={props.passenger.first_name}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'first_name', event.target.value)}
                   fullWidth
                   required
@@ -84,7 +83,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passenger-last-name" 
                   label="Last Name" 
                   variant="outlined" 
-                  value={passenger.last_name}
+                  value={props.passenger.last_name}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'last_name', event.target.value)}
                   fullWidth
                   required
@@ -92,14 +91,14 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               </div>
               <div className="col-sm-3">
                 <PassengerDateOfBirth 
-                  dateOfBirth={passenger.date_of_birth}
+                  dateOfBirth={props.passenger.date_of_birth}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                 />
               </div>
               <div className="col-sm-3">
                 <PassengerGenderSelect 
-                  gender={passenger.gender}
+                  gender={props.passenger.gender}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                 />
@@ -108,7 +107,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
             <div className="row passenger-form-row">
               <div className="col-sm-3">
                 <PassengerCountrySelect 
-                  country={passenger.passport_country}
+                  country={props.passenger.passport_country}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                 />               
@@ -118,13 +117,13 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   id="passport-number" 
                   label="Passport Number" 
                   variant="outlined" 
-                  value={passenger.passport_number}
+                  value={props.passenger.passport_number}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'passport_number', event.target.value)}
                   fullWidth/>                
               </div>
               <div className="col-sm-3">
                 <PassengerPassportDate 
-                  passportDate={passenger.passport_expiration}
+                  passportDate={props.passenger.passport_expiration}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                 />
@@ -143,7 +142,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       id="primary-email" 
                       label="Email" 
                       variant="outlined"
-                      value={passenger.email}
+                      value={props.passenger.email}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'email', event.target.value)}
                       fullWidth
                     />
@@ -153,7 +152,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       id="primary-phone-number" 
                       label="Phone Number" 
                       variant="outlined"
-                      value={passenger.phone_number}
+                      value={props.passenger.phone_number}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'phone_number', event.target.value)}
                       fullWidth
                     />

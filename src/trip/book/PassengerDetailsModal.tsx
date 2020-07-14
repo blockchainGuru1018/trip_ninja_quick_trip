@@ -26,6 +26,7 @@ const useStyles = makeStyles(() =>
       background: '#FFFFFF 0% 0% no-repeat padding-box',
       boxShadow: '0px 3px 6px #00000029',
       border: '1px solid #ECEEEF',
+      outlineColor: '#ffffff',
       borderRadius: '5px',
       top: '142px',
       left: '130px',

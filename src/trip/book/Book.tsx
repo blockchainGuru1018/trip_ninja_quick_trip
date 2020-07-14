@@ -37,7 +37,7 @@ class Book extends React.Component<BookProps> {
     console.log(this.props.passengers);
     return (
       <div className="row" id="book-itinerary">
-        <div className="col-lg-10 offset-lg-1">
+        <div className="col-xl-10 offset-xl-1">
           <div className="book-header">
             <BackButton 
               onClick={() => history.push('/results/itinerary/')} 
@@ -56,7 +56,9 @@ class Book extends React.Component<BookProps> {
           </div>
           <div className="row itinerary-details">
             <div className="col-sm-7">
-              <Itinerary />
+              <Itinerary
+                resultsDetails={this.props.resultsDetails}
+              />
             </div>
             <div className="col-sm-5">
               <FareBreakdown pricingDetails={this.props.pricingDetails}/>

@@ -3,7 +3,7 @@ import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfac
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
-
+import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -29,15 +29,6 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     );
   }
 
-  getFlightDetailsBySegment = (segment: Segment): Array<FlightResultsDetails> =>
-    segment.flights.map((flight: any) => {
-      const filteredFlightDetails = this.props.flightDetails.filter(
-        (flightDetails: FlightResultsDetails) =>
-          flight.flight_detail_ref === flightDetails.reference
-      );
-      return filteredFlightDetails[0];
-    });
-
   getTotalPrice = () =>
     Array.from(this.props.resultsDetails!.activeSegments).reduce((total: number, activeSegment: any) =>
       total += activeSegment[1].price, 0);
@@ -46,7 +37,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     const totalPrice: number = this.props.resultsDetails ? this.getTotalPrice() : 0;
     const sortedSegments = this.props.sortOrder ? this.sortBySortOrder() : this.props.segments;
     return sortedSegments.map((segment: Segment, index: number) => {
-      const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+      const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
         <SegmentPreview
           totalPrice={totalPrice}

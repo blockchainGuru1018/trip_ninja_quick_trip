@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import Moment from 'react-moment';
 import moment from 'moment';
 
 interface FlightTimeProps {
   flights: Array<FlightResultsDetails>
+  itineraryDisplay?: boolean;
 }
 
 class FlightTime extends React.Component<FlightTimeProps> {
@@ -19,7 +20,7 @@ class FlightTime extends React.Component<FlightTimeProps> {
       return total += flightResult.flight_time;
     }, 0);
     return (
-      <div className="col-sm-2">
+      <div className={(this.props.itineraryDisplay ? ' col-sm-3' : 'col-sm-2') + ' my-auto'}>
         <div className="text-bold flight-preview-time">
           <Moment format="HH:mm">{departureTime}</Moment>
           <span> - </span>

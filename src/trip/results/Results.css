@@ -111,10 +111,6 @@
   margin: 0px 10px;
 }
 
-.segment-price {
-  padding-top: 15px;
-}
-
 .sort-select-container {
   display: grid;
   grid-auto-flow: column;

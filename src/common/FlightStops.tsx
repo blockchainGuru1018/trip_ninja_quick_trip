@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
-import { getTimeDifference } from '../../helpers/DateHelpers';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
+import { getTimeDifference } from '../helpers/DateHelpers';
 
 interface FlightStopsProps {
   flights: Array<FlightResultsDetails>
@@ -9,7 +9,7 @@ interface FlightStopsProps {
 class FlightStops extends React.Component<FlightStopsProps> {
   render() {
     return (
-      <div className="col-sm-2">
+      <div className='col-sm-2 my-auto'>
         {
           this.props.flights.length > 1
             ? <div className="text-bold">{this.props.flights.length - 1} Stop{this.props.flights.length > 2 ? "s" : ""}</div>

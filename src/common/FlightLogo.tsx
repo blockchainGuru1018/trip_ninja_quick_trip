@@ -1,15 +1,16 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
-import iataAirports from '../../assets/data/iataAirports.json';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
+import iataAirports from '../assets/data/iataAirports.json';
 
 interface FlightLogoProps {
   flights: Array<FlightResultsDetails>
+  itineraryDisplay?: boolean
 }
 
 class FlightLogo extends React.Component<FlightLogoProps> {
   render() {
     return(
-      <div className="col-sm-2 airline-logo-container">
+      <div className={(this.props.itineraryDisplay ? 'col-sm-1' : 'col-sm-2') + ' airline-logo-container my-auto'}>
         <div>
           <img
             className='img-airline-logo '
@@ -21,18 +22,20 @@ class FlightLogo extends React.Component<FlightLogoProps> {
             }}
           ></img>
         </div>
-        <div>
-          {
-            this.props.flights.map((flight: FlightResultsDetails, index: number) =>
-              <div key={'carrier-label-' + index} className="text-bold">{flight.carrier} {flight.flight_number}</div>
-            )
-          }
-          {
-            this.multipleAirlines(this.props.flights)
-              ? <div className="text-small">{"Multiple Airlines"}</div>
-              : <div className="text-small">{iataAirports[this.props.flights[0].carrier]}</div>
-          }
-        </div>
+        {!this.props.itineraryDisplay &&
+          <div>
+            {
+              this.props.flights.map((flight: FlightResultsDetails, index: number) =>
+                <div key={'carrier-label-' + index} className="text-bold">{flight.carrier} {flight.flight_number}</div>
+              )
+            }
+            {
+              this.multipleAirlines(this.props.flights)
+                ? <div className="text-small">{"Multiple Airlines"}</div>
+                : <div className="text-small">{iataAirports[this.props.flights[0].carrier]}</div>
+            }
+          </div>
+        }
       </div>
     );
   }

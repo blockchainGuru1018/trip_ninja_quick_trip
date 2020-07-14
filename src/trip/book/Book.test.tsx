@@ -52,40 +52,39 @@ const testPricingDetails: PricingDetails = {
   currency: "USD",
   trip_id: "d4a3433d6ce87e40dd8b74b15ad0cea647116409",
   trip_type: "fare_structure",
-  itinerary_reference: 1,
-  itinerary_type: "one_way",
-  plating_carrier: "",
-  loading: false,
+  source: "amadeus",
   itineraries: [
     {credentials:{
       data_source: "amadeus",
-      },
-    pricing:{
-      base_fare: 31.448900000000002,
-      confirmed_total_price: 66.18,
-      fees: 0,
-      markup: 0,
-      original_total_price: 66.18,
-      taxes: 35.18,
-      },
+      pcc: "123",
+      provider: "1A",
+    },
+    itinerary_reference: 1,
+    itinerary_type: "one_way",
+    plating_carrier: "",
+    traveller_list: ["ADT"],
     segments:[
-        {segment_id: "0",
-        flight_details: [
-          {flight_number: "6225",
-          in_flight_services: ["123"],
-          meals: ["123"],
-          automated_checkin: false,
-          destination_terminal: null,
-          origin_terminal: null,
-          special_segment: null,}
-        ]
-        }
-      ]    
+      {segment_id: "0",
+        flights:[{
+          booking_code: "D",
+          arrival_time: "2020-11-25T07:40:00",
+          brand_identifier: "",
+          cabin_class: "Economic Standard",
+          carrier: "VY",
+          departure_time: "2020-11-25T05:10:00",
+          destination: "FCO",
+          flight_number: "6225",
+          flight_time: 150,
+          key: "cf544d7343dff560531c0a0ce5204a3b339ae8bd",
+          origin: "LGW",
+        }]
+      }
+    ]    
     }]
 };
 
 test('getNumberOfNights', () => {
-  const component: any = shallow(
+  const bookRequestComponent: any = shallow(
     <BookRequest
       bookingDetails={testBookingDetails}
       authDetails={testAuthDetails}
@@ -94,8 +93,12 @@ test('getNumberOfNights', () => {
     />
   );
 
-  const instance = component.instance();
+  const bookRequestComponentInstance = bookRequestComponent.instance();
 
-  expect(instance.agent_email.toStrictEqual(testAuthDetails.userEmail));
-  expect(instance.trip_id.toStrictEqual(testPricingDetails.trip_id));
-  );
+  bookRequestComponentInstance.submitBookingRequest(false);
+
+  expect(bookRequestComponentInstance.props.bookingDetails.agent_email).toStrictEqual(testAuthDetails.userEmail);
+  expect(bookRequestComponentInstance.props.bookingDetails.trip_id).toStrictEqual(testPricingDetails.trip_id);
+
+});
+

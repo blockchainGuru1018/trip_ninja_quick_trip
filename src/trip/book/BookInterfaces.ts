@@ -13,7 +13,7 @@ export interface PassengerInfo {
   title?: string;
   first_name: string;
   last_name: string;
-  date_of_birth?: string;
+  date_of_birth: string;
   gender: string;
   phone_number?: string;
   passport_country?: string

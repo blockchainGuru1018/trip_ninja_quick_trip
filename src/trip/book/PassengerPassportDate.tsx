@@ -5,13 +5,13 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { updatePassengerInfo } from '../../actions/BookActions';
 
-interface PassengerPassportNumberProps {
+interface PassengerPassportDateProps {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
   passportDate?: string;
 }
 
-class PassengerPassportNumber extends React.Component<PassengerPassportNumberProps> {
+class PassengerPassportDate extends React.Component<PassengerPassportDateProps> {
 
   render() {   
     return (
@@ -23,7 +23,7 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
             variant="inline"
             inputVariant="outlined"
             label="Passport Expiration"
-            format="dd/mm/yyyy"
+            format="dd/MM/yyyy"
             openTo="year"
             views={["year", "month", "date"]}
             margin="none"
@@ -48,4 +48,4 @@ class PassengerPassportNumber extends React.Component<PassengerPassportNumberPro
  
 }
 
-export default PassengerPassportNumber;
+export default PassengerPassportDate;

@@ -8,7 +8,7 @@ import { updatePassengerInfo } from '../../actions/BookActions';
 interface PassengerDateOfBirthProps {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
-  dateOfBirth?: string;
+  dateOfBirth: string;
 }
 
 class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
@@ -23,12 +23,12 @@ class PassengerDateOfBirth extends React.Component<PassengerDateOfBirthProps> {
             variant="inline"
             inputVariant="outlined"
             label="Date of Birth"
-            format="dd/mm/yyyy"
+            format="dd/MM/yyyy"
             openTo="year"
             views={["year", "month", "date"]}
             margin="none"
             id="passenger-dob"
-            value={new Date()}
+            value={new Date(this.props.dateOfBirth)}
             onChange={(e: any) => this.setDateChange(e)}
           />
         </MuiPickersUtilsProvider>

@@ -9,6 +9,7 @@ import PreResults from './trip/results/PreResults';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
 import Book from './trip/book/Book';
+import Bookings from './bookings/Bookings';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
@@ -113,29 +114,23 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                   />
                 } />
-                {this.props.resultsDetails.fareStructureResults
-                  ? <Route exact path="/results/pre-results/" render={() =>
-                    <PreResults
-                      resultsDetails={this.props.resultsDetails}
-                      currency={this.props.searchDetails.currency}
-                      setTripType={this.props.setTripType}
-                    />
-                  } />
-                  : ''
-                }
-                {this.props.resultsDetails.fareStructureResults
-                  ? <Route exact path="/results/itinerary/" render={() =>
-                    <ItineraryResult
-                      resultsDetails={this.props.resultsDetails}
-                      currency={this.props.searchDetails.currency}
-                      priceFlights={this.props.priceFlights}
-                      passengers={this.props.searchDetails.passengers}
-                      authDetails={this.props.authDetails}
-                      setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
-                    />
-                  } />
-                  : history.push('/search/')
-                }
+                <Route exact path="/results/pre-results/" render={() =>
+                  <PreResults
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                    setTripType={this.props.setTripType}
+                  />
+                } />
+                <Route exact path="/results/itinerary/" render={() =>
+                  <ItineraryResult
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                    priceFlights={this.props.priceFlights}
+                    passengers={this.props.searchDetails.passengers}
+                    authDetails={this.props.authDetails}
+                    setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
+                  />
+                } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
                   <SegmentSelection
                     {...routeProps}
@@ -151,6 +146,9 @@ class App extends React.Component<IAppProps> {
                     pricingDetails={this.props.pricingDetails}
                     resultsDetails={this.props.resultsDetails}
                   />
+                } />
+                <Route exact path="/bookings/" render={() =>
+                  <Bookings />
                 } />
               </div>
             </Router>

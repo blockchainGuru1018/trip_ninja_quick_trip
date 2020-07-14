@@ -41,7 +41,7 @@ class Itinerary extends React.Component<ItineraryProps> {
 
 
   displayItinerarySegments = (selectedTrip: Array<Segment>, trip: Results) => {
-    return selectedTrip.map((segment: Segment, index: number) => {
+    return selectedTrip.map((segment: Segment) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
       return(this.getSegmentDetails(segment, segmentFlightDetails));
     });

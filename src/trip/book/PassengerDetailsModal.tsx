@@ -6,8 +6,7 @@ import { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import PassengerCountrySelect from './PassengerCountrySelect';
-import PassengerDateOfBirth from './PassengerDateOfBirth';
-import PassengerPassportDate from './PassengerPassportDate';
+import PassengerDatePicker from './PassengerDatePicker';
 import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
@@ -91,10 +90,13 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 />
               </div>
               <div className="col-sm-3">
-                <PassengerDateOfBirth 
-                  dateOfBirth={props.passenger.date_of_birth}
+                <PassengerDatePicker 
+                  date={props.passenger.date_of_birth}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
+                  fieldName="date_of_birth"
+                  label="Date of Birth"
+                  disablePast={false}
                 />
               </div>
               <div className="col-sm-3">
@@ -123,10 +125,13 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   fullWidth/>                
               </div>
               <div className="col-sm-3">
-                <PassengerPassportDate 
-                  passportDate={props.passenger.passport_expiration}
+                <PassengerDatePicker 
+                  date={props.passenger.passport_expiration}
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
+                  fieldName="passport_expiration"
+                  label="Passport Expiration"
+                  disablePast={true}
                 />
               </div>
             </div>

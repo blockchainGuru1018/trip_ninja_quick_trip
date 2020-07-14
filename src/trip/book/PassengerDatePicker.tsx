@@ -5,30 +5,33 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { updatePassengerInfo } from '../../actions/BookActions';
 
-interface PassengerPassportDateProps {
+interface PassengerDatePickerProps {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
-  passportDate?: string;
+  date?: string;
+  fieldName: string;
+  label: string;
+  disablePast: boolean;
 }
 
-class PassengerPassportDate extends React.Component<PassengerPassportDateProps> {
+class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
 
   render() {   
+    let dateValue = this.props.date ? new Date(this.props.date!) : new Date();
     return (
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             disableToolbar
-            disablePast
+            {...(this.props.disablePast ? {disablePast: true} : {disableFuture: true})}
             variant="inline"
             inputVariant="outlined"
-            label="Passport Expiration"
+            label={this.props.label}
             format="dd/MM/yyyy"
             openTo="year"
             views={["year", "month", "date"]}
             margin="none"
-            id="passport-date"
-            value={new Date()}
+            value={dateValue}
             onChange={(e: any) => this.setDateChange(e)}
           />
         </MuiPickersUtilsProvider>
@@ -41,11 +44,11 @@ class PassengerPassportDate extends React.Component<PassengerPassportDateProps> 
       ? isNaN(dateEvent.valueOf())
         ? ''
         : this.props.updatePassengerInfo(
-          this.props.index, 'passport_expiration', dateEvent?.toISOString()!
+          this.props.index, this.props.fieldName, dateEvent?.toISOString()!
         )
       : '';
   };
  
 }
 
-export default PassengerPassportDate;
+export default PassengerDatePicker;

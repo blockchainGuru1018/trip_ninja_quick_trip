@@ -55,12 +55,6 @@ export interface Credentials {
   region?: string;
 }
 
-export interface PricingResults {
-  trip_id: string;
-  pricing: Pricing;
-  itinerary: Array<PricingResponseItinerary>;
-}
-
 export interface Pricing {
   confirmed_total_price: number;
   original_total_price: number;
@@ -69,14 +63,6 @@ export interface Pricing {
   fees: number;
   markup: number;
   currency: string;
-}
-
-export interface PricingResponseItinerary {
-  itinerary_reference: number;
-  plating_carrier: string;
-  credentials: Credentials;
-  itinerary_type: string;
-  segments: Array<SegmentPricingInfo>
 }
 
 export interface SegmentPricingInfo {

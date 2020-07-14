@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingDetails, PricingResults, PricingRequestItinerary, FlightSegment, Flight, Credentials } from './PricingInterfaces';
+import { PricingDetails, PricingRequestItinerary, FlightSegment, Flight, Credentials } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';

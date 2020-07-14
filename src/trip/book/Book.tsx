@@ -12,7 +12,7 @@ import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
 import { updatePassengerInfo, bookFlights } from '../../actions/BookActions';
-import { BookingDetails, Billing } from './BookInterfaces';
+import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 
 const BackButton = styled(Button)({

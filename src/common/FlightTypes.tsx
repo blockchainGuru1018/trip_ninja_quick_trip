@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResult } from './ResultsInterfaces';
+import { Segment, FlightResult } from '../trip/results/ResultsInterfaces';
 
 interface FlightTypesProps {
   segment: Segment
@@ -8,7 +8,7 @@ interface FlightTypesProps {
 class FlightTypes extends React.Component<FlightTypesProps> {
   render() {
     return (
-      <div className="col-sm-2">
+      <div className="col-sm-2 my-auto">
         <p className="text-bold">{this.props.segment.fare_type}</p>
         <p className="text-small">{this.getFlightTypes(this.props.segment.flights)}</p>
       </div>

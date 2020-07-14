@@ -1,16 +1,16 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
-import iataAirports from '../../assets/data/iataAirports.json';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
+import iataAirports from '../assets/data/iataAirports.json';
 
 interface FlightLogoProps {
   flights: Array<FlightResultsDetails>
-  smallerSize?: boolean
+  itineraryDisplay?: boolean
 }
 
 class FlightLogo extends React.Component<FlightLogoProps> {
   render() {
     return(
-      <div className={(this.props.smallerSize ? 'col-sm-1' : 'col-sm-2') + ' airline-logo-container'}>
+      <div className={(this.props.itineraryDisplay ? 'col-sm-1' : 'col-sm-2') + ' airline-logo-container my-auto'}>
         <div>
           <img
             className='img-airline-logo '
@@ -22,7 +22,7 @@ class FlightLogo extends React.Component<FlightLogoProps> {
             }}
           ></img>
         </div>
-        {this.props.smallerSize ? '' :
+        {!this.props.itineraryDisplay &&
           <div>
             {
               this.props.flights.map((flight: FlightResultsDetails, index: number) =>

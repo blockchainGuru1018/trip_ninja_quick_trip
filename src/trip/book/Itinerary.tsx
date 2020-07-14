@@ -1,10 +1,10 @@
 import React from 'react';
-import { Segment, FlightResultsDetails, ResultsDetails, Results} from '../results/ResultsInterfaces';
-import SegmentOriginDestination from '../results/SegmentOriginDestination';
-import FlightLogo from '../results/FlightLogo';
-import FlightTime from '../results/FlightTime';
-import SegmentBaggage from '../results/SegmentBaggage';
-import FlightStops from '../results/FlightStops';
+import { Segment, FlightResultsDetails, ResultsDetails , Results} from '../results/ResultsInterfaces';
+import SegmentOriginDestination from '../../common/SegmentOriginDestination';
+import FlightLogo from '../../common/FlightLogo';
+import FlightTime from '../../common/FlightTime';
+import SegmentBaggage from '../../common/SegmentBaggage';
+import FlightStops from '../../common/FlightStops';
 import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
@@ -21,13 +21,13 @@ class Itinerary extends React.Component<ItineraryProps> {
         <p className="segment-date">
           <Moment format="MMMM Do YYYY">{segmentFlightDetails[0].departure_time}</Moment>
         </p>
-        <div className={'row col-md-12'}>
+        <div className='row col-md-12'>
           <div className="row itinerary-segment col-md-12">
-            <SegmentOriginDestination segment={segment}/>
-            <FlightLogo flights={segmentFlightDetails} smallerSize={true}/>
-            <FlightTime flights={segmentFlightDetails} />
-            <FlightStops flights={segmentFlightDetails} offsetSpacing={true}/>
-            <SegmentBaggage baggage={segment.baggage.number_of_pieces} offsetSpacing={true}/>
+            <SegmentOriginDestination segment={segment} itineraryDisplay={true}/>
+            <FlightLogo flights={segmentFlightDetails} itineraryDisplay={true}/>
+            <FlightTime flights={segmentFlightDetails} itineraryDisplay={true}/>
+            <FlightStops flights={segmentFlightDetails} />
+            <SegmentBaggage baggage={segment.baggage.number_of_pieces}itineraryDisplay={true}/>
           </div>
         </div>
       </div>

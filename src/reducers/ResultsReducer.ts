@@ -1,6 +1,6 @@
-import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
+import { updateActiveSegmentsFromAction, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
 import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
-import { setSegmentsAsActive } from '../helpers/RelativesHelper';
+import {identifyAndSetInitialActives} from '../helpers/RelativesHelper';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -27,10 +27,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return {...state, tripType: action.value};
 
     case 'SET_ACTIVE_SEGMENT':
-      return setSegmentsAsActive(state);
+      return identifyAndSetInitialActives(state);
 
     case 'UPDATE_ACTIVES':
-      return updateActiveSegments(state, action);
+      return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);

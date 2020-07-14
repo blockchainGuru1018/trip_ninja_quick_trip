@@ -1,4 +1,5 @@
 import {FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import {setRelativesAndUpdateActives} from "./RelativesHelper";
 
 function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number) {
   const isNotCompatible = segment.status !== 'compatible';
@@ -104,17 +105,27 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
   }
 }
 
-export function updateActiveSegments(state: ResultsDetails, action: any) {
-  const segmentOptions: Array<Segment> = state[state.tripType].segments[action.segmentOptionIndex];
+export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
+  const segmentOptionIndex: number = action.segmentOptionIndex;
+  const segmentItineraryRef: string = action.segmentItineraryRef;
+  const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);
+  setRelativesAndUpdateActives(updateState);
+  return updateState;
+}
+
+export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string) {
+  const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentOptionIndex];
   const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
-    segment.itinerary_id === action.segmentItineraryRef
+    segment.itinerary_id === segmentItineraryRef
   );
-  if (selectedSegment) {
-    updateSegmentActivesAndAlternates(selectedSegment, state, action.segmentOptionIndex);
+  if (selectedSegment && selectedSegment.status === 'active'){
+    return {...state};
+  } else if (selectedSegment) {
+    updateSegmentActivesAndAlternates(selectedSegment, state, segmentOptionIndex);
+    return {...state};
   } else {
-    throw `Selected segment with itinerary id ${action.segmentItineraryRef} not found in list of options at position ${action.segmentOptionIndex}`;
+    throw `Selected segment with itinerary id ${segmentItineraryRef} not found in list of options at position ${segmentOptionIndex}`;
   }
-  return {...state};
 }
 
 function structureChanged(selectedSegment: Segment, oldActiveSegment: Segment) {

@@ -61,7 +61,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           {passengers}
         </div>      
         <PassengerDetailsModal 
-          modalState={this.state.modalOpen} 
+          modalState={this.state.modalOpen}
+          handleModalOpen={this.handleModalOpen}
           passengers={passengerInfo}
           currentPassengerIndex={this.state.currentPassengerIndex}
           updatePassengerInfo={this.props.updatePassengerInfo}
@@ -71,7 +72,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   }
 
   handleModalOpen = (index: number) => {
-    this.setState({modalOpen: true, currentPassengerIndex: index});
+    this.setState({modalOpen: !this.state.modalOpen, currentPassengerIndex: index});
   }
 }
 

@@ -45,6 +45,7 @@ interface PassengerDetailsModalProps {
   passengers: Array<PassengerInfo>
   currentPassengerIndex: number
   updatePassengerInfo: typeof updatePassengerInfo
+  handleModalOpen: any
 }
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
@@ -169,6 +170,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 disableElevation
                 onClick={() => {setOpen(false);
                   props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true');
+                  props.handleModalOpen(props.currentPassengerIndex);
                 }}
               >
                 Save
@@ -180,3 +182,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
     </div>
   );
 }
+
+const validatePassengerInput = (passenger: PassengerInfo) => {
+  if (passenger.first_name.length > 0
+    && passenger.last_name.length > 0
+    && passenger.gender !== '') {
+    return true;
+  }
+};

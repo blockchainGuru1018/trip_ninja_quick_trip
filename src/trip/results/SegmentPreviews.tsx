@@ -4,6 +4,7 @@ import '../../index.css';
 import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
+import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -43,7 +44,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       ? sortBySortOrder(this.props.segments, this.props.sortOrder)
       : this.props.segments;
     return sortedSegments.map((segment: Segment, index: number) => {
-      const segmentFlightDetails: Array<FlightResultsDetails> = this.getFlightDetailsBySegment(segment);
+      const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
         <SegmentPreview
           segment={segment}

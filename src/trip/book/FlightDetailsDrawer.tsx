@@ -8,6 +8,10 @@ import FlightResultsPath from '../results/FlightResultsPath';
 import { Segment, FlightResultsDetails, Results } from '../results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import Divider from '@material-ui/core/Divider';
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import Moment from "react-moment";
+import { firstLetterCapital } from "../../helpers/MiscHelpers";
 
 
 const useStyles = makeStyles({
@@ -55,7 +59,11 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
         key={index}
       />);
     });
-    setState({ ...state, flightResultsPathComponents:  flightResultsPathComponents, fareRulesPreviewComponents: fareRulesPreviewComponents});
+    setState({
+      ...state,
+      flightResultsPathComponents: flightResultsPathComponents,
+      fareRulesPreviewComponents: fareRulesPreviewComponents}
+      );
   };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
@@ -68,42 +76,88 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
   const list = (anchor: Anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
+      className={
+        clsx(classes.list, {
+          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        })
+      }
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="flight-details-drawer">
         <h1>Booking Overview</h1>
+        <IconButton onClick={() => setState({...state, [anchor]: false})}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
         <Divider />
         <div className="row flight-details-container">
           <div className="col-lg-6">
             <h5>Flight Details</h5>
             <div className="flight-details">
-              {state.flightResultsPathComponents}
+              {
+                state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
+                  <div>
+                    <div className='text-bold'>{getSegmentDateString(index)}</div>
+                    {flightResultsPath}
+                  </div>
+                )
+              }
             </div>
           </div>
           <div className="col-lg-6">
             <h5>Fare Details</h5>
             <div className="fare-details">
-              {state.fareRulesPreviewComponents}
+              {
+                state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
+                  <div>
+                    {fareRulesPreview}
+                    {getFareRulesBookingDetailsHTML(index)}
+                  </div>
+                )
+              }
             </div>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-lg-12'>
+            <div onClick={
+              () => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to top</div>
           </div>
         </div>
       </div>
     </div>
   );
+
+  const getSegmentDateString = (index: number) => {
+    const segment: Segment = props.selectedTrip[index];
+    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref)
+    return (
+        <Moment format="MMM, DD YYYY">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+    )
+  }
+
+  const getFareRulesBookingDetailsHTML = (index: number) => {
+    const segment: Segment = props.selectedTrip[index];
+    return (
+      <div>
+        <div className='text-bold'>Booking Details: </div>
+        <div className='text-small'>{segment.flights[0].fare_type}, {firstLetterCapital(segment.source)}</div>
+      </div>
+    )
+  }
+
+  const getFlightResultByRef = (ref: string) => props.trip.flight_details.find((flight: FlightResultsDetails) =>
+      flight.reference === ref
+  );
+
   useEffect(()=>{
     setFlightComponents(props.selectedTrip, props.trip, props.currency);
   }, []);
+
   return (
     <div>
       {(['right'] as Anchor[]).map((anchor) => (

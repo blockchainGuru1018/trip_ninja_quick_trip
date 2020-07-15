@@ -44,7 +44,6 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
       segment.relativeWeight = targetActivesTotal.totalWeight - totalWeight;
     });
-    // following should also reset relative price and weight
     updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]); // update active segment to cheapest calculate rest of the relatives against
     if (setActivesInitial) {
       updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]); // update state active segment for this segment position (can also do this after all is Done, but we can prevent a further loop by doing it here?)

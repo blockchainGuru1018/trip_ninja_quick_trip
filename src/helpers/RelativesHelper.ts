@@ -75,25 +75,18 @@ function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
   let skipPositions: Array<number> = [];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    console.log(`Position ${segmentPositionIndex} activation started`);
     if (!skipPositions.includes(segmentPositionIndex)){
-      console.log(`skipPositions ${skipPositions} does not include ${segmentPositionIndex}`);
       activateFirstOption(segmentOptions, segmentPositionIndex, state, skipPositions);
     }else{
-      console.log(`skipPositions ${skipPositions} includes! ${segmentPositionIndex}`);
     }
   });
 
   function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number, state: ResultsDetails, skipPositions: Array<number>) {
     let segment = segmentOptions[0];
-    console.log(`selected segment ${JSON.stringify(segment)}`);
     activateSegment(segment, state, segmentPositionIndex, true);
-    console.log(`activated segment ${JSON.stringify(segment)}`);
     if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {
-      console.log('OPEN_JAW ', segment.segment_position);
       const otherPositionsInItineraryStructure: Array<number> = activateLinkedSegments(segment, state, true);
       skipPositions.push(...otherPositionsInItineraryStructure);
-      console.log('skipPositions ', skipPositions);
     }
   }
 }

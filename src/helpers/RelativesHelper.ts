@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {
   activateLinkedSegments,
   activateSegment,
-  getOtherPositionsInItineraryStructure,
   setAlternatesStatus,
   updateActiveSegments
 } from './CompatibilityHelpers';
@@ -87,6 +86,7 @@ function setIndex0AsActives(state: ResultsDetails) {
     if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {
       const otherPositionsInItineraryStructure: Array<number> = activateLinkedSegments(segment, state, true);
       skipPositions.push(...otherPositionsInItineraryStructure);
+      setAlternatesStatus(state, segment, segmentOptions);
     }
   }
 }

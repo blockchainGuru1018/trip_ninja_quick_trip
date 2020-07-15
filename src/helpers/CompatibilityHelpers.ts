@@ -1,10 +1,10 @@
-import {FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
-import {setRelativesAndUpdateActives} from "./RelativesHelper";
+import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
   resetOldActiveStatus(oldActiveSegment, isNotCompatible);
   if (isNotCompatible) {
-    searchForMissingPositions(newActiveSegment, oldActiveSegment, state, isNotCompatible);
+    searchForMissingPositions(newActiveSegment, oldActiveSegment, state);
   }
 
   function resetOldActiveStatus(oldActiveSegment: Segment, isNotCompatible: boolean) {
@@ -13,7 +13,7 @@ function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segm
     }
   }
 
-  function searchForMissingPositions(newActiveSegment: Segment, oldActiveSegment: Segment, state: ResultsDetails, isNotCompatible: boolean) {
+  function searchForMissingPositions(newActiveSegment: Segment, oldActiveSegment: Segment, state: ResultsDetails) {
     if (structureChanged(newActiveSegment, oldActiveSegment)) {
       selectOneWaysForMissingPositions(newActiveSegment, oldActiveSegment, state);
     }

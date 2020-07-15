@@ -13,10 +13,10 @@ export function updatePassengerInfo(index: number, key: string, value: string) {
   };
 }
 
-export function setPassengerInfo(value: Array<Passenger>) {
+export function setPassengerInfo(passengers: Array<Passenger>) {
   return {
     type: 'SET_PASSENGERS',
-    value
+    passengers
   };
 }
 

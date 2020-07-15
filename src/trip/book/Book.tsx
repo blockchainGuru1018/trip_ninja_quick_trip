@@ -11,9 +11,10 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { updatePassengerInfo, bookFlights } from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
+
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -27,11 +28,16 @@ interface BookProps {
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
   bookFlights: typeof bookFlights;
+  setPassengerInfo: typeof setPassengerInfo;
+  dateFormat: string;
 }
 
 class Book extends React.Component<BookProps> {
+  componentDidMount() {
+    this.props.setPassengerInfo(this.props.passengers);
+  }
+
   render() {
-    console.log(this.props.passengers);
     return (
       <div className="row" id="book-itinerary">
         <div className="col-xl-10 offset-xl-1">
@@ -67,7 +73,8 @@ class Book extends React.Component<BookProps> {
               <PassengerDetails 
                 passengers={this.props.passengers}
                 bookingDetails={this.props.bookingDetails}
-                updatePassengerInfo={updatePassengerInfo}
+                updatePassengerInfo={this.props.updatePassengerInfo}
+                dateFormat={this.props.dateFormat}
               />
             </div>
           </div>

@@ -10,6 +10,7 @@ interface PassengerDetailsProps {
   passengers: Array<Passenger>;
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
+  dateFormat: string;
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -20,8 +21,6 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
  
   render() {
     let passengerInfo: Array<PassengerInfo> = this.props.bookingDetails.passengers;
-
-    console.log(passengerInfo);
 
     const passengers = passengerInfo.map((passenger: PassengerInfo, index: number) => (
       <div className="row passenger-row" key={index.toString()}>
@@ -63,17 +62,19 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           {passengers}
         </div>      
         <PassengerDetailsModal 
-          modalState={this.state.modalOpen} 
-          passengers={passengerInfo}
+          modalState={this.state.modalOpen}
+          handleModalOpen={this.handleModalOpen}
+          passenger={passengerInfo[this.state.currentPassengerIndex]}
           currentPassengerIndex={this.state.currentPassengerIndex}
+          updatePassengerInfo={this.props.updatePassengerInfo}
+          dateFormat={this.props.dateFormat}
         />    
       </div>
     );
   }
 
   handleModalOpen = (index: number) => {
-    this.setState({modalOpen: true, currentPassengerIndex: index});
-    this.props.updatePassengerInfo(index, 'first_name', 'false');
+    this.setState({modalOpen: !this.state.modalOpen, currentPassengerIndex: index});
   }
 }
 

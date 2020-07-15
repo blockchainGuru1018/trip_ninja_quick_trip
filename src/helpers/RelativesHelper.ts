@@ -75,12 +75,11 @@ function setIndex0AsActives(state: ResultsDetails) {
   let skipPositions: Array<number> = [];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
     if (!skipPositions.includes(segmentPositionIndex)){
-      activateFirstOption(segmentOptions, segmentPositionIndex, state, skipPositions);
-    }else{
+      activateFirstOption(segmentOptions, segmentPositionIndex);
     }
   });
 
-  function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number, state: ResultsDetails, skipPositions: Array<number>) {
+  function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number) {
     let segment = segmentOptions[0];
     activateSegment(segment, state, segmentPositionIndex, true);
     if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {

@@ -2,18 +2,18 @@ import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsIn
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
-  resetOldActiveStatus(oldActiveSegment, isNotCompatible);
+  resetOldActiveStatus();
   if (isNotCompatible) {
-    searchForMissingPositions(newActiveSegment, oldActiveSegment, state);
+    searchForMissingPositions();
   }
 
-  function resetOldActiveStatus(oldActiveSegment: Segment, isNotCompatible: boolean) {
+  function resetOldActiveStatus() {
     if (oldActiveSegment) {
       oldActiveSegment.status = isNotCompatible? 'incompatible' : 'compatible';
     }
   }
 
-  function searchForMissingPositions(newActiveSegment: Segment, oldActiveSegment: Segment, state: ResultsDetails) {
+  function searchForMissingPositions() {
     if (structureChanged(newActiveSegment, oldActiveSegment)) {
       selectOneWaysForMissingPositions(newActiveSegment, oldActiveSegment, state);
     }

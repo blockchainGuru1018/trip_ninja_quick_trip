@@ -216,18 +216,32 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
 }
 
 const validatePassengerInput = (passenger: PassengerInfo, index: number) => {
-  if (index === 0) {
-    validateContactInput(passenger);
-  }
+  let valid: boolean = false;
   if (passenger.first_name.length > 0
     && passenger.last_name.length > 0
-    && passenger.gender === 'M' || 'F') {
-    return true;
+    && passenger.gender !== '') {
+    valid = true;
+    console.log("passenger info");
+  } 
+  if (index === 0 && valid) {
+    valid = validateContactInput(passenger);
+    console.log("valid contact input");
   }
+  console.log(valid);
+  return valid;
 };
 
 const validateContactInput = (passenger: PassengerInfo) => {
+  let valid: boolean = false;
   if (passenger.email && passenger.phone_number && passenger.area_code) {
-    return true;
+    if (passenger.email.length > 0 
+      && passenger.phone_number.length > 0
+      && /^\d+$/.test(passenger.phone_number)
+      && passenger.area_code.length > 0) {
+      console.log("valid inputzzz");
+      console.log(/^\d+$/.test(passenger.phone_number));
+      valid = true;
+    }
   }
+  return valid;
 };

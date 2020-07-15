@@ -26,6 +26,7 @@ interface BookProps {
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
+  dateFormat: string;
 }
 
 class Book extends React.Component<BookProps> {
@@ -65,6 +66,7 @@ class Book extends React.Component<BookProps> {
                 passengers={this.props.passengers}
                 bookingDetails={this.props.bookingDetails}
                 updatePassengerInfo={this.props.updatePassengerInfo}
+                dateFormat={this.props.dateFormat}
               />
             </div>
           </div>

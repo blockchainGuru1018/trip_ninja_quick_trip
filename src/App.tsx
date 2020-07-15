@@ -159,6 +159,7 @@ class App extends React.Component<IAppProps> {
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
                     setPassengerInfo={this.props.setPassengerInfo}
+                    dateFormat={this.props.authDetails.dateType}
                   />
                 } />
               </div>

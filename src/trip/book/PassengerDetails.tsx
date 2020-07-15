@@ -10,6 +10,7 @@ interface PassengerDetailsProps {
   passengers: Array<Passenger>;
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
+  dateFormat: string;
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -66,6 +67,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           passenger={passengerInfo[this.state.currentPassengerIndex]}
           currentPassengerIndex={this.state.currentPassengerIndex}
           updatePassengerInfo={this.props.updatePassengerInfo}
+          dateFormat={this.props.dateFormat}
         />    
       </div>
     );

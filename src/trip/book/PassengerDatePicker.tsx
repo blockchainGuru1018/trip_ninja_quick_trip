@@ -12,6 +12,7 @@ interface PassengerDatePickerProps {
   fieldName: string;
   label: string;
   disablePast: boolean;
+  dateFormat: string;
 }
 
 class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
@@ -27,7 +28,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
             variant="inline"
             inputVariant="outlined"
             label={this.props.label}
-            format="dd/MM/yyyy"
+            format={this.props.dateFormat}
             openTo="year"
             views={["year", "month", "date"]}
             margin="none"

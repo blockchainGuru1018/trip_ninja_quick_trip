@@ -45,6 +45,7 @@ interface PassengerDetailsModalProps {
   currentPassengerIndex: number
   updatePassengerInfo: typeof updatePassengerInfo
   handleModalOpen: any
+  dateFormat: string;
 }
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
@@ -97,6 +98,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   fieldName="date_of_birth"
                   label="Date of Birth"
                   disablePast={false}
+                  dateFormat={props.dateFormat}
                 />
               </div>
               <div className="col-sm-3">
@@ -132,6 +134,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   fieldName="passport_expiration"
                   label="Passport Expiration"
                   disablePast={true}
+                  dateFormat={props.dateFormat}
                 />
               </div>
             </div>

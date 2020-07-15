@@ -10,8 +10,10 @@ class Bookings extends React.Component<BookingsProps> {
   render() {
     return (
       <div id="bookings">
-        <div className="bookings-header">
-          <h1 className="bookings-title">Bookings</h1>
+        <div className="row bookings-header">
+          <div className="col-xl-10 offset-xl-1">
+            <h1>Bookings</h1>
+          </div>
         </div>
         <div className="row bookings-container">
           <div className="col-xl-10 offset-xl-1">

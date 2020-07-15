@@ -68,7 +68,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <IconButton aria-label="close-passenger-modal" className="float-right" onClick={() => (setOpen(false), props.handleModalOpen(props.currentPassengerIndex))}>
+            <IconButton aria-label="close-passenger-modal" className="float-right" onClick={() => (props.handleModalOpen(props.currentPassengerIndex))}>
               <CloseIcon />
             </IconButton>
             <h3 id="transition-modal-title">Passenger Information</h3>
@@ -195,9 +195,9 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 disableElevation
                 onClick={() => {
                   return validatePassengerInput(props.passenger, props.currentPassengerIndex) 
-                    ? (setOpen(false),
-                    props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true'),
-                    props.handleModalOpen(props.currentPassengerIndex)
+                    ? (
+                      props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true'),
+                      props.handleModalOpen(props.currentPassengerIndex)
                     )
                     : setInvalidPassenger(true);
                 }}

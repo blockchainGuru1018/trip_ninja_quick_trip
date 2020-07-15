@@ -34,7 +34,29 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     left: false,
     bottom: false,
     right: false,
+    flightResultsPathComponents: new Element(),
+    fareRulesPreviewComponents: []
   });
+
+  const setFlightComponent = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
+    let flightResultsPathComponents: Array<JSX.Element> = [];
+    let fareRulesPreviewComponents: Array<JSX.Element> = [];
+    selectedTrip.forEach((segment: Segment, index: number) => {
+      const flightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
+      flightResultsPathComponents.push(<FlightResultsPath
+        flightDetails={flightDetails}
+        key={index}
+      />);
+      fareRulesPreviewComponents.push(<FareRulesPreview
+        segment={segment}
+        flightDetails={flightDetails}
+        currency={currency}
+        itineraryDisplay={true}
+        key={index}
+      />);
+    });
+    setState({ ...state, flightResultsPathComponents:  flightResultsPathComponents, fareRulesPreviewComponents: fareRulesPreviewComponents});
+  };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -66,7 +88,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           <div className="col-lg-6">
             <h5>Flight Details</h5>
             <div className="flight-details">
-              {flightPathDetails(props.selectedTrip, props.trip)}
+              {setFlightComponent(props.selectedTrip, props.trip)}
             </div>
           </div>
           <div className="col-lg-6">
@@ -98,27 +120,3 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     </div>
   );
 }
-
-const flightPathDetails = (selectedTrip: Array<Segment>, trip: Results) => {
-  return selectedTrip.map((segment: Segment, index: number) => {
-    const flightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-    return <FlightResultsPath
-      flightDetails={flightDetails}
-      key={index}
-    />;
-  });
-  
-};
-
-const fareDetails = (selectedTrip: Array<Segment>,trip: Results, currency: string) => {
-  return selectedTrip.map((segment: Segment, index: number) => {
-    const flightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-    return <FareRulesPreview
-      segment={segment}
-      flightDetails={flightDetails}
-      currency={currency}
-      itineraryDisplay={true}
-      key={index}
-    />;
-  });
-};

@@ -221,13 +221,10 @@ const validatePassengerInput = (passenger: PassengerInfo, index: number) => {
     && passenger.last_name.length > 0
     && passenger.gender !== '') {
     valid = true;
-    console.log("passenger info");
   } 
   if (index === 0 && valid) {
     valid = validateContactInput(passenger);
-    console.log("valid contact input");
   }
-  console.log(valid);
   return valid;
 };
 
@@ -238,8 +235,6 @@ const validateContactInput = (passenger: PassengerInfo) => {
       && passenger.phone_number.length > 0
       && /^\d+$/.test(passenger.phone_number)
       && passenger.area_code.length > 0) {
-      console.log("valid inputzzz");
-      console.log(/^\d+$/.test(passenger.phone_number));
       valid = true;
     }
   }

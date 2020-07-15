@@ -38,7 +38,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     segmentOptions.forEach((segment: Segment) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
       if (targetActivesTotal.totalWeight < minimumWeight) {
-        minimumWeight = targetActivesTotal.totalPrice;
+        minimumWeight = targetActivesTotal.totalWeight ;
         bestTrip = targetActivesTotal.itineraryIdList;
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;

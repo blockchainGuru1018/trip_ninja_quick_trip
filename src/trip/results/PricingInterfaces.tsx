@@ -1,22 +1,36 @@
 
 export interface PricingDetails {
-    trip_id: string;
-    trip_type: string;
-    currency: string;
-    markup?: number;
-    source: string;
-    itineraries?: Array<PricingRequestItinerary>;
-    loading?: boolean;
-    pricing?: Pricing;
-    price?: number;
-  }
+  trip_id: string;
+  trip_type: string;
+  currency: string;
+  itineraries?: Array<PricedItinerary>;
+  loading?: boolean;
+  pricing?: Pricing;
+}
+
+export interface PricedItinerary {
+  credentials: Credential;
+  segments: Array<SegmentPricingInfo>;
+  plating_carrier: string;
+  itinerary_reference: number;
+  itinerary_type: string;
+}
+
+export interface PricingRequestInterface {
+  trip_id: string;
+  trip_type: string;
+  currency: string;
+  price: number;
+  markup: number;
+  source: string;
+  itineraries: Array<PricingRequestItinerary>
+}
 
 export const defaultPricingDetails: PricingDetails = {
   loading: false,
   trip_id: '',
   trip_type: 'fare_structure',
-  currency: '',
-  source: ''
+  currency: ''
 };
 
 export interface PricingRequestItinerary {
@@ -68,7 +82,18 @@ export interface Pricing {
 export interface SegmentPricingInfo {
   segment_id: string;
   baggage: BaggageDetails;
-  flight_details: Array<FlightDetails>;
+  flight_details: Array<PricedFlightDetails>;
+}
+
+export interface PricedFlightDetails {
+  automated_checkin: boolean;
+  destination_terminal: number;
+  flight_number: string;
+  in_flight_services: Array<string>;
+  meals: Array<string>;
+  on_time_performance: string;
+  origin_terminal: number;
+  special_segment: string;
 }
 
 export interface BaggageDetails {
@@ -78,12 +103,6 @@ export interface BaggageDetails {
   baggage_restrictions: string;
   carryon_cost: number;
   carryon_restrictions: string;
-}
-
-export interface FlightDetails {
-  flight_number: string;
-  in_flight_services: Array<string>;
-  meals: Array<string>;
-  origin_terminal: number;
-  destination_terminal: number;
+  free_allowance: string;
+  quantity_description: string;
 }

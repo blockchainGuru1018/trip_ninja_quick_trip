@@ -1,7 +1,13 @@
 import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
-import { setAlternatesStatus, updateActiveSegments } from './CompatibilityHelpers';
-import { getTotal } from './MiscHelpers';
+import {
+  activateLinkedSegments,
+  activateSegment,
+  getOtherPositionsInItineraryStructure,
+  setAlternatesStatus,
+  updateActiveSegments
+} from './CompatibilityHelpers';
+import {getTotal, isFirstPositionInStructure} from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
   // set actives
@@ -38,7 +44,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     segmentOptions.forEach((segment: Segment) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
       if (targetActivesTotal.totalWeight < minimumWeight) {
-        minimumWeight = targetActivesTotal.totalPrice;
+        minimumWeight = targetActivesTotal.totalWeight;
         bestTrip = targetActivesTotal.itineraryIdList;
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
@@ -67,10 +73,27 @@ const setTotals = (results: Results) => {
 
 function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    let segment = segmentOptions[0];  // TODO: change this to find the first oneway
-    segment.status = 'active';
-    state.activeSegments.set(segmentOptionsIndex, segment);
-    setAlternatesStatus(state, segment, segmentOptions);
+  let skipPositions: Array<number> = [];
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
+    console.log(`Position ${segmentPositionIndex} activation started`);
+    if (!skipPositions.includes(segmentPositionIndex)){
+      console.log(`skipPositions ${skipPositions} does not include ${segmentPositionIndex}`);
+      activateFirstOption(segmentOptions, segmentPositionIndex, state, skipPositions);
+    }else{
+      console.log(`skipPositions ${skipPositions} includes! ${segmentPositionIndex}`);
+    }
   });
+
+  function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number, state: ResultsDetails, skipPositions: Array<number>) {
+    let segment = segmentOptions[0];
+    console.log(`selected segment ${JSON.stringify(segment)}`);
+    activateSegment(segment, state, segmentPositionIndex, true);
+    console.log(`activated segment ${JSON.stringify(segment)}`);
+    if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {
+      console.log('OPEN_JAW ', segment.segment_position);
+      const otherPositionsInItineraryStructure: Array<number> = activateLinkedSegments(segment, state, true);
+      skipPositions.push(...otherPositionsInItineraryStructure);
+      console.log('skipPositions ', skipPositions);
+    }
+  }
 }

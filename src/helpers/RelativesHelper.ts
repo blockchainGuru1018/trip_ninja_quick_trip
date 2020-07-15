@@ -46,7 +46,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     });
     updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
     if (setActivesInitial) {
-      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]); // update state active segment for this segment position (can also do this after all is Done, but we can prevent a further loop by doing it here?)
+      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
     }
   });
 }

@@ -1,6 +1,9 @@
 import React from 'react';
-import './Bookings.css';
 import BookingsList from './BookingsList';
+import SearchBookings from './SearchBookings';
+import FilterBookings from './FilterBookings';
+import MultiplePnrView from './MultiplePnrView';
+import './Bookings.css';
 
 interface BookingsProps {
 
@@ -19,17 +22,17 @@ class Bookings extends React.Component<BookingsProps> {
           <div className="col-xl-10 offset-xl-1">
             <div className="row">
               <div className="col-md-6">
-                <p>Search input goes here</p>
+                <SearchBookings />
               </div>
               <div className="col-md-6">
                 <div className="float-right">
-                  <p>Multiple PNRs</p>
+                  <MultiplePnrView />
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="col-xl">
-                <p>Filter goes here</p>
+                <FilterBookings />
               </div>
             </div>
             <div className="row">

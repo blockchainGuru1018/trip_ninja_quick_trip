@@ -4,7 +4,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CountryList from '../../assets/data/countries.json';
 import { updatePassengerInfo } from '../../actions/BookActions';
-import { compareDesc } from 'date-fns';
 
 interface PassengerCountrySelectProps {
   index: number;

@@ -128,6 +128,7 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
     const segmentOptions = state[state.tripType].segments[positionIndex];
+    // TODO:  what if there is no oneWay. ex. transition from single PNR to a oneway and an openjaw
     activateBestOneWay(segmentOptions, state, positionIndex);
   });
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles({
   list: {
-    width: '700',
+    width: '90vw',
   },
   fullList: {
     width: 'auto',
@@ -34,11 +34,11 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     left: false,
     bottom: false,
     right: false,
-    flightResultsPathComponents: new Element(),
-    fareRulesPreviewComponents: []
+    flightResultsPathComponents:  [] as  any,
+    fareRulesPreviewComponents: [] as any
   });
 
-  const setFlightComponent = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
+  const setFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     selectedTrip.forEach((segment: Segment, index: number) => {
@@ -88,20 +88,22 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           <div className="col-lg-6">
             <h5>Flight Details</h5>
             <div className="flight-details">
-              {setFlightComponent(props.selectedTrip, props.trip)}
+              {state.flightResultsPathComponents}
             </div>
           </div>
           <div className="col-lg-6">
             <h5>Fare Details</h5>
             <div className="fare-details">
-              {fareDetails(props.selectedTrip, props.trip, props.currency)}
+              {state.fareRulesPreviewComponents}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-
+  useEffect(()=>{
+    setFlightComponents(props.selectedTrip, props.trip, props.currency);
+  }, []);
   return (
     <div>
       {(['right'] as Anchor[]).map((anchor) => (

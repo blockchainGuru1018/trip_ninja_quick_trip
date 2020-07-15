@@ -27,6 +27,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
             {...(this.props.disablePast ? {disablePast: true} : {disableFuture: true})}
             variant="inline"
             inputVariant="outlined"
+            autoOk
             label={this.props.label}
             format={this.props.dateFormat}
             openTo="year"

@@ -11,6 +11,8 @@ import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
 import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const useStyles = makeStyles(() =>
@@ -66,6 +68,9 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
       >
         <Fade in={open}>
           <div className={classes.paper}>
+            <IconButton aria-label="close-passenger-modal" className="float-right" onClick={() => (setOpen(false), props.handleModalOpen(props.currentPassengerIndex))}>
+              <CloseIcon />
+            </IconButton>
             <h3 id="transition-modal-title">Passenger Information</h3>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
@@ -151,8 +156,19 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       id="primary-email" 
                       label="Email" 
                       variant="outlined"
+                      type="email"
                       value={props.passenger.email}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'email', event.target.value)}
+                      fullWidth
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <TextField 
+                      id="primary-area-code" 
+                      label="Area Code" 
+                      variant="outlined"
+                      value={props.passenger.area_code}
+                      onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'area_code', event.target.value)}
                       fullWidth
                     />
                   </div>
@@ -161,6 +177,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       id="primary-phone-number" 
                       label="Phone Number" 
                       variant="outlined"
+                      type="tel"
                       value={props.passenger.phone_number}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'phone_number', event.target.value)}
                       fullWidth
@@ -177,7 +194,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 size="large"
                 disableElevation
                 onClick={() => {
-                  return validatePassengerInput(props.passenger) 
+                  return validatePassengerInput(props.passenger, props.currentPassengerIndex) 
                     ? (setOpen(false),
                     props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true'),
                     props.handleModalOpen(props.currentPassengerIndex)
@@ -198,10 +215,19 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
   );
 }
 
-const validatePassengerInput = (passenger: PassengerInfo) => {
+const validatePassengerInput = (passenger: PassengerInfo, index: number) => {
+  if (index === 0) {
+    validateContactInput(passenger);
+  }
   if (passenger.first_name.length > 0
     && passenger.last_name.length > 0
-    && passenger.gender !== '') {
+    && passenger.gender === 'M' || 'F') {
+    return true;
+  }
+};
+
+const validateContactInput = (passenger: PassengerInfo) => {
+  if (passenger.email && passenger.phone_number && passenger.area_code) {
     return true;
   }
 };

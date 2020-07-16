@@ -1,5 +1,6 @@
 import { Pricing } from '../trip/results/PricingInterfaces';
 import { Segment } from '../trip/results/ResultsInterfaces';
+import { PassengerInfo } from '../trip/book/BookInterfaces';
 
 export interface Bookings {
   trip_id: string;
@@ -15,5 +16,6 @@ export interface Bookings {
   agent: string;
   team: string;
   itinerary: Array<Array<Segment>>
+  passengers: Array<PassengerInfo>
 }
 

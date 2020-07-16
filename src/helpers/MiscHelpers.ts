@@ -7,9 +7,13 @@ export const getTotal = (selectedSegments: Array<Segment>, totalType: string) =>
     if (segment.itinerary_type === 'ONE_WAY') {
       return total + segment[totalType];
     } else {
-      const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
-      return segment.segment_position === itineraryStructure[0]
+      return isFirstPositionInStructure(segment)
         ? total + segment[totalType]
         : total;
     }
   }, 0);
+
+export const isFirstPositionInStructure = (segment: Segment) => {
+  const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
+  return segment.segment_position === itineraryStructure[0];
+};

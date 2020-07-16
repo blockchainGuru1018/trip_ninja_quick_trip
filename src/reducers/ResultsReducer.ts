@@ -1,6 +1,6 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
-import {identifyAndSetInitialActives} from '../helpers/RelativesHelper';
+import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo } from '../trip/results/ResultsInterfaces';
+import { identifyAndSetInitialActives } from '../helpers/RelativesHelper';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {

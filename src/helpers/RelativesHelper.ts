@@ -1,7 +1,12 @@
 import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
-import { setAlternatesStatus, updateActiveSegments } from './CompatibilityHelpers';
-import { getTotal } from './MiscHelpers';
+import {
+  activateLinkedSegments,
+  activateSegment,
+  setAlternatesStatus,
+  updateActiveSegments
+} from './CompatibilityHelpers';
+import {getTotal, isFirstPositionInStructure} from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
   setIndex0AsActives(resultsDetails);
@@ -65,10 +70,20 @@ const setTotals = (results: Results) => {
 
 function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    let segment = segmentOptions[0];  // TODO: change this to find the first oneway
-    segment.status = 'active';
-    state.activeSegments.set(segmentOptionsIndex, segment);
-    setAlternatesStatus(state, segment, segmentOptions);
+  let skipPositions: Array<number> = [];
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
+    if (!skipPositions.includes(segmentPositionIndex)){
+      activateFirstOption(segmentOptions, segmentPositionIndex);
+    }
   });
+
+  function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number) {
+    let segment = segmentOptions[0];
+    activateSegment(segment, state, segmentPositionIndex, true);
+    if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {
+      const otherPositionsInItineraryStructure: Array<number> = activateLinkedSegments(segment, state, true);
+      skipPositions.push(...otherPositionsInItineraryStructure);
+      setAlternatesStatus(state, segment, segmentOptions);
+    }
+  }
 }

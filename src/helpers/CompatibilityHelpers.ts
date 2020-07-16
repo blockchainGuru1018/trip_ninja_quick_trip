@@ -1,19 +1,35 @@
-import {FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
-import {setRelativesAndUpdateActives} from "./RelativesHelper";
+import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
-function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number) {
+function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
+  resetOldActiveStatus();
+  if (isNotCompatible) {
+    searchForMissingPositions();
+  }
+
+  function resetOldActiveStatus() {
+    if (oldActiveSegment) {
+      oldActiveSegment.status = isNotCompatible? 'incompatible' : 'compatible';
+    }
+  }
+
+  function searchForMissingPositions() {
+    if (structureChanged(newActiveSegment, oldActiveSegment)) {
+      selectOneWaysForMissingPositions(newActiveSegment, oldActiveSegment, state);
+    }
+  }
+}
+
+export function activateSegment(segment: Segment, state: ResultsDetails, segmentPosition: number, isInitialActivation: boolean = false) {
   const isNotCompatible = segment.status !== 'compatible';
-  const oldActiveSegment: Segment | undefined = state.activeSegments.get(segmentPosition);
+  const oldActiveSegment: Segment | undefined = state.activeSegments.getIfExist(segmentPosition);
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
-  if (state.activeSegments.has(segmentPosition)) {
-    state.activeSegments.get(segmentPosition).status = 'compatible';
-  }
   state.activeSegments.set(segmentPosition, segment);
-  if (isNotCompatible) {
-    if (structureChanged(segment, oldActiveSegment)) {
-      selectOneWaysForMissingPositions(segment, oldActiveSegment, state);
-    }
+  if(!isInitialActivation){
+    resetOldActiveStatusAndPotentialMissingPositions(segment, state, oldActiveSegment!, isNotCompatible); // oldActiveSegment should exist at this point
+  }
+  if (isInitialActivation || isNotCompatible){
     setAlternatesStatus(state, segment, segmentOptions);
   }
 }
@@ -52,8 +68,8 @@ function identifyCompatibleSegments(state: ResultsDetails, segment: Segment) {
     let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
     const linkedSegment: Segment | undefined = getSegmentInItinerary(linkedSegmentOptions, segment.itinerary_id);
     if (linkedSegment) {
-      let activeSegmentInLinkPosition = state.activeSegments.get(linkedSegmentPosition);
-      if (!segmentsAreCompatible(linkedSegment, activeSegmentInLinkPosition)) {
+      let activeSegmentInLinkPosition = state.activeSegments.getIfExist(linkedSegmentPosition);
+      if (activeSegmentInLinkPosition && !segmentsAreCompatible(linkedSegment, activeSegmentInLinkPosition)) {
         return 'incompatible';
       }
     } else {
@@ -81,17 +97,16 @@ function getSegmentInItinerary(segmentOptions: Array<Segment>, itineraryId: stri
   );
 }
 
-function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails) {
-  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
-    const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
-    otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
-      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
-      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
-        segment.itinerary_id === selectedSegment.itinerary_id
-      );
-      activateSegment(linkedSegment!, state, linkedSegmentPosition);
-    });
-  }
+export function activateLinkedSegments(selectedSegment: Segment, state: ResultsDetails, isInitialActivation: boolean = false) {
+  const otherPositionsInItineraryStructure: Array<number> =  getOtherPositionsInItineraryStructure(selectedSegment);
+  otherPositionsInItineraryStructure.forEach((linkedSegmentPosition: number) => {
+    let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+    let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
+      segment.itinerary_id === selectedSegment.itinerary_id
+    );
+    activateSegment(linkedSegment!, state, linkedSegmentPosition, isInitialActivation);
+  });
+  return otherPositionsInItineraryStructure;
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
@@ -145,6 +160,8 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
 
 export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number) {
   activateSegment(selectedSegment, state, segmentOptionIndex);
-  activateLinkedSegments(selectedSegment, state);
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+    activateLinkedSegments(selectedSegment, state);
+  }
 }
 

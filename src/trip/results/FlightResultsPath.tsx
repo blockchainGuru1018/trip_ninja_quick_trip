@@ -9,7 +9,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { numberOfNightsDifference, getTimeDifference } from '../../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import iataAirports from '../../assets/data/iataAirports.json';
 import { cityName } from '../../helpers/CityNameHelper';
 import './FlightResultsPath.css';
 

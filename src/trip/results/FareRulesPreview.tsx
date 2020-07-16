@@ -7,7 +7,8 @@ import AirlineSeatLegroomNormalOutlinedIcon from '@material-ui/icons/AirlineSeat
 import LanguageIcon from '@material-ui/icons/Language';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import ClassIcon from '@material-ui/icons/Class';
+import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../../helpers/MiscHelpers';
 import { baggageLabel } from '../../helpers/BaggageHelper';
@@ -101,6 +102,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <LanguageIcon color="primary"/>
                 <span className="icon-label">{firstLetterCapital(this.props.segment.source)}</span>
               </div>
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
+                <ClassIcon color="primary"/>
+                <span className="icon-label">{this.getFlightsBookingCodeString()}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +126,14 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     const fareInfo: any = Object.values(brandSegment.fare_info)[0];
     return fareInfo.brand;
   }
+
+  getFlightsBookingCodeString = () =>
+    this.props.segment.flights.reduce((total: string, flight: FlightResult, index: number) => {
+      total += flight.booking_code
+      return index !== this.props.segment.flights.length - 1
+          ? total += ', '
+          : total += ' Class'
+    }, '');
 
   setBaseFareRulesDetails = () => {
     const segment = this.props.segment;

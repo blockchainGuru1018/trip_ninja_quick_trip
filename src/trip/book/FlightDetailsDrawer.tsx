@@ -96,7 +96,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       className={
         clsx(classes.list, {
           [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-        })
+        })  + ' flight-details-drawer-container'
       }
       role="presentation"
     >
@@ -147,10 +147,8 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           </div>
         </div>
         <div className='row'>
-          <div className='col-lg-2 offset-lg-5' onClick={() => {
-            console.log("Go to Top button Clicked!");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
+          <div className='col-lg-2 offset-lg-5' onClick={() =>
+            document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0
           }>
             <div className='btn-drawer-back-to-top'>Back to top</div>
           </div>
@@ -196,7 +194,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             onClick={toggleDrawer(anchor, true)}>
             See Flight Details
           </Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Drawer className='flight-details-drawer-comp' anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>

@@ -43,7 +43,7 @@ export const defaultPassengerInfo: PassengerInfo = {
   'passenger_type': 'Adult',
   'first_name': '',
   'last_name': '',
-  'date_of_birth': new Date().toISOString(),
+  'date_of_birth': new Date().toISOString().slice(0,10),
   'gender': '',
   'updated': false
 };

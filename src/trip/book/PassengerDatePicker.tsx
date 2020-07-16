@@ -46,7 +46,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
       ? isNaN(dateEvent.valueOf())
         ? ''
         : this.props.updatePassengerInfo(
-          this.props.index, this.props.fieldName, dateEvent?.toISOString()!
+          this.props.index, this.props.fieldName, dateEvent?.toISOString().slice(0,10)!
         )
       : '';
   };

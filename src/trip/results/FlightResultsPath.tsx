@@ -74,7 +74,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
                 {flightTimeMinutes + (flightTimeMinutes > 1 ? 'mins' : 'min')}
               </div>
               <div>
-                {iataAirports[flightDetail.carrier]}
+                {`${flightDetail.carrier} ${flightDetail.flight_number}`}
               </div>
             </div>
           );

@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import FareRulesPreview from '../results/FareRulesPreview';
 import FlightResultsPath from '../results/FlightResultsPath';
-import {FlightResultsDetails, Results, Segment} from '../results/ResultsInterfaces';
-import {getFlightDetailsBySegment} from '../../helpers/FlightDetailsHelper';
+import { FlightResultsDetails, Results, Segment } from '../results/ResultsInterfaces';
+import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Moment from "react-moment";
-import {firstLetterCapital} from "../../helpers/MiscHelpers";
+import { firstLetterCapital } from "../../helpers/MiscHelpers";
 import {
   Timeline,
   TimelineConnector,
@@ -26,10 +26,10 @@ const useStyles = makeStyles({
   root: {
     minHeight: '250px'
   },
-  list: {
+  flightDrawerComponent: {
     width: '90vw',
   },
-  fullList: {
+  fullFlightDrawerComponent: {
     width: 'auto',
   },
 });
@@ -91,11 +91,11 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor: Anchor) => (
+  const flightDrawerComponent = (anchor: Anchor) => (
     <div
       className={
-        clsx(classes.list, {
-          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        clsx(classes.flightDrawerComponent, {
+          [classes.fullFlightDrawerComponent]: anchor === 'top' || anchor === 'bottom',
         })  + ' flight-details-drawer-container'
       }
       role="presentation"
@@ -111,7 +111,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
         </div>
         <Divider />
         <div className="row flight-details-container">
-          <div className="col-lg-6">
+          <div className="col-lg-6 booking-details-info-container">
             <h5>Flight Details</h5>
             <div className="flight-details">
               <Timeline>
@@ -132,7 +132,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
               </Timeline>
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 booking-details-info-container">
             <h5>Fare Details</h5>
             <div className="fare-details">
               {
@@ -161,7 +161,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     const segment: Segment = props.selectedTrip[index];
     const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref);
     return (
-      <Moment format="MMM, DD YYYY">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
     );
   };
 
@@ -195,7 +195,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             See Flight Details
           </Button>
           <Drawer className='flight-details-drawer-comp' anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
+            {flightDrawerComponent(anchor)}
           </Drawer>
         </React.Fragment>
       ))}

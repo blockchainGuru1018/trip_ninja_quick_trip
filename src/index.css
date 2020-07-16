@@ -34,6 +34,7 @@ h1 {
   font-family: 'NeuzeitGro-Bol', sans-serif;
   font-size: 40px;
   letter-spacing: 0px;
+  color: var(--secondary)
 }
 
 h3 {
@@ -86,12 +87,14 @@ h5 {
 .text-bold {
   font-weight: bold;
   margin-bottom: 0px;
+  color: var(--secondary)
 }
 
 .text-small {
   font-size: 14px;
   margin-bottom: 0px;
   font-weight: normal;
+  color: var(--secondary)
 }
 
 .default-box-styles {

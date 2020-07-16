@@ -68,16 +68,25 @@
 
 .fare-details {
   background-color: #CACDD61C;
-  margin: 40px 15px 15px 15px;
+  margin-top: 25px;
 }
 
 .flight-details {
-  padding: 15px;
   margin-top: 25px;
 }
 
 .MuiTimelineItem-missingOppositeContent:before {
   display: none
+}
+
+.MuiTimeline-root {
+  padding-left: 0px !important;
+}
+
+.MuiTimelineDot-root {
+  width: 20px !important;
+  height: 20px !important;
+  padding-top: 4px !important;
 }
 
 .fare-rules-preview-container {
@@ -111,7 +120,11 @@
   padding-bottom: 10px;
 }
 
-.MuiTimelineDot-defaultPrimary{
-  color: black;
-  background-color: black !important;
+.MuiTimelineDot-defaultPrimary {
+  color: var(--secondary);
+  background-color: var(--secondary) !important;
+}
+
+.booking-details-info-container {
+  padding-left: 0px;
 }

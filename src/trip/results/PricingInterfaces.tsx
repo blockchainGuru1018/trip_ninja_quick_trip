@@ -98,21 +98,6 @@ export interface PricedFlightDetails {
 
 export interface BaggageDetails {
   applicable_bags: string;
-<<<<<<< HEAD
-  applicable_carry_on_bags?: string;
-  baggage_cost?: string;
-  baggage_restrictions?: string;
-  carryon_cost?: number;
-  carryon_restrictions?: string;
-}
-
-export interface FlightDetails {
-  flight_number: string;
-  in_flight_services: Array<string>;
-  meals: Array<string>;
-  origin_terminal: number;
-  destination_terminal: number;
-=======
   applicable_carry_on_bags: string;
   baggage_cost: string;
   baggage_restrictions: string;
@@ -120,5 +105,4 @@ export interface FlightDetails {
   carryon_restrictions: string;
   free_allowance: string;
   quantity_description: string;
->>>>>>> feature/#CU-8pjpkt-Passenger-Details-Component
 }

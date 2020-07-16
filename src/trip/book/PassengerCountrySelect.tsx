@@ -25,11 +25,7 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
           options={this.state.countries}
           value={this.getCountryByCode(this.props.country!) || null}
           getOptionLabel={(option) => option.name}
-          onChange={(_, values: any) =>
-            this.props.updatePassengerInfo(
-              this.props.index, 'passport_country', values.code
-            )
-          }
+          onChange={(_, values: any) => this.setCountryCode(values)}
           renderInput={(params) =>
             <TextField {...params}
               variant="outlined"
@@ -39,6 +35,11 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
         />
       </FormControl>
     );
+  }
+
+  setCountryCode = (values : any) => {
+    let code = values ? values.code : '';
+    this.props.updatePassengerInfo(this.props.index, 'passport_country', code);
   }
 
   getCountryByCode = (code: string) => {

@@ -197,7 +197,8 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   return validatePassengerInput(props.passenger, props.currentPassengerIndex) 
                     ? (
                       props.updatePassengerInfo(props.currentPassengerIndex, 'updated', 'true'),
-                      props.handleModalOpen(props.currentPassengerIndex)
+                      props.handleModalOpen(props.currentPassengerIndex),
+                      setInvalidPassenger(false)
                     )
                     : setInvalidPassenger(true);
                 }}
@@ -231,8 +232,10 @@ const validatePassengerInput = (passenger: PassengerInfo, index: number) => {
 const validateContactInput = (passenger: PassengerInfo) => {
   let valid: boolean = false;
   if (passenger.email && passenger.phone_number && passenger.area_code) {
-    if (passenger.email.length > 0 
+    if (passenger.email.length > 0
+      && passenger.email.length < 50 
       && passenger.phone_number.length > 0
+      && passenger.phone_number.length < 20
       && /^\d+$/.test(passenger.phone_number)
       && passenger.area_code.length > 0) {
       valid = true;

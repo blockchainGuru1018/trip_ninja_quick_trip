@@ -148,3 +148,7 @@
 .capitalize {
   text-transform: capitalize;
 }
+
+.booking-drawer-rules {
+  padding-bottom: 20px
+}

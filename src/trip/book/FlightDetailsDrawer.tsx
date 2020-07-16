@@ -24,7 +24,7 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    alignItems: 'flex-start'
+    minHeight: '250px'
   },
   list: {
     width: '90vw',
@@ -68,6 +68,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
         currency={currency}
         itineraryDisplay={true}
         key={index}
+        bookingDrawer={true}
       />);
     });
     setState({
@@ -102,7 +103,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       <div className="flight-details-drawer">
         <div className="d-flex">
           <h1>Booking Overview</h1>
-          <div className="ml-auto">
+          <div className="ml-auto close-button-container">
             <IconButton onClick={() => setState({...state, [anchor]: false})}>
               <CloseIcon fontSize="large" />
             </IconButton>
@@ -115,7 +116,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             <div className="flight-details">
               <Timeline>
                 {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
-                  <TimelineItem classes={{missingOppositeContent: classes.root}}>
+                  <TimelineItem classes={{root: classes.root}}>
                     <TimelineSeparator>
                       <TimelineDot />
                       {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
@@ -136,7 +137,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             <div className="fare-details">
               {
                 state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
-                  <div>
+                  <div className='fare-rules-preview-container'>
                     {fareRulesPreview}
                     {getFareRulesBookingDetailsHTML(index)}
                   </div>
@@ -146,9 +147,8 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           </div>
         </div>
         <div className='row'>
-          <div className='col-lg-12'>
-            <div onClick={
-              () => window.scrollTo({ top: 0, behavior: 'smooth' })}>Back to top</div>
+          <div className='col-lg-2 offset-lg-5' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className='btn-drawer-back-to-top'>Back to top</div>
           </div>
         </div>
       </div>
@@ -167,8 +167,9 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     const segment: Segment = props.selectedTrip[index];
     return (
       <div className="row">
-        <div className='text-bold'>Booking Details: </div>
-        <div className='text-small'>{segment.flights[0].fare_type}, {firstLetterCapital(segment.source)}</div>
+        <div className='text-bold booking-details-text-container'>Booking Details:
+          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}, {firstLetterCapital(segment.source)}</span>
+        </div>
       </div>
     )
   }

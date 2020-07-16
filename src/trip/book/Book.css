@@ -68,11 +68,34 @@
 
 .fare-details {
   background-color: #CACDD61C;
-  border: solid 1px #45565E40;
-  margin-top: 25px;
+  margin: 40px 15px 15px 15px;
 }
 
 .flight-details {
   padding: 15px;
   margin-top: 25px;
+}
+
+.MuiTimelineItem-missingOppositeContent:before {
+  display: none
+}
+
+.fare-rules-preview-container {
+  min-height: 200px;
+  margin-bottom: 50px;
+  border-left: 2px solid #45565E40;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.booking-details-text-container {
+  padding-left: 25px;
+}
+
+.btn-drawer-back-to-top {
+  text-align: center;
+}
+
+.close-button-container {
+  margin-bottom: 10px;
 }

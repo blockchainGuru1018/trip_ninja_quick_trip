@@ -17,6 +17,7 @@ interface FareRulesProps {
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   itineraryDisplay?: boolean;
+  bookingDrawer?: boolean;
 }
 
 class FareRulesPreview extends React.Component<FareRulesProps> {
@@ -51,10 +52,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           </div>
         }
         <div className="row fare-family-row">
-          <div className='col-md-8 offset-md-2'>
+          <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
             <div className='row text-small'>
               {this.state.carryOn >= 0
-                && <div className="col-lg-3 fare-rules-type">
+                && <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                   <BusinessCenterIcon color="primary"/>
                   <span className="icon-label">
                     {baggageLabel(this.state.carryOn)}
@@ -62,40 +63,40 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </div>
               }
               {this.state.changePenalty
-                && <div className="col-lg-3 fare-rules-type">
+                && <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                   <SwapHorizontalCircleIcon color="primary"/>
                   <span className="icon-label">{this.state.changePenalty}</span>
                 </div>
               }
-              <div className="col-lg-3 fare-rules-type">
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ConfirmationNumberOutlinedIcon color="primary"/>
                 <span className="icon-label">{this.props.segment.fare_type}</span>
               </div>
               {this.state.wifi
-                && <div className="col-lg-3 fare-rules-type">
+                && <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                   <WifiIcon color="primary"/>
                   <span className="icon-label">Wifi</span>
                 </div>
               }
               {this.state.seatAssignment
-                && <div className="col-lg-3 fare-rules-type">
+                && <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                   <AirlineSeatLegroomNormalOutlinedIcon color="primary"/>
                   <span className="icon-label">{this.state.seatAssignment}</span>
                 </div>
               }
-              <div className="col-lg-3 fare-rules-type">
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <CardTravelIcon color="primary"/>
                 <span className="icon-label">
                   {baggageLabel(this.state.numBaggage)}
                 </span>
               </div>
               {this.state.cancelPenalty
-                && <div className="col-lg-3 fare-rules-type">
+                && <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                   <CancelOutlinedIcon color="primary"/>
                   <span className="icon-label">{this.state.cancelPenalty}</span>
                 </div>
               }
-              <div className="col-lg-3 fare-rules-type">
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <LanguageIcon color="primary"/>
                 <span className="icon-label">{firstLetterCapital(this.props.segment.source)}</span>
               </div>

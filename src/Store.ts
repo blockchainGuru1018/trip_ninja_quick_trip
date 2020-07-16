@@ -4,6 +4,7 @@ import { SearchDetails, defaultSearchDetails } from './trip/search/SearchInterfa
 import { AuthDetails, defaultAuth } from './auth/AuthInterfaces';
 import { ResultsDetails, defaultResultsDetails } from './trip/results/ResultsInterfaces';
 import { PricingDetails, defaultPricingDetails } from './trip/results/PricingInterfaces';
+import { BookingDetails, defaultBookingDetails } from './trip/book/BookInterfaces';
 import thunk from 'redux-thunk';
 import { jwtMiddleware } from './Middleware';
 
@@ -12,6 +13,7 @@ export interface State {
   authDetails: AuthDetails,
   resultsDetails: ResultsDetails,
   pricingDetails: PricingDetails,
+  bookingDetails: BookingDetails
 }
 
 const defaultState: any = {
@@ -19,6 +21,7 @@ const defaultState: any = {
   authDetails: defaultAuth,
   resultsDetails: defaultResultsDetails,
   pricingDetails: defaultPricingDetails,
+  bookingDetails: defaultBookingDetails
 };
 
 const store: Store = createStore(

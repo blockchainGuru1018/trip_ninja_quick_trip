@@ -27,6 +27,8 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
 import { setSegmentPositionMapValue } from './actions/ResultsActions';
+import { setPassengerInfo, updatePassengerInfo } from './actions/BookActions';
+import { BookingDetails } from './trip/book/BookInterfaces';
 
 
 interface IAppProps {
@@ -34,6 +36,7 @@ interface IAppProps {
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
   pricingDetails: PricingDetails;
+  bookingDetails: BookingDetails;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -49,6 +52,8 @@ interface IAppProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
+  updatePassengerInfo: typeof updatePassengerInfo;
+  setPassengerInfo: typeof setPassengerInfo;
 }
 
 const theme = Theme;
@@ -145,6 +150,11 @@ class App extends React.Component<IAppProps> {
                   <Book
                     pricingDetails={this.props.pricingDetails}
                     resultsDetails={this.props.resultsDetails}
+                    bookingDetails={this.props.bookingDetails}
+                    passengers={this.props.searchDetails.passengers}
+                    updatePassengerInfo={this.props.updatePassengerInfo}
+                    setPassengerInfo={this.props.setPassengerInfo}
+                    dateFormat={this.props.authDetails.dateType}
                   />
                 } />
                 <Route exact path="/bookings/" render={() =>

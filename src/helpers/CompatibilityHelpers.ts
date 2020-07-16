@@ -158,10 +158,12 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   });
 }
 
-export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number) {
-  activateSegment(selectedSegment, state, segmentOptionIndex);
+export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number,
+                                                  initial: boolean = false) {
+  activateSegment(selectedSegment, state, segmentOptionIndex, initial);
   if (selectedSegment.itinerary_type === 'OPEN_JAW') {
-    activateLinkedSegments(selectedSegment, state);
+    activateLinkedSegments(selectedSegment, state, initial);
+    setAlternatesStatus(state, selectedSegment, state[state.tripType].segments[segmentOptionIndex])
   }
 }
 

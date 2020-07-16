@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { bookFlights } from '../../actions/BookActions';
-import { BookingDetails } from './BookInterfaces';
+import { BookingDetails, Billing } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
 
@@ -21,8 +21,18 @@ class BookRequest extends React.Component<BookRequestProps> {
     this.props.bookingDetails.agent_email = this.props.authDetails.userEmail;
     this.props.bookingDetails.agency = this.props.authDetails.agency;
 
+    const billing: Billing = {
+      email: this.props.bookingDetails.passengers[0].email ? this.props.bookingDetails.passengers[0].email : ""
+    };
+
+    this.props.bookingDetails.billing = billing;
+
+
+    console.log("this.props.bookingDetails:", this.props.bookingDetails);
+
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
 
+    console.log("bookingResult:", bookingResult);
   }
 
   render() {

@@ -27,7 +27,7 @@ export interface PassengerInfo {
 
 export interface Billing {
   email: string;
-  payment_included: boolean;
+  payment_included?: boolean;
   payment_info?: PaymentInfo;
 }
 

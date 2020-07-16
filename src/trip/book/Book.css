@@ -94,8 +94,25 @@
 
 .btn-drawer-back-to-top {
   text-align: center;
+  color: #4BAFD7;
+}
+
+.btn-drawer-back-to-top:hover {
+  cursor: pointer;
 }
 
 .close-button-container {
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
+  position: fixed;
+  right: 50px;
+  top: 15px;
+}
+
+.booking-drawer-flight-departure-date{
+  padding-bottom: 10px;
+}
+
+.MuiTimelineDot-defaultPrimary{
+  color: black;
+  background-color: black !important;
 }

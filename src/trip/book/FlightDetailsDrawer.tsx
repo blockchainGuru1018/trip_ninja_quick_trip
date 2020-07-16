@@ -103,7 +103,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       <div className="flight-details-drawer">
         <div className="d-flex">
           <h1>Booking Overview</h1>
-          <div className="ml-auto close-button-container">
+          <div className="close-button-container">
             <IconButton onClick={() => setState({...state, [anchor]: false})}>
               <CloseIcon fontSize="large" />
             </IconButton>
@@ -118,12 +118,12 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
                 {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
                   <TimelineItem classes={{root: classes.root}}>
                     <TimelineSeparator>
-                      <TimelineDot />
+                      <TimelineDot color="primary"/>
                       {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
                     </TimelineSeparator>
                     <TimelineContent>
                       <div>
-                        <div className='text-bold'>{getSegmentDateString(index)}</div>
+                        <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
                         {flightResultsPath}
                       </div>
                     </TimelineContent>
@@ -147,7 +147,11 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           </div>
         </div>
         <div className='row'>
-          <div className='col-lg-2 offset-lg-5' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className='col-lg-2 offset-lg-5' onClick={() => {
+            console.log("Go to Top button Clicked!");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          }>
             <div className='btn-drawer-back-to-top'>Back to top</div>
           </div>
         </div>
@@ -157,25 +161,25 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
 
   const getSegmentDateString = (index: number) => {
     const segment: Segment = props.selectedTrip[index];
-    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref)
+    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref);
     return (
-        <Moment format="MMM, DD YYYY">{flightDetails ? flightDetails.departure_time: ''}</Moment>
-    )
-  }
+      <Moment format="MMM, DD YYYY">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+    );
+  };
 
   const getFareRulesBookingDetailsHTML = (index: number) => {
     const segment: Segment = props.selectedTrip[index];
     return (
       <div className="row">
         <div className='text-bold booking-details-text-container'>Booking Details:
-          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}, {firstLetterCapital(segment.source)}</span>
+          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const getFlightResultByRef = (ref: string) => props.trip.flight_details.find((flight: FlightResultsDetails) =>
-      flight.reference === ref
+    flight.reference === ref
   );
 
   useEffect(()=>{

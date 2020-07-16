@@ -109,6 +109,8 @@ export interface Segment {
   selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
+  relativePrice?: number;
+  relativeWeight?: number;
 }
 
 export interface FareInfo {

@@ -5,7 +5,7 @@ interface BookingDetailsDrawerProps {
 
 }
 
-class BookingDetails extends React.Component<BookingDetailsDrawerProps> {
+class BookingDetailsDrawer extends React.Component<BookingDetailsDrawerProps> {
   render() {
     return (
       <div></div>
@@ -13,4 +13,4 @@ class BookingDetails extends React.Component<BookingDetailsDrawerProps> {
   }
 }
 
-export default BookingDetails;
+export default BookingDetailsDrawer;

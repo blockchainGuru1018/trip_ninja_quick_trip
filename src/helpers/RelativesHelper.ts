@@ -1,12 +1,7 @@
 import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
-import {
-  activateLinkedSegments,
-  activateSegment,
-  setAlternatesStatus,
-  updateActiveSegments, updateSegmentActivesAndAlternates
-} from './CompatibilityHelpers';
-import {getTotal, isFirstPositionInStructure} from './MiscHelpers';
+import { updateActiveSegments, updateSegmentActivesAndAlternates } from './CompatibilityHelpers';
+import { getTotal } from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
   setIndex0AsActives(resultsDetails);

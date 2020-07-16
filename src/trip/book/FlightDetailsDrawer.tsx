@@ -1,20 +1,31 @@
 import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import FareRulesPreview from '../results/FareRulesPreview';
 import FlightResultsPath from '../results/FlightResultsPath';
-import { Segment, FlightResultsDetails, Results } from '../results/ResultsInterfaces';
-import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import {FlightResultsDetails, Results, Segment} from '../results/ResultsInterfaces';
+import {getFlightDetailsBySegment} from '../../helpers/FlightDetailsHelper';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Moment from "react-moment";
-import { firstLetterCapital } from "../../helpers/MiscHelpers";
+import {firstLetterCapital} from "../../helpers/MiscHelpers";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineSeparator
+} from "@material-ui/lab";
 
 
 const useStyles = makeStyles({
+  root: {
+    alignItems: 'flex-start'
+  },
   list: {
     width: '90vw',
   },
@@ -63,7 +74,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       ...state,
       flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents}
-      );
+    );
   };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
@@ -89,23 +100,35 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       role="presentation"
     >
       <div className="flight-details-drawer">
-        <h1>Booking Overview</h1>
-        <IconButton onClick={() => setState({...state, [anchor]: false})}>
-          <CloseIcon fontSize="large" />
-        </IconButton>
+        <div className="d-flex">
+          <h1>Booking Overview</h1>
+          <div className="ml-auto">
+            <IconButton onClick={() => setState({...state, [anchor]: false})}>
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </div>
+        </div>
         <Divider />
         <div className="row flight-details-container">
           <div className="col-lg-6">
             <h5>Flight Details</h5>
             <div className="flight-details">
-              {
-                state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
-                  <div>
-                    <div className='text-bold'>{getSegmentDateString(index)}</div>
-                    {flightResultsPath}
-                  </div>
-                )
-              }
+              <Timeline>
+                {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
+                  <TimelineItem classes={{missingOppositeContent: classes.root}}>
+                    <TimelineSeparator>
+                      <TimelineDot />
+                      {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <div>
+                        <div className='text-bold'>{getSegmentDateString(index)}</div>
+                        {flightResultsPath}
+                      </div>
+                    </TimelineContent>
+                  </TimelineItem>
+                )}
+              </Timeline>
             </div>
           </div>
           <div className="col-lg-6">
@@ -143,7 +166,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
   const getFareRulesBookingDetailsHTML = (index: number) => {
     const segment: Segment = props.selectedTrip[index];
     return (
-      <div>
+      <div className="row">
         <div className='text-bold'>Booking Details: </div>
         <div className='text-small'>{segment.flights[0].fare_type}, {firstLetterCapital(segment.source)}</div>
       </div>

@@ -11,7 +11,7 @@ interface SortOptionProps {
   setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
 }
 
-const sortOptionList = ["cheapest","best","fastest"]; //TODO: make this enum?
+const sortOptionList = ["cheapest", "best", "fastest"]; //TODO: make this enum?
 class SortOption extends React.Component<SortOptionProps> {
   render() {
     const sortOptions = sortOptionList.map((item, index) => (

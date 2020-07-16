@@ -9,8 +9,9 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { ResultsDetails, Results, Segment , SegmentPositionMap} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import {setSegmentPositionMapValue} from '../../actions/ResultsActions';
+import { setSegmentPositionMapValue } from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
+import { getTotal } from '../../helpers/MiscHelpers';
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails
@@ -33,7 +34,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
 
-    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
+    const totalPrice: number = getTotal(selectedTrip, 'price');
 
     const selectedSegments =
       <div className="row">

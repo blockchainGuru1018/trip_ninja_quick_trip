@@ -162,17 +162,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       fullWidth
                     />
                   </div>
-                  <div className="col-sm-2">
-                    <TextField 
-                      id="primary-area-code" 
-                      label="Area Code" 
-                      variant="outlined"
-                      value={props.passenger.area_code}
-                      onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'area_code', event.target.value)}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="col-sm-3">
+                  <div className="col-sm-4">
                     <TextField 
                       id="primary-phone-number" 
                       label="Phone Number" 
@@ -231,13 +221,12 @@ const validatePassengerInput = (passenger: PassengerInfo, index: number) => {
 
 const validateContactInput = (passenger: PassengerInfo) => {
   let valid: boolean = false;
-  if (passenger.email && passenger.phone_number && passenger.area_code) {
+  if (passenger.email && passenger.phone_number) {
     if (passenger.email.length > 0
       && passenger.email.length < 50 
       && passenger.phone_number.length > 0
       && passenger.phone_number.length < 20
-      && /^\d+$/.test(passenger.phone_number)
-      && passenger.area_code.length > 0) {
+      && /^(\d+-?)+\d+$/.test(passenger.phone_number)) {
       valid = true;
     }
   }

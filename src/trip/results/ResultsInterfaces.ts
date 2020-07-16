@@ -19,6 +19,10 @@ export class ActiveSegmentsMap extends Map<number, Segment>{
       throw `Active segment is not set for position ${key}`;
     }
   }
+
+  getIfExist(key: number): Segment | undefined {
+    return super.get(key);
+  }
 }
 export class SegmentPositionMap extends Map<number, SegmentValueMap> {
 
@@ -51,7 +55,7 @@ export class SegmentValueMap extends Map<string, any> {
 }
 
 export const defaultResultsDetails: ResultsDetails = {
-  activeSegments: new Map(),
+  activeSegments: new ActiveSegmentsMap(),
   errors: {
     errorFound: false,
     errorType: ''
@@ -109,6 +113,8 @@ export interface Segment {
   selected_brand_index?: number;
   status?: string;
   fare_info?: FareInfo;
+  relativePrice?: number;
+  relativeWeight?: number;
 }
 
 export interface FareInfo {

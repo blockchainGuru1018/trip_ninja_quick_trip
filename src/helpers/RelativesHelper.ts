@@ -4,7 +4,6 @@ import { setAlternatesStatus, updateActiveSegments } from './CompatibilityHelper
 import { getTotal } from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
-  // set actives
   setIndex0AsActives(resultsDetails);
   // set relative prices with intial = true
   setRelativesAndUpdateActives(resultsDetails, true);

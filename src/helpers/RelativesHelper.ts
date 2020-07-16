@@ -9,7 +9,6 @@ import {
 import {getTotal, isFirstPositionInStructure} from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
-  // set actives
   setIndex0AsActives(resultsDetails);
   // set relative prices with intial = true
   setRelativesAndUpdateActives(resultsDetails, true);
@@ -43,16 +42,15 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     segmentOptions.forEach((segment: Segment) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
       if (targetActivesTotal.totalWeight < minimumWeight) {
-        minimumWeight = targetActivesTotal.totalWeight;
+        minimumWeight = targetActivesTotal.totalWeight ;
         bestTrip = targetActivesTotal.itineraryIdList;
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
       segment.relativeWeight = targetActivesTotal.totalWeight - totalWeight;
     });
-    // following should also reset relative price and weight
-    updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]); // update active segment to cheapest calculate rest of the relatives against
+    updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
     if (setActivesInitial) {
-      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]); // update state active segment for this segment position (can also do this after all is Done, but we can prevent a further loop by doing it here?)
+      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
     }
   });
 }

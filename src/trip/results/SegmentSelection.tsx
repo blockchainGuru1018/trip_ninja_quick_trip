@@ -7,9 +7,10 @@ import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
-import {setSegmentPositionMapValue} from "../../actions/ResultsActions";
+import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { getTotal } from '../../helpers/MiscHelpers';
 
 interface MatchParams {
   index: string;
@@ -37,7 +38,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
-    const totalPrice: number = selectedTrip.reduce((total, segment) => {return total + segment.price;},0);
+    const totalPrice: number = getTotal(selectedTrip, 'price');
 
     return (
       <div id="segment-selection">

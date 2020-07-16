@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingDetails, PricingRequestItinerary, FlightSegment, Flight, Credentials } from './PricingInterfaces';
+import { PricingRequestItinerary, FlightSegment, Flight, Credentials, PricingRequestInterface } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -23,7 +23,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    const pricingPayload: PricingDetails = {
+    const pricingPayload: PricingRequestInterface = {
       trip_id: trip.trip_id,
       trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip" ,
       currency: this.props.currency,

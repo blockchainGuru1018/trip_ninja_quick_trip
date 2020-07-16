@@ -1,5 +1,6 @@
-import { updateActiveSegments, setAlternatesStatus, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { Results, ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo} from '../trip/results/ResultsInterfaces';
+import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
+import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo } from '../trip/results/ResultsInterfaces';
+import { identifyAndSetInitialActives } from '../helpers/RelativesHelper';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -26,10 +27,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return {...state, tripType: action.value};
 
     case 'SET_ACTIVE_SEGMENT':
-      return setSegmentsAsActive(state);
+      return identifyAndSetInitialActives(state);
 
     case 'UPDATE_ACTIVES':
-      return updateActiveSegments(state, action);
+      return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
@@ -37,17 +38,6 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     default:
       return state;
   }
-}
-
-function setSegmentsAsActive(state: ResultsDetails) {
-  const trip: Results = state[state.tripType];
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    let segment = segmentOptions[0];
-    segment.status = 'active';
-    state.activeSegments.set(segmentOptionsIndex, segment);
-    setAlternatesStatus(state, segment, segmentOptions);
-  });
-  return state;
 }
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
@@ -64,7 +54,6 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
       linkedSegment && setSegmentFareFamily(linkedSegment, brand, action.index);
     });
   }
-
   return {...state};
 }
 

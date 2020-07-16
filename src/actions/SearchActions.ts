@@ -1,5 +1,5 @@
 import { SearchPayload } from '../trip/search/SearchInterfaces';
-import { setSearchResults, setErrorDetails, setActiveSegments }
+import { setResults, setErrorDetails, setActiveSegments }
   from './ResultsActions';
 import API from '../Api';
 
@@ -80,7 +80,7 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) =
         dispatch(setErrorDetails(true, 'search'));
         return {'success': false};
       } else {
-        dispatch(setSearchResults(response.data));
+        dispatch(setResults(response.data));
         dispatch(setActiveSegments());
         dispatch(setErrorDetails(false, 'search'));
         dispatch(searchLoading(false));

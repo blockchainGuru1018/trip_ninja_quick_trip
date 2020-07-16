@@ -15,6 +15,10 @@
   color: #4BAFD7;
 }
 
+.login-link:hover {
+  color: #4BAFD7;
+}
+
 .login-button-row {
   padding-top: 25px;
 }
@@ -25,4 +29,9 @@
 
 #login-button {
   float: right;
+}
+
+.login-form-horizontal-line {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

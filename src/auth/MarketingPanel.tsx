@@ -18,7 +18,7 @@ class MarketingPanel extends React.Component {
     return (
       <div className="row">
         <div className="col-xl-6">
-          <h1>How efficient is your booking process?</h1>
+          <h1>How efficient is your flight booking process?</h1>
           <div className="row">
             <div className="col-xl">
               <h4>Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>

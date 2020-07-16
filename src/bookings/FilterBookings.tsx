@@ -7,7 +7,7 @@ interface FilterBookingsProps {
 class FilterBookings extends React.Component<FilterBookingsProps> {
   render() {
     return (
-      <div>Filter</div>
+      <div></div>
     );
   }
 }

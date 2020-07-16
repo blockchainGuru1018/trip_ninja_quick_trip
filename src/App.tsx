@@ -53,6 +53,7 @@ interface IAppProps {
   setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
+  bookFlights: typeof bookFlights;
 }
 
 const theme = Theme;
@@ -161,7 +162,7 @@ class App extends React.Component<IAppProps> {
                     updatePassengerInfo={this.props.updatePassengerInfo}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
-                    bookFlights={bookFlights}
+                    bookFlights={this.props.bookFlights}
                   />
                 } />
               </div>

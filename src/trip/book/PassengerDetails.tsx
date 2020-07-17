@@ -26,7 +26,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
       <div className="row passenger-row" key={index.toString()}>
         <div className="col-sm-8 passenger-label">
           <PersonOutlineIcon color="primary"/>
-          <span className="text-bold icon-label">{passenger.updated ? passenger.first_name + ' ' + passenger.last_name : passenger.passenger_type} </span>
+          <span className="text-bold icon-label">{passenger.updated ? passenger.first_name + ' ' + passenger.last_name : passenger.passenger_type_name} </span>
           {index === 0 && <span>(Passenger 1)</span>}
         </div>
         <div className="col-sm-4">

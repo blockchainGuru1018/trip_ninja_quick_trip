@@ -15,12 +15,12 @@ export interface PassengerInfo {
   last_name: string;
   date_of_birth: string;
   gender: string;
-  area_code?: string;
   phone_number?: string;
   passport_country?: string
   passport_number?: string;
   passport_expiration?: string;
   passenger_type: string;
+  passenger_type_name: string;
   email?: string;
   updated: boolean;
 }
@@ -40,7 +40,8 @@ export interface PaymentInfo {
 }
 
 export const defaultPassengerInfo: PassengerInfo = {
-  'passenger_type': 'Adult',
+  'passenger_type': 'ADT',
+  'passenger_type_name': 'Adult',
   'first_name': '',
   'last_name': '',
   'date_of_birth': new Date().toISOString().slice(0,10),

@@ -36,10 +36,6 @@
   margin-bottom: 2rem;
 }
 
-.MuiOutlinedInput-root {
-    border-radius: 5px !important;
-}
-
 .login-form {
     padding: 125px 40px;
 }

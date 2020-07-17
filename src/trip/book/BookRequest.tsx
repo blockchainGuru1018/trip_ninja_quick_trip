@@ -46,18 +46,18 @@ class BookRequest extends React.Component<BookRequestProps> {
 
   validatePassengerBookingDetails = () => {
     console.log("validating passenger details");
-    const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => {
-      return passenger.first_name.length >2 &&
-            passenger.last_name.length >2 &&
-            passenger.date_of_birth > '1900-01-01' &&
-            (passenger.gender ===  'M' || 'F')  &&
-            !passenger.phone_number === null ? false : true  &&
-            passenger.passport_country &&
-            !passenger.passport_number ? false: true &&
-            !passenger.passport_expiration ? false : passenger.passport_expiration > new Date().toISOString().slice(0,10) && // <-- how to make today's date?
-            passenger.passenger_type.length > 2 &&
-            passenger.updated;
-    });
+    const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => 
+      passenger.first_name.length >2 &&
+      passenger.last_name.length >2 &&
+      passenger.date_of_birth > '1900-01-01' &&
+      (passenger.gender ===  'M' || 'F')  &&
+      !passenger.phone_number === null ? false : true  &&
+      passenger.passport_country &&
+      !passenger.passport_number ? false: true &&
+      !passenger.passport_expiration ? false : passenger.passport_expiration > new Date().toISOString().slice(0,10) &&
+      passenger.passenger_type.length > 2 &&
+      passenger.updated
+    );
 
     return validatedPassengers.length === this.props.bookingDetails.passengers.length;
   };

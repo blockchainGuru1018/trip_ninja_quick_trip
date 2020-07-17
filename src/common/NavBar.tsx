@@ -26,6 +26,9 @@ class NavBar extends React.Component<NavBarProps> {
             <li className="nav-item">
               <div className="nav-link" onClick={() => history.push('/search/')}>Flight Search<span className="sr-only">(current)</span></div>
             </li>
+            <li className="nav-item">
+              <div className="nav-link" onClick={() => history.push('/bookings/')}>Bookings<span className="sr-only">(current)</span></div>
+            </li>
           </ul>
         </div>
         <UserMenu

@@ -1,0 +1,12 @@
+#bookings {
+  background-color: #ffffff;
+}
+
+.bookings-header {
+  border-bottom: solid 1px #45565E40;
+  padding: 25px 50px;
+}
+
+.bookings-container {
+  padding: 50px 25px;
+}

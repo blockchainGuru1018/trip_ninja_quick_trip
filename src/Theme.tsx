@@ -23,7 +23,10 @@ const Theme = createMuiTheme({
         fontFamily: 'NeuzeitGro-Bol',
         textTransform: 'none',
         fontSize: '16px',
-        borderRadius: '2px'
+        borderRadius: '2px',
+        '&:focus': {
+          outlineColor: '#ffffff',
+        }
       },
     },
     MuiOutlinedInput: {

@@ -23,6 +23,7 @@ const BackButton = styled(Button)({
 interface BookProps {
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
+  currency: string;
   pricingDetails: PricingDetails;
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
@@ -66,11 +67,12 @@ class Book extends React.Component<BookProps> {
             <div className="col-sm-7">
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
+                currency={this.props.currency}
               />
             </div>
             <div className="col-sm-5">
               <FareBreakdown pricingDetails={this.props.pricingDetails}/>
-              <PassengerDetails 
+              <PassengerDetails
                 passengers={this.props.passengers}
                 bookingDetails={this.props.bookingDetails}
                 updatePassengerInfo={this.props.updatePassengerInfo}

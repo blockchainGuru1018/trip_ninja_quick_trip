@@ -4,7 +4,7 @@
 }
 
 .login-form {
-  padding: 125px 75px;
+  padding: 125px 40px;
 }
 
 .marketing-panel {
@@ -15,8 +15,13 @@
   color: #4BAFD7;
 }
 
+.login-link:hover {
+  color: #4BAFD7;
+}
+
 .login-button-row {
   padding-top: 25px;
+  align-items: center;
 }
 
 .logo-img {
@@ -25,4 +30,18 @@
 
 #login-button {
   float: right;
+}
+
+.login-form-horizontal-line {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.login-welcome-message {
+  padding-bottom: 40px;
+}
+
+.marketing-description {
+  padding-left: 0px;
+  width: 86%;
 }

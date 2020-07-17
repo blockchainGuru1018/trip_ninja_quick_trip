@@ -4,6 +4,7 @@ import { bookFlights } from '../../actions/BookActions';
 import { BookingDetails, Billing, PassengerInfo } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
+import Alert from '@material-ui/lab/Alert';
 
 interface BookRequestProps {
   bookingDetails: BookingDetails
@@ -13,8 +14,20 @@ interface BookRequestProps {
 }
 
 class BookRequest extends React.Component<BookRequestProps> {
+  state = {
+    passengerDetailsValid: true
+  }
+
+  bookFlights = (add_to_ticketing_queue: boolean) => {
+    const passengersValidated: boolean = this.validatePassengerBookingDetails();
+    return passengersValidated
+      ? this.submitBookingRequest(add_to_ticketing_queue)
+      : this.setState({'passengerDetailsValid': false});
+  }
 
   submitBookingRequest = (add_to_ticketing_queue: boolean) => {
+    this.setState({'passengerDetailsValid': true});
+
     this.props.bookingDetails.trip_id = this.props.pricingDetails.trip_id;
     this.props.bookingDetails.add_to_ticketing_queue = add_to_ticketing_queue;
     this.props.bookingDetails.ticketing_queue = this.props.authDetails.ticketing_queue;
@@ -27,18 +40,12 @@ class BookRequest extends React.Component<BookRequestProps> {
 
     this.props.bookingDetails.billing = billing;
 
-
-    console.log("this.props.bookingDetails:", this.props.bookingDetails);
-
-    this.validatePassengerBookingDetails();
-
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
-
-    console.log("bookingResult:", bookingResult);
   }
 
 
   validatePassengerBookingDetails = () => {
+    console.log("validating passenger details");
     const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => {
       return passenger.first_name.length >2 &&
             passenger.last_name.length >2 &&
@@ -52,8 +59,6 @@ class BookRequest extends React.Component<BookRequestProps> {
             passenger.updated;
     });
 
-    console.log("validatedPassengers:", validatedPassengers);
-
     return validatedPassengers.length === this.props.bookingDetails.passengers.length;
   };
 
@@ -66,17 +71,27 @@ class BookRequest extends React.Component<BookRequestProps> {
           variant="outlined" 
           color="primary"
           className="book-button"
-          onClick={ (e) => this.submitBookingRequest(false)}>
+          onClick={ (e) => this.bookFlights(false)}>
           Book and Save
         </Button>
+        {!this.state.passengerDetailsValid &&
+        <Alert severity="error" className='validationErrorAlert'>
+          Passenger details are not filled out properly - please review.
+        </Alert>
+        }
         <Button
           variant="contained" 
           color="primary"
           className="book-button"
           disableElevation
-          onClick={ (e) => this.submitBookingRequest(true)}>
+          onClick={ (e) => this.bookFlights(true)}>
           Book and Ticket
         </Button>
+        {!this.state.passengerDetailsValid &&
+        <Alert severity="error" className='validationErrorAlert'>
+          Passenger details are not filled out properly - please review.
+        </Alert>
+        }
       </div>
     );
   }

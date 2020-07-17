@@ -16,10 +16,9 @@ interface ItineraryProps {
 
 class Itinerary extends React.Component<ItineraryProps> {
 
-  getSegmentDetails = (segment: Segment, segmentFlightDetails:Array<FlightResultsDetails> ) => {
+  getSegmentDetails = (segment: Segment, segmentFlightDetails:Array<FlightResultsDetails>, index: number) => {
     return(
-      <div
-        className="row segment-container" >
+      <div className="row segment-container" key={index.toString()}>
         <p className="segment-date">
           <Moment format="MMMM Do YYYY">{segmentFlightDetails[0].departure_time}</Moment>
         </p>
@@ -43,9 +42,9 @@ class Itinerary extends React.Component<ItineraryProps> {
 
 
   displayItinerarySegments = (selectedTrip: Array<Segment>, trip: Results) => {
-    return selectedTrip.map((segment: Segment) => {
+    return selectedTrip.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-      return(this.getSegmentDetails(segment, segmentFlightDetails));
+      return(this.getSegmentDetails(segment, segmentFlightDetails, index));
     });
   }
 

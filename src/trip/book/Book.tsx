@@ -10,6 +10,10 @@ import { styled } from '@material-ui/core/styles';
 import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
+import { Passenger } from '../search/SearchInterfaces';
+import { setPassengerInfo, updatePassengerInfo } from '../../actions/BookActions';
+import { BookingDetails } from './BookInterfaces';
+
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -19,11 +23,19 @@ interface BookProps {
   pricingDetails: PricingDetails;
   resultsDetails: ResultsDetails;
   currency: string;
+  bookingDetails: BookingDetails;
+  passengers: Array<Passenger>;
+  updatePassengerInfo: typeof updatePassengerInfo;
+  setPassengerInfo: typeof setPassengerInfo;
+  dateFormat: string;
 }
 
 class Book extends React.Component<BookProps> {
-  render() {
+  componentDidMount() {
+    this.props.setPassengerInfo(this.props.passengers);
+  }
 
+  render() {
     return (
       <div className="row" id="book-itinerary">
         <div className="col-xl-10 offset-xl-1">
@@ -52,7 +64,12 @@ class Book extends React.Component<BookProps> {
             </div>
             <div className="col-sm-5">
               <FareBreakdown pricingDetails={this.props.pricingDetails}/>
-              <PassengerDetails />
+              <PassengerDetails
+                passengers={this.props.passengers}
+                bookingDetails={this.props.bookingDetails}
+                updatePassengerInfo={this.props.updatePassengerInfo}
+                dateFormat={this.props.dateFormat}
+              />
             </div>
           </div>
         </div>

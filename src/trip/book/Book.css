@@ -45,6 +45,14 @@
   margin: 5px 30px 0px 0px;
 }
 
+.passenger-row {
+  margin-bottom: 25px;
+}
+
+.passenger-label {
+  margin-top: 5px;
+}
+
 .fare-breakdown-total {
   border-top: 1px solid #dee2e6;
   padding-top: 6px;
@@ -56,4 +64,12 @@
 
 .fare-breakdown-price {
   text-align: right;
+}
+
+.passenger-form-row {
+  padding: 10px 0px;
+}
+
+.invalid-passenger-alert {
+  margin: 15px 0px;
 }

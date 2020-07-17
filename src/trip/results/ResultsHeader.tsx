@@ -18,6 +18,7 @@ const ChangeSearchButton = styled(Button)({
 
 interface ResultsHeaderProps {
   segments: Array<Segment>
+  pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
 }
 
@@ -26,7 +27,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
   render() {
     const segmentPath = this.props.segments.map((segment: Segment, index: number) => (
       <span key={index.toString()} className="itinerary-path-text">
-        {segment.origin}-{segment.destination}•{this.getDepartureDate(segment.flights[0].flight_detail_ref)}
+        {this.props.pathSequence[index]}•{this.getDepartureDate(segment.flights[0].flight_detail_ref)}
         {index < this.props.segments.length-1 && <span> | </span>}
       </span>
     ));

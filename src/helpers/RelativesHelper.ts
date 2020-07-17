@@ -1,12 +1,7 @@
 import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
-import {
-  activateLinkedSegments,
-  activateSegment,
-  setAlternatesStatus,
-  updateActiveSegments
-} from './CompatibilityHelpers';
-import {getTotal, isFirstPositionInStructure} from './MiscHelpers';
+import { updateActiveSegments, updateSegmentActivesAndAlternates } from './CompatibilityHelpers';
+import { getTotal } from './MiscHelpers';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
   setIndex0AsActives(resultsDetails);
@@ -70,20 +65,7 @@ const setTotals = (results: Results) => {
 
 function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
-  let skipPositions: Array<number> = [];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    if (!skipPositions.includes(segmentPositionIndex)){
-      activateFirstOption(segmentOptions, segmentPositionIndex);
-    }
+    updateSegmentActivesAndAlternates(segmentOptions[0], state, segmentPositionIndex, true)
   });
-
-  function activateFirstOption(segmentOptions: Array<Segment>, segmentPositionIndex: number) {
-    let segment = segmentOptions[0];
-    activateSegment(segment, state, segmentPositionIndex, true);
-    if (segment.itinerary_type === 'OPEN_JAW' && isFirstPositionInStructure(segment)) {
-      const otherPositionsInItineraryStructure: Array<number> = activateLinkedSegments(segment, state, true);
-      skipPositions.push(...otherPositionsInItineraryStructure);
-      setAlternatesStatus(state, segment, segmentOptions);
-    }
-  }
 }

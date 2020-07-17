@@ -1,12 +1,12 @@
 
 export interface BookingDetails {
-  trip_id: string;
+  trip_id?: string;
   add_to_ticketing_queue?: boolean;
   ticketing_queue?: string;
   agent_email?: string;
   agency?: string;
   passengers: Array<PassengerInfo>;
-  billing: Billing;
+  billing?: Billing;
 }
 
 export interface PassengerInfo {
@@ -27,7 +27,7 @@ export interface PassengerInfo {
 
 export interface Billing {
   email: string;
-  payment_included: boolean;
+  payment_included?: boolean;
   payment_info?: PaymentInfo;
 }
 

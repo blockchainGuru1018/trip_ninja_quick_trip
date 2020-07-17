@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
+import { setErrorDetails } from '../../actions/ResultsActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() =>
 
 interface PricingErrorModalProps {
   setOpen: any;
+  setErrorDetails: typeof setErrorDetails;
 }
 
 export default function PricingErrorModal(props: PricingErrorModalProps) {
@@ -33,7 +35,7 @@ export default function PricingErrorModal(props: PricingErrorModalProps) {
           These flights are no longer available, please try confirming a different flight option or re-running the search.
         </p>
         <Button
-          onClick={() => props.setOpen(false)}
+          onClick={() => (props.setErrorDetails(false, 'pricing'), props.setOpen(false))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>

@@ -50,10 +50,10 @@ class BookRequest extends React.Component<BookRequestProps> {
       passenger.last_name.length >2 &&
       passenger.date_of_birth > '1900-01-01' &&
       ['M', 'F'].includes(passenger.gender)  &&
-      !passenger.phone_number === null ? false : true  &&
+      passenger.phone_number &&
       passenger.passport_country &&
-      !passenger.passport_number ? false: true &&
-      !passenger.passport_expiration ? false : passenger.passport_expiration > new Date().toISOString().slice(0,10) &&
+      passenger.passport_number &&
+      passenger.passport_expiration ? passenger.passport_expiration > new Date().toISOString().slice(0,10) &&
       passenger.passenger_type.length > 2 &&
       passenger.updated
     );

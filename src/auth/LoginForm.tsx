@@ -34,10 +34,10 @@ class LoginForm extends React.Component<LoginFormProps> {
         {this.props.authenticated
           ? <Redirect to='/search/' />
           : <div className="login-form">
-            <h1 className="text-center">Welcome Back!</h1>
+            <h1 className="text-center login-welcome-message">Welcome Back!</h1>
             <div className="row">
               <div className="col-sm-10 offset-sm-1">
-                <h4>Sign in</h4>
+                <h4>Sign In</h4>
                 <form>
                   <LoginTextField
                     id="login-email"
@@ -63,6 +63,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     </div>
                     <div className="col-sm-6">
                       <Button
+                        disableElevation
                         variant="contained"
                         color="primary"
                         id="login-button"
@@ -74,7 +75,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     </div>
                   </div>
                 </form>
-                <hr/>
+                <hr className="login-form-horizontal-line"/>
                 <p>
                   Don't have an account yet?
                   <a href="https://www.tripninja.io/book-a-demo" className="login-link"> Start your free trial</a>

@@ -1,14 +1,20 @@
+import { Passenger } from '../trip/search/SearchInterfaces';
 
-
-//TODO: Set the proper type for pricingResults once that interface is built
-export const setPricingResults = (pricingResults: any) => (dispatch: any) => {
-  dispatch(setResults());
-};
-  
-
-//TODO: Set the proper type for pricingResults once that interface is built
-export function setResults() {
-  return "";
+export function updatePassengerInfo(index: number, key: string, value: string) {
+  return {
+    type: 'UPDATE_PASSENGER_INFO',
+    index,
+    key,
+    value
+  };
 }
+
+export function setPassengerInfo(passengers: Array<Passenger>) {
+  return {
+    type: 'SET_PASSENGERS',
+    passengers
+  };
+}
+
 
 

@@ -49,7 +49,7 @@ class BookRequest extends React.Component<BookRequestProps> {
       passenger.first_name.length >2 &&
       passenger.last_name.length >2 &&
       passenger.date_of_birth > '1900-01-01' &&
-      (passenger.gender ===  'M' || 'F')  &&
+      ['M', 'F'].includes(passenger.gender)  &&
       !passenger.phone_number === null ? false : true  &&
       passenger.passport_country &&
       !passenger.passport_number ? false: true &&

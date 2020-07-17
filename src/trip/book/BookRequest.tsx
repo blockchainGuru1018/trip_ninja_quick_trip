@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { bookFlights } from '../../actions/BookActions';
-import { BookingDetails, Billing } from './BookInterfaces';
+import { BookingDetails, Billing, PassengerInfo } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
 
@@ -30,10 +30,33 @@ class BookRequest extends React.Component<BookRequestProps> {
 
     console.log("this.props.bookingDetails:", this.props.bookingDetails);
 
+    this.validatePassengerBookingDetails();
+
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
 
     console.log("bookingResult:", bookingResult);
   }
+
+
+  validatePassengerBookingDetails = () => {
+    const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => {
+      return passenger.first_name.length >2 &&
+            passenger.last_name.length >2 &&
+            passenger.date_of_birth > '1900-01-01' &&
+            (passenger.gender ===  'M' || 'F')  &&
+            !passenger.phone_number === null ? false : true  &&
+            passenger.passport_country &&
+            !passenger.passport_number ? false: true &&
+            !passenger.passport_expiration ? false : passenger.passport_expiration > new Date().toISOString().slice(0,10) && // <-- how to make today's date?
+            passenger.passenger_type.length > 2 &&
+            passenger.updated;
+    });
+
+    console.log("validatedPassengers:", validatedPassengers);
+
+    return validatedPassengers.length === this.props.bookingDetails.passengers.length;
+  };
+
 
   render() {
 

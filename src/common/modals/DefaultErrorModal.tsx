@@ -41,8 +41,8 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
       >
         {
           props.errors.errorType === 'search'
-            ? <SearchErrorModal setOpen={setOpen} setErrorDetails={props.setErrorDetails}/>
-            : <PricingErrorModal setOpen={setOpen} setErrorDetails={props.setErrorDetails}/>
+            ? <SearchErrorModal setErrorDetails={props.setErrorDetails}/>
+            : <PricingErrorModal setErrorDetails={props.setErrorDetails}/>
         }
       </Modal>
     </div>

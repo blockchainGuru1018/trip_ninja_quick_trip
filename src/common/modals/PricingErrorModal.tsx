@@ -20,7 +20,6 @@ const useStyles = makeStyles(() =>
 );
 
 interface PricingErrorModalProps {
-  setOpen: any;
   setErrorDetails: typeof setErrorDetails;
 }
 
@@ -35,7 +34,7 @@ export default function PricingErrorModal(props: PricingErrorModalProps) {
           These flights are no longer available, please try confirming a different flight option or re-running the search.
         </p>
         <Button
-          onClick={() => (props.setErrorDetails(false, 'pricing'), props.setOpen(false))}
+          onClick={() => (props.setErrorDetails(false, 'pricing'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>

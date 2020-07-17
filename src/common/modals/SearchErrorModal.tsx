@@ -20,7 +20,6 @@ const useStyles = makeStyles(() =>
 );
 
 interface SearchErrorModalProps {
-  setOpen: any;
   setErrorDetails: typeof setErrorDetails;
 }
 
@@ -41,7 +40,7 @@ export default function SearchErrorModal(props: SearchErrorModalProps) {
           for assistance.
         </p>
         <Button
-          onClick={() => (props.setErrorDetails(false, 'search'), props.setOpen(false))}
+          onClick={() => (props.setErrorDetails(false, 'search'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>

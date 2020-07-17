@@ -10,6 +10,7 @@ import PreResults from './trip/results/PreResults';
 import ItineraryResult from './trip/results/ItineraryResult';
 import SegmentSelection from './trip/results/SegmentSelection';
 import Book from './trip/book/Book';
+import Bookings from './bookings/Bookings';
 import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
@@ -160,6 +161,9 @@ class App extends React.Component<IAppProps> {
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}
                   />
+                } />
+                <Route exact path="/bookings/" render={() =>
+                  <Bookings />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

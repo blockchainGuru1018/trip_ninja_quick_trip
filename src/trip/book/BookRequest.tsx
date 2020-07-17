@@ -45,7 +45,6 @@ class BookRequest extends React.Component<BookRequestProps> {
 
 
   validatePassengerBookingDetails = () => {
-    console.log("validating passenger details");
     const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => {
       return passenger.first_name.length >2 &&
             passenger.last_name.length >2 &&

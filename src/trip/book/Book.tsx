@@ -11,8 +11,9 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { setPassengerInfo, updatePassengerInfo } from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 
 const BackButton = styled(Button)({
@@ -20,12 +21,14 @@ const BackButton = styled(Button)({
 });
 
 interface BookProps {
-  pricingDetails: PricingDetails;
+  authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
   currency: string;
+  pricingDetails: PricingDetails;
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
   dateFormat: string;
 }
@@ -51,7 +54,12 @@ class Book extends React.Component<BookProps> {
                 <h1>Itinerary Summary</h1>
               </div>
               <div className="col-sm-6">
-                <BookRequest />
+                <BookRequest
+                  bookingDetails={this.props.bookingDetails}
+                  authDetails={this.props.authDetails}
+                  pricingDetails={this.props.pricingDetails}
+                  bookFlights={this.props.bookFlights}
+                />
               </div>          
             </div>
           </div>

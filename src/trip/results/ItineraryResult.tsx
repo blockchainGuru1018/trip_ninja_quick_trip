@@ -51,7 +51,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     return (
       <div id="itinerary-result">
         <div className="results-header">
-          <ResultsHeader segments={selectedTrip} flights={trip.flight_details}/>
+          <ResultsHeader 
+            segments={selectedTrip} 
+            pathSequence={trip.path_sequence}
+            flights={trip.flight_details}
+          />
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong>

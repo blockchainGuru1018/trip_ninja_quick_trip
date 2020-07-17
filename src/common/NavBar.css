@@ -13,3 +13,7 @@
 .navbar-nav {
 	padding-left: 25px;
 }
+
+.nav-item {
+  padding: 0px 20px;
+}

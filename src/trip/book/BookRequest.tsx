@@ -45,20 +45,21 @@ class BookRequest extends React.Component<BookRequestProps> {
 
 
   validatePassengerBookingDetails = () => {
-    const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo) => 
+    const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo, index: number) => 
+      index === 0 ? passenger.phone_number : true &&
       passenger.first_name.length >2 &&
       passenger.last_name.length >2 &&
       passenger.date_of_birth > '1900-01-01' &&
       ['M', 'F'].includes(passenger.gender)  &&
-      passenger.phone_number &&
       passenger.passport_country &&
       passenger.passport_number &&
-      passenger.passport_expiration ? passenger.passport_expiration > new Date().toISOString().slice(0,10) &&
-      passenger.passenger_type.length > 2 &&
+      passenger.passport_expiration &&
+      passenger.passport_expiration > new Date().toISOString().slice(0,10) &&
+      passenger.passenger_type.length === 3 &&
       passenger.updated
     );
 
-    return validatedPassengers.length === this.props.bookingDetails.passengers.length;
+    return (validatedPassengers.length === this.props.bookingDetails.passengers.length);
   };
 
 

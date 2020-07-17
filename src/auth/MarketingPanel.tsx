@@ -4,12 +4,9 @@ import { styled } from '@material-ui/core/styles';
 import marketingImage from '../assets/images/login_marketing_image.png';
 
 const MarketingButton = styled(Button)({
-  margin: '10px 0px',
-  backgroundColor: '#45565E',
-  color: '#ffffff',
-  textTransform: 'none',
-  width: "inherit",
-  fontFamily: 'NeuzeitGro-Bol'
+  '&:hover': {
+    color: "#ffffff",
+  }
 });
 
 
@@ -23,10 +20,12 @@ class MarketingPanel extends React.Component {
             <div className="col-xl marketing-description">
               <h4 className="marketing-description">Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
               <MarketingButton
+                color="secondary"
                 variant="contained"
                 id="website-link-button"
                 size="large"
-                href="https://www.tripninja.io/book-a-demo">
+                href="https://www.tripninja.io/book-a-demo"
+              >
                 See how Trip Ninja increases agent efficiency
               </MarketingButton>
             </div>

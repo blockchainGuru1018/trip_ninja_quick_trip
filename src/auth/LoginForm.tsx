@@ -63,6 +63,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     </div>
                     <div className="col-sm-6">
                       <Button
+                        disableElevation
                         variant="contained"
                         color="primary"
                         id="login-button"

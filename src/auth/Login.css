@@ -4,7 +4,7 @@
 }
 
 .login-form {
-  padding: 125px 75px;
+  padding: 125px 40px;
 }
 
 .marketing-panel {
@@ -21,6 +21,7 @@
 
 .login-button-row {
   padding-top: 25px;
+  align-items: center;
 }
 
 .logo-img {
@@ -32,12 +33,8 @@
 }
 
 .login-form-horizontal-line {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.login-form {
-    padding: 125px 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .login-welcome-message {

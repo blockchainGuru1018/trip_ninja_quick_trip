@@ -34,7 +34,7 @@ class LoginForm extends React.Component<LoginFormProps> {
         {this.props.authenticated
           ? <Redirect to='/search/' />
           : <div className="login-form">
-            <h1 className="text-center">Welcome Back!</h1>
+            <h1 className="text-center login-welcome-message">Welcome Back!</h1>
             <div className="row">
               <div className="col-sm-10 offset-sm-1">
                 <h4>Sign In</h4>

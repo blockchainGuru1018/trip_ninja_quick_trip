@@ -35,3 +35,20 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+.MuiOutlinedInput-root {
+    border-radius: 5px !important;
+}
+
+.login-form {
+    padding: 125px 40px;
+}
+
+.login-welcome-message {
+  padding-bottom: 40px;
+}
+
+.marketing-description {
+  padding-left: 0px;
+  width: 86%;
+}

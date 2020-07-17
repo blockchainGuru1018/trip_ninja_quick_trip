@@ -8,7 +8,7 @@ const MarketingButton = styled(Button)({
   backgroundColor: '#45565E',
   color: '#ffffff',
   textTransform: 'none',
-  width: '100%',
+  width: "inherit",
   fontFamily: 'NeuzeitGro-Bol'
 });
 
@@ -20,8 +20,8 @@ class MarketingPanel extends React.Component {
         <div className="col-xl-6">
           <h1>How efficient is your flight booking process?</h1>
           <div className="row">
-            <div className="col-xl">
-              <h4>Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
+            <div className="col-xl marketing-description">
+              <h4 className="marketing-description">Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
               <MarketingButton
                 variant="contained"
                 id="website-link-button"

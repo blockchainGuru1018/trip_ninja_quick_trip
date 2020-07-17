@@ -85,6 +85,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
     return (
       <div className="float-right">
         <Button
+          disableElevation
           variant="contained"
           color="primary"
           size="large"

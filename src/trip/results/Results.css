@@ -96,6 +96,7 @@
 }
 
 .fare-rules-type {
+  grid-auto-columns: 24px 1fr;
   padding-bottom: 40px;
   display: grid;
   grid-auto-flow: column;
@@ -147,4 +148,8 @@
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.booking-drawer-rules {
+  padding-bottom: 20px
 }

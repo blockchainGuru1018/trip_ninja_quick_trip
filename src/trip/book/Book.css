@@ -73,3 +73,73 @@
 .invalid-passenger-alert {
   margin: 15px 0px;
 }
+.flight-details-drawer {
+  padding: 25px 50px;
+}
+
+.flight-details-container {
+  padding-top: 35px
+}
+
+.fare-details {
+  background-color: #CACDD61C;
+  margin-top: 25px;
+}
+
+.flight-details {
+  margin-top: 25px;
+}
+
+.MuiTimelineItem-missingOppositeContent:before {
+  display: none
+}
+
+.MuiTimeline-root {
+  padding-left: 0px !important;
+}
+
+.MuiTimelineDot-root {
+  width: 20px !important;
+  height: 20px !important;
+  padding-top: 4px !important;
+}
+
+.fare-rules-preview-container {
+  min-height: 200px;
+  margin-bottom: 50px;
+  border-left: 2px solid #45565E40;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.booking-details-text-container {
+  padding-left: 25px;
+}
+
+.btn-drawer-back-to-top {
+  text-align: center;
+  color: #4BAFD7;
+}
+
+.btn-drawer-back-to-top:hover {
+  cursor: pointer;
+}
+
+.close-button-container {
+  position: fixed;
+  right: 50px;
+  top: 15px;
+}
+
+.booking-drawer-flight-departure-date {
+  padding-bottom: 10px;
+}
+
+.MuiTimelineDot-defaultPrimary {
+  color: var(--secondary);
+  background-color: var(--secondary) !important;
+}
+
+.booking-details-info-container {
+  padding-left: 0px;
+}

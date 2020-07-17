@@ -153,6 +153,7 @@ class App extends React.Component<IAppProps> {
                   <Book
                     authDetails={this.props.authDetails}
                     resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
                     pricingDetails={this.props.pricingDetails}
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}

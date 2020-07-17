@@ -1,6 +1,7 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import IdleTimerContainer from './common/IdleTimerContainer';
+import Custom404 from './common/Custom404';
 import NavBar from './common/NavBar';
 import Home from './common/Home';
 import Search from './trip/search/Search';
@@ -86,13 +87,14 @@ class App extends React.Component<IAppProps> {
           />
           {
             this.props.authDetails.authenticated &&
+            history.location.pathname !== '/404/' &&
             <NavBar
               logout={this.props.logout}
               authDetails={this.props.authDetails}/>
           }
           <div className="container-fluid">
             <Router history={history}>
-              <div>
+              <Switch>
                 <Route exact path="/" component={() =>
                   <Home
                     auth={this.props.authDetails}
@@ -118,29 +120,23 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                   />
                 } />
-                {this.props.resultsDetails.fareStructureResults
-                  ? <Route exact path="/results/pre-results/" render={() =>
-                    <PreResults
-                      resultsDetails={this.props.resultsDetails}
-                      currency={this.props.searchDetails.currency}
-                      setTripType={this.props.setTripType}
-                    />
-                  } />
-                  : ''
-                }
-                {this.props.resultsDetails.fareStructureResults
-                  ? <Route exact path="/results/itinerary/" render={() =>
-                    <ItineraryResult
-                      resultsDetails={this.props.resultsDetails}
-                      currency={this.props.searchDetails.currency}
-                      priceFlights={this.props.priceFlights}
-                      passengers={this.props.searchDetails.passengers}
-                      authDetails={this.props.authDetails}
-                      setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
-                    />
-                  } />
-                  : history.push('/search/')
-                }
+                <Route exact path="/results/pre-results/" render={() =>
+                  <PreResults
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                    setTripType={this.props.setTripType}
+                  />
+                } />
+                <Route exact path="/results/itinerary/" render={() =>
+                  <ItineraryResult
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.searchDetails.currency}
+                    priceFlights={this.props.priceFlights}
+                    passengers={this.props.searchDetails.passengers}
+                    authDetails={this.props.authDetails}
+                    setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
+                  />
+                } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
                   <SegmentSelection
                     {...routeProps}
@@ -162,7 +158,9 @@ class App extends React.Component<IAppProps> {
                     dateFormat={this.props.authDetails.dateType}
                   />
                 } />
-              </div>
+                <Route exact path="/404/" render={() => <Custom404 />} />
+                <Redirect to="/404/" />
+              </Switch>
             </Router>
           </div>
         </div>

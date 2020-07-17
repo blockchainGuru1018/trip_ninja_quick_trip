@@ -1,0 +1,32 @@
+.four-o-four-container {
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.four-o-four-text-container h4 {
+  font-size: 18px;
+  letter-spacing: 1.26px;
+}
+
+.four-o-four-logo-container {
+  position: absolute;
+}
+
+.four-o-four-content-container {
+  height: 100vh;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 523px 523px;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 50px;
+}
+
+.hot-link {
+  color: #00B4C3;
+  text-decoration: underline;
+}
+
+.hot-link:hover {
+  color: #00B4C3;
+}

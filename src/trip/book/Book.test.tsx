@@ -83,7 +83,7 @@ const testPricingDetails: PricingDetails = {
     }]
 };
 
-test('getNumberOfNights', () => {
+test('checkBookingRequestComponent', () => {
   const bookRequestComponent: any = shallow(
     <BookRequest
       bookingDetails={testBookingDetails}

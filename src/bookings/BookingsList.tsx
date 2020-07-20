@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
-import { Booking, sampleBooking } from './BookingsInterfaces';
+import { Booking } from './BookingsInterfaces';
 import Moment from 'react-moment';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 
@@ -29,7 +29,7 @@ const DetailsLinkCell = styled(TableCell)({
 
 
 interface BookingsListProps {
-  
+  bookings: Array<Booking>
 }
 
 class BookingsList extends React.Component<BookingsListProps> {
@@ -51,7 +51,7 @@ class BookingsList extends React.Component<BookingsListProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.displayBookings([sampleBooking])}
+              {this.displayBookings(this.props.bookings)}
             </TableBody>
           </Table>
         </TableContainer>
@@ -73,7 +73,7 @@ class BookingsList extends React.Component<BookingsListProps> {
           <TableCell align="left">
             <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
           </TableCell>
-          <TableCell align="left">{currencySymbol(booking.pricing)} {booking.currency}</TableCell>
+          <TableCell align="left">{currencySymbol(booking.currency)}{booking.pricing} {booking.currency}</TableCell>
           <TableCell align="left">{booking.path_sequence}</TableCell>
           <TableCell align="left">{booking.status}</TableCell>
         </TableRow>

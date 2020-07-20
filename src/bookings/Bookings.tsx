@@ -3,6 +3,7 @@ import BookingsList from './BookingsList';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
 import MultiplePnrView from './MultiplePnrView';
+import { Booking, sampleBooking } from './BookingsInterfaces';
 import './Bookings.css';
 
 interface BookingsProps {
@@ -37,7 +38,8 @@ class Bookings extends React.Component<BookingsProps> {
             </div>
             <div className="row">
               <div className="col-xl">
-                <BookingsList />
+                <BookingsList 
+                  bookings={[sampleBooking]}/>
               </div>
             </div>
           </div>          

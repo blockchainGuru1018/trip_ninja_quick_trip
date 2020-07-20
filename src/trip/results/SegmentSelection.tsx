@@ -11,6 +11,7 @@ import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
+import SegmentFilterOption from './SegmentFilterOption';
 
 interface MatchParams {
   index: string;
@@ -62,6 +63,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
             setSegmentPositionMapValue={this.props.setSegmentValue}
           />
+          <SegmentFilterOption />
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">

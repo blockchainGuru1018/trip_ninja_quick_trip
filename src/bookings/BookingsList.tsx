@@ -7,7 +7,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
-import { Bookings } from './BookingsInterfaces';
+import { Booking, sampleBooking } from './BookingsInterfaces';
+import Moment from 'react-moment';
+import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -31,6 +33,7 @@ interface BookingsListProps {
 }
 
 class BookingsList extends React.Component<BookingsListProps> {
+  
   render() {
     return (
       <div>
@@ -48,7 +51,7 @@ class BookingsList extends React.Component<BookingsListProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.displayBookings()}
+              {this.displayBookings([sampleBooking])}
             </TableBody>
           </Table>
         </TableContainer>
@@ -56,20 +59,26 @@ class BookingsList extends React.Component<BookingsListProps> {
     );
   }
 
-  displayBookings = () => {
-    return(
-      <TableRow>
-        <DetailsLinkCell align="left" onClick={() => {}}>
-          UDSAKDK1
-        </DetailsLinkCell>
-        <TableCell align="left">Dumont, Ronald</TableCell>
-        <TableCell align="left">Jul 31, 2020</TableCell>
-        <TableCell align="left">Aug 15, 2020</TableCell>
-        <TableCell align="left">$1200 USD</TableCell>
-        <TableCell align="left">ROM-PRG</TableCell>
-        <TableCell align="left">Ticketed</TableCell>
-      </TableRow>
-    );
+  displayBookings = (bookings: Array<Booking>) => {
+    return bookings.map((booking: Booking, index: number) => {
+      return (
+        <TableRow>
+          <DetailsLinkCell align="left" onClick={() => {}}>
+            {booking.ur_locator}
+          </DetailsLinkCell>
+          <TableCell align="left">{booking.primary_passenger}</TableCell>
+          <TableCell align="left">
+            <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+          </TableCell>
+          <TableCell align="left">
+            <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+          </TableCell>
+          <TableCell align="left">{currencySymbol(booking.pricing)} {booking.currency}</TableCell>
+          <TableCell align="left">{booking.path_sequence}</TableCell>
+          <TableCell align="left">{booking.status}</TableCell>
+        </TableRow>
+      );
+    });
   }
 }
 

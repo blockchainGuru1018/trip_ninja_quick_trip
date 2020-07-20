@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
+import { setErrorDetails } from '../../actions/ResultsActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() =>
 );
 
 interface SearchErrorModalProps {
-  setOpen: any;
+  setErrorDetails: typeof setErrorDetails;
 }
 
 export default function SearchErrorModal(props: SearchErrorModalProps) {
@@ -39,7 +40,7 @@ export default function SearchErrorModal(props: SearchErrorModalProps) {
           for assistance.
         </p>
         <Button
-          onClick={() => props.setOpen(false)}
+          onClick={() => (props.setErrorDetails(false, 'search'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>

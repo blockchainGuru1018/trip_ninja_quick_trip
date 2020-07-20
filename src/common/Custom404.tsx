@@ -10,7 +10,9 @@ class Custom404 extends React.Component {
     return (
         <div className="row four-o-four-container">
           <div className="col-xl-12 four-o-four-logo-container">
-            <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
+            <a href='/'>
+              <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
+            </a>
           </div>
           <div className='col-xl-12 four-o-four-content-container'>
             <div className='row four-o-four-content-row'>

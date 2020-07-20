@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
@@ -53,6 +55,11 @@ class BookingsList extends React.Component<BookingsListProps> {
             <TableBody>
               {this.displayBookings(this.props.bookings)}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       </div>
@@ -66,14 +73,14 @@ class BookingsList extends React.Component<BookingsListProps> {
           <DetailsLinkCell align="left" onClick={() => {}}>
             {booking.ur_locator}
           </DetailsLinkCell>
-          <TableCell align="left">{booking.primary_passenger}</TableCell>
+          <TableCell align="left">{booking.primary_last_name}, {booking.primary_first_name}</TableCell>
           <TableCell align="left">
             <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
           </TableCell>
           <TableCell align="left">
             <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
           </TableCell>
-          <TableCell align="left">{currencySymbol(booking.currency)}{booking.pricing} {booking.currency}</TableCell>
+          <TableCell align="left">{currencySymbol(booking.currency)}{booking.price} {booking.currency}</TableCell>
           <TableCell align="left">{booking.path_sequence}</TableCell>
           <TableCell align="left">{booking.status}</TableCell>
         </TableRow>

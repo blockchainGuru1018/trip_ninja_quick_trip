@@ -11,6 +11,10 @@ interface BookingsProps {
 }
 
 class Bookings extends React.Component<BookingsProps> {
+  componentDidMount() {
+    // Get bookings list
+  }
+
   render() {
     return (
       <div id="bookings">

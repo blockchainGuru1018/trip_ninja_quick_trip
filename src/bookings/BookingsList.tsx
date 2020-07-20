@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { styled } from '@material-ui/core/styles';
+import { Bookings } from './BookingsInterfaces';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -14,10 +15,19 @@ const BookingsTableHeader = styled(TableCell)({
   color: '#45565E',
 });
 
+const DetailsLinkCell = styled(TableCell)({
+  color: '#4BAFD7',
+  fontWeight: 'bold',
+  '&:hover': {
+    opacity: '0.7',
+    cursor: 'pointer'
+  } 
+});
+
 
 
 interface BookingsListProps {
-
+  
 }
 
 class BookingsList extends React.Component<BookingsListProps> {
@@ -38,32 +48,27 @@ class BookingsList extends React.Component<BookingsListProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell align="left">
-                  <a className="booking-details-link" href="/bookings/">UDSAKDK1</a>
-                </TableCell>
-                <TableCell align="left">Dumont, Ronald</TableCell>
-                <TableCell align="left">Jul 31, 2020</TableCell>
-                <TableCell align="left">Aug 15, 2020</TableCell>
-                <TableCell align="left">$1200 USD</TableCell>
-                <TableCell align="left">ROM-PRG</TableCell>
-                <TableCell align="left">Ticketed</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="left">
-                  <a className="booking-details-link" href="/bookings/">UDSAKDK1</a>
-                </TableCell>
-                <TableCell align="left">Dumont, Ronald</TableCell>
-                <TableCell align="left">Jul 31, 2020</TableCell>
-                <TableCell align="left">Aug 15, 2020</TableCell>
-                <TableCell align="left">$1200 USD</TableCell>
-                <TableCell align="left">ROM-PRG</TableCell>
-                <TableCell align="left">Ticketed</TableCell>
-              </TableRow>
+              {this.displayBookings()}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
+    );
+  }
+
+  displayBookings = () => {
+    return(
+      <TableRow>
+        <DetailsLinkCell align="left" onClick={() => {}}>
+          UDSAKDK1
+        </DetailsLinkCell>
+        <TableCell align="left">Dumont, Ronald</TableCell>
+        <TableCell align="left">Jul 31, 2020</TableCell>
+        <TableCell align="left">Aug 15, 2020</TableCell>
+        <TableCell align="left">$1200 USD</TableCell>
+        <TableCell align="left">ROM-PRG</TableCell>
+        <TableCell align="left">Ticketed</TableCell>
+      </TableRow>
     );
   }
 }

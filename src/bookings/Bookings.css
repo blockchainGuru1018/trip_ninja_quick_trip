@@ -10,12 +10,3 @@
 .bookings-container {
   padding: 50px 25px;
 }
-
-.booking-details-link {
-  color: #4BAFD7;
-  font-weight: bold;
-}
-.booking-details-link:hover {
-  color: #4BAFD7;
-  opacity: 0.7;
-}

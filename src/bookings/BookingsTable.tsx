@@ -71,17 +71,17 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       return (
         <TableRow>
           <DetailsLinkCell align="left" onClick={() => {}}>
-            {booking.ur_locator}
+            {booking.ur_locator_code}
           </DetailsLinkCell>
-          <TableCell align="left">{booking.primary_last_name}, {booking.primary_first_name}</TableCell>
+          <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
           <TableCell align="left">
             <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
           </TableCell>
           <TableCell align="left">
             <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
           </TableCell>
-          <TableCell align="left">{currencySymbol(booking.currency)}{booking.price} {booking.currency}</TableCell>
-          <TableCell align="left">{booking.path_sequence}</TableCell>
+          <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
+          <TableCell align="left">{booking.route}</TableCell>
           <TableCell align="left">{booking.status}</TableCell>
         </TableRow>
       );

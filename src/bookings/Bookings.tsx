@@ -1,5 +1,5 @@
 import React from 'react';
-import BookingsList from './BookingsList';
+import BookingsTable from './BookingsTable';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
 import MultiplePnrView from './MultiplePnrView';
@@ -42,7 +42,7 @@ class Bookings extends React.Component<BookingsProps> {
             </div>
             <div className="row">
               <div className="col-xl">
-                <BookingsList 
+                <BookingsTable 
                   bookings={[sampleBooking]}/>
               </div>
             </div>

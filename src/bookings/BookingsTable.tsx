@@ -30,11 +30,11 @@ const DetailsLinkCell = styled(TableCell)({
 
 
 
-interface BookingsListProps {
+interface BookingsTableProps {
   bookings: Array<Booking>
 }
 
-class BookingsList extends React.Component<BookingsListProps> {
+class BookingsTable extends React.Component<BookingsTableProps> {
   
   render() {
     return (
@@ -89,4 +89,4 @@ class BookingsList extends React.Component<BookingsListProps> {
   }
 }
 
-export default BookingsList;
+export default BookingsTable;

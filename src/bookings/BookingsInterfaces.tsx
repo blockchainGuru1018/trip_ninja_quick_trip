@@ -51,7 +51,7 @@ export const sampleBooking: Booking = {
   total_price: 399.96,
   currency: "CAD",
   route: "YHZ-YHZ",
-  status: "Booked/Ticketed/Cancelled",
+  status: "Booked",
   pnr_list: [
     {
       route: "YHZ-YOW,YOW-YYZ",

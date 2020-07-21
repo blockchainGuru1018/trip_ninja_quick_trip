@@ -35,7 +35,10 @@ interface BookingsTableProps {
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
-  
+  state = {
+    rowsPerPage: 10,
+    page: 0
+  }
   render() {
     return (
       <div>
@@ -57,7 +60,14 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </TableBody>
             <TableFooter>
               <TableRow>
-                
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 50]}
+                  count={this.props.bookings.length}
+                  rowsPerPage={this.state.rowsPerPage}
+                  page={this.state.page}
+                  onChangePage={this.handleChangePage}
+                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                />
               </TableRow>
             </TableFooter>
           </Table>
@@ -87,6 +97,14 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       );
     });
   }
+
+  handleChangePage = (event: unknown, newPage: number) => {
+    this.setState({page: newPage});
+  };
+
+  handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({rowsPerPage: (parseInt(event.target.value, 10)), page: 0});
+  };
 }
 
 export default BookingsTable;

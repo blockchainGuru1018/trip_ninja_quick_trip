@@ -8,10 +8,12 @@ import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
+import SortIcon from '@material-ui/icons/Sort';
 import { styled } from '@material-ui/core/styles';
-import { Booking } from './BookingsInterfaces';
 import Moment from 'react-moment';
+import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import { stringify } from 'querystring';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -36,10 +38,13 @@ interface BookingsTableProps {
 
 class BookingsTable extends React.Component<BookingsTableProps> {
   state = {
-    rowsPerPage: 1,
+    rowsPerPage: 10,
     page: 0,
+    order: 'asc',
+    orderBy: 'booking_date',
     showPnr: false
   }
+
   render() {
     return (
       <div>
@@ -47,13 +52,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
           <Table>
             <TableHead>
               <TableRow>
-                <BookingsTableHeader align="left" size="small">UR Locator/PNR</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Passenger 1</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Booking Date</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Departure Date</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Price</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Route</BookingsTableHeader>
-                <BookingsTableHeader align="left" size="small">Status</BookingsTableHeader>
+                {this.displayTableHeader()}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -62,7 +61,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[1, 2, 3]}
+                  rowsPerPageOptions={[10, 25, 50]}
                   count={this.props.bookings.length}
                   rowsPerPage={this.state.rowsPerPage}
                   page={this.state.page}
@@ -77,11 +76,36 @@ class BookingsTable extends React.Component<BookingsTableProps> {
     );
   }
 
+  displayTableHeader = () => {
+    const headerFields = [
+      {"label": "UR Locator/PNR", "name": "ur_locator_code"}, 
+      {"label": "Passenger 1", "name": "primary_passenger"}, 
+      {"label": "Booking Date", "name": "booking_date"}, 
+      {"label": "Departure Date", "name": "departure_date"},
+      {"label": "Price", "name": "total_price"},
+      {"label": "Route", "name": "route"},
+      {"label": "Status", "name": "status"}
+    ];
+    return headerFields.map((column: any, index: number) => {
+      return (
+        <BookingsTableHeader align="left" size="small" key={index.toString()}>
+          {column.label} 
+          <SortIcon 
+            className={'sort-icon' + ((this.state.orderBy === column.name) ? ' sort-active' : '')} 
+            fontSize="small"
+            onClick={() => this.handleSort(column.name)}
+          />
+        </BookingsTableHeader>
+      );
+    });
+  }
+
   displayBookings = (bookings: Array<Booking>) => {
-    return bookings.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+    return bookings.sort(this.compareRows(this.state.orderBy, this.state.order))
+      .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
       .map((booking: Booking, index: number) => {
         return (
-          <TableRow>
+          <TableRow key={index.toString()}>
             <DetailsLinkCell align="left" onClick={() => {}}>
               {booking.ur_locator_code}
             </DetailsLinkCell>
@@ -100,6 +124,29 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       });
   }
 
+  handleSort = (key: string) => {
+    let sortOrder = this.state.order;
+    if (key === this.state.orderBy) {
+      sortOrder = (this.state.order === 'asc') ? 'desc' : 'asc';
+    }
+    this.setState({orderBy: key, order: sortOrder});
+  }
+
+  compareRows = (key: any, order: string) => {
+    return function innerSort(a: any, b: any) {  
+      const varA = (typeof a[key] === 'string')
+        ? a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string')
+        ? b[key].toUpperCase() : b[key];
+  
+      let comparison = 0;
+      comparison = (varA > varB) ? 1 : -1;
+      return (
+        (order === 'desc') ? (comparison * -1) : comparison
+      );
+    };
+  }
+
   handleChangePage = (event: any, newPage: number) => {
     this.setState({page: newPage});
   };
@@ -107,12 +154,6 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({rowsPerPage: (parseInt(event.target.value, 10)), page: 0});
   };
-
-  //handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
-  //const isAsc = orderBy === property && order === 'asc';
-  //setOrder(isAsc ? 'desc' : 'asc');
-  //setOrderBy(property);
-  //};
 
 }
 

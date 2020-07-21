@@ -43,7 +43,7 @@ class Bookings extends React.Component<BookingsProps> {
             <div className="row">
               <div className="col-xl">
                 <BookingsTable 
-                  bookings={[sampleBooking]}/>
+                  bookings={sampleBooking}/>
               </div>
             </div>
           </div>          

@@ -30,6 +30,7 @@ import history from './History';
 import { setSegmentPositionMapValue } from './actions/ResultsActions';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
+import { BookingsList } from './bookings/BookingsInterfaces';
 
 
 interface IAppProps {
@@ -38,6 +39,7 @@ interface IAppProps {
   resultsDetails: ResultsDetails;
   pricingDetails: PricingDetails;
   bookingDetails: BookingDetails;
+  bookingsList: BookingsList;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;

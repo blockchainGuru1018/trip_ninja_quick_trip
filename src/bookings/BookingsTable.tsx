@@ -36,8 +36,9 @@ interface BookingsTableProps {
 
 class BookingsTable extends React.Component<BookingsTableProps> {
   state = {
-    rowsPerPage: 10,
-    page: 0
+    rowsPerPage: 1,
+    page: 0,
+    showPnr: false
   }
   render() {
     return (
@@ -61,7 +62,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[10, 25, 50]}
+                  rowsPerPageOptions={[1, 2, 3]}
                   count={this.props.bookings.length}
                   rowsPerPage={this.state.rowsPerPage}
                   page={this.state.page}
@@ -77,34 +78,42 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   }
 
   displayBookings = (bookings: Array<Booking>) => {
-    return bookings.map((booking: Booking, index: number) => {
-      return (
-        <TableRow>
-          <DetailsLinkCell align="left" onClick={() => {}}>
-            {booking.ur_locator_code}
-          </DetailsLinkCell>
-          <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
-          <TableCell align="left">
-            <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
-          </TableCell>
-          <TableCell align="left">
-            <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
-          </TableCell>
-          <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
-          <TableCell align="left">{booking.route}</TableCell>
-          <TableCell align="left">{booking.status}</TableCell>
-        </TableRow>
-      );
-    });
+    return bookings.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+      .map((booking: Booking, index: number) => {
+        return (
+          <TableRow>
+            <DetailsLinkCell align="left" onClick={() => {}}>
+              {booking.ur_locator_code}
+            </DetailsLinkCell>
+            <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
+            <TableCell align="left">
+              <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+            </TableCell>
+            <TableCell align="left">
+              <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+            </TableCell>
+            <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
+            <TableCell align="left">{booking.route}</TableCell>
+            <TableCell align="left">{booking.status}</TableCell>
+          </TableRow>
+        );
+      });
   }
 
-  handleChangePage = (event: unknown, newPage: number) => {
+  handleChangePage = (event: any, newPage: number) => {
     this.setState({page: newPage});
   };
 
   handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({rowsPerPage: (parseInt(event.target.value, 10)), page: 0});
   };
+
+  //handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
+  //const isAsc = orderBy === property && order === 'asc';
+  //setOrder(isAsc ? 'desc' : 'asc');
+  //setOrderBy(property);
+  //};
+
 }
 
 export default BookingsTable;

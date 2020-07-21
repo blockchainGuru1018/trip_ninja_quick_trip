@@ -3,16 +3,21 @@ import BookingsTable from './BookingsTable';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
 import MultiplePnrView from './MultiplePnrView';
-import { Booking, sampleBooking } from './BookingsInterfaces';
+import { AuthDetails } from '../auth/AuthInterfaces';
+import { sampleBooking, BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
+import { getBookingsList, getBookingDetails } from '../actions/BookingsActions';
 
 interface BookingsProps {
-
+  authDetails: AuthDetails
+  bookingsList: BookingsList
+  getBookingsList: typeof getBookingsList
+  getBookingDetails: typeof getBookingDetails
 }
 
 class Bookings extends React.Component<BookingsProps> {
   componentDidMount() {
-    // Get bookings list
+    this.props.getBookingsList(this.props.authDetails.userEmail);
   }
 
   render() {

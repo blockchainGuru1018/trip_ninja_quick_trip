@@ -31,7 +31,7 @@ import { setSegmentPositionMapValue } from './actions/ResultsActions';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
-
+import { getBookingsList, getBookingDetails } from './actions/BookingsActions';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -58,6 +58,8 @@ interface IAppProps {
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
+  getBookingsList: typeof getBookingsList;
+  getBookingDetails: typeof getBookingDetails;
 }
 
 const theme = Theme;
@@ -166,7 +168,12 @@ class App extends React.Component<IAppProps> {
                   />
                 } />
                 <Route exact path="/bookings/" render={() =>
-                  <Bookings />
+                  <Bookings 
+                    authDetails={this.props.authDetails}
+                    bookingsList={this.props.bookingsList}
+                    getBookingsList={this.props.getBookingsList}
+                    getBookingDetails={this.props.getBookingDetails}  
+                  />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

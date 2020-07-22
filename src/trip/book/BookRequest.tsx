@@ -42,7 +42,7 @@ class BookRequest extends React.Component<BookRequestProps> {
     };
 
     this.props.bookingDetails.billing = billing;
-    this.props.bookingDetails.segmentAdditionalDetails = this.setSegmentAdditionalDetails()
+    this.props.bookingDetails.segment_additional_details = this.setSegmentAdditionalDetails()
 
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
   }

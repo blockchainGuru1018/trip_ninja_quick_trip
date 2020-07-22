@@ -8,7 +8,7 @@ export interface BookingDetails {
   agency?: string;
   passengers: Array<PassengerInfo>;
   billing?: Billing;
-  segmentAdditionalDetails?: Array<SegmentAdditionalDetails>
+  segment_additional_details?: Array<SegmentAdditionalDetails>
 }
 
 export interface SegmentAdditionalDetails {

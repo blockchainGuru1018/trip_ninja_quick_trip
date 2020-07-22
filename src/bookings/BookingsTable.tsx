@@ -13,7 +13,7 @@ import { styled } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
-import { stringify } from 'querystring';
+import BookingDetailsDrawer from './BookingDetailsDrawer';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -48,6 +48,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   render() {
     return (
       <div>
+        <BookingDetailsDrawer />
         <TableContainer component={Paper}>
           <Table>
             <TableHead>

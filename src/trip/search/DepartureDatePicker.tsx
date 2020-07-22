@@ -14,11 +14,28 @@ interface DepartureDatePickerProps {
   departureDate: string;
   updateFlightValue: typeof updateFlightValue;
   dateFormat: string
+  previousDate?: string
 }
 
 class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
+  state = { errorText: '', error: false};
+
+  onChange(dateEvent: any){
+    console.log("event:", dateEvent?.toISOString());
+    console.log("before state:", this.state);
+    if (this.props.previousDate ? dateEvent?.toISOString() <= this.props.previousDate : false) {
+      this.state.errorText = 'Invalid departure date';
+      this.state.error = true;
+    } else {
+      this.state.errorText = '';
+      this.state.error = false;
+    }
+    console.log("after state:", this.state);
+  }
 
   setDateChange = (dateEvent: any) => {
+    this.onChange(dateEvent);
+    
     return dateEvent
       ? isNaN(dateEvent.valueOf())
         ? ''
@@ -43,6 +60,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
             value={new Date(this.props.departureDate)}
             onChange={(e: any) => this.setDateChange(e)}
             InputAdornmentProps={{ position: 'start'}}
+            helperText= {this.state.errorText}
             KeyboardButtonProps={{
               'aria-label': 'Without label',
             }}

@@ -8,6 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import FareBreakdown from '../trip/book/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
+import ManageBooking from './ManageBooking';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
 
 const useStyles = makeStyles({
@@ -63,24 +64,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         </div> 
         <Divider />
         <div className="booking-details-section">
-          <h5>Manage</h5>
-          <div className="row">
-            <Button 
-              variant="outlined" 
-              color="secondary"
-              className="update-booking-btn"
-              onClick={(e) => {}}>
-              Cancel Booking
-            </Button>
-            <Button
-              variant="contained" 
-              color="secondary"
-              className="update-booking-btn"
-              disableElevation
-              onClick={(e) => {}}>
-              Send to Ticketing
-            </Button>
-          </div>        
+          <ManageBooking />   
         </div>
         <Divider />
         <div className="booking-details-section">

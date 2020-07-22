@@ -120,7 +120,21 @@
   align-items: center;
 }
 
+.segment-filter-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 100px 100px;
+  height: 50px;
+  align-items: center;
+}
+
 .sort-icon-container {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.segment-icon-container {
   display: grid;
   grid-auto-flow: column;
   align-items: center;

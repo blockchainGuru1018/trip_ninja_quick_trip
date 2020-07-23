@@ -13,7 +13,7 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
     const pricing = this.props.pricingDetails.pricing!;
     return (
       <div>
-        {this.props.pricingDisplay ? <h5 className="section-header">Fare Breakdown</h5> : <h5>Booking Costs</h5>}
+        {this.props.pricingDisplay ? <h5>Fare Breakdown</h5> : <h5 className="section-header">Booking Costs</h5>}
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           <div className="row">
             <div className="col-sm-8 fare-breakdown-text">

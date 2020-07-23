@@ -8,6 +8,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { updateFlightValue } from '../../actions/SearchActions';
+import moment from 'moment';
 
 interface DepartureDatePickerProps {
   i: number;
@@ -20,22 +21,21 @@ interface DepartureDatePickerProps {
 class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
   state = { errorText: '', error: false};
 
-  onChange(dateEvent: any){
-    console.log("event:", dateEvent?.toISOString());
-    console.log("before state:", this.state);
-    if (this.props.previousDate ? dateEvent?.toISOString() <= this.props.previousDate : false) {
-      this.state.errorText = 'Invalid departure date';
-      this.state.error = true;
-    } else {
-      this.state.errorText = '';
-      this.state.error = false;
+  validateDate(dateEvent: any){
+    if (!isNaN(dateEvent.valueOf())){
+      if (this.props.previousDate ? dateEvent?.toISOString() <= this.props.previousDate : false) {
+        this.state.errorText = 'Invalid departure date';
+        this.state.error = true;
+      } else {
+        this.state.errorText = '';
+        this.state.error = false;
+      }
     }
-    console.log("after state:", this.state);
   }
 
   setDateChange = (dateEvent: any) => {
-    this.onChange(dateEvent);
-    
+    this.validateDate(dateEvent);
+
     return dateEvent
       ? isNaN(dateEvent.valueOf())
         ? ''

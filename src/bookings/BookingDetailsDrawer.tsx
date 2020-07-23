@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -10,6 +10,12 @@ import FareBreakdown from '../trip/book/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
+
+
+const NavButton = styled(Button)({
+  color: 'var(--tertiary)',
+  marginRight: '25px'
+});
 
 const useStyles = makeStyles({
   list: {
@@ -70,17 +76,19 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         <div className="booking-details-section">
           <h5 className="section-header">Jump To</h5>
           <div className="row">
-            <div className="col-sm-2 no-pad-left">
-              <p>Overview</p>
-            </div>
-            <div className="col-sm-2">
-              <p>Payment</p>
-            </div>
-            <div className="col-sm-2">
-              <p>Flight Overview</p>
-            </div>
-            <div className="col-sm-2">
-              <p>Passenger Information</p>
+            <div className="col-sm-12 no-pad-left">
+              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+                Overview
+              </NavButton>
+              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+                Booking Cost
+              </NavButton>
+              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+                Flight Overview
+              </NavButton>
+              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+                Passenger Information
+              </NavButton>
             </div>
           </div>
         </div>
@@ -113,12 +121,14 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <PassengerDetails />
         </div>
         <Divider />
-        <div className='row'>
-          <div 
-            className='col-lg-2 offset-lg-5' 
-            onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}
-          >
-            <div className='btn-drawer-back-to-top'>Back to top</div>
+        <div className="row">
+          <div className="col-lg-2 offset-lg-5">
+            <NavButton 
+              onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}
+              size="large"
+            >
+              Back to top
+            </NavButton>
           </div>
         </div>
       </div>

@@ -11,12 +11,16 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   render() {
     return (
       <div>
-        <h5>Passenger Details</h5>
+        <h5 className="section-header">Passenger Details</h5>
         <div className="row">
-          <div className="col-sm-2">
-            <PersonOutlineIcon color="primary" fontSize="large" />
-            <p className="text-bold">Passenger Name</p>
-            <p>ADT</p>
+          <div className="col-sm-2 no-pad-left my-auto">
+            <div className="float-left passenger-icon">
+              <PersonOutlineIcon color="primary" fontSize="large" />
+            </div>
+            <div>
+              <p className="text-bold">Passenger Name</p>
+              <p className="text-small">ADT</p>
+            </div>
           </div>
           <div className="col-sm-2 border-left">
             <p className="text-bold">Gender</p>

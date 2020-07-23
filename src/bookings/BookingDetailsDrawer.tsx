@@ -68,9 +68,9 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         </div>
         <Divider />
         <div className="booking-details-section">
-          <h5>Jump To</h5>
+          <h5 className="section-header">Jump To</h5>
           <div className="row">
-            <div className="col-sm-2">
+            <div className="col-sm-2 no-pad-left">
               <p>Overview</p>
             </div>
             <div className="col-sm-2">
@@ -86,19 +86,25 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         </div>
         <Divider />
         <div className="booking-details-section">
-          <h5>Overview</h5>
+          <h5 className="section-header">Overview</h5>
           <div className="row">
-            <div className="col-sm-3">
-              <p>Booking Agent: agent name (agent email)</p>
+            <div className="col-sm-3 no-pad-left">
+              <p>
+                <span className="text-bold">Booking Agent: </span> 
+                <span>agent name (agent email)</span>
+              </p>
             </div>
             <div className="col-sm-3">
-              <p>Team: team name</p>
+              <p>
+                <span className="text-bold">Team: </span> 
+                <span>team name</span>
+              </p>
             </div>
           </div>
         </div>
         <Divider />
         <div className="row booking-details-section">
-          <div className="col-sm-4">
+          <div className="col-sm-4 no-pad-left">
             <FareBreakdown pricingDetails={defaultPricingDetails} />
           </div>
         </div>

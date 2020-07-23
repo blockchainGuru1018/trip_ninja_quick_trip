@@ -10,7 +10,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
   render() {
     return (
       <div>
-        <h5>Manage</h5>
+        <h5 className="section-header">Manage</h5>
         <div className="row">
           <Button 
             variant="outlined" 

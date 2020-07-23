@@ -13,7 +13,6 @@ import { styled } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
-import { stringify } from 'querystring';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',

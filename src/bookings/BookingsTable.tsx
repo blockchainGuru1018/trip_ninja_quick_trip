@@ -81,7 +81,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   displayTableHeader = () => {
     const headerFields = [
       {"label": "UR Locator/PNR", "name": "ur_locator_code"}, 
-      {"label": "Passenger 1", "name": "primary_passenger"}, 
+      {"label": "Passenger 1", "name": "passenger.last_name"}, 
       {"label": "Booking Date", "name": "booking_date"}, 
       {"label": "Departure Date", "name": "departure_date"},
       {"label": "Price", "name": "total_price"},

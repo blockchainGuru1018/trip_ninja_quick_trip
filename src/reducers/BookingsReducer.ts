@@ -14,6 +14,7 @@ function bookingsReducer(state: BookingsList = {} as any, action: any) {
 }
 
 function setBookingsList(state: any, action: any) {
+  state = action.bookings;
   return {...state};
 }
 

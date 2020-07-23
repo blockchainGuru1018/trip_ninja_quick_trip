@@ -18,6 +18,8 @@ function setBookingsList(state: any, action: any) {
 }
 
 function setBookingDetails(state: any, action: any) {
+  // Find booking in booking list with that trip id
+  // set response data into bookinglist at that index
   return {...state};
 }
 

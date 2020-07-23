@@ -10,6 +10,7 @@ import FareBreakdown from '../trip/book/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
+import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
 import { Booking } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 
@@ -119,6 +120,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <div className="col-sm-4 no-pad-left">
             <FareBreakdown pricingDetails={defaultPricingDetails} />
           </div>
+        </div>
+        <Divider />
+        <div className="booking-details-section">
+          <ItineraryDetails 
+            selectedTrip={[]}
+            trip={defaultResultsDetails.fareStructureResults!}
+            currency={props.booking.currency}/>
         </div>
         <Divider />
         <div className="booking-details-section">

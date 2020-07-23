@@ -55,7 +55,7 @@ export const sampleBooking: Array<Booking> = [{
   total_price: 199.96,
   currency: "CAD",
   route: "YHZ-YHZ",
-  status: "Booked",
+  status: "Ticketed",
   pnr_list: [
     {
       route: "YHZ-YOW,YOW-YYZ",
@@ -68,7 +68,7 @@ export const sampleBooking: Array<Booking> = [{
       departure_date: "2019-11-25"
     }
   ],
-  trip_type: "one_way/round_trip/multi_city",
+  trip_type: "one_way",
   pcc: "2G3C",
   agent_email: "agent@tripninja.io"
 },
@@ -113,7 +113,7 @@ export const sampleBooking: Array<Booking> = [{
   total_price: 499.96,
   currency: "CAD",
   route: "YHZ-YHZ",
-  status: "Booked",
+  status: "Cancelled",
   pnr_list: [
     {
       route: "YHZ-YOW,YOW-YYZ",

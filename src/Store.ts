@@ -5,7 +5,7 @@ import { AuthDetails, defaultAuth } from './auth/AuthInterfaces';
 import { ResultsDetails, defaultResultsDetails } from './trip/results/ResultsInterfaces';
 import { PricingDetails, defaultPricingDetails } from './trip/results/PricingInterfaces';
 import { BookingDetails, defaultBookingDetails } from './trip/book/BookInterfaces';
-import { BookingsList } from './bookings/BookingsInterfaces';
+import { BookingsList, defaultBookingsList } from './bookings/BookingsInterfaces';
 import thunk from 'redux-thunk';
 import { jwtMiddleware } from './Middleware';
 
@@ -24,7 +24,7 @@ const defaultState: any = {
   resultsDetails: defaultResultsDetails,
   pricingDetails: defaultPricingDetails,
   bookingDetails: defaultBookingDetails,
-  bookingsList: {}
+  bookingsList: defaultBookingsList
 };
 
 const store: Store = createStore(

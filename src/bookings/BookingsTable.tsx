@@ -56,7 +56,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.displayBookings(this.props.bookings)}
+              {this.props.bookings.length > 0 
+                ? this.displayBookings(this.props.bookings)
+                : <TableRow><TableCell align="center" colSpan={7}>No bookings found!</TableCell></TableRow>
+              }
             </TableBody>
             <TableFooter>
               <TableRow>
@@ -79,7 +82,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   displayTableHeader = () => {
     const headerFields = [
       {"label": "UR Locator/PNR", "name": "ur_locator_code"}, 
-      {"label": "Passenger 1", "name": "primary_passenger"}, 
+      {"label": "Passenger 1", "name": "passenger.last_name"}, 
       {"label": "Booking Date", "name": "booking_date"}, 
       {"label": "Departure Date", "name": "departure_date"},
       {"label": "Price", "name": "total_price"},

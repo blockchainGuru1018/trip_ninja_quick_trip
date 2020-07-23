@@ -43,12 +43,14 @@ export interface PrimaryPassenger {
   last_name: string;
 }
 
+export const defaultBookingsList: BookingsList = {bookings: []};
+
 export const sampleBooking: Array<Booking> = [{
   trip_id: "129a4045ef84edc4c0d5f0b1b28a906495d3f966",
   ur_locator_code: "AXY67G",
   primary_passenger: {
     first_name: "Andres",
-    last_name: "Collart"
+    last_name: "Dollart"
   },
   booking_date: "2019-09-02",
   departure_date: "2019-11-21",
@@ -77,7 +79,7 @@ export const sampleBooking: Array<Booking> = [{
   ur_locator_code: "CXY67G",
   primary_passenger: {
     first_name: "Andres",
-    last_name: "Collart"
+    last_name: "Bollart"
   },
   booking_date: "2019-07-07",
   departure_date: "2019-11-22",

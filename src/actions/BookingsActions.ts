@@ -17,14 +17,14 @@ export function setBookingDetails(booking: Booking) {
 
 
 export const getBookingsList = (agent: string) => (dispatch: any) => {
-  const url: string = '/book/trip/';
+  const url: string = 'book?user='+ agent +'&offset=0&limit=1000';
 
-  return API.post(url, agent)
+  return API.get(url)
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
-        dispatch(setBookingsList(response.data));
+        dispatch(setBookingsList(response.data.bookings));
         return {'success': true};
       }
     })
@@ -34,7 +34,7 @@ export const getBookingsList = (agent: string) => (dispatch: any) => {
 };
 
 export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
-  const url: string = '/book/trip/' + trip_id;
+  const url: string = 'book/trip/' + trip_id;
 
   return API.get(url)
     .then((response: any) => {

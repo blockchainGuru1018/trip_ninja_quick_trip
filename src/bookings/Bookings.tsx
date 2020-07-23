@@ -4,7 +4,7 @@ import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
 import MultiplePnrView from './MultiplePnrView';
 import { AuthDetails } from '../auth/AuthInterfaces';
-import { sampleBooking, BookingsList } from './BookingsInterfaces';
+import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
 import { getBookingsList, getBookingDetails } from '../actions/BookingsActions';
 
@@ -48,7 +48,7 @@ class Bookings extends React.Component<BookingsProps> {
             <div className="row">
               <div className="col-xl">
                 <BookingsTable 
-                  bookings={sampleBooking}/>
+                  bookings={this.props.bookingsList.bookings}/>
               </div>
             </div>
           </div>          

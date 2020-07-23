@@ -57,7 +57,8 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableBody>
               {this.props.bookings.length > 0 
                 ? this.displayBookings(this.props.bookings)
-                : <TableCell align="center" colSpan={7}>No bookings found!</TableCell>}
+                : <TableRow><TableCell align="center" colSpan={7}>No bookings found!</TableCell></TableRow>
+              }
             </TableBody>
             <TableFooter>
               <TableRow>

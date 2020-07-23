@@ -43,6 +43,8 @@ export interface PrimaryPassenger {
   last_name: string;
 }
 
+export const defaultBookingsList: BookingsList = {bookings: []};
+
 export const sampleBooking: Array<Booking> = [{
   trip_id: "129a4045ef84edc4c0d5f0b1b28a906495d3f966",
   ur_locator_code: "AXY67G",

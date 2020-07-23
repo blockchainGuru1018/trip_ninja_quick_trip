@@ -24,7 +24,7 @@ const defaultState: any = {
   resultsDetails: defaultResultsDetails,
   pricingDetails: defaultPricingDetails,
   bookingDetails: defaultBookingDetails,
-  bookings: {}
+  bookingsList: {}
 };
 
 const store: Store = createStore(

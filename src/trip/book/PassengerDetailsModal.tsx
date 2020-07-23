@@ -241,7 +241,7 @@ const validatePhoneNumber = (phoneNumber: string) => {
   const re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
   let validation = re.test(phoneNumber);
 
-  if (validation && phoneNumber.length > 6){
+  if (validation){
     return '';
   } else {
     return 'Invalid phone number';

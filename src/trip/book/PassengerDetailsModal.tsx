@@ -14,7 +14,6 @@ import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-
 const useStyles = makeStyles(() =>
   createStyles({
     modal: {
@@ -50,7 +49,10 @@ interface PassengerDetailsModalProps {
   dateFormat: string;
 }
 
+
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
+  let state = { emailErrorText: 'Initial error!', emailError: false};
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [invalidPassenger, setInvalidPassenger] = React.useState(false);
@@ -158,6 +160,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       variant="outlined"
                       type="email"
                       value={props.passenger.email}
+                      helperText= {props.passenger.email ? validateEmail(props.passenger.email) : ''}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'email', event.target.value)}
                       fullWidth
                     />
@@ -169,6 +172,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                       variant="outlined"
                       type="tel"
                       value={props.passenger.phone_number}
+                      helperText= {props.passenger.phone_number ? validatePhoneNumber(props.passenger.phone_number) : ''}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'phone_number', event.target.value)}
                       fullWidth
                     />
@@ -231,4 +235,27 @@ const validateContactInput = (passenger: PassengerInfo) => {
     }
   }
   return valid;
+};
+
+const validatePhoneNumber = (phoneNumber: string) => {
+  const re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+  let validation = re.test(phoneNumber);
+
+  if (validation && phoneNumber.length > 6){
+    return '';
+  } else {
+    return 'Invalid phone number';
+  }
+};
+
+
+const validateEmail = (email: string) => {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let validation = re.test(email);
+
+  if (validation){
+    return '';
+  } else {
+    return 'Invalid email address';
+  }
 };

@@ -13,7 +13,7 @@ import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInt
 import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
 import { Booking } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
-
+import { getBookingDetails } from '../actions/BookingsActions';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -33,6 +33,7 @@ type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 interface BookingsDetailsDrawerProps {
   booking: Booking;
+  getBookingDetails: typeof getBookingDetails;
 }
 
 export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) {
@@ -54,7 +55,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-
+    getBookingDetails(props.booking.trip_id);
     setState({ ...state, [anchor]: open });
   };
 

@@ -48,7 +48,9 @@ class Bookings extends React.Component<BookingsProps> {
             <div className="row">
               <div className="col-xl">
                 <BookingsTable 
-                  bookings={this.props.bookingsList.bookings}/>
+                  bookings={this.props.bookingsList.bookings}
+                  getBookingDetails={this.props.getBookingDetails}
+                />
               </div>
             </div>
           </div>          

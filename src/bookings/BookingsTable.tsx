@@ -48,7 +48,6 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   render() {
     return (
       <div>
-        <BookingDetailsDrawer />
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -108,7 +107,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
         return (
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left" onClick={() => {}}>
-              {booking.ur_locator_code}
+              <BookingDetailsDrawer booking={booking}/>
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">

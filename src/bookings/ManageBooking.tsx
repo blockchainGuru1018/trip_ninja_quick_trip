@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 interface ManageBookingProps {
-
+  status: string;
 }
 
 class ManageBooking extends React.Component<ManageBookingProps> {
@@ -16,6 +16,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             variant="outlined" 
             color="secondary"
             className="update-booking-btn"
+            disabled={this.props.status === 'Cancelled'}
             onClick={(e) => {}}>
             Cancel Booking
           </Button>
@@ -24,6 +25,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             color="secondary"
             className="update-booking-btn"
             disableElevation
+            disabled={this.props.status !== 'Booked'}
             onClick={(e) => {}}>
             Send to Ticketing
           </Button>

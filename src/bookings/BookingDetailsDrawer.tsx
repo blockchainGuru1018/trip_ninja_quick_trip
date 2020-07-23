@@ -10,6 +10,8 @@ import FareBreakdown from '../trip/book/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
+import { Booking } from './BookingsInterfaces';
+import ItineraryDetails from '../common/ItineraryDetails';
 
 
 const NavButton = styled(Button)({
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 interface BookingsDetailsDrawerProps {
-
+  booking: Booking;
 }
 
 export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) {
@@ -55,7 +57,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor: Anchor) => (
+  const bookingDetails = (anchor: Anchor) => (
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -66,11 +68,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     >
       <div className="booking-details-container">
         <div className="booking-details-section">
-          <h1>Booking Overview - Status: [import it here]</h1>
+          <h1>Booking Overview - Status: {props.booking.status}</h1>
         </div> 
         <Divider />
         <div className="booking-details-section">
-          <ManageBooking />   
+          <ManageBooking
+            status={props.booking.status} 
+          />   
         </div>
         <Divider />
         <div className="booking-details-section">
@@ -99,7 +103,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <div className="col-sm-3 no-pad-left">
               <p>
                 <span className="text-bold">Booking Agent: </span> 
-                <span>agent name (agent email)</span>
+                <span>agent name ({props.booking.agent_email})</span>
               </p>
             </div>
             <div className="col-sm-3">
@@ -139,9 +143,9 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     <div>
       {(['right'] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>Open Details</Button>
+          <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
+            {bookingDetails(anchor)}
           </Drawer>
         </React.Fragment>
       ))}

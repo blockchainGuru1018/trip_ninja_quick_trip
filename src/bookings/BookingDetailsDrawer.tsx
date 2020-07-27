@@ -9,9 +9,10 @@ import IconButton from "@material-ui/core/IconButton";
 import FareBreakdown from '../trip/book/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
+import Tooltip from '@material-ui/core/Tooltip';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
 import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
-import { Booking } from './BookingsInterfaces';
+import { Booking, PnrInfo } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
@@ -106,7 +107,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <div className="col-sm-3 no-pad-left">
               <p>
                 <span className="text-bold">Booking Agent: </span> 
-                <span>agent name ({props.booking.agent_email})</span>
+                <span>{props.booking.agent_email}</span>
               </p>
             </div>
             <div className="col-sm-3">
@@ -149,11 +150,19 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     </div>
   );
 
+  const getPnrList = (pnrList: Array<PnrInfo>) => {
+    let pnrString = "";
+    pnrList.forEach((pnr: PnrInfo) => { pnrString += pnr.pnr_number});
+    return pnrString;
+  };
+
   return (
     <div>
       {(['right'] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
+          <Tooltip title={'PNRs: ' + getPnrList(props.booking.pnr_list)} placement="top-start">
+            <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
+          </Tooltip>          
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {bookingDetails(anchor)}
           </Drawer>

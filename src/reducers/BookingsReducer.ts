@@ -1,4 +1,4 @@
-import { BookingsList, Booking, sampleBooking } from '../bookings/BookingsInterfaces';
+import { BookingsList, Booking } from '../bookings/BookingsInterfaces';
 
 function bookingsReducer(state: BookingsList = {} as any, action: any) {
   switch(action.type) {    
@@ -14,7 +14,8 @@ function bookingsReducer(state: BookingsList = {} as any, action: any) {
 }
 
 function setBookingsList(state: any, action: any) {
-  state.bookings = sampleBooking; //action.bookings;
+  console.log(action.bookings);
+  state.bookings = action.bookings;
   return {...state};
 }
 

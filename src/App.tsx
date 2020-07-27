@@ -24,6 +24,7 @@ import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import PricingModal from './common/modals/PricingModal';
 import SearchModal from './common/modals/SearchModal';
+import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
@@ -87,6 +88,9 @@ class App extends React.Component<IAppProps> {
           <SearchModal
             loading={this.props.searchDetails.loading}
             flights={this.props.searchDetails.flights}
+          />
+          <BookModal
+            loading={this.props.bookingDetails.loading!}
           />
           <IdleTimerContainer
             logout={this.props.logout}

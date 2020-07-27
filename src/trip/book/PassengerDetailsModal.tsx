@@ -51,8 +51,6 @@ interface PassengerDetailsModalProps {
 
 
 export default function PassengerDetailsModal(props: PassengerDetailsModalProps) {
-  let state = { emailErrorText: 'Initial error!', emailError: false};
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [invalidPassenger, setInvalidPassenger] = React.useState(false);
@@ -230,7 +228,7 @@ const validateContactInput = (passenger: PassengerInfo) => {
       && passenger.email.length < 50 
       && passenger.phone_number.length > 0
       && passenger.phone_number.length < 20
-      && /^(\d+-?)+\d+$/.test(passenger.phone_number)) {
+      && /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(passenger.phone_number)) {
       valid = true;
     }
   }
@@ -244,7 +242,7 @@ const validatePhoneNumber = (phoneNumber: string) => {
   if (validation){
     return '';
   } else {
-    return 'Invalid phone number';
+    return 'Invalid phone number, ensure no spaces';
   }
 };
 

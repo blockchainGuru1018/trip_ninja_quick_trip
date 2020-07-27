@@ -24,11 +24,11 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
   validateDate(dateEvent: any){
     if (!isNaN(dateEvent.valueOf())){
       if (this.props.previousDate ? dateEvent?.toISOString() <= this.props.previousDate : false) {
-        this.state.errorText = 'Invalid departure date';
-        this.state.error = true;
+        this.setState({ errorText: 'Invalid departure date' });
+        this.setState({ error: true });
       } else {
-        this.state.errorText = '';
-        this.state.error = false;
+        this.setState({ errorText: '' });
+        this.setState({ error: false });
       }
     }
   }

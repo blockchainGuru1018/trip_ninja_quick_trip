@@ -9,10 +9,11 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import SortIcon from '@material-ui/icons/Sort';
-import { styled } from '@material-ui/core/styles';
 import Moment from 'react-moment';
+import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import { firstLetterCapital } from '../helpers/MiscHelpers';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -120,7 +121,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>
-            <TableCell align="left">{booking.status}</TableCell>
+            <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
           </TableRow>
         );
       });

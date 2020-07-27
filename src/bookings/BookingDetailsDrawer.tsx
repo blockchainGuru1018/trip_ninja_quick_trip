@@ -131,7 +131,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         </div>
         <Divider />
         <div className="booking-details-section">
-          <PassengerDetails />
+          <PassengerDetails passengers={[]} />
         </div>
         <Divider />
         <div className="row">

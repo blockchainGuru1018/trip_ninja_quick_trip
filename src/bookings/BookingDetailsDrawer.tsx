@@ -14,6 +14,7 @@ import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInt
 import { Booking } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
+import { firstLetterCapital } from '../helpers/MiscHelpers';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -70,7 +71,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     >
       <div className="booking-details-container">
         <div className="booking-details-section">
-          <h1>Booking Overview - Status: {props.booking.status}</h1>
+          <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>
         </div> 
         <Divider />
         <div className="booking-details-section">

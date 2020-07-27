@@ -16,8 +16,8 @@ export function setBookingDetails(booking: Booking) {
 }
 
 
-export const getBookingsList = (agent: string) => (dispatch: any) => {
-  const url: string = 'book?user='+ agent +'&offset=0&limit=1000';
+export const getBookingsList = (queryType: string, queryValue: string) => (dispatch: any) => {
+  const url: string = 'book?'+ queryType +'='+ queryValue +'&offset=0&limit=1000';
 
   return API.get(url)
     .then((response: any) => {

@@ -9,19 +9,19 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
       return {
         ...state,
         userEmail: action.email
-      }
+      };
 
     case 'SET_AUTH_TOKEN':
       return {
         ...state,
         authToken: action.authToken
-      }
+      };
 
     case 'AUTHENTICATE_USER':
       return {
         ...state,
         authenticated: action.authenticate
-      }
+      };
 
     case 'SET_USER_PARAMETERS':
       return {
@@ -34,17 +34,19 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         pcc: action.parameters.pcc,
         provider: action.parameters.provider,
         agency: action.parameters.agency,
-        ticketing_queue: action.parameters.ticketing_queue
-      }
+        ticketing_queue: action.parameters.ticketing_queue,
+        isAgencyAdmin: action.parameters.is_group_admin,
+        isSuperUser: action.parameters.is_superuser
+      };
 
     case 'SET_AUTH_INVALID':
       return {
         ...state,
         invalidAuth: action.status
-      }
+      };
 
     case 'RESET_AUTH':
-      return defaultAuth
+      return defaultAuth;
 
     default:
       return state;

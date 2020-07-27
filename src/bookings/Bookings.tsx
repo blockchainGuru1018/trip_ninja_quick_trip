@@ -16,8 +16,11 @@ interface BookingsProps {
 }
 
 class Bookings extends React.Component<BookingsProps> {
-  componentDidMount() {
-    this.props.getBookingsList(this.props.authDetails.userEmail); // TO DO -- how to handle group admin
+  componentDidMount() {    
+    this.props.getBookingsList(
+      (this.props.authDetails.isAgencyAdmin ? 'agency' : 'user'), 
+      (this.props.authDetails.isAgencyAdmin ? this.props.authDetails.agency : this.props.authDetails.userEmail)
+    );
   }
 
   render() {

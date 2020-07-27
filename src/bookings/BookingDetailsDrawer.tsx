@@ -67,8 +67,6 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="booking-details-container">
         <div className="booking-details-section">
@@ -152,7 +150,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
 
   const getPnrList = (pnrList: Array<PnrInfo>) => {
     let pnrString = "";
-    pnrList.forEach((pnr: PnrInfo) => { pnrString += pnr.pnr_number});
+    pnrList.forEach((pnr: PnrInfo) => pnrString += pnr.pnr_number);
     return pnrString;
   };
 

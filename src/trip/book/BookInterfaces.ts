@@ -1,3 +1,4 @@
+import { AdditionalDetails, Brand } from "../results/ResultsInterfaces";
 
 export interface BookingDetails {
   trip_id?: string;
@@ -7,6 +8,12 @@ export interface BookingDetails {
   agency?: string;
   passengers: Array<PassengerInfo>;
   billing?: Billing;
+  segment_additional_details?: Array<SegmentAdditionalDetails>
+}
+
+export interface SegmentAdditionalDetails {
+  additional_details: AdditionalDetails
+  brands: Array<Brand> | []
 }
 
 export interface PassengerInfo {

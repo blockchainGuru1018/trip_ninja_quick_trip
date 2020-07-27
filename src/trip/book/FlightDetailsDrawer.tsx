@@ -75,6 +75,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           selectedTrip={props.selectedTrip}
           trip={props.trip}
           currency={props.currency}
+          pricingDisplay={true}
         />
         <div className='row'>
           <div className='col-lg-2 offset-lg-5' onClick={() =>

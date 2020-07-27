@@ -1,7 +1,7 @@
 import React from 'react';
 import './Book.css';
 import Itinerary from './Itinerary';
-import FareBreakdown from './FareBreakdown';
+import FareBreakdown from '../../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import BookRequest from './BookRequest';
 import Button from '@material-ui/core/Button';

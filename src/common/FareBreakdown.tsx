@@ -1,6 +1,6 @@
 import React from 'react';
-import {PricingDetails} from "../results/PricingInterfaces";
-import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import {PricingDetails} from "../trip/results/PricingInterfaces";
+import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 
 interface FareBreakdownProps {
     pricingDetails: PricingDetails;

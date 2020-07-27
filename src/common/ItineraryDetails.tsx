@@ -26,6 +26,7 @@ interface ItineraryDetailsProps {
   selectedTrip: Array<Segment>;
   trip: Results;
   currency: string;
+  pricingDisplay?: boolean;
 }
 
 export default function ItineraryDetails(props: ItineraryDetailsProps) {
@@ -90,8 +91,8 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   }, []);
 
   return (
-    <div className="flight-details-drawer">
-      <div className="row flight-details-container">
+    <div className={props.pricingDisplay ? 'flight-details-drawer' : ''}>
+      <div className={'row ' + (props.pricingDisplay ? 'flight-details-container' : '')}>
         <div className="col-lg-6 booking-details-info-container">
           <h5>Flight Details</h5>
           <div className="flight-details">

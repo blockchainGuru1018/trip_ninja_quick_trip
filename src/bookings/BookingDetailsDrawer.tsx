@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import FareBreakdown from '../trip/book/FareBreakdown';
+import FareBreakdown from '../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';

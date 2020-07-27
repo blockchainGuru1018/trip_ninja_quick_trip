@@ -55,6 +55,7 @@ class Book extends React.Component<BookProps> {
               </div>
               <div className="col-sm-6">
                 <BookRequest
+                  resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
                   authDetails={this.props.authDetails}
                   pricingDetails={this.props.pricingDetails}

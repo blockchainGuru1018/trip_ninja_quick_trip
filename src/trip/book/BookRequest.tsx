@@ -1,12 +1,15 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { bookFlights } from '../../actions/BookActions';
-import { BookingDetails, Billing, PassengerInfo } from './BookInterfaces';
+import { BookingDetails, Billing, PassengerInfo, SegmentAdditionalDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
 import Alert from '@material-ui/lab/Alert';
+import { AdditionalDetails, ResultsDetails, BrandInfo, FareInfo, Brand} from "../results/ResultsInterfaces";
+import { Segment } from "../results/ResultsInterfaces";
 
 interface BookRequestProps {
+  resultsDetails: ResultsDetails
   bookingDetails: BookingDetails
   authDetails: AuthDetails
   pricingDetails: PricingDetails
@@ -39,16 +42,41 @@ class BookRequest extends React.Component<BookRequestProps> {
     };
 
     this.props.bookingDetails.billing = billing;
+    this.props.bookingDetails.segment_additional_details = this.setSegmentAdditionalDetails()
 
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
   }
 
+  setSegmentAdditionalDetails = () => {
+    const segmentAdditionalDetails: Array<SegmentAdditionalDetails> = [];
+    const activeSegments: Array<Segment> = [...this.props.resultsDetails.activeSegments.values()];
+    activeSegments.forEach((activeSegment: Segment) => {
+      const additionalDetails: AdditionalDetails = activeSegment.additional_details
+      const brands: Array<Brand> = this.getBrand(activeSegment)
+      segmentAdditionalDetails.push({
+        additional_details: additionalDetails,
+        brands: brands
+      });
+    })
+    return segmentAdditionalDetails;
+  }
+
+  getBrand = (activeSegment: Segment) => {
+    const selectedBrandIndex: number = activeSegment.selected_brand_index ? activeSegment.selected_brand_index : 0;
+    const brandInfo: BrandInfo | undefined = activeSegment.brands ? activeSegment.brands[activeSegment.segment_id][selectedBrandIndex] : undefined;
+    let brands: Array<Brand> = [];
+    if (brandInfo && brandInfo.fare_info) {
+      const fareInfoValues: Array<FareInfo> = Object.values(brandInfo.fare_info);
+      brands = fareInfoValues.map((flight_info: FareInfo) => flight_info.brand);
+    }
+    return brands;
+  }
 
   validatePassengerBookingDetails = () => {
     const validatedPassengers= this.props.bookingDetails.passengers.filter((passenger: PassengerInfo, index: number) => 
       index === 0 ? passenger.phone_number : true &&
-      passenger.first_name.length >2 &&
-      passenger.last_name.length >2 &&
+      passenger.first_name.length > 2 &&
+      passenger.last_name.length > 2 &&
       passenger.date_of_birth > '1900-01-01' &&
       ['M', 'F'].includes(passenger.gender)  &&
       passenger.passport_country &&

@@ -1,4 +1,4 @@
-import { BookingsList, sampleBooking } from '../bookings/BookingsInterfaces';
+import { BookingsList } from '../bookings/BookingsInterfaces';
 
 function bookingsReducer(state: BookingsList = {} as any, action: any) {
   switch(action.type) {    

@@ -10,8 +10,6 @@ import FareBreakdown from '../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';
-import { PricingDetails, defaultPricing} from '../trip/results/PricingInterfaces';
-import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
 import { Booking, PnrInfo, sampleBookingDetails } from './BookingsInterfaces';
 import BookingItineraryDetails from './BookingItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
@@ -47,6 +45,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     right: false,
   });
   const [selected, setSelected] = React.useState(false);
+  const [bookingDetails, setBookingDetails] = React.useState(false);
+
+  const checkBookingDetails = () => {
+    let details = props.getBookingDetails(props.booking.trip_id);
+    return setBookingDetails(details);
+
+  };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -58,9 +63,9 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-    let details = props.getBookingDetails(props.booking.trip_id);
-    console.log(details);
     props.booking.details = sampleBookingDetails;
+    checkBookingDetails();
+
     setSelected(true);
     setState({ ...state, [anchor]: open });
   };
@@ -73,8 +78,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       role="presentation"
     >
       <div className="booking-details-container">
-        <div className="booking-details-section">
+        <div className="row booking-details-section">
           <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>
+          <div className="close-button-container">
+            <IconButton onClick={() => setState({...state, [anchor]: false})}>
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </div>
         </div> 
         <Divider />
         <div className="booking-details-section">
@@ -115,7 +125,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <div className="col-sm-3">
               <p>
                 <span className="text-bold">Team: </span> 
-                <span></span>
+                <span>-</span>
               </p>
             </div>
           </div>

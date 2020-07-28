@@ -111,6 +111,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             departureDate={flight.departureDate}
             updateFlightValue={this.props.updateFlightValue}
             dateFormat={this.props.dateFormat}
+            previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
           />
         </div>
         <div className="col-sm-2 cabin-selector-container">

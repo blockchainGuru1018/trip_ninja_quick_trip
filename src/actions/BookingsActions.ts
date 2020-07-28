@@ -17,7 +17,7 @@ export function setBookingDetails(booking: Booking) {
 
 
 export const getBookingsList = (queryType: string, queryValue: string) => (dispatch: any) => {
-  const url: string = 'book/?'+ queryType +'='+ queryValue;
+  const url: string = 'book/list/?'+ queryType +'='+ queryValue;
 
   return API.get(url)
     .then((response: any) => {

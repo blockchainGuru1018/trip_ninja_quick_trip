@@ -8,7 +8,6 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { updateFlightValue } from '../../actions/SearchActions';
-import moment from 'moment';
 
 interface DepartureDatePickerProps {
   i: number;

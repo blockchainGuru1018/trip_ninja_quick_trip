@@ -10,7 +10,7 @@ import FareBreakdown from '../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';
-import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
+import { PricingDetails, defaultPricing} from '../trip/results/PricingInterfaces';
 import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
 import { Booking, PnrInfo, sampleBookingDetails } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
@@ -123,7 +123,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         <Divider />
         <div className="row booking-details-section" id="booking-cost">
           <div className="col-sm-4 no-pad-left">
-            <FareBreakdown pricingDetails={defaultPricingDetails} />
+            <FareBreakdown pricing={props.booking.details!.pricing} />
           </div>
         </div>
         <Divider />

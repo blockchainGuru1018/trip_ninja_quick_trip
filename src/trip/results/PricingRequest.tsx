@@ -52,7 +52,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
         itinerariesPayload.push({
           itinerary_reference: itinerariesCounter,
           traveller_list: itineraryElement.priced_passengers,
-          plating_carrier: "", //TODO: fix this once we have plating carriers returned in response.
+          plating_carrier: itineraryElement.plating_carrier,
           credentials: this.createCredentialsPayload(itineraryElement),
           itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
           segments: this.createSegmentsPayload(trip, itineraryStructure),

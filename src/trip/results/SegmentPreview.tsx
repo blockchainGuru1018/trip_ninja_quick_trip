@@ -28,7 +28,8 @@ interface SegmentPreviewProps {
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
-  pathSequence?: Array<string>
+  pathSequence?: Array<string>;
+  totalPrice: number;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -58,6 +59,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
             <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
             {this.props.activeSegment
               ? <SegmentPrice
+                totalPrice={this.props.totalPrice}
                 segment={this.props.segment}
                 currency={this.props.currency}
                 activeSegment={this.props.activeSegment}
@@ -91,6 +93,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 updateActives={this.props.updateActives}
                 closeAllDropDowns={this.closeAllDropDowns}
                 updateFareFamily={this.props.updateFareFamily}
+                totalPrice={this.props.totalPrice}
               />
               }
             </div>

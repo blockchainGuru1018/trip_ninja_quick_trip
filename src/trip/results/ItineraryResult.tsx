@@ -40,6 +40,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
+            totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}

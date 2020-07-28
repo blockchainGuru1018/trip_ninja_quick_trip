@@ -72,6 +72,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
               <div className="col-lg-10 offset-lg-1">
                 <h5>Selected Flight</h5>
                 <SegmentPreviews
+                  totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
                   flightDetails={trip.flight_details}
@@ -86,6 +87,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                     ? <div>
                       <h5>Other Departure Times</h5>
                       <SegmentPreviews
+                        totalPrice={totalPrice}
                         segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={compatibleSegments}
                         flightDetails={trip.flight_details}
@@ -108,6 +110,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
                       </p>
                       <SegmentPreviews
+                        totalPrice={totalPrice}
                         segmentOptionsIndex={parseInt(segmentIndex)}
                         segments={incompatibleSegments}
                         flightDetails={trip.flight_details}

@@ -16,6 +16,7 @@ interface SegmentPreviewDetailsProps {
   updateFareFamily?: typeof updateFareFamily;
   segmentOptionsIndex?: number;
   closeAllDropDowns?: () => void;
+  totalPrice: number;
 }
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
@@ -43,6 +44,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           segment={this.props.segment}
           updateFareFamily={this.props.updateFareFamily}
           updateActives={this.updateActives}
+          totalPrice={this.props.totalPrice}
         /> 
         }
         {!this.props.segment.brands && this.props.updateActives && this.props.segment.status !== 'active'

@@ -83,23 +83,23 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <h5 className="section-header">Jump To</h5>
           <div className="row">
             <div className="col-sm-12 no-pad-left">
-              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+              <NavButton href="#overview">
                 Overview
               </NavButton>
-              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+              <NavButton href="#booking-cost">
                 Booking Cost
               </NavButton>
-              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+              <NavButton href="#flight-overview">
                 Flight Overview
               </NavButton>
-              <NavButton onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}>
+              <NavButton href="#passenger-info">
                 Passenger Information
               </NavButton>
             </div>
           </div>
         </div>
         <Divider />
-        <div className="booking-details-section">
+        <div className="booking-details-section" id="overview">
           <h5 className="section-header">Overview</h5>
           <div className="row">
             <div className="col-sm-3 no-pad-left">
@@ -117,20 +117,20 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           </div>
         </div>
         <Divider />
-        <div className="row booking-details-section">
+        <div className="row booking-details-section" id="booking-cost">
           <div className="col-sm-4 no-pad-left">
             <FareBreakdown pricingDetails={defaultPricingDetails} />
           </div>
         </div>
         <Divider />
-        <div className="booking-details-section">
+        <div className="booking-details-section" id="flight-overview">
           <ItineraryDetails 
             selectedTrip={[]}
             trip={defaultResultsDetails.fareStructureResults!}
             currency={props.booking.currency}/>
         </div>
         <Divider />
-        <div className="booking-details-section">
+        <div className="booking-details-section" id="passenger-info">
           <PassengerDetails passengers={[]} />
         </div>
         <Divider />

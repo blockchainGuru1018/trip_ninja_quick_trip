@@ -65,7 +65,6 @@ class Bookings extends React.Component<BookingsProps> {
 
   getUserType = () => {
     if (this.props.authDetails.isSuperUser) {
-      console.log("is superuser");
       return '';
     } else {
       return this.props.authDetails.isAgencyAdmin ? 'agency='+this.props.authDetails.agency : 'user='+this.props.authDetails.userEmail;

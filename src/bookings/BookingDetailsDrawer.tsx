@@ -46,7 +46,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     bottom: false,
     right: false,
   });
-  const [loaded, setLoaded] = React.useState(false);
+  const [selected, setSelected] = React.useState(false);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -58,10 +58,9 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-    getBookingDetails(props.booking.trip_id);
-    props.booking.details = sampleBookingDetails;
+    props.getBookingDetails(props.booking.trip_id);
     console.log(props.booking);
-    setLoaded(true);
+    setSelected(true);
     setState({ ...state, [anchor]: open });
   };
 
@@ -166,7 +165,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
           </Tooltip>          
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {loaded && bookingDetailsComponent(anchor)}
+            {selected && bookingDetailsComponent(anchor)}
           </Drawer>
         </React.Fragment>
       ))}

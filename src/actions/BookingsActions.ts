@@ -34,13 +34,14 @@ export const getBookingsList = (queryType: string) => (dispatch: any) => {
 };
 
 export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
-  const url: string = 'book/trip/' + trip_id;
+  const url: string = 'book/trip/' + trip_id + '/';
   console.log("get booking details action");
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
+        console.log("Response acquired");
         dispatch(setBookingDetails(response.data));
         return {'success': true};
       }

@@ -1,5 +1,5 @@
-import { Pricing, Credentials, PricingRequestItinerary } from '../trip/results/PricingInterfaces';
-import { Segment } from '../trip/results/ResultsInterfaces';
+import { Pricing, Flight, Credentials, BaggageDetails } from '../trip/results/PricingInterfaces';
+import { AdditionalDetails, Brand } from '../trip/results/ResultsInterfaces';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
 
 export interface BookingsList {
@@ -46,7 +46,15 @@ export interface BookingItinerary {
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;
-  segments?: any; 
+  segments?: Array<BookingSegment>; 
+}
+
+export interface BookingSegment {
+  segment_id: string;
+  baggage?: BaggageDetails;
+  flight_details: Array<Flight>;
+  additional_details: AdditionalDetails;
+  brand: Array<Brand>;
 }
 
 export const defaultBookingsList: BookingsList = {bookings: []};
@@ -79,22 +87,26 @@ export const sampleBookingDetails: BookingDetails = {
           "segment_id": "14c9e2e5c95a5bf0f9f7712de24348e6aba88c32",
           "baggage": {
             "applicable_bags": "1stChecked",
-            "applicable_carryon_bags": "1",
-            "baggage_cost": 30,
+            "applicable_carry_on_bags": "1",
+            "baggage_cost": "30",
             "baggage_restrictions": "UPTO50LB/23KG AND UPTO62LI/158LCM",
             "carryon_cost": 0,
-            "carryon_restrictions": "CARRYON HAND BAGGAGE ALLOWANCE"
+            "carryon_restrictions": "CARRYON HAND BAGGAGE ALLOWANCE",
+            "free_allowance": "string",
+            "quantity_description": "string"
           },
           "flight_details": [
             {
-              "key": "oHzo6pBAAA/B1d6hPLAAAA==",
+              "key": "xyz",
               "origin": "CDG",
+              "origin_name": "Paris",
+              "destination_name": "Montreal",
               "destination": "YUL",
               "booking_code": "X",
               "cabin_class": "Economy",
               "carrier": "TS",
               "flight_time": 475,
-              "flight_number": 475,
+              "flight_number": "475",
               "departure_time": "2019-04-07T13:15:00",
               "arrival_time": "2019-04-07T15:10:00",
               "brand_identifier": "ECONOFLEX"
@@ -103,7 +115,7 @@ export const sampleBookingDetails: BookingDetails = {
           "additional_details": {
             "e_ticketability": true,
             "latest_ticketing_time": "11JUN20",
-            "refundable": true,
+            "refundable": "true",
             "cancel_penalty": {
               "amount": 0,
               "percentage": 100
@@ -123,22 +135,20 @@ export const sampleBookingDetails: BookingDetails = {
                 "rebooking": "$",
                 "refund": "$",
                 "seat_assignment": "$",
-                "carry_on_hand_baggage": true
+                "carry_on_hand_baggage": "true"
               },
               "carrier": "AA",
               "name": "Econo",
               "tag_info": "Econo flex provides all the comforts of economy with additional flexibility options relating to refunds and cancellation.",
               "tag_line": "Econo flex, flexibility when it matters.",
-              "services": [
+              "service": [
                 {
                   "classification": "Baggage charges that apply at the airport.",
                   "description": "CHECKED BAGGAGE",
                   "group": "Baggage",
                   "marketing_carrier": "AA",
                   "status": "$",
-                  "text": [
-                    "23"
-                  ]
+                  
                 }
               ]
             }

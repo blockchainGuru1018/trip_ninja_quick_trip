@@ -5,6 +5,7 @@ import * as authActions from './actions/AuthActions';
 import * as resultsActions from './actions/ResultsActions';
 import * as priceActions from './actions/PricingActions';
 import * as bookActions from './actions/BookActions';
+import * as bookingsActions from './actions/BookingsActions';
 import App from './App';
 import { State } from './Store';
 
@@ -15,12 +16,13 @@ function mapStateToProps(state: State) {
     resultsDetails: state.resultsDetails,
     pricingDetails: state.pricingDetails,
     bookingDetails: state.bookingDetails,
+    bookingsList: state.bookingsList,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators({...searchActions, ...authActions,
-    ...resultsActions, ...priceActions, ...bookActions}, dispatch);
+    ...resultsActions, ...priceActions, ...bookActions, ...bookingsActions}, dispatch);
 }
 
 const Main = connect(mapStateToProps, mapDispatchToProps)(App);

@@ -7,6 +7,7 @@ import { PricingDetails } from '../results/PricingInterfaces';
 import Alert from '@material-ui/lab/Alert';
 import { AdditionalDetails, ResultsDetails, BrandInfo, FareInfo, Brand} from "../results/ResultsInterfaces";
 import { Segment } from "../results/ResultsInterfaces";
+import history from '../../History';
 
 interface BookRequestProps {
   resultsDetails: ResultsDetails
@@ -42,22 +43,29 @@ class BookRequest extends React.Component<BookRequestProps> {
     };
 
     this.props.bookingDetails.billing = billing;
-    this.props.bookingDetails.segment_additional_details = this.setSegmentAdditionalDetails()
+    this.props.bookingDetails.segment_additional_details = this.setSegmentAdditionalDetails();
 
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
+    bookingResult.then((result: any) => this.handleBookingResult(result));
+  }
+
+  handleBookingResult = (result: any) => {
+    result.success
+      ? history.push('/bookings/')
+      : history.push('/book/');
   }
 
   setSegmentAdditionalDetails = () => {
     const segmentAdditionalDetails: Array<SegmentAdditionalDetails> = [];
     const activeSegments: Array<Segment> = [...this.props.resultsDetails.activeSegments.values()];
     activeSegments.forEach((activeSegment: Segment) => {
-      const additionalDetails: AdditionalDetails = activeSegment.additional_details
-      const brands: Array<Brand> = this.getBrand(activeSegment)
+      const additionalDetails: AdditionalDetails = activeSegment.additional_details;
+      const brands: Array<Brand> = this.getBrand(activeSegment);
       segmentAdditionalDetails.push({
         additional_details: additionalDetails,
         brands: brands
       });
-    })
+    });
     return segmentAdditionalDetails;
   }
 

@@ -1,25 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import FareRulesPreview from '../results/FareRulesPreview';
-import FlightResultsPath from '../results/FlightResultsPath';
-import { FlightResultsDetails, Results, Segment } from '../results/ResultsInterfaces';
-import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { Results, Segment } from '../results/ResultsInterfaces';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import Moment from "react-moment";
-import { firstLetterCapital } from "../../helpers/MiscHelpers";
-import {
-  Timeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineItem,
-  TimelineSeparator
-} from "@material-ui/lab";
+import ItineraryDetails from '../../common/ItineraryDetails';
 
 
 const useStyles = makeStyles({
@@ -49,34 +37,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     left: false,
     bottom: false,
     right: false,
-    flightResultsPathComponents:  [] as  any,
-    fareRulesPreviewComponents: [] as any
   });
-
-  const setFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
-    let flightResultsPathComponents: Array<JSX.Element> = [];
-    let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    selectedTrip.forEach((segment: Segment, index: number) => {
-      const flightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-      flightResultsPathComponents.push(<FlightResultsPath
-        flightDetails={flightDetails}
-        key={index}
-      />);
-      fareRulesPreviewComponents.push(<FareRulesPreview
-        segment={segment}
-        flightDetails={flightDetails}
-        currency={currency}
-        itineraryDisplay={true}
-        key={index}
-        bookingDrawer={true}
-      />);
-    });
-    setState({
-      ...state,
-      flightResultsPathComponents: flightResultsPathComponents,
-      fareRulesPreviewComponents: fareRulesPreviewComponents}
-    );
-  };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -110,42 +71,12 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           </div>
         </div>
         <Divider />
-        <div className="row flight-details-container">
-          <div className="col-lg-6 booking-details-info-container">
-            <h5>Flight Details</h5>
-            <div className="flight-details">
-              <Timeline>
-                {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
-                  <TimelineItem classes={{root: classes.root}}>
-                    <TimelineSeparator>
-                      <TimelineDot color="primary"/>
-                      {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <div>
-                        <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
-                        {flightResultsPath}
-                      </div>
-                    </TimelineContent>
-                  </TimelineItem>
-                )}
-              </Timeline>
-            </div>
-          </div>
-          <div className="col-lg-6 booking-details-info-container">
-            <h5>Fare Details</h5>
-            <div className="fare-details">
-              {
-                state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
-                  <div className='fare-rules-preview-container'>
-                    {fareRulesPreview}
-                    {getFareRulesBookingDetailsHTML(index)}
-                  </div>
-                )
-              }
-            </div>
-          </div>
-        </div>
+        <ItineraryDetails 
+          selectedTrip={props.selectedTrip}
+          trip={props.trip}
+          currency={props.currency}
+          pricingDisplay={true}
+        />
         <div className='row'>
           <div className='col-lg-2 offset-lg-5' onClick={() =>
             document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0
@@ -156,33 +87,6 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
       </div>
     </div>
   );
-
-  const getSegmentDateString = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
-    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref);
-    return (
-      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
-    );
-  };
-
-  const getFareRulesBookingDetailsHTML = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
-    return (
-      <div className="row">
-        <div className='text-bold booking-details-text-container'>Booking Details:
-          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
-        </div>
-      </div>
-    );
-  };
-
-  const getFlightResultByRef = (ref: string) => props.trip.flight_details.find((flight: FlightResultsDetails) =>
-    flight.reference === ref
-  );
-
-  useEffect(()=>{
-    setFlightComponents(props.selectedTrip, props.trip, props.currency);
-  }, []);
 
   return (
     <div>

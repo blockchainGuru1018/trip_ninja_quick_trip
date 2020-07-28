@@ -1,9 +1,10 @@
 import React from 'react';
-import {PricingDetails} from "../results/PricingInterfaces";
-import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import {PricingDetails} from "../trip/results/PricingInterfaces";
+import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 
 interface FareBreakdownProps {
     pricingDetails: PricingDetails;
+    pricingDisplay?: boolean;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
@@ -12,8 +13,8 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
     const pricing = this.props.pricingDetails.pricing!;
     return (
       <div>
-        <h5>Fare Breakdown</h5>
-        <div className="book-container standard-text">
+        {this.props.pricingDisplay ? <h5>Fare Breakdown</h5> : <h5 className="section-header">Booking Costs</h5>}
+        <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           <div className="row">
             <div className="col-sm-8 fare-breakdown-text">
               <p>Air Transportation Charges</p>

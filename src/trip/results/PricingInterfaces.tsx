@@ -26,12 +26,24 @@ export interface PricingRequestInterface {
   itineraries: Array<PricingRequestItinerary>
 }
 
+export const defaultPricing: Pricing = {
+  confirmed_total_price: 100,
+  original_total_price: 100,
+  base_fare: 75,
+  taxes: 25,
+  fees: 0,
+  markup: 0,
+  currency: 'USD'
+};
+
 export const defaultPricingDetails: PricingDetails = {
   loading: false,
   trip_id: '',
   trip_type: 'fare_structure',
-  currency: ''
+  currency: 'USD',
+  pricing: defaultPricing
 };
+
 
 export interface PricingRequestItinerary {
   itinerary_reference: number;

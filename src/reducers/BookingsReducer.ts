@@ -1,4 +1,4 @@
-import { BookingsList } from '../bookings/BookingsInterfaces';
+import { BookingsList, Booking } from '../bookings/BookingsInterfaces';
 
 function bookingsReducer(state: BookingsList = {} as any, action: any) {
   switch(action.type) {    
@@ -19,6 +19,8 @@ function setBookingsList(state: any, action: any) {
 }
 
 function setBookingDetails(state: any, action: any) {
+  let bookingToUpdate = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
+  bookingToUpdate.booking_details = action.booking;
   return {...state};
 }
 

@@ -13,6 +13,8 @@ import Moment from 'react-moment';
 import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import BookingDetailsDrawer from './BookingDetailsDrawer';
+import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 
 const BookingsTableHeader = styled(TableCell)({
@@ -34,6 +36,7 @@ const DetailsLinkCell = styled(TableCell)({
 
 interface BookingsTableProps {
   bookings: Array<Booking>
+  getBookingDetails: typeof getBookingDetails
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -110,7 +113,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
         return (
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left" onClick={() => {}}>
-              {booking.ur_locator_code}
+              <BookingDetailsDrawer 
+                booking={booking}
+                getBookingDetails={this.props.getBookingDetails}
+              />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">

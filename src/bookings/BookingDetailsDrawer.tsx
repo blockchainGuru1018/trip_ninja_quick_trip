@@ -111,7 +111,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <div className="col-sm-3">
               <p>
                 <span className="text-bold">Team: </span> 
-                <span>team name</span>
+                <span></span>
               </p>
             </div>
           </div>

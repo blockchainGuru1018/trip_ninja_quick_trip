@@ -1,8 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import { cancelBooking, queueBooking } from '../actions/BookingsActions';
 
 interface ManageBookingProps {
   status: string;
+  trip_id: string;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
 }
 
 class ManageBooking extends React.Component<ManageBookingProps> {
@@ -17,7 +21,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             color="secondary"
             className="update-booking-btn"
             disabled={this.props.status === 'cancelled'}
-            onClick={(e) => {}}>
+            onClick={(e) => {this.props.cancelBooking(this.props.trip_id);}}>
             Cancel Booking
           </Button>
           <Button
@@ -26,8 +30,8 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             className="update-booking-btn"
             disableElevation
             disabled={this.props.status !== 'booked'}
-            onClick={(e) => {}}>
-            Send to Ticketing
+            onClick={(e) => {this.props.queueBooking(this.props.trip_id);}}>
+            Send to Queue
           </Button>
         </div>     
       </div>

@@ -14,7 +14,7 @@ import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import BookingDetailsDrawer from './BookingDetailsDrawer';
-import { getBookingDetails } from '../actions/BookingsActions';
+import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 
 const BookingsTableHeader = styled(TableCell)({
@@ -37,6 +37,8 @@ const DetailsLinkCell = styled(TableCell)({
 interface BookingsTableProps {
   bookings: Array<Booking>
   getBookingDetails: typeof getBookingDetails
+  cancelBooking: typeof cancelBooking
+  queueBooking: typeof queueBooking
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -116,6 +118,8 @@ class BookingsTable extends React.Component<BookingsTableProps> {
               <BookingDetailsDrawer 
                 booking={booking}
                 getBookingDetails={this.props.getBookingDetails}
+                cancelBooking={this.props.cancelBooking}
+                queueBooking={this.props.queueBooking}
               />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>

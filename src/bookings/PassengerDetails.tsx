@@ -3,7 +3,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
 
 interface PassengerDetailsProps {
-  passengers: Array<PassengerInfo>
+  passengers?: Array<PassengerInfo>
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -18,7 +18,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   }
 
   passengersInfo = () => {
-    return this.props.passengers.map((passenger, index) => (
+    const passengers = this.props.passengers ? this.props.passengers : [];
+    return passengers.map((passenger, index) => (
       <div className="row" key={index.toString()}>
         <div className="col-sm-2 no-pad-left my-auto">
           <div className="float-left passenger-icon">
@@ -32,7 +33,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         <div className="col-sm-2 border-left">
           <p>
             <span className="text-bold">Gender </span>
-            {passenger.gender}
+            {passenger.gender === 'F' ? 'Female' : 'Male'}
           </p>
           <p>
             <span className="text-bold">Nationality </span>
@@ -47,7 +48,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
             {passenger.passport_expiration}
           </p>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-3">
           <p>
             <span className="text-bold">Phone </span>
             {passenger.phone_number}

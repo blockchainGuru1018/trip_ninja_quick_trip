@@ -12,7 +12,7 @@ import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';
 import { PricingDetails, defaultPricingDetails} from '../trip/results/PricingInterfaces';
 import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
-import { Booking, PnrInfo } from './BookingsInterfaces';
+import { Booking, PnrInfo, sampleBookingDetails } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
@@ -46,6 +46,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     bottom: false,
     right: false,
   });
+  const [loaded, setLoaded] = React.useState(false);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -58,10 +59,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       return;
     }
     getBookingDetails(props.booking.trip_id);
+    props.booking.details = sampleBookingDetails;
+    console.log(props.booking);
+    setLoaded(true);
     setState({ ...state, [anchor]: open });
   };
 
-  const bookingDetails = (anchor: Anchor) => (
+  const bookingDetailsComponent = (anchor: Anchor) => (
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -131,7 +135,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         </div>
         <Divider />
         <div className="booking-details-section" id="passenger-info">
-          <PassengerDetails passengers={[]} />
+          <PassengerDetails passengers={props.booking.details!.passengers} />
         </div>
         <Divider />
         <div className="row">
@@ -162,7 +166,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
           </Tooltip>          
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {bookingDetails(anchor)}
+            {loaded && bookingDetailsComponent(anchor)}
           </Drawer>
         </React.Fragment>
       ))}

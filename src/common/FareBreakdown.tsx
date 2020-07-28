@@ -5,6 +5,7 @@ import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 interface FareBreakdownProps {
     pricing: Pricing;
     pricingDisplay?: boolean;
+    currency: string;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
@@ -44,7 +45,7 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
     );
   }
   formatPrice = (price: number) => {
-    const currency = this.props.pricing.currency;
+    const currency = this.props.currency;
     return `${currencySymbol(currency)}${price.toFixed()} ${currency}`;
   }
 

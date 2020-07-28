@@ -13,7 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { PricingDetails, defaultPricing} from '../trip/results/PricingInterfaces';
 import { ResultsDetails, defaultResultsDetails} from '../trip/results/ResultsInterfaces';
 import { Booking, PnrInfo, sampleBookingDetails } from './BookingsInterfaces';
-import ItineraryDetails from '../common/ItineraryDetails';
+import BookingItineraryDetails from './BookingItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 
@@ -58,8 +58,9 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-    props.getBookingDetails(props.booking.trip_id);
-    console.log(props.booking);
+    let details = props.getBookingDetails(props.booking.trip_id);
+    console.log(details);
+    props.booking.details = sampleBookingDetails;
     setSelected(true);
     setState({ ...state, [anchor]: open });
   };
@@ -122,14 +123,16 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         <Divider />
         <div className="row booking-details-section" id="booking-cost">
           <div className="col-sm-4 no-pad-left">
-            <FareBreakdown pricing={props.booking.details!.pricing} />
+            <FareBreakdown 
+              pricing={props.booking.details!.pricing} 
+              currency={props.booking.currency}
+            />
           </div>
         </div>
         <Divider />
         <div className="booking-details-section" id="flight-overview">
-          <ItineraryDetails 
-            selectedTrip={[]}
-            trip={defaultResultsDetails.fareStructureResults!}
+          <BookingItineraryDetails 
+            selectedTrip={props.booking.details!.itinerary!}
             currency={props.booking.currency}/>
         </div>
         <Divider />

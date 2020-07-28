@@ -4,6 +4,7 @@ import FareRulesPreview from '../trip/results/FareRulesPreview';
 import FlightResultsPath from '../trip/results/FlightResultsPath';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
+import { BookingSegment, BookingItinerary } from './BookingsInterfaces';
 import Moment from "react-moment";
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import {
@@ -22,37 +23,29 @@ const useStyles = makeStyles({
   },
 });
 
-interface ItineraryDetailsProps {
-  selectedTrip: Array<Segment>;
-  trip: Results;
+interface BookingItineraryDetailsProps {
+  selectedTrip: Array<BookingItinerary>;
   currency: string;
-  pricingDisplay?: boolean;
 }
 
-export default function ItineraryDetails(props: ItineraryDetailsProps) {
+export default function BookingItineraryDetails(props: BookingItineraryDetailsProps) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     flightResultsPathComponents:  [] as  any,
     fareRulesPreviewComponents: [] as any
   });
 
-  const setFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
+  const setFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    selectedTrip.forEach((segment: Segment, index: number) => {
-      const flightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-      flightResultsPathComponents.push(<FlightResultsPath
-        flightDetails={flightDetails}
-        key={index}
-      />);
-      fareRulesPreviewComponents.push(<FareRulesPreview
-        segment={segment}
-        flightDetails={flightDetails}
-        currency={currency}
-        itineraryDisplay={true}
-        key={index}
-        bookingDrawer={true}
-      />);
+    selectedTrip.forEach((itinerary: BookingItinerary, index: number) => {
+      itinerary.segments.forEach((segment: BookingSegment, index: number) => {
+        flightResultsPathComponents.push(<FlightResultsPath
+          flightDetails={segment.flight_details}
+          key={index}
+        />);
+        fareRulesPreviewComponents.push();
+      });
     });
     setState({
       ...state,
@@ -62,35 +55,20 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   };
 
   const getSegmentDateString = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
-    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref);
+    //const segment: BookingSegment = props.selectedTrip[index].segments[0];
+    //const flightDetails: FlightResultsDetails | undefined = segment[0].flight_details[0];
     return (
-      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+      <Moment format="dddd, MMM DD"></Moment>
     );
   };
-
-  const getFareRulesBookingDetailsHTML = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
-    return (
-      <div className="row">
-        <div className='text-bold booking-details-text-container'>Booking Details:
-          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
-        </div>
-      </div>
-    );
-  };
-
-  const getFlightResultByRef = (ref: string) => props.trip.flight_details.find((flight: FlightResultsDetails) =>
-    flight.reference === ref
-  );
 
   useEffect(()=>{
-    setFlightComponents(props.selectedTrip, props.trip, props.currency);
+    setFlightComponents(props.selectedTrip, props.currency);
   }, []);
 
   return (
-    <div className={props.pricingDisplay ? 'flight-details-drawer' : ''}>
-      <div className={'row ' + (props.pricingDisplay ? 'flight-details-container' : '')}>
+    <div>
+      <div className="row">
         <div className="col-lg-6 booking-details-info-container">
           <h5>Flight Details</h5>
           <div className="flight-details">
@@ -119,7 +97,6 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
               state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
                 <div className='fare-rules-preview-container'>
                   {fareRulesPreview}
-                  {getFareRulesBookingDetailsHTML(index)}
                 </div>
               )
             }

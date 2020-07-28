@@ -1,5 +1,5 @@
-import { Pricing, Flight, Credentials, BaggageDetails } from '../trip/results/PricingInterfaces';
-import { AdditionalDetails, Brand } from '../trip/results/ResultsInterfaces';
+import { Pricing, Credentials, BaggageDetails } from '../trip/results/PricingInterfaces';
+import { FlightResultsDetails, AdditionalDetails, Brand } from '../trip/results/ResultsInterfaces';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
 
 export interface BookingsList {
@@ -46,13 +46,13 @@ export interface BookingItinerary {
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;
-  segments?: Array<BookingSegment>; 
+  segments: Array<BookingSegment>; 
 }
 
 export interface BookingSegment {
   segment_id: string;
-  baggage?: BaggageDetails;
-  flight_details: Array<Flight>;
+  baggage: BaggageDetails;
+  flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;
   brand: Array<Brand>;
 }
@@ -97,7 +97,7 @@ export const sampleBookingDetails: BookingDetails = {
           },
           "flight_details": [
             {
-              "key": "xyz",
+              "reference": "xyz",
               "origin": "CDG",
               "origin_name": "Paris",
               "destination_name": "Montreal",

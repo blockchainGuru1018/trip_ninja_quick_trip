@@ -2,6 +2,7 @@ import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Moment from 'react-moment';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
+import CountryList from '../assets/data/countries.json';
 
 interface PassengerDetailsProps {
   passengers?: Array<PassengerInfo>
@@ -39,9 +40,9 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         </div>
         <div className="col-sm-1 no-pad-left">
           <p>{passenger.gender === 'F' ? 'Female' : 'Male'}</p>
-          <p>{passenger.passport_country}</p>
-          <p>{passenger.passport_number}</p>
-          <p><Moment format="DD/MM/YYYY">{passenger.passport_expiration}</Moment></p>
+          <p>{passenger.passport_country ? this.getCountryName(passenger.passport_country): '-'}</p>
+          <p>{passenger.passport_number ? passenger.passport_number : '-'}</p>
+          <p><Moment format="DD/MM/YYYY">{passenger.passport_expiration ? passenger.passport_expiration : '-'}</Moment></p>
         </div>
         <div className="col-sm-1">
           <p className="passenger-field">Phone</p>
@@ -53,6 +54,11 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         </div>
       </div>
     ));
+  }
+
+  getCountryName = (countryCode: string) => {
+    let country = CountryList.find((country: any) => country.code === countryCode);
+    return country ? country.name: '-';
   }
 }
 

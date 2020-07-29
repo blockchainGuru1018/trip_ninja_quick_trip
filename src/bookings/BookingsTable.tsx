@@ -36,6 +36,7 @@ const DetailsLinkCell = styled(TableCell)({
 
 interface BookingsTableProps {
   bookings: Array<Booking>
+  loading: boolean;
   getBookingDetails: typeof getBookingDetails
 }
 
@@ -112,10 +113,11 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       .map((booking: Booking, index: number) => {
         return (
           <TableRow key={index.toString()}>
-            <DetailsLinkCell align="left" onClick={() => {}}>
+            <DetailsLinkCell align="left">
               <BookingDetailsDrawer 
                 booking={booking}
                 getBookingDetails={this.props.getBookingDetails}
+                loading={this.props.loading}
               />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>

@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FareRulesPreview from '../trip/results/FareRulesPreview';
 import FlightResultsPath from '../trip/results/FlightResultsPath';
-import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
-import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import { BookingSegment, BookingItinerary } from './BookingsInterfaces';
 import Moment from "react-moment";
-import { firstLetterCapital } from "../helpers/MiscHelpers";
 import {
   Timeline,
   TimelineConnector,
@@ -55,10 +53,9 @@ export default function BookingItineraryDetails(props: BookingItineraryDetailsPr
   };
 
   const getSegmentDateString = (index: number) => {
-    //const segment: BookingSegment = props.selectedTrip[index].segments[0];
-    //const flightDetails: FlightResultsDetails | undefined = segment[0].flight_details[0];
+    const flightDetails: FlightResultsDetails | undefined = props.selectedTrip[index].segments[0].flight_details[0];
     return (
-      <Moment format="dddd, MMM DD"></Moment>
+      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
     );
   };
 
@@ -74,7 +71,7 @@ export default function BookingItineraryDetails(props: BookingItineraryDetailsPr
           <div className="flight-details">
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
-                <TimelineItem classes={{root: classes.root}}>
+                <TimelineItem classes={{root: classes.root}} key={index.toString()}>
                   <TimelineSeparator>
                     <TimelineDot color="primary"/>
                     {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}

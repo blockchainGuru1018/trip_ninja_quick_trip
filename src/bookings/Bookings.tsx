@@ -54,6 +54,7 @@ class Bookings extends React.Component<BookingsProps> {
                     <BookingsTable 
                       bookings={this.props.bookingsList.bookings}
                       getBookingDetails={this.props.getBookingDetails}
+                      loading={this.props.bookingsList.loading}
                     />
                   </div>
                 </div>

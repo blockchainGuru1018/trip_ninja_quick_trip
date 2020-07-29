@@ -4,6 +4,7 @@ import { PassengerInfo } from '../trip/book/BookInterfaces';
 
 export interface BookingsList {
   bookings: Array<Booking>;
+  loading: boolean;
 }
 
 export interface Booking {
@@ -57,7 +58,10 @@ export interface BookingSegment {
   brand: Array<Brand>;
 }
 
-export const defaultBookingsList: BookingsList = {bookings: []};
+export const defaultBookingsList: BookingsList = {
+  bookings: [],
+  loading: false
+};
 
 
 export const sampleBookingDetails: BookingDetails = {

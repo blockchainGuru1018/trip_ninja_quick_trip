@@ -15,6 +15,13 @@ export function setBookingDetails(booking: Booking) {
   };
 }
 
+export function bookingDetailsLoading(value: boolean) {
+  return {
+    type: 'BOOKING_DETAILS_LOADING',
+    value
+  };
+}
+
 
 export const getBookingsList = (queryType: string) => (dispatch: any) => {
   const url: string = 'book/list/?'+ queryType;
@@ -34,6 +41,7 @@ export const getBookingsList = (queryType: string) => (dispatch: any) => {
 };
 
 export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
+  dispatch(bookingDetailsLoading(true));
   const url: string = 'book/trip/' + trip_id + '/';
   console.log("get booking details action");
   return API.get(url)
@@ -43,11 +51,14 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
       } else {
         console.log("Response acquired");
         dispatch(setBookingDetails(response.data));
+        dispatch(bookingDetailsLoading(false));
         return {'success': true};
       }
     })
     .catch((error: any) => {
+      dispatch(bookingDetailsLoading(false));
       return {'success': false};
+
     });
 
 };

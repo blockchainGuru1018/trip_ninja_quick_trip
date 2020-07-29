@@ -12,6 +12,7 @@ import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../../helpers/MiscHelpers';
 import { baggageLabel } from '../../helpers/BaggageHelper';
+import { BookingSegment } from '../../bookings/BookingsInterfaces';
 
 interface FareRulesProps {
   segment: Segment;
@@ -121,10 +122,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   getFlightsBookingCodeString = () =>
     this.props.segment.flights.reduce((total: string, flight: FlightResult, index: number) => {
-      total += flight.booking_code
+      total += flight.booking_code;
       return index !== this.props.segment.flights.length - 1
-          ? total += ', '
-          : total += ' Class'
+        ? total += ', '
+        : total += ' Class';
     }, '');
 
   setBaseFareRulesDetails = () => {

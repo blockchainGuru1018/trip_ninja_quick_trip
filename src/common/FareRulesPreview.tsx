@@ -8,11 +8,11 @@ import LanguageIcon from '@material-ui/icons/Language';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import ClassIcon from '@material-ui/icons/Class';
-import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
-import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { firstLetterCapital } from '../../helpers/MiscHelpers';
-import { baggageLabel } from '../../helpers/BaggageHelper';
-import { BookingSegment } from '../../bookings/BookingsInterfaces';
+import { Segment, FlightResultsDetails, FlightResult } from '../trip/results/ResultsInterfaces';
+import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import { firstLetterCapital } from '../helpers/MiscHelpers';
+import { baggageLabel } from '../helpers/BaggageHelper';
+import { BookingSegment } from '../bookings/BookingsInterfaces';
 
 interface FareRulesProps {
   segment?: Segment;

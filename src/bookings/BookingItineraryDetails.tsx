@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FareRulesPreview from '../trip/results/FareRulesPreview';
-import FlightResultsPath from '../trip/results/FlightResultsPath';
+import FareRulesPreview from '../common/FareRulesPreview';
+import FlightResultsPath from '../common/FlightResultsPath';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import { BookingSegment, BookingItinerary } from './BookingsInterfaces';
 import Moment from "react-moment";

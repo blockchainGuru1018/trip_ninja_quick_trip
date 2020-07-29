@@ -9,6 +9,7 @@ export interface BookingDetails {
   passengers: Array<PassengerInfo>;
   billing?: Billing;
   segment_additional_details?: Array<SegmentAdditionalDetails>
+  loading: boolean;
 }
 
 export interface SegmentAdditionalDetails {
@@ -64,5 +65,6 @@ export const defaultBilling: Billing = {
 export const defaultBookingDetails: BookingDetails = {
   'trip_id': '',
   'passengers': [defaultPassengerInfo],
-  'billing': defaultBilling
+  'billing': defaultBilling,
+  'loading': false
 };

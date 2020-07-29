@@ -42,7 +42,14 @@ export default function BookingItineraryDetails(props: BookingItineraryDetailsPr
           flightDetails={segment.flight_details}
           key={index}
         />);
-        fareRulesPreviewComponents.push();
+        fareRulesPreviewComponents.push(<FareRulesPreview
+          bookingSegment={segment}
+          flightDetails={segment.flight_details}
+          currency={currency}
+          itineraryDisplay={true}
+          key={index}
+          bookingDrawer={true}
+        />);
       });
     });
     setState({

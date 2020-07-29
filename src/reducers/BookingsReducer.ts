@@ -23,7 +23,6 @@ function setBookingsList(state: any, action: any) {
 
 function setBookingDetails(state: any, action: any) {
   state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id).details = action.booking;
-  console.log(state);
   return {...state};
 }
 

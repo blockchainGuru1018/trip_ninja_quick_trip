@@ -43,7 +43,6 @@ export const getBookingsList = (queryType: string) => (dispatch: any) => {
 export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
   dispatch(bookingDetailsLoading(true));
   const url: string = 'book/trip/' + trip_id + '/';
-  console.log("get booking details action");
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {

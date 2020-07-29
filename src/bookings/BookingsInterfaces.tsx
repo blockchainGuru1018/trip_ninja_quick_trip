@@ -56,7 +56,7 @@ export interface BookingSegment {
   baggage: BaggageDetails;
   flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;
-  brand: Array<Brand>;
+  brands: Array<Brand>;
 }
 
 export const defaultBookingsList: BookingsList = {
@@ -131,7 +131,7 @@ export const sampleBookingDetails: BookingDetails = {
             },
             "fare_types_info": "WS3 - Published fare"
           },
-          "brand": [
+          "brands": [
             {
               "brand_description": "Econo-Flex",
               "brand_services": {
@@ -146,7 +146,7 @@ export const sampleBookingDetails: BookingDetails = {
               "name": "Econo",
               "tag_info": "Econo flex provides all the comforts of economy with additional flexibility options relating to refunds and cancellation.",
               "tag_line": "Econo flex, flexibility when it matters.",
-              "service": [
+              "services": [
                 {
                   "classification": "Baggage charges that apply at the airport.",
                   "description": "CHECKED BAGGAGE",

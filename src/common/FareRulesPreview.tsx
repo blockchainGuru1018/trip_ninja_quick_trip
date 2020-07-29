@@ -114,7 +114,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   getBrand = () => {
     const brands = this.props.segment!.brands;
-    const brandSegment: any = Object.values(brands)[0][0];
+    const brandSegment: any = brands ? Object.values(brands)[0][0] : '';
     const fareInfo: any = Object.values(brandSegment.fare_info)[0];
     return fareInfo.brand;
   }

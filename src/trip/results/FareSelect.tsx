@@ -39,6 +39,7 @@ interface FareSelectProps {
   updateActives: () => void;
   updateFareFamily?: typeof updateFareFamily;
   totalPrice: number;
+  activeSegment?: Segment;
 }
 
 class FareSelect extends React.Component<FareSelectProps> {
@@ -166,10 +167,10 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
   }
 
-  priceRow = (brandsList:  Array<BrandInfo>) => {
+  priceRow = (brandsList: Array<BrandInfo>) => {
     let activeBrandIndex = this.props.segment.selected_brand_index ? this.props.segment.selected_brand_index : 0;
     return brandsList.map((brand: BrandInfo, index: number) => {
-      const relativePrice = this.calculateRelativePrice(brand.price)
+      const relativePrice = this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price))
       const relativePriceNum = Number(relativePrice.substr(3,))
       return (
         <FareTableCell key={index} align="center">
@@ -177,9 +178,9 @@ class FareSelect extends React.Component<FareSelectProps> {
             {relativePrice}
           </p>
           <p className="text-small text-center">
-            Total: {currencySymbol(this.props.currency)}{Math.round(relativePrice[0] === '+'
-              ? this.props.totalPrice + relativePriceNum
-            : this.props.totalPrice - relativePriceNum)}
+            Total: {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
+              ? Math.round(this.props.totalPrice + relativePriceNum)
+            : Math.round(this.props.totalPrice - relativePriceNum)}
           </p>
         </FareTableCell>
       );
@@ -211,9 +212,10 @@ class FareSelect extends React.Component<FareSelectProps> {
     return icons[value];
   }
 
-  calculateRelativePrice = (currentPrice: number) => {
-    let relativePrice = currentPrice - this.props.totalPrice;
-    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
+  calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
+    let relativePrice = this.props.segment.relativePrice! - this.props.activeSegment!.relativePrice!
+    let brandPrice = currentPrice - lowestPrice;
+    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.round(relativePrice + brandPrice);
   }
 
   updateSegmentFareFamily = (brand: BrandInfo, index: number) => {

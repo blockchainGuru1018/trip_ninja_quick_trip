@@ -94,6 +94,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 closeAllDropDowns={this.closeAllDropDowns}
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
+                activeSegment={this.props.activeSegment}
               />
               }
             </div>

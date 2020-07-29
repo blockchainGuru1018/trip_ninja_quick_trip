@@ -74,8 +74,6 @@ export interface Flight {
   departure_time: string;
   arrival_time?: string;
   brand_identifier?: string;
-  origin_name?: string;
-  destination_name?: string;
 }
 
 export interface Credentials {

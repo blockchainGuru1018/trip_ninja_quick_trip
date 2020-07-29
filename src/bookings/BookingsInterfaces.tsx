@@ -20,6 +20,7 @@ export interface Booking {
   status: string;
   pcc: string;
   agent_email: string;
+  agency?: string;
   trip_type: string;
   details?: BookingDetails;
 }

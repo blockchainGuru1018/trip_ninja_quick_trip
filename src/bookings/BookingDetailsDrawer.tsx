@@ -136,7 +136,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
               <div className="col-sm-3">
                 <p>
                   <span className="text-bold">Team: </span> 
-                  <span>{props.booking.agency ? props.booking.agency : '-'}</span>
+                  <span>{props.booking.agency ? firstLetterCapital(props.booking.agency) : '-'}</span>
                 </p>
               </div>
             </div>

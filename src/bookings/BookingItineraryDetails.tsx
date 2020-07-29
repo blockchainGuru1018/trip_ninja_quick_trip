@@ -36,7 +36,7 @@ export default function BookingItineraryDetails(props: BookingItineraryDetailsPr
   const setFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    selectedTrip.forEach((itinerary: BookingItinerary, index: number) => {
+    selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
       itinerary.segments.forEach((segment: BookingSegment, index: number) => {
         flightResultsPathComponents.push(<FlightResultsPath
           flightDetails={segment.flight_details}

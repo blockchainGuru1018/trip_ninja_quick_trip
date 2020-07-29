@@ -57,8 +57,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   }
 
   getCountryName = (countryCode: string) => {
-    let country = CountryList.find((country: any) => country.code === countryCode);
-    return country ? country.name: '-';
+    let countryObject = CountryList.find((country: any) => country.code === countryCode);
+    return countryObject ? countryObject.name: '-';
   }
 }
 

@@ -40,7 +40,6 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   render() {
-    const segment = this.props.segment ? this.props.segment : this.props.bookingSegment;
     return(
       <div key={this.props.key}>
         {!this.props.itineraryDisplay && 
@@ -130,58 +129,33 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         : total += ' Class';
     }, '');
 
-  setBaseFareRulesDetails = () => {
-    const segment = this.props.segment!;
-    const additionalDetails = segment.additional_details;
-    const numBaggage: any = segment.baggage.number_of_pieces;
-    const changePenalty = additionalDetails.change_penalty.amount
-      ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
-      : additionalDetails.change_penalty.percentage
-        ? additionalDetails.change_penalty.percentage + " %"
-        : undefined;
-    const brands = segment.brands;
-    let wifi: boolean = false;
-    let seatAssignment: string | undefined = undefined;
-    let carryOn: number = -1;
-    const cancelPenalty = additionalDetails.cancel_penalty
-      ? additionalDetails.cancel_penalty.amount
-        ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
-        : additionalDetails.cancel_penalty.percentage
-          ? additionalDetails.cancel_penalty.percentage + " %"
-          : undefined
-      : undefined;
-    if (brands) {
-      const brandServices: any = this.getBrand().brand_services;
-      wifi = brandServices.wifi || false;
-      seatAssignment = brandServices.seat_assignment
-        ? brandServices.seat_assignment === '$'
-          ? 'At a cost'
-          : 'Available'
-        : 'Unavilable';
-      carryOn = brandServices.carry_on_hand_baggage || -1;
+  setNumBaggage = () => {
+    if (this.props.bookingSegment) { 
+      return this.props.bookingSegment.baggage.applicable_bags;
+    } else {
+      return this.props.segment!.baggage.number_of_pieces;
     }
-    this.setState({
-      numBaggage,
-      changePenalty,
-      cancelPenalty,
-      wifi,
-      seatAssignment,
-      carryOn
-    });
   }
-  setBookingDetailsBaseFareRules = () => {
-    const segment = this.props.bookingSegment!;
+
+  setBrandServices = () => {
+    return this.props.segment ? this.getBrand().brand_services : this.props.bookingSegment!.brands[0].brand_services;
+  }
+
+  setBaseFareRulesDetails = () => {
+    const segment = this.props.segment ? this.props.segment! : this.props.bookingSegment!;
     const additionalDetails = segment.additional_details;
-    const numBaggage: string = segment.baggage.applicable_bags;
+    const brands = segment.brands;
     let wifi: boolean = false;
     let seatAssignment: string | undefined = undefined;
     let carryOn: number = -1;
+    const numBaggage: any = this.setNumBaggage(); 
+    
     const changePenalty = additionalDetails.change_penalty.amount
       ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
       : additionalDetails.change_penalty.percentage
         ? additionalDetails.change_penalty.percentage + " %"
         : undefined;
-    const brands = segment.brands;
+    
     const cancelPenalty = additionalDetails.cancel_penalty
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
@@ -190,7 +164,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           : undefined
       : undefined;
     if (brands) {
-      const brandServices: any = segment.brands[0].brand_services;
+      const brandServices: any = this.setBrandServices();
       wifi = brandServices.wifi || false;
       seatAssignment = brandServices.seat_assignment
         ? brandServices.seat_assignment === '$'

@@ -213,9 +213,11 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
-    let relativePrice = this.props.segment.relativePrice! - this.props.activeSegment!.relativePrice!
-    let brandPrice = currentPrice - lowestPrice;
-    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.round(relativePrice + brandPrice);
+    const relativePrice = this.props.activeSegment ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice! : 0
+    const brandPrice = currentPrice - lowestPrice
+    const combinedPrice = relativePrice + brandPrice
+    const absCombinedPrice = Math.abs(Math.round(combinedPrice))
+    return (combinedPrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + absCombinedPrice;
   }
 
   updateSegmentFareFamily = (brand: BrandInfo, index: number) => {

@@ -23,7 +23,7 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
   }
 
   setRelativePriceString = (relativePrice: number) =>
-    `${relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${relativePrice}`
+    `${relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${Math.abs(relativePrice)}`
 }
 
 export default SegmentPrice;

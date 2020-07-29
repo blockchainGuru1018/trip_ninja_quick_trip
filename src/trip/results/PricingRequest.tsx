@@ -81,7 +81,9 @@ class PricingRequest extends React.Component<PricingRequestProps>{
         flightsPayload.push({
           key: flightResult.flight_detail_ref,
           origin: flightDetail.origin,
+          origin_name: flightDetail.origin_name,
           destination: flightDetail.destination,
+          destination_name: flightDetail.destination_name,
           booking_code: flightResult.booking_code,
           cabin_class: flightResult.cabin_class,
           carrier: flightDetail.carrier,

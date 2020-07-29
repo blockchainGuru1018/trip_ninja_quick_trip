@@ -51,6 +51,8 @@ export interface FlightSegment {
 export interface Flight {
   key: string;
   origin: string;
+  origin_name: string;
+  destination_name: string;
   destination: string;
   booking_code: string;
   cabin_class?: string;

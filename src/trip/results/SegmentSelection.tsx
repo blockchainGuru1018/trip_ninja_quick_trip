@@ -55,7 +55,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </h1>
           <h4 id="itinerary-total">
             <strong>Total: </strong>
-            {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
           </h4>
           <SortOption
             segmentPosition={parseInt(segmentIndex)}

@@ -14,17 +14,18 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
     const relativePrice: number = this.props.activeSegment
       ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice!
       : 0;
-
+    console.log(relativePrice)
+    console.log(this.props.totalPrice)
     return (
       <div className="col-sm-2 my-auto">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(relativePrice)}</p>
-        <p className='text-small text-center'>Total: {currencySymbol(this.props.currency)}{Math.abs(this.props.totalPrice + relativePrice).toFixed()}</p>
+        <p className='text-small text-center'>Total: {currencySymbol(this.props.currency)}{Math.round(this.props.totalPrice + relativePrice)}</p>
       </div>
     );
   }
 
   setRelativePriceString = (relativePrice: number) =>
-    `${relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${Math.abs(relativePrice).toFixed()}`
+    `${relativePrice >= 0 ? '+ ' : '- '} ${currencySymbol(this.props.currency)}${Math.round(relativePrice)}`
 }
 
 export default SegmentPrice;

@@ -177,9 +177,9 @@ class FareSelect extends React.Component<FareSelectProps> {
             {relativePrice}
           </p>
           <p className="text-small text-center">
-            Total: {currencySymbol(this.props.currency)}{Math.abs(relativePrice[0] === '+'
+            Total: {currencySymbol(this.props.currency)}{Math.round(relativePrice[0] === '+'
               ? this.props.totalPrice + relativePriceNum
-            : this.props.totalPrice - relativePriceNum).toFixed()}
+            : this.props.totalPrice - relativePriceNum)}
           </p>
         </FareTableCell>
       );

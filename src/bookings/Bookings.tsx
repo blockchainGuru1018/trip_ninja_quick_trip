@@ -61,6 +61,7 @@ class Bookings extends React.Component<BookingsProps> {
                       getBookingDetails={this.props.getBookingDetails}
                       cancelBooking={this.props.cancelBooking}
                       queueBooking={this.props.queueBooking}
+                      authDetails={this.props.authDetails}
                     />
                   </div>
                 </div>

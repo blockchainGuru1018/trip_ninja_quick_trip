@@ -16,6 +16,7 @@ import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import BookingDetailsDrawer from './BookingDetailsDrawer';
 import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -39,6 +40,7 @@ interface BookingsTableProps {
   getBookingDetails: typeof getBookingDetails
   cancelBooking: typeof cancelBooking
   queueBooking: typeof queueBooking
+  authDetails: AuthDetails
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -120,6 +122,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 getBookingDetails={this.props.getBookingDetails}
                 cancelBooking={this.props.cancelBooking}
                 queueBooking={this.props.queueBooking}
+                authDetails={this.props.authDetails}
               />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>

@@ -1,7 +1,7 @@
 import API from '../Api';
 import { Booking } from '../bookings/BookingsInterfaces';
 import { setErrorDetails } from './ResultsActions';
-
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 export function setBookingsList(bookings: Array<Booking>) {
   return {
@@ -69,11 +69,9 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
 
 export const cancelBooking = (trip_id: string) => (dispatch: any) => {
   dispatch(cancelLoading(true));
-  const url: string = '/book/';
+  const url: string = '/cancel_booking/';
 
-  console.log("processing cancellation for: ", trip_id);
-
-  return API.delete(url, {trip_id: trip_id})
+  return API.post(url, {trip_id: trip_id})
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
@@ -91,13 +89,11 @@ export const cancelBooking = (trip_id: string) => (dispatch: any) => {
 };
 
 
-export const queueBooking = (trip_id: string) => (dispatch: any) => {
+export const queueBooking = (trip_id: string, authDetails: AuthDetails) => (dispatch: any) => {
   dispatch(queueLoading(true));
   const url: string = '/queue/'; // <<-- Set the right place
 
-  console.log("processing queueing for: ", trip_id);
-
-  return API.post(url, {trip_id: trip_id})
+  return API.post(url, {trip_id: trip_id, queue: authDetails.ticketing_queue})
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';

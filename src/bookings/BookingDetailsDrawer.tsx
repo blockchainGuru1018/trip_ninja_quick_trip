@@ -17,6 +17,8 @@ import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import authDetailsReducer from '../reducers/AuthDetailsReducer';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -39,6 +41,7 @@ interface BookingsDetailsDrawerProps {
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  authDetails: AuthDetails;
 }
 
 export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) {
@@ -79,9 +82,10 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         <div className="booking-details-section">
           <ManageBooking
             status={props.booking.status} 
-            trip_id={defaultPricingDetails.trip_id}
+            trip_id={props.booking.trip_id}
             cancelBooking={props.cancelBooking}
             queueBooking={props.queueBooking}
+            authDetails={props.authDetails}
           />   
         </div>
         <Divider />

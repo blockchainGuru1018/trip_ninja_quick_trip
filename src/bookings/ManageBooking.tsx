@@ -1,16 +1,17 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 interface ManageBookingProps {
   status: string;
   trip_id: string;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  authDetails: AuthDetails;
 }
 
 class ManageBooking extends React.Component<ManageBookingProps> {
-  
   render() {
     return (
       <div>
@@ -30,7 +31,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             className="update-booking-btn"
             disableElevation
             disabled={this.props.status !== 'booked'}
-            onClick={(e) => {this.props.queueBooking(this.props.trip_id);}}>
+            onClick={(e) => {this.props.queueBooking(this.props.trip_id,this.props.authDetails);}}>
             Send to Queue
           </Button>
         </div>     
@@ -38,6 +39,6 @@ class ManageBooking extends React.Component<ManageBookingProps> {
     );
   }
 
-}
+};
 
 export default ManageBooking;

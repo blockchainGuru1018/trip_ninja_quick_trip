@@ -12,6 +12,8 @@ export interface AuthDetails {
   provider: string;
   agency: string;
   ticketing_queue: string;
+  isAgencyAdmin: boolean;
+  isSuperUser: boolean;
 }
 
 export const defaultAuth = {
@@ -23,5 +25,7 @@ export const defaultAuth = {
   studentAndYouth: false,
   invalidAuth: false,
   pcc: '',
-  provider: ''
+  provider: '',
+  isAgencyAdmin: false,
+  isSuperUser: false
 };

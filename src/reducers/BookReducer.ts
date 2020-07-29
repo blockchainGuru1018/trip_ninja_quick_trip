@@ -8,6 +8,8 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
     case 'UPDATE_PASSENGER_INFO':
       return updatePassengersWithValue(state, action);
 
+    case 'BOOKING_LOADING':
+      return {...state, loading: action.value};
     default:
       return state;
   }

@@ -11,7 +11,7 @@ import PassengerDetails from './PassengerDetails';
 import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Booking, PnrInfo, sampleBookingDetails } from './BookingsInterfaces';
+import { Booking, PnrInfo } from './BookingsInterfaces';
 import BookingItineraryDetails from './BookingItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
@@ -65,7 +65,6 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-    props.booking.details = sampleBookingDetails;
     checkBookingDetails();
 
     setSelected(true);

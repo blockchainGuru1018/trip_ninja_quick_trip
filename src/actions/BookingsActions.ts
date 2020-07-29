@@ -48,7 +48,6 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
-        console.log("Response acquired");
         dispatch(setBookingDetails(response.data));
         dispatch(bookingDetailsLoading(false));
         return {'success': true};

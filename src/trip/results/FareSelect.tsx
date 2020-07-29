@@ -38,6 +38,8 @@ interface FareSelectProps {
   segment: Segment;
   updateActives: () => void;
   updateFareFamily?: typeof updateFareFamily;
+  totalPrice: number;
+  activeSegment?: Segment;
 }
 
 class FareSelect extends React.Component<FareSelectProps> {
@@ -87,6 +89,10 @@ class FareSelect extends React.Component<FareSelectProps> {
               <TableRow>
                 <FareTableLabelCell align="left">Fare Basis</FareTableLabelCell>
                 {this.fareBasisRow(brandsList)}
+              </TableRow>
+              <TableRow>
+                <FareTableLabelCell align="left">Price</FareTableLabelCell>
+                {this.priceRow(brandsList)}
               </TableRow>
               <TableRow>
                 <FareTableLabelCell align="left"></FareTableLabelCell>
@@ -161,19 +167,37 @@ class FareSelect extends React.Component<FareSelectProps> {
     ));
   }
 
-  fareSelectionButtonRow = (brandsList: Array<BrandInfo>) => {
+  priceRow = (brandsList: Array<BrandInfo>) => {
     let activeBrandIndex = this.props.segment.selected_brand_index ? this.props.segment.selected_brand_index : 0;
-    return brandsList.map((brand: BrandInfo, index) => (
+    return brandsList.map((brand: BrandInfo, index: number) => {
+      const relativePrice = this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price))
+      const relativePriceNum = Number(relativePrice.substr(3,))
+      return (
+        <FareTableCell key={index} align="center">
+          <p className="text-bold text-center">
+            {relativePrice}
+          </p>
+          <p className="text-small text-center">
+            Total: {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
+              ? Math.round(this.props.totalPrice + relativePriceNum)
+            : Math.round(this.props.totalPrice - relativePriceNum)}
+          </p>
+        </FareTableCell>
+      );
+    })
+  }
+
+  fareSelectionButtonRow = (brandsList: Array<BrandInfo>) =>
+    brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">
         <Button
           variant="contained"
           color="secondary"
           onClick={() => this.updateSegmentFareFamily(brand, index)}>
-          {this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price))}
+          Select Segment
         </Button>
       </FareTableCell>
     ));
-  }
 
   brandNotAvailableCell = (index: number) => {
     return <Tooltip key={index.toString()} title="Information not available" placement="top">
@@ -189,8 +213,11 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
-    let relativePrice = currentPrice - lowestPrice;
-    return (relativePrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + Math.abs(relativePrice).toFixed();
+    const relativePrice = this.props.activeSegment ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice! : 0
+    const brandPrice = currentPrice - lowestPrice
+    const combinedPrice = relativePrice + brandPrice
+    const absCombinedPrice = Math.abs(Math.round(combinedPrice))
+    return (combinedPrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + absCombinedPrice;
   }
 
   updateSegmentFareFamily = (brand: BrandInfo, index: number) => {

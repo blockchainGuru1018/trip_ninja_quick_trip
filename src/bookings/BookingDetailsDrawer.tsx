@@ -66,7 +66,6 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       return;
     }
     checkBookingDetails();
-
     setSelected(true);
     setState({ ...state, [anchor]: open });
   };
@@ -86,7 +85,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           </div>
         </div>
       }
-      {!props.loading &&
+      {!props.loading && bookingDetails &&
         <div className="booking-details-container">
           <div className="row booking-details-section">
             <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>

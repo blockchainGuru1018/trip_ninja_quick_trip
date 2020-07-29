@@ -45,6 +45,7 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
       } else {
         dispatch(setErrorDetails(false, 'booking'));
         dispatch(setBookingResults(response.data));
+        dispatch(bookingLoading(false));
         return {'success': true};
       }
     })

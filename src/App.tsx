@@ -24,13 +24,15 @@ import { login, fetchUserParameters, logout } from './actions/AuthActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import PricingModal from './common/modals/PricingModal';
 import SearchModal from './common/modals/SearchModal';
+import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
 import { setSegmentPositionMapValue } from './actions/ResultsActions';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
-
+import { BookingsList } from './bookings/BookingsInterfaces';
+import { getBookingsList, getBookingDetails } from './actions/BookingsActions';
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -38,6 +40,7 @@ interface IAppProps {
   resultsDetails: ResultsDetails;
   pricingDetails: PricingDetails;
   bookingDetails: BookingDetails;
+  bookingsList: BookingsList;
   login: typeof login;
   logout: typeof logout;
   setValue: typeof setValue;
@@ -56,6 +59,8 @@ interface IAppProps {
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
+  getBookingsList: typeof getBookingsList;
+  getBookingDetails: typeof getBookingDetails;
 }
 
 const theme = Theme;
@@ -83,6 +88,9 @@ class App extends React.Component<IAppProps> {
           <SearchModal
             loading={this.props.searchDetails.loading}
             flights={this.props.searchDetails.flights}
+          />
+          <BookModal
+            loading={this.props.bookingDetails.loading!}
           />
           <IdleTimerContainer
             logout={this.props.logout}
@@ -164,7 +172,12 @@ class App extends React.Component<IAppProps> {
                   />
                 } />
                 <Route exact path="/bookings/" render={() =>
-                  <Bookings />
+                  <Bookings 
+                    authDetails={this.props.authDetails}
+                    bookingsList={this.props.bookingsList}
+                    getBookingsList={this.props.getBookingsList}
+                    getBookingDetails={this.props.getBookingDetails}  
+                  />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

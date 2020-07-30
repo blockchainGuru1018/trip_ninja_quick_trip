@@ -6,20 +6,24 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment , SegmentPositionMap} from './ResultsInterfaces';
+import { ResultsDetails, Results, Segment , SegmentPositionMap, Filters } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import { setSegmentPositionMapValue } from '../../actions/ResultsActions';
+import { updateActives, setSegmentPositionMapValue, updateItineraryFilter } from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
+import BaggageFilter from './filters/BaggageFilter';
 
 interface ItineraryResultsProps {
-  resultsDetails: ResultsDetails
-  currency: string
-  priceFlights: typeof priceFlights
-  passengers: Array<Passenger>
-  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue
-  authDetails: AuthDetails
+  resultsDetails: ResultsDetails;
+  currency: string;
+  priceFlights: typeof priceFlights;
+  passengers: Array<Passenger>;
+  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue;
+  authDetails: AuthDetails;
+  updateItineraryFilter: typeof updateItineraryFilter;
+  itineraryFilters: Filters | undefined
+  updateActives: typeof updateActives;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -64,7 +68,17 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
           <div className="row">
-            <div className="col-md-4 offset-md-8">
+            <div className='col-md-4'>
+              <BaggageFilter
+                updateItineraryFilter={this.props.updateItineraryFilter}
+                itineraryFilters={this.props.itineraryFilters}
+                trip={trip}
+                updateActives={this.props.updateActives}
+                segmentIndex={-1}
+                activeSegments={this.getActiveSegments(trip)}
+              />
+            </div>
+            <div className="col-md-4 offset-md-4">
               <PricingRequest
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}

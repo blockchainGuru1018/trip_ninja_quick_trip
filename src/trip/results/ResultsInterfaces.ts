@@ -7,6 +7,16 @@ export interface ResultsDetails {
   activeSegments: ActiveSegmentsMap
   segmentPositionMap: SegmentPositionMap;
   defaultSortBy: string;
+  segmentFilters?: Array<Filters>
+  itineraryFilters?: Filters
+}
+
+export interface Filters {
+  baggage: number | undefined
+}
+
+export const defaultFilters: Filters = {
+  baggage: undefined
 }
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
@@ -117,6 +127,7 @@ export interface Segment {
   fare_info?: FareInfo;
   relativePrice?: number;
   relativeWeight?: number;
+  filtered?: boolean
 }
 
 export interface FareInfo {
@@ -128,7 +139,7 @@ export interface FareInfo {
 }
 
 export interface Baggage {
-  number_of_pieces: number;
+  number_of_pieces: any;
 }
 
 export interface AdditionalDetails {

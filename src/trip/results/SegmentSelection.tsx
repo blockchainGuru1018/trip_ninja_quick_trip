@@ -9,8 +9,10 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
+import BaggageFilter from "./filters/BaggageFilter";
+import { filterSegments } from "../../helpers/Filters";
 
 interface MatchParams {
   index: string;
@@ -25,6 +27,7 @@ interface SegmentSelectionProps {
   setSegmentValue: typeof setSegmentPositionMapValue;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
+  updateSegmentFilter: typeof updateSegmentFilter;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -33,7 +36,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments: Array<Segment> = trip.segments[segmentIndex];
+    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex]);
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
@@ -62,6 +65,15 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
             setSegmentPositionMapValue={this.props.setSegmentValue}
           />
+          <div className='baggage-filter-container'>
+            <BaggageFilter
+              updateSegmentFilter={this.props.updateSegmentFilter}
+              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
+              trip={trip}
+              updateActives={this.props.updateActives}
+              segmentIndex={Number(segmentIndex)}
+            />
+          </div>
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">

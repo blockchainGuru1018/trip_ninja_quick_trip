@@ -46,20 +46,25 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     return sortedSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
-        <SegmentPreview
-          segment={segment}
-          segments={sortedSegments}
-          index={index}
-          key={index}
-          segmentFlightDetails={segmentFlightDetails}
-          segmentSelect={this.props.segmentSelect}
-          activeSegment={this.props.activeSegment}
-          currency={this.props.currency}
-          segmentOptionsIndex={this.props.segmentOptionsIndex}
-          updateActives={this.props.updateActives}
-          updateFareFamily={this.props.updateFareFamily}
-          pathSequence={this.props.pathSequence}
-        />
+        <div>
+          {!segment.filtered || segment.status === 'active'
+            ? <SegmentPreview
+              segment={segment}
+              segments={sortedSegments}
+              index={index}
+              key={index}
+              segmentFlightDetails={segmentFlightDetails}
+              segmentSelect={this.props.segmentSelect}
+              activeSegment={this.props.activeSegment}
+              currency={this.props.currency}
+              segmentOptionsIndex={this.props.segmentOptionsIndex}
+              updateActives={this.props.updateActives}
+              updateFareFamily={this.props.updateFareFamily}
+              pathSequence={this.props.pathSequence}
+            />
+            : ''
+          }
+        </div>
       );
     });
   }

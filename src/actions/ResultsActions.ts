@@ -54,3 +54,21 @@ export function setSegmentPositionMapValue(segmentPosition: number, valueType: s
     value
   };
 }
+
+export function updateItineraryFilter(filterKey: string, filterValue: any, segmentIndex: number) {
+  return {
+    type: 'UPDATE_ITINERARY_FILTER',
+    segmentIndex,
+    filterKey,
+    filterValue
+  };
+}
+
+export function updateSegmentFilter(filterKey: string, filterValue: any, segmentIndex: number) {
+  return {
+    type: 'UPDATE_SEGMENT_FILTER',
+    segmentIndex,
+    filterKey,
+    filterValue
+  }
+}

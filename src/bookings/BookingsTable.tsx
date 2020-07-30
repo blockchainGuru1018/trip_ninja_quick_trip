@@ -37,10 +37,10 @@ const DetailsLinkCell = styled(TableCell)({
 
 interface BookingsTableProps {
   bookings: Array<Booking>
-  getBookingDetails: typeof getBookingDetails
-  cancelBooking: typeof cancelBooking
-  queueBooking: typeof queueBooking
-  authDetails: AuthDetails
+  getBookingDetails: typeof getBookingDetails;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
+  authDetails: AuthDetails;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {

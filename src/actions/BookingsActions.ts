@@ -17,6 +17,13 @@ export function setBookingDetails(booking: Booking) {
   };
 }
 
+export function setBookingStatus(booking: Booking) {
+  return {
+    type: 'SET_BOOKING_STATUS',
+    booking
+  };
+}
+
 export function cancelLoading(value: boolean) {
   return {
     type: 'CANCEL_LOADING',
@@ -67,16 +74,18 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
 };
 
 
-export const cancelBooking = (trip_id: string) => (dispatch: any) => {
+export const cancelBooking = (booking: Booking) => (dispatch: any) => {
   dispatch(cancelLoading(true));
   const url: string = '/cancel_booking/';
 
-  return API.post(url, {trip_id: trip_id})
+  return API.post(url, {trip_id: booking.trip_id})
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
+        booking.status="Cancelled"
         dispatch(setErrorDetails(false, 'cancellation'));
+        dispatch(setBookingStatus(booking));
         dispatch(cancelLoading(false));
         return {'success': true};
       }
@@ -89,16 +98,18 @@ export const cancelBooking = (trip_id: string) => (dispatch: any) => {
 };
 
 
-export const queueBooking = (trip_id: string, authDetails: AuthDetails) => (dispatch: any) => {
+export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dispatch: any) => {
   dispatch(queueLoading(true));
   const url: string = '/queue/'; // <<-- Set the right place
 
-  return API.post(url, {trip_id: trip_id, queue: authDetails.ticketing_queue})
+  return API.post(url, {trip_id: booking.trip_id, queue: authDetails.ticketing_queue})
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
+        booking.status="Ticketed"
         dispatch(setErrorDetails(false, 'queueing'));
+        dispatch(setBookingStatus(booking));
         dispatch(queueLoading(false));
         return {'success': true};
       }

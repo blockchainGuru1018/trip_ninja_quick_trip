@@ -86,6 +86,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
             cancelBooking={props.cancelBooking}
             queueBooking={props.queueBooking}
             authDetails={props.authDetails}
+            booking={props.booking}
           />   
         </div>
         <Divider />

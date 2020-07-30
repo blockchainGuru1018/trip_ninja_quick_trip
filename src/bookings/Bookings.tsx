@@ -10,12 +10,12 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from 
 import { Redirect } from 'react-router-dom';
 
 interface BookingsProps {
-  authDetails: AuthDetails
-  bookingsList: BookingsList
-  getBookingsList: typeof getBookingsList
-  getBookingDetails: typeof getBookingDetails
-  cancelBooking: typeof cancelBooking
-  queueBooking: typeof queueBooking
+  authDetails: AuthDetails;
+  bookingsList: BookingsList;
+  getBookingsList: typeof getBookingsList;
+  getBookingDetails: typeof getBookingDetails;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
 }
 
 class Bookings extends React.Component<BookingsProps> {

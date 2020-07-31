@@ -16,11 +16,11 @@ import {Alert} from "@material-ui/lab";
 
 interface BaggageFilterProps {
   updateItineraryFilter?: typeof updateItineraryFilter;
-  itineraryFilters?: Filters | undefined;
+  itineraryFilters?: Filters;
   trip: Results;
   updateActives: typeof updateActives;
   updateSegmentFilter?: typeof updateSegmentFilter;
-  segmentFilters?: Filters | undefined;
+  segmentFilters?: Filters;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
 }
@@ -57,7 +57,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
     paper: {
       border: '1px solid #d3d4d5',
     },
-  })((props: MenuProps) => (
+  })((menuProps: MenuProps) => (
     <Menu
       elevation={0}
       getContentAnchorEl={null}
@@ -69,7 +69,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
         vertical: 'top',
         horizontal: 'center',
       }}
-      {...props}
+      {...menuProps}
     />
   ));
 

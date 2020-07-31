@@ -13,7 +13,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         tripType: 'fareStructureResults',
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
-        itineraryFilters: {...defaultFilters}
+        itineraryFilters: {...defaultFilters},
+        segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
       };
 
     case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
@@ -45,6 +46,14 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       state.segmentFilters![action.segmentIndex][action.filterKey] = action.filterValue;
       return {...state};
 
+    case 'UPDATE_SORT_TYPE':
+      if (action.segmentIndex < 0) {
+        let updatedSegmentSortBy: Array<string> = state.segmentSortBy.map((sortBy: string) => action.sortBy)
+        return {...state, itinerarySortBy: action.sortBy, segmentSortBy: updatedSegmentSortBy}
+      } else {
+        state.segmentSortBy[action.segmentIndex] = action.sortBy
+        return {...state}
+      }
     default:
       return state;
   }

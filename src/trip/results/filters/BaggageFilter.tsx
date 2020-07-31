@@ -23,6 +23,7 @@ interface BaggageFilterProps {
   segmentFilters?: Filters;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
+  segmentSortBy?: Array<string>;
 }
 
 const BaggageFilter = (props: BaggageFilterProps) => {
@@ -110,7 +111,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
     props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
       const filterFailed = checkFilterFailed(filters!.baggage, segments)
       if (props.activeSegments![index].filtered || value < 0 || filterFailed) {
-        const sortedSegments = sortBySortOrder(segments, 'best')
+        const sortedSegments = sortBySortOrder(segments, props.segmentSortBy ? props.segmentSortBy[index] : 'best')
         const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered)
         return firstFiltered
           ? props.updateActives(index, firstFiltered.itinerary_id)

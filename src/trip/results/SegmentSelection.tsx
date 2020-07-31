@@ -7,7 +7,7 @@ import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
-import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
+import {setSegmentPositionMapValue, updateSortType} from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
@@ -28,6 +28,7 @@ interface SegmentSelectionProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   updateSegmentFilter: typeof updateSegmentFilter;
+  updateSortType: typeof updateSortType;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -62,8 +63,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </h4>
           <SortOption
             segmentPosition={parseInt(segmentIndex)}
-            sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
-            setSegmentPositionMapValue={this.props.setSegmentValue}
+            sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
+            updateSortType={this.props.updateSortType}
           />
           <div className='baggage-filter-container'>
             <BaggageFilter
@@ -109,7 +110,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateActives={this.props.updateActives}
                         updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
-                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+                        sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -134,7 +135,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
-                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+                        sortOrder = {this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       />
                     </div>
                 }

@@ -15,8 +15,10 @@ import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
-import { setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter,
-  setSegmentPositionMapValue, updateSegmentFilter } from './actions/ResultsActions';
+import {
+  setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter,
+  setSegmentPositionMapValue, updateSegmentFilter, updateSortType
+} from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -63,6 +65,7 @@ interface IAppProps {
   getBookingDetails: typeof getBookingDetails;
   updateItineraryFilter: typeof updateItineraryFilter;
   updateSegmentFilter: typeof updateSegmentFilter;
+  updateSortType: typeof updateSortType;
 }
 
 const theme = Theme;
@@ -150,6 +153,7 @@ class App extends React.Component<IAppProps> {
                     updateItineraryFilter={this.props.updateItineraryFilter}
                     itineraryFilters={this.props.resultsDetails.itineraryFilters}
                     updateActives={this.props.updateActives}
+                    updateSortType={this.props.updateSortType}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -161,6 +165,7 @@ class App extends React.Component<IAppProps> {
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
                     updateSegmentFilter={this.props.updateSegmentFilter}
+                    updateSortType={this.props.updateSortType}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

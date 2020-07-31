@@ -9,10 +9,12 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { ResultsDetails, Results, Segment , SegmentPositionMap, Filters } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import { updateActives, setSegmentPositionMapValue, updateItineraryFilter } from '../../actions/ResultsActions';
+import { updateActives, setSegmentPositionMapValue, updateItineraryFilter, updateSortType }
+from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from './filters/BaggageFilter';
+import SortOption from "./SortOption";
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails;
@@ -24,13 +26,10 @@ interface ItineraryResultsProps {
   updateItineraryFilter: typeof updateItineraryFilter;
   itineraryFilters: Filters | undefined
   updateActives: typeof updateActives;
+  updateSortType: typeof updateSortType;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
-
-  componentDidMount() {
-    this.createSortingDefaults();
-  }
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -69,8 +68,20 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
           <div className="row">
+            <div className='col-md-12'>
+              <SortOption
+                trip={trip}
+                segmentPosition={-1}
+                sortBy={this.props.resultsDetails.itinerarySortBy}
+                updateSortType={this.props.updateSortType}
+                updateActives={this.props.updateActives}
+              />
+            </div>
+          </div>
+          <div className="row">
             <div className='col-md-4'>
               <BaggageFilter
+                segmentSortBy={this.props.resultsDetails.segmentSortBy}
                 updateItineraryFilter={this.props.updateItineraryFilter}
                 itineraryFilters={this.props.itineraryFilters}
                 trip={trip}
@@ -107,15 +118,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     trip.segments.map((segments: Array<Segment>) =>
       segments.find((object: Segment) => object.status === 'active') || segments[0]
     );
-
-  createSortingDefaults = () => {
-    this.props.resultsDetails.segmentPositionMap = new SegmentPositionMap();
-    const segments = this.props.resultsDetails.fareStructureResults?.segments;
-    const segmentPositionCount: number = segments ? segments.length : 0;
-    for (let step = 0; step < segmentPositionCount; step++) {
-      this.props.setSegmentPositionMapValue(step, 'sortOrder', this.props.resultsDetails.defaultSortBy);
-    }
-  }
 }
 
 export default ItineraryResult;

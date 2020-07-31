@@ -6,7 +6,8 @@ export interface ResultsDetails {
   tripType: string;
   activeSegments: ActiveSegmentsMap
   segmentPositionMap: SegmentPositionMap;
-  defaultSortBy: string;
+  itinerarySortBy: string;
+  segmentSortBy: Array<string>;
   segmentFilters?: Array<Filters>
   itineraryFilters?: Filters
 }
@@ -72,7 +73,8 @@ export const defaultResultsDetails: ResultsDetails = {
   },
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
-  defaultSortBy: 'best',
+  itinerarySortBy: 'best',
+  segmentSortBy: []
 };
 
 export interface Errors {

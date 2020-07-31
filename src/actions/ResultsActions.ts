@@ -72,3 +72,11 @@ export function updateSegmentFilter(filterKey: string, filterValue: any, segment
     filterValue
   }
 }
+
+export function updateSortType(segmentIndex: number, sortBy: string) {
+  return {
+    type: 'UPDATE_SORT_TYPE',
+    segmentIndex,
+    sortBy
+  }
+}

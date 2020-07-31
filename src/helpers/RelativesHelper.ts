@@ -64,12 +64,8 @@ const setTotals = (results: Results) => {
 };
 
 function setIndex0AsActives(state: ResultsDetails) {
-  console.log('running this')
   const trip: Results = state[state.tripType];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    const segmentSelected: Segment | undefined = segmentOptions.find((segmentPossibility: Segment) => !segmentPossibility.filtered)
-    updateSegmentActivesAndAlternates(
-      segmentSelected ? segmentSelected : segmentOptions[0],
-      state, segmentPositionIndex, true)
+    updateSegmentActivesAndAlternates(segmentOptions[0], state, segmentPositionIndex, true)
   });
 }

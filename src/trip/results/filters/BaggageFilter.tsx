@@ -11,6 +11,7 @@ import './Filters.css';
 import {updateActives, updateItineraryFilter, updateSegmentFilter} from "../../../actions/ResultsActions";
 import { Filters, Results, Segment } from "../ResultsInterfaces";
 import { sortBySortOrder } from "../../../helpers/SortHelper";
+import {Alert} from "@material-ui/lab";
 
 
 interface BaggageFilterProps {
@@ -41,8 +42,8 @@ const BaggageFilter = (props: BaggageFilterProps) => {
     },
   });
 
-
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
+  const [failedFilter, setFailedFilter] = React.useState<null | any>(false);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -91,8 +92,8 @@ const BaggageFilter = (props: BaggageFilterProps) => {
         }
       } else {
         if (filters.baggage) {
-          if (filters.baggage === 1) {
-            filterLevel('baggage', undefined, props.segmentIndex);
+          if (filters.baggage === 0) {
+            return
           } else {
             filterLevel('baggage', filters.baggage - 1, props.segmentIndex);
           }
@@ -104,9 +105,11 @@ const BaggageFilter = (props: BaggageFilterProps) => {
     return props.itineraryFilters && props.activeSegments ? resetActives(value) : '';
   }
 
-  const resetActives = (value: number) =>
+  const resetActives = (value: number) => {
+    setFailedFilter(false)
     props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
-      if (props.activeSegments![index].filtered || value < 0) {
+      const filterFailed = checkFilterFailed(filters!.baggage, segments)
+      if (props.activeSegments![index].filtered || value < 0 || filterFailed) {
         const sortedSegments = sortBySortOrder(segments, 'best')
         const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered)
         return firstFiltered
@@ -114,12 +117,23 @@ const BaggageFilter = (props: BaggageFilterProps) => {
           : ''
       }
     })
+  }
+
+
+  const checkFilterFailed = (baggage: number, segmentOptions: Array<Segment>) => {
+    const failure: boolean = baggage !== 0
+    && segmentOptions.find((segment: Segment) => segment.filtered) === undefined
+    if (failure) {
+      setFailedFilter(true)
+    }
+    return failure;
+  }
 
 
   return (
     <div>
       {filters
-        ? <div>
+        ? <div className='baggage-filter-btn-container'>
           <Button
             fullWidth
             classes={{
@@ -132,7 +146,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            Baggage: {filters.baggage ? `${filters.baggage} +` : 'Any'}
+            Baggage: {`${filters.baggage} +`}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -142,16 +156,16 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             onClose={handleClose}
           >
             <div className='checked-bag-filter-selection-container'>
-              <div className='text-bold filter-title'>Minimum number of bags</div>
+              <div className='text-bold filter-title'>Checked Bags</div>
               <hr className='checked-bag-hr'/>
               <MenuItem>
-                <ListItemText primary='Checked bag' />
+                <ListItemText primary='Minimum number of bags' />
                 <IconButton onClick={() =>
                   updateBaggageFilter(-1)
                 }>
                   <RemoveIcon fontSize="small" />
                 </IconButton>
-                <span className="baggage-count">{filters.baggage ? filters.baggage : 'All'}</span>
+                <span className="baggage-count">{filters.baggage}</span>
                 <IconButton onClick={() =>
                   updateBaggageFilter(1)
                 }>
@@ -160,6 +174,10 @@ const BaggageFilter = (props: BaggageFilterProps) => {
               </MenuItem>
             </div>
           </StyledMenu>
+          {failedFilter
+            ? <Alert severity='error'>No flights</Alert>
+            : ''
+          }
         </div>
         : ''}
     </div>

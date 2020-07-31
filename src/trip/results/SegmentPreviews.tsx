@@ -18,6 +18,7 @@ interface SegmentPreviewsProps {
   updateFareFamily?: typeof updateFareFamily;
   pathSequence?: Array<string>;
   sortOrder?: string;
+  totalPrice: number;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -61,6 +62,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               updateActives={this.props.updateActives}
               updateFareFamily={this.props.updateFareFamily}
               pathSequence={this.props.pathSequence}
+              totalPrice={this.props.totalPrice}
             />
             : ''
           }

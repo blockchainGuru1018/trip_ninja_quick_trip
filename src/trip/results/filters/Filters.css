@@ -12,3 +12,7 @@
 .checked-bag-filter-selection-container {
     min-width: 300px;
 }
+
+.baggage-filter-btn-container {
+    max-width: 200px
+}

@@ -44,6 +44,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
+            totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}
             currency={this.props.currency}
@@ -63,7 +64,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong>
-            {currencySymbol(this.props.currency)}{totalPrice.toFixed()}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>

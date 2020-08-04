@@ -41,15 +41,17 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     });
 
   setSegmentsHTML = () => {
-    const sortedSegments = sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
-    return sortedSegments.map((segment: Segment, index: number) => {
+    const shownSegments: Array<Segment> = this.props.sortOrder
+      ? sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
+      : this.props.segments
+    return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
         <div>
           {!segment.filtered || segment.status === 'active'
             ? <SegmentPreview
               segment={segment}
-              segments={sortedSegments}
+              segments={this.props.segments}
               index={index}
               key={index}
               segmentFlightDetails={segmentFlightDetails}

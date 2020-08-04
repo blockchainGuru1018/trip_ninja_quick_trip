@@ -1,5 +1,6 @@
 import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
+import {sortBySortOrder} from "./SortHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
   resetOldActiveStatus();
@@ -110,7 +111,10 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
-  let bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) => segment.itinerary_type === 'ONE_WAY');
+  const sortedSegments: Array<Segment> = sortBySortOrder(segmentOptions, state.segmentSortBy[segmentPosition]);
+  const bestOneWay: Segment | undefined = sortedSegments.find((segment: Segment) =>
+    segment.itinerary_type === 'ONE_WAY' && !segment.filtered
+  );
   if (bestOneWay) {
     bestOneWay.status = 'compatible';
     setAlternatesStatus(state, bestOneWay, segmentOptions);
@@ -121,10 +125,11 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 }
 
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
+  console.log(JSON.parse(JSON.stringify([...state.activeSegments.values()])))
   const segmentOptionIndex: number = action.segmentOptionIndex;
   const segmentItineraryRef: string = action.segmentItineraryRef;
   const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);
-  setRelativesAndUpdateActives(updateState);
+  setRelativesAndUpdateActives(updateState, action.setActivesInitial, action.sortBy);
   return updateState;
 }
 

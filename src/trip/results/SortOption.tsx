@@ -2,7 +2,12 @@ import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import {setSegmentPositionMapValue, updateActives, updateSortType} from '../../actions/ResultsActions';
+import {
+  setSegmentPositionMapValue,
+  updateActives,
+  updateEntireTrip,
+  updateSortType
+} from '../../actions/ResultsActions';
 import SortIcon from '@material-ui/icons/Sort';
 import { Segment, Results } from "./ResultsInterfaces";
 import { sortBySortOrder } from "../../helpers/SortHelper";
@@ -12,6 +17,7 @@ interface SortOptionProps {
   sortBy: string
   updateSortType: typeof updateSortType;
   trip?: Results;
+  updateEntireTrip?: typeof updateEntireTrip;
   updateActives?: typeof updateActives;
 }
 
@@ -45,18 +51,22 @@ class SortOption extends React.Component<SortOptionProps> {
 
   updateSortTypeChangeActives = (e: any) => {
     this.props.updateSortType(this.props.segmentPosition, e.target.value)
-    return this.props.segmentPosition < 0 && this.props.trip && this.props.updateActives
+    return this.props.segmentPosition < 0 && this.props.trip && this.props.updateEntireTrip
       ? this.setActives(e.target.value)
       : ''
   }
 
   setActives = (sortType: string) => {
+    // this.props.updateEntireTrip!(true, sortType)
+    console.log('in the set actives')
     this.props.trip!.segments.forEach((segments: Array<Segment>, index: number) => {
+      console.log(JSON.parse(JSON.stringify((segments))))
       const sortedSegments = sortBySortOrder(segments, sortType)
+      console.log(JSON.parse(JSON.stringify((sortedSegments))))
       const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered)
-      return firstFiltered
-        ? this.props.updateActives!(index, firstFiltered.itinerary_id)
-        : ''
+      console.log(JSON.parse(JSON.stringify(firstFiltered)))
+      console.log(sortType)
+      this.props.updateActives!(index, firstFiltered!.itinerary_id,  false, sortType)
     })
   }
 

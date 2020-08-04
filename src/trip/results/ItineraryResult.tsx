@@ -9,8 +9,8 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { ResultsDetails, Results, Segment , SegmentPositionMap, Filters } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import { updateActives, setSegmentPositionMapValue, updateItineraryFilter, updateSortType }
-from '../../actions/ResultsActions';
+import {updateActives, setSegmentPositionMapValue, updateItineraryFilter, updateSortType, updateEntireTrip}
+  from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from './filters/BaggageFilter';
@@ -27,6 +27,7 @@ interface ItineraryResultsProps {
   itineraryFilters: Filters | undefined
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
+  updateEntireTrip: typeof updateEntireTrip;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -38,6 +39,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
 
     const totalPrice: number = getTotal(selectedTrip, 'price');
+    const totalWeight: number = getTotal(selectedTrip, 'weight')
 
     const selectedSegments =
       <div className="row">
@@ -62,18 +64,20 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           />
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
+            <p>{totalWeight}</p>
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
           <div className="row">
-            <div className='col-md-12'>
+            <div className='col-md-12 itinerary-sort-container'>
               <SortOption
                 trip={trip}
                 segmentPosition={-1}
                 sortBy={this.props.resultsDetails.itinerarySortBy}
                 updateSortType={this.props.updateSortType}
+                updateEntireTrip={this.props.updateEntireTrip}
                 updateActives={this.props.updateActives}
               />
             </div>
@@ -81,6 +85,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <div className="row">
             <div className='col-md-4'>
               <BaggageFilter
+                sortBy={this.props.resultsDetails.itinerarySortBy}
                 segmentSortBy={this.props.resultsDetails.segmentSortBy}
                 updateItineraryFilter={this.props.updateItineraryFilter}
                 itineraryFilters={this.props.itineraryFilters}
@@ -88,6 +93,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 updateActives={this.props.updateActives}
                 segmentIndex={-1}
                 activeSegments={this.getActiveSegments(trip)}
+                updateEntireTrip={this.props.updateEntireTrip}
               />
             </div>
             <div className="col-md-4 offset-md-4">

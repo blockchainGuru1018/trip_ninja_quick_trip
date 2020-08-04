@@ -1,6 +1,6 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
 import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, Filters, defaultFilters } from '../trip/results/ResultsInterfaces';
-import { identifyAndSetInitialActives } from '../helpers/RelativesHelper';
+import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
@@ -35,6 +35,14 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_ACTIVES':
       return updateActiveSegmentsFromAction(state, action);
+
+    case 'UPDATE_ENTIRE_TRIP':
+      const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered)
+      if (!viable) {
+        setFilteredRelatives(state)
+      }
+      setRelativesAndUpdateActives(state, action.setActivesInitial, action.sortBy);
+      return {...state}
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);

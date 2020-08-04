@@ -17,7 +17,7 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
 import { priceFlights } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter,
-  setSegmentPositionMapValue, updateSegmentFilter, updateSortType
+  setSegmentPositionMapValue, updateSegmentFilter, updateSortType, updateEntireTrip
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -66,6 +66,7 @@ interface IAppProps {
   updateItineraryFilter: typeof updateItineraryFilter;
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
+  updateEntireTrip: typeof updateEntireTrip;
 }
 
 const theme = Theme;
@@ -154,6 +155,7 @@ class App extends React.Component<IAppProps> {
                     itineraryFilters={this.props.resultsDetails.itineraryFilters}
                     updateActives={this.props.updateActives}
                     updateSortType={this.props.updateSortType}
+                    updateEntireTrip={this.props.updateEntireTrip}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>

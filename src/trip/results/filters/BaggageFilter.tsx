@@ -8,7 +8,12 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 import MenuItem from "@material-ui/core/MenuItem";
 import './Filters.css';
-import {updateActives, updateItineraryFilter, updateSegmentFilter} from "../../../actions/ResultsActions";
+import {
+  updateActives,
+  updateEntireTrip,
+  updateItineraryFilter,
+  updateSegmentFilter
+} from "../../../actions/ResultsActions";
 import { Filters, Results, Segment } from "../ResultsInterfaces";
 import { sortBySortOrder } from "../../../helpers/SortHelper";
 import {Alert} from "@material-ui/lab";
@@ -23,7 +28,9 @@ interface BaggageFilterProps {
   segmentFilters?: Filters;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
+  sortBy?: string;
   segmentSortBy?: Array<string>;
+  updateEntireTrip?: typeof updateEntireTrip;
 }
 
 const BaggageFilter = (props: BaggageFilterProps) => {
@@ -107,29 +114,23 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   }
 
   const resetActives = (value: number) => {
-    setFailedFilter(false)
+    setFailedFilter(false);
     props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
-      const filterFailed = checkFilterFailed(filters!.baggage, segments)
-      if (props.activeSegments![index].filtered || value < 0 || filterFailed) {
-        const sortedSegments = sortBySortOrder(segments, props.segmentSortBy ? props.segmentSortBy[index] : 'best')
-        const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered)
-        return firstFiltered
-          ? props.updateActives(index, firstFiltered.itinerary_id)
-          : ''
-      }
+      checkFilterFailed(filters!.baggage, segments);
+      const sortedSegments = sortBySortOrder(segments, props.segmentSortBy![index]);
+      console.log(JSON.parse(JSON.stringify(sortedSegments)))
+      const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered);
+      props.updateActives(index, firstFiltered!.itinerary_id);
     })
   }
 
-
   const checkFilterFailed = (baggage: number, segmentOptions: Array<Segment>) => {
     const failure: boolean = baggage !== 0
-    && segmentOptions.find((segment: Segment) => segment.filtered) === undefined
+    && segmentOptions.find((segment: Segment) => segment.filtered) === undefined;
     if (failure) {
       setFailedFilter(true)
     }
-    return failure;
   }
-
 
   return (
     <div>

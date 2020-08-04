@@ -29,12 +29,23 @@ export function setActiveSegments(){
   };
 }
 
-export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string) {
+export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
+                              updateActivesInitial: boolean = false, sortBy: string = 'best') {
   return {
     type: 'UPDATE_ACTIVES',
     segmentOptionIndex,
-    segmentItineraryRef
+    segmentItineraryRef,
+    updateActivesInitial,
+    sortBy
   };
+}
+
+export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: string) {
+  return {
+    type: 'UPDATE_ENTIRE_TRIP',
+    setActivesInitial,
+    sortBy
+  }
 }
 
 export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {

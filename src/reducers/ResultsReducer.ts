@@ -56,12 +56,15 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_SORT_TYPE':
       if (action.segmentIndex < 0) {
-        let updatedSegmentSortBy: Array<string> = state.segmentSortBy.map((sortBy: string) => action.sortBy)
-        return {...state, itinerarySortBy: action.sortBy, segmentSortBy: updatedSegmentSortBy}
+        // let updatedSegmentSortBy: Array<string> = state.segmentSortBy.map((sortBy: string) => action.sortBy)
+        state.itinerarySortBy = action.sortBy;
+        state.segmentSortBy.forEach((sortBy: string) => sortBy = action.sortBy);
+        return state;
       } else {
         state.segmentSortBy[action.segmentIndex] = action.sortBy
         return {...state}
       }
+
     default:
       return state;
   }

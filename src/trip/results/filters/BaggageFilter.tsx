@@ -120,6 +120,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
       const sortedSegments = sortBySortOrder(segments, props.segmentSortBy![index]);
       console.log(JSON.parse(JSON.stringify(sortedSegments)))
       const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered);
+      // if open jaw - check that the linked segment is also not filtered.
       props.updateActives(index, firstFiltered!.itinerary_id);
     })
   }

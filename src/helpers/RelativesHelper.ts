@@ -35,66 +35,50 @@ export function setFilteredRelatives(resultsDetails: ResultsDetails) {
 
 export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, setActivesInitial: boolean = false, sortBy: string = 'best') {
   const results: Results = resultsDetails[resultsDetails.tripType];
-  // const totals: Array<number> = setTotals(resultsDetails.activeSegments);
-  // const totalPrice: number = totals[0];
-  // const totalWeight: number = totals[1];
-  // console.log(JSON.parse(JSON.stringify(totalPrice)))
-  // console.log(JSON.parse(JSON.stringify(totalWeight)))
-  //
-  // // needs distance here too
-  // let minimumWeight: number = totalWeight;
-  // let minimumPrice: number = totalPrice;
-  let bestTrip: Array<string> = [...resultsDetails.activeSegments.values()].map(
+  const actives = [...resultsDetails.activeSegments.values()]
+  const clonedResults = _.cloneDeep(resultsDetails);
+  const totals: Array<number> = setTotals(resultsDetails.activeSegments);
+  const totalPrice: number = totals[0];
+  const totalWeight: number = totals[1];
+  console.log(JSON.parse(JSON.stringify(totalPrice)))
+  console.log(JSON.parse(JSON.stringify(totalWeight)))
+  let minimumWeight: number = totalWeight;
+  let minimumPrice: number = totalPrice;
+  let bestTrip: Array<string> = actives.map(
     (segment: Segment) => segment.itinerary_id
   );
   // console.log(JSON.parse(JSON.stringify([...clonedResults.activeSegments.values()])))
   results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
-    const clonedResults = _.cloneDeep(resultsDetails);
-    const clonedActives = [...clonedResults.activeSegments.values()]
-    const totals: Array<number> = setTotals(resultsDetails.activeSegments);
-    const totalPrice: number = totals[0];
-    const totalWeight: number = totals[1];
-    console.log(JSON.parse(JSON.stringify(totalPrice)))
-    console.log(JSON.parse(JSON.stringify(totalWeight)))
-    let minimumWeight: number = totalWeight;
-    let minimumPrice: number = totalPrice;
+    // const actives = [...resultsDetails.activeSegments.values()]
+    // const clonedResults = _.cloneDeep(resultsDetails);
+    // const totals: Array<number> = setTotals(resultsDetails.activeSegments);
+    // const totalPrice: number = totals[0];
+    // const totalWeight: number = totals[1];
+    // console.log(JSON.parse(JSON.stringify(totalPrice)))
+    // console.log(JSON.parse(JSON.stringify(totalWeight)))
+    // let minimumWeight: number = totalWeight;
+    // let minimumPrice: number = totalPrice;
+    // let bestTrip: Array<string> = actives.map(
+    //   (segment: Segment) => segment.itinerary_id
+    // );
     segmentOptions.forEach((segment: Segment, index: number) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
-      if (sortBy === 'best') {
-        if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
+
+      if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
           minimumWeight = targetActivesTotal.totalWeight;
           bestTrip = targetActivesTotal.itineraryIdList;
-        }
-      } else {
-        if (targetActivesTotal.totalPrice < minimumPrice && targetActivesTotal.viable) {
-          minimumPrice = targetActivesTotal.totalPrice;
-          bestTrip = targetActivesTotal.itineraryIdList;
-        }
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
       segment.relativeWeight = targetActivesTotal.totalWeight - totalWeight;
     });
-    updateActiveSegments(clonedResults, segmentPosition, clonedActives[segmentPosition].itinerary_id);
+    // updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
+
     if (setActivesInitial) {
       updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
       updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
+    } else {
+      updateActiveSegments(clonedResults, segmentPosition, actives[segmentPosition].itinerary_id);
     }
-
-    const selectedActives = [...resultsDetails.activeSegments.values()]
-    let activeRelativePrice = selectedActives[segmentPosition].relativePrice!;
-    let activeRelativeWeight = selectedActives[segmentPosition].relativeWeight!;
-    console.log(segmentPosition)
-    console.log("clonedActives:", clonedActives);
-    console.log(clonedResults)
-    console.log(activeRelativeWeight)
-    segmentOptions.forEach((segment: Segment, index: number) => {
-      segment.relativePrice = segment.relativePrice! - activeRelativePrice;
-      segment.relativeWeight = segment.relativeWeight! - activeRelativeWeight;
-    })
-
-    return {...resultsDetails}
-
-
   });
 }
 

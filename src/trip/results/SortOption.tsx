@@ -51,7 +51,7 @@ class SortOption extends React.Component<SortOptionProps> {
 
   updateSortTypeChangeActives = (e: any) => {
     this.props.updateSortType(this.props.segmentPosition, e.target.value)
-    return this.props.segmentPosition < 0 && this.props.trip && this.props.updateEntireTrip
+    return this.props.segmentPosition < 0 && this.props.trip
       ? this.setActives(e.target.value)
       : ''
   }

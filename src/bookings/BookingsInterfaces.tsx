@@ -57,6 +57,8 @@ export interface BookingSegment {
   flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;
   brands: Array<Brand>;
+  source?: string;
+  fare_type?: string;
 }
 
 export const defaultBookingsList: BookingsList = {

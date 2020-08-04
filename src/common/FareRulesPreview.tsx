@@ -70,7 +70,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ConfirmationNumberOutlinedIcon color="primary"/>
-                <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: 'FARE TYPE'}</span>
+                <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: this.props.bookingSegment!.fare_type}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <WifiIcon color={this.setIconColor(this.state.wifi)}/>
@@ -92,7 +92,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <LanguageIcon color="primary"/>
-                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : 'SOURCE'}</span>
+                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : this.props.bookingSegment!.source}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ClassIcon color="primary"/>

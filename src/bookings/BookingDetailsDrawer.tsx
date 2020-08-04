@@ -151,7 +151,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <Divider />
           <div className="booking-details-section" id="flight-overview">
             <ItineraryDetails 
-              bookedTrip={props.booking.details!.itinerary!}
+              bookedTrip={props.booking.details!.itinerary}
               currency={props.booking.currency}/>
           </div>
           <Divider />

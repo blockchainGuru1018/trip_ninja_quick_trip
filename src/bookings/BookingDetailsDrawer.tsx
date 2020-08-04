@@ -12,7 +12,7 @@ import ManageBooking from './ManageBooking';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Booking, PnrInfo } from './BookingsInterfaces';
-import BookingItineraryDetails from './BookingItineraryDetails';
+import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 
@@ -150,8 +150,8 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           </div>
           <Divider />
           <div className="booking-details-section" id="flight-overview">
-            <BookingItineraryDetails 
-              selectedTrip={props.booking.details!.itinerary!}
+            <ItineraryDetails 
+              bookedTrip={props.booking.details!.itinerary!}
               currency={props.booking.currency}/>
           </div>
           <Divider />

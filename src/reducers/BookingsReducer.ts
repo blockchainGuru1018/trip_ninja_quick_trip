@@ -30,7 +30,6 @@ function setBookingDetails(state: any, action: any) {
 }
 
 function setBookingStatus(state: any, action: any) {
-  console.log("Running reducer!");
   let bookingToUpdate = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
   console.log("BookingToUpdate:", bookingToUpdate);
   bookingToUpdate.status = action.booking.status;

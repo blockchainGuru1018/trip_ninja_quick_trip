@@ -166,7 +166,7 @@ export interface Brand {
   name: string;
   tag_info: string;
   tag_line: string;
-  service: Array<BrandService>;
+  services: Array<BrandService>;
 }
 
 export interface BrandInfo {
@@ -205,6 +205,9 @@ export interface FlightResultsDetails {
   flight_number: string;
   carrier: string;
   flight_time: number;
+  booking_code?: string;
+  cabin_class?: string;
+  brand_identifier?: string;
 }
 
 export interface Location {

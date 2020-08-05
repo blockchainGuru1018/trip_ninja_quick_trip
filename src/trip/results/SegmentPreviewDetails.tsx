@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
-import FareRulesPreview from './FareRulesPreview';
-import FlightResultsPath from './FlightResultsPath';
+import FareRulesPreview from '../../common/FareRulesPreview';
+import FlightResultsPath from '../../common/FlightResultsPath';
 import FareSelect from './FareSelect';
 import Button from '@material-ui/core/Button';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';

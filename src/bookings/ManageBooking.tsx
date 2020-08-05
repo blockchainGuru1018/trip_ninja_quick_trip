@@ -43,6 +43,6 @@ class ManageBooking extends React.Component<ManageBookingProps> {
     );
   }
 
-};
+}
 
 export default ManageBooking;

@@ -41,8 +41,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       if (!viable) {
         setFilteredRelatives(state)
       }
-      // setRelativesAndUpdateActives(state, true, action.sortBy);
-      identifyAndSetInitialActives(state, action.sortBy)
+      setRelativesAndUpdateActives(state, true, action.sortBy);
       return {...state}
 
     case 'UPDATE_FARE_FAMILY':
@@ -57,7 +56,6 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_SORT_TYPE':
       if (action.segmentIndex < 0) {
-        // let updatedSegmentSortBy: Array<string> = state.segmentSortBy.map((sortBy: string) => action.sortBy)
         state.itinerarySortBy = action.sortBy;
         state.segmentSortBy.forEach((sortBy: string) => sortBy = action.sortBy);
         return state;

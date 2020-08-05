@@ -12,7 +12,6 @@ export function identifyAndSetInitialActives(resultsDetails: ResultsDetails, sor
 }
 
 function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPosition: number, segment: Segment) {
-  // let clonedClone = _.cloneDeep(clonedResults)
   updateActiveSegments(clonedResults, segmentPosition, segment.itinerary_id);
   const targetActives: Array<Segment> = [...clonedResults.activeSegments.values()];
   const targetTotalPrice: number = getTotal(targetActives, 'price');
@@ -40,6 +39,7 @@ export function setFilteredRelatives(resultsDetails: ResultsDetails) {
 export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, setActivesInitial: boolean = false, sortBy: string = 'best') {
   const results: Results = resultsDetails[resultsDetails.tripType];
   let actives = [...resultsDetails.activeSegments.values()];
+  console.log('pre pre active', JSON.parse(JSON.stringify(actives)))
   let clonedResults = _.cloneDeep(resultsDetails);
   let totals: Array<number> = setTotals(resultsDetails.activeSegments);
   let totalPrice: number = totals[0];
@@ -52,6 +52,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     (segment: Segment) => segment.itinerary_id
   );
   results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
+
     segmentOptions.forEach((segment: Segment, index: number) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
       if (sortBy === 'best') {
@@ -75,18 +76,18 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       segment.relativeTime = targetActivesTotal.totalTime - totalTime;
     });
     if (setActivesInitial) {
-      updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
       updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
       actives = [...resultsDetails.activeSegments.values()];
-      clonedResults = _.cloneDeep(resultsDetails)
       totals = setTotals(resultsDetails.activeSegments);
       totalPrice = totals[0];
       totalWeight = totals[1];
       totalTime = totals[2];
     }
-    else {
-      updateActiveSegments(clonedResults, segmentPosition, actives[segmentPosition].itinerary_id); // I think this was right because we want to set relatives based on best, not current actives where there could be a big difference (ex. coming from fastest to best)
-    }
+    console.log('pre active', JSON.parse(JSON.stringify(actives)))
+    actives.forEach((segment: Segment, index: number) => updateActiveSegments(clonedResults, index, segment.itinerary_id));
+    console.log('post active', JSON.parse(JSON.stringify(actives)))
+    // clonedResults = _.cloneDeep(resultsDetails)
+
   });
 }
 

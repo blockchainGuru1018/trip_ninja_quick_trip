@@ -111,7 +111,8 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
-  const sortedSegments: Array<Segment> = sortBySortOrder(segmentOptions, state.segmentSortBy[segmentPosition]);
+  const sortedSegments: Array<Segment> = segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight)
+  console.log(JSON.parse(JSON.stringify(sortedSegments)))
   const bestOneWay: Segment | undefined = sortedSegments.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
   );

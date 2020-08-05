@@ -1,7 +1,7 @@
 import React from 'react';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
-import FareRulesPreview from './FareRulesPreview';
-import FlightResultsPath from './FlightResultsPath';
+import FareRulesPreview from '../../common/FareRulesPreview';
+import FlightResultsPath from '../../common/FlightResultsPath';
 import FareSelect from './FareSelect';
 import Button from '@material-ui/core/Button';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
@@ -16,6 +16,8 @@ interface SegmentPreviewDetailsProps {
   updateFareFamily?: typeof updateFareFamily;
   segmentOptionsIndex?: number;
   closeAllDropDowns?: () => void;
+  totalPrice: number;
+  activeSegment?: Segment;
 }
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
@@ -41,8 +43,10 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           brands={this.props.segment.brands![segment_id[0]]} 
           currency={this.props.currency} 
           segment={this.props.segment}
+          activeSegment={this.props.activeSegment}
           updateFareFamily={this.props.updateFareFamily}
           updateActives={this.updateActives}
+          totalPrice={this.props.totalPrice}
         /> 
         }
         {!this.props.segment.brands && this.props.updateActives && this.props.segment.status !== 'active'

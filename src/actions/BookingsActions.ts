@@ -34,12 +34,19 @@ export function cancelLoading(value: boolean) {
 export function queueLoading(value: boolean) {
   return {
     type: 'QUEUE_LOADING',
+  };
+}
+
+export function bookingDetailsLoading(value: boolean) {
+  return {
+    type: 'BOOKING_DETAILS_LOADING',
     value
   };
 }
 
-export const getBookingsList = (queryType: string, queryValue: string) => (dispatch: any) => {
-  const url: string = 'book/list/?'+ queryType +'='+ queryValue;
+
+export const getBookingsList = (queryType: string) => (dispatch: any) => {
+  const url: string = 'book/list/?'+ queryType;
 
   return API.get(url)
     .then((response: any) => {
@@ -56,19 +63,22 @@ export const getBookingsList = (queryType: string, queryValue: string) => (dispa
 };
 
 export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
-  const url: string = 'book/trip/' + trip_id;
-
+  dispatch(bookingDetailsLoading(true));
+  const url: string = 'book/trip/' + trip_id + '/';
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
         dispatch(setBookingDetails(response.data));
+        dispatch(bookingDetailsLoading(false));
         return {'success': true};
       }
     })
     .catch((error: any) => {
+      dispatch(bookingDetailsLoading(false));
       return {'success': false};
+
     });
 
 };
@@ -83,7 +93,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
-        booking.status="Cancelled"
+        booking.status = "Cancelled";
         dispatch(setErrorDetails(false, 'cancellation'));
         dispatch(setBookingStatus(booking));
         dispatch(cancelLoading(false));
@@ -107,7 +117,7 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
       if (response.data.status) {
         throw 'error';
       } else {
-        booking.status="Ticketed"
+        booking.status = "Ticketed";
         dispatch(setErrorDetails(false, 'queueing'));
         dispatch(setBookingStatus(booking));
         dispatch(queueLoading(false));

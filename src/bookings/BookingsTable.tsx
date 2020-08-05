@@ -41,6 +41,7 @@ interface BookingsTableProps {
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
   authDetails: AuthDetails;
+  loading: boolean;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -116,13 +117,14 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       .map((booking: Booking, index: number) => {
         return (
           <TableRow key={index.toString()}>
-            <DetailsLinkCell align="left" onClick={() => {}}>
+            <DetailsLinkCell align="left">
               <BookingDetailsDrawer 
                 booking={booking}
                 getBookingDetails={this.props.getBookingDetails}
                 cancelBooking={this.props.cancelBooking}
                 queueBooking={this.props.queueBooking}
                 authDetails={this.props.authDetails}
+                loading={this.props.loading}
               />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>

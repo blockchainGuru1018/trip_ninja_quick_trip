@@ -1,9 +1,11 @@
 import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import Moment from 'react-moment';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
+import CountryList from '../assets/data/countries.json';
 
 interface PassengerDetailsProps {
-  passengers: Array<PassengerInfo>
+  passengers?: Array<PassengerInfo>
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -18,7 +20,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   }
 
   passengersInfo = () => {
-    return this.props.passengers.map((passenger, index) => (
+    const passengers = this.props.passengers ? this.props.passengers : [];
+    return passengers.map((passenger, index) => (
       <div className="row" key={index.toString()}>
         <div className="col-sm-2 no-pad-left my-auto">
           <div className="float-left passenger-icon">
@@ -30,35 +33,32 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           </div>
         </div>
         <div className="col-sm-2 border-left">
-          <p>
-            <span className="text-bold">Gender </span>
-            {passenger.gender}
-          </p>
-          <p>
-            <span className="text-bold">Nationality </span>
-            {passenger.passport_country}
-          </p>
-          <p>
-            <span className="text-bold">Passport # </span>
-            {passenger.passport_number}
-          </p>
-          <p>
-            <span className="text-bold">Passport Expiry </span>
-            {passenger.passport_expiration}
-          </p>
+          <p className="passenger-field">Gender</p>
+          <p className="passenger-field">Nationality</p>
+          <p className="passenger-field">Passport #</p>
+          <p className="passenger-field">Passport Expiry</p>
         </div>
-        <div className="col-sm-2">
-          <p>
-            <span className="text-bold">Phone </span>
-            {passenger.phone_number}
-          </p>
-          <p>
-            <span className="text-bold">Email </span>
-            {passenger.email}
-          </p>
+        <div className="col-sm-1 no-pad-left">
+          <p>{passenger.gender === 'F' ? 'Female' : 'Male'}</p>
+          <p>{passenger.passport_country ? this.getCountryName(passenger.passport_country): '-'}</p>
+          <p>{passenger.passport_number ? passenger.passport_number : '-'}</p>
+          <p><Moment format="DD/MM/YYYY">{passenger.passport_expiration ? passenger.passport_expiration : '-'}</Moment></p>
+        </div>
+        <div className="col-sm-1">
+          <p className="passenger-field">Phone</p>
+          <p className="passenger-field">Email</p>
+        </div>
+        <div className="col-sm-2 no-pad-left">
+          <p>{passenger.phone_number}</p>
+          <p>{passenger.email}</p>
         </div>
       </div>
     ));
+  }
+
+  getCountryName = (countryCode: string) => {
+    let countryObject = CountryList.find((country: any) => country.code === countryCode);
+    return countryObject ? countryObject.name: '-';
   }
 }
 

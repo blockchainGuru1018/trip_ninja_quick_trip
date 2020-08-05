@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FareRulesPreview from '../trip/results/FareRulesPreview';
-import FlightResultsPath from '../trip/results/FlightResultsPath';
+import FareRulesPreview from './FareRulesPreview';
+import FlightResultsPath from './FlightResultsPath';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
 import Moment from "react-moment";
 import { firstLetterCapital } from "../helpers/MiscHelpers";
+import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
 import {
   Timeline,
   TimelineConnector,
@@ -16,6 +17,7 @@ import {
 } from "@material-ui/lab";
 
 
+
 const useStyles = makeStyles({
   root: {
     minHeight: '250px'
@@ -23,8 +25,9 @@ const useStyles = makeStyles({
 });
 
 interface ItineraryDetailsProps {
-  selectedTrip: Array<Segment>;
-  trip: Results;
+  selectedTrip?: Array<Segment>;
+  bookedTrip?: Array<BookingItinerary>;
+  trip?: Results;
   currency: string;
   pricingDisplay?: boolean;
 }
@@ -36,7 +39,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     fareRulesPreviewComponents: [] as any
   });
 
-  const setFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
+  const setPricingFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     selectedTrip.forEach((segment: Segment, index: number) => {
@@ -61,18 +64,43 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     );
   };
 
-
+  const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
+    let flightResultsPathComponents: Array<JSX.Element> = [];
+    let fareRulesPreviewComponents: Array<JSX.Element> = [];
+    selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+      itinerary.segments.forEach((segment: BookingSegment, index: number) => {
+        flightResultsPathComponents.push(<FlightResultsPath
+          flightDetails={segment.flight_details}
+          key={index}
+        />);
+        fareRulesPreviewComponents.push(<FareRulesPreview
+          bookingSegment={segment}
+          flightDetails={segment.flight_details}
+          currency={currency}
+          itineraryDisplay={true}
+          key={index}
+          bookingDrawer={true}
+        />);
+      });
+    });
+    setState({
+      ...state,
+      flightResultsPathComponents: flightResultsPathComponents,
+      fareRulesPreviewComponents: fareRulesPreviewComponents}
+    );
+  };
 
   const getSegmentDateString = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
-    const flightDetails: FlightResultsDetails | undefined = getFlightResultByRef(segment.flights[0].flight_detail_ref);
+    const flightDetails: FlightResultsDetails | undefined = props.selectedTrip 
+      ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
+      : props.bookedTrip![index].segments[0].flight_details[0];
     return (
       <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
     );
   };
 
   const getFareRulesBookingDetailsHTML = (index: number) => {
-    const segment: Segment = props.selectedTrip[index];
+    const segment: Segment = props.selectedTrip![index];
     return (
       <div className="row">
         <div className='text-bold booking-details-text-container'>Booking Details:
@@ -82,12 +110,14 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     );
   };
 
-  const getFlightResultByRef = (ref: string) => props.trip.flight_details.find((flight: FlightResultsDetails) =>
+  const getFlightResultByRef = (ref: string) => props.trip!.flight_details.find((flight: FlightResultsDetails) =>
     flight.reference === ref
   );
 
   useEffect(()=>{
-    setFlightComponents(props.selectedTrip, props.trip, props.currency);
+    props.selectedTrip 
+      ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
+      : setBookingFlightComponents(props.bookedTrip!, props.currency);
   }, []);
 
   return (
@@ -121,7 +151,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
               state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
                 <div className='fare-rules-preview-container'>
                   {fareRulesPreview}
-                  {getFareRulesBookingDetailsHTML(index)}
+                  {props.pricingDisplay && getFareRulesBookingDetailsHTML(index)}
                 </div>
               )
             }

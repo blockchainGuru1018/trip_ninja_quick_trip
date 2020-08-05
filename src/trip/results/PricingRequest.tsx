@@ -81,14 +81,16 @@ class PricingRequest extends React.Component<PricingRequestProps>{
         flightsPayload.push({
           key: flightResult.flight_detail_ref,
           origin: flightDetail.origin,
+          origin_name: flightDetail.origin_name,
           destination: flightDetail.destination,
+          destination_name: flightDetail.destination_name,
           booking_code: flightResult.booking_code,
           cabin_class: flightResult.cabin_class,
           carrier: flightDetail.carrier,
           flight_time: flightDetail.flight_time,
           flight_number: flightDetail.flight_number,
-          departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ss'),
-          arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ss'),
+          departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ssZ'),
+          arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ssZ'),
           brand_identifier: "",
         });
       }

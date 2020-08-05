@@ -7,6 +7,9 @@ function bookingsReducer(state: BookingsList = {} as any, action: any) {
 
     case 'SET_BOOKING_DETAILS':
       return setBookingDetails(state, action);
+    
+    case 'BOOKING_DETAILS_LOADING':
+      return {...state, loading: action.value};
 
     case 'SET_BOOKING_STATUS':
       return setBookingStatus(state, action);
@@ -22,8 +25,7 @@ function setBookingsList(state: any, action: any) {
 }
 
 function setBookingDetails(state: any, action: any) {
-  let bookingToUpdate = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
-  bookingToUpdate.booking_details = action.booking;
+  state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id).details = action.booking;
   return {...state};
 }
 

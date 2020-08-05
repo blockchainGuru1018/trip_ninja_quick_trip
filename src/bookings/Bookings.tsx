@@ -20,10 +20,7 @@ interface BookingsProps {
 
 class Bookings extends React.Component<BookingsProps> {
   componentDidMount() {    
-    this.props.getBookingsList(
-      (this.props.authDetails.isAgencyAdmin ? 'agency' : 'user'), 
-      (this.props.authDetails.isAgencyAdmin ? this.props.authDetails.agency : this.props.authDetails.userEmail)
-    );
+    this.props.getBookingsList(this.getUserType());
   }
 
   render() {
@@ -62,6 +59,7 @@ class Bookings extends React.Component<BookingsProps> {
                       cancelBooking={this.props.cancelBooking}
                       queueBooking={this.props.queueBooking}
                       authDetails={this.props.authDetails}
+                      loading={this.props.bookingsList.loading}
                     />
                   </div>
                 </div>
@@ -71,6 +69,14 @@ class Bookings extends React.Component<BookingsProps> {
           : <Redirect to='/login/' />}
       </div>
     );
+  }
+
+  getUserType = () => {
+    if (this.props.authDetails.isSuperUser) {
+      return '';
+    } else {
+      return this.props.authDetails.isAgencyAdmin ? 'agency='+this.props.authDetails.agency : 'user='+this.props.authDetails.userEmail;
+    }    
   }
 }
 

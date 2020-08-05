@@ -18,6 +18,7 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       <div className="col-sm-2 my-auto">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(Math.round(relativePrice))}</p>
         <p className='text-small text-center'>Total: {currencySymbol(this.props.currency)}{Math.round(this.props.totalPrice + relativePrice)}</p>
+        <p className='text-small text-center'>id: {this.props.segment.itinerary_id}</p>
       </div>
     );
   }

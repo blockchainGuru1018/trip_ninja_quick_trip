@@ -57,7 +57,38 @@ export const defaultPassengerList: Array<Passenger> = [
 
 export const defaultSearchDetails: SearchDetails = {
   flights: [
-    {...defaultFlight}
+    {
+      'origin': 'NYC | New York City, NY, USA - All Airports',
+      'destination': 'YHZ | Halifax, NS, Canada',
+      'departureDate': '2020-08-21T07:00:00.000Z',
+      'cabinClass': 'E',
+      'startType': '',
+      'endType': ''
+    },
+    {
+      'origin': 'YHZ | Halifax, NS, Canada',
+      'destination': 'TYO | Tokyo, Japan - All Airports',
+      'departureDate': '2020-08-25T07:00:00.000Z',
+      'cabinClass': 'E',
+      'startType': '',
+      'endType': ''
+    },
+    {
+      'origin': 'TYO | Tokyo, Japan - All Airports',
+      'destination': 'SIN | Singapore, Singapore',
+      'departureDate': '2020-08-29T07:00:00.000Z',
+      'cabinClass': 'E',
+      'startType': '',
+      'endType': ''
+    },
+    {
+      'origin': 'SIN | Singapore, Singapore',
+      'destination': 'HER | Irakleion, Greece',
+      'departureDate': '2020-09-21T07:00:00.000Z',
+      'cabinClass': 'E',
+      'startType': '',
+      'endType': ''
+    },
   ],
   currency: 'USD',
   passengers: defaultPassengerList,

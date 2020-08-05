@@ -11,8 +11,10 @@ export function identifyAndSetInitialActives(resultsDetails: ResultsDetails) {
 }
 
 function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPosition: number, segment: Segment) {
+  console.log('current clone actives', JSON.parse(JSON.stringify([...clonedResults.activeSegments.values()])));
   updateActiveSegments(clonedResults, segmentPosition, segment.itinerary_id);
   const targetActives: Array<Segment> = [...clonedResults.activeSegments.values()];
+  console.log('target actives', JSON.parse(JSON.stringify(targetActives)));
   const targetTotalPrice: number = getTotal(targetActives, 'price');
   const targetTotalWeight: number = getTotal(targetActives, 'weight');
   const targetItineraryIdList = getActivesItineraryIds(targetActives);
@@ -30,22 +32,35 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
   const totalPrice: number = totals[0];
   const totalWeight: number = totals[1];
   let minimumWeight: number = totalWeight;
-  let bestTrip: Array<string> = [...clonedResults.activeSegments.values()].map(
+  let actives = [...clonedResults.activeSegments.values()];
+  let bestTrip: Array<string> = actives.map(
     (segment: Segment) => segment.itinerary_id
   );
+  console.log('initial actives', JSON.parse(JSON.stringify(actives)));
   results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
     segmentOptions.forEach((segment: Segment) => {
+      console.log(`position ${segmentPosition}, compatibility: ${segment.status}, itinerary: ${segment.itinerary_id}, structure: ${segment.itinerary_structure}`);
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
+      console.log(`total price ${targetActivesTotal.totalPrice}`);
+      console.log(`total weight ${targetActivesTotal.totalWeight}`);
       if (targetActivesTotal.totalWeight < minimumWeight) {
         minimumWeight = targetActivesTotal.totalWeight ;
         bestTrip = targetActivesTotal.itineraryIdList;
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
       segment.relativeWeight = targetActivesTotal.totalWeight - totalWeight;
+      console.log(`relativePrice ${segment.relativePrice}`);
+      console.log(`relativeWeight ${segment.relativeWeight}`);
+
     });
-    updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
     if (setActivesInitial) {
+      updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
       updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
+      console.log(`activated itinerary ${bestTrip[segmentPosition]}`);
+    }else{
+      let previously_active_segment_id: string = resultsDetails.activeSegments.get(segmentPosition).itinerary_id;
+      updateActiveSegments(clonedResults, segmentPosition, previously_active_segment_id);
+
     }
   });
 }

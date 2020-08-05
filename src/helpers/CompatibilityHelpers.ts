@@ -111,8 +111,7 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
-  const sortedSegments: Array<Segment> = segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight)
-  console.log(JSON.parse(JSON.stringify(sortedSegments)))
+  const sortedSegments: Array<Segment> = segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
   const bestOneWay: Segment | undefined = sortedSegments.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
   );
@@ -126,7 +125,6 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 }
 
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
-  console.log(JSON.parse(JSON.stringify([...state.activeSegments.values()])))
   const segmentOptionIndex: number = action.segmentOptionIndex;
   const segmentItineraryRef: string = action.segmentItineraryRef;
   const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);

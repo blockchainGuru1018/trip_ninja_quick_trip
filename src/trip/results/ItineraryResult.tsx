@@ -64,7 +64,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           />
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
-            <p>{totalWeight}</p>
+            {/*<p>{totalWeight}</p>*/}
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
             <span className="divider">|</span>

@@ -30,7 +30,7 @@ export function setActiveSegments(){
 }
 
 export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
-                              updateActivesInitial: boolean = false, sortBy: string = 'best') {
+  updateActivesInitial: boolean = false, sortBy: string = 'best') {
   return {
     type: 'UPDATE_ACTIVES',
     segmentOptionIndex,
@@ -45,7 +45,7 @@ export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: stri
     type: 'UPDATE_ENTIRE_TRIP',
     setActivesInitial,
     sortBy
-  }
+  };
 }
 
 export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
@@ -81,7 +81,7 @@ export function updateSegmentFilter(filterKey: string, filterValue: any, segment
     segmentIndex,
     filterKey,
     filterValue
-  }
+  };
 }
 
 export function updateSortType(segmentIndex: number, sortBy: string) {
@@ -89,5 +89,5 @@ export function updateSortType(segmentIndex: number, sortBy: string) {
     type: 'UPDATE_SORT_TYPE',
     segmentIndex,
     sortBy
-  }
+  };
 }

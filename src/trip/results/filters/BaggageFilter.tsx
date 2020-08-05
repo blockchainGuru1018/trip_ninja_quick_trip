@@ -86,14 +86,14 @@ const BaggageFilter = (props: BaggageFilterProps) => {
 
   const updateBaggageFilter = (value: number) => {
     handleClose();
-    const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter
+    const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
     if (filters && filterLevel) {
       if (value > 0) {
         if (filters.baggage) {
           if (filters.baggage < 3) {
             filterLevel('baggage', filters.baggage + 1, props.segmentIndex);
           } else {
-            return
+            return;
           }
         } else {
           filterLevel('baggage', 1, props.segmentIndex);
@@ -101,38 +101,30 @@ const BaggageFilter = (props: BaggageFilterProps) => {
       } else {
         if (filters.baggage) {
           if (filters.baggage === 0) {
-            return
+            return;
           } else {
             filterLevel('baggage', filters.baggage - 1, props.segmentIndex);
           }
         } else {
-          return
+          return;
         }
       }
     }
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(value) : '';
-  }
+  };
 
   const resetActives = (value: number) => {
     setFailedFilter(false);
-    props.updateEntireTrip!(true, props.sortBy!)
-    // props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
-    //   checkFilterFailed(filters!.baggage, segments);
-    //   const sortedSegments = sortBySortOrder(segments, props.segmentSortBy![index]);
-    //   console.log(JSON.parse(JSON.stringify(sortedSegments)))
-    //   const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered);
-    //   // if open jaw - check that the linked segment is also not filtered.
-    //   props.updateActives(index, firstFiltered!.itinerary_id);
-    // })
-  }
+    props.updateEntireTrip!(true, props.sortBy!);
+  };
 
   const checkFilterFailed = (baggage: number, segmentOptions: Array<Segment>) => {
     const failure: boolean = baggage !== 0
     && segmentOptions.find((segment: Segment) => segment.filtered) === undefined;
     if (failure) {
-      setFailedFilter(true)
+      setFailedFilter(true);
     }
-  }
+  };
 
   return (
     <div>
@@ -186,6 +178,6 @@ const BaggageFilter = (props: BaggageFilterProps) => {
         : ''}
     </div>
   );
-}
+};
 
 export default BaggageFilter;

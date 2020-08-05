@@ -37,12 +37,12 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_ENTIRE_TRIP':
-      const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered)
+      const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered);
       if (!viable) {
-        setFilteredRelatives(state)
+        setFilteredRelatives(state);
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
-      return {...state}
+      return {...state};
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
@@ -60,8 +60,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         state.segmentSortBy.forEach((sortBy: string) => sortBy = action.sortBy);
         return state;
       } else {
-        state.segmentSortBy[action.segmentIndex] = action.sortBy
-        return {...state}
+        state.segmentSortBy[action.segmentIndex] = action.sortBy;
+        return {...state};
       }
 
     default:
@@ -107,10 +107,10 @@ function setDefaultSegmentFilters(fareStructureResults: Results) {
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  state.itineraryFilters![action.filterKey] = action.filterValue
-  const updatedSegmentFilters = state.segmentFilters!.map((filters: Filters) => ({...filters, [action.filterKey]: action.filterValue}))
-  filterItinerary(state[state.tripType].segments, state.itineraryFilters!)
-  return {...state, segmentFilters: updatedSegmentFilters}
+  state.itineraryFilters![action.filterKey] = action.filterValue;
+  const updatedSegmentFilters = state.segmentFilters!.map((filters: Filters) => ({...filters, [action.filterKey]: action.filterValue}));
+  filterItinerary(state[state.tripType].segments, state.itineraryFilters!);
+  return {...state, segmentFilters: updatedSegmentFilters};
 }
 
 export default resultsReducer;

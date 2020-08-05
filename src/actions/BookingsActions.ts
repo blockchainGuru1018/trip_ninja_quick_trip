@@ -110,7 +110,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
 
 export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dispatch: any) => {
   dispatch(queueLoading(true));
-  const url: string = '/queue/'; // <<-- Set the right place
+  const url: string = '/queue/'; 
 
   return API.post(url, {trip_id: booking.trip_id, queue: authDetails.ticketing_queue})
     .then((response: any) => {

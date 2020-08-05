@@ -31,7 +31,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return {...state, tripType: action.value};
 
     case 'SET_ACTIVE_SEGMENT':
-      return identifyAndSetInitialActives(state);
+      return identifyAndSetInitialActives(state, 'best');
 
     case 'UPDATE_ACTIVES':
       return updateActiveSegmentsFromAction(state, action);
@@ -41,7 +41,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       if (!viable) {
         setFilteredRelatives(state)
       }
-      setRelativesAndUpdateActives(state, action.setActivesInitial, action.sortBy);
+      // setRelativesAndUpdateActives(state, true, action.sortBy);
+      identifyAndSetInitialActives(state, action.sortBy)
       return {...state}
 
     case 'UPDATE_FARE_FAMILY':

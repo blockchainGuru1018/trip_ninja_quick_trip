@@ -129,6 +129,7 @@ export interface Segment {
   fare_info?: FareInfo;
   relativePrice?: number;
   relativeWeight?: number;
+  relativeTime?: number;
   filtered?: boolean
 }
 

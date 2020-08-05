@@ -110,19 +110,20 @@ const BaggageFilter = (props: BaggageFilterProps) => {
         }
       }
     }
-    return props.itineraryFilters && props.activeSegments ? resetActives(value) : '';
+    return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(value) : '';
   }
 
   const resetActives = (value: number) => {
     setFailedFilter(false);
-    props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
-      checkFilterFailed(filters!.baggage, segments);
-      const sortedSegments = sortBySortOrder(segments, props.segmentSortBy![index]);
-      console.log(JSON.parse(JSON.stringify(sortedSegments)))
-      const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered);
-      // if open jaw - check that the linked segment is also not filtered.
-      props.updateActives(index, firstFiltered!.itinerary_id);
-    })
+    props.updateEntireTrip!(true, props.sortBy!)
+    // props.trip.segments.forEach((segments: Array<Segment>, index: number) => {
+    //   checkFilterFailed(filters!.baggage, segments);
+    //   const sortedSegments = sortBySortOrder(segments, props.segmentSortBy![index]);
+    //   console.log(JSON.parse(JSON.stringify(sortedSegments)))
+    //   const firstFiltered: Segment | undefined = sortedSegments.find((segment: Segment) => !segment.filtered);
+    //   // if open jaw - check that the linked segment is also not filtered.
+    //   props.updateActives(index, firstFiltered!.itinerary_id);
+    // })
   }
 
   const checkFilterFailed = (baggage: number, segmentOptions: Array<Segment>) => {

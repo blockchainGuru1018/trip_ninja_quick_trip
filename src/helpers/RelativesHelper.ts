@@ -35,19 +35,19 @@ export function setFilteredRelatives(resultsDetails: ResultsDetails) {
 
 export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, setActivesInitial: boolean = false, sortBy: string = 'best') {
   const results: Results = resultsDetails[resultsDetails.tripType];
-  const actives = [...resultsDetails.activeSegments.values()]
+  const actives = [...resultsDetails.activeSegments.values()];
   const clonedResults = _.cloneDeep(resultsDetails);
   const totals: Array<number> = setTotals(resultsDetails.activeSegments);
   const totalPrice: number = totals[0];
   const totalWeight: number = totals[1];
-  console.log(JSON.parse(JSON.stringify(totalPrice)))
-  console.log(JSON.parse(JSON.stringify(totalWeight)))
+  console.log(`totalPrice ${JSON.parse(JSON.stringify(totalPrice))}`);
+  console.log(`totalWeight ${JSON.parse(JSON.stringify(totalWeight))}`);
   let minimumWeight: number = totalWeight;
-  let minimumPrice: number = totalPrice;
   let bestTrip: Array<string> = actives.map(
     (segment: Segment) => segment.itinerary_id
   );
-  // console.log(JSON.parse(JSON.stringify([...clonedResults.activeSegments.values()])))
+  console.log('initial actives');
+  console.log(JSON.parse(JSON.stringify([...clonedResults.activeSegments.values()])));
   results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
     // const actives = [...resultsDetails.activeSegments.values()]
     // const clonedResults = _.cloneDeep(resultsDetails);
@@ -65,19 +65,19 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
 
       if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
-          minimumWeight = targetActivesTotal.totalWeight;
-          bestTrip = targetActivesTotal.itineraryIdList;
+        minimumWeight = targetActivesTotal.totalWeight; // this is wrong when changing back to best
+        bestTrip = targetActivesTotal.itineraryIdList;
       }
       segment.relativePrice = targetActivesTotal.totalPrice - totalPrice;
       segment.relativeWeight = targetActivesTotal.totalWeight - totalWeight;
     });
-    // updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
-
+    updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]); // I think this was right because we want to set relatives based on best, not current actives where there could be a big difference (ex. coming from fastest to best)
+    console.log(`minimumWeight ${minimumWeight}`);
+    console.log(`at position ${segmentPosition} update active to ${bestTrip[segmentPosition]}`);
+    console.log(`after update at position ${segmentPosition}`);
+    console.log(JSON.parse(JSON.stringify([...clonedResults.activeSegments.values()])));
     if (setActivesInitial) {
-      updateActiveSegments(clonedResults, segmentPosition, bestTrip[segmentPosition]);
       updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
-    } else {
-      updateActiveSegments(clonedResults, segmentPosition, actives[segmentPosition].itinerary_id);
     }
   });
 }

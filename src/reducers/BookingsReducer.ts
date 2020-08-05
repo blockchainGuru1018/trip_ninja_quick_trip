@@ -31,7 +31,6 @@ function setBookingDetails(state: any, action: any) {
 
 function setBookingStatus(state: any, action: any) {
   let bookingToUpdate = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
-  console.log("BookingToUpdate:", bookingToUpdate);
   bookingToUpdate.status = action.booking.status;
   return {...state};
 }

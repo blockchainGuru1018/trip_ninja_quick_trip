@@ -16,7 +16,6 @@ import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { cancelBooking, queueBooking } from '../actions/BookingsActions';
-import authDetailsReducer from '../reducers/AuthDetailsReducer';
 import { AuthDetails } from '../auth/AuthInterfaces';
 
 const NavButton = styled(Button)({

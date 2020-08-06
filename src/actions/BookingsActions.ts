@@ -79,7 +79,6 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
     .catch((error: any) => {
       dispatch(bookingDetailsLoading(false));
       return {'success': false};
-
     });
 
 };
@@ -95,7 +94,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
         throw 'error';
       } else {
         booking.status = "cancelled";
-        dispatch(setErrorDetails(false, 'cancellation'));
+        dispatch(setErrorDetails(false, 'cancelling'));
         dispatch(setBookingStatus(booking));
         dispatch(cancelLoading(false));
         return {'success': true};
@@ -103,7 +102,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
     })
     .catch((error: any) => {
       dispatch(cancelLoading(false));
-      dispatch(setErrorDetails(true, 'cancellation'));
+      dispatch(setErrorDetails(true, 'cancelling'));
       return {'success': false};
     });
 };

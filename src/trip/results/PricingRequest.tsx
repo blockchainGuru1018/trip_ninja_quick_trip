@@ -29,7 +29,6 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      source: 'amadeus',
       itineraries: this.createItinerariesPayload(trip)
     };
     const pricingResult: any = this.props.priceFlights(pricingPayload);

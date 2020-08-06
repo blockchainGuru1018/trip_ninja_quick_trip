@@ -15,7 +15,7 @@ import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
+import { priceFlights } from '../../actions/PricingActions';
 
 interface SegmentPreviewProps {
   index: number;
@@ -28,6 +28,7 @@ interface SegmentPreviewProps {
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
+  priceFlights: typeof priceFlights;
   pathSequence?: Array<string>;
   totalPrice: number;
 }
@@ -94,6 +95,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 closeAllDropDowns={this.closeAllDropDowns}
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
+                priceFlights={this.props.priceFlights}
                 activeSegment={this.props.activeSegment}
               />
               }

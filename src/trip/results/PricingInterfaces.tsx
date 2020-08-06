@@ -22,7 +22,6 @@ export interface PricingRequestInterface {
   currency: string;
   price: number;
   markup: number;
-  source: string;
   itineraries: Array<PricingRequestItinerary>
 }
 

@@ -157,6 +157,7 @@ class App extends React.Component<IAppProps> {
                     setSegmentValue={this.props.setSegmentPositionMapValue}
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
+                    priceFlights={this.props.priceFlights}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

@@ -11,6 +11,7 @@ import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
+import { priceFlights } from '../../actions/PricingActions';
 
 interface MatchParams {
   index: string;
@@ -25,6 +26,7 @@ interface SegmentSelectionProps {
   setSegmentValue: typeof setSegmentPositionMapValue;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
+  priceFlights: typeof priceFlights;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -81,6 +83,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
+                  priceFlights={this.props.priceFlights}
                 />
                 <hr className="segment-divider"/>
                 {
@@ -98,6 +101,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
                         sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+                        priceFlights={this.props.priceFlights}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -123,6 +127,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
                         sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
+                        priceFlights={this.props.priceFlights}
                       />
                     </div>
                 }

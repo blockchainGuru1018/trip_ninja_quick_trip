@@ -5,6 +5,7 @@ import SegmentPreview from './SegmentPreview';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { priceFlights } from '../../actions/PricingActions';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -16,6 +17,7 @@ interface SegmentPreviewsProps {
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
   updateFareFamily?: typeof updateFareFamily;
+  priceFlights: typeof priceFlights;
   pathSequence?: Array<string>;
   sortOrder?: string;
   totalPrice: number;
@@ -61,6 +63,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
           updateFareFamily={this.props.updateFareFamily}
           pathSequence={this.props.pathSequence}
           totalPrice={this.props.totalPrice}
+          priceFlights={this.props.priceFlights}
         />
       );
     });

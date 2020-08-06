@@ -15,7 +15,10 @@ import './index.css';
 import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
-import { setErrorDetails, setTripType, updateActives, updateFareFamily } from './actions/ResultsActions';
+import {
+  setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
+  updateSortType, updateEntireTrip
+} from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
 import { ResultsDetails } from './trip/results/ResultsInterfaces';
@@ -28,7 +31,6 @@ import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
-import { setSegmentPositionMapValue } from './actions/ResultsActions';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
@@ -55,12 +57,15 @@ interface IAppProps {
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
-  setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
   getBookingDetails: typeof getBookingDetails;
+  updateItineraryFilter: typeof updateItineraryFilter;
+  updateSegmentFilter: typeof updateSegmentFilter;
+  updateSortType: typeof updateSortType;
+  updateEntireTrip: typeof updateEntireTrip;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
 }
@@ -146,7 +151,11 @@ class App extends React.Component<IAppProps> {
                     priceFlights={this.props.priceFlights}
                     passengers={this.props.searchDetails.passengers}
                     authDetails={this.props.authDetails}
-                    setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
+                    itineraryFilters={this.props.resultsDetails.itineraryFilters}
+                    updateActives={this.props.updateActives}
+                    updateSortType={this.props.updateSortType}
+                    updateEntireTrip={this.props.updateEntireTrip}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -154,10 +163,11 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
-                    setSegmentValue={this.props.setSegmentPositionMapValue}
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
                     priceFlights={this.props.priceFlights}
+                    updateSegmentFilter={this.props.updateSegmentFilter}
+                    updateSortType={this.props.updateSortType}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

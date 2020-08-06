@@ -7,11 +7,13 @@ import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
-import { setSegmentPositionMapValue } from "../../actions/ResultsActions";
+import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import { priceFlights } from '../../actions/PricingActions';
+import BaggageFilter from "./filters/BaggageFilter";
+import { filterSegments } from "../../helpers/Filters";
 
 interface MatchParams {
   index: string;
@@ -23,10 +25,11 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string;
-  setSegmentValue: typeof setSegmentPositionMapValue;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   priceFlights: typeof priceFlights;
+  updateSegmentFilter: typeof updateSegmentFilter;
+  updateSortType: typeof updateSortType;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -35,7 +38,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments: Array<Segment> = trip.segments[segmentIndex];
+    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex]);
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
@@ -61,9 +64,18 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </h4>
           <SortOption
             segmentPosition={parseInt(segmentIndex)}
-            sortOrder={this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
-            setSegmentPositionMapValue={this.props.setSegmentValue}
+            sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
+            updateSortType={this.props.updateSortType}
           />
+          <div className='baggage-filter-container'>
+            <BaggageFilter
+              updateSegmentFilter={this.props.updateSegmentFilter}
+              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
+              trip={trip}
+              updateActives={this.props.updateActives}
+              segmentIndex={Number(segmentIndex)}
+            />
+          </div>
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
@@ -100,8 +112,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateActives={this.props.updateActives}
                         updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
-                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
                         priceFlights={this.props.priceFlights}
+                        sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -126,8 +138,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
-                        sortOrder = {this.props.resultsDetails.segmentPositionMap.getValue(parseInt(segmentIndex), 'sortOrder')}
                         priceFlights={this.props.priceFlights}
+                        sortOrder = {this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       />
                     </div>
                 }

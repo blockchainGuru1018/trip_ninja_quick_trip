@@ -110,7 +110,10 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
-  let bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) => segment.itinerary_type === 'ONE_WAY');
+  segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
+  const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
+    segment.itinerary_type === 'ONE_WAY' && !segment.filtered
+  );
   if (bestOneWay) {
     bestOneWay.status = 'compatible';
     setAlternatesStatus(state, bestOneWay, segmentOptions);
@@ -124,7 +127,7 @@ export function updateActiveSegmentsFromAction(state: ResultsDetails, action: an
   const segmentOptionIndex: number = action.segmentOptionIndex;
   const segmentItineraryRef: string = action.segmentItineraryRef;
   const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);
-  setRelativesAndUpdateActives(updateState);
+  setRelativesAndUpdateActives(updateState, action.setActivesInitial, action.sortBy);
   return updateState;
 }
 

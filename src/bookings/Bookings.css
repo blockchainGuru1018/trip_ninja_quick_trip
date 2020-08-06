@@ -53,3 +53,8 @@
   font-weight: bold;
   color: var(--secondary)
 }
+
+.booking-details-loading {
+  text-align: center;
+  padding: 150px;
+}

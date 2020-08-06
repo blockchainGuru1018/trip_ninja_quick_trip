@@ -34,6 +34,7 @@ export function cancelLoading(value: boolean) {
 export function queueLoading(value: boolean) {
   return {
     type: 'QUEUE_LOADING',
+    value
   };
 }
 
@@ -93,7 +94,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
       if (response.data.status) {
         throw 'error';
       } else {
-        booking.status = "Cancelled";
+        booking.status = "cancelled";
         dispatch(setErrorDetails(false, 'cancellation'));
         dispatch(setBookingStatus(booking));
         dispatch(cancelLoading(false));
@@ -117,7 +118,7 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
       if (response.data.status) {
         throw 'error';
       } else {
-        booking.status = "Ticketed";
+        booking.status = "ticketed";
         dispatch(setErrorDetails(false, 'queueing'));
         dispatch(setBookingStatus(booking));
         dispatch(queueLoading(false));

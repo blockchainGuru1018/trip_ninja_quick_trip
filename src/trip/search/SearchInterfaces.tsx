@@ -70,6 +70,7 @@ export interface SearchPayload {
   flights: Array<object>;
   travellers: object;
   route_flexible: boolean;
+  max_cache: number;
 }
 
 export interface FlightPayload {

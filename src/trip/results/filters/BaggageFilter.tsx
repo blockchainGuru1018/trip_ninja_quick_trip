@@ -99,13 +99,13 @@ const BaggageFilter = (props: BaggageFilterProps) => {
       return;
     } else {
       const filterValue: number = current_number ? current_number + 1 : 1;
-      filterLevel!('current_number', filterValue, props.segmentIndex);
+      filterLevel!('baggage', filterValue, props.segmentIndex);
     }
   };
 
   const decrease_filter = (current_number: number) => {
     if (current_number && current_number > 0) {
-      filterLevel!('current_number', current_number - 1, props.segmentIndex);
+      filterLevel!('baggage', current_number - 1, props.segmentIndex);
     } else {
       return;
     }

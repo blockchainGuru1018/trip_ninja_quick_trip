@@ -9,7 +9,8 @@ export function identifyAndSetInitialActives(resultsDetails: ResultsDetails, sor
   return resultsDetails;
 }
 
-function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPosition: number, segment: Segment) {
+function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPosition: number, actives: Array<Segment>, segment: Segment) {
+  actives.forEach((activeSegment: Segment, index: number) => updateActiveSegments(clonedResults, index, activeSegment.itinerary_id));
   updateActiveSegments(clonedResults, segmentPosition, segment.itinerary_id);
   const targetActives: Array<Segment> = [...clonedResults.activeSegments.values()];
   const targetTotalPrice: number = getTotal(targetActives, 'price');
@@ -51,7 +52,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
   results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
 
     segmentOptions.forEach((segment: Segment, index: number) => {
-      let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, segment);
+      let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, actives, segment);
       if (sortBy === 'best') {
         if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
           minimumWeight = targetActivesTotal.totalWeight;

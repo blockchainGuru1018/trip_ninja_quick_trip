@@ -6,14 +6,16 @@ import MultiplePnrView from './MultiplePnrView';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
-import { getBookingsList, getBookingDetails } from '../actions/BookingsActions';
+import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { Redirect } from 'react-router-dom';
 
 interface BookingsProps {
-  authDetails: AuthDetails
-  bookingsList: BookingsList
-  getBookingsList: typeof getBookingsList
-  getBookingDetails: typeof getBookingDetails
+  authDetails: AuthDetails;
+  bookingsList: BookingsList;
+  getBookingsList: typeof getBookingsList;
+  getBookingDetails: typeof getBookingDetails;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
 }
 
 class Bookings extends React.Component<BookingsProps> {
@@ -52,7 +54,13 @@ class Bookings extends React.Component<BookingsProps> {
                 <div className="row">
                   <div className="col-xl">
                     <BookingsTable 
-                      bookings={this.props.bookingsList.bookings}/>
+                      bookings={this.props.bookingsList.bookings}
+                      getBookingDetails={this.props.getBookingDetails}
+                      cancelBooking={this.props.cancelBooking}
+                      queueBooking={this.props.queueBooking}
+                      authDetails={this.props.authDetails}
+                      loading={this.props.bookingsList.loading}
+                    />
                   </div>
                 </div>
               </div>          

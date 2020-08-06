@@ -6,6 +6,8 @@ import { Errors } from '../../trip/results/ResultsInterfaces';
 import './Modals.css';
 import SearchErrorModal from './SearchErrorModal';
 import PricingErrorModal from './PricingErrorModal';
+import QueueingErrorModal from './QueueingErrorModal';
+import CancellingErrorModal from './CancellingErrorModal';
 import { setErrorDetails } from '../../actions/ResultsActions';
 
 const useStyles = makeStyles(() =>
@@ -30,6 +32,12 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
 
   useEffect(() => setOpen(props.errors.errorFound), [props.errors.errorFound]);
 
+  const errorModalMap = new Map ()
+    .set('search', <SearchErrorModal setErrorDetails={props.setErrorDetails}/>)
+    .set('pricing', <PricingErrorModal setErrorDetails={props.setErrorDetails}/>)
+    .set('queueing', <QueueingErrorModal setErrorDetails={props.setErrorDetails}/>)
+    .set('cancelling', <CancellingErrorModal setErrorDetails={props.setErrorDetails}/>);
+
   return (
     <div>
       <Modal
@@ -39,11 +47,7 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
         open={open}
         onClose={() => props.setErrorDetails(false, props.errors.errorType)}
       >
-        {
-          props.errors.errorType === 'search'
-            ? <SearchErrorModal setErrorDetails={props.setErrorDetails}/>
-            : <PricingErrorModal setErrorDetails={props.setErrorDetails}/>
-        }
+        {errorModalMap.get(props.errors.errorType)}
       </Modal>
     </div>
   );

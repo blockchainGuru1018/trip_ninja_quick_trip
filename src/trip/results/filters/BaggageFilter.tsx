@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Menu, {MenuProps} from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -8,6 +8,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 import MenuItem from "@material-ui/core/MenuItem";
 import './Filters.css';
+import '../ItineraryResult.css';
 import {
   updateActives,
   updateEntireTrip,
@@ -15,7 +16,7 @@ import {
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
 import { Filters, Results, Segment } from "../ResultsInterfaces";
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 
 interface BaggageFilterProps {
@@ -39,12 +40,12 @@ const BaggageFilter = (props: BaggageFilterProps) => {
       maxWidth: '200px',
       height: '31px',
       width: 'auto',
-      border: '1px solid #0DBE7CEB',
+      border: '1px solid var(--primary)',
       textTransform: 'none',
       justifyContent: 'left',
       fontFamily: 'NeuzeitGro-Reg',
       '&:focus': {
-        border: '1px solid #0DBE7CEB',
+        border: '1px solid var(--primary)',
       }
     },
   });

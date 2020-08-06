@@ -6,6 +6,7 @@ import { Errors } from '../../trip/results/ResultsInterfaces';
 import './Modals.css';
 import SearchErrorModal from './SearchErrorModal';
 import PricingErrorModal from './PricingErrorModal';
+import BookingErrorModal from './BookingErrorModal';
 import QueueingErrorModal from './QueueingErrorModal';
 import CancellingErrorModal from './CancellingErrorModal';
 import { setErrorDetails } from '../../actions/ResultsActions';
@@ -35,6 +36,7 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
   const errorModalMap = new Map ()
     .set('search', <SearchErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('pricing', <PricingErrorModal setErrorDetails={props.setErrorDetails}/>)
+    .set('booking', <BookingErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('queueing', <QueueingErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('cancelling', <CancellingErrorModal setErrorDetails={props.setErrorDetails}/>);
 

@@ -14,8 +14,7 @@ import {
   updateItineraryFilter,
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
-import { Filters, Results, Segment } from "../ResultsInterfaces";
-import { sortBySortOrder } from "../../../helpers/SortHelper";
+import {Filters, Results, Segment} from "../ResultsInterfaces";
 import {Alert} from "@material-ui/lab";
 
 
@@ -83,34 +82,32 @@ const BaggageFilter = (props: BaggageFilterProps) => {
 
   const classes = useStyles();
   const filters: Filters | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
+  const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
   const updateBaggageFilter = (value: number) => {
     handleClose();
-    const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
     if (filters && filterLevel) {
-      if (value > 0) {
-        if (filters.baggage) {
-          if (filters.baggage < 3) {
-            filterLevel('baggage', filters.baggage + 1, props.segmentIndex);
-          } else {
-            return;
-          }
-        } else {
-          filterLevel('baggage', 1, props.segmentIndex);
-        }
-      } else {
-        if (filters.baggage) {
-          if (filters.baggage === 0) {
-            return;
-          } else {
-            filterLevel('baggage', filters.baggage - 1, props.segmentIndex);
-          }
-        } else {
-          return;
-        }
-      }
+      value > 0 ? increase_filter(filters.baggage) : decrease_filter(filters.baggage);
     }
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(value) : '';
+  };
+
+  const increase_filter = (current_number: number) => {
+    let filter_reached_limit = current_number && current_number >= 3;
+    if (filter_reached_limit) {
+      return;
+    } else {
+      const filterValue: number = current_number ? current_number + 1 : 1;
+      filterLevel!('current_number', filterValue, props.segmentIndex);
+    }
+  };
+
+  const decrease_filter = (current_number: number) => {
+    if (current_number && current_number > 0) {
+      filterLevel!('current_number', current_number - 1, props.segmentIndex);
+    } else {
+      return;
+    }
   };
 
   const resetActives = (value: number) => {

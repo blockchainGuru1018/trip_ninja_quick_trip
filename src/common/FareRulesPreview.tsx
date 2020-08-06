@@ -8,13 +8,15 @@ import LanguageIcon from '@material-ui/icons/Language';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import ClassIcon from '@material-ui/icons/Class';
-import { Segment, FlightResultsDetails, FlightResult } from './ResultsInterfaces';
-import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { firstLetterCapital } from '../../helpers/MiscHelpers';
-import { baggageLabel } from '../../helpers/BaggageHelper';
+import { Segment, FlightResultsDetails, FlightResult } from '../trip/results/ResultsInterfaces';
+import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import { firstLetterCapital } from '../helpers/MiscHelpers';
+import { baggageLabel } from '../helpers/BaggageHelper';
+import { BookingSegment } from '../bookings/BookingsInterfaces';
 
 interface FareRulesProps {
-  segment: Segment;
+  segment?: Segment;
+  bookingSegment?: BookingSegment
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   itineraryDisplay?: boolean;
@@ -46,7 +48,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
             <p className="text-center text-small">
               {
                 'Selected Fare Family: ' +
-                (this.props.segment.brands
+                (this.props.segment!.brands
                   ? firstLetterCapital(this.getBrand().name)
                   : 'Default')
               }
@@ -68,7 +70,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ConfirmationNumberOutlinedIcon color="primary"/>
-                <span className="icon-label">{this.props.segment.fare_type}</span>
+                <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: '-'}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <WifiIcon color={this.setIconColor(this.state.wifi)}/>
@@ -90,11 +92,11 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <LanguageIcon color="primary"/>
-                <span className="icon-label">{firstLetterCapital(this.props.segment.source)}</span>
+                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ClassIcon color="primary"/>
-                <span className="icon-label">{this.getFlightsBookingCodeString()}</span>
+                <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
               </div>
             </div>
           </div>
@@ -111,8 +113,8 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   getBrand = () => {
-    const brands = this.props.segment.brands;
-    const brandSegment: any = Object.values(brands!)[0][0];
+    const brands = this.props.segment!.brands;
+    const brandSegment: any = brands ? Object.values(brands)[0][0] : '';
     const fareInfo: any = Object.values(brandSegment.fare_info)[0];
     return fareInfo.brand;
   }
@@ -120,26 +122,40 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   setIconColor = (propType: any) => propType ? "primary" : "disabled"
 
   getFlightsBookingCodeString = () =>
-    this.props.segment.flights.reduce((total: string, flight: FlightResult, index: number) => {
-      total += flight.booking_code
-      return index !== this.props.segment.flights.length - 1
-          ? total += ', '
-          : total += ' Class'
+    this.props.segment!.flights.reduce((total: string, flight: FlightResult, index: number) => {
+      total += flight.booking_code;
+      return index !== this.props.segment!.flights.length - 1
+        ? total += ', '
+        : total += ' Class';
     }, '');
 
+  setNumBaggage = () => {
+    if (this.props.bookingSegment) { 
+      return this.props.bookingSegment.baggage.applicable_bags;
+    } else {
+      return this.props.segment!.baggage.number_of_pieces;
+    }
+  }
+
+  setBrandServices = () => {
+    return this.props.segment ? this.getBrand().brand_services : this.props.bookingSegment!.brands[0].brand_services;
+  }
+
   setBaseFareRulesDetails = () => {
-    const segment = this.props.segment;
+    const segment = this.props.segment ? this.props.segment! : this.props.bookingSegment!;
     const additionalDetails = segment.additional_details;
-    const numBaggage: number = segment.baggage.number_of_pieces;
+    const brands = segment.brands;
+    let wifi: boolean = false;
+    let seatAssignment: string | undefined = undefined;
+    let carryOn: number = -1;
+    const numBaggage: any = this.setNumBaggage(); 
+    
     const changePenalty = additionalDetails.change_penalty.amount
       ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
       : additionalDetails.change_penalty.percentage
         ? additionalDetails.change_penalty.percentage + " %"
         : undefined;
-    const brands = segment.brands;
-    let wifi: boolean = false;
-    let seatAssignment: string | undefined = undefined;
-    let carryOn: number = -1;
+    
     const cancelPenalty = additionalDetails.cancel_penalty
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
@@ -148,7 +164,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           : undefined
       : undefined;
     if (brands) {
-      const brandServices: any = this.getBrand().brand_services;
+      const brandServices: any = this.setBrandServices();
       wifi = brandServices.wifi || false;
       seatAssignment = brandServices.seat_assignment
         ? brandServices.seat_assignment === '$'

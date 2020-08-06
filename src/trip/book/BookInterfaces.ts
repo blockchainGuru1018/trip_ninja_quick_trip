@@ -28,7 +28,7 @@ export interface PassengerInfo {
   passport_number?: string;
   passport_expiration?: string;
   passenger_type: string;
-  passenger_type_name: string;
+  passenger_type_name?: string;
   email?: string;
   updated: boolean;
 }

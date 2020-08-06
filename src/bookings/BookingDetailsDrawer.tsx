@@ -83,7 +83,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       role="presentation"
     >
       {props.loading &&
-        <div>
+        <div className="booking-details-loading">
           <h2>Loading Booking Details..</h2>
           <div>
             <CircularProgress />

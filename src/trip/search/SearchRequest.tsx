@@ -33,7 +33,8 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       currency: this.props.searchDetails.currency,
       flights: this.createFlightPayload(),
       travellers: createPassengerPayload(this.props.searchDetails.passengers),
-      route_flexible: this.props.searchDetails.routeFlexible
+      route_flexible: this.props.searchDetails.routeFlexible,
+      max_cache: 24
     };
     let searchResult: any = this.props.searchFlights(searchPayload);
     searchResult.then((result: any) => this.handleSearchResult(result));

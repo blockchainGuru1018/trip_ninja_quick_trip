@@ -81,8 +81,6 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       totalTime = totals[2];
     }
     actives.forEach((segment: Segment, index: number) => updateActiveSegments(clonedResults, index, segment.itinerary_id));
-    // clonedResults = _.cloneDeep(resultsDetails)
-
   });
 }
 

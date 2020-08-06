@@ -15,7 +15,6 @@ import {
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
 import { Filters, Results, Segment } from "../ResultsInterfaces";
-import { sortBySortOrder } from "../../../helpers/SortHelper";
 import {Alert} from "@material-ui/lab";
 
 
@@ -116,14 +115,6 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   const resetActives = (value: number) => {
     setFailedFilter(false);
     props.updateEntireTrip!(true, props.sortBy!);
-  };
-
-  const checkFilterFailed = (baggage: number, segmentOptions: Array<Segment>) => {
-    const failure: boolean = baggage !== 0
-    && segmentOptions.find((segment: Segment) => segment.filtered) === undefined;
-    if (failure) {
-      setFailedFilter(true);
-    }
   };
 
   return (

@@ -8,8 +8,7 @@ import {
   updateSortType
 } from '../../actions/ResultsActions';
 import SortIcon from '@material-ui/icons/Sort';
-import { Segment, Results } from "./ResultsInterfaces";
-import { sortBySortOrder } from "../../helpers/SortHelper";
+import { Results } from "./ResultsInterfaces";
 
 interface SortOptionProps {
   segmentPosition: number

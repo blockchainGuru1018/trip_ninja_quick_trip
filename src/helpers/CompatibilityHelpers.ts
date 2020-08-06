@@ -1,6 +1,5 @@
 import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
-import {sortBySortOrder} from "./SortHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
   resetOldActiveStatus();
@@ -111,8 +110,8 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
-  const sortedSegments: Array<Segment> = segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
-  const bestOneWay: Segment | undefined = sortedSegments.find((segment: Segment) =>
+  segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
+  const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
   );
   if (bestOneWay) {

@@ -171,8 +171,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             </div>
           </StyledMenu>
           {failedFilter
-            ? <Alert severity='error'>No flights</Alert>
-            : ''
+            && <Alert severity='error'>No flights</Alert>
           }
         </div>
         : ''}

@@ -41,27 +41,32 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     });
 
   setSegmentsHTML = () => {
-    const sortedSegments = this.props.sortOrder
-      ? sortBySortOrder(this.props.segments, this.props.sortOrder)
-      : this.props.segments;
-    return sortedSegments.map((segment: Segment, index: number) => {
+    const shownSegments: Array<Segment> = this.props.sortOrder
+      ? sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
+      : this.props.segments
+    return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
-        <SegmentPreview
-          segment={segment}
-          segments={sortedSegments}
-          index={index}
-          key={index}
-          segmentFlightDetails={segmentFlightDetails}
-          segmentSelect={this.props.segmentSelect}
-          activeSegment={this.props.activeSegment}
-          currency={this.props.currency}
-          segmentOptionsIndex={this.props.segmentOptionsIndex}
-          updateActives={this.props.updateActives}
-          updateFareFamily={this.props.updateFareFamily}
-          pathSequence={this.props.pathSequence}
-          totalPrice={this.props.totalPrice}
-        />
+        <div>
+          {!segment.filtered || segment.status === 'active'
+            ? <SegmentPreview
+              segment={segment}
+              segments={this.props.segments}
+              index={index}
+              key={index}
+              segmentFlightDetails={segmentFlightDetails}
+              segmentSelect={this.props.segmentSelect}
+              activeSegment={this.props.activeSegment}
+              currency={this.props.currency}
+              segmentOptionsIndex={this.props.segmentOptionsIndex}
+              updateActives={this.props.updateActives}
+              updateFareFamily={this.props.updateFareFamily}
+              pathSequence={this.props.pathSequence}
+              totalPrice={this.props.totalPrice}
+            />
+            : ''
+          }
+        </div>
       );
     });
   }

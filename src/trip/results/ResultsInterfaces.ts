@@ -6,7 +6,18 @@ export interface ResultsDetails {
   tripType: string;
   activeSegments: ActiveSegmentsMap
   segmentPositionMap: SegmentPositionMap;
-  defaultSortBy: string;
+  itinerarySortBy: string;
+  segmentSortBy: Array<string>;
+  segmentFilters?: Array<Filters>
+  itineraryFilters?: Filters
+}
+
+export interface Filters {
+  baggage: number
+}
+
+export const defaultFilters: Filters = {
+  baggage: 0
 }
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
@@ -62,7 +73,8 @@ export const defaultResultsDetails: ResultsDetails = {
   },
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
-  defaultSortBy: 'best',
+  itinerarySortBy: 'best',
+  segmentSortBy: []
 };
 
 export interface Errors {
@@ -117,6 +129,8 @@ export interface Segment {
   fare_info?: FareInfo;
   relativePrice?: number;
   relativeWeight?: number;
+  relativeTime?: number;
+  filtered?: boolean
 }
 
 export interface FareInfo {
@@ -128,7 +142,7 @@ export interface FareInfo {
 }
 
 export interface Baggage {
-  number_of_pieces: number;
+  number_of_pieces: any;
 }
 
 export interface AdditionalDetails {

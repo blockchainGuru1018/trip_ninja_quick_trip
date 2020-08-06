@@ -4,17 +4,13 @@ export const sortBySortOrder = (segments: Array<Segment>, sortOrder: string) => 
   return segments.sort((a: Segment, b: Segment) => {
     switch (sortOrder) {
       case 'best':
-        return a.relativeWeight && b.relativeWeight
-          ? a.relativeWeight - b.relativeWeight
-          : a.weight - b.weight;
+        return a.relativeWeight! - b.relativeWeight!
       case 'cheapest':
-        return a.relativePrice && b.relativePrice
-          ? a.relativePrice - b.relativePrice
-          : a.price - b.price;
+        return a.relativePrice! - b.relativePrice!
       case 'fastest':
-        return a.segment_time_w_connections - b.segment_time_w_connections;
+        return a.relativeTime! - b.relativeTime!;
       default:
-        return -1;
+        return 1;
     }
   });
 }

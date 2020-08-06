@@ -1,0 +1,18 @@
+
+.filter-title {
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.checked-bag-hr {
+    width: 90%;
+    margin: 5px auto;
+}
+
+.checked-bag-filter-selection-container {
+    min-width: 300px;
+}
+
+.baggage-filter-btn-container {
+    max-width: 200px
+}

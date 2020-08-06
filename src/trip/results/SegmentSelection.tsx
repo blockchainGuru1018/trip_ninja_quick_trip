@@ -7,7 +7,7 @@ import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
-import {setSegmentPositionMapValue, updateSortType} from "../../actions/ResultsActions";
+import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
@@ -24,7 +24,6 @@ interface MatchProps extends RouteComponentProps<MatchParams> {
 interface SegmentSelectionProps {
   resultsDetails: ResultsDetails
   currency: string;
-  setSegmentValue: typeof setSegmentPositionMapValue;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   updateSegmentFilter: typeof updateSegmentFilter;

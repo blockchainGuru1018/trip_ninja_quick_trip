@@ -16,8 +16,8 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
   searchFlights } from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
 import {
-  setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter,
-  setSegmentPositionMapValue, updateSegmentFilter, updateSortType, updateEntireTrip
+  setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
+  updateSortType, updateEntireTrip
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -57,7 +57,6 @@ interface IAppProps {
   setTripType: typeof setTripType;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
-  setSegmentPositionMapValue: typeof setSegmentPositionMapValue;
   updatePassengerInfo: typeof updatePassengerInfo;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
@@ -150,7 +149,6 @@ class App extends React.Component<IAppProps> {
                     priceFlights={this.props.priceFlights}
                     passengers={this.props.searchDetails.passengers}
                     authDetails={this.props.authDetails}
-                    setSegmentPositionMapValue={this.props.setSegmentPositionMapValue}
                     updateItineraryFilter={this.props.updateItineraryFilter}
                     itineraryFilters={this.props.resultsDetails.itineraryFilters}
                     updateActives={this.props.updateActives}
@@ -163,7 +161,6 @@ class App extends React.Component<IAppProps> {
                     {...routeProps}
                     resultsDetails={this.props.resultsDetails}
                     currency={this.props.searchDetails.currency}
-                    setSegmentValue={this.props.setSegmentPositionMapValue}
                     updateActives={this.props.updateActives}
                     updateFareFamily={this.props.updateFareFamily}
                     updateSegmentFilter={this.props.updateSegmentFilter}

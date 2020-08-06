@@ -9,7 +9,7 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { ResultsDetails, Results, Segment , SegmentPositionMap, Filters } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import {updateActives, setSegmentPositionMapValue, updateItineraryFilter, updateSortType, updateEntireTrip}
+import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
   from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
@@ -21,7 +21,6 @@ interface ItineraryResultsProps {
   currency: string;
   priceFlights: typeof priceFlights;
   passengers: Array<Passenger>;
-  setSegmentPositionMapValue:  typeof setSegmentPositionMapValue;
   authDetails: AuthDetails;
   updateItineraryFilter: typeof updateItineraryFilter;
   itineraryFilters: Filters | undefined

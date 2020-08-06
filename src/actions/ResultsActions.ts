@@ -57,15 +57,6 @@ export function updateFareFamily(segment: Segment, brand: BrandInfo, index: numb
   };
 }
 
-export function setSegmentPositionMapValue(segmentPosition: number, valueType: string, value: any) {
-  return {
-    type: 'SET_VALUE_FOR_SEGMENT_POSITION_MAP',
-    segmentPosition,
-    valueType,
-    value
-  };
-}
-
 export function updateItineraryFilter(filterKey: string, filterValue: any, segmentIndex: number) {
   return {
     type: 'UPDATE_ITINERARY_FILTER',

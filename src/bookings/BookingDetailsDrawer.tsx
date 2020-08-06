@@ -15,6 +15,8 @@ import { Booking, PnrInfo } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
+import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -35,6 +37,9 @@ type Anchor = 'top' | 'left' | 'bottom' | 'right';
 interface BookingsDetailsDrawerProps {
   booking: Booking;
   getBookingDetails: typeof getBookingDetails;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
+  authDetails: AuthDetails;
   loading: boolean;
 }
 
@@ -99,8 +104,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <div className="booking-details-section">
             <ManageBooking
               status={props.booking.status} 
-            />   
-          </div>
+              trip_id={props.booking.trip_id}
+              cancelBooking={props.cancelBooking}
+              queueBooking={props.queueBooking}
+              authDetails={props.authDetails}
+              booking={props.booking}
+            />
+          </div> 
           <Divider />
           <div className="booking-details-section">
             <h5 className="section-header">Jump To</h5>

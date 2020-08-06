@@ -13,7 +13,10 @@ import Moment from 'react-moment';
 import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
+import BookingDetailsDrawer from './BookingDetailsDrawer';
+import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
+import { AuthDetails } from '../auth/AuthInterfaces';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -34,6 +37,11 @@ const DetailsLinkCell = styled(TableCell)({
 
 interface BookingsTableProps {
   bookings: Array<Booking>
+  getBookingDetails: typeof getBookingDetails;
+  cancelBooking: typeof cancelBooking;
+  queueBooking: typeof queueBooking;
+  authDetails: AuthDetails;
+  loading: boolean;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -109,8 +117,15 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       .map((booking: Booking, index: number) => {
         return (
           <TableRow key={index.toString()}>
-            <DetailsLinkCell align="left" onClick={() => {}}>
-              {booking.ur_locator_code}
+            <DetailsLinkCell align="left">
+              <BookingDetailsDrawer 
+                booking={booking}
+                getBookingDetails={this.props.getBookingDetails}
+                cancelBooking={this.props.cancelBooking}
+                queueBooking={this.props.queueBooking}
+                authDetails={this.props.authDetails}
+                loading={this.props.loading}
+              />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">

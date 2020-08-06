@@ -140,3 +140,7 @@ h5 {
 .icon-label {
   margin-left: 10px;
 }
+
+.no-pad-left {
+  padding-left: 0px;
+}

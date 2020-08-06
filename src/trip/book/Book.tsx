@@ -1,7 +1,7 @@
 import React from 'react';
 import './Book.css';
 import Itinerary from './Itinerary';
-import FareBreakdown from './FareBreakdown';
+import FareBreakdown from '../../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
 import BookRequest from './BookRequest';
 import Button from '@material-ui/core/Button';
@@ -72,7 +72,11 @@ class Book extends React.Component<BookProps> {
               />
             </div>
             <div className="col-sm-5">
-              <FareBreakdown pricingDetails={this.props.pricingDetails}/>
+              <FareBreakdown 
+                pricing={this.props.pricingDetails!.pricing!}
+                pricingDisplay={true}
+                currency={this.props.pricingDetails.currency}
+              />
               <PassengerDetails
                 passengers={this.props.passengers}
                 bookingDetails={this.props.bookingDetails}

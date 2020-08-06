@@ -15,9 +15,9 @@ function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPo
   const targetActives: Array<Segment> = [...clonedResults.activeSegments.values()];
   const targetTotalPrice: number = getTotal(targetActives, 'price');
   const targetTotalWeight: number = getTotal(targetActives, 'weight');
-  const targetTotalTime: number = targetActives.reduce((total: number, segment: Segment) => total += segment.segment_time_w_connections, 0);
+  const targetTotalTime: number = targetActives.reduce((total: number, targetActiveSegment: Segment) => total += targetActiveSegment.segment_time_w_connections, 0);
   const targetItineraryIdList = getActivesItineraryIds(targetActives);
-  const viable: boolean = targetActives.every((segment: Segment) => !segment.filtered);
+  const viable: boolean = targetActives.every((viableSegment: Segment) => !viableSegment.filtered);
   return {
     "totalPrice": targetTotalPrice,
     "totalWeight": targetTotalWeight,
@@ -100,8 +100,8 @@ const setTotals = (activeSegments: any) => {
 function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    const sortedSegment = segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
-    const segmentToChange = sortedSegment.find((segment: Segment) => !segment.filtered);
+    segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
+    const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
     updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
   });
 }

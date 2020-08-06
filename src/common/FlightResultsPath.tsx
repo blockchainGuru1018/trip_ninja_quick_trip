@@ -1,15 +1,15 @@
 import React from 'react';
-import { FlightResultsDetails } from './ResultsInterfaces';
+import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import FlightTakeoff from '@material-ui/icons/FlightTakeoff';
 import FlightLand from '@material-ui/icons/FlightLand';
 import Moment from 'react-moment';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { numberOfNightsDifference, getTimeDifference } from '../../helpers/DateHelpers';
+import { numberOfNightsDifference, getTimeDifference } from '../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import { cityName } from '../../helpers/CityNameHelper';
+import { cityName } from '../helpers/CityNameHelper';
 import './FlightResultsPath.css';
 
 interface FlightResultsPathProps {

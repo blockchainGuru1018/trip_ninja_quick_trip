@@ -6,7 +6,7 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment , SegmentPositionMap, Filters } from './ResultsInterfaces';
+import { ResultsDetails, Results, Segment , Filters } from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
@@ -38,7 +38,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
 
     const totalPrice: number = getTotal(selectedTrip, 'price');
-    const totalWeight: number = getTotal(selectedTrip, 'weight')
 
     const selectedSegments =
       <div className="row">

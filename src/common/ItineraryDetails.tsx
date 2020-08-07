@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
@@ -57,11 +57,8 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
         bookingDrawer={true}
       />);
     });
-    setState({
-      ...state,
-      flightResultsPathComponents: flightResultsPathComponents,
-      fareRulesPreviewComponents: fareRulesPreviewComponents}
-    );
+    return {flightResultsPathComponents: flightResultsPathComponents,
+      fareRulesPreviewComponents: fareRulesPreviewComponents};
   };
 
   const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
@@ -83,11 +80,8 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
         />);
       });
     });
-    setState({
-      ...state,
-      flightResultsPathComponents: flightResultsPathComponents,
-      fareRulesPreviewComponents: fareRulesPreviewComponents}
-    );
+    return {flightResultsPathComponents: flightResultsPathComponents,
+      fareRulesPreviewComponents: fareRulesPreviewComponents};
   };
 
   const getSegmentDateString = (index: number) => {
@@ -114,11 +108,11 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     flight.reference === ref
   );
 
-  useEffect(()=>{
-    props.selectedTrip 
-      ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
-      : setBookingFlightComponents(props.bookedTrip!, props.currency);
-  }, []);
+  useEffect(() => setState(props.selectedTrip 
+    ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
+    : setBookingFlightComponents(props.bookedTrip!, props.currency)), 
+  [props.selectedTrip, props.trip, props.currency, props.bookedTrip]);
+
 
   return (
     <div className={props.pricingDisplay ? 'flight-details-drawer' : ''}>

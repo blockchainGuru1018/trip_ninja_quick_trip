@@ -53,7 +53,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
         flightDetails={flightDetails}
         currency={currency}
         itineraryDisplay={true}
-        key={index}
+        index={index}
         bookingDrawer={true}
       />);
     });
@@ -75,7 +75,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           flightDetails={segment.flight_details}
           currency={currency}
           itineraryDisplay={true}
-          key={index}
+          index={index}
           bookingDrawer={true}
         />);
       });
@@ -122,7 +122,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           <div className="flight-details">
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
-                <TimelineItem classes={{root: classes.root}}>
+                <TimelineItem classes={{root: classes.root}} key={index.toString()}>
                   <TimelineSeparator>
                     <TimelineDot color="primary"/>
                     {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
@@ -143,7 +143,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           <div className="fare-details">
             {
               state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
-                <div className='fare-rules-preview-container'>
+                <div className='fare-rules-preview-container' key={index.toString()}>
                   {fareRulesPreview}
                   {props.pricingDisplay && getFareRulesBookingDetailsHTML(index)}
                 </div>

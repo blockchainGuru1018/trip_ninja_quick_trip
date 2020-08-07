@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';

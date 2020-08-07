@@ -41,7 +41,7 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
   return API.post(url, bookingPayload)
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         dispatch(setErrorDetails(false, 'booking'));
         dispatch(setBookingResults(response.data));
@@ -49,7 +49,7 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       dispatch(bookingLoading(false));
       dispatch(setErrorDetails(true, 'booking'));
       return {'success': false};

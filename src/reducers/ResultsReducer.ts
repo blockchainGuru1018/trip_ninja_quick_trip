@@ -42,7 +42,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         setFilteredRelatives(state);
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
-      setRelativesAndUpdateActives(state)
+      setRelativesAndUpdateActives(state);
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':

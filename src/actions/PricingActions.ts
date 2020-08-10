@@ -24,14 +24,14 @@ export const priceFlights = (pricingPayload: PricingRequestInterface) => (dispat
   return API.post(url, pricingPayload)
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         dispatch(setErrorDetails(false, 'pricing'));
         dispatch(setPricingResults(response.data));
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       dispatch(pricingLoading(false));
       dispatch(setErrorDetails(true, 'pricing'));
       return {'success': false};

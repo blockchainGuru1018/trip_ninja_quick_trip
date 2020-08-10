@@ -49,7 +49,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
-        <div>
+        <div key={index.toString()}>
           {!segment.filtered || segment.status === 'active'
             ? <SegmentPreview
               segment={segment}

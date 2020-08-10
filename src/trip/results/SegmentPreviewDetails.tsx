@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { priceFlights } from '../../actions/PricingActions';
+import { PricingRequestInterface } from './PricingInterfaces';
+import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 
 
 interface SegmentPreviewDetailsProps {
@@ -95,14 +97,25 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   getTravelportBrands = () => {
+    const pricingPayload: PricingRequestInterface = {
+      trip_id: trip.trip_id,
+      trip_type: "fare_structure",
+      currency: this.props.currency,
+      price: this.props.totalPrice,
+      markup: 0,
+      itineraries: createItinerariesPayload(trip, selectedTrip, authDetails),
+      pseudo_price_confirm: true
+    };
     // create pricing payload
     // send pricing requesdt
-    // parse brands out of response
-    // update
-    //const pricingResult: any = this.props.priceFlights(pricingPayload);
-    //pricingResult.then((result: any) => this.handlePricingResult(result));
+  
+    const pricingResult: any = this.props.priceFlights(pricingPayload);
+    pricingResult.then((result: any) => this.setTravelportBrandedFares(result));
+  }
 
-    
+  setTravelportBrandedFares = (result: any) => {
+    // parse brands out of response
+    // update segment
   }
 }
 

@@ -23,6 +23,7 @@ export interface PricingRequestInterface {
   price: number;
   markup: number;
   itineraries: Array<PricingRequestItinerary>
+  pseudo_price_confirm?: boolean
 }
 
 export const defaultPricing: Pricing = {

@@ -6,6 +6,7 @@ import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import moment from 'moment';
+import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 
 interface PricingRequestProps{
   resultsDetails: ResultsDetails,
@@ -25,11 +26,11 @@ class PricingRequest extends React.Component<PricingRequestProps>{
 
     const pricingPayload: PricingRequestInterface = {
       trip_id: trip.trip_id,
-      trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip" ,
+      trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip",
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: this.createItinerariesPayload(trip)
+      itineraries: createItinerariesPayload(trip, this.props.selectedTrip, this.props.authDetails)
     };
     const pricingResult: any = this.props.priceFlights(pricingPayload);
     pricingResult.then((result: any) => this.handlePricingResult(result));
@@ -39,74 +40,6 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     result.success
       ? history.push('/book/')
       : history.push('/results/itinerary/');
-
-  createItinerariesPayload = (trip: Results) => {
-    let itinerariesPayload : Array<PricingRequestItinerary> = [];
-    let itinerariesCounter = 1;
-
-    this.props.selectedTrip.forEach((itineraryElement: Segment) => {
-      const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);
-
-      if (itineraryElement.segment_position === itineraryStructure[0]) {
-        itinerariesPayload.push({
-          itinerary_reference: itinerariesCounter,
-          traveller_list: itineraryElement.priced_passengers,
-          plating_carrier: itineraryElement.plating_carrier,
-          credentials: this.createCredentialsPayload(itineraryElement),
-          itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-          segments: this.createSegmentsPayload(trip, itineraryStructure),
-        });
-        itinerariesCounter += 1;
-      }
-    });
-
-    return itinerariesPayload;
-  }
-
-  createSegmentsPayload = (trip: Results, itineraryStructure:Array<any>) => {
-    let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segment_index =>
-      ({
-        segment_id: segment_index,
-        flights: this.createFlightsPayload(trip, segment_index)
-      }));
-    return segmentsPayload;
-  }
-
-  createFlightsPayload = (trip: Results, segment_index: any) => {
-    let flightsPayload : Array<Flight> = [];
-    this.props.selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
-      const flightDetail = trip.flight_details.find(flight => flight.reference === flightResult.flight_detail_ref);
-      if (flightDetail) {
-        flightsPayload.push({
-          key: flightResult.flight_detail_ref,
-          origin: flightDetail.origin,
-          origin_name: flightDetail.origin_name,
-          destination: flightDetail.destination,
-          destination_name: flightDetail.destination_name,
-          booking_code: flightResult.booking_code,
-          cabin_class: flightResult.cabin_class,
-          carrier: flightDetail.carrier,
-          flight_time: flightDetail.flight_time,
-          flight_number: flightDetail.flight_number,
-          departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ssZ'),
-          arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ssZ'),
-          brand_identifier: "",
-        });
-      }
-    });
-
-    return flightsPayload;
-  }
-
-  createCredentialsPayload = (itineraryElement: any) => {
-    const authDetails: AuthDetails = this.props.authDetails;
-    const credentialsPayload: Credentials = {
-      data_source: itineraryElement.source,
-      provider: authDetails.provider,
-      pcc: authDetails.pcc
-    };
-    return credentialsPayload;
-  }
 
   render() {
     return (

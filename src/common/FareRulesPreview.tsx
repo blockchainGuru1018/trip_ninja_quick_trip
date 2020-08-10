@@ -20,7 +20,7 @@ interface FareRulesProps {
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   itineraryDisplay?: boolean;
-  key?: number;
+  index?: number;
   bookingDrawer?: boolean;
 }
 
@@ -41,7 +41,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   render() {
     return(
-      <div key={this.props.key}>
+      <div key={this.props.index?.toString()}>
         {!this.props.itineraryDisplay && 
           <div>
             <p className="text-center text-bold">Fare Rules</p>

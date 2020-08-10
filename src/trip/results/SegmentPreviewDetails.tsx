@@ -1,14 +1,15 @@
 import React from 'react';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, Results } from './ResultsInterfaces';
 import FareRulesPreview from '../../common/FareRulesPreview';
 import FlightResultsPath from '../../common/FlightResultsPath';
 import FareSelect from './FareSelect';
 import Button from '@material-ui/core/Button';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, setBrandedFaresInfo } from '../../actions/ResultsActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { priceFlights } from '../../actions/PricingActions';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 
 interface SegmentPreviewDetailsProps {
@@ -18,11 +19,14 @@ interface SegmentPreviewDetailsProps {
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
+  setBrandedFaresInfo?: typeof setBrandedFaresInfo;
   segmentOptionsIndex?: number;
   closeAllDropDowns?: () => void;
   totalPrice: number;
   priceFlights: typeof priceFlights;
   activeSegment?: Segment;
+  authDetails: AuthDetails;
+  trip: Results;
 }
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
@@ -32,8 +36,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   componentDidMount() {
-    console.log("mounting");
-    if (this.props.segment.source === 'travelport') {
+    if (this.props.segment.source === 'travelport' && !this.props.segment.brands) {
       this.setState({loadingBrands: true});
       this.getTravelportBrands();
     }
@@ -97,25 +100,23 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   getTravelportBrands = () => {
+    console.log(this.props.segment);
     const pricingPayload: PricingRequestInterface = {
-      trip_id: trip.trip_id,
+      trip_id: this.props.trip.trip_id,
       trip_type: "fare_structure",
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(trip, selectedTrip, authDetails),
+      itineraries: createItinerariesPayload(this.props.trip.flight_details, [this.props.segment], this.props.authDetails),
       pseudo_price_confirm: true
     };
-    // create pricing payload
-    // send pricing requesdt
-  
-    const pricingResult: any = this.props.priceFlights(pricingPayload);
+    const pricingResult: any = this.props.priceFlights(pricingPayload, true);
     pricingResult.then((result: any) => this.setTravelportBrandedFares(result));
   }
 
   setTravelportBrandedFares = (result: any) => {
-    // parse brands out of response
-    // update segment
+    this.setState({loadingBrands: false});
+    this.props.setBrandedFaresInfo!(this.props.segment, result.data.brands);
   }
 }
 

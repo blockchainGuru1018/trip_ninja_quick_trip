@@ -1,23 +1,11 @@
 
 import { AuthDetails } from '../auth/AuthInterfaces';
-import { ResultsDetails, Results, Segment, FlightResult} from '../trip/results/ResultsInterfaces';
-import { PricingRequestItinerary, FlightSegment, Flight, Credentials, PricingRequestInterface } from '../trip/results/PricingInterfaces';
+import { Results, Segment, FlightResult, FlightResultsDetails} from '../trip/results/ResultsInterfaces';
+import { PricingRequestItinerary, FlightSegment, Flight, Credentials } from '../trip/results/PricingInterfaces';
 import moment from 'moment';
 
 
-//export const createPricingPayload = (brandedFaresRequest: boolean) => {
-//  pricingPayload: PricingRequestInterface = {
-//    trip_id: trip.trip_id,
-//    trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip" ,
-//    currency: this.props.currency,
-//    price: this.props.totalPrice,
-//    markup: 0,
-//    itineraries: createItinerariesPayload(trip),
-//    pseudo_price_confirm: brandedFaresRequest
-//  };
-//};
-
-export const createItinerariesPayload = (trip: Results, selectedTrip: Array<Segment>, authDetails: AuthDetails) => {
+export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, authDetails: AuthDetails) => {
   let itinerariesPayload : Array<PricingRequestItinerary> = [];
   let itinerariesCounter = 1;
 
@@ -31,7 +19,7 @@ export const createItinerariesPayload = (trip: Results, selectedTrip: Array<Segm
         plating_carrier: itineraryElement.plating_carrier,
         credentials: createCredentialsPayload(itineraryElement.source, authDetails),
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-        segments: createSegmentsPayload(trip, selectedTrip, itineraryStructure),
+        segments: createSegmentsPayload(flightDetails, selectedTrip, itineraryStructure),
       });
       itinerariesCounter += 1;
     }
@@ -40,19 +28,19 @@ export const createItinerariesPayload = (trip: Results, selectedTrip: Array<Segm
   return itinerariesPayload;
 };
 
-const createSegmentsPayload = (trip: Results, selectedTrip: Array<Segment>, itineraryStructure:Array<any>) => {
+const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, itineraryStructure:Array<any>) => {
   let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segment_index =>
     ({
       segment_id: segment_index,
-      flights: createFlightsPayload(trip, selectedTrip, segment_index)
+      flights: createFlightsPayload(flightDetails, selectedTrip, segment_index)
     }));
   return segmentsPayload;
 };
 
-const createFlightsPayload = (trip: Results, selectedTrip: Array<Segment>, segment_index: any) => {
+const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, segment_index: any) => {
   let flightsPayload : Array<Flight> = [];
   selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
-    const flightDetail = trip.flight_details.find(flight => flight.reference === flightResult.flight_detail_ref);
+    const flightDetail = flightDetails.find(flight => flight.reference === flightResult.flight_detail_ref);
     if (flightDetail) {
       flightsPayload.push({
         key: flightResult.flight_detail_ref,

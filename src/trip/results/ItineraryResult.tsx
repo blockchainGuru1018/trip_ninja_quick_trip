@@ -49,6 +49,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             currency={this.props.currency}
             segmentSelect={false}
             priceFlights={this.props.priceFlights}
+            authDetails={this.props.authDetails}
+            trip={trip}
           />
         </div>
       </div>;

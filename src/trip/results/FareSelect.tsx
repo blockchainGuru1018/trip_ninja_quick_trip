@@ -170,8 +170,8 @@ class FareSelect extends React.Component<FareSelectProps> {
   priceRow = (brandsList: Array<BrandInfo>) => {
     let activeBrandIndex = this.props.segment.selected_brand_index ? this.props.segment.selected_brand_index : 0;
     return brandsList.map((brand: BrandInfo, index: number) => {
-      const relativePrice = this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price))
-      const relativePriceNum = Number(relativePrice.substr(3,))
+      const relativePrice = this.calculateRelativePrice(brand.price, Number(brandsList[activeBrandIndex].price));
+      const relativePriceNum = Number(relativePrice.substr(3,));
       return (
         <FareTableCell key={index} align="center">
           <p className="text-bold text-center">
@@ -180,11 +180,11 @@ class FareSelect extends React.Component<FareSelectProps> {
           <p className="text-small text-center">
             Total: {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
               ? Math.round(this.props.totalPrice + relativePriceNum)
-            : Math.round(this.props.totalPrice - relativePriceNum)}
+              : Math.round(this.props.totalPrice - relativePriceNum)}
           </p>
         </FareTableCell>
       );
-    })
+    });
   }
 
   fareSelectionButtonRow = (brandsList: Array<BrandInfo>) =>
@@ -213,10 +213,10 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 
   calculateRelativePrice = (currentPrice: number, lowestPrice: number) => {
-    const relativePrice = this.props.activeSegment ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice! : 0
-    const brandPrice = currentPrice - lowestPrice
-    const combinedPrice = relativePrice + brandPrice
-    const absCombinedPrice = Math.abs(Math.round(combinedPrice))
+    const relativePrice = this.props.activeSegment ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice! : 0;
+    const brandPrice = currentPrice - lowestPrice;
+    const combinedPrice = relativePrice + brandPrice;
+    const absCombinedPrice = Math.abs(Math.round(combinedPrice));
     return (combinedPrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + absCombinedPrice;
   }
 

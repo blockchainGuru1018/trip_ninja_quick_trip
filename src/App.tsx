@@ -17,7 +17,7 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
 import { priceFlights } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip
+  updateSortType, updateEntireTrip, setBrandedFaresInfo
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -68,6 +68,7 @@ interface IAppProps {
   updateEntireTrip: typeof updateEntireTrip;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  setBrandedFaresInfo: typeof setBrandedFaresInfo;
 }
 
 const theme = Theme;
@@ -168,6 +169,8 @@ class App extends React.Component<IAppProps> {
                     priceFlights={this.props.priceFlights}
                     updateSegmentFilter={this.props.updateSegmentFilter}
                     updateSortType={this.props.updateSortType}
+                    authDetails={this.props.authDetails}
+                    setBrandedFaresInfo={this.props.setBrandedFaresInfo}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, Results } from './ResultsInterfaces';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
@@ -11,11 +11,12 @@ import FlightTypes from '../../common/FlightTypes';
 import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, setBrandedFaresInfo } from '../../actions/ResultsActions';
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { priceFlights } from '../../actions/PricingActions';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewProps {
   index: number;
@@ -29,8 +30,11 @@ interface SegmentPreviewProps {
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
   priceFlights: typeof priceFlights;
+  setBrandedFaresInfo?: typeof setBrandedFaresInfo;
   pathSequence?: Array<string>;
   totalPrice: number;
+  authDetails: AuthDetails;
+  trip: Results;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -97,6 +101,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 totalPrice={this.props.totalPrice}
                 priceFlights={this.props.priceFlights}
                 activeSegment={this.props.activeSegment}
+                authDetails={this.props.authDetails}
+                setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+                trip={this.props.trip}
               />
               }
             </div>

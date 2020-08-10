@@ -13,7 +13,7 @@ function pricingReducer(state: PricingDetails = {} as any, action: any) {
       return {
         ...action.data,
         loading: false
-      }
+      };
     default:
       return state;
   }

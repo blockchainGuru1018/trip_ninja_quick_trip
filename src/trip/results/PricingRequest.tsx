@@ -1,11 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { ResultsDetails, Results, Segment, FlightResult} from './ResultsInterfaces';
-import { PricingRequestItinerary, FlightSegment, Flight, Credentials, PricingRequestInterface } from './PricingInterfaces';
+import { ResultsDetails, Segment } from './ResultsInterfaces';
+import { PricingRequestInterface } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { AuthDetails } from '../../auth/AuthInterfaces';
-import moment from 'moment';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 
 interface PricingRequestProps{
@@ -30,9 +29,9 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(trip, this.props.selectedTrip, this.props.authDetails)
+      itineraries: createItinerariesPayload(trip.flight_details, this.props.selectedTrip, this.props.authDetails)
     };
-    const pricingResult: any = this.props.priceFlights(pricingPayload);
+    const pricingResult: any = this.props.priceFlights(pricingPayload, false);
     pricingResult.then((result: any) => this.handlePricingResult(result));
   }
 

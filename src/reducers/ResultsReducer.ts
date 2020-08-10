@@ -48,6 +48,9 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
 
+    case 'SET_BRANDED_FARES_INFO':
+      return setSegmentBrandInfo(state, action);
+
     case 'UPDATE_ITINERARY_FILTER':
       return updateFilterReturnValue(state, action);
 
@@ -99,6 +102,23 @@ function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: nu
     flight.cabin_class = brand.fare_info[index].cabin_class;
     flight.fare_basis_code = brand.fare_info[index].fare_basis;
   });
+}
+
+function setSegmentBrandInfo(state: ResultsDetails, action: any) {
+  const selectedSegment: Segment = action.segment;
+  const brands: Array<BrandInfo> = action.brands;
+  selectedSegment.brands = brands;
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+    const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
+    relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
+      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
+        segment.itinerary_id === selectedSegment.itinerary_id
+      );
+      linkedSegment && (linkedSegment.brands = brands);
+    });
+  }
+  return {...state};
 }
 
 function setDefaultSegmentFilters(fareStructureResults: Results) {

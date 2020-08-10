@@ -82,3 +82,11 @@ export function updateSortType(segmentIndex: number, sortBy: string) {
     sortBy
   };
 }
+
+export function setBrandedFaresInfo(segment: Segment, brands: Array<BrandInfo>) {
+  return {
+    type: 'SET_BRANDED_FARES_INFO',
+    segment,
+    brands
+  };
+}

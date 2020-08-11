@@ -119,6 +119,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     return fareInfo.brand;
   }
 
+  getBookingSegmentBrandServices = () => {
+    return this.props.bookingSegment!.brands[0] ? this.props.bookingSegment!.brands[0].brand_services : '';
+  }
+
   setIconColor = (propType: any) => propType ? "primary" : "disabled"
 
   getFlightsBookingCodeString = () =>
@@ -138,7 +142,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   setBrandServices = () => {
-    return this.props.segment ? this.getBrand().brand_services : this.props.bookingSegment!.brands[0].brand_services;
+    return this.props.segment ? this.getBrand().brand_services : this.getBookingSegmentBrandServices();
   }
 
   setBaseFareRulesDetails = () => {

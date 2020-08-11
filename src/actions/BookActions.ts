@@ -27,13 +27,6 @@ export function bookingLoading(value: boolean) {
   };
 }
 
-function setBookingResults(data: BookingDetails) {
-  return {
-    type: 'SET_BOOKING_RESULTS',
-    data
-  };
-}
-
 export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) => {
   dispatch(bookingLoading(true));
   const url: string = '/create_pnr/';
@@ -44,7 +37,6 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
         throw Error;
       } else {
         dispatch(setErrorDetails(false, 'booking'));
-        dispatch(setBookingResults(response.data));
         dispatch(bookingLoading(false));
         return {'success': true};
       }

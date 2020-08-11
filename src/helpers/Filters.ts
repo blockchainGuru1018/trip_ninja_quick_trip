@@ -29,6 +29,8 @@ export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   if (filtersKeys.includes('baggage')) {
     baggageFilter(segments, filters.baggage);
   }
+
+
   return segments;
 }
 

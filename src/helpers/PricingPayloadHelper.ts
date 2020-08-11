@@ -8,10 +8,8 @@ import moment from 'moment';
 export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, authDetails: AuthDetails) => {
   let itinerariesPayload : Array<PricingRequestItinerary> = [];
   let itinerariesCounter = 1;
-
   selectedTrip.forEach((itineraryElement: Segment) => {
-    const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);
-
+    const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);  
     if (itineraryElement.segment_position === itineraryStructure[0]) {
       itinerariesPayload.push({
         itinerary_reference: itinerariesCounter,
@@ -29,17 +27,18 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
 };
 
 const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, itineraryStructure:Array<any>) => {
-  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segment_index =>
+  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex =>
     ({
-      segment_id: segment_index,
-      flights: createFlightsPayload(flightDetails, selectedTrip, segment_index)
+      segment_id: segmentIndex,
+      flights: createFlightsPayload(flightDetails, selectedTrip, segmentIndex)
     }));
   return segmentsPayload;
 };
 
-const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, segment_index: any) => {
+const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, segmentIndex: any) => {
   let flightsPayload : Array<Flight> = [];
-  selectedTrip[segment_index].flights.forEach((flightResult: FlightResult) => {
+
+  selectedTrip[segmentIndex].flights.forEach((flightResult: FlightResult) => {
     const flightDetail = flightDetails.find(flight => flight.reference === flightResult.flight_detail_ref);
     if (flightDetail) {
       flightsPayload.push({

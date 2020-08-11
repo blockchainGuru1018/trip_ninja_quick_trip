@@ -99,7 +99,7 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
   };
 
   return (
-    <div>
+    <div className="filter-group">
       {filters
         ? <div className='numberOfStops-filter-btn-container'>
           <Button

@@ -117,7 +117,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   };
 
   return (
-    <div>
+    <div className="filter-group">
       {filters
         ? <div className='baggage-filter-btn-container'>
           <Button

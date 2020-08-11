@@ -19,7 +19,7 @@ function setPricingResults(data: PricingDetails) {
 
 export const priceFlights = (pricingPayload: PricingRequestInterface) => (dispatch: any) => {
   const url: string = '/price/';
-
+  dispatch(pricingLoading(true));
   return API.post(url, pricingPayload)
     .then((response: any) => {
       if (response.data.status) {

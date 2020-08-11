@@ -100,7 +100,6 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   getTravelportBrandedFares = () => {
-    console.log(this.props.segment);
     const pricingPayload: PricingRequestInterface = {
       trip_id: this.props.trip.trip_id,
       trip_type: "fare_structure",

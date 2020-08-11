@@ -46,7 +46,6 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   render() {
     const brandsList =  this.props.brands!;
-    console.log(this.props.brands);
 
     return(
       <div>

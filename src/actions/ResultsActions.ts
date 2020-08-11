@@ -101,7 +101,6 @@ export const getTravelportBrands = (pricingPayload: PricingRequestInterface, seg
         throw Error;
       } else {
         dispatch(setErrorDetails(false, 'pricing'));
-        console.log(response.data);
         dispatch(setBrandedFaresInfo(segment, response.data));
         return {'success': true};
       }

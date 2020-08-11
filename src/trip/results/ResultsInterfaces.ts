@@ -14,10 +14,12 @@ export interface ResultsDetails {
 
 export interface Filters {
   baggage: number
+  numberOfStops: number
 }
 
 export const defaultFilters: Filters = {
-  baggage: 0
+  baggage: 0,
+  numberOfStops: 4
 }
 
 export class ActiveSegmentsMap extends Map<number, Segment>{

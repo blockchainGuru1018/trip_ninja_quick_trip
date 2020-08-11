@@ -12,6 +12,7 @@ import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from "./filters/BaggageFilter";
+import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
 import { filterSegments } from "../../helpers/Filters";
 
 interface MatchParams {
@@ -67,6 +68,15 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           />
           <div className='baggage-filter-container'>
             <BaggageFilter
+              updateSegmentFilter={this.props.updateSegmentFilter}
+              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
+              trip={trip}
+              updateActives={this.props.updateActives}
+              segmentIndex={Number(segmentIndex)}
+            />
+          </div>
+          <div className='number-of-stops-filter-container'>
+            <NumberOfStopsFilter
               updateSegmentFilter={this.props.updateSegmentFilter}
               segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
               trip={trip}

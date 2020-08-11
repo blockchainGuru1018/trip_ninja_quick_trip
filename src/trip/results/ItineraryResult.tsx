@@ -14,6 +14,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from './filters/BaggageFilter';
+import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
 import SortOption from "./SortOption";
 
 interface ItineraryResultsProps {
@@ -82,6 +83,19 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <div className="row">
             <div className='col-md-4'>
               <BaggageFilter
+                sortBy={this.props.resultsDetails.itinerarySortBy}
+                segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                updateItineraryFilter={this.props.updateItineraryFilter}
+                itineraryFilters={this.props.itineraryFilters}
+                trip={trip}
+                updateActives={this.props.updateActives}
+                segmentIndex={-1}
+                activeSegments={this.getActiveSegments(trip)}
+                updateEntireTrip={this.props.updateEntireTrip}
+              />
+            </div>
+            <div className='col-md-4'>
+              <NumberOfStopsFilter
                 sortBy={this.props.resultsDetails.itinerarySortBy}
                 segmentSortBy={this.props.resultsDetails.segmentSortBy}
                 updateItineraryFilter={this.props.updateItineraryFilter}

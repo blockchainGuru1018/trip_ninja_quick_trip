@@ -186,7 +186,10 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
 
   const getPnrList = (pnrList: Array<PnrInfo>) => {
     let pnrString = "";
-    pnrList.forEach((pnr: PnrInfo) => pnrString += pnr.pnr_number);
+    pnrList.forEach((pnr: PnrInfo, index: number) => pnrString += index !== (pnrList.length - 1)
+      ? `${pnr.pnr_number}, `
+      : pnr.pnr_number
+    );
     return pnrString;
   };
 
@@ -194,9 +197,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     <div>
       {(['right'] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Tooltip title={'PNRs: ' + getPnrList(props.booking.pnr_list)} placement="top-start">
-            <NavButton onClick={toggleDrawer(anchor, true)}>{props.booking.ur_locator_code}</NavButton>
-          </Tooltip>          
+          <NavButton onClick={toggleDrawer(anchor, true)}>{getPnrList(props.booking.pnr_list)}</NavButton>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {selected && bookingDetailsComponent(anchor)}
           </Drawer>

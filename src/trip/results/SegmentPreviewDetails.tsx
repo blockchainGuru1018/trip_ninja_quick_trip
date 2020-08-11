@@ -34,7 +34,9 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   componentDidMount() {
-    if (this.props.segment.source === 'travelport' && !this.props.segment.brands) {
+    if (this.props.segment.source === 'travelport'
+      && this.props.segmentSelect 
+      && !this.props.segment.brands) {
       this.setState({loadingBrands: true});
       this.getTravelportBrandedFares();
     }

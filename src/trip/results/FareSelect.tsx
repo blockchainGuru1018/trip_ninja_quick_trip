@@ -46,6 +46,7 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   render() {
     const brandsList =  this.props.brands!;
+    console.log(this.props.brands);
 
     return(
       <div>
@@ -131,7 +132,7 @@ class FareSelect extends React.Component<FareSelectProps> {
     return brandsList.map((brand: BrandInfo, index) => (
       brand.fare_info[0].brand.brand_services.carry_on_hand_baggage
         ? <FareTableCell key={index} align="center">
-          this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage)
+          {this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.carry_on_hand_baggage)}
         </FareTableCell>
         : this.brandNotAvailableCell(index)
     ));
@@ -139,19 +140,25 @@ class FareSelect extends React.Component<FareSelectProps> {
   
   seatSelectionRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
+      brand.fare_info[0].brand.brand_services.seat_assignment
+        ? <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.seat_assignment)}</FareTableCell>
+        : this.brandNotAvailableCell(index)
     ));
   }
   
   changesRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
+      brand.fare_info[0].brand.brand_services.rebooking
+        ? <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.rebooking)}</FareTableCell>
+        : this.brandNotAvailableCell(index)
     ));
   }
 
   refundableRow = (brandsList: Array<BrandInfo>) => {
     return brandsList.map((brand: BrandInfo, index) => (
-      <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
+      brand.fare_info[0].brand.brand_services.refund
+        ? <FareTableCell key={index} align="center">{this.brandedFaresIcon(brand.fare_info[0].brand.brand_services.refund)}</FareTableCell>
+        : this.brandNotAvailableCell(index)
     ));
   }
   

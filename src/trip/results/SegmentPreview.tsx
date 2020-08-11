@@ -11,11 +11,10 @@ import FlightTypes from '../../common/FlightTypes';
 import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { updateActives, updateFareFamily, setBrandedFaresInfo } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { priceFlights } from '../../actions/PricingActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewProps {
@@ -29,8 +28,7 @@ interface SegmentPreviewProps {
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
-  priceFlights: typeof priceFlights;
-  setBrandedFaresInfo?: typeof setBrandedFaresInfo;
+  getTravelportBrands?: typeof getTravelportBrands;
   pathSequence?: Array<string>;
   totalPrice: number;
   authDetails: AuthDetails;
@@ -99,10 +97,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 closeAllDropDowns={this.closeAllDropDowns}
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
-                priceFlights={this.props.priceFlights}
                 activeSegment={this.props.activeSegment}
                 authDetails={this.props.authDetails}
-                setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+                getTravelportBrands={this.props.getTravelportBrands}
                 trip={this.props.trip}
               />
               }

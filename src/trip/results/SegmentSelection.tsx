@@ -9,9 +9,8 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily, updateSegmentFilter, setBrandedFaresInfo } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
-import { priceFlights } from '../../actions/PricingActions';
 import BaggageFilter from "./filters/BaggageFilter";
 import { filterSegments } from "../../helpers/Filters";
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -28,10 +27,9 @@ interface SegmentSelectionProps {
   currency: string;
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
-  priceFlights: typeof priceFlights;
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
-  setBrandedFaresInfo: typeof setBrandedFaresInfo;
+  getTravelportBrands: typeof getTravelportBrands;
   authDetails: AuthDetails;
 }
 
@@ -98,9 +96,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
-                  priceFlights={this.props.priceFlights}
                   authDetails={this.props.authDetails}
-                  setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+                  getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
                 <hr className="segment-divider"/>
@@ -118,10 +115,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateActives={this.props.updateActives}
                         updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
-                        priceFlights={this.props.priceFlights}
                         sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                         authDetails={this.props.authDetails}
-                        setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+                        getTravelportBrands={this.props.getTravelportBrands}
                         trip={trip}
                       />
                       <hr className="segment-divider"/>
@@ -147,10 +143,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
-                        priceFlights={this.props.priceFlights}
                         sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                         authDetails={this.props.authDetails}
-                        setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+                        getTravelportBrands={this.props.getTravelportBrands}
                         trip={trip}
                       />
                     </div>

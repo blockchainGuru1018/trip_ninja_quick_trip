@@ -17,8 +17,7 @@ function setPricingResults(data: PricingDetails) {
   };
 }
 
-export const priceFlights = (pricingPayload: PricingRequestInterface, brandsRequest: boolean) => (dispatch: any) => {
-  !brandsRequest && dispatch(pricingLoading(true));
+export const priceFlights = (pricingPayload: PricingRequestInterface) => (dispatch: any) => {
   const url: string = '/price/';
 
   return API.post(url, pricingPayload)

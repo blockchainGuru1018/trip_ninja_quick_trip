@@ -105,9 +105,12 @@ function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: nu
 }
 
 function setSegmentBrandInfo(state: ResultsDetails, action: any) {
+  console.log(action);
   const selectedSegment: Segment = action.segment;
-  const brands: Array<BrandInfo> = action.brands;
+  const brands: Array<BrandInfo> = action.data.itineraries[0].segments[0].brands;
   selectedSegment.brands = brands;
+  console.log(brands);
+  console.log(selectedSegment);
   if (selectedSegment.itinerary_type === 'OPEN_JAW') {
     const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
     relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
@@ -118,6 +121,7 @@ function setSegmentBrandInfo(state: ResultsDetails, action: any) {
       linkedSegment && (linkedSegment.brands = brands);
     });
   }
+
   return {...state};
 }
 

@@ -2,10 +2,9 @@ import React from 'react';
 import { Segment, FlightResultsDetails, ResultsDetails, Results } from './ResultsInterfaces';
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
-import { updateActives, updateFareFamily, setBrandedFaresInfo } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
-import { priceFlights } from '../../actions/PricingActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewsProps {
@@ -18,12 +17,11 @@ interface SegmentPreviewsProps {
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
   updateFareFamily?: typeof updateFareFamily;
-  priceFlights: typeof priceFlights;
   pathSequence?: Array<string>;
   sortOrder?: string;
   totalPrice: number;
   authDetails: AuthDetails;
-  setBrandedFaresInfo?: typeof setBrandedFaresInfo;
+  getTravelportBrands?: typeof getTravelportBrands;
   trip: Results;
 }
 
@@ -69,9 +67,8 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               updateFareFamily={this.props.updateFareFamily}
               pathSequence={this.props.pathSequence}
               totalPrice={this.props.totalPrice}
-              priceFlights={this.props.priceFlights}
               authDetails={this.props.authDetails}
-              setBrandedFaresInfo={this.props.setBrandedFaresInfo}
+              getTravelportBrands={this.props.getTravelportBrands}
               trip={this.props.trip}
             />
             : ''

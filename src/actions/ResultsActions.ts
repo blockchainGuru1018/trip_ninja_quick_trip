@@ -1,5 +1,7 @@
 
 import { ResultsDetails, Segment, BrandInfo } from '../trip/results/ResultsInterfaces';
+import { PricingRequestInterface, PricingDetails } from '../trip/results/PricingInterfaces';
+import API from '../Api';
 
 export function setResults(results: ResultsDetails) {
   return {
@@ -83,10 +85,30 @@ export function updateSortType(segmentIndex: number, sortBy: string) {
   };
 }
 
-export function setBrandedFaresInfo(segment: Segment, brands: Array<BrandInfo>) {
+export function setBrandedFaresInfo(segment: Segment, data: PricingDetails) {
   return {
     type: 'SET_BRANDED_FARES_INFO',
     segment,
-    brands
+    data
   };
 }
+
+export const getTravelportBrands = (pricingPayload: PricingRequestInterface, segment: Segment) => (dispatch: any) => {
+  const url: string = '/price/';
+  return API.post(url, pricingPayload)
+    .then((response: any) => {
+      if (response.data.status) {
+        throw Error;
+      } else {
+        dispatch(setErrorDetails(false, 'pricing'));
+        console.log(response.data);
+        dispatch(setBrandedFaresInfo(segment, response.data));
+        return {'success': true};
+      }
+    })
+    .catch((Error: any) => {
+      dispatch(setErrorDetails(true, 'pricing'));
+      return {'success': false};
+    });
+};
+

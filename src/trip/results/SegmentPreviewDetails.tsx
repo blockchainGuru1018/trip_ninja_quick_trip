@@ -4,9 +4,8 @@ import FareRulesPreview from '../../common/FareRulesPreview';
 import FlightResultsPath from '../../common/FlightResultsPath';
 import FareSelect from './FareSelect';
 import Button from '@material-ui/core/Button';
-import { updateActives, updateFareFamily, setBrandedFaresInfo } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { priceFlights } from '../../actions/PricingActions';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -19,11 +18,10 @@ interface SegmentPreviewDetailsProps {
   segmentSelect: boolean;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
-  setBrandedFaresInfo?: typeof setBrandedFaresInfo;
+  getTravelportBrands?: typeof getTravelportBrands;
   segmentOptionsIndex?: number;
   closeAllDropDowns?: () => void;
   totalPrice: number;
-  priceFlights: typeof priceFlights;
   activeSegment?: Segment;
   authDetails: AuthDetails;
   trip: Results;
@@ -32,13 +30,13 @@ interface SegmentPreviewDetailsProps {
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
 
   state = {
-    loadingBrands: true
+    loadingBrands: false
   }
 
   componentDidMount() {
     if (this.props.segment.source === 'travelport' && !this.props.segment.brands) {
       this.setState({loadingBrands: true});
-      this.getTravelportBrands();
+      this.getTravelportBrandedFares();
     }
   }
 
@@ -66,7 +64,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
         }
         {this.props.segment.brands && this.props.segmentSelect && !this.state.loadingBrands
         && <FareSelect 
-          brands={this.props.segment.brands![segment_id[0]]} 
+          brands={this.props.segment.source === 'travelport' ? this.props.segment.brands! : this.props.segment.brands![segment_id[0]]} 
           currency={this.props.currency} 
           segment={this.props.segment}
           activeSegment={this.props.activeSegment}
@@ -99,7 +97,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
     this.props.closeAllDropDowns!();
   }
 
-  getTravelportBrands = () => {
+  getTravelportBrandedFares = () => {
     console.log(this.props.segment);
     const pricingPayload: PricingRequestInterface = {
       trip_id: this.props.trip.trip_id,
@@ -110,13 +108,13 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
       itineraries: createItinerariesPayload(this.props.trip.flight_details, [this.props.segment], this.props.authDetails),
       pseudo_price_confirm: true
     };
-    const pricingResult: any = this.props.priceFlights(pricingPayload, true);
+    const pricingResult: any = this.props.getTravelportBrands!(pricingPayload, this.props.segment);
     pricingResult.then((result: any) => this.setTravelportBrandedFares(result));
   }
 
   setTravelportBrandedFares = (result: any) => {
     this.setState({loadingBrands: false});
-    this.props.setBrandedFaresInfo!(this.props.segment, result.data.brands);
+
   }
 }
 

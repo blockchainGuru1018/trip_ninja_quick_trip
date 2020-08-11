@@ -74,8 +74,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
               updateActives={this.props.updateActives}
               segmentIndex={Number(segmentIndex)}
             />
-          </div>
-          <div className='number-of-stops-filter-container'>
             <NumberOfStopsFilter
               updateSegmentFilter={this.props.updateSegmentFilter}
               segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}

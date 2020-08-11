@@ -93,8 +93,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 activeSegments={this.getActiveSegments(trip)}
                 updateEntireTrip={this.props.updateEntireTrip}
               />
-            </div>
-            <div className='col-md-4'>
               <NumberOfStopsFilter
                 sortBy={this.props.resultsDetails.itinerarySortBy}
                 segmentSortBy={this.props.resultsDetails.segmentSortBy}

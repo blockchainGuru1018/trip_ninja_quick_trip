@@ -19,7 +19,7 @@ export interface Filters {
 
 export const defaultFilters: Filters = {
   baggage: 0,
-  numberOfStops: 4
+  numberOfStops: 3
 }
 
 export class ActiveSegmentsMap extends Map<number, Segment>{

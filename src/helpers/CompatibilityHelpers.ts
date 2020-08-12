@@ -73,7 +73,7 @@ function identifyCompatibleSegments(state: ResultsDetails, segment: Segment) {
         return 'incompatible';
       }
     } else {
-      throw `Linked segment with itinerary id ${segment.itinerary_id} not found in list of options at position ${linkedSegmentPosition}`;
+      throw new Error(`Linked segment with itinerary id ${segment.itinerary_id} not found in list of options at position ${linkedSegmentPosition}`);
     }
     return 'compatible';
   }
@@ -119,7 +119,7 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
     setAlternatesStatus(state, bestOneWay, segmentOptions);
     activateSegment(bestOneWay, state, segmentPosition);
   } else {
-    throw `No segment with ONE_WAY structure found at position ${segmentPosition}`;
+    throw new Error(`No segment with ONE_WAY structure found at position ${segmentPosition}`);
   }
 }
 
@@ -142,7 +142,7 @@ export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: 
     updateSegmentActivesAndAlternates(selectedSegment, state, segmentOptionIndex);
     return {...state};
   } else {
-    throw `Selected segment with itinerary id ${segmentItineraryRef} not found in list of options at position ${segmentOptionIndex}`;
+    throw new Error(`Selected segment with itinerary id ${segmentItineraryRef} not found in list of options at position ${segmentOptionIndex}`);
   }
 }
 
@@ -162,11 +162,11 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
 }
 
 export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number,
-                                                  initial: boolean = false) {
+  initial: boolean = false) {
   activateSegment(selectedSegment, state, segmentOptionIndex, initial);
   if (selectedSegment.itinerary_type === 'OPEN_JAW') {
     activateLinkedSegments(selectedSegment, state, initial);
-    setAlternatesStatus(state, selectedSegment, state[state.tripType].segments[segmentOptionIndex])
+    setAlternatesStatus(state, selectedSegment, state[state.tripType].segments[segmentOptionIndex]);
   }
 }
 

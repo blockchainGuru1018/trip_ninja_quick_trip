@@ -30,7 +30,6 @@ interface DefaultErrorModalProps {
 export default function DefaultErrorModal(props: DefaultErrorModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
   useEffect(() => setOpen(props.errors.errorFound), [props.errors.errorFound]);
 
   const errorModalMap = new Map ()
@@ -49,7 +48,7 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
         open={open}
         onClose={() => props.setErrorDetails(false, props.errors.errorType)}
       >
-        {errorModalMap.get(props.errors.errorType)}
+        {props.errors.errorType ? errorModalMap.get(props.errors.errorType) : <div></div>}
       </Modal>
     </div>
   );

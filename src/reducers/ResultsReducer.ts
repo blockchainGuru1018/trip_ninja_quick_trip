@@ -42,11 +42,14 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         setFilteredRelatives(state);
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
-      setRelativesAndUpdateActives(state)
+      setRelativesAndUpdateActives(state);
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
+
+    case 'SET_BRANDED_FARES_INFO':
+      return setSegmentBrandInfo(state, action);
 
     case 'UPDATE_ITINERARY_FILTER':
       return updateFilterReturnValue(state, action);
@@ -94,11 +97,30 @@ function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: nu
   segment.price = brand.price;
   segment.baggage.number_of_pieces = brand.baggage_info.pieces;
   segment.flights.forEach((flight: any, index) => {
-    flight.booking_code = brand.fare_info[index].booking_code;
-    flight.brand_identifier = brand.fare_info[index].brand.name;
-    flight.cabin_class = brand.fare_info[index].cabin_class;
-    flight.fare_basis_code = brand.fare_info[index].fare_basis;
+    let fareInfo = segment.source === 'travelport' ? brand.fare_info[0] : brand.fare_info[index];
+    flight.booking_code =  fareInfo.booking_code;
+    flight.brand_identifier =  fareInfo.brand.name;
+    flight.cabin_class =  fareInfo.cabin_class;
+    flight.fare_basis_code =  fareInfo.fare_basis;
   });
+}
+
+function setSegmentBrandInfo(state: ResultsDetails, action: any) {
+  const selectedSegment: Segment = action.segment;
+  const brands: Array<BrandInfo> = action.data.itineraries[0].segments[0].brands;
+  selectedSegment.brands = brands;
+  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+    const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
+    relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
+      let linkedSegmentOptions: Array<Segment> = state[state.tripType].segments[linkedSegmentPosition];
+      let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
+        segment.itinerary_id === selectedSegment.itinerary_id
+      );
+      linkedSegment && (linkedSegment.brands = brands);
+    });
+  }
+
+  return {...state};
 }
 
 function setDefaultSegmentFilters(fareStructureResults: Results) {

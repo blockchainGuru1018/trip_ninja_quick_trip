@@ -1,10 +1,11 @@
 import React from 'react';
-import { Segment, FlightResultsDetails, ResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, ResultsDetails, Results } from './ResultsInterfaces';
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -19,6 +20,9 @@ interface SegmentPreviewsProps {
   pathSequence?: Array<string>;
   sortOrder?: string;
   totalPrice: number;
+  authDetails: AuthDetails;
+  getTravelportBrands?: typeof getTravelportBrands;
+  trip: Results;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -43,11 +47,11 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
   setSegmentsHTML = () => {
     const shownSegments: Array<Segment> = this.props.sortOrder
       ? sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
-      : this.props.segments
+      : this.props.segments;
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
-        <div>
+        <div key={index.toString()}>
           {!segment.filtered || segment.status === 'active'
             ? <SegmentPreview
               segment={segment}
@@ -63,6 +67,9 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               updateFareFamily={this.props.updateFareFamily}
               pathSequence={this.props.pathSequence}
               totalPrice={this.props.totalPrice}
+              authDetails={this.props.authDetails}
+              getTravelportBrands={this.props.getTravelportBrands}
+              trip={this.props.trip}
             />
             : ''
           }

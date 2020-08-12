@@ -42,6 +42,7 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
   if (totalNotFiltered === 0) {
     segments = cloneDeep(segments_copy);
   }
+<<<<<<< HEAD
 };
 
 export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
@@ -54,6 +55,9 @@ export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   //if (filtersKeys.includes('numberOfStops')) {
   //  numberOfStopsFilter(segments, filters.numberOfStops);
   //}
+=======
+
+>>>>>>> develop
 
   return segments;
 };

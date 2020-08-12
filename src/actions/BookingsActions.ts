@@ -52,13 +52,13 @@ export const getBookingsList = (queryType: string) => (dispatch: any) => {
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         dispatch(setBookingsList(response.data.bookings));
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       return {'success': false};
     });
 };
@@ -69,14 +69,14 @@ export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         dispatch(setBookingDetails(response.data));
         dispatch(bookingDetailsLoading(false));
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       dispatch(bookingDetailsLoading(false));
       return {'success': false};
     });
@@ -91,7 +91,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
   return API.post(url, {trip_id: booking.trip_id})
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         booking.status = "cancelled";
         dispatch(setErrorDetails(false, 'cancelling'));
@@ -100,7 +100,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       dispatch(cancelLoading(false));
       dispatch(setErrorDetails(true, 'cancelling'));
       return {'success': false};
@@ -115,7 +115,7 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
   return API.post(url, {trip_id: booking.trip_id, queue: authDetails.ticketing_queue})
     .then((response: any) => {
       if (response.data.status) {
-        throw 'error';
+        throw Error;
       } else {
         booking.status = "ticketed";
         dispatch(setErrorDetails(false, 'queueing'));
@@ -124,7 +124,7 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
         return {'success': true};
       }
     })
-    .catch((error: any) => {
+    .catch((Error: any) => {
       dispatch(queueLoading(false));
       dispatch(setErrorDetails(true, 'queueing'));
       return {'success': false};

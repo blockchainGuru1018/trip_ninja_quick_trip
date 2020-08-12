@@ -71,13 +71,21 @@ class BookRequest extends React.Component<BookRequestProps> {
 
   getBrand = (activeSegment: Segment) => {
     const selectedBrandIndex: number = activeSegment.selected_brand_index ? activeSegment.selected_brand_index : 0;
-    const brandInfo: BrandInfo | undefined = activeSegment.brands ? activeSegment.brands[activeSegment.segment_id][selectedBrandIndex] : undefined;
+    const brandInfo: BrandInfo | undefined = this.getBrandInfo(activeSegment, selectedBrandIndex);
     let brands: Array<Brand> = [];
     if (brandInfo && brandInfo.fare_info) {
       const fareInfoValues: Array<FareInfo> = Object.values(brandInfo.fare_info);
       brands = fareInfoValues.map((flight_info: FareInfo) => flight_info.brand);
     }
     return brands;
+  }
+
+  getBrandInfo = (activeSegment: Segment, selectedBrandIndex: number) => {
+    if (activeSegment.source === 'travelport') {
+      return activeSegment.brands ? activeSegment.brands[selectedBrandIndex] : undefined;
+    } else {
+      return activeSegment.brands ? activeSegment.brands[activeSegment.segment_id][selectedBrandIndex] : undefined;
+    }
   }
 
   validatePassengerBookingDetails = () => {

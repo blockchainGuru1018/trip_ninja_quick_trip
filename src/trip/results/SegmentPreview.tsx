@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import { Segment, FlightResultsDetails, Results } from './ResultsInterfaces';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
@@ -11,11 +11,11 @@ import FlightTypes from '../../common/FlightTypes';
 import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { updateActives, updateFareFamily } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewProps {
   index: number;
@@ -28,8 +28,11 @@ interface SegmentPreviewProps {
   currency: string;
   updateActives?: typeof updateActives;
   updateFareFamily?: typeof updateFareFamily;
+  getTravelportBrands?: typeof getTravelportBrands;
   pathSequence?: Array<string>;
   totalPrice: number;
+  authDetails: AuthDetails;
+  trip: Results;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -95,6 +98,9 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
                 activeSegment={this.props.activeSegment}
+                authDetails={this.props.authDetails}
+                getTravelportBrands={this.props.getTravelportBrands}
+                trip={this.props.trip}
               />
               }
             </div>

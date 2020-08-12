@@ -9,10 +9,11 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily, updateSegmentFilter } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from "./filters/BaggageFilter";
 import { filterSegments } from "../../helpers/Filters";
+import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface MatchParams {
   index: string;
@@ -28,6 +29,8 @@ interface SegmentSelectionProps {
   updateFareFamily: typeof updateFareFamily;
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
+  getTravelportBrands: typeof getTravelportBrands;
+  authDetails: AuthDetails;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -93,6 +96,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
+                  authDetails={this.props.authDetails}
+                  getTravelportBrands={this.props.getTravelportBrands}
+                  trip={trip}
                 />
                 <hr className="segment-divider"/>
                 {
@@ -110,6 +116,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         updateFareFamily={this.props.updateFareFamily}
                         activeSegment={selectedSegment[0]}
                         sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
+                        authDetails={this.props.authDetails}
+                        getTravelportBrands={this.props.getTravelportBrands}
+                        trip={trip}
                       />
                       <hr className="segment-divider"/>
                     </div>
@@ -134,7 +143,10 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                         resultsDetails={this.props.resultsDetails}
                         pathSequence={trip.path_sequence}
                         activeSegment={selectedSegment[0]}
-                        sortOrder = {this.props.resultsDetails.segmentSortBy[segmentIndex]}
+                        sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
+                        authDetails={this.props.authDetails}
+                        getTravelportBrands={this.props.getTravelportBrands}
+                        trip={trip}
                       />
                     </div>
                 }

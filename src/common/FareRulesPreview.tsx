@@ -114,9 +114,17 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   getBrand = () => {
     const brands = this.props.segment!.brands;
-    const brandSegment: any = brands ? Object.values(brands)[0][0] : '';
-    const fareInfo: any = Object.values(brandSegment.fare_info)[0];
-    return fareInfo.brand;
+    if (this.props.segment!.source === 'travelport') {
+      return brands![0].fare_info[0].brand;
+    } else {
+      const brandSegment: any = brands ? Object.values(brands)[0][0] : '';
+      const fareInfo: any = Object.values(brandSegment.fare_info)[0];
+      return fareInfo.brand;
+    }
+  }
+
+  getBookingSegmentBrandServices = () => {
+    return this.props.bookingSegment!.brands[0] ? this.props.bookingSegment!.brands[0].brand_services : '';
   }
 
   setIconColor = (propType: any) => propType ? "primary" : "disabled"
@@ -138,7 +146,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   setBrandServices = () => {
-    return this.props.segment ? this.getBrand().brand_services : this.props.bookingSegment!.brands[0].brand_services;
+    return this.props.segment ? this.getBrand().brand_services : this.getBookingSegmentBrandServices();
   }
 
   setBaseFareRulesDetails = () => {

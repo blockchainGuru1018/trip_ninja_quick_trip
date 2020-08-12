@@ -81,7 +81,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
           </div>
           <div className="row">
-            <div className='col-md-4'>
+            <div className='col-md-8'>
               <BaggageFilter
                 sortBy={this.props.resultsDetails.itinerarySortBy}
                 segmentSortBy={this.props.resultsDetails.segmentSortBy}
@@ -105,7 +105,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 updateEntireTrip={this.props.updateEntireTrip}
               />
             </div>
-            <div className="col-md-4 offset-md-4">
+            <div className="col-md-4">
               <PricingRequest
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}

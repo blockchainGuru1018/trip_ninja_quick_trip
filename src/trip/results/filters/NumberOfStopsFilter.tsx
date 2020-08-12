@@ -4,7 +4,6 @@ import Menu, {MenuProps} from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import { RadioGroup } from '@material-ui/core';
 import { Radio } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
 import { FormControlLabel } from '@material-ui/core';
 import MenuItem from "@material-ui/core/MenuItem";
 import './Filters.css';

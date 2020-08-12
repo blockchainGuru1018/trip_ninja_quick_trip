@@ -33,32 +33,27 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
   segments.forEach((segment: Segment) => {
     if (!segment.filtered) {
       segment.filtered = segment.flights.length - 1 > filterValue!;
-      if (!segment.filtered) {
-        totalNotFiltered += 1;
-      }
+    }
+    if (!segment.filtered) {
+      totalNotFiltered += 1;
     }
   });
 
   if (totalNotFiltered === 0) {
     segments = cloneDeep(segments_copy);
   }
-<<<<<<< HEAD
 };
 
 export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   const filtersKeys = Object.keys(filters);
   resetFilters(segments);
 
-  //if (filtersKeys.includes('baggage')) {
-  //  baggageFilter(segments, filters.baggage);
-  //}
-  //if (filtersKeys.includes('numberOfStops')) {
-  //  numberOfStopsFilter(segments, filters.numberOfStops);
-  //}
-=======
-
->>>>>>> develop
-
+  if (filtersKeys.includes('baggage')) {
+    baggageFilter(segments, filters.baggage);
+  }
+  if (filtersKeys.includes('numberOfStops')) {
+    numberOfStopsFilter(segments, filters.numberOfStops);
+  }
   return segments;
 };
 

@@ -18,14 +18,9 @@ export interface Filters {
 }
 
 export const defaultFilters: Filters = {
-<<<<<<< HEAD
   baggage: 0,
   numberOfStops: 3
 }
-=======
-  baggage: 0
-};
->>>>>>> develop
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
 

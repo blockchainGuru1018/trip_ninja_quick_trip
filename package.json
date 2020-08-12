@@ -40,6 +40,7 @@
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
+    "lodash.clonedeep": "^4.5.0",
     "match-sorter": "^4.1.0",
     "moment": "^2.26.0",
     "popper.js": "^1.16.0",

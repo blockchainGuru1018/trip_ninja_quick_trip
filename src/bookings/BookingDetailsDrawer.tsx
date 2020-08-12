@@ -56,7 +56,6 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
   const checkBookingDetails = () => {
     let details = props.getBookingDetails(props.booking.trip_id);
     return setBookingDetails(details);
-
   };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
@@ -69,8 +68,13 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     ) {
       return;
     }
-    checkBookingDetails();
-    setSelected(true);
+    if (open) {
+      checkBookingDetails();
+      setSelected(true);
+    } else {
+      setSelected(false);
+    }
+    
     setState({ ...state, [anchor]: open });
   };
 
@@ -94,7 +98,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <div className="row booking-details-section">
             <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>
             <div className="close-button-container">
-              <IconButton onClick={() => setState({...state, [anchor]: false})}>
+              <IconButton onClick={() => handleClose(anchor)}>
                 <CloseIcon fontSize="large" />
               </IconButton>
             </div>
@@ -190,6 +194,11 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       : pnr.pnr_number
     );
     return pnrString;
+  };
+
+  const handleClose = (anchor: Anchor) => {
+    setState({...state, [anchor]: false});
+    setSelected(false);
   };
 
   return (

@@ -115,22 +115,64 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
   const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
   );
+  console.log('in this bit')
   if (bestOneWay) {
-    bestOneWay.status = 'compatible';
-    setAlternatesStatus(state, bestOneWay, segmentOptions);
-    activateSegment(bestOneWay, state, segmentPosition);
+    console.log('best one way')
+    updateOneWay(bestOneWay, state, segmentOptions, segmentPosition);
   } else {
-    const bestUnrelatedOpenJaw: Segment | undefined = segmentOptions.find((segment: Segment) => {
-        const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure)
-        return !itineraryStructure.includes(relatedSegmentPosition) && !segment.filtered
-    })
-    if (bestUnrelatedOpenJaw) {
-
-    } else {
-
-    }
-    throw new Error(`No segment with ONE_WAY structure found at position ${segmentPosition}`);
+    updateOpenJaw(segmentOptions, relatedSegmentPosition, state, segmentPosition);
   }
+}
+
+function updateOpenJaw(segmentOptions: Array<Segment>, relatedSegmentPosition: number, state: ResultsDetails,
+                                 segmentPosition: number) {
+  const bestUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, true, relatedSegmentPosition);
+  if (bestUnrelatedOpenJaw) {
+    console.log('best open jaw')
+    console.log(bestUnrelatedOpenJaw)
+    updateSegmentActivesAndAlternates(bestUnrelatedOpenJaw, state, segmentPosition, false)
+  } else {
+    setUnfilteredOneWay(segmentOptions, relatedSegmentPosition, state, segmentPosition);
+  }
+}
+
+function setUnfilteredOneWay(segmentOptions: Array<Segment>, relatedSegmentPosition: number, state: ResultsDetails,
+                             segmentPosition: number) {
+  const unfilteredBestOneWay: Segment | undefined = segmentOptions.find(
+    (segment: Segment) => segment.itinerary_type === 'ONE_WAY'
+  );
+  if (unfilteredBestOneWay) {
+    console.log('best unfiltered oneway')
+    console.log(unfilteredBestOneWay)
+    updateOneWay(unfilteredBestOneWay, state, segmentOptions, segmentPosition);
+  } else {
+    setUnfilteredUnrelatedOpenJaw(segmentOptions, relatedSegmentPosition, state, segmentPosition)
+  }
+}
+
+function setUnfilteredUnrelatedOpenJaw(segmentOptions: Array<Segment>, relatedSegmentPosition: number, state: ResultsDetails,
+                                       segmentPosition: number) {
+  const bestUnfilteredUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, false, relatedSegmentPosition);
+  if (bestUnfilteredUnrelatedOpenJaw) {
+    console.log('best unfiltered open jaw')
+    console.log(bestUnfilteredUnrelatedOpenJaw)
+    updateSegmentActivesAndAlternates(bestUnfilteredUnrelatedOpenJaw, state, segmentPosition, false)
+  } else {
+    throw new Error(`No segments match the filter`);
+  }
+}
+
+function findOpenJaw(segmentOptions: Array<Segment>, filtered: boolean, relatedSegmentPosition: number) {
+  return segmentOptions.find((segment: Segment) => {
+    const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
+    return !itineraryStructure.includes(relatedSegmentPosition) && !segment.filtered;
+  });
+}
+
+function updateOneWay(segment: Segment, state: ResultsDetails, segmentOptions: Array<Segment>, segmentPosition: number) {
+  segment.status = 'compatible';
+  setAlternatesStatus(state, segment, segmentOptions);
+  activateSegment(segment, state, segmentPosition);
 }
 
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
@@ -146,6 +188,7 @@ export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: 
   const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_id === segmentItineraryRef
   );
+  console.log(selectedSegment)
   if (selectedSegment && selectedSegment.status === 'active'){
     return {...state};
   } else if (selectedSegment) {

@@ -36,6 +36,7 @@ import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from './actions/BookingsActions';
 
+
 interface IAppProps {
   searchDetails: SearchDetails;
   authDetails: AuthDetails;
@@ -74,6 +75,13 @@ interface IAppProps {
 const theme = Theme;
 
 class App extends React.Component<IAppProps> {
+
+  constructor(props:IAppProps) {
+    super(props)
+    if (!this.props.resultsDetails.fareStructureResults) {
+      history.push('/')
+    }
+  }
 
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';

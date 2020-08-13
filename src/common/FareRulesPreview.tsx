@@ -178,7 +178,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         ? brandServices.seat_assignment === '$'
           ? 'At a cost'
           : 'Available'
-        : 'Unavilable';
+        : 'Unavailable';
       carryOn = brandServices.carry_on_hand_baggage || -1;
     }
     this.setState({

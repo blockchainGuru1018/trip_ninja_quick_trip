@@ -180,6 +180,7 @@ export interface Brand {
   brand_services: BrandServices;
   carrier: string;
   name: string;
+  tier: string;
   tag_info: string;
   tag_line: string;
   services: Array<BrandService>;

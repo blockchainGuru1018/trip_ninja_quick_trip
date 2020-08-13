@@ -6,18 +6,17 @@ import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
-import { setTripType } from '../../actions/ResultsActions';
+import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
 
 
 interface PreResultsProps {
   resultsDetails: ResultsDetails;
-  currency: string
-  setTripType: typeof setTripType
-
+  currency: string;
+  setTripType: typeof setTripType;
+  setActiveSegments: typeof setActiveSegments;
 }
 
 class PreResults extends React.Component<PreResultsProps> {
-
   state = {
     flexPrice: 0,
     farePrice: 0,
@@ -89,7 +88,11 @@ class PreResults extends React.Component<PreResultsProps> {
                 <Button
                   variant="contained"
                   className="btn-flight-options"
-                  onClick={() => {this.props.setTripType('flexTripResults'); history.push('/results/itinerary/');}}
+                  onClick={() => {
+                    this.props.setTripType('flexTripResults');
+                    this.props.setActiveSegments();
+                    history.push('/results/itinerary/');
+                  }}
                 >See flight options</Button>
               </div>
             </div>

@@ -32,11 +32,16 @@ class NavBar extends React.Component<NavBarProps> {
           </ul>
         </div>
         <UserMenu
-          logout={this.props.logout}
+          logout={() => this.logout()}
           authDetails={this.props.authDetails}
         />
       </nav>
     );
+  }
+
+  logout = () => {
+    this.props.logout();
+    history.push('/')
   }
 }
 

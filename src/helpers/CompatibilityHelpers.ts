@@ -109,7 +109,8 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
   return otherPositionsInItineraryStructure;
 }
 
-function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
+function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number,
+                            relatedSegmentPosition: number) {
   segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
   const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
@@ -119,6 +120,15 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
     setAlternatesStatus(state, bestOneWay, segmentOptions);
     activateSegment(bestOneWay, state, segmentPosition);
   } else {
+    const bestUnrelatedOpenJaw: Segment | undefined = segmentOptions.find((segment: Segment) => {
+        const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure)
+        return !itineraryStructure.includes(relatedSegmentPosition) && !segment.filtered
+    })
+    if (bestUnrelatedOpenJaw) {
+
+    } else {
+
+    }
     throw new Error(`No segment with ONE_WAY structure found at position ${segmentPosition}`);
   }
 }
@@ -157,7 +167,7 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
     const segmentOptions = state[state.tripType].segments[positionIndex];
-    activateBestOneWay(segmentOptions, state, positionIndex);
+    activateBestOneWay(segmentOptions, state, positionIndex, selectedSegment.segment_position);
   });
 }
 

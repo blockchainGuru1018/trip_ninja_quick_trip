@@ -54,7 +54,7 @@ const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, select
         flight_number: flightDetail.flight_number,
         departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ssZ'),
         arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ssZ'),
-        brand_identifier: "",
+        brand_identifier: flightResult.brand_identifier,
       });
     }
   });

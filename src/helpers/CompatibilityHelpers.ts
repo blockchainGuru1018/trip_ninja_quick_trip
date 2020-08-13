@@ -26,7 +26,7 @@ export function activateSegment(segment: Segment, state: ResultsDetails, segment
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
   state.activeSegments.set(segmentPosition, segment);
-  if(!isInitialActivation){
+  if(!isInitialActivation || oldActiveSegment){
     resetOldActiveStatusAndPotentialMissingPositions(segment, state, oldActiveSegment!, isNotCompatible); // oldActiveSegment should exist at this point
   }
   if (isInitialActivation || isNotCompatible){

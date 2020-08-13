@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Redirect, Switch } from 'react-router-dom';
+import { Route, Router, Redirect, Switch, useLocation } from 'react-router-dom';
 import IdleTimerContainer from './common/IdleTimerContainer';
 import Custom404 from './common/Custom404';
 import NavBar from './common/NavBar';
@@ -35,6 +35,7 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/Bo
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from './actions/BookingsActions';
+
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -74,6 +75,12 @@ interface IAppProps {
 const theme = Theme;
 
 class App extends React.Component<IAppProps> {
+
+  componentWillMount() {
+    if (!this.props.resultsDetails.fareStructureResults) {
+      history.push('/')
+    }
+  }
 
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';

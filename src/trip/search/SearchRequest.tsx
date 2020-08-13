@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
 import history from '../../History';
+import Hotkeys from 'react-hot-keys';
 
 interface SearchRequestProps {
   searchDetails: SearchDetails;
@@ -85,6 +86,10 @@ class SearchRequest extends React.Component<SearchRequestProps> {
   render() {
     return (
       <div className="float-right">
+        <Hotkeys 
+          keyName="ctrl+enter, command+enter" 
+          onKeyDown={this.searchForFlights}
+        ></Hotkeys>
         <Button
           disableElevation
           variant="contained"

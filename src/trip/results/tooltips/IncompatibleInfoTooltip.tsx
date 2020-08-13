@@ -38,7 +38,7 @@ export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipPr
     return (
       <div>
         <h5 className='standard-text'>
-          {`Segment ${difference}: ${props.pathSequence[difference]}`}
+          {`Segment ${difference+1}: ${props.pathSequence[difference]}`}
         </h5>
       </div>
     );
@@ -48,7 +48,7 @@ export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipPr
     <HtmlTooltip
       title={
         <React.Fragment>
-          <h5 className='bold-text'>Selecting this segment will effect the following segments:</h5>
+          <h5 className='bold-text'>Selecting this segment will affect the following segments:</h5>
           {segmentDifferences.map((difference: number) => getDifferenceHTML(difference))}
         </React.Fragment>
       }

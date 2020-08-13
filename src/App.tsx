@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Redirect, Switch, useLocation } from 'react-router-dom';
+import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import IdleTimerContainer from './common/IdleTimerContainer';
 import Custom404 from './common/Custom404';
 import NavBar from './common/NavBar';
@@ -76,7 +76,8 @@ const theme = Theme;
 
 class App extends React.Component<IAppProps> {
 
-  componentWillMount() {
+  constructor(props:IAppProps) {
+    super(props)
     if (!this.props.resultsDetails.fareStructureResults) {
       history.push('/')
     }

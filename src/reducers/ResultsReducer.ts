@@ -99,7 +99,7 @@ function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: nu
   segment.flights.forEach((flight: any, index) => {
     let fareInfo = segment.source === 'travelport' ? brand.fare_info[0] : brand.fare_info[index];
     flight.booking_code =  fareInfo.booking_code;
-    flight.brand_identifier =  fareInfo.brand.name;
+    flight.brand_identifier = fareInfo.brand.tier ? fareInfo.brand.tier: fareInfo.brand.name;
     flight.cabin_class =  fareInfo.cabin_class;
     flight.fare_basis_code =  fareInfo.fare_basis;
   });

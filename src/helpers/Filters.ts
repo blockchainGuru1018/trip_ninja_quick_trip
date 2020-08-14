@@ -13,8 +13,8 @@ export const baggageFilter = (segments: Array<Segment>, filterValue: number | un
 
   segments.forEach((segment: Segment) => {
     if (!segment.filtered && filterValue! > 0) {
-      segment.filtered = segment.baggage.number_of_pieces < filterValue!||
-        (typeof(segment.baggage.number_of_pieces) === 'string' && filterValue > 1);
+      segment.filtered = segment.baggage.number_of_pieces < filterValue! ||
+        (typeof(segment.baggage.number_of_pieces) === 'string' && filterValue! > 1);
       if (!segment.filtered) {
         totalFiltered += 1;
       }

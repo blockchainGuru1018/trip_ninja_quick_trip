@@ -9,7 +9,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   endpoint = axios.create({
     baseURL: 'https://quicktrip-dev-1.us-east-1.elasticbeanstalk.com/api/v1/'
   });
-} else if (window.location.origin.includes('tripninja-quicktrip')) {
+} else if (window.location.origin.includes('app.tripninja.io')) {
   endpoint = axios.create({
     baseURL: 'https://quicktrip.us-west-2.elasticbeanstalk.com/api/v1/'
   })

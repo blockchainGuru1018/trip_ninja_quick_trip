@@ -119,7 +119,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   return (
     <div className="filter-group">
       {filters
-        ? <div className='baggage-filter-btn-container'>
+        ? <div className='filter-btn-container'>
           <Button
             fullWidth
             classes={{
@@ -141,9 +141,9 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <div className='checked-bag-filter-selection-container'>
+            <div className='filter-selection-container'>
               <div className='text-bold filter-title'>Checked Bags</div>
-              <hr className='checked-bag-hr'/>
+              <hr className='filter-hr'/>
               <MenuItem>
                 <ListItemText primary='Minimum number of bags' />
                 <IconButton onClick={() =>

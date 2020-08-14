@@ -100,7 +100,7 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
   return (
     <div className="filter-group">
       {filters
-        ? <div className='numberOfStops-filter-btn-container'>
+        ? <div className='filter-btn-container'>
           <Button
             fullWidth
             classes={{
@@ -122,9 +122,9 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <div className='checked-bag-filter-selection-container'>
+            <div className='filter-selection-container'>
               <div className='text-bold filter-title'>Max Number of Stops</div>
-              <hr className='checked-bag-hr'/>
+              <hr className='filter-hr'/>
               <MenuItem>
                 <RadioGroup aria-label="Max Number of Stops" value={value} name="Number Of Stops Filter" onChange={updateNumberOfStopsFilter}>
                   <FormControlLabel control={<Radio />} value="0" label="Direct Only" />

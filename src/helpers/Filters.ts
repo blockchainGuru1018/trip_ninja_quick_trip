@@ -44,6 +44,27 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
   }
 };
 
+export const allianceFilter = (segments: Array<Segment>, filterValue: string | undefined) => {
+  if (filterValue == '') {
+    return segments;
+  }
+  
+  let totalNotFiltered = 0;
+  let segments_copy = cloneDeep(segments);
+  segments.forEach((segment: Segment) => {
+    if (!segment.filtered) {
+      segment.filtered = (segment.alliance == filterValue!);
+    }
+    if (!segment.filtered) {
+      totalNotFiltered += 1;
+    }
+  });
+
+  if (totalNotFiltered === 0) {
+    segments = cloneDeep(segments_copy);
+  }
+};
+
 export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   const filtersKeys = Object.keys(filters);
   resetFilters(segments);
@@ -53,6 +74,9 @@ export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   }
   if (filtersKeys.includes('numberOfStops')) {
     numberOfStopsFilter(segments, filters.numberOfStops);
+  }
+  if (filtersKeys.includes('alliance')) {
+    allianceFilter(segments, filters.alliance);
   }
   return segments;
 };

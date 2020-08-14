@@ -114,7 +114,8 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   getLinkedSegments = () => {
-    let linkedSegments = [this.props.segment];
+    let linkedSegments = [];
+    linkedSegments[this.props.segment.segment_position] = this.props.segment;
     if (this.props.segment.itinerary_type === 'OPEN_JAW') {
       const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(this.props.segment);
       relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
@@ -122,7 +123,9 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
         let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
           segment.itinerary_id === this.props.segment.itinerary_id
         );
-        linkedSegment && linkedSegments.push(linkedSegment);
+        if (linkedSegment) {
+          linkedSegments[linkedSegment.segment_position] = linkedSegment;
+        }
       });
     }
     return linkedSegments;

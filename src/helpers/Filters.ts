@@ -1,15 +1,16 @@
 import { Segment, Filters } from '../trip/results/ResultsInterfaces';
 import { cloneDeep } from 'lodash';
+import _ from 'lodash';
 
-const resetFilters = (segments: Array<Segment>) =>
+const resetFilters = (segments: Array<Segment>) => {
   segments.forEach((segment: Segment) =>
     segment.filtered = false
   );
+}
 
 export const baggageFilter = (segments: Array<Segment>, filterValue: number | undefined) => {
   let totalFiltered = 0;
-
-  let segments_copy = cloneDeep(segments);
+  let segments_copy = _.cloneDeep(segments);
 
   segments.forEach((segment: Segment) => {
     if (!segment.filtered && filterValue! > 0) {
@@ -22,13 +23,13 @@ export const baggageFilter = (segments: Array<Segment>, filterValue: number | un
   });
 
   if (totalFiltered === 0) {
-    segments = cloneDeep(segments_copy);
+    segments = segments_copy;
   }
+  return segments;
 };
 
 export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: number | undefined) => {
   let totalFiltered = 0;
-
   let segments_copy = cloneDeep(segments);
 
   segments.forEach((segment: Segment) => {
@@ -41,8 +42,9 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
   });
 
   if (totalFiltered === 0) {
-    segments = cloneDeep(segments_copy);
+    segments = segments_copy;
   }
+  return segments;
 };
 
 export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
@@ -50,7 +52,7 @@ export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
   resetFilters(segments);
 
   if (filtersKeys.includes('baggage')) {
-    baggageFilter(segments, filters.baggage);
+    segments = baggageFilter(segments, filters.baggage);
   }
   if (filtersKeys.includes('numberOfStops')) {
     numberOfStopsFilter(segments, filters.numberOfStops);

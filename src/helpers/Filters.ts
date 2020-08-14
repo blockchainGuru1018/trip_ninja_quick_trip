@@ -7,26 +7,27 @@ const resetFilters = (segments: Array<Segment>) =>
   );
 
 export const baggageFilter = (segments: Array<Segment>, filterValue: number | undefined) => {
-  let totalNotFiltered = 0;
+  let totalFiltered = 0;
 
   let segments_copy = cloneDeep(segments);
 
   segments.forEach((segment: Segment) => {
     if (!segment.filtered && filterValue! > 0) {
-      segment.filtered = segment.baggage.number_of_pieces < filterValue!;
+      segment.filtered = segment.baggage.number_of_pieces < filterValue!||
+        (typeof(segment.baggage.number_of_pieces) === 'string' && filterValue > 1);
       if (!segment.filtered) {
-        totalNotFiltered += 1;
+        totalFiltered += 1;
       }
     }
   });
 
-  if (totalNotFiltered === 0) {
+  if (totalFiltered === 0) {
     segments = cloneDeep(segments_copy);
   }
 };
 
 export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: number | undefined) => {
-  let totalNotFiltered = 0;
+  let totalFiltered = 0;
 
   let segments_copy = cloneDeep(segments);
 
@@ -35,11 +36,11 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
       segment.filtered = segment.flights.length - 1 > filterValue!;
     }
     if (!segment.filtered) {
-      totalNotFiltered += 1;
+      totalFiltered += 1;
     }
   });
 
-  if (totalNotFiltered === 0) {
+  if (totalFiltered === 0) {
     segments = cloneDeep(segments_copy);
   }
 };

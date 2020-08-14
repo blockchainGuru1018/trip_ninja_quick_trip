@@ -45,7 +45,7 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filterValue: numbe
 };
 
 export const allianceFilter = (segments: Array<Segment>, filterValue: string | undefined) => {
-  if (filterValue == '') {
+  if (filterValue === '') {
     return segments;
   }
   
@@ -53,7 +53,7 @@ export const allianceFilter = (segments: Array<Segment>, filterValue: string | u
   let segments_copy = cloneDeep(segments);
   segments.forEach((segment: Segment) => {
     if (!segment.filtered) {
-      segment.filtered = (segment.alliance == filterValue!);
+      segment.filtered = (segment.alliance !== filterValue!);
     }
     if (!segment.filtered) {
       totalNotFiltered += 1;

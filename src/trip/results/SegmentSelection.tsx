@@ -13,7 +13,7 @@ import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBran
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from "./filters/BaggageFilter";
 import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
-import AllianceFilter from '/filters/AllianceFilter';
+import AllianceFilter from './filters/AllianceFilter';
 import { filterSegments } from "../../helpers/Filters";
 import { AuthDetails } from '../../auth/AuthInterfaces';
 

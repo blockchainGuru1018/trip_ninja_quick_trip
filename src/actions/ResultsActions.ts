@@ -106,7 +106,6 @@ export const getTravelportBrands = (pricingPayload: PricingRequestInterface, seg
       }
     })
     .catch((Error: any) => {
-      dispatch(setErrorDetails(true, 'pricing'));
       return {'success': false};
     });
 };

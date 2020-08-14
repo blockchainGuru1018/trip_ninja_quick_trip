@@ -109,18 +109,68 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
   return otherPositionsInItineraryStructure;
 }
 
-function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number) {
+function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number,
+                            activeSegmentStructure: Array<number>) {
   segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
   const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
   );
   if (bestOneWay) {
-    bestOneWay.status = 'compatible';
-    setAlternatesStatus(state, bestOneWay, segmentOptions);
-    activateSegment(bestOneWay, state, segmentPosition);
+    updateOneWay(bestOneWay, state, segmentOptions, segmentPosition);
   } else {
-    throw new Error(`No segment with ONE_WAY structure found at position ${segmentPosition}`);
+    updateOpenJaw(segmentOptions, activeSegmentStructure, state, segmentPosition);
   }
+}
+
+function updateOpenJaw(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
+                                 segmentPosition: number) {
+  const bestUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, true, activeSegmentStructure);
+  if (bestUnrelatedOpenJaw) {
+    updateSegmentActivesAndAlternates(bestUnrelatedOpenJaw, state, segmentPosition, false)
+  } else {
+    setUnfilteredOneWay(segmentOptions, activeSegmentStructure, state, segmentPosition);
+  }
+}
+
+function setUnfilteredOneWay(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
+                             segmentPosition: number) {
+  const unfilteredBestOneWay: Segment | undefined = segmentOptions.find(
+    (segment: Segment) => segment.itinerary_type === 'ONE_WAY'
+  );
+  if (unfilteredBestOneWay) {
+    updateOneWay(unfilteredBestOneWay, state, segmentOptions, segmentPosition);
+  } else {
+    setUnfilteredUnrelatedOpenJaw(segmentOptions, activeSegmentStructure, state, segmentPosition)
+  }
+}
+
+function setUnfilteredUnrelatedOpenJaw(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
+                                       segmentPosition: number) {
+  const bestUnfilteredUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, false, activeSegmentStructure);
+  if (bestUnfilteredUnrelatedOpenJaw) {
+    updateSegmentActivesAndAlternates(bestUnfilteredUnrelatedOpenJaw, state, segmentPosition, false)
+  } else {
+    throw new Error(`No segments match the filter`);
+  }
+}
+
+function findOpenJaw(segmentOptions: Array<Segment>, filtered: boolean, activeSegmentStructure: Array<number>) {
+  return segmentOptions.find((segment: Segment) => {
+    const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
+    let incompatiblePositions = false;
+    activeSegmentStructure.forEach((structure: number ) =>
+      incompatiblePositions = itineraryStructure.indexOf(structure) !== -1
+        ? true
+        : incompatiblePositions
+    );
+    return !incompatiblePositions && !segment.filtered;
+  });
+}
+
+function updateOneWay(segment: Segment, state: ResultsDetails, segmentOptions: Array<Segment>, segmentPosition: number) {
+  segment.status = 'compatible';
+  setAlternatesStatus(state, segment, segmentOptions);
+  activateSegment(segment, state, segmentPosition);
 }
 
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
@@ -157,7 +207,7 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
   const difference: Array<number> = oldActiveSegmentStructure.filter(x => !activeSegmentStructure.includes(x));
   difference.forEach((positionIndex: number) => {
     const segmentOptions = state[state.tripType].segments[positionIndex];
-    activateBestOneWay(segmentOptions, state, positionIndex);
+    activateBestOneWay(segmentOptions, state, positionIndex, activeSegmentStructure);
   });
 }
 

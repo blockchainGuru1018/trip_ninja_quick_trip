@@ -1,0 +1,19 @@
+.navbar { 
+  background-color: #ffffff;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0px 3px 6px #00000029;
+  font-family: 'NeuzeitGro-Bol', sans-serif;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #45565E;
+}
+
+.navbar-nav {
+	padding-left: 25px;
+}
+
+.nav-item {
+  padding: 0px 20px;
+}

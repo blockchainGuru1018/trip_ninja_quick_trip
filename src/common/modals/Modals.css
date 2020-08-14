@@ -1,0 +1,21 @@
+.centered-container {
+  display: grid;
+  justify-items: center;
+  outline: none;
+  grid-template-rows: 120px;
+}
+
+.search-modal-text-container {
+  max-width: 500px;
+}
+
+.search-modal-title {
+  font-weight: bold;
+  padding: 40px;
+}
+
+.search-modal-container {
+  align-items: center;
+  grid-auto-rows: 80px;
+  padding: 40px;
+}

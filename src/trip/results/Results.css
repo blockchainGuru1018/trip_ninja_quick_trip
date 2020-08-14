@@ -1,0 +1,160 @@
+#segment-selection {
+  background-color: #ffffff;
+}
+
+.pre-results-title {
+  text-align: center;
+  padding: 20px 0px;
+  color: var(--primary)
+}
+
+.pre-result-subtitle {
+  font-size: 20px;
+  font-family: 'NeuzeitGro-Bol', sans-serif;
+  color: var(--secondary);
+  min-height: 60px;
+}
+
+.flight-option-box {
+  max-width: 290px;
+  min-width: 233px;
+  min-height: 500px;
+  padding: 28px 24px;
+  width: 100%;
+}
+
+.flight-option-container-fare {
+  display: grid;
+  justify-items: flex-end;
+  grid-auto-rows: minmax(min-content, max-content);
+}
+
+.flight-option-container-flex {
+  display: grid;
+  justify-content: flex-start;
+  grid-auto-rows: minmax(min-content, max-content);
+}
+
+.flight-icon {
+  margin-right: 10px;
+}
+
+.flight-section {
+  padding-bottom: 50px;
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 40px 1fr;
+  min-height: 100px
+}
+
+.dotted-connector {
+  height: 65%;
+  top: 30%;
+  position: absolute;
+  border-left: 1px dashed;
+  left: 11px;
+}
+
+.btn-flight-options {
+  background-color: var(--secondary) !important;
+  color: #fff !important;
+}
+
+.flight-options-btn-container {
+  display: grid;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  max-width: 290px;
+}
+
+.landing-section {
+  padding: 0;
+  min-height: 50px;
+}
+
+.flight-path-container {
+  display: grid;
+  justify-items: center;
+}
+
+.flight-detail-container {
+  text-align: center;
+}
+
+.flight-path-internal-container {
+  max-width: 850px
+}
+
+.expand-icon {
+  transition: 0.5s !important;
+}
+
+.expand-icon:focus {
+  outline: none;
+}
+
+.fare-rules-type {
+  grid-auto-columns: 24px 1fr;
+  padding-bottom: 40px;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.segment-divider {
+  margin: 75px 0px;
+}
+
+.segment-icon {
+  margin: 0px 10px;
+}
+
+.sort-select-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 100px 100px;
+  height: 50px;
+  align-items: center;
+}
+
+.sort-icon-container {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.btn-segment-selection-container {
+  display: grid;
+  justify-content: flex-end;
+}
+
+.incompatible-info-icon {
+  position: absolute;
+  width: 15px !important;
+  top: 0px;
+  left: 5px;
+}
+
+.MuiTableCell-body.no-brand-info {
+  color: #D8DCDE;
+}
+
+.itinerary-total {
+  padding-bottom: 0px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.booking-drawer-rules {
+  padding-bottom: 20px
+}
+
+.baggage-filter-container {
+  padding-top: 20px;
+  padding-left: 15px;
+}

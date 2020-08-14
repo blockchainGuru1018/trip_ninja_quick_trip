@@ -1,0 +1,45 @@
+.four-o-four-container {
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.four-o-four-text-container h4 {
+  font-size: 18px;
+  letter-spacing: 1.26px;
+}
+
+.four-o-four-logo-container {
+  position: absolute;
+  z-index: 1;
+}
+
+.four-o-four-content-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.hot-link {
+  color: #00B4C3;
+  text-decoration: underline;
+}
+
+.hot-link:hover {
+  color: #00B4C3;
+}
+
+.four-o-four-content-row {
+  max-width: 1050px;
+}
+
+.four-o-four-image-container {
+  max-width: 520px;
+  margin: auto;
+  padding: 0;
+}
+
+.four-o-four-text-container {
+  margin: auto;
+  padding: 0;
+  max-width: 523px;
+}

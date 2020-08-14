@@ -12,6 +12,8 @@ import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import BaggageFilter from "./filters/BaggageFilter";
+import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
+import AllianceFilter from './filters/AllianceFilter';
 import { filterSegments } from "../../helpers/Filters";
 import { AuthDetails } from '../../auth/AuthInterfaces';
 
@@ -70,6 +72,20 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           />
           <div className='baggage-filter-container'>
             <BaggageFilter
+              updateSegmentFilter={this.props.updateSegmentFilter}
+              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
+              trip={trip}
+              updateActives={this.props.updateActives}
+              segmentIndex={Number(segmentIndex)}
+            />
+            <NumberOfStopsFilter
+              updateSegmentFilter={this.props.updateSegmentFilter}
+              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
+              trip={trip}
+              updateActives={this.props.updateActives}
+              segmentIndex={Number(segmentIndex)}
+            />
+            <AllianceFilter
               updateSegmentFilter={this.props.updateSegmentFilter}
               segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
               trip={trip}

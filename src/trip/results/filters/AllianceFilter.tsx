@@ -2,10 +2,9 @@ import React from 'react';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Menu, {MenuProps} from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveIcon from "@material-ui/icons/Remove";
-import AddIcon from "@material-ui/icons/Add";
+import { RadioGroup } from '@material-ui/core';
+import { Radio } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
 import MenuItem from "@material-ui/core/MenuItem";
 import './Filters.css';
 import '../ItineraryResult.css';
@@ -19,7 +18,7 @@ import { Filters, Results, Segment } from "../ResultsInterfaces";
 import { Alert } from "@material-ui/lab";
 
 
-interface BaggageFilterProps {
+interface AllianceFilterProps {
   updateItineraryFilter?: typeof updateItineraryFilter;
   itineraryFilters?: Filters;
   trip: Results;
@@ -33,7 +32,7 @@ interface BaggageFilterProps {
   updateEntireTrip?: typeof updateEntireTrip;
 }
 
-const BaggageFilter = (props: BaggageFilterProps) => {
+const AllianceFilter = (props: AllianceFilterProps) => {
 
   const useStyles = makeStyles({
     root: {
@@ -52,6 +51,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
 
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
   const [failedFilter, setFailedFilter] = React.useState<null | any>(false);
+  const [value, setValue] = React.useState<null | any>(null);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -85,30 +85,11 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   const filters: Filters | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
   const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
-  const updateBaggageFilter = (value: number) => {
+  const updateAllianceFilter = (event: any) => {
     handleClose();
-    if (filters && filterLevel) {
-      value > 0 ? increase_filter(filters.baggage) : decrease_filter(filters.baggage);
-    }
-    return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(value) : '';
-  };
-
-  const increase_filter = (current_number: number) => {
-    let filter_reached_limit = current_number && current_number >= 3;
-    if (filter_reached_limit) {
-      return;
-    } else {
-      const filterValue: number = current_number ? current_number + 1 : 1;
-      filterLevel!('baggage', filterValue, props.segmentIndex);
-    }
-  };
-
-  const decrease_filter = (current_number: number) => {
-    if (current_number && current_number > 0) {
-      filterLevel!('baggage', current_number - 1, props.segmentIndex);
-    } else {
-      return;
-    }
+    setValue(event.target.value);
+    filterLevel!('alliance', event.target.value, props.segmentIndex);
+    return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(event.target.value) : '';
   };
 
   const resetActives = (value: number) => {
@@ -132,7 +113,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            Baggage: {`${filters.baggage} +`}
+            Alliance: {`${filters.alliance}`}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -142,21 +123,15 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             onClose={handleClose}
           >
             <div className='filter-selection-container'>
-              <div className='text-bold filter-title'>Checked Bags</div>
+              <div className='text-bold filter-title'>Max Number of Stops</div>
               <hr className='filter-hr'/>
               <MenuItem>
-                <ListItemText primary='Minimum number of bags' />
-                <IconButton onClick={() =>
-                  updateBaggageFilter(-1)
-                }>
-                  <RemoveIcon fontSize="small" />
-                </IconButton>
-                <span className="baggage-count">{filters.baggage}</span>
-                <IconButton onClick={() =>
-                  updateBaggageFilter(1)
-                }>
-                  <AddIcon fontSize="small" color='primary'/>
-                </IconButton>
+                <RadioGroup aria-label="Alliance" value={value} name="Alliance Filter" onChange={updateAllianceFilter}>
+                  <FormControlLabel control={<Radio />} value="" label="Any" />
+                  <FormControlLabel control={<Radio />} value="*A" label="Star Alliance" />
+                  <FormControlLabel control={<Radio />} value="*O" label="Oneworld" />
+                  <FormControlLabel control={<Radio />} value="*S" label="Skyteam" />
+                </RadioGroup>
               </MenuItem>
             </div>
           </StyledMenu>
@@ -169,4 +144,4 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   );
 };
 
-export default BaggageFilter;
+export default AllianceFilter;

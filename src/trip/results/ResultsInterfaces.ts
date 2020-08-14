@@ -14,10 +14,14 @@ export interface ResultsDetails {
 
 export interface Filters {
   baggage: number
+  numberOfStops: number
+  alliance: string
 }
 
 export const defaultFilters: Filters = {
-  baggage: 0
+  baggage: 0,
+  numberOfStops: 3,
+  alliance: ''
 };
 
 export class ActiveSegmentsMap extends Map<number, Segment>{

@@ -4,6 +4,7 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import moment from 'moment';
 
 interface PassengerDatePickerProps {
   index: number;
@@ -18,7 +19,6 @@ interface PassengerDatePickerProps {
 class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
 
   render() {   
-    let dateValue = this.props.date ? new Date(this.props.date!) : new Date();
     return (
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -33,7 +33,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
             openTo="year"
             views={["year", "month", "date"]}
             margin="none"
-            value={dateValue}
+            value={moment(this.props.date).format()}
             onChange={(e: any) => this.setDateChange(e)}
           />
         </MuiPickersUtilsProvider>
@@ -46,7 +46,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
       ? isNaN(dateEvent.valueOf())
         ? ''
         : this.props.updatePassengerInfo(
-          this.props.index, this.props.fieldName, dateEvent?.toISOString().slice(0,10)!
+          this.props.index, this.props.fieldName, moment(dateEvent).format().slice(0,10)!
         )
       : '';
   };

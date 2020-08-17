@@ -10,7 +10,6 @@ import {
 } from '../trip/results/ResultsInterfaces';
 import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
-import _ from "lodash";
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {

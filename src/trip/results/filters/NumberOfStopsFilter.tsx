@@ -14,17 +14,17 @@ import {
   updateItineraryFilter,
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
-import { Filters, Results, Segment } from "../ResultsInterfaces";
+import { Filter, Results, Segment } from "../ResultsInterfaces";
 import { Alert } from "@material-ui/lab";
 
 
 interface NumberOfStopsFilterProps {
   updateItineraryFilter?: typeof updateItineraryFilter;
-  itineraryFilters?: Filters;
+  itineraryFilters?: Filter;
   trip: Results;
   updateActives: typeof updateActives;
   updateSegmentFilter?: typeof updateSegmentFilter;
-  segmentFilters?: Filters;
+  segmentFilters?: Filter;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
   sortBy?: string;
@@ -50,8 +50,6 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
   });
 
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
-  const [failedFilter, setFailedFilter] = React.useState<null | any>(false);
-  const [value, setValue] = React.useState<null | any>(null);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -82,24 +80,22 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
   ));
 
   const classes = useStyles();
-  const filters: Filters | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
+  const filter: Filter | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
   const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
   const updateNumberOfStopsFilter = (event: any) => {
     handleClose();
-    setValue(event.target.value);
-    filterLevel!('numberOfStops', event.target.value, props.segmentIndex);
+    filterLevel!('noOfStops', event.target.value, props.segmentIndex);
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(event.target.value) : '';
   };
 
   const resetActives = (value: number) => {
-    setFailedFilter(false);
     props.updateEntireTrip!(true, props.sortBy!);
   };
 
   return (
     <div className="filter-group">
-      {filters
+      {filter
         ? <div className='filter-btn-container'>
           <Button
             fullWidth
@@ -113,7 +109,7 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            Max Number of Stops: {`${filters.numberOfStops}`}
+            Stops: {`${filter.value}`}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -126,7 +122,7 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
               <div className='text-bold filter-title'>Max Number of Stops</div>
               <hr className='filter-hr'/>
               <MenuItem>
-                <RadioGroup aria-label="Max Number of Stops" value={value} name="Number Of Stops Filter" onChange={updateNumberOfStopsFilter}>
+                <RadioGroup aria-label="Max Number of Stops" value={filter.value} name="Number Of Stops Filter" onChange={updateNumberOfStopsFilter}>
                   <FormControlLabel control={<Radio />} value="0" label="Direct Only" />
                   <FormControlLabel control={<Radio />} value="1" label="1 stop" />
                   <FormControlLabel control={<Radio />} value="2" label="2 stops" />
@@ -135,8 +131,8 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
               </MenuItem>
             </div>
           </StyledMenu>
-          {failedFilter
-            && <Alert severity='error'>No flights</Alert>
+          {filter.failed
+            && <Alert severity='error'>No flights for this filter</Alert>
           }
         </div>
         : ''}

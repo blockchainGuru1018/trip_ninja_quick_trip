@@ -1,7 +1,16 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, Filters, defaultFilters } from '../trip/results/ResultsInterfaces';
+import {
+  ResultsDetails,
+  Segment,
+  ActiveSegmentsMap,
+  BrandInfo,
+  Results,
+  defaultFilters,
+  Filter
+} from '../trip/results/ResultsInterfaces';
 import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
+import _ from "lodash";
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -13,7 +22,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         tripType: 'fareStructureResults',
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
-        itineraryFilters: {...defaultFilters},
+        itineraryFilters: defaultFilters,
         segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
       };
 
@@ -119,21 +128,30 @@ function setSegmentBrandInfo(state: ResultsDetails, action: any) {
       linkedSegment && (linkedSegment.brands = brands);
     });
   }
-
   return {...state};
 }
 
 function setDefaultSegmentFilters(fareStructureResults: Results) {
-  let segmentFilters: Array<Filters> = [];
-  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push({...defaultFilters}));
+  let segmentFilters: Array<Array<Filter>> = [];
+  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push(defaultFilters));
   return segmentFilters;
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  state.itineraryFilters![action.filterKey] = action.filterValue;
-  const updatedSegmentFilters = state.segmentFilters!.map((filters: Filters) => ({...filters, [action.filterKey]: action.filterValue}));
-  filterItinerary(state[state.tripType].segments, state.itineraryFilters!);
-  return {...state, segmentFilters: updatedSegmentFilters};
+  let filter = state.itineraryFilters!.find((filter: Filter) => filter.type === action.filterKey)
+  filter!.value = action.filterValue;
+  state.segmentFilters!.forEach((filters: Array<Filter>) => {
+    filters.forEach((filter: Filter) => {
+      if (filter.type === action.filterKey) {
+        filter.value = action.filterValue;
+      }
+      return filter
+    })
+    return filters;
+  });
+  const tripType = state.tripType
+  filterItinerary(state[tripType].segments, state.itineraryFilters!);
+  return {...state};
 }
 
 export default resultsReducer;

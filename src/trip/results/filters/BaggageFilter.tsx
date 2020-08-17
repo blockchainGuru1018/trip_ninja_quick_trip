@@ -15,17 +15,17 @@ import {
   updateItineraryFilter,
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
-import { Filters, Results, Segment } from "../ResultsInterfaces";
+import { Filter, Results, Segment } from "../ResultsInterfaces";
 import { Alert } from "@material-ui/lab";
 
 
 interface BaggageFilterProps {
   updateItineraryFilter?: typeof updateItineraryFilter;
-  itineraryFilters?: Filters;
+  itineraryFilters?: Filter;
   trip: Results;
   updateActives: typeof updateActives;
   updateSegmentFilter?: typeof updateSegmentFilter;
-  segmentFilters?: Filters;
+  segmentFilters?: Filter;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
   sortBy?: string;
@@ -51,7 +51,6 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   });
 
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
-  const [failedFilter, setFailedFilter] = React.useState<null | any>(false);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -82,43 +81,42 @@ const BaggageFilter = (props: BaggageFilterProps) => {
   ));
 
   const classes = useStyles();
-  const filters: Filters | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
+  const filter: Filter | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
   const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
   const updateBaggageFilter = (value: number) => {
     handleClose();
-    if (filters && filterLevel) {
-      value > 0 ? increase_filter(filters.baggage) : decrease_filter(filters.baggage);
+    if (filter && filterLevel) {
+      value > 0 ? increase_filter() : decrease_filter();
     }
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(value) : '';
   };
 
-  const increase_filter = (current_number: number) => {
-    let filter_reached_limit = current_number && current_number >= 3;
+  const increase_filter = () => {
+    let filter_reached_limit = filter && filter.value >= 3;
     if (filter_reached_limit) {
       return;
     } else {
-      const filterValue: number = current_number ? current_number + 1 : 1;
+      const filterValue: number = filter ? filter.value + 1 : 1;
       filterLevel!('baggage', filterValue, props.segmentIndex);
     }
   };
 
-  const decrease_filter = (current_number: number) => {
-    if (current_number && current_number > 0) {
-      filterLevel!('baggage', current_number - 1, props.segmentIndex);
+  const decrease_filter = () => {
+    if (filter && filter.value > 0) {
+      filterLevel!('baggage', filter.value - 1, props.segmentIndex);
     } else {
       return;
     }
   };
 
   const resetActives = (value: number) => {
-    setFailedFilter(false);
     props.updateEntireTrip!(true, props.sortBy!);
   };
 
   return (
     <div className="filter-group">
-      {filters
+      {filter
         ? <div className='filter-btn-container'>
           <Button
             fullWidth
@@ -132,7 +130,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            Baggage: {`${filters.baggage} +`}
+            Baggage: {`${filter.value} +`}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -151,7 +149,7 @@ const BaggageFilter = (props: BaggageFilterProps) => {
                 }>
                   <RemoveIcon fontSize="small" />
                 </IconButton>
-                <span className="baggage-count">{filters.baggage}</span>
+                <span className="baggage-count">{filter.value}</span>
                 <IconButton onClick={() =>
                   updateBaggageFilter(1)
                 }>
@@ -160,8 +158,8 @@ const BaggageFilter = (props: BaggageFilterProps) => {
               </MenuItem>
             </div>
           </StyledMenu>
-          {failedFilter
-            && <Alert severity='error'>No flights</Alert>
+          {filter.failed
+            && <Alert severity='error'>No flights for this filter</Alert>
           }
         </div>
         : ''}

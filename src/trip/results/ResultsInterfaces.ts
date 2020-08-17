@@ -8,19 +8,21 @@ export interface ResultsDetails {
   segmentPositionMap: SegmentPositionMap;
   itinerarySortBy: string;
   segmentSortBy: Array<string>;
-  segmentFilters?: Array<Filters>
-  itineraryFilters?: Filters
+  segmentFilters?: Array<Array<Filter>>
+  itineraryFilters?: Array<Filter>
 }
 
-export interface Filters {
-  baggage: number
-  numberOfStops: number
+export interface Filter {
+  type: string
+  value: number,
+  position: number,
+  failed: boolean
 }
 
-export const defaultFilters: Filters = {
-  baggage: 0,
-  numberOfStops: 3
-}
+export const defaultFilters: Array<Filter> = [
+  {type: 'baggage', value: 0, position: 0, failed: false},
+  {type: 'noOfStops', value: 3, position: 1, failed: false}
+]
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
 

@@ -3,7 +3,7 @@ import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import FlightIcon from '@material-ui/icons/Flight';
-import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
+import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
@@ -69,21 +69,27 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
             updateSortType={this.props.updateSortType}
           />
-          <div className='baggage-filter-container'>
-            <BaggageFilter
-              updateSegmentFilter={this.props.updateSegmentFilter}
-              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
-              trip={trip}
-              updateActives={this.props.updateActives}
-              segmentIndex={Number(segmentIndex)}
-            />
-            <NumberOfStopsFilter
-              updateSegmentFilter={this.props.updateSegmentFilter}
-              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
-              trip={trip}
-              updateActives={this.props.updateActives}
-              segmentIndex={Number(segmentIndex)}
-            />
+          <div className='row'>
+            <div className='col-md-2'>
+              <BaggageFilter
+                updateSegmentFilter={this.props.updateSegmentFilter}
+                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                  (filter: Filter) => filter.type === 'baggage')}
+                trip={trip}
+                updateActives={this.props.updateActives}
+                segmentIndex={Number(segmentIndex)}
+              />
+            </div>
+            <div className='col-md-2'>
+              <NumberOfStopsFilter
+                updateSegmentFilter={this.props.updateSegmentFilter}
+                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                  (filter: Filter) => filter.type === 'noOfStops')}
+                trip={trip}
+                updateActives={this.props.updateActives}
+                segmentIndex={Number(segmentIndex)}
+              />
+            </div>
           </div>
         </div>
         <div className="row">

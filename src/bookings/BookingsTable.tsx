@@ -21,11 +21,11 @@ import { AuthDetails } from '../auth/AuthInterfaces';
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
   fontWeight: 'bold',
-  color: '#45565E',
+  color: 'var(--color-secondary)',
 });
 
 const DetailsLinkCell = styled(TableCell)({
-  color: '#4BAFD7',
+  color: 'var(--color-tertiary)',
   fontWeight: 'bold',
   '&:hover': {
     opacity: '0.7',

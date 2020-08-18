@@ -10,13 +10,12 @@ const resetFilters = (segments: Array<Segment>) => {
 }
 
 export const baggageFilter = (segments: Array<Segment>, filter: Filter) => {
-  console.log('baggage')
   let totalFiltered = 0;
   let segments_copy = _.cloneDeep(segments);
   segments.forEach((segment: Segment) => {
-    if (!segment.filtered && filter.value! > 0) {
-      segment.filtered = segment.baggage.number_of_pieces < filter.value! ||
-        (typeof(segment.baggage.number_of_pieces) === 'string' && filter.value! > 1);
+    if (!segment.filtered && filter.value > 0) {
+      segment.filtered = segment.baggage.number_of_pieces < filter.value ||
+        (typeof(segment.baggage.number_of_pieces) === 'string' && filter.value > 1);
       if (!segment.filtered) {
         totalFiltered += 1;
       }
@@ -33,13 +32,11 @@ export const baggageFilter = (segments: Array<Segment>, filter: Filter) => {
 };
 
 export const numberOfStopsFilter = (segments: Array<Segment>, filter: Filter) => {
-  console.log('number')
-  console.log(filter)
   let totalFiltered = 0;
   let segments_copy = cloneDeep(segments);
   segments.forEach((segment: Segment) => {
     if (!segment.filtered) {
-      segment.filtered = segment.flights.length - 1 > filter.value!;
+      segment.filtered = segment.flights.length - 1 > filter.value;
     }
     if (!segment.filtered) {
       totalFiltered += 1;
@@ -50,7 +47,6 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filter: Filter) =>
     segments = segments_copy;
     filter.failed = true;
   } else {
-    console.log('in the faile')
     filter.failed = false
   }
   return segments;
@@ -74,6 +70,5 @@ export const filterItinerary = (segmentOptions: Array<Array<Segment>>, filters: 
   segmentOptions.forEach((segments: Array<Segment>, index: number) =>
     segmentOptions[index] = filterSegments(segments, filters)
   );
-  console.log(JSON.parse(JSON.stringify(segmentOptions)))
   return segmentOptions;
 }

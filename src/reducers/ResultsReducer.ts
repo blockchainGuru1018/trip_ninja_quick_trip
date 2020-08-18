@@ -137,16 +137,16 @@ function setDefaultSegmentFilters(fareStructureResults: Results) {
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  let filter = state.itineraryFilters!.find((filter: Filter) => filter.type === action.filterKey)
+  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey)
   filter!.value = action.filterValue;
-  state.segmentFilters!.forEach((filters: Array<Filter>) => {
-    filters.forEach((filter: Filter) => {
+  state.segmentFilters!.forEach((segmentFilters: Array<Filter>) => {
+    segmentFilters.forEach((filter: Filter) => {
       if (filter.type === action.filterKey) {
         filter.value = action.filterValue;
       }
       return filter
     })
-    return filters;
+    return segmentFilters;
   });
   const tripType = state.tripType
   filterItinerary(state[tripType].segments, state.itineraryFilters!);

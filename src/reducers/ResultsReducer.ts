@@ -1,15 +1,9 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import {
-  ResultsDetails,
-  Segment,
-  ActiveSegmentsMap,
-  BrandInfo,
-  Results,
-  defaultFilters,
-  Filter
+import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, defaultFilters, Filter
 } from '../trip/results/ResultsInterfaces';
 import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
+import _ from 'lodash';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -21,7 +15,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         tripType: 'fareStructureResults',
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
-        itineraryFilters: defaultFilters,
+        itineraryFilters: _.cloneDeep(defaultFilters),
         segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
       };
 
@@ -132,7 +126,7 @@ function setSegmentBrandInfo(state: ResultsDetails, action: any) {
 
 function setDefaultSegmentFilters(fareStructureResults: Results) {
   let segmentFilters: Array<Array<Filter>> = [];
-  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push(defaultFilters));
+  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push(_.cloneDeep(defaultFilters)));
   return segmentFilters;
 }
 

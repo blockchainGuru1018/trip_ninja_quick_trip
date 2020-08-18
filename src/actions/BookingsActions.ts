@@ -47,7 +47,7 @@ export function bookingDetailsLoading(value: boolean) {
 
 
 export const getBookingsList = (queryType: string) => (dispatch: any) => {
-  const url: string = 'book/list/?'+ queryType;
+  const url: string = 'book/list/?'+ queryType + '&offset=0&limit=1000';
 
   return API.get(url)
     .then((response: any) => {

@@ -134,11 +134,11 @@ function updateFilterReturnValue(state: ResultsDetails, action: any) {
   let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey)
   filter!.value = action.filterValue;
   state.segmentFilters!.forEach((segmentFilters: Array<Filter>) => {
-    segmentFilters.forEach((filter: Filter) => {
-      if (filter.type === action.filterKey) {
-        filter.value = action.filterValue;
+    segmentFilters.forEach((segmentFilter: Filter) => {
+      if (segmentFilter.type === action.filterKey) {
+        segmentFilter.value = action.filterValue;
       }
-      return filter
+      return segmentFilter;
     })
     return segmentFilters;
   });

@@ -13,9 +13,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
   from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
-import BaggageFilter from './filters/BaggageFilter';
-import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
-import AllianceFilter from './filters/AllianceFilter';
+import FlightsFilter from './filters/FilterTemplate';
 import SortOption from "./SortOption";
 
 interface ItineraryResultsProps {
@@ -87,11 +85,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <div className='col-md-8'>
               <div className='row'>
                 <div className='col-md-3'>
-                  <BaggageFilter
-                    sortBy={this.props.resultsDetails.itinerarySortBy}
-                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                    updateItineraryFilter={this.props.updateItineraryFilter}
+                  <FlightsFilter
+                    filterName='baggage'
                     itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'baggage')}
+                    sortBy={this.props.resultsDetails.itinerarySortBy}
+                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
                     trip={trip}
                     updateActives={this.props.updateActives}
                     segmentIndex={-1}
@@ -100,11 +99,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                   />
                 </div>
                 <div className='col-md-3'>
-                  <NumberOfStopsFilter
-                    sortBy={this.props.resultsDetails.itinerarySortBy}
-                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                    updateItineraryFilter={this.props.updateItineraryFilter}
+                  <FlightsFilter
+                    filterName='noOfStops'
                     itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'noOfStops')}
+                    sortBy={this.props.resultsDetails.itinerarySortBy}
+                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
                     trip={trip}
                     updateActives={this.props.updateActives}
                     segmentIndex={-1}
@@ -113,11 +113,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                   />
                 </div>
                 <div className='col-md-3'>
-                  <AllianceFilter
+                  <FlightsFilter
+                    filterName='alliance'
+                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'alliance')}
                     sortBy={this.props.resultsDetails.itinerarySortBy}
                     segmentSortBy={this.props.resultsDetails.segmentSortBy}
                     updateItineraryFilter={this.props.updateItineraryFilter}
-                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'alliance')}
                     trip={trip}
                     updateActives={this.props.updateActives}
                     segmentIndex={-1}

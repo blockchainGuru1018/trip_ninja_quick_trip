@@ -14,7 +14,11 @@ export const baggageFilter = (segment: Segment, filter: Filter) => {
 };
 
 export const numberOfStopsFilter = (segment: Segment, filter: Filter) => {
-  return segment.flights.length - 1 > filter.value;
+  if (filter.value === ''){
+    return false;
+  } else {
+    return segment.flights.length - 1 > filter.value;
+  }
 };
 
 export const allianceFilter = (segment: Segment, filter: Filter) => {
@@ -65,4 +69,4 @@ export const filterItinerary = (segmentOptions: Array<Array<Segment>>, filters: 
   segmentOptions.forEach((segments: Array<Segment>, index: number) =>
     segmentOptions[index] = filterSegments(segments, filters)
   );
-}
+};

@@ -158,3 +158,8 @@
   padding-top: 20px;
   padding-left: 15px;
 }
+
+.filter-group {
+  display: inline-block;
+  margin: 0px 10px;
+}

@@ -52,16 +52,38 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filter: Filter) =>
   return segments;
 };
 
+export const allianceFilter = (segments: Array<Segment>, filter: Filter) => {
+  let totalFiltered = 0;
+  let segments_copy = cloneDeep(segments);
+  segments.forEach((segment: Segment) => {
+    if (!segment.filtered) {
+      segment.filtered = (segment.alliance !== filter.value!);
+    }
+    if (!segment.filtered) {
+      totalFiltered += 1;
+    }
+  });
+
+  if (totalFiltered === 0) {
+    segments = segments_copy;
+    filter.failed = true;
+  } else {
+    filter.failed = false;
+  }
+  return segments;
+};
+
 export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>) => {
   resetFilters(segments);
   const filterMap = {
     baggage: baggageFilter,
-    noOfStops: numberOfStopsFilter
+    noOfStops: numberOfStopsFilter,
+    alliance: allianceFilter
   }
 
   filters.forEach((filter: Filter) => {
-    const filterType = filterMap[filter.type]
-    segments = filterType(segments, filter)
+    const filterType = filterMap[filter.type];
+    segments = filterType(segments, filter);
   })
   return segments;
 };

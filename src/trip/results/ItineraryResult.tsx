@@ -112,6 +112,19 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                     updateEntireTrip={this.props.updateEntireTrip}
                   />
                 </div>
+                <div className='col-md-3'>
+                  <AllianceFilter
+                    sortBy={this.props.resultsDetails.itinerarySortBy}
+                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
+                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'alliance')}
+                    trip={trip}
+                    updateActives={this.props.updateActives}
+                    segmentIndex={-1}
+                    activeSegments={this.getActiveSegments(trip)}
+                    updateEntireTrip={this.props.updateEntireTrip}
+                  />
+                </div>
               </div>
             </div>
             <div className="col-md-4">

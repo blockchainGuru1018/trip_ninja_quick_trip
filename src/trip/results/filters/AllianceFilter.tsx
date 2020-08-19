@@ -14,17 +14,17 @@ import {
   updateItineraryFilter,
   updateSegmentFilter
 } from "../../../actions/ResultsActions";
-import { Filters, Results, Segment } from "../ResultsInterfaces";
+import { Filter, Results, Segment } from "../ResultsInterfaces";
 import { Alert } from "@material-ui/lab";
 
 
 interface AllianceFilterProps {
   updateItineraryFilter?: typeof updateItineraryFilter;
-  itineraryFilters?: Filters;
+  itineraryFilters?: Filter;
   trip: Results;
   updateActives: typeof updateActives;
   updateSegmentFilter?: typeof updateSegmentFilter;
-  segmentFilters?: Filters;
+  segmentFilters?: Filter;
   segmentIndex: number;
   activeSegments?: Array<Segment>;
   sortBy?: string;
@@ -50,8 +50,6 @@ const AllianceFilter = (props: AllianceFilterProps) => {
   });
 
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
-  const [failedFilter, setFailedFilter] = React.useState<null | any>(false);
-  const [value, setValue] = React.useState<null | any>(null);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -82,24 +80,22 @@ const AllianceFilter = (props: AllianceFilterProps) => {
   ));
 
   const classes = useStyles();
-  const filters: Filters | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
+  const filter: Filter | undefined = props.itineraryFilters ? props.itineraryFilters : props.segmentFilters;
   const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
   const updateAllianceFilter = (event: any) => {
     handleClose();
-    setValue(event.target.value);
     filterLevel!('alliance', event.target.value, props.segmentIndex);
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(event.target.value) : '';
   };
-
+  
   const resetActives = (value: number) => {
-    setFailedFilter(false);
     props.updateEntireTrip!(true, props.sortBy!);
   };
 
   return (
     <div className="filter-group">
-      {filters
+      {filter
         ? <div className='filter-btn-container'>
           <Button
             fullWidth
@@ -113,7 +109,7 @@ const AllianceFilter = (props: AllianceFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            Alliance: {`${filters.alliance}`}
+            Alliance: {`${filter.value}`}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -123,10 +119,10 @@ const AllianceFilter = (props: AllianceFilterProps) => {
             onClose={handleClose}
           >
             <div className='filter-selection-container'>
-              <div className='text-bold filter-title'>Max Number of Stops</div>
+              <div className='text-bold filter-title'>Alliance</div>
               <hr className='filter-hr'/>
               <MenuItem>
-                <RadioGroup aria-label="Alliance" value={value} name="Alliance Filter" onChange={updateAllianceFilter}>
+                <RadioGroup aria-label="Alliance" value={filter.value} name="Alliance Filter" onChange={updateAllianceFilter}>
                   <FormControlLabel control={<Radio />} value="" label="Any" />
                   <FormControlLabel control={<Radio />} value="*A" label="Star Alliance" />
                   <FormControlLabel control={<Radio />} value="*O" label="Oneworld" />
@@ -135,8 +131,8 @@ const AllianceFilter = (props: AllianceFilterProps) => {
               </MenuItem>
             </div>
           </StyledMenu>
-          {failedFilter
-            && <Alert severity='error'>No flights</Alert>
+          {filter.failed
+            && <Alert severity='error'>No flights for this filter</Alert>
           }
         </div>
         : ''}

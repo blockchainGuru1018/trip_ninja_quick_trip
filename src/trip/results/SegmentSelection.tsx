@@ -91,6 +91,16 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                 segmentIndex={Number(segmentIndex)}
               />
             </div>
+            <div className='col-md-2'>
+              <AllianceFilter
+                updateSegmentFilter={this.props.updateSegmentFilter}
+                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                  (filter: Filter) => filter.type === 'alliance')}
+                trip={trip}
+                updateActives={this.props.updateActives}
+                segmentIndex={Number(segmentIndex)}
+              />
+            </div>
           </div>
         </div>
         <div className="row">

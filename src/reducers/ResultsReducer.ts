@@ -142,13 +142,11 @@ function updateFilterReturnValue(state: ResultsDetails, action: any) {
       if (segmentFilter.type === action.filterKey) {
         segmentFilter.value = action.filterValue;
       }
-      return segmentFilter;
     })
-    return segmentFilters;
   });
   const tripType = state.tripType
-  const filteredSegments = filterItinerary(state[tripType].segments, state.itineraryFilters!);
-  return {...state, [tripType]: {...state[tripType], segments: [...filteredSegments]}};
+  filterItinerary(state[tripType].segments, state.itineraryFilters!);
+  return state
 }
 
 export default resultsReducer;

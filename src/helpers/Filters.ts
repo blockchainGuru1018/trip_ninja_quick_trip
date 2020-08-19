@@ -70,5 +70,4 @@ export const filterItinerary = (segmentOptions: Array<Array<Segment>>, filters: 
   segmentOptions.forEach((segments: Array<Segment>, index: number) =>
     segmentOptions[index] = filterSegments(segments, filters)
   );
-  return segmentOptions;
 }

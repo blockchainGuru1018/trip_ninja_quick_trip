@@ -9,12 +9,16 @@ const resetFilters = (segments: Array<Segment>) => {
 };
 
 export const baggageFilter = (segment: Segment, filter: Filter) => {
-  return segment.baggage.number_of_pieces < filter.value ||
-    (typeof(segment.baggage.number_of_pieces) === 'string' && filter.value > 1);
+  if (filter.value === 'Any'){
+    return false;
+  } else {
+    return segment.baggage.number_of_pieces < filter.value ||
+      (typeof(segment.baggage.number_of_pieces) === 'string' && filter.value > 1);
+  }
 };
 
 export const numberOfStopsFilter = (segment: Segment, filter: Filter) => {
-  if (filter.value === ''){
+  if (filter.value === 'Any'){
     return false;
   } else {
     return segment.flights.length - 1 > filter.value;
@@ -22,7 +26,7 @@ export const numberOfStopsFilter = (segment: Segment, filter: Filter) => {
 };
 
 export const allianceFilter = (segment: Segment, filter: Filter) => {
-  if (filter.value === ''){
+  if (filter.value === 'Any'){
     return false;
   } else {
     return segment.alliance !== filter.value;

@@ -54,6 +54,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
       </div>;
 
+    const enabledFilters = ['baggage','noOfStops','alliance'];
+
     return (
       <div id="itinerary-result">
         <div className="results-header">
@@ -84,48 +86,22 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <div className="row">
             <div className='col-md-8'>
               <div className='row'>
-                <div className='col-md-3'>
-                  <FlightsFilter
-                    filterName='baggage'
-                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'baggage')}
-                    sortBy={this.props.resultsDetails.itinerarySortBy}
-                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                    updateItineraryFilter={this.props.updateItineraryFilter}
-                    trip={trip}
-                    updateActives={this.props.updateActives}
-                    segmentIndex={-1}
-                    activeSegments={this.getActiveSegments(trip)}
-                    updateEntireTrip={this.props.updateEntireTrip}
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <FlightsFilter
-                    filterName='noOfStops'
-                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'noOfStops')}
-                    sortBy={this.props.resultsDetails.itinerarySortBy}
-                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                    updateItineraryFilter={this.props.updateItineraryFilter}
-                    trip={trip}
-                    updateActives={this.props.updateActives}
-                    segmentIndex={-1}
-                    activeSegments={this.getActiveSegments(trip)}
-                    updateEntireTrip={this.props.updateEntireTrip}
-                  />
-                </div>
-                <div className='col-md-3'>
-                  <FlightsFilter
-                    filterName='alliance'
-                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'alliance')}
-                    sortBy={this.props.resultsDetails.itinerarySortBy}
-                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                    updateItineraryFilter={this.props.updateItineraryFilter}
-                    trip={trip}
-                    updateActives={this.props.updateActives}
-                    segmentIndex={-1}
-                    activeSegments={this.getActiveSegments(trip)}
-                    updateEntireTrip={this.props.updateEntireTrip}
-                  />
-                </div>
+                {enabledFilters.map((item) =>
+                  <div className='col-md-3'>
+                    <FlightsFilter
+                      filterName={item}
+                      itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === item)}
+                      sortBy={this.props.resultsDetails.itinerarySortBy}
+                      segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                      updateItineraryFilter={this.props.updateItineraryFilter}
+                      trip={trip}
+                      updateActives={this.props.updateActives}
+                      segmentIndex={-1}
+                      activeSegments={this.getActiveSegments(trip)}
+                      updateEntireTrip={this.props.updateEntireTrip}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div className="col-md-4">

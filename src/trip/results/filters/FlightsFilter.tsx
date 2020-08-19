@@ -97,6 +97,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
   const filtersDict = {
     'baggage': { 
       'name': 'Baggage',
+      'nameSuffix': '+',
       'description': 'Minimum # of checked bags',
       'picker':
         <MenuItem>
@@ -109,11 +110,12 @@ const FlightsFilter = (props: FlightsFilterProps) => {
         </MenuItem>},
     'alliance': { 
       'name': 'Alliance',
+      'nameSuffix': '',
       'description': 'Alliance',
       'picker':
         <MenuItem>
           <RadioGroup aria-label="Alliance" value={filter!.value} name="Alliance Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="" label="Any" />
+            <FormControlLabel control={<Radio />} value="Any" label="Any" />
             <FormControlLabel control={<Radio />} value="*A" label="Star Alliance" />
             <FormControlLabel control={<Radio />} value="*O" label="Oneworld" />
             <FormControlLabel control={<Radio />} value="*S" label="Skyteam" />
@@ -121,11 +123,12 @@ const FlightsFilter = (props: FlightsFilterProps) => {
         </MenuItem>},
     'noOfStops': { 
       'name': 'Stops',
+      'nameSuffix': '',
       'description': 'Max Number of Stops',
       'picker':
         <MenuItem>
           <RadioGroup aria-label="Max Number of Stops" value={filter!.value} name="Number Of Stops Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="" label="Any" />
+            <FormControlLabel control={<Radio />} value="Any" label="Any" />
             <FormControlLabel control={<Radio />} value="0" label="Direct Only" />
             <FormControlLabel control={<Radio />} value="1" label="1 stop" />
             <FormControlLabel control={<Radio />} value="2" label="2 stops" />
@@ -149,7 +152,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            {filtersDict[props.filterName]['name']}: {`${filter.value} +`}
+            {filtersDict[props.filterName]['name']}: {`${filter.value} `} {filtersDict[props.filterName]['nameSuffix']}
           </Button>
           <StyledMenu
             id="customized-menu"

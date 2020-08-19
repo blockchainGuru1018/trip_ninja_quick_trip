@@ -48,6 +48,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
     const totalPrice: number = getTotal(selectedTrip, 'price');
 
+    const enabledFilters = ['baggage','noOfStops','alliance'];
+
     return (
       <div id="segment-selection">
         <div className="results-header">
@@ -71,39 +73,19 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             updateSortType={this.props.updateSortType}
           />
           <div className='row'>
-            <div className='col-md-2'>
-              <FlightsFilter
-                filterName='baggage'
-                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                  (filter: Filter) => filter.type === 'baggage')}
-                updateSegmentFilter={this.props.updateSegmentFilter}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={Number(segmentIndex)}
-              />
-            </div>
-            <div className='col-md-2'>
-              <FlightsFilter
-                filterName='noOfStops'
-                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                  (filter: Filter) => filter.type === 'noOfStops')}
-                updateSegmentFilter={this.props.updateSegmentFilter}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={Number(segmentIndex)}
-              />
-            </div>
-            <div className='col-md-2'>
-              <FlightsFilter
-                filterName='alliance'
-                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                  (filter: Filter) => filter.type === 'alliance')}
-                updateSegmentFilter={this.props.updateSegmentFilter}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={Number(segmentIndex)}
-              />
-            </div>
+            {enabledFilters.map((item) =>
+              <div className='col-md-2'>
+                <FlightsFilter
+                  filterName={item}
+                  segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                    (filter: Filter) => filter.type === item)}
+                  updateSegmentFilter={this.props.updateSegmentFilter}
+                  trip={trip}
+                  updateActives={this.props.updateActives}
+                  segmentIndex={Number(segmentIndex)}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="row">

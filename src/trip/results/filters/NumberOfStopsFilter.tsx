@@ -32,6 +32,7 @@ interface NumberOfStopsFilterProps {
   updateEntireTrip?: typeof updateEntireTrip;
 }
 
+
 const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
 
   const useStyles = makeStyles({
@@ -123,10 +124,10 @@ const NumberOfStopsFilter = (props: NumberOfStopsFilterProps) => {
               <hr className='filter-hr'/>
               <MenuItem>
                 <RadioGroup aria-label="Max Number of Stops" value={filter.value} name="Number Of Stops Filter" onChange={updateNumberOfStopsFilter}>
+                  <FormControlLabel control={<Radio />} value="" label="Any" />
                   <FormControlLabel control={<Radio />} value="0" label="Direct Only" />
                   <FormControlLabel control={<Radio />} value="1" label="1 stop" />
                   <FormControlLabel control={<Radio />} value="2" label="2 stops" />
-                  <FormControlLabel control={<Radio />} value="3" label="3 stops" />
                 </RadioGroup>
               </MenuItem>
             </div>

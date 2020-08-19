@@ -1,7 +1,8 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
 import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, defaultFilters, Filter
 } from '../trip/results/ResultsInterfaces';
-import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
+import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setIndex0AsActives
+} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
 import _ from 'lodash';
 
@@ -41,7 +42,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_ENTIRE_TRIP':
       const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered);
       if (!viable) {
-        setFilteredRelatives(state);
+        setIndex0AsActives(state)
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
@@ -57,7 +58,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateFilterReturnValue(state, action);
 
     case 'UPDATE_SEGMENT_FILTER':
-      state.segmentFilters![action.segmentIndex][action.filterKey] = action.filterValue;
+      const relatedFilter: Filter | undefined = state.segmentFilters![action.segmentIndex].find((segmentFilter: Filter) =>
+        segmentFilter.type === action.filterKey
+      )
+      relatedFilter!.value = action.filterValue;
       return {...state};
 
     case 'UPDATE_SORT_TYPE':
@@ -138,13 +142,11 @@ function updateFilterReturnValue(state: ResultsDetails, action: any) {
       if (segmentFilter.type === action.filterKey) {
         segmentFilter.value = action.filterValue;
       }
-      return segmentFilter;
     })
-    return segmentFilters;
   });
   const tripType = state.tripType
   filterItinerary(state[tripType].segments, state.itineraryFilters!);
-  return {...state};
+  return state
 }
 
 export default resultsReducer;

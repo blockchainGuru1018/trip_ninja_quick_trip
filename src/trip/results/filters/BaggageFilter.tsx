@@ -102,13 +102,10 @@ const BaggageFilter = (props: BaggageFilterProps) => {
     }
   };
 
-  const decrease_filter = () => {
-    if (filter && filter.value > 0) {
-      filterLevel!('baggage', filter.value - 1, props.segmentIndex);
-    } else {
-      return;
-    }
-  };
+  const decrease_filter = () =>
+    filter && filter.value > 0
+      ? filterLevel!('baggage', filter.value - 1, props.segmentIndex)
+      : '';
 
   const resetActives = (value: number) => {
     props.updateEntireTrip!(true, props.sortBy!);

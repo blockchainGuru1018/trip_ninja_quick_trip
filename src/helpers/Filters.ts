@@ -21,7 +21,7 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   if (filter.value === ''){
     return false;
   } else {
-    return (segment.alliance !== filter.value! && filter.value === '');
+    return (segment.alliance !== filter.value!);
   }
 };
 
@@ -29,7 +29,6 @@ export const checkFilteredLength = (segments: Array<Segment>) => {
   let length = segments.filter(function(item){
     return !item.filtered;
   }).length;
-  console.log("filteredLength:", length);
   return length;
 };
 

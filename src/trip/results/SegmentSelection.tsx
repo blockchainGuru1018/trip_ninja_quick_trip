@@ -11,7 +11,7 @@ import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
-import FlightsFilter from "./filters/FilterTemplate";
+import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
 import { AuthDetails } from '../../auth/AuthInterfaces';
 

@@ -25,7 +25,7 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   if (filter.value === ''){
     return false;
   } else {
-    return segment.alliance !== filter.value!;
+    return segment.alliance !== filter.value;
   }
 };
 

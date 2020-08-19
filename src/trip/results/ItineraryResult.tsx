@@ -6,7 +6,7 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment , Filters } from './ResultsInterfaces';
+import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
@@ -25,7 +25,7 @@ interface ItineraryResultsProps {
   passengers: Array<Passenger>;
   authDetails: AuthDetails;
   updateItineraryFilter: typeof updateItineraryFilter;
-  itineraryFilters: Filters | undefined
+  itineraryFilters: Array<Filter> | undefined
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
@@ -85,39 +85,34 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </div>
           <div className="row">
             <div className='col-md-8'>
-              <BaggageFilter
-                sortBy={this.props.resultsDetails.itinerarySortBy}
-                segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                updateItineraryFilter={this.props.updateItineraryFilter}
-                itineraryFilters={this.props.itineraryFilters}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={-1}
-                activeSegments={this.getActiveSegments(trip)}
-                updateEntireTrip={this.props.updateEntireTrip}
-              />
-              <NumberOfStopsFilter
-                sortBy={this.props.resultsDetails.itinerarySortBy}
-                segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                updateItineraryFilter={this.props.updateItineraryFilter}
-                itineraryFilters={this.props.itineraryFilters}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={-1}
-                activeSegments={this.getActiveSegments(trip)}
-                updateEntireTrip={this.props.updateEntireTrip}
-              />
-              <AllianceFilter
-                sortBy={this.props.resultsDetails.itinerarySortBy}
-                segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                updateItineraryFilter={this.props.updateItineraryFilter}
-                itineraryFilters={this.props.itineraryFilters}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={-1}
-                activeSegments={this.getActiveSegments(trip)}
-                updateEntireTrip={this.props.updateEntireTrip}
-              />
+              <div className='row'>
+                <div className='col-md-3'>
+                  <BaggageFilter
+                    sortBy={this.props.resultsDetails.itinerarySortBy}
+                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
+                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'baggage')}
+                    trip={trip}
+                    updateActives={this.props.updateActives}
+                    segmentIndex={-1}
+                    activeSegments={this.getActiveSegments(trip)}
+                    updateEntireTrip={this.props.updateEntireTrip}
+                  />
+                </div>
+                <div className='col-md-3'>
+                  <NumberOfStopsFilter
+                    sortBy={this.props.resultsDetails.itinerarySortBy}
+                    segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                    updateItineraryFilter={this.props.updateItineraryFilter}
+                    itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === 'noOfStops')}
+                    trip={trip}
+                    updateActives={this.props.updateActives}
+                    segmentIndex={-1}
+                    activeSegments={this.getActiveSegments(trip)}
+                    updateEntireTrip={this.props.updateEntireTrip}
+                  />
+                </div>
+              </div>
             </div>
             <div className="col-md-4">
               <PricingRequest

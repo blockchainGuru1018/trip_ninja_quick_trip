@@ -13,7 +13,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
   from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
-import FlightsFilter from './filters/FilterTemplate';
+import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 
 interface ItineraryResultsProps {

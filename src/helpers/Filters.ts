@@ -25,7 +25,7 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   if (filter.value === ''){
     return false;
   } else {
-    return (segment.alliance !== filter.value!);
+    return segment.alliance !== filter.value!;
   }
 };
 
@@ -49,10 +49,9 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>)
     let segments_copy = cloneDeep(segments);
     segments.forEach((segment: Segment) => {
       if (!segment.filtered) {
-        segment.filtered = filterType(segment, filter);;
+        segment.filtered = filterType(segment, filter);
       }
     });
-    ;
     if (checkFilteredLength(segments) === 0) {
       segments = segments_copy;
       filter.failed = true;

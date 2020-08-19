@@ -47,54 +47,22 @@ export const numberOfStopsFilter = (segments: Array<Segment>, filter: Filter) =>
     segments = segments_copy;
     filter.failed = true;
   } else {
-    filter.failed = false
+    filter.failed = false;
   }
   return segments;
 };
 
-<<<<<<< HEAD
-export const allianceFilter = (segments: Array<Segment>, filterValue: string | undefined) => {
-  if (filterValue === '') {
-    return segments;
-  }
-  
-  let totalNotFiltered = 0;
-  let segments_copy = cloneDeep(segments);
-  segments.forEach((segment: Segment) => {
-    if (!segment.filtered) {
-      segment.filtered = (segment.alliance !== filterValue!);
-    }
-    if (!segment.filtered) {
-      totalNotFiltered += 1;
-    }
-  });
-
-  if (totalNotFiltered === 0) {
-    segments = cloneDeep(segments_copy);
-  }
-};
-
-export const filterSegments = (segments: Array<Segment>, filters: Filters) => {
-  const filtersKeys = Object.keys(filters);
-=======
 export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>) => {
->>>>>>> feature/#CU-b4hfxq-Fix-filter-errors-and-update-filter-structure
   resetFilters(segments);
   const filterMap = {
     baggage: baggageFilter,
     noOfStops: numberOfStopsFilter
   }
-<<<<<<< HEAD
-  if (filtersKeys.includes('alliance')) {
-    allianceFilter(segments, filters.alliance);
-  }
-=======
 
   filters.forEach((filter: Filter) => {
     const filterType = filterMap[filter.type]
     segments = filterType(segments, filter)
   })
->>>>>>> feature/#CU-b4hfxq-Fix-filter-errors-and-update-filter-structure
   return segments;
 };
 

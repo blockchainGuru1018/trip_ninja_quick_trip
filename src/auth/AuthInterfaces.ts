@@ -14,6 +14,7 @@ export interface AuthDetails {
   ticketing_queue: string;
   isAgencyAdmin: boolean;
   isSuperUser: boolean;
+  bookingDisabled: boolean;
 }
 
 export const defaultAuth = {
@@ -27,5 +28,6 @@ export const defaultAuth = {
   pcc: '',
   provider: '',
   isAgencyAdmin: false,
-  isSuperUser: false
+  isSuperUser: false,
+  bookingDisabled: false
 };

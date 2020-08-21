@@ -33,9 +33,8 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   }
 };
 
-export const checkFilteredLength = (segments: Array<Segment>) => {
-  return segments.filter((segment: Segment) => !segment.filtered).length
-};
+export const checkFilteredLength = (segments: Array<Segment>) => 
+  segments.filter((segment: Segment) => !segment.filtered).length;
 
 export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>) => {
   resetFilters(segments);

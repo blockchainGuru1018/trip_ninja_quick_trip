@@ -51,6 +51,7 @@
     "react-hotkeys-hook": "^2.2.2",
     "react-idle-timer": "^4.2.12",
     "react-moment": "^0.9.7",
+    "react-placeholder": "^4.0.3",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",

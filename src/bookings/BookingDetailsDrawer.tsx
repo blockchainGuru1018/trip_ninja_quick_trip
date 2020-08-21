@@ -16,6 +16,8 @@ import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -84,27 +86,23 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-    >
-      {props.loading &&
-        <div className="booking-details-loading">
-          <h2>Loading Booking Details..</h2>
-          <div>
-            <CircularProgress />
+    >      
+      <div className="booking-details-container">
+        <div className="row booking-details-section">
+          <h1>Booking Overview - Status: 
+            <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={1} color='#E0E0E0'>
+              {firstLetterCapital(props.booking.status)}
+            </ReactPlaceholder>
+          </h1>
+          <div className="close-button-container">
+            <IconButton onClick={() => handleClose(anchor)}>
+              <CloseIcon fontSize="large" />
+            </IconButton>
           </div>
-        </div>
-      }
-      {!props.loading && bookingDetails &&
-        <div className="booking-details-container">
-          <div className="row booking-details-section">
-            <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>
-            <div className="close-button-container">
-              <IconButton onClick={() => handleClose(anchor)}>
-                <CloseIcon fontSize="large" />
-              </IconButton>
-            </div>
-          </div> 
-          <Divider />
-          <div className="booking-details-section">
+        </div> 
+        <Divider />
+        <div className="booking-details-section">
+          <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={1} color='#E0E0E0'>
             <ManageBooking
               status={props.booking.status} 
               trip_id={props.booking.trip_id}
@@ -113,77 +111,93 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
               authDetails={props.authDetails}
               booking={props.booking}
             />
-          </div> 
-          <Divider />
-          <div className="booking-details-section">
-            <h5 className="section-header">Jump To</h5>
-            <div className="row">
-              <div className="col-sm-12 no-pad-left">
-                <NavButton href="#overview">
-                  Overview
-                </NavButton>
-                <NavButton href="#booking-cost">
-                  Booking Cost
-                </NavButton>
-                <NavButton href="#flight-overview">
-                  Flight Overview
-                </NavButton>
-                <NavButton href="#passenger-info">
-                  Passenger Information
-                </NavButton>
-              </div>
-            </div>
-          </div>
-          <Divider />
-          <div className="booking-details-section" id="overview">
-            <h5 className="section-header">Overview</h5>
-            <div className="row">
-              <div className="col-sm-3 no-pad-left">
-                <p>
-                  <span className="text-bold">Booking Agent: </span> 
-                  <span>{props.booking.agent_email}</span>
-                </p>
-              </div>
-              <div className="col-sm-3">
-                <p>
-                  <span className="text-bold">Team: </span> 
-                  <span>{props.booking.agency ? firstLetterCapital(props.booking.agency) : '-'}</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <Divider />
-          <div className="row booking-details-section" id="booking-cost">
-            <div className="col-sm-4 no-pad-left">
-              <FareBreakdown 
-                pricing={props.booking.details!.pricing} 
-                currency={props.booking.currency}
-              />
-            </div>
-          </div>
-          <Divider />
-          <div className="booking-details-section" id="flight-overview">
-            <ItineraryDetails 
-              bookedTrip={props.booking.details!.itinerary}
-              currency={props.booking.currency}/>
-          </div>
-          <Divider />
-          <div className="booking-details-section" id="passenger-info">
-            <PassengerDetails passengers={props.booking.details!.passengers} />
-          </div>
-          <Divider />
+          </ReactPlaceholder>
+        </div> 
+        <Divider />
+        <div className="booking-details-section">
+          <h5 className="section-header">Jump To</h5>
           <div className="row">
-            <div className="col-lg-2 offset-lg-5">
-              <NavButton 
-                onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}
-                size="large"
-              >
-                Back to top
+            <div className="col-sm-12 no-pad-left">
+              <NavButton href="#overview">
+                Overview
+              </NavButton>
+              <NavButton href="#booking-cost">
+                Booking Cost
+              </NavButton>
+              <NavButton href="#flight-overview">
+                Flight Overview
+              </NavButton>
+              <NavButton href="#passenger-info">
+                Passenger Information
               </NavButton>
             </div>
           </div>
         </div>
-      }
+        <Divider />
+        <div className="booking-details-section" id="overview">
+          <h5 className="section-header">Overview</h5>
+          <div className="row">
+            <div className="col-sm-3 no-pad-left">
+              <p>
+                <span className="text-bold">Booking Agent: </span> 
+                <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={1} color='#E0E0E0'>
+                  <span>{props.booking.agent_email}</span>
+                </ReactPlaceholder>
+              </p>
+            </div>
+            <div className="col-sm-3">
+              <p>
+                <span className="text-bold">Team: </span> 
+                <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={1} color='#E0E0E0'>
+                  <span>{props.booking.agency ? firstLetterCapital(props.booking.agency) : '-'}</span>
+                </ReactPlaceholder>
+              </p>
+            </div>
+          </div>
+        </div>
+        <Divider />
+        <div className="row booking-details-section" id="booking-cost">
+          <div className="col-sm-4 no-pad-left">
+            <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={4} color='#E0E0E0'>
+              {!props.loading && bookingDetails &&
+                <FareBreakdown 
+                  pricing={props.booking.details!.pricing} 
+                  currency={props.booking.currency}
+                />
+              }
+            </ReactPlaceholder>
+          </div>
+        </div>
+        <Divider />
+        <div className="booking-details-section" id="flight-overview">
+          <ReactPlaceholder type='text' ready={!props.loading && bookingDetails} rows={4} color='#E0E0E0'>
+            {!props.loading && bookingDetails &&
+              <ItineraryDetails 
+                bookedTrip={props.booking.details!.itinerary}
+                currency={props.booking.currency}/>
+            }
+          </ReactPlaceholder>
+        </div>
+        <Divider />
+        <div className="booking-details-section" id="passenger-info">
+          <ReactPlaceholder type='media' ready={!props.loading && bookingDetails} rows={3} color='#E0E0E0'>
+            {!props.loading && bookingDetails &&
+              <PassengerDetails passengers={props.booking.details!.passengers} />
+            }
+          </ReactPlaceholder>
+        </div>
+        <Divider />
+        <div className="row">
+          <div className="col-lg-2 offset-lg-5">
+            <NavButton 
+              onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}
+              size="large"
+            >
+              Back to top
+            </NavButton>
+          </div>
+        </div>
+      </div>
     </div>
   );
 

@@ -7,7 +7,7 @@ const resetFilters = (segments: Array<Segment>) => {
   segments.forEach((segment: Segment) =>
     segment.filtered = false
   );
-}
+};
 
 export const baggageFilter = (segments: Array<Segment>, filter: Filter) => {
   let totalFiltered = 0;

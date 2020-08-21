@@ -17,7 +17,7 @@ import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
 import { priceFlights } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments
+  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, resultsLoading
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -71,6 +71,7 @@ interface IAppProps {
   queueBooking: typeof queueBooking;
   getTravelportBrands: typeof getTravelportBrands;
   setActiveSegments: typeof setActiveSegments;
+  resultsLoading: typeof resultsLoading;
 }
 
 const theme = Theme;
@@ -167,6 +168,7 @@ class App extends React.Component<IAppProps> {
                     updateActives={this.props.updateActives}
                     updateSortType={this.props.updateSortType}
                     updateEntireTrip={this.props.updateEntireTrip}
+                    resultsLoading={this.props.resultsLoading}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -180,6 +182,7 @@ class App extends React.Component<IAppProps> {
                     updateSortType={this.props.updateSortType}
                     authDetails={this.props.authDetails}
                     getTravelportBrands={this.props.getTravelportBrands}
+                    resultsLoading={this.props.resultsLoading}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

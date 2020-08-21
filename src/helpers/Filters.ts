@@ -1,7 +1,6 @@
 import { Segment, Filter } from '../trip/results/ResultsInterfaces';
 import { cloneDeep } from 'lodash';
 
-
 const resetFilters = (segments: Array<Segment>) => {
   segments.forEach((segment: Segment) =>
     segment.filtered = false
@@ -33,11 +32,12 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   }
 };
 
-export const checkFilteredLength = (segments: Array<Segment>) => 
-  segments.filter((segment: Segment) => !item.filtered).length
-};
+export const checkFilteredLength = (segments: Array<Segment>) => {
+  return segments.filter((segment: Segment) => !segment.filtered).length;
+};  
 
 export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>) => {
+  
   resetFilters(segments);
   const filterMap = {
     baggage: baggageFilter,
@@ -53,7 +53,7 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>)
         segment.filtered = filterType(segment, filter);
       }
     });
-    if (checkFilteredLength(segments) === 0) {
+    if (checkFilteredLength(segments) == 0) {
       segments = segments_copy;
       filter.failed = true;
     } else {

@@ -10,6 +10,7 @@ export interface ResultsDetails {
   segmentSortBy: Array<string>;
   segmentFilters?: Array<Array<Filter>>
   itineraryFilters?: Array<Filter>
+  loading: boolean
 }
 
 export interface Filter {
@@ -79,7 +80,8 @@ export const defaultResultsDetails: ResultsDetails = {
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
   itinerarySortBy: 'best',
-  segmentSortBy: []
+  segmentSortBy: [],
+  loading: false,
 };
 
 export interface Errors {

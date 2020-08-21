@@ -9,12 +9,15 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
+import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip, resultsLoading}
   from '../../actions/ResultsActions';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
+
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails;
@@ -27,6 +30,7 @@ interface ItineraryResultsProps {
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
+  resultsLoading: typeof resultsLoading;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -56,6 +60,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
     const enabledFilters = ['baggage','noOfStops','alliance'];
 
+    console.log("itinerary result console log:", this.props.resultsDetails.loading);
+
     return (
       <div id="itinerary-result">
         <div className="results-header">
@@ -65,6 +71,9 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             flights={trip.flight_details}
           />
           <h1 className="itinerary-title">Your Itinerary</h1>
+          <ReactPlaceholder type='text' ready={!this.props.resultsDetails.loading} rows={2} color='#E0E0E0'>
+            "HELLO!"
+          </ReactPlaceholder>
           <h4>
             <strong>Total: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
@@ -99,6 +108,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                       segmentIndex={-1}
                       activeSegments={this.getActiveSegments(trip)}
                       updateEntireTrip={this.props.updateEntireTrip}
+                      resultsLoading={this.props.resultsLoading}
                     />
                   </div>
                 )}

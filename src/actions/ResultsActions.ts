@@ -42,14 +42,6 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
   };
 }
 
-export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: string) {
-  return {
-    type: 'UPDATE_ENTIRE_TRIP',
-    setActivesInitial,
-    sortBy
-  };
-}
-
 export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
   return {
     type: 'UPDATE_FARE_FAMILY',
@@ -90,6 +82,22 @@ export function setBrandedFaresInfo(segment: Segment, data: PricingDetails) {
     type: 'SET_BRANDED_FARES_INFO',
     segment,
     data
+  };
+}
+
+export function resultsLoading(value: boolean) {
+  console.log("HERE!!! results loading");
+  return {
+    type: 'RESULTS_LOADING',
+    value
+  };
+}
+
+export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: string) {
+  return {
+    type: 'UPDATE_ENTIRE_TRIP',
+    setActivesInitial,
+    sortBy
   };
 }
 

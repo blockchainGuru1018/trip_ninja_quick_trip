@@ -17,7 +17,8 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
         itineraryFilters: _.cloneDeep(defaultFilters),
-        segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
+        segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best'),
+        loading: false
       };
 
     case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':
@@ -46,6 +47,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
+      console.log("update entire trip", action.value);
+      console.log("loading before", JSON.parse(JSON.stringify(state.loading)));
+      state.loading = false;
+      console.log("loading after", JSON.parse(JSON.stringify(state.loading)));
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':
@@ -63,6 +68,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       )
       relatedFilter!.value = action.filterValue;
       return {...state};
+
+    case 'RESULTS_LOADING':
+      console.log("got to the reducer", action.value);
+      return {...state, loading: action.value};
 
     case 'UPDATE_SORT_TYPE':
       if (action.segmentIndex < 0) {

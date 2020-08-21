@@ -9,7 +9,7 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands, resultsLoading } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
@@ -31,6 +31,7 @@ interface SegmentSelectionProps {
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
   authDetails: AuthDetails;
+  resultsLoading: typeof resultsLoading;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -83,6 +84,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   trip={trip}
                   updateActives={this.props.updateActives}
                   segmentIndex={Number(segmentIndex)}
+                  resultsLoading={this.props.resultsLoading}
                 />
               </div>
             )}

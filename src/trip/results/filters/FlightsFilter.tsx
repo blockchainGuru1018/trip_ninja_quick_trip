@@ -9,7 +9,8 @@ import {
   updateActives,
   updateEntireTrip,
   updateItineraryFilter,
-  updateSegmentFilter
+  updateSegmentFilter,
+  resultsLoading
 } from "../../../actions/ResultsActions";
 import { Filter, Results, Segment } from "../ResultsInterfaces";
 import { Alert } from "@material-ui/lab";
@@ -30,6 +31,7 @@ interface FlightsFilterProps {
   sortBy?: string;
   segmentSortBy?: Array<string>;
   updateEntireTrip?: typeof updateEntireTrip;
+  resultsLoading: typeof resultsLoading;
 }
               
 const FlightsFilter = (props: FlightsFilterProps) => {
@@ -85,6 +87,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
   const filterLevel = props.itineraryFilters ? props.updateItineraryFilter : props.updateSegmentFilter;
 
   const updateFilter = (event: any) => {
+    props.resultsLoading(true);
     handleClose();
     filterLevel!(props.filterName, event.target.value, props.segmentIndex);
     return props.itineraryFilters && props.activeSegments && props.sortBy ? resetActives(event.target.value) : '';

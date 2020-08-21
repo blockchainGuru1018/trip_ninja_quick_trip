@@ -33,7 +33,7 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
   }
 };
 
-export const checkFilteredLength = (segments: Array<Segment>) => 
+export const checkFilteredLength = (segments: Array<Segment>) => {
   segments.filter((segment: Segment) => !segment.filtered).length
 };
 

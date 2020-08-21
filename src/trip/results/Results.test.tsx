@@ -91,10 +91,10 @@ export const testResults: Results = {
         flights: [{
           flight_detail_ref: '2', 
           booking_code: 'Y',
-          fare_type: 'published',
-          fare_basis_code: '1XY3Z2',
+          fare_type: 'private',
+          fare_basis_code: 'FRS86Y',
           cabin_class: 'E',
-          brand_identifier: '001'
+          brand_identifier: '002'
         },
         { flight_detail_ref: '1', 
           booking_code: 'Y',
@@ -109,32 +109,32 @@ export const testResults: Results = {
           number_of_pieces: 0
         },
         itinerary_type: 'ONE_WAY',
-        itinerary_id: '1',
-        itinerary_structure: '[0]',
-        segment_position: 0,
+        itinerary_id: '2',
+        itinerary_structure: '[1]',
+        segment_position: 1,
         virtual_interline: false,
-        weight: 100,
-        price: 100,
-        base_price: 80,
-        taxes: 20,
+        weight: 120,
+        price: 130,
+        base_price: 100,
+        taxes: 30,
         fees: 0,
-        transportation_time: 500,
+        transportation_time: 375,
         fare_type: 'published',
         additional_details: {
           e_ticketability: true,
           latest_ticketing_time: '',
           refundable: '',
           cancel_penalty: {
-            amount: 50,
-            percentage: 50,
+            amount: 70,
+            percentage: 75,
           },
           fare_types_info: ''
         },
         cabin_class: 'E',
-        alliance: 'A',
+        alliance: 'E',
         private_fare: '',
         priced_passengers: ['ADT'],
-        plating_carrier: 'AC'
+        plating_carrier: 'UA'
       }
     ]
   ]

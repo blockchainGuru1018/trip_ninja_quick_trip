@@ -27,5 +27,8 @@ export const defaultAuth = {
   pcc: '',
   provider: '',
   isAgencyAdmin: false,
-  isSuperUser: false
+  isSuperUser: false,
+  currency: 'CAD',
+  agency: '',
+  ticketing_queue: ''
 };

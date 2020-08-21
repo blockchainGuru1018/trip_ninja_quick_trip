@@ -22,7 +22,7 @@ export interface Filter {
 export const defaultFilters: Array<Filter> = [
   {type: 'baggage', value: 0, position: 0, failed: false},
   {type: 'noOfStops', value: 3, position: 1, failed: false}
-]
+];
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
 
@@ -154,7 +154,7 @@ export interface AdditionalDetails {
   latest_ticketing_time: string;
   refundable: string;
   cancel_penalty: Penalty;
-  change_penalty: Penalty;
+  change_penalty: any; //Penalty;
   fare_types_info: string;
 }
 

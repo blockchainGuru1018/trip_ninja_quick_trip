@@ -14,15 +14,16 @@ export interface ResultsDetails {
 
 export interface Filter {
   type: string
-  value: number,
+  value: any,
   position: number,
   failed: boolean
 }
 
 export const defaultFilters: Array<Filter> = [
-  {type: 'baggage', value: 0, position: 0, failed: false},
-  {type: 'noOfStops', value: 3, position: 1, failed: false}
-]
+  {type: 'baggage', value: '0', position: 0, failed: false},
+  {type: 'noOfStops', value: 'Any', position: 1, failed: false},
+  {type: 'alliance', value: 'Any', position: 2, failed: false}
+];
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
 

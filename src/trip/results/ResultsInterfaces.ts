@@ -154,7 +154,7 @@ export interface AdditionalDetails {
   latest_ticketing_time: string;
   refundable: string;
   cancel_penalty: Penalty;
-  change_penalty: any; //Penalty;
+  change_penalty: Penalty;
   fare_types_info: string;
 }
 

@@ -5,19 +5,14 @@ import { shallow } from 'enzyme';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
-
-test('bookingPlaceholder', () => {
-  const book = "Book";
-  
-  expect(book).toBe("Book");
-});
-
-
+import { ResultsDetails, ActiveSegmentsMap, SegmentPositionMap } from "../results/ResultsInterfaces";
+import { testResults } from '../results/Results.test';
 
 const testBookingDetails: BookingDetails = {
+  trip_id: "d4a3433d6ce87e40dd8b74b15ad0cea647116409",
   add_to_ticketing_queue: false,
   agency: "",
-  agent_email: "", 
+  agent_email: "testing_amadeus@tripninja.io", 
   passengers:[{
     date_of_birth: "1991-01-01",
     email: "andres.collart@tripninja.io",
@@ -29,7 +24,9 @@ const testBookingDetails: BookingDetails = {
     passport_expiration: "2025-01-01",
     passport_number: "E523760",
     phone_number: "904-240-4249",
-    updated: false}]
+    updated: false
+  }],
+  loading: false
 };
 
 const testAuthDetails: AuthDetails = {
@@ -45,6 +42,8 @@ const testAuthDetails: AuthDetails = {
   userEmail: "testing_amadeus@tripninja.io",
   userFirstName: "",
   userLastName: "",
+  isAgencyAdmin: false,
+  isSuperUser: false
 };
 
 
@@ -52,7 +51,6 @@ const testPricingDetails: PricingDetails = {
   currency: "USD",
   trip_id: "d4a3433d6ce87e40dd8b74b15ad0cea647116409",
   trip_type: "fare_structure",
-  source: "amadeus",
   itineraries: [
     {credentials:{
       data_source: "amadeus",
@@ -62,26 +60,45 @@ const testPricingDetails: PricingDetails = {
     itinerary_reference: 1,
     itinerary_type: "one_way",
     plating_carrier: "",
-    traveller_list: ["ADT"],
-    segments:[
-      {segment_id: "0",
-        flights:[{
-          booking_code: "D",
-          arrival_time: "2020-11-25T07:40:00",
-          brand_identifier: "",
-          cabin_class: "Economic Standard",
-          carrier: "VY",
-          departure_time: "2020-11-25T05:10:00",
-          destination: "FCO",
-          flight_number: "6225",
-          flight_time: 150,
-          key: "cf544d7343dff560531c0a0ce5204a3b339ae8bd",
-          origin: "LGW",
-        }]
-      }
-    ]    
+    segments:[{
+      segment_id: "0",
+      baggage: {
+        applicable_bags: '',
+        applicable_carry_on_bags: '',
+        baggage_cost: '',
+        baggage_restrictions: '',
+        carryon_cost: 0,
+        carryon_restrictions: '',
+        free_allowance: '',
+        quantity_description: ''
+      },
+      flight_details:[{
+        automated_checkin: true,
+        destination_terminal: 3,
+        flight_number: "117",
+        in_flight_services: [],
+        meals: [],
+        on_time_performance: "100",
+        origin_terminal: 1,
+        special_segment: ''
+      }]   
+    }]    
     }]
 };
+
+const testResultsDetails: ResultsDetails = {
+  fareStructureResults: testResults,
+  errors: {
+    errorFound: false,
+    errorType: ''
+  },
+  tripType: 'fare_structure',
+  activeSegments: new ActiveSegmentsMap(),
+  segmentPositionMap:  new SegmentPositionMap(),
+  itinerarySortBy: 'best',
+  segmentSortBy: ['best']
+};
+
 
 test('checkBookingRequestComponent', () => {
   const bookRequestComponent: any = shallow(
@@ -89,13 +106,14 @@ test('checkBookingRequestComponent', () => {
       bookingDetails={testBookingDetails}
       authDetails={testAuthDetails}
       pricingDetails={testPricingDetails}
+      resultsDetails={testResultsDetails}
       bookFlights={bookFlights}
     />
   );
 
   const bookRequestComponentInstance = bookRequestComponent.instance();
 
-  bookRequestComponentInstance.submitBookingRequest(false);
+  bookRequestComponentInstance.validatePassengerBookingDetails();
 
   expect(bookRequestComponentInstance.props.bookingDetails.agent_email).toStrictEqual(testAuthDetails.userEmail);
   expect(bookRequestComponentInstance.props.bookingDetails.trip_id).toStrictEqual(testPricingDetails.trip_id);

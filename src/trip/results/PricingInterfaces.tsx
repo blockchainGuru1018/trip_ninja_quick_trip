@@ -9,7 +9,7 @@ export interface PricingDetails {
 }
 
 export interface PricedItinerary {
-  credentials: Credential;
+  credentials: Credentials;
   segments: Array<SegmentPricingInfo>;
   plating_carrier: string;
   itinerary_reference: number;

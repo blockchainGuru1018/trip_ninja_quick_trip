@@ -16,6 +16,7 @@ import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { AuthDetails } from '../../auth/AuthInterfaces';
+import { VIDetailsModal } from '../../common/modals/VIDetailsModal';
 
 interface SegmentPreviewProps {
   index: number;
@@ -33,6 +34,7 @@ interface SegmentPreviewProps {
   totalPrice: number;
   authDetails: AuthDetails;
   trip: Results;
+  viDisplay?: boolean;
 }
 
 class SegmentPreview extends React.Component<SegmentPreviewProps> {
@@ -49,6 +51,24 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
         {!this.props.segmentSelect && this.setFlightPreviewIcons(this.props.index)}
         <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
           <div className="row segment col-md-12">
+            {this.props.segment.virtual_interline && this.props.viDisplay
+              && <VIDetailsModal    
+                segment={this.props.segment}
+                segments={this.props.segments}
+                index={this.props.index}
+                key={this.props.index}
+                segmentFlightDetails={this.props.segmentFlightDetails}
+                segmentSelect={this.props.segmentSelect}
+                activeSegment={this.props.activeSegment}
+                currency={this.props.currency}
+                segmentOptionsIndex={this.props.segmentOptionsIndex}
+                updateActives={this.props.updateActives}
+                updateFareFamily={this.props.updateFareFamily}
+                pathSequence={this.props.pathSequence}
+                totalPrice={this.props.totalPrice}
+                authDetails={this.props.authDetails}
+                getTravelportBrands={this.props.getTravelportBrands}
+                trip={this.props.trip}/>}
             {this.props.segment.status === 'incompatible' && this.props.activeSegment
             && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
             }

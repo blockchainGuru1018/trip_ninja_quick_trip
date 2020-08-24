@@ -28,6 +28,8 @@ interface SegmentPreviewsProps {
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
 
   render() {
+
+    console.log("SegmentPreviews.segments:", this.props.segments);
     return (
       <div>
         {this.setSegmentsHTML()}
@@ -52,7 +54,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       return(
         <div key={index.toString()}>
-          {!segment.filtered || segment.status === 'active'
+          {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position == 0 : true)
             ? <SegmentPreview
               segment={segment}
               segments={this.props.segments}
@@ -70,6 +72,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               authDetails={this.props.authDetails}
               getTravelportBrands={this.props.getTravelportBrands}
               trip={this.props.trip}
+              viDisplay={true}
             />
             : ''
           }

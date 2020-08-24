@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 
 export function datesAreOnSameDayOrLater(first: Date, second: Date) {
   return first.getFullYear() > second.getFullYear()
@@ -19,8 +19,8 @@ export const dateFormats = {
 
 export function getTimeDifference(first: Date, second: Date) {
   const timeDifference = moment(second).diff(moment(first), 'milliseconds');
-  const hours = Math.floor(timeDifference / (1000*60*60))
-  const minutes = Math.round(60 * (timeDifference / (1000*60*60) % 1))
+  const hours = Math.floor(timeDifference / (1000*60*60));
+  const minutes = Math.round(60 * (timeDifference / (1000*60*60) % 1));
   return hours + 'h ' + minutes + 'm';
 }
 

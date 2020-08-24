@@ -2,42 +2,139 @@ import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
 import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
-import FlightStops from '../../common/FlightStops';
 import FlightTypes from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
+import { defaultAuth } from '../../auth/AuthInterfaces';
+import { Results } from './ResultsInterfaces';
+
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
-const testResultsDetails = {
+export const testResults: Results = {
+  trip_id: 'testtripid',
+  markup: 0,
+  path_sequence: ['LON-BER', 'BER-PAR'],
   flight_details: [
-    {reference: 1, arrival_time: yesterday, departure_time: yesterday,
-      origin: 'YHZ', destination: 'NYC'},
-    {reference: 2, arrival_time: yesterday, departure_time: new Date().toISOString().slice(0,23) + '+03:00',
-      origin: 'BER', destination: 'MIA'}
+    {
+      reference: '1', 
+      arrival_time: yesterday,
+      departure_time: yesterday,
+      origin: 'YHZ', 
+      destination: 'NYC',
+      origin_name: 'Halifax, NS',
+      destination_name: 'New York City, NY',
+      carrier: 'AC',
+      flight_number: '111',
+      flight_time: 127
+    },
+    {
+      reference: '2', 
+      arrival_time: yesterday,
+      departure_time: new Date().toISOString().slice(0,23) + '+03:00',
+      origin: 'NYC', 
+      destination: 'MIA',
+      origin_name: 'New York City, NY',
+      destination_name: 'Miami, FL',
+      carrier: 'AC',
+      flight_number: '122',
+      flight_time: 222
+    }
   ],
   segments: [
     [
       {
-        flights: [{flight_detail_ref: 1, booking_code: 'X'}],
-        origin_name: 'London, ',
-        destination_name: 'Berlin, ',
+        flights: [{
+          flight_detail_ref: '1', 
+          booking_code: 'X',
+          fare_type: 'published',
+          fare_basis_code: '1XY3Z2',
+          cabin_class: 'E',
+          brand_identifier: '001'
+        }],
+        origin_name: 'London',
+        destination_name: 'Berlin',
         baggage: {
           number_of_pieces: 0
-        }
+        },
+        itinerary_type: 'ONE_WAY',
+        itinerary_id: '1',
+        itinerary_structure: '[0]',
+        segment_position: 0,
+        virtual_interline: false,
+        weight: 100,
+        price: 100,
+        base_price: 80,
+        taxes: 20,
+        fees: 0,
+        transportation_time: 500,
+        fare_type: 'published',
+        additional_details: {
+          e_ticketability: true,
+          latest_ticketing_time: '',
+          refundable: '',
+          cancel_penalty: {
+            amount: 50,
+            percentage: 50,
+          },                
+          fare_types_info: '',
+        },
+        cabin_class: 'E',
+        alliance: 'A',
+        private_fare: '',
+        priced_passengers: ['ADT'],
+        plating_carrier: 'AC'
       }
     ],
     [
       {
-        flights: [
-          {flight_detail_ref: 2, booking_code: 'Y'},
-          {flight_detail_ref: 1, booking_code: 'Y'}
-        ],
+        flights: [{
+          flight_detail_ref: '2', 
+          booking_code: 'Y',
+          fare_type: 'private',
+          fare_basis_code: 'FRS86Y',
+          cabin_class: 'E',
+          brand_identifier: '002'
+        },
+        { flight_detail_ref: '1', 
+          booking_code: 'Y',
+          fare_type: 'published',
+          fare_basis_code: '1XY3Z2',
+          cabin_class: 'E',
+          brand_identifier: '001'
+        }],
         origin_name: 'Berlin, ',
         destination_name: 'Paris, ',
         baggage: {
           number_of_pieces: 0
-        }
+        },
+        itinerary_type: 'ONE_WAY',
+        itinerary_id: '2',
+        itinerary_structure: '[1]',
+        segment_position: 1,
+        virtual_interline: false,
+        weight: 120,
+        price: 130,
+        base_price: 100,
+        taxes: 30,
+        fees: 0,
+        transportation_time: 375,
+        fare_type: 'published',
+        additional_details: {
+          e_ticketability: true,
+          latest_ticketing_time: '',
+          refundable: '',
+          cancel_penalty: {
+            amount: 70,
+            percentage: 75,
+          },
+          fare_types_info: ''
+        },
+        cabin_class: 'E',
+        alliance: 'E',
+        private_fare: '',
+        priced_passengers: ['ADT'],
+        plating_carrier: 'UA'
       }
     ]
   ]
@@ -50,15 +147,15 @@ const expectedOutcome =  [
 
 test('getNumberOfNights', () => {
   const component: any = shallow(
-    <PreResultsFlightSections resultsDetails={testResultsDetails} />
+    <PreResultsFlightSections resultsDetails={testResults} />
   );
   const instance = component.instance();
-  expect(instance.getNumberOfNights(1, [{departure_time: new Date().toISOString()}], testResultsDetails)).toBe(1);
+  expect(instance.getNumberOfNights(1, [{departure_time: new Date().toISOString()}], testResults)).toBe(1);
 });
 
 test('setLocations', () => {
   const component: any = shallow(
-    <PreResultsFlightSections resultsDetails={testResultsDetails} />
+    <PreResultsFlightSections resultsDetails={testResults} />
   );
   const instance = component.instance();
   expect(instance.setLocations()).toStrictEqual(expectedOutcome);
@@ -66,34 +163,45 @@ test('setLocations', () => {
 
 const segmentPreviewComponent: any = shallow(
   <SegmentPreviews
-    segments={testResultsDetails.segments[0]}
-    flightDetails={testResultsDetails.flight_details} />
+    segments={testResults.segments[0]}
+    flightDetails={testResults.flight_details}
+    currency={'USD'}
+    segmentSelect={false}
+    totalPrice={500}
+    authDetails={defaultAuth}
+    trip={testResults}
+  />
 );
 
 const segmentPreviewComponentInstance = segmentPreviewComponent.instance();
 
 
 test('getFlightDetailsBySegment', () => {
+  const flightDetailsObject = [{ 
+    reference: '1', 
+    arrival_time: yesterday, 
+    departure_time: yesterday,
+    destination: "NYC", 
+    origin: "YHZ", 
+    origin_name: 'Halifax, NS',
+    destination_name: 'New York City, NY',
+    carrier: 'AC',
+    flight_number: '111',
+    flight_time: 127
+  }];
   expect(
-    segmentPreviewComponentInstance.getFlightDetailsBySegment(testResultsDetails.segments[0][0])
-  ).toStrictEqual([{reference: 1, arrival_time: yesterday, departure_time: yesterday,
-    destination: "NYC", origin: "YHZ",}]);
+    segmentPreviewComponentInstance.getFlightDetailsBySegment(testResults.segments[0][0])
+  ).toStrictEqual(flightDetailsObject);
 });
 
-
-test('calculateHoursBetween', () => {
-  expect(
-    shallow(<FlightStops flights={testResultsDetails.flight_details}/>).instance().calculateHoursBetween(testResultsDetails.flight_details)
-  ).toStrictEqual([{"NYC": "24h 0m"}]);
-});
 
 test('getFlightTypes', () => {
-  const flightTypesComponent = shallow(<FlightTypes segment={testResultsDetails.segments[0][0]}/>).instance();
+  const flightTypesComponent: any = shallow(<FlightTypes segment={testResults.segments[0][0]}/>).instance();
   expect(
-    flightTypesComponent.getFlightTypes(testResultsDetails.segments[0][0].flights)
+    flightTypesComponent.getFlightTypes(testResults.segments[0][0].flights)
   ).toBe("X Class");
   expect(
-    flightTypesComponent.getFlightTypes(testResultsDetails.segments[1][0].flights)
+    flightTypesComponent.getFlightTypes(testResults.segments[1][0].flights)
   ).toBe("Y, Y Class");
 });
 

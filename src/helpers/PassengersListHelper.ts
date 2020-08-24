@@ -17,7 +17,7 @@ export const createPassengerPayload = (passengers: Array<Passenger>)  => {
   let passengerPayload = {};
   passengers.forEach((passenger: Passenger) => passengerPayload[passenger.type.toLowerCase()] = passenger.count);
   return passengerPayload;
-}
+};
 
 export const passengerAbbrevMap = {
   adult: 'ADT',
@@ -25,7 +25,7 @@ export const passengerAbbrevMap = {
   youth: 'YTH',
   student: 'STD',
   infant: 'INF'
-}
+};
 
 export const createPassengerStringFromPayload = (passengers: Array<Passenger>) => {
   const passengersPayload = createPassengerPayload(passengers);
@@ -37,4 +37,4 @@ export const createPassengerStringFromPayload = (passengers: Array<Passenger>) =
       : '', ''
   );
   return passengerString;
-}
+};

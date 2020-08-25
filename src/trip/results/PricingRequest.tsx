@@ -4,7 +4,6 @@ import { ResultsDetails, Segment } from './ResultsInterfaces';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 
 interface PricingRequestProps{
@@ -13,7 +12,6 @@ interface PricingRequestProps{
   totalPrice: number,
   selectedTrip: Array<Segment>,
   priceFlights: typeof priceFlights,
-  authDetails: AuthDetails
 }
 
 
@@ -29,7 +27,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(trip.flight_details, this.props.selectedTrip, this.props.authDetails)
+      itineraries: createItinerariesPayload(trip.flight_details, this.props.selectedTrip)
     };
     const pricingResult: any = this.props.priceFlights(pricingPayload);
     pricingResult.then((result: any) => this.handlePricingResult(result));

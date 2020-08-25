@@ -168,7 +168,6 @@ const segmentPreviewComponent: any = shallow(
     currency={'USD'}
     segmentSelect={false}
     totalPrice={500}
-    authDetails={defaultAuth}
     trip={testResults}
   />
 );

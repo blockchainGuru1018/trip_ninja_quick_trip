@@ -13,7 +13,6 @@ import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBran
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
-import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface MatchParams {
   index: string;
@@ -30,7 +29,6 @@ interface SegmentSelectionProps {
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
-  authDetails: AuthDetails;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -106,7 +104,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
-                  authDetails={this.props.authDetails}
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
@@ -127,7 +124,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       updateFareFamily={this.props.updateFareFamily}
                       activeSegment={selectedSegment[0]}
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                      authDetails={this.props.authDetails}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />
@@ -155,7 +151,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       pathSequence={trip.path_sequence}
                       activeSegment={selectedSegment[0]}
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                      authDetails={this.props.authDetails}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />

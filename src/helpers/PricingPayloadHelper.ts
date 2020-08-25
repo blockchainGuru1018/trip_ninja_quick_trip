@@ -1,7 +1,6 @@
 
-import { AuthDetails } from '../auth/AuthInterfaces';
 import { Segment, FlightResult, FlightResultsDetails} from '../trip/results/ResultsInterfaces';
-import { PricingRequestItinerary, FlightSegment, Flight, Credentials } from '../trip/results/PricingInterfaces';
+import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
 import moment from 'moment';
 
 

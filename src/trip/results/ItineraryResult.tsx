@@ -11,7 +11,6 @@ import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
   from '../../actions/ResultsActions';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
@@ -21,7 +20,6 @@ interface ItineraryResultsProps {
   currency: string;
   priceFlights: typeof priceFlights;
   passengers: Array<Passenger>;
-  authDetails: AuthDetails;
   updateItineraryFilter: typeof updateItineraryFilter;
   itineraryFilters: Array<Filter> | undefined
   updateActives: typeof updateActives;
@@ -48,7 +46,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             flightDetails={trip.flight_details}
             currency={this.props.currency}
             segmentSelect={false}
-            authDetails={this.props.authDetails}
             trip={trip}
           />
         </div>
@@ -111,7 +108,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
-                authDetails={this.props.authDetails}
               />
             </div>
           </div>

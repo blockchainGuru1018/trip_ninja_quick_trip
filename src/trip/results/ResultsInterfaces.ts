@@ -1,3 +1,4 @@
+import {Credentials} from "./PricingInterfaces";
 
 export interface ResultsDetails {
   fareStructureResults?: Results;
@@ -136,6 +137,7 @@ export interface Segment {
   relativeWeight?: number;
   relativeTime?: number;
   filtered?: boolean
+  credential_info: Credentials
 }
 
 export interface FareInfo {

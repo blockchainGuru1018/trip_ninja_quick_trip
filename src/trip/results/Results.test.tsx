@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import FlightTypes from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
-import { defaultAuth } from '../../auth/AuthInterfaces';
 import { Results } from './ResultsInterfaces';
 
 
@@ -168,7 +167,6 @@ const segmentPreviewComponent: any = shallow(
     currency={'USD'}
     segmentSelect={false}
     totalPrice={500}
-    authDetails={defaultAuth}
     trip={testResults}
   />
 );

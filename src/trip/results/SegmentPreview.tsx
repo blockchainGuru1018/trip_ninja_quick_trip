@@ -15,7 +15,6 @@ import { updateActives, updateFareFamily, getTravelportBrands } from '../../acti
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewProps {
   index: number;
@@ -31,7 +30,6 @@ interface SegmentPreviewProps {
   getTravelportBrands?: typeof getTravelportBrands;
   pathSequence?: Array<string>;
   totalPrice: number;
-  authDetails: AuthDetails;
   trip: Results;
 }
 
@@ -98,7 +96,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
                 activeSegment={this.props.activeSegment}
-                authDetails={this.props.authDetails}
                 getTravelportBrands={this.props.getTravelportBrands}
                 trip={this.props.trip}
               />

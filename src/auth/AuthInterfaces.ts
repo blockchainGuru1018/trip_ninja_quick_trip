@@ -29,7 +29,7 @@ export const defaultAuth = {
   provider: '',
   isAgencyAdmin: false,
   isSuperUser: false,
-  bookingDisabled: false
+  bookingDisabled: false,
   currency: 'CAD',
   agency: '',
   ticketing_queue: ''

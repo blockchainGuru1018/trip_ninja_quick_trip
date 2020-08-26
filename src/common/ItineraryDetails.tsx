@@ -36,8 +36,9 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     flightResultsPathComponents:  [] as  any,
-    fareRulesPreviewComponents: [] as any
+    fareRulesPreviewComponents: [] as any,
   });
+  const [bookedTripSegments, setBookedTripSegments] = React.useState([] as Array<BookingSegment>);
 
   const setPricingFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
@@ -64,30 +65,39 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
+    console.log('selectedTrip: ', selectedTrip);
+    let bookedSegments: Array<BookingSegment> = [];
     selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
       itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-        flightResultsPathComponents.push(<FlightResultsPath
+        bookedSegments[segment.segment_id] = segment;
+        flightResultsPathComponents[segment.segment_id] =<FlightResultsPath
           flightDetails={segment.flight_details}
           key={index}
-        />);
-        fareRulesPreviewComponents.push(<FareRulesPreview
+        />;
+        fareRulesPreviewComponents[segment.segment_id] =<FareRulesPreview
           bookingSegment={segment}
           flightDetails={segment.flight_details}
           currency={currency}
           itineraryDisplay={true}
           index={index}
           bookingDrawer={true}
-        />);
+        />;
       });
     });
+    setBookedTripSegments(bookedSegments);
     return {flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents};
   };
 
   const getSegmentDateString = (index: number) => {
+    if(props.bookedTrip) {
+      console.log(`bookedTrip: index ${index}`, JSON.parse(JSON.stringify(bookedTripSegments)));
+    } else{
+      console.log(`selectedTrip: index ${index}`, props.selectedTrip);
+    }
     const flightDetails: FlightResultsDetails | undefined = props.selectedTrip 
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
-      : props.bookedTrip![index].segments[0].flight_details[0];
+      : bookedTripSegments![index].flight_details[0];
     return (
       <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
     );

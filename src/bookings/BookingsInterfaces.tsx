@@ -52,7 +52,7 @@ export interface BookingItinerary {
 }
 
 export interface BookingSegment {
-  segment_id: string;
+  segment_id: number; /* This is the segment position! */
   baggage: BaggageDetails;
   flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;

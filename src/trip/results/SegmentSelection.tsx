@@ -13,6 +13,7 @@ import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBran
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
+import Alert from '@material-ui/lab/Alert';
 
 interface MatchParams {
   index: string;
@@ -112,7 +113,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   compatibleSegments.length > 0 &&
                   filteredCompatibleSegments.length > 0 &&
                   <div>
-                    <h5>Other Departure Times</h5>
                     <SegmentPreviews
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
@@ -136,8 +136,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   <div>
                     <h5>Other Options</h5>
                     <p>
-                      Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
+                      Selecting these flights may impact other linked segments.
                     </p>
+                    <Alert severity="info" onClose={() => {}}>
+                      To see which segments are impacted by changes, hover over the flight number.
+                    </Alert>
                     <SegmentPreviews
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}

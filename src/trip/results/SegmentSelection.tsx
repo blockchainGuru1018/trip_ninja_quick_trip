@@ -138,7 +138,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                     <p>
                       Selecting these flights may impact other linked segments.
                     </p>
-                    <Alert severity="info" onClose={() => {}}>
+                    <Alert severity="info">
                       To see which segments are impacted by changes, hover over the flight number.
                     </Alert>
                     <SegmentPreviews

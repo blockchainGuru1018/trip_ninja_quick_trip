@@ -65,7 +65,6 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    console.log('selectedTrip: ', selectedTrip);
     let bookedSegments: Array<BookingSegment> = [];
     selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
       itinerary.segments.forEach((segment: BookingSegment, index: number) => {

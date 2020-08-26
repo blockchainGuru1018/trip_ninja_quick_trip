@@ -123,7 +123,7 @@ class FlightInput extends React.Component<FlightInputProps> {
         {this.props.flights.length > 1
           && <div className='col-sm-1 flight-remove-container'>
             <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
-              <CloseIcon fontSize="large" />
+              <CloseIcon fontSize="large" color="secondary"/>
             </IconButton>
           </div>
         }

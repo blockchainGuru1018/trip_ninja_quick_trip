@@ -89,11 +89,6 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   };
 
   const getSegmentDateString = (index: number) => {
-    if(props.bookedTrip) {
-      console.log(`bookedTrip: index ${index}`, JSON.parse(JSON.stringify(bookedTripSegments)));
-    } else{
-      console.log(`selectedTrip: index ${index}`, props.selectedTrip);
-    }
     const flightDetails: FlightResultsDetails | undefined = props.selectedTrip 
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];

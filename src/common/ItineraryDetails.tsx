@@ -97,7 +97,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     }
     const flightDetails: FlightResultsDetails | undefined = props.selectedTrip 
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
-      : bookedTripSegments![index].flight_details[0];
+      : bookedTripSegments[index].flight_details[0];
     return (
       <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
     );

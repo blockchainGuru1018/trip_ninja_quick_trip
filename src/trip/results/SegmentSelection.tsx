@@ -94,7 +94,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           <div className="col-md-10 select-segment-list">
             <div className="row">
               <div className="col-lg-10 offset-lg-1">
-                <h5>Selected Flight</h5>
+                <div className="row">
+                  <div className="col-xl">
+                    <h5>Selected Flight</h5>
+                  </div>
+                </div>
                 <SegmentPreviews
                   totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
@@ -108,7 +112,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
-                <hr className="segment-divider"/>
+                <div className="row">
+                  <div className="col-xl">
+                    <hr className="segment-divider"/>
+                  </div>
+                </div>
                 {
                   compatibleSegments.length > 0 &&
                   filteredCompatibleSegments.length > 0 &&
@@ -127,20 +135,26 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />
-                    <hr className="segment-divider"/>
+                    <div className="row">
+                      <div className="col-xl">
+                        <hr className="segment-divider"/>
+                      </div>
+                    </div>
                   </div>
                 }
                 {
                   incompatibleSegments.length > 0 &&
                   filteredIncompatibleSegments &&
                   <div>
-                    <h5>Other Options</h5>
-                    <p>
-                      Selecting these flights may impact other linked segments.
-                    </p>
-                    <Alert severity="info">
-                      To see which segments are impacted by changes, hover over the flight number.
-                    </Alert>
+                    <div className="row">
+                      <div className="col-xl">
+                        <h5>Other Options</h5>
+                        <p>Selecting these flights may impact other linked segments.</p>
+                        <Alert severity="info">
+                          To see which segments are impacted by changes, hover over the flight number.
+                        </Alert>
+                      </div>
+                    </div>
                     <SegmentPreviews
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}

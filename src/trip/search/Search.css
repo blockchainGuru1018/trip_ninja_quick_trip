@@ -39,8 +39,9 @@
 }
 
 .divider-light {
-  color: #CACDD6;
-  padding: 0px 5px;
+  border-right: solid 1px #CACDD6;
+  padding-left: 10px;
+  margin-right: 10px;
 }
 
 .flight-remove-container {

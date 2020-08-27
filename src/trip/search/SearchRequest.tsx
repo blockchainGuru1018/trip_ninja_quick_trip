@@ -100,7 +100,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
             Search Flights
         </Button>
         {!this.state.searchDetailsValid &&
-        <Alert severity="error" className='validationErrorAlert'>
+        <Alert severity="error" className='validation-error-alert'>
           Invalid search details - please check dates and flights are correct.
         </Alert>
         }

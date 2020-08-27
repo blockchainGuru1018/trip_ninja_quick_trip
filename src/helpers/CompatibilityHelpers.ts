@@ -1,4 +1,4 @@
-import { FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import { ActiveSegmentsMap, FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
@@ -26,9 +26,12 @@ export function activateSegment(segment: Segment, state: ResultsDetails, segment
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
   state.activeSegments.set(segmentPosition, segment);
-  if(!isInitialActivation || oldActiveSegment){
+  state.activeSegments = new ActiveSegmentsMap([...state.activeSegments.entries()].sort())
+
+  if(!isInitialActivation || oldActiveSegment) {
     resetOldActiveStatusAndPotentialMissingPositions(segment, state, oldActiveSegment!, isNotCompatible); // oldActiveSegment should exist at this point
   }
+
   if (isInitialActivation || isNotCompatible){
     setAlternatesStatus(state, segment, segmentOptions);
   }

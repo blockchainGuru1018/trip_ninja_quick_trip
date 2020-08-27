@@ -1,7 +1,10 @@
 import { updateActiveSegmentsFromAction, getOtherPositionsInItineraryStructure } from '../helpers/CompatibilityHelpers';
-import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, Filters, defaultFilters } from '../trip/results/ResultsInterfaces';
-import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setFilteredRelatives} from '../helpers/RelativesHelper';
+import { ResultsDetails, Segment, ActiveSegmentsMap, BrandInfo, Results, defaultFilters, Filter
+} from '../trip/results/ResultsInterfaces';
+import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setIndex0AsActives
+} from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
+import _ from 'lodash';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -13,7 +16,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         tripType: 'fareStructureResults',
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
-        itineraryFilters: {...defaultFilters},
+        itineraryFilters: _.cloneDeep(defaultFilters),
         segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
       };
 
@@ -39,7 +42,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_ENTIRE_TRIP':
       const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered);
       if (!viable) {
-        setFilteredRelatives(state);
+        setIndex0AsActives(state)
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
@@ -55,7 +58,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateFilterReturnValue(state, action);
 
     case 'UPDATE_SEGMENT_FILTER':
-      state.segmentFilters![action.segmentIndex][action.filterKey] = action.filterValue;
+      const relatedFilter: Filter | undefined = state.segmentFilters![action.segmentIndex].find((segmentFilter: Filter) =>
+        segmentFilter.type === action.filterKey
+      )
+      relatedFilter!.value = action.filterValue;
       return {...state};
 
     case 'UPDATE_SORT_TYPE':
@@ -119,21 +125,28 @@ function setSegmentBrandInfo(state: ResultsDetails, action: any) {
       linkedSegment && (linkedSegment.brands = brands);
     });
   }
-
   return {...state};
 }
 
 function setDefaultSegmentFilters(fareStructureResults: Results) {
-  let segmentFilters: Array<Filters> = [];
-  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push({...defaultFilters}));
+  let segmentFilters: Array<Array<Filter>> = [];
+  fareStructureResults.segments.forEach((segment: Array<Segment>) => segmentFilters.push(_.cloneDeep(defaultFilters)));
   return segmentFilters;
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  state.itineraryFilters![action.filterKey] = action.filterValue;
-  const updatedSegmentFilters = state.segmentFilters!.map((filters: Filters) => ({...filters, [action.filterKey]: action.filterValue}));
-  filterItinerary(state[state.tripType].segments, state.itineraryFilters!);
-  return {...state, segmentFilters: updatedSegmentFilters};
+  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey)
+  filter!.value = action.filterValue;
+  state.segmentFilters!.forEach((segmentFilters: Array<Filter>) => {
+    segmentFilters.forEach((segmentFilter: Filter) => {
+      if (segmentFilter.type === action.filterKey) {
+        segmentFilter.value = action.filterValue;
+      }
+    })
+  });
+  const tripType = state.tripType
+  filterItinerary(state[tripType].segments, state.itineraryFilters!);
+  return state
 }
 
 export default resultsReducer;

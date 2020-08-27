@@ -1,3 +1,4 @@
+import {Credentials} from "./PricingInterfaces";
 
 export interface ResultsDetails {
   fareStructureResults?: Results;
@@ -8,17 +9,22 @@ export interface ResultsDetails {
   segmentPositionMap: SegmentPositionMap;
   itinerarySortBy: string;
   segmentSortBy: Array<string>;
-  segmentFilters?: Array<Filters>
-  itineraryFilters?: Filters
+  segmentFilters?: Array<Array<Filter>>
+  itineraryFilters?: Array<Filter>
 }
 
-export interface Filters {
-  baggage: number
+export interface Filter {
+  type: string
+  value: any,
+  position: number,
+  failed: boolean
 }
 
-export const defaultFilters: Filters = {
-  baggage: 0
-};
+export const defaultFilters: Array<Filter> = [
+  {type: 'baggage', value: '0', position: 0, failed: false},
+  {type: 'noOfStops', value: 'Any', position: 1, failed: false},
+  {type: 'alliance', value: 'Any', position: 2, failed: false}
+];
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
 
@@ -131,6 +137,7 @@ export interface Segment {
   relativeWeight?: number;
   relativeTime?: number;
   filtered?: boolean
+  credential_info: Credentials
 }
 
 export interface FareInfo {

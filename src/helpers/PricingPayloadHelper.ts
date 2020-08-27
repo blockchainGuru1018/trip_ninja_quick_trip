@@ -1,11 +1,10 @@
 
-import { AuthDetails } from '../auth/AuthInterfaces';
 import { Segment, FlightResult, FlightResultsDetails} from '../trip/results/ResultsInterfaces';
-import { PricingRequestItinerary, FlightSegment, Flight, Credentials } from '../trip/results/PricingInterfaces';
+import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
 import moment from 'moment';
 
 
-export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, authDetails: AuthDetails) => {
+export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>) => {
   let itinerariesPayload : Array<PricingRequestItinerary> = [];
   let itinerariesCounter = 1;
   selectedTrip.forEach((itineraryElement: Segment) => {
@@ -15,7 +14,7 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
         itinerary_reference: itinerariesCounter,
         traveller_list: itineraryElement.priced_passengers,
         plating_carrier: itineraryElement.plating_carrier,
-        credentials: createCredentialsPayload(itineraryElement.source, authDetails),
+        credentials: itineraryElement.credential_info,
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
         segments: createSegmentsPayload(flightDetails, selectedTrip, itineraryStructure),
       });
@@ -59,13 +58,4 @@ const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, select
     }
   });
   return flightsPayload;
-};
-
-const createCredentialsPayload = (source: string, authDetails: AuthDetails) => {
-  const credentialsPayload: Credentials = {
-    data_source: source,
-    provider: authDetails.provider,
-    pcc: authDetails.pcc
-  };
-  return credentialsPayload;
 };

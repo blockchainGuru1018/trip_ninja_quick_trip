@@ -11,10 +11,8 @@ import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
-import BaggageFilter from "./filters/BaggageFilter";
-import NumberOfStopsFilter from './filters/NumberOfStopsFilter';
+import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
-import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface MatchParams {
   index: string;
@@ -31,7 +29,6 @@ interface SegmentSelectionProps {
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
-  authDetails: AuthDetails;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -48,6 +45,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
     const totalPrice: number = getTotal(selectedTrip, 'price');
+
+    const enabledFilters = ['baggage','noOfStops','alliance'];
 
     return (
       <div id="segment-selection">
@@ -72,26 +71,19 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             updateSortType={this.props.updateSortType}
           />
           <div className='row'>
-            <div className='col-md-2'>
-              <BaggageFilter
-                updateSegmentFilter={this.props.updateSegmentFilter}
-                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                  (filter: Filter) => filter.type === 'baggage')}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={Number(segmentIndex)}
-              />
-            </div>
-            <div className='col-md-2'>
-              <NumberOfStopsFilter
-                updateSegmentFilter={this.props.updateSegmentFilter}
-                segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                  (filter: Filter) => filter.type === 'noOfStops')}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={Number(segmentIndex)}
-              />
-            </div>
+            {enabledFilters.map((item) =>
+              <div className='col-md-2'>
+                <FlightsFilter
+                  filterName={item}
+                  segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                    (filter: Filter) => filter.type === item)}
+                  updateSegmentFilter={this.props.updateSegmentFilter}
+                  trip={trip}
+                  updateActives={this.props.updateActives}
+                  segmentIndex={Number(segmentIndex)}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="row">
@@ -112,7 +104,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
-                  authDetails={this.props.authDetails}
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
@@ -133,7 +124,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       updateFareFamily={this.props.updateFareFamily}
                       activeSegment={selectedSegment[0]}
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                      authDetails={this.props.authDetails}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />
@@ -161,7 +151,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       pathSequence={trip.path_sequence}
                       activeSegment={selectedSegment[0]}
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                      authDetails={this.props.authDetails}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />

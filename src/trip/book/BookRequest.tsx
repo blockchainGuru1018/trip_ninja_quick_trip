@@ -8,6 +8,8 @@ import Alert from '@material-ui/lab/Alert';
 import { AdditionalDetails, ResultsDetails, BrandInfo, FareInfo, Brand} from "../results/ResultsInterfaces";
 import { Segment } from "../results/ResultsInterfaces";
 import history from '../../History';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 interface BookRequestProps {
   resultsDetails: ResultsDetails
@@ -108,29 +110,38 @@ class BookRequest extends React.Component<BookRequestProps> {
 
 
   render() {
-
     return (
       <div className="float-right">
-        <Button 
-          variant="outlined" 
-          color="primary"
-          className="book-button"
-          onClick={ (e) => this.bookFlights(false)}>
-          Book and Save
-        </Button>
+        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">
+          <span>          
+            <Button 
+              variant="outlined" 
+              color="primary"
+              className="book-button"
+              disabled={this.props.authDetails.bookingDisabled}
+              onClick={ (e) => this.bookFlights(false)}>
+              Book and Save
+            </Button>
+          </span>
+        </Tooltip>
         {!this.state.passengerDetailsValid &&
         <Alert severity="error" className='validationErrorAlert'>
           Passenger details are not filled out properly - please review.
         </Alert>
         }
-        <Button
-          variant="contained" 
-          color="primary"
-          className="book-button"
-          disableElevation
-          onClick={ (e) => this.bookFlights(true)}>
-          Book and Ticket
-        </Button>
+        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
+          <span>
+            <Button
+              variant="contained" 
+              color="primary"
+              className="book-button"
+              disabled={this.props.authDetails.bookingDisabled}
+              disableElevation
+              onClick={ (e) => this.bookFlights(true)}>
+              Book and Ticket
+            </Button>
+          </span>
+        </Tooltip>
         {!this.state.passengerDetailsValid &&
         <Alert severity="error" className='validationErrorAlert'>
           Passenger details are not filled out properly - please review.

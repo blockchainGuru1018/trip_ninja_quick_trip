@@ -80,7 +80,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: '-'}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Wifi available" placement="top">
+                <Tooltip title="Wifi availability" placement="top">
                   <WifiIcon color={this.setIconColor(this.state.wifi)}/>
                 </Tooltip>
                 <span className="icon-label">Wifi</span>

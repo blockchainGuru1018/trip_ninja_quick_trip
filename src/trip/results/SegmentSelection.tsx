@@ -73,7 +73,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           />
           <div className='row'>
             {enabledFilters.map((item) =>
-              <div className='col-md-2'>
+              <div>
                 <FlightsFilter
                   filterName={item}
                   segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(

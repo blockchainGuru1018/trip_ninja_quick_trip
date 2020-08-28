@@ -84,7 +84,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <div className='col-md-8'>
               <div className='row'>
                 {enabledFilters.map((item) =>
-                  <div className='col-md-3'>
+                  <div>
                     <FlightsFilter
                       filterName={item}
                       itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === item)}

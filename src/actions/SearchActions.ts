@@ -3,7 +3,6 @@ import { setResults, setErrorDetails, setActiveSegments }
   from './ResultsActions';
 import API from '../Api';
 import {Dispatch} from "react";
-import {Action} from "history";
 
 export function fetchSearch(tripDetails: Object) {
   return {

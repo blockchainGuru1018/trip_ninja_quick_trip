@@ -4,8 +4,8 @@ import { shallow } from 'enzyme';
 import SearchRequest from './SearchRequest';
 import { defaultSearchDetails } from './SearchInterfaces';
 import { SearchDetails, Flight } from './SearchInterfaces';
-import TripOptions from './TripOptions';
-import { setValue, searchFlights } from '../../actions/SearchActions';
+import { searchFlights } from '../../actions/SearchActions';
+import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 
 const testSearchDetails = {
   "flights": [
@@ -89,20 +89,16 @@ test('validateSearchDetails Failure', () => {
 });
 
 test('flexTripAllowed Success', () => {
-  const component: any = shallow(<TripOptions flights={testFlights} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  const instance = component.instance();
-  expect(instance.flexTripAllowed()).toBeTruthy();
+  expect(flexTripAllowed(testFlights)).toBeTruthy();
 });
 
 test('flexTripAllowed Fail', () => {
-  const component: any = shallow(<TripOptions flights={[testFlights[0], testFlights[1]]} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+  expect(flexTripAllowed([testFlights[0], testFlights[1]])).toBeFalsy();
 });
 
 test('allCabinsEqual Fail', () => {
   let newTestFlights: Array<Flight> = [...testFlights];
   newTestFlights[0].cabinClass = 'BC';
-  const component: any = shallow(<TripOptions flights={[...newTestFlights]} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+  expect(flexTripAllowed([...newTestFlights])).toBeFalsy();
 });
 

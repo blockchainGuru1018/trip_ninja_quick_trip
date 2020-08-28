@@ -82,8 +82,8 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
           </div>
           <div className="row">
-            <div className='col-md-8'>
-              <div className='row'>
+            <div className="col-md-8 no-pad-left">
+              <div className="row">
                 {enabledFilters.map((item) =>
                   <div>
                     <FlightsFilter

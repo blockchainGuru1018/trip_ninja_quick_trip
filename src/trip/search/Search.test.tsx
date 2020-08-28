@@ -4,8 +4,7 @@ import { shallow } from 'enzyme';
 import SearchRequest from './SearchRequest';
 import { defaultSearchDetails } from './SearchInterfaces';
 import { SearchDetails, Flight } from './SearchInterfaces';
-import TripOptions from './TripOptions';
-import { setValue, searchFlights } from '../../actions/SearchActions';
+import { searchFlights } from '../../actions/SearchActions';
 import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 
 const testSearchDetails = {

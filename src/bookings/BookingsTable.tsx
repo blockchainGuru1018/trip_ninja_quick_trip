@@ -114,33 +114,40 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   displayBookings = (bookings: Array<Booking>) => {
     return bookings.sort(this.compareRows(this.state.orderBy, this.state.order))
       .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
-      .map((booking: Booking, index: number) => {
-        return (
-          <TableRow key={index.toString()}>
-            <DetailsLinkCell align="left">
-              <BookingDetailsDrawer 
-                booking={booking}
-                getBookingDetails={this.props.getBookingDetails}
-                cancelBooking={this.props.cancelBooking}
-                queueBooking={this.props.queueBooking}
-                authDetails={this.props.authDetails}
-                loading={this.props.loading}
-              />
-            </DetailsLinkCell>
-            <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
-            <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
-            </TableCell>
-            <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
-            </TableCell>
-            <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
-            <TableCell align="left">{booking.route}</TableCell>
-            <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
-          </TableRow>
-        );
-      });
+      .map((booking: Booking, index: number) =>
+        booking.primary_passenger.first_name !== 'FirstNameTest' &&
+        booking.primary_passenger.last_name !== 'LastNameTest'
+          ? this.setTableRow(booking, index)
+          : ''
+      );
   }
+
+  setTableRow = (booking: Booking, index: number) => (
+    <TableRow key={index.toString()}>
+      <DetailsLinkCell align="left">
+        <BookingDetailsDrawer
+          booking={booking}
+          getBookingDetails={this.props.getBookingDetails}
+          cancelBooking={this.props.cancelBooking}
+          queueBooking={this.props.queueBooking}
+          authDetails={this.props.authDetails}
+          loading={this.props.loading}
+        />
+      </DetailsLinkCell>
+      <TableCell
+        align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
+      <TableCell align="left">
+        <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+      </TableCell>
+      <TableCell align="left">
+        <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+      </TableCell>
+      <TableCell
+        align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
+      <TableCell align="left">{booking.route}</TableCell>
+      <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
+    </TableRow>
+  )
 
   handleSort = (key: string) => {
     let sortOrder = this.state.order;

@@ -13,6 +13,7 @@ import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { baggageLabel } from '../helpers/BaggageHelper';
 import { BookingSegment } from '../bookings/BookingsInterfaces';
+import Tooltip from '@material-ui/core/Tooltip';
 
 interface FareRulesProps {
   segment?: Segment;
@@ -59,43 +60,61 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
             <div className='row text-small'>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
+                <Tooltip title="Carry on baggage" placement="top">
+                  <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
+                </Tooltip>
                 <span className="icon-label">
                   {this.state.carryOn > 0 ? baggageLabel(this.state.carryOn) : ''}
                 </span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
+                <Tooltip title="Change penalty" placement="top">
+                  <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
+                </Tooltip>
                 <span className="icon-label">{this.state.changePenalty ? this.state.changePenalty : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <ConfirmationNumberOutlinedIcon color="primary"/>
+                <Tooltip title="Fare type" placement="top">
+                  <ConfirmationNumberOutlinedIcon color="primary"/>
+                </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: '-'}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <WifiIcon color={this.setIconColor(this.state.wifi)}/>
+                <Tooltip title="Wifi availability" placement="top">
+                  <WifiIcon color={this.setIconColor(this.state.wifi)}/>
+                </Tooltip>
                 <span className="icon-label">Wifi</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
+                <Tooltip title="Seat selection" placement="top">
+                  <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
+                </Tooltip>
                 <span className="icon-label">{this.state.seatAssignment ? this.state.seatAssignment : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>
+                <Tooltip title="Checked bags" placement="top">
+                  <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>
+                </Tooltip>
                 <span className="icon-label">
                   {this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}
                 </span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
+                <Tooltip title="Cancellation penalty" placement="top">
+                  <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
+                </Tooltip>
                 <span className="icon-label">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <LanguageIcon color="primary"/>
+                <Tooltip title="Fare source" placement="top">
+                  <LanguageIcon color="primary"/>
+                </Tooltip>
                 <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <ClassIcon color="primary"/>
+                <Tooltip title="Booking code" placement="top">
+                  <ClassIcon color="primary"/>
+                </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
               </div>
             </div>

@@ -63,9 +63,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <Tooltip title="Carry on baggage" placement="top">
                   <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
                 </Tooltip>
-                <span className="icon-label">
-                  {this.state.carryOn > 0 ? baggageLabel(this.state.carryOn) : ''}
-                </span>
+                <span className='icon-label'>Cabin Baggage {this.state.carryOn > 0 ? 'Included' : 'Not Included'}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <Tooltip title="Change penalty" placement="top">

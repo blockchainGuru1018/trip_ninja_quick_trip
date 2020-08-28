@@ -2,6 +2,7 @@ import { SearchPayload } from '../trip/search/SearchInterfaces';
 import { setResults, setErrorDetails, setActiveSegments }
   from './ResultsActions';
 import API from '../Api';
+import {Dispatch} from "react";
 
 export function fetchSearch(tripDetails: Object) {
   return {
@@ -70,26 +71,33 @@ export function searchLoading(value: boolean) {
   };
 }
 
-export const searchFlights = (searchPayload: SearchPayload) => (dispatch: any) => {
+export const searchFlights = (searchPayload: SearchPayload) => (dispatch: Dispatch<any>) => {
   dispatch(searchLoading(true));
   const url: string = '/multicitysearch/';
   return API.post(url, searchPayload)
     .then((response: any) => {
-      if (response.data.detail) {
-        dispatch(searchLoading(false));
-        dispatch(setErrorDetails(true, 'search'));
-        return {'success': false};
-      } else {
-        dispatch(setResults(response.data));
-        dispatch(setActiveSegments());
-        dispatch(setErrorDetails(false, 'search'));
-        dispatch(searchLoading(false));
-        return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+      if (response.status === 200 && response.data.fare_structure) {
+        return setSearchSuccess(dispatch, response);
+      }
+      else {
+        return setSearchFailed(dispatch)
       }
     })
     .catch((error: any) => {
-      dispatch(searchLoading(false));
-      dispatch(setErrorDetails(true, 'search'));
-      return {'success': false};
+      return setSearchFailed(dispatch)
     });
 };
+
+const setSearchSuccess = (dispatch: Dispatch<any>, response: any) => {
+  dispatch(setResults(response.data));
+  dispatch(setActiveSegments());
+  dispatch(setErrorDetails(false, 'search'));
+  dispatch(searchLoading(false));
+  return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
+}
+
+const setSearchFailed = (dispatch: any) => {
+  dispatch(searchLoading(false));
+  dispatch(setErrorDetails(true, 'search'));
+  return {'success': false};
+}

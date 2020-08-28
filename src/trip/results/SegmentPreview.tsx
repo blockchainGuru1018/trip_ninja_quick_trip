@@ -76,7 +76,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                     : this.setState({expandedSegment: this.props.index})
                 )}
               >
-                <ExpandMoreIcon fontSize="large" color="secondary"/>
+                <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>
               </IconButton>
             </div>
           </div>

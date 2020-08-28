@@ -23,7 +23,7 @@ class TripOptions extends React.Component<TripOptionsProps> {
               control={<Checkbox
                 id="route-flexible"
                 checked={this.props.routeFlexible}
-                color="default"
+                color="secondary"
                 onChange={e => this.props.setValue('routeFlexible', e.target.checked)}
               />}
               label="Route Flexible"

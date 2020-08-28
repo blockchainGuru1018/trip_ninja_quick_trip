@@ -125,7 +125,7 @@ class BookRequest extends React.Component<BookRequestProps> {
           </span>
         </Tooltip>
         {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validationErrorAlert'>
+        <Alert severity="error" className='validation-error-alert'>
           Passenger details are not filled out properly - please review.
         </Alert>
         }
@@ -143,7 +143,7 @@ class BookRequest extends React.Component<BookRequestProps> {
           </span>
         </Tooltip>
         {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validationErrorAlert'>
+        <Alert severity="error" className='validation-error-alert'>
           Passenger details are not filled out properly - please review.
         </Alert>
         }

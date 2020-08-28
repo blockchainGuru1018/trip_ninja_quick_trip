@@ -39,11 +39,12 @@ class FlightInput extends React.Component<FlightInputProps> {
 
     return (
       <div className="row flight-input">
-        <div className="col-sm-3" ref={"flightInputRef"}>
+        <div className="col-md-3 search-input" ref={"flightInputRef"}>
           <FormControl fullWidth>
             <Autocomplete
               autoHighlight
               autoSelect
+              forcePopupIcon={false}
               filterOptions={filterOptions}
               id={"from-destination" + this.props.i}
               options={this.state.destinations}
@@ -72,11 +73,12 @@ class FlightInput extends React.Component<FlightInputProps> {
             />
           </FormControl>
         </div>
-        <div className="col-sm-3">
+        <div className="col-md-3 search-input">
           <FormControl fullWidth>
             <Autocomplete
               autoHighlight
               autoSelect
+              forcePopupIcon={false}
               filterOptions={filterOptions}
               id={"to-destination" + this.props.i}
               options={this.state.destinations}
@@ -105,7 +107,7 @@ class FlightInput extends React.Component<FlightInputProps> {
             />
           </FormControl>
         </div>
-        <div className="col-sm-3">
+        <div className="col-md-3 search-input">
           <DepartureDatePicker
             i={this.props.i}
             departureDate={flight.departureDate}
@@ -114,14 +116,14 @@ class FlightInput extends React.Component<FlightInputProps> {
             previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
           />
         </div>
-        <div className="col-sm-2 cabin-selector-container">
+        <div className="col-md-2 col-sm-10 search-input cabin-selector-container">
           <CabinSelect
             i={this.props.i}
             cabinClass={flight.cabinClass}
             updateFlightValue={this.props.updateFlightValue}/>
         </div>
         {this.props.flights.length > 1
-          && <div className='col-sm-1 flight-remove-container'>
+          && <div className='col-md-1 col-sm-2 flight-remove-container'>
             <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
               <CloseIcon fontSize="large" color="secondary"/>
             </IconButton>

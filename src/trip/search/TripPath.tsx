@@ -17,7 +17,7 @@ class TripPath extends React.Component<TripPathProps> {
         <FlightIcon className="rotate-90" color="primary"/>
         <span className="path-iata">{iataCodeHelper(item.destination)}</span>
         {index < this.props.flights.length-1 &&
-          <span className="divider-light">|</span>
+          <span className="divider-light"></span>
         }
       </span>
     ));

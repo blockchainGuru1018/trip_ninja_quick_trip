@@ -45,7 +45,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div
         className="row segment-container" key={this.props.index.toString()}>
         {!this.props.segmentSelect && this.setFlightPreviewIcons(this.props.index)}
-        <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
+        <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-11')}>
           <div className="row segment col-md-12">
             {this.props.segment.status === 'incompatible' && this.props.activeSegment
             && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
@@ -76,7 +76,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                     : this.setState({expandedSegment: this.props.index})
                 )}
               >
-                <ExpandMoreIcon fontSize="large" color="secondary"/>
+                <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>
               </IconButton>
             </div>
           </div>
@@ -109,7 +109,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   setFlightPreviewIcons = (index: number) => {
     return(
-      <div className='col-md-2 segment-preview-icon-container'>
+      <div className='col-md-1 segment-preview-icon-container'>
         {
           index === 0 || index === this.props.segments.length - 1
             ? <FiberManualRecordIcon style={{ fontSize: 30, marginTop: '28px', zIndex: 2 }}/>

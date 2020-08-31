@@ -8,7 +8,6 @@ import { updateActives, updateFareFamily, getTravelportBrands } from '../../acti
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getOtherPositionsInItineraryStructure } from '../../helpers/CompatibilityHelpers';
 
 interface SegmentPreviewDetailsProps {
@@ -23,7 +22,6 @@ interface SegmentPreviewDetailsProps {
   closeAllDropDowns?: () => void;
   totalPrice: number;
   activeSegment?: Segment;
-  authDetails: AuthDetails;
   trip: Results;
 }
 
@@ -106,7 +104,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(this.props.trip.flight_details, this.getLinkedSegments(), this.props.authDetails),
+      itineraries: createItinerariesPayload(this.props.trip.flight_details, this.getLinkedSegments()),
       pseudo_price_confirm: true
     };
     const pricingResult: any = this.props.getTravelportBrands!(pricingPayload, this.props.segment);

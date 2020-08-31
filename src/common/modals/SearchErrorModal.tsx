@@ -35,7 +35,7 @@ export default function SearchErrorModal(props: SearchErrorModalProps) {
         </p>
         <p>
           For more information on what might have gone wrong, head to our
-          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledege Base</a>
+          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledge Base</a>
           . You can always reach out to our support team at support@tripninja.io
           for assistance.
         </p>

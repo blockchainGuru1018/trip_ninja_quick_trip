@@ -78,9 +78,9 @@ const theme = Theme;
 class App extends React.Component<IAppProps> {
 
   constructor(props:IAppProps) {
-    super(props)
+    super(props);
     if (!this.props.resultsDetails.fareStructureResults) {
-      history.push('/')
+      history.push('/');
     }
   }
 
@@ -161,7 +161,6 @@ class App extends React.Component<IAppProps> {
                     currency={this.props.searchDetails.currency}
                     priceFlights={this.props.priceFlights}
                     passengers={this.props.searchDetails.passengers}
-                    authDetails={this.props.authDetails}
                     updateItineraryFilter={this.props.updateItineraryFilter}
                     itineraryFilters={this.props.resultsDetails.itineraryFilters}
                     updateActives={this.props.updateActives}
@@ -178,7 +177,6 @@ class App extends React.Component<IAppProps> {
                     updateFareFamily={this.props.updateFareFamily}
                     updateSegmentFilter={this.props.updateSegmentFilter}
                     updateSortType={this.props.updateSortType}
-                    authDetails={this.props.authDetails}
                     getTravelportBrands={this.props.getTravelportBrands}
                   />
                 } />

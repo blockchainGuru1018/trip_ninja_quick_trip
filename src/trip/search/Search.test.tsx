@@ -4,16 +4,18 @@ import { shallow } from 'enzyme';
 import SearchRequest from './SearchRequest';
 import { defaultSearchDetails } from './SearchInterfaces';
 import { SearchDetails, Flight } from './SearchInterfaces';
-import TripOptions from './TripOptions';
+import { searchFlights } from '../../actions/SearchActions';
+import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 
 const testSearchDetails = {
   "flights": [
     {
       "origin": "NYC | New York City, NY, USA - All Airports",
       "destination": "YHZ | Halifax, NS, Canada",
-      "departureDate": "2020-08-12T14:29:00.000Z",
+      "departureDate": "2020-10-12T14:29:00.000Z",
       "cabinClass": "E",
-      "endType": "A"
+      "endType": "A",
+      "startType": "C"
     }
   ],
   "currency": "NZD",
@@ -48,7 +50,10 @@ const testSearchDetails = {
   "loading": false
 };
 
-const testFlights: Array<Flight> = [{ "origin": "NYC | New York City, NY, USA - All Airports", "destination": "YHZ | Halifax, NS, Canada", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "A", "startType": "C" }, { "origin": "YHZ | Halifax, NS, Canada", "destination": "YTO | Toronto, ON, Canada - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "A" }, { "origin": "YTO | Toronto, ON, Canada - All Airports", "destination": "PAR | Paris, France - All Airports", "departureDate": "2020-06-09T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "C" }];
+const testFlights: Array<Flight> = [
+  { "origin": "NYC | New York City, NY, USA - All Airports", "destination": "YHZ | Halifax, NS, Canada", "departureDate": "2020-10-09T11:39:03.909Z", "cabinClass": "E", "endType": "A", "startType": "C" }, 
+  { "origin": "YHZ | Halifax, NS, Canada", "destination": "YTO | Toronto, ON, Canada - All Airports", "departureDate": "2020-10-15T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "A" }, 
+  { "origin": "YTO | Toronto, ON, Canada - All Airports", "destination": "PAR | Paris, France - All Airports", "departureDate": "2020-10-21T11:39:03.909Z", "cabinClass": "E", "endType": "C", "startType": "C" }];
 
 test('datesAreOnSameDayOrLater', () => {
   const today: Date = new Date();
@@ -60,7 +65,7 @@ test('datesAreOnSameDayOrLater', () => {
 });
 
 const validateSearchTest = (searchDetails: SearchDetails) => {
-  const component: any = shallow(<SearchRequest searchDetails={{ ...searchDetails }} />);
+  const component: any = shallow(<SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} />);
   const instance = component.instance();
   return instance.validateSearchDetails();
 };
@@ -74,7 +79,7 @@ test('validateSearchDetails Failure', () => {
   const alteredSearchDetails: SearchDetails = {
     ...testSearchDetails, flights: [{ ...testSearchDetails.flights[0] }]
   };
-  alteredSearchDetails.flights[0].departureDate = "2019-08-12T14:29:00.000Z";
+  alteredSearchDetails.flights[0].departureDate = "2019-11-12T14:29:00.000Z";
   expect(validateSearchTest(alteredSearchDetails)).toBeFalsy();
   const alteredSearchDetails2: SearchDetails = {
     ...testSearchDetails, flights: [{ ...testSearchDetails.flights[0] }]
@@ -84,20 +89,16 @@ test('validateSearchDetails Failure', () => {
 });
 
 test('flexTripAllowed Success', () => {
-  const component: any = shallow(<TripOptions flights={testFlights} />);
-  const instance = component.instance();
-  expect(instance.flexTripAllowed()).toBeTruthy();
+  expect(flexTripAllowed(testFlights)).toBeTruthy();
 });
 
 test('flexTripAllowed Fail', () => {
-  const component: any = shallow(<TripOptions flights={[testFlights[0], testFlights[1]]} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+  expect(flexTripAllowed([testFlights[0], testFlights[1]])).toBeFalsy();
 });
 
 test('allCabinsEqual Fail', () => {
   let newTestFlights: Array<Flight> = [...testFlights];
   newTestFlights[0].cabinClass = 'BC';
-  const component: any = shallow(<TripOptions flights={[...newTestFlights]} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+  expect(flexTripAllowed([...newTestFlights])).toBeFalsy();
 });
 

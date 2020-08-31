@@ -4,6 +4,7 @@ import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import history from '../../History';
 
 const ChangeSearchButton = styled(Button)({
@@ -16,10 +17,15 @@ const ChangeSearchButton = styled(Button)({
   }
 });
 
+const BackToFlexTripButton = styled(Button)({
+  color: 'var(--tertiary)',
+});
+
 interface ResultsHeaderProps {
   segments: Array<Segment>
   pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
+  flexTripResults: boolean
 }
 
 class ResultsHeader extends React.Component<ResultsHeaderProps> {
@@ -35,7 +41,18 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
     return (
       <div>
         <div className="row">
-          <div className="col-xl-10 col-lg-9">
+          { this.props.flexTripResults &&
+          <div className="col-xl-2 col-lg-3">
+            <div className="float-left">
+              <BackToFlexTripButton
+                startIcon={<KeyboardBackspaceIcon />}
+                onClick={() => history.push('/results/pre-results/')}>
+                Back To FlexTrip Results
+              </BackToFlexTripButton>
+            </div>
+          </div>
+          }
+          <div className={this.props.flexTripResults ? 'col-xl-8 col-lg-6' : 'col-xl-10 col-lg-9'}>
             <div className="float-right itinerary-path">
               <p>{segmentPath}</p>
             </div>

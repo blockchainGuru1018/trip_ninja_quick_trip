@@ -6,14 +6,13 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import { ResultsDetails, Results, Segment , Filters } from './ResultsInterfaces';
+import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
   from '../../actions/ResultsActions';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 import { getTotal } from '../../helpers/MiscHelpers';
-import BaggageFilter from './filters/BaggageFilter';
+import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 
 interface ItineraryResultsProps {
@@ -21,9 +20,8 @@ interface ItineraryResultsProps {
   currency: string;
   priceFlights: typeof priceFlights;
   passengers: Array<Passenger>;
-  authDetails: AuthDetails;
   updateItineraryFilter: typeof updateItineraryFilter;
-  itineraryFilters: Filters | undefined
+  itineraryFilters: Array<Filter> | undefined
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
@@ -48,11 +46,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             flightDetails={trip.flight_details}
             currency={this.props.currency}
             segmentSelect={false}
-            authDetails={this.props.authDetails}
             trip={trip}
           />
         </div>
       </div>;
+
+    const enabledFilters = ['baggage','noOfStops','alliance'];
 
     return (
       <div id="itinerary-result">
@@ -61,6 +60,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             segments={selectedTrip} 
             pathSequence={trip.path_sequence}
             flights={trip.flight_details}
+            flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
           />
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
@@ -82,27 +82,33 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
           </div>
           <div className="row">
-            <div className='col-md-4'>
-              <BaggageFilter
-                sortBy={this.props.resultsDetails.itinerarySortBy}
-                segmentSortBy={this.props.resultsDetails.segmentSortBy}
-                updateItineraryFilter={this.props.updateItineraryFilter}
-                itineraryFilters={this.props.itineraryFilters}
-                trip={trip}
-                updateActives={this.props.updateActives}
-                segmentIndex={-1}
-                activeSegments={this.getActiveSegments(trip)}
-                updateEntireTrip={this.props.updateEntireTrip}
-              />
+            <div className="col-md-8 no-pad-left">
+              <div className="row">
+                {enabledFilters.map((item) =>
+                  <div>
+                    <FlightsFilter
+                      filterName={item}
+                      itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === item)}
+                      sortBy={this.props.resultsDetails.itinerarySortBy}
+                      segmentSortBy={this.props.resultsDetails.segmentSortBy}
+                      updateItineraryFilter={this.props.updateItineraryFilter}
+                      trip={trip}
+                      updateActives={this.props.updateActives}
+                      segmentIndex={-1}
+                      activeSegments={this.getActiveSegments(trip)}
+                      updateEntireTrip={this.props.updateEntireTrip}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="col-md-4 offset-md-4">
+            <div className="col-md-4">
               <PricingRequest
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
                 totalPrice={totalPrice}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
-                authDetails={this.props.authDetails}
               />
             </div>
           </div>

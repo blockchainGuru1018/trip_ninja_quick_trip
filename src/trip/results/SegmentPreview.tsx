@@ -15,7 +15,6 @@ import { updateActives, updateFareFamily, getTravelportBrands } from '../../acti
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 
 interface SegmentPreviewProps {
   index: number;
@@ -31,7 +30,6 @@ interface SegmentPreviewProps {
   getTravelportBrands?: typeof getTravelportBrands;
   pathSequence?: Array<string>;
   totalPrice: number;
-  authDetails: AuthDetails;
   trip: Results;
 }
 
@@ -47,7 +45,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
       <div
         className="row segment-container" key={this.props.index.toString()}>
         {!this.props.segmentSelect && this.setFlightPreviewIcons(this.props.index)}
-        <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-10')}>
+        <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-11')}>
           <div className="row segment col-md-12">
             {this.props.segment.status === 'incompatible' && this.props.activeSegment
             && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
@@ -78,7 +76,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                     : this.setState({expandedSegment: this.props.index})
                 )}
               >
-                <ExpandMoreIcon fontSize="large" color="secondary"/>
+                <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>
               </IconButton>
             </div>
           </div>
@@ -98,7 +96,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 updateFareFamily={this.props.updateFareFamily}
                 totalPrice={this.props.totalPrice}
                 activeSegment={this.props.activeSegment}
-                authDetails={this.props.authDetails}
                 getTravelportBrands={this.props.getTravelportBrands}
                 trip={this.props.trip}
               />
@@ -112,7 +109,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
 
   setFlightPreviewIcons = (index: number) => {
     return(
-      <div className='col-md-2 segment-preview-icon-container'>
+      <div className='col-md-1 segment-preview-icon-container'>
         {
           index === 0 || index === this.props.segments.length - 1
             ? <FiberManualRecordIcon style={{ fontSize: 30, marginTop: '28px', zIndex: 2 }}/>

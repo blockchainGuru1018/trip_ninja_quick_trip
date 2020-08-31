@@ -27,14 +27,6 @@ function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPo
   };
 }
 
-export function setFilteredRelatives(resultsDetails: ResultsDetails) {
-  const results: Results = resultsDetails[resultsDetails.tripType];
-  results.segments.forEach((segmentOptions: Array<Segment>, segmentOptionsIndex: number) => {
-    const firstFilteredSegment: Segment | undefined = segmentOptions.find((segment: Segment) => !segment.filtered);
-    updateActiveSegments(resultsDetails, segmentOptionsIndex, firstFilteredSegment ? firstFilteredSegment.itinerary_id : segmentOptions[0].itinerary_id);
-  });
-}
-
 export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, setActivesInitial: boolean = false, sortBy: string = 'best') {
   const results: Results = resultsDetails[resultsDetails.tripType];
   let actives = [...resultsDetails.activeSegments.values()];
@@ -97,11 +89,23 @@ const setTotals = (activeSegments: any) => {
   return [price, weight, time];
 };
 
-function setIndex0AsActives(state: ResultsDetails) {
+export function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
+  resetSegmentsStatus(trip.segments)
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
     segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
     const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
-    updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
+
+    if (segmentToChange!.status !== 'active') {
+      updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
+    }
+    return segmentOptions
   });
+  return state;
+}
+
+function resetSegmentsStatus(segments: Array<Array<Segment>>) {
+  segments.forEach((segmentOptions: Array<Segment>) =>
+    segmentOptions.forEach((segment: Segment) => segment.status = '')
+  )
 }

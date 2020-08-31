@@ -3,7 +3,7 @@ import SegmentNav from './SegmentNav';
 import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import FlightIcon from '@material-ui/icons/Flight';
-import { ResultsDetails, Results, Segment } from './ResultsInterfaces';
+import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
 import { RouteComponentProps } from "react-router-dom";
 import './Results.css';
 import SortOption from "./SortOption";
@@ -11,9 +11,9 @@ import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
-import BaggageFilter from "./filters/BaggageFilter";
+import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
-import { AuthDetails } from '../../auth/AuthInterfaces';
+import Alert from '@material-ui/lab/Alert';
 
 interface MatchParams {
   index: string;
@@ -30,7 +30,6 @@ interface SegmentSelectionProps {
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
-  authDetails: AuthDetails;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
@@ -41,10 +40,14 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const segmentIndex = this.props.match.params.index;
     const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex]);
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
+    const filteredCompatibleSegments: Array<Segment> = compatibleSegments.filter((segment: Segment) => !segment.filtered);
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
+    const filteredIncompatibleSegments: Array<Segment> = incompatibleSegments.filter((segment: Segment) => !segment.filtered);
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
     const totalPrice: number = getTotal(selectedTrip, 'price');
+
+    const enabledFilters = ['baggage','noOfStops','alliance'];
 
     return (
       <div id="segment-selection">
@@ -53,6 +56,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             segments={selectedTrip} 
             pathSequence={trip.path_sequence}
             flights={trip.flight_details}
+            flexTripResults={false}
           />
           <h1>
             {trip.path_sequence[segmentIndex].substring(0, 3)}
@@ -68,14 +72,20 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
             updateSortType={this.props.updateSortType}
           />
-          <div className='baggage-filter-container'>
-            <BaggageFilter
-              updateSegmentFilter={this.props.updateSegmentFilter}
-              segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex]}
-              trip={trip}
-              updateActives={this.props.updateActives}
-              segmentIndex={Number(segmentIndex)}
-            />
+          <div className='row'>
+            {enabledFilters.map((item) =>
+              <div>
+                <FlightsFilter
+                  filterName={item}
+                  segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                    (filter: Filter) => filter.type === item)}
+                  updateSegmentFilter={this.props.updateSegmentFilter}
+                  trip={trip}
+                  updateActives={this.props.updateActives}
+                  segmentIndex={Number(segmentIndex)}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="row">
@@ -85,7 +95,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           <div className="col-md-10 select-segment-list">
             <div className="row">
               <div className="col-lg-10 offset-lg-1">
-                <h5>Selected Flight</h5>
+                <div className="row">
+                  <div className="col-xl">
+                    <h5>Selected Flight</h5>
+                  </div>
+                </div>
                 <SegmentPreviews
                   totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
@@ -96,59 +110,69 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateActives={this.props.updateActives}
                   activeSegment={selectedSegment[0]}
                   updateFareFamily={this.props.updateFareFamily}
-                  authDetails={this.props.authDetails}
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
-                <hr className="segment-divider"/>
+                <div className="row">
+                  <div className="col-xl">
+                    <hr className="segment-divider"/>
+                  </div>
+                </div>
                 {
-                  compatibleSegments.length > 0
-                    ? <div>
-                      <h5>Other Departure Times</h5>
-                      <SegmentPreviews
-                        totalPrice={totalPrice}
-                        segmentOptionsIndex={parseInt(segmentIndex)}
-                        segments={compatibleSegments}
-                        flightDetails={trip.flight_details}
-                        currency={this.props.currency}
-                        segmentSelect={true}
-                        updateActives={this.props.updateActives}
-                        updateFareFamily={this.props.updateFareFamily}
-                        activeSegment={selectedSegment[0]}
-                        sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                        authDetails={this.props.authDetails}
-                        getTravelportBrands={this.props.getTravelportBrands}
-                        trip={trip}
-                      />
-                      <hr className="segment-divider"/>
+                  compatibleSegments.length > 0 &&
+                  filteredCompatibleSegments.length > 0 &&
+                  <div>
+                    <SegmentPreviews
+                      totalPrice={totalPrice}
+                      segmentOptionsIndex={parseInt(segmentIndex)}
+                      segments={compatibleSegments}
+                      flightDetails={trip.flight_details}
+                      currency={this.props.currency}
+                      segmentSelect={true}
+                      updateActives={this.props.updateActives}
+                      updateFareFamily={this.props.updateFareFamily}
+                      activeSegment={selectedSegment[0]}
+                      sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
+                      getTravelportBrands={this.props.getTravelportBrands}
+                      trip={trip}
+                    />
+                    <div className="row">
+                      <div className="col-xl">
+                        <hr className="segment-divider"/>
+                      </div>
                     </div>
-                    : ''
+                  </div>
                 }
                 {
                   incompatibleSegments.length > 0 &&
-                    <div>
-                      <h5>Other Options</h5>
-                      <p>
-                        Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
-                      </p>
-                      <SegmentPreviews
-                        totalPrice={totalPrice}
-                        segmentOptionsIndex={parseInt(segmentIndex)}
-                        segments={incompatibleSegments}
-                        flightDetails={trip.flight_details}
-                        currency={this.props.currency}
-                        segmentSelect={true}
-                        updateActives={this.props.updateActives}
-                        updateFareFamily={this.props.updateFareFamily}
-                        resultsDetails={this.props.resultsDetails}
-                        pathSequence={trip.path_sequence}
-                        activeSegment={selectedSegment[0]}
-                        sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
-                        authDetails={this.props.authDetails}
-                        getTravelportBrands={this.props.getTravelportBrands}
-                        trip={trip}
-                      />
+                  filteredIncompatibleSegments &&
+                  <div>
+                    <div className="row">
+                      <div className="col-xl">
+                        <h5>Other Options</h5>
+                        <p>Selecting these flights may impact other linked segments.</p>
+                        <Alert severity="info">
+                          To see which segments are impacted by changes, hover over the flight number.
+                        </Alert>
+                      </div>
                     </div>
+                    <SegmentPreviews
+                      totalPrice={totalPrice}
+                      segmentOptionsIndex={parseInt(segmentIndex)}
+                      segments={incompatibleSegments}
+                      flightDetails={trip.flight_details}
+                      currency={this.props.currency}
+                      segmentSelect={true}
+                      updateActives={this.props.updateActives}
+                      updateFareFamily={this.props.updateFareFamily}
+                      resultsDetails={this.props.resultsDetails}
+                      pathSequence={trip.path_sequence}
+                      activeSegment={selectedSegment[0]}
+                      sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
+                      getTravelportBrands={this.props.getTravelportBrands}
+                      trip={trip}
+                    />
+                  </div>
                 }
               </div>
             </div>

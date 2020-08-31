@@ -5,6 +5,7 @@ import { searchFlights } from '../../actions/SearchActions';
 import DestinationList from '../../assets/data/airports.json';
 import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import { createPassengerPayload } from '../../helpers/PassengersListHelper';
+import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 import Button from '@material-ui/core/Button';
 import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
@@ -34,7 +35,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
       currency: this.props.searchDetails.currency,
       flights: this.createFlightPayload(),
       travellers: createPassengerPayload(this.props.searchDetails.passengers),
-      route_flexible: this.props.searchDetails.routeFlexible,
+      route_flexible: this.props.searchDetails.routeFlexible && flexTripAllowed(this.props.searchDetails.flights),
       max_cache: 24
     };
     let searchResult: any = this.props.searchFlights(searchPayload);
@@ -99,7 +100,7 @@ class SearchRequest extends React.Component<SearchRequestProps> {
             Search Flights
         </Button>
         {!this.state.searchDetailsValid &&
-        <Alert severity="error" className='validationErrorAlert'>
+        <Alert severity="error" className='validation-error-alert'>
           Invalid search details - please check dates and flights are correct.
         </Alert>
         }

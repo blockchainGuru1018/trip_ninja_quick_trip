@@ -78,9 +78,9 @@ const theme = Theme;
 class App extends React.Component<IAppProps> {
 
   constructor(props:IAppProps) {
-    super(props)
+    super(props);
     if (!this.props.resultsDetails.fareStructureResults) {
-      history.push('/')
+      history.push('/');
     }
   }
 

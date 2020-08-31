@@ -56,6 +56,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             segments={selectedTrip} 
             pathSequence={trip.path_sequence}
             flights={trip.flight_details}
+            flexTripResults={false}
           />
           <h1>
             {trip.path_sequence[segmentIndex].substring(0, 3)}

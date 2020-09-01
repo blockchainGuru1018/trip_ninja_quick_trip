@@ -14,7 +14,7 @@ import { Booking, PnrInfo } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
-import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 
 const NavButton = styled(Button)({
@@ -38,6 +38,7 @@ interface BookingsDetailsDrawerProps {
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   authDetails: AuthDetails;
   loading: boolean;
 }
@@ -110,6 +111,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
               trip_id={props.booking.trip_id}
               cancelBooking={props.cancelBooking}
               queueBooking={props.queueBooking}
+              ticketBooking={props.ticketBooking}
               authDetails={props.authDetails}
               booking={props.booking}
             />

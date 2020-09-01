@@ -34,7 +34,7 @@ import history from './History';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
-import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from './actions/BookingsActions';
+import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
 
 
 interface IAppProps {
@@ -69,6 +69,7 @@ interface IAppProps {
   updateEntireTrip: typeof updateEntireTrip;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   getTravelportBrands: typeof getTravelportBrands;
   setActiveSegments: typeof setActiveSegments;
 }
@@ -202,6 +203,7 @@ class App extends React.Component<IAppProps> {
                     getBookingDetails={this.props.getBookingDetails}  
                     cancelBooking={this.props.cancelBooking}
                     queueBooking={this.props.queueBooking}
+                    ticketBooking={this.props.ticketBooking}
                   />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />

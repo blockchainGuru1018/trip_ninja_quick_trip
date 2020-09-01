@@ -14,7 +14,7 @@ import { styled } from '@material-ui/core/styles';
 import { Booking } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import BookingDetailsDrawer from './BookingDetailsDrawer';
-import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { getBookingDetails, cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
 
@@ -40,6 +40,7 @@ interface BookingsTableProps {
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   authDetails: AuthDetails;
   loading: boolean;
 }
@@ -123,6 +124,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 getBookingDetails={this.props.getBookingDetails}
                 cancelBooking={this.props.cancelBooking}
                 queueBooking={this.props.queueBooking}
+                ticketBooking={this.props.ticketBooking}
                 authDetails={this.props.authDetails}
                 loading={this.props.loading}
               />

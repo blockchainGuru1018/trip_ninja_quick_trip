@@ -11,12 +11,13 @@ import Paper from '@material-ui/core/Paper';
 import SortIcon from '@material-ui/icons/Sort';
 import Moment from 'react-moment';
 import { styled } from '@material-ui/core/styles';
-import { Booking } from './BookingsInterfaces';
+import { Booking, PnrInfo } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import BookingDetailsDrawer from './BookingDetailsDrawer';
 import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -42,6 +43,7 @@ interface BookingsTableProps {
   queueBooking: typeof queueBooking;
   authDetails: AuthDetails;
   loading: boolean;
+  multiplePnrDisplay: boolean;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -50,7 +52,6 @@ class BookingsTable extends React.Component<BookingsTableProps> {
     page: 0,
     order: 'asc',
     orderBy: 'booking_date',
-    showPnr: false
   }
 
   render() {
@@ -115,7 +116,8 @@ class BookingsTable extends React.Component<BookingsTableProps> {
     return bookings.sort(this.compareRows(this.state.orderBy, this.state.order))
       .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
       .map((booking: Booking, index: number) => {
-        return (
+        let bookingRows: Array<any> = [];
+        bookingRows.push(
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left">
               <BookingDetailsDrawer 
@@ -139,6 +141,29 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
           </TableRow>
         );
+        if (this.props.multiplePnrDisplay && booking.pnr_list.length > 0) { 
+          booking.pnr_list.forEach((pnr: PnrInfo, pnrIndex: number) => {
+            bookingRows.push(
+              <TableRow key={index.toString()+'-'+ pnrIndex.toString()} selected>
+                <DetailsLinkCell align="left">
+                  <SubdirectoryArrowRightIcon fontSize="small" />
+                  {pnr.pnr_number}
+                </DetailsLinkCell>
+                <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
+                <TableCell align="left">
+                  <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+                </TableCell>
+                <TableCell align="left">
+                  <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+                </TableCell>
+                <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
+                <TableCell align="left">{pnr.route}</TableCell>
+                <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
+              </TableRow>
+            );
+          });
+        }
+        return bookingRows;
       });
   }
 

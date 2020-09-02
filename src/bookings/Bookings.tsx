@@ -2,7 +2,7 @@ import React from 'react';
 import BookingsTable from './BookingsTable';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
-import MultiplePnrView from './MultiplePnrView';
+import MultiplePnrToggle from './MultiplePnrToggle';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
@@ -36,14 +36,12 @@ class Bookings extends React.Component<BookingsProps> {
             </div>
             <div className="row bookings-container">
               <div className="col-xl-10 offset-xl-1">
-                <div className="row">
+                <div className="row bookings-filters">
                   <div className="col-md-6">
                     <SearchBookings />
                   </div>
                   <div className="col-md-6">
-                    <div className="float-right">
-                      <MultiplePnrView />
-                    </div>
+                    <MultiplePnrToggle />
                   </div>
                 </div>
                 <div className="row">
@@ -60,6 +58,7 @@ class Bookings extends React.Component<BookingsProps> {
                       queueBooking={this.props.queueBooking}
                       authDetails={this.props.authDetails}
                       loading={this.props.bookingsList.loading}
+                      multiplePnrDisplay={true}
                     />
                   </div>
                 </div>

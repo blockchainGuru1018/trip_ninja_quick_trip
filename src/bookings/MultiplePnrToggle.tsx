@@ -26,9 +26,11 @@ export default function MultiplePnrToggle(props: MultiplePnrToggleProps) {
       >
         <ToggleButton value="false" aria-label="condensed">
           <FormatAlignLeftIcon />
+          Condensed
         </ToggleButton>
         <ToggleButton value="true" aria-label="expanded">
           <FormatAlignCenterIcon />
+          Expanded
         </ToggleButton>
       </ToggleButtonGroup>
     </div>

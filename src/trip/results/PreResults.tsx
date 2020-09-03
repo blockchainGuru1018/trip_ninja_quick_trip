@@ -26,6 +26,7 @@ class PreResults extends React.Component<PreResultsProps> {
 
   componentDidMount() {
     this.compareFlexTripPrice();
+    this.compareFlexTripRoute();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
@@ -117,6 +118,13 @@ class PreResults extends React.Component<PreResultsProps> {
       });
       return flexPrice >= farePrice ? history.push('/results/itinerary/') : '';
     } else {
+      return history.push('/results/itinerary/');
+    }
+  }
+
+  compareFlexTripRoute = () => {
+    const results: ResultsDetails = this.props.resultsDetails;
+    if (results.flexTripResults?.path_sequence === results.fareStructureResults?.path_sequence) {
       return history.push('/results/itinerary/');
     }
   }

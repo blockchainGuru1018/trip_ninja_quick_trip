@@ -123,8 +123,9 @@ class PreResults extends React.Component<PreResultsProps> {
   }
 
   compareFlexTripRoute = () => {
-    const results: ResultsDetails = this.props.resultsDetails;
-    if (results.flexTripResults?.path_sequence === results.fareStructureResults?.path_sequence) {
+    const flexTripPath = JSON.stringify(this.props.resultsDetails.flexTripResults?.path_sequence);
+    const fareStructurePath = JSON.stringify(this.props.resultsDetails.fareStructureResults?.path_sequence);
+    if (flexTripPath === fareStructurePath) {
       return history.push('/results/itinerary/');
     }
   }

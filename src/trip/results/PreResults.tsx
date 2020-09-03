@@ -25,8 +25,7 @@ class PreResults extends React.Component<PreResultsProps> {
   }
 
   componentDidMount() {
-    this.compareFlexTripPrice();
-    this.compareFlexTripRoute();
+    this.invalidFlexTripResult();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
@@ -103,6 +102,10 @@ class PreResults extends React.Component<PreResultsProps> {
     );
   }
 
+  invalidFlexTripResult = () => {
+    return this.compareFlexTripPrice() && this.compareFlexTripRoute() ? history.push('/results/itinerary/') : '';
+  }
+
   compareFlexTripPrice = () => {
     const results: ResultsDetails = this.props.resultsDetails;
     if (results.flexTripResults && results.fareStructureResults) {
@@ -116,18 +119,16 @@ class PreResults extends React.Component<PreResultsProps> {
         farePrice: Math.round(farePrice),
         flexPrice: Math.round(flexPrice)
       });
-      return flexPrice >= farePrice ? history.push('/results/itinerary/') : '';
+      return flexPrice >= farePrice;
     } else {
-      return history.push('/results/itinerary/');
+      return true;
     }
   }
 
   compareFlexTripRoute = () => {
     const flexTripPath = JSON.stringify(this.props.resultsDetails.flexTripResults?.path_sequence);
     const fareStructurePath = JSON.stringify(this.props.resultsDetails.fareStructureResults?.path_sequence);
-    if (flexTripPath === fareStructurePath) {
-      return history.push('/results/itinerary/');
-    }
+    return flexTripPath === fareStructurePath;
   }
 }
 

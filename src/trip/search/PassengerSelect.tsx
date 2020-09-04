@@ -10,6 +10,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Passenger } from './SearchInterfaces';
 import { updatePassengers } from '../../actions/SearchActions';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   root: {
@@ -52,6 +53,7 @@ interface PassengerSelectProps {
 
 const PassengerSelect = (props: PassengerSelectProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
+  const [t, i18n] = useTranslation('common');
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -94,7 +96,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
         onClick={handleClick}
       >
         <PersonAddOutlinedIcon color="primary" className="passengers-icon"/>
-        Passengers
+        {t('Passenger')}
       </Button>
       <StyledMenu
         id="customized-menu"

@@ -23,6 +23,14 @@ class Bookings extends React.Component<BookingsProps> {
     this.props.getBookingsList(this.getUserType());
   }
 
+  state = {
+    pnrView: 'condensed'
+  }
+
+  handlePnrView = (event: React.MouseEvent<HTMLElement>, newValue: string) => {
+    this.setState({pnrView: newValue});
+  };
+
   render() {
     return (
       <div id="bookings">
@@ -41,7 +49,10 @@ class Bookings extends React.Component<BookingsProps> {
                     <SearchBookings />
                   </div>
                   <div className="col-md-6">
-                    <MultiplePnrToggle />
+                    <MultiplePnrToggle
+                      pnrView={this.state.pnrView}
+                      handlePnrView={this.handlePnrView}
+                    />
                   </div>
                 </div>
                 <div className="row">
@@ -58,7 +69,7 @@ class Bookings extends React.Component<BookingsProps> {
                       queueBooking={this.props.queueBooking}
                       authDetails={this.props.authDetails}
                       loading={this.props.bookingsList.loading}
-                      multiplePnrDisplay={true}
+                      multiplePnrDisplay={this.state.pnrView}
                     />
                   </div>
                 </div>

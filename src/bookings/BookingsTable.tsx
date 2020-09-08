@@ -43,7 +43,7 @@ interface BookingsTableProps {
   queueBooking: typeof queueBooking;
   authDetails: AuthDetails;
   loading: boolean;
-  multiplePnrDisplay: boolean;
+  multiplePnrDisplay: string;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
@@ -141,7 +141,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
           </TableRow>
         );
-        if (this.props.multiplePnrDisplay && booking.pnr_list.length > 1) { 
+        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 1) { 
           booking.pnr_list.forEach((pnr: PnrInfo, pnrIndex: number) => {
             bookingRows.push(
               <TableRow key={index.toString()+'-'+ pnrIndex.toString()} selected>

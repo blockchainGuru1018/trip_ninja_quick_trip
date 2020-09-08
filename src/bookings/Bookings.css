@@ -65,5 +65,12 @@
 
 .multi-pnr-view-label {
   padding-right: 20px;
-  vertical-align: super;
+}
+
+.pnr-icon {
+  width: 15px;
+}
+
+.expanded-pnr-label {
+  padding-left: 10px;
 }

@@ -17,7 +17,8 @@ import BookingDetailsDrawer from './BookingDetailsDrawer';
 import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
-import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import expandedIcon from '../assets/images/expanded_icon.svg';
+
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -141,13 +142,13 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
           </TableRow>
         );
-        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 1) { 
+        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 0) { 
           booking.pnr_list.forEach((pnr: PnrInfo, pnrIndex: number) => {
             bookingRows.push(
               <TableRow key={index.toString()+'-'+ pnrIndex.toString()} selected>
                 <DetailsLinkCell align="left">
-                  <SubdirectoryArrowRightIcon fontSize="small" />
-                  {pnr.pnr_number}
+                  <img src={expandedIcon} alt="expanded-icon" className="pnr-icon my-auto" />
+                  <span className="expanded-pnr-label">{pnr.pnr_number}</span>
                 </DetailsLinkCell>
                 <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
                 <TableCell align="left">

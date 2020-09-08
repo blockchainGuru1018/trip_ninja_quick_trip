@@ -1,15 +1,15 @@
 import React from 'react';
-import ListIcon from '@material-ui/icons/List';
-import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import expandedIcon from '../assets/images/expanded_icon.svg';
+import condensedIcon from '../assets/images/condensed_icon.svg';
 
-interface MultiplePnrToggleProps {
+interface MultiPnrViewToggleProps {
   pnrView: string;
   handlePnrView: any;
 }
 
-export default function MultiplePnrToggle(props: MultiplePnrToggleProps) {
+export default function MultiPnrViewToggle(props: MultiPnrViewToggleProps) {
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
     props.handlePnrView(newValue);
@@ -22,15 +22,12 @@ export default function MultiplePnrToggle(props: MultiplePnrToggleProps) {
         value={props.pnrView}
         exclusive
         onChange={handleChange}
-        aria-label="text alignment"
       >
         <ToggleButton value="condensed" aria-label="condensed">
-          <ListIcon fontSize="small" />
-          Condensed
+          <img src={condensedIcon} alt="condensed-icon" className="pnr-icon my-auto" />
         </ToggleButton>
         <ToggleButton value="expanded" aria-label="expanded">
-          <AspectRatioIcon fontSize="small" />
-          Expanded
+          <img src={expandedIcon} alt="expanded-icon" className="pnr-icon my-auto" />
         </ToggleButton>
       </ToggleButtonGroup>
     </div>

@@ -24,7 +24,7 @@ class BookRequest extends React.Component<BookRequestProps> {
     passengerDetailsValid: true
   }
 
-  bookFlights = (add_to_ticketing_queue: boolean, ticket: boolean) => {
+  bookFlights = (queue: boolean, ticket: boolean) => {
     const passengersValidated: boolean = this.validatePassengerBookingDetails();
     return passengersValidated
       ? this.submitBookingRequest(add_to_ticketing_queue, ticket)

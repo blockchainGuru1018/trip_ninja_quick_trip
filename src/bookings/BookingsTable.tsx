@@ -142,7 +142,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
           </TableRow>
         );
-        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 0) { 
+        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 1) { 
           booking.pnr_list.forEach((pnr: PnrInfo, pnrIndex: number) => {
             bookingRows.push(
               <TableRow key={index.toString()+'-'+ pnrIndex.toString()} selected>

@@ -2,7 +2,7 @@ import React from 'react';
 import BookingsTable from './BookingsTable';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
-import MultiplePnrToggle from './MultiplePnrToggle';
+import MultiPnrViewToggle from './MultiPnrViewToggle';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
@@ -49,7 +49,7 @@ class Bookings extends React.Component<BookingsProps> {
                     <SearchBookings />
                   </div>
                   <div className="col-md-6">
-                    <MultiplePnrToggle
+                    <MultiPnrViewToggle
                       pnrView={this.state.pnrView}
                       handlePnrView={this.handlePnrView}
                     />

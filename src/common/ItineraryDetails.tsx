@@ -66,23 +66,25 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     let bookedSegments: Array<BookingSegment> = [];
-    selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
-      itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-        bookedSegments[index] = segment;
-        flightResultsPathComponents[index] = <FlightResultsPath
-          flightDetails={segment.flight_details}
-          key={index}
-        />;
-        fareRulesPreviewComponents[index] = <FareRulesPreview
-          bookingSegment={segment}
-          flightDetails={segment.flight_details}
-          currency={currency}
-          itineraryDisplay={true}
-          index={index}
-          bookingDrawer={true}
-        />;
+    if (selectedTrip) {
+      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+        itinerary.segments.forEach((segment: BookingSegment, index: number) => {
+          bookedSegments[index] = segment;
+          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+            flightDetails={segment.flight_details}
+            key={index}
+          />;
+          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+            bookingSegment={segment}
+            flightDetails={segment.flight_details}
+            currency={currency}
+            itineraryDisplay={true}
+            index={index}
+            bookingDrawer={true}
+          />;
+        });
       });
-    });
+    }
     setBookedTripSegments(bookedSegments);
     return {flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents};

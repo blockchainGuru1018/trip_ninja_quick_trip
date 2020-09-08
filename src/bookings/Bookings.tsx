@@ -27,8 +27,8 @@ class Bookings extends React.Component<BookingsProps> {
     pnrView: 'condensed'
   }
 
-  handlePnrView = (event: React.MouseEvent<HTMLElement>, newValue: string) => {
-    this.setState({pnrView: newValue});
+  handlePnrView = (viewValue: string) => {
+    this.setState({pnrView: viewValue});
   };
 
   render() {

@@ -21,7 +21,7 @@ export default function MultiplePnrToggle(props: MultiplePnrToggleProps) {
       <ToggleButtonGroup
         value={props.pnrView}
         exclusive
-        onChange={props.handlePnrView}
+        onChange={handleChange}
         aria-label="text alignment"
       >
         <ToggleButton value="condensed" aria-label="condensed">

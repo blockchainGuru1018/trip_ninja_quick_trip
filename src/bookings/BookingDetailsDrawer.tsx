@@ -79,7 +79,6 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     }
     if (open) {
       checkBookingDetails();
-      console.log(bookingDetails);
       setSelected(true);
     } else {
       setSelected(false);

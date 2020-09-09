@@ -1,12 +1,13 @@
 import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
+import PreResults from './PreResults';
 import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
 import FlightTypes from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
-import { Results } from './ResultsInterfaces';
-
+import { Results, ResultsDetails, defaultResultsDetails } from './ResultsInterfaces';
+import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
@@ -139,6 +140,10 @@ export const testResults: Results = {
   ]
 };
 
+let testResultsDetails: ResultsDetails = defaultResultsDetails;
+testResultsDetails.fareStructureResults = testResults;
+testResultsDetails.flexTripResults = testResults;
+
 const expectedOutcome =  [
   {"destination": "Berlin", "nNights": 0, "origin": "London"},
   {"destination": "Paris", "nNights": 1, "origin": "Berlin"}
@@ -224,4 +229,16 @@ test('createPassengerStringFromPayload', () => {
   expect(
     createPassengerStringFromPayload(passengerExample)
   ).toBe('1 ADT, 1 CHD, 1 INF');
+});
+
+
+test('checkFlexTripRouteIsSame', () => {
+  const preResultsComponent: any = shallow(
+    <PreResults resultsDetails={testResultsDetails} 
+      currency="USD" 
+      setTripType={setTripType} 
+      setActiveSegments={setActiveSegments} />
+  );
+  const instance = preResultsComponent.instance();
+  expect(instance.compareFlexTripRoute()).toBe(true);
 });

@@ -35,7 +35,7 @@ class BookRequest extends React.Component<BookRequestProps> {
     this.setState({'passengerDetailsValid': true});
 
     this.props.bookingDetails.trip_id = this.props.pricingDetails.trip_id;
-    this.props.bookingDetails.queue = add_to_ticketing_queue;
+    this.props.bookingDetails.add_to_ticketing_queue = queue;
     this.props.bookingDetails.ticketing_queue = this.props.authDetails.ticketing_queue;
     this.props.bookingDetails.ticket = ticket;
     this.props.bookingDetails.agent_email = this.props.authDetails.userEmail;

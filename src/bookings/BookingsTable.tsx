@@ -155,7 +155,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                   <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
                 </TableCell>
                 <TableCell align="left">
-                  <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+                  <Moment format="MMM DD, YYYY">{pnr.departure_date}</Moment>
                 </TableCell>
                 <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
                 <TableCell align="left">{pnr.route}</TableCell>

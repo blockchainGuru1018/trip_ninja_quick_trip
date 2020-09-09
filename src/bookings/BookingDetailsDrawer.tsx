@@ -52,10 +52,19 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
   });
   const [selected, setSelected] = React.useState(false);
   const [bookingDetails, setBookingDetails] = React.useState(false);
+  const [detailsError, setBookingDetailsError] = React.useState(false);
 
   const checkBookingDetails = () => {
-    let details = props.getBookingDetails(props.booking.trip_id);
-    return setBookingDetails(details);
+    const promise = new Promise((resolve) => {
+      resolve(props.getBookingDetails(props.booking.trip_id));
+    });
+    promise.then((result: any) => {
+      if(result.success) {
+        setBookingDetails(result);
+      } else {
+        setBookingDetailsError(true);
+      }
+    });
   };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
@@ -70,6 +79,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
     }
     if (open) {
       checkBookingDetails();
+      console.log(bookingDetails);
       setSelected(true);
     } else {
       setSelected(false);
@@ -85,6 +95,18 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       })}
       role="presentation"
     >
+      {detailsError &&
+        <div className="booking-details-loading">
+          <h3>Unable to load booking details.</h3>
+          <p>Please contact support if the problem persists.</p>
+          <Button onClick={() => handleClose(anchor)} 
+            variant="contained" 
+            color="primary"
+          >
+            OK
+          </Button>
+        </div>
+      }
       {props.loading &&
         <div className="booking-details-loading">
           <h2>Loading Booking Details..</h2>

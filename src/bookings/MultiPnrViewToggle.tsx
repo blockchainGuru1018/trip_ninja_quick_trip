@@ -1,8 +1,10 @@
 import React from 'react';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import Tooltip from '@material-ui/core/Tooltip';
 import expandedIcon from '../assets/images/expanded_icon.svg';
 import condensedIcon from '../assets/images/condensed_icon.svg';
+
 
 interface MultiPnrViewToggleProps {
   pnrView: string;
@@ -23,13 +25,18 @@ export default function MultiPnrViewToggle(props: MultiPnrViewToggleProps) {
         exclusive
         onChange={handleChange}
       >
+
         <ToggleButton value="condensed" aria-label="condensed">
-          <img src={condensedIcon} alt="condensed-icon" className="pnr-icon my-auto" />
+          <Tooltip title="Group PNRs by trip" placement="top">
+            <img src={condensedIcon} alt="condensed-icon" className="pnr-icon my-auto" />
+          </Tooltip>
         </ToggleButton>
         <ToggleButton value="expanded" aria-label="expanded">
-          <img src={expandedIcon} alt="expanded-icon" className="pnr-icon my-auto" />
+          <Tooltip title="Show each PNR" placement="top">
+            <img src={expandedIcon} alt="expanded-icon" className="pnr-icon my-auto" />
+          </Tooltip>
         </ToggleButton>
       </ToggleButtonGroup>
     </div>
   );
-};
+}

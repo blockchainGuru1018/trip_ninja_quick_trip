@@ -28,7 +28,7 @@ export default function TicketingErrorModal(props: TicketingErrorModalProps) {
 
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>Queuing failed</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>Ticketing failed</h2>
       <div className='search-modal-text-container'>
         <p>
           There was an error ticketing this itinerary, please try again later.

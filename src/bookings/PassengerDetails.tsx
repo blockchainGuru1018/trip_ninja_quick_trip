@@ -67,7 +67,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
     } else if (gender === 'M') {
       return 'Male';
     } else {
-      return 'N/A';
+      return '-';
     }
   }
 }

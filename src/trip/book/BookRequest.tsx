@@ -24,18 +24,18 @@ class BookRequest extends React.Component<BookRequestProps> {
     passengerDetailsValid: true
   }
 
-  bookFlights = (add_to_ticketing_queue: boolean, ticket: boolean) => {
+  bookFlights = (queue: boolean, ticket: boolean) => {
     const passengersValidated: boolean = this.validatePassengerBookingDetails();
     return passengersValidated
-      ? this.submitBookingRequest(add_to_ticketing_queue, ticket)
+      ? this.submitBookingRequest(queue, ticket)
       : this.setState({'passengerDetailsValid': false});
   }
 
-  submitBookingRequest = (add_to_ticketing_queue: boolean, ticket: boolean) => {
+  submitBookingRequest = (queue: boolean, ticket: boolean) => {
     this.setState({'passengerDetailsValid': true});
 
     this.props.bookingDetails.trip_id = this.props.pricingDetails.trip_id;
-    this.props.bookingDetails.add_to_ticketing_queue = add_to_ticketing_queue;
+    this.props.bookingDetails.queue = add_to_ticketing_queue;
     this.props.bookingDetails.ticketing_queue = this.props.authDetails.ticketing_queue;
     this.props.bookingDetails.ticket = ticket;
     this.props.bookingDetails.agent_email = this.props.authDetails.userEmail;

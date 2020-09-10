@@ -69,7 +69,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     if (selectedTrip) {
       selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-          bookedSegments[index] = segment;
+          bookedSegments[segment.segment_id] = segment;
           flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
@@ -126,6 +126,11 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
         <div className="col-lg-6 booking-details-info-container">
           <h5>Flight Details</h5>
           <div className="flight-details">
+            {state.flightResultsPathComponents.length === 0 &&
+            <div className="row">
+                <p>Information is not available.</p>
+            </div>
+            }
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
                 <TimelineItem classes={{root: classes.root}} key={index.toString()}>

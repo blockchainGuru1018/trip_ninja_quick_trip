@@ -38,6 +38,14 @@ export function queueLoading(value: boolean) {
   };
 }
 
+
+export function ticketLoading(value: boolean) {
+  return {
+    type: 'TICKET_LOADING',
+    value
+  };
+}
+
 export function bookingDetailsLoading(value: boolean) {
   return {
     type: 'BOOKING_DETAILS_LOADING',
@@ -117,7 +125,7 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
       if (response.data.status) {
         throw Error;
       } else {
-        booking.status = "ticketed";
+        booking.status = "queued";
         dispatch(setErrorDetails(false, 'queueing'));
         dispatch(setBookingStatus(booking));
         dispatch(queueLoading(false));
@@ -127,6 +135,30 @@ export const queueBooking = (authDetails: AuthDetails, booking: Booking) => (dis
     .catch((Error: any) => {
       dispatch(queueLoading(false));
       dispatch(setErrorDetails(true, 'queueing'));
+      return {'success': false};
+    });
+};
+
+
+export const ticketBooking = (booking: Booking) => (dispatch: any) => {
+  dispatch(ticketLoading(true));
+  const url: string = '/ticket/'; 
+
+  return API.post(url, {trip_id: booking.trip_id, ticket: true})
+    .then((response: any) => {
+      if (response.data.status) {
+        throw Error;
+      } else {
+        booking.status = "ticketed";
+        dispatch(setErrorDetails(false, 'ticketing'));
+        dispatch(setBookingStatus(booking));
+        dispatch(ticketLoading(false));
+        return {'success': true};
+      }
+    })
+    .catch((Error: any) => {
+      dispatch(ticketLoading(false));
+      dispatch(setErrorDetails(true, 'ticketing'));
       return {'success': false};
     });
 };

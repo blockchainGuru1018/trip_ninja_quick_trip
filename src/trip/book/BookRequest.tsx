@@ -116,7 +116,7 @@ class BookRequest extends React.Component<BookRequestProps> {
         <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">
           <span>          
             <Button 
-              variant="outlined" 
+              variant="contained" 
               color="primary"
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}

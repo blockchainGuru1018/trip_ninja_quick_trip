@@ -2,7 +2,7 @@ import React from 'react';
 import BookingsTable from './BookingsTable';
 import SearchBookings from './SearchBookings';
 import FilterBookings from './FilterBookings';
-import MultiplePnrView from './MultiplePnrView';
+import MultiPnrViewToggle from './MultiPnrViewToggle';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
@@ -24,6 +24,14 @@ class Bookings extends React.Component<BookingsProps> {
     this.props.getBookingsList(this.getUserType());
   }
 
+  state = {
+    pnrView: 'condensed'
+  }
+
+  handlePnrView = (viewValue: string) => {
+    this.setState({pnrView: viewValue});
+  };
+
   render() {
     return (
       <div id="bookings">
@@ -37,14 +45,15 @@ class Bookings extends React.Component<BookingsProps> {
             </div>
             <div className="row bookings-container">
               <div className="col-xl-10 offset-xl-1">
-                <div className="row">
+                <div className="row bookings-filters">
                   <div className="col-md-6">
                     <SearchBookings />
                   </div>
                   <div className="col-md-6">
-                    <div className="float-right">
-                      <MultiplePnrView />
-                    </div>
+                    <MultiPnrViewToggle
+                      pnrView={this.state.pnrView}
+                      handlePnrView={this.handlePnrView}
+                    />
                   </div>
                 </div>
                 <div className="row">
@@ -62,6 +71,7 @@ class Bookings extends React.Component<BookingsProps> {
                       ticketBooking={this.props.ticketBooking}
                       authDetails={this.props.authDetails}
                       loading={this.props.bookingsList.loading}
+                      multiplePnrDisplay={this.state.pnrView}
                     />
                   </div>
                 </div>

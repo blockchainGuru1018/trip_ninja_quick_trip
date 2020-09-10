@@ -39,7 +39,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           <p className="passenger-field">Passport Expiry</p>
         </div>
         <div className="col-sm-1 no-pad-left">
-          <p>{passenger.gender === 'F' ? 'Female' : 'Male'}</p>
+          <p>{this.getPassengerGender(passenger.gender)}</p>
           <p>{passenger.passport_country ? this.getCountryName(passenger.passport_country): '-'}</p>
           <p>{passenger.passport_number ? passenger.passport_number : '-'}</p>
           <p><Moment format="DD/MM/YYYY">{passenger.passport_expiration ? passenger.passport_expiration : '-'}</Moment></p>
@@ -59,6 +59,16 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   getCountryName = (countryCode: string) => {
     let countryObject = CountryList.find((country: any) => country.code === countryCode);
     return countryObject ? countryObject.name: '-';
+  }
+
+  getPassengerGender = (gender: string) => {
+    if (gender === 'F') {
+      return 'Female';
+    } else if (gender === 'M') {
+      return 'Male';
+    } else {
+      return '-';
+    }
   }
 }
 

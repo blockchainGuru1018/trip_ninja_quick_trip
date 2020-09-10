@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { Booking } from './BookingsInterfaces';
 
@@ -11,6 +11,7 @@ interface ManageBookingProps {
   trip_id: string;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   authDetails: AuthDetails;
   booking: Booking;
 }
@@ -26,7 +27,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             color="secondary"
             className="update-booking-btn"
             disabled={this.props.status === 'cancelled'}
-            onClick={(e) => {this.props.cancelBooking(this.props.booking)}}>
+            onClick={(e) => {this.props.cancelBooking(this.props.booking);}}>
             Cancel Booking
           </Button>
           <Button
@@ -34,9 +35,18 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             color="secondary"
             className="update-booking-btn"
             disableElevation
-            disabled={this.props.status !== 'booked'}
-            onClick={(e) => {this.props.queueBooking(this.props.authDetails, this.props.booking)}}>
+            disabled={this.props.status === 'cancelled' || this.props.status === 'ticketed' || this.props.status ==='queued'}
+            onClick={(e) => {this.props.queueBooking(this.props.authDetails, this.props.booking);}}>
             Send to Queue
+          </Button>
+          <Button
+            variant="contained" 
+            color="secondary"
+            className="update-booking-btn"
+            disableElevation
+            disabled={this.props.status === 'cancelled' || this.props.status === 'ticketed'}
+            onClick={(e) => {this.props.ticketBooking(this.props.booking);}}>
+            Issue Ticket
           </Button>
         </div>     
       </div>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <clipPath id="clip-Condensed">
+      <rect width="400" height="400"/>
+    </clipPath>
+  </defs>
+  <g id="Condensed" clip-path="url(#clip-Condensed)">
+    <g id="Group_524" data-name="Group 524" transform="translate(-118 -984.67)">
+      <g id="Path_3" data-name="Path 3" transform="translate(128 1118.67)" fill="none">
+        <path d="M10,0H380a10,10,0,0,1,10,10V112a10,10,0,0,1-10,10H10A10,10,0,0,1,0,112V10A10,10,0,0,1,10,0Z" stroke="none"/>
+        <path d="M 10 4 C 6.69158935546875 4 4 6.691581726074219 4 10 L 4 112 C 4 115.3084182739258 6.69158935546875 118 10 118 L 380 118 C 383.3084106445312 118 386 115.3084182739258 386 112 L 386 10 C 386 6.691581726074219 383.3084106445312 4 380 4 L 10 4 M 10 0 L 380 0 C 385.5228271484375 0 390 4.477157592773438 390 10 L 390 112 C 390 117.5228424072266 385.5228271484375 122 380 122 L 10 122 C 4.4771728515625 122 0 117.5228424072266 0 112 L 0 10 C 0 4.477157592773438 4.4771728515625 0 10 0 Z" stroke="none" fill="#45565e"/>
+      </g>
+      <g id="Rectangle_2161" data-name="Rectangle 2161" transform="translate(118 1129.67)" fill="#45565e" stroke="#45565e" stroke-width="4">
+        <rect width="390" height="122" rx="10" stroke="none"/>
+        <rect x="2" y="2" width="386" height="118" rx="8" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

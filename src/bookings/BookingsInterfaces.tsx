@@ -57,7 +57,7 @@ export interface BookingSegment {
   flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;
   brands: Array<Brand>;
-  source?: string;
+  source: string;
   fare_type?: string;
 }
 

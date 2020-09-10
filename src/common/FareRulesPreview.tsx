@@ -107,7 +107,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <Tooltip title="Fare source" placement="top">
                   <LanguageIcon color="primary"/>
                 </Tooltip>
-                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : ''}</span>
+                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <Tooltip title="Booking code" placement="top">

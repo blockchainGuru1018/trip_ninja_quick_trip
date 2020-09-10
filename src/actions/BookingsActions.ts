@@ -63,9 +63,9 @@ export const getBookingsList = (queryType: string) => (dispatch: any) => {
     });
 };
 
-export const getBookingDetails = (trip_id: string) => (dispatch: any) => {
+export const getBookingDetails = (trip_id: string, agency: string) => (dispatch: any) => {
   dispatch(bookingDetailsLoading(true));
-  const url: string = 'book/trip/' + trip_id + '/';
+  const url: string = 'book/trip/' + trip_id + '/' + agency;
   return API.get(url)
     .then((response: any) => {
       if (response.data.status) {

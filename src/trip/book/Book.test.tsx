@@ -132,19 +132,3 @@ test('passengerCountrySelectComponent', () => {
   const countrySelectInstance = countrySelectComponent.instance();
   expect(countrySelectInstance.getCountryByCode("AU")).toEqual({"code": "AU", "name": "Australia"});
 });
-
-test('passengerDetailsModalComponent', () => {
-  const passengerDetailsModalComponent: any = shallow(
-    <PassengerDetailsModal
-      modalState={false}
-      passenger={testBookingDetails.passengers[0]}
-      currentPassengerIndex={0}
-      updatePassengerInfo={updatePassengerInfo}
-      handleModalOpen={false}
-      dateFormat={'YYYY-MM-DD'}
-    />
-  );
-
-  const passengerDetailsModalInstance = passengerDetailsModalComponent.instance();
-  expect(passengerDetailsModalInstance.validatePassengerInput(testBookingDetails.passengers[0], 1)).toEqual(true);
-});

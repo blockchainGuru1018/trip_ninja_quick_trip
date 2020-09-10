@@ -6,7 +6,7 @@ import MultiPnrViewToggle from './MultiPnrViewToggle';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
-import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { Redirect } from 'react-router-dom';
 
 interface BookingsProps {
@@ -16,6 +16,7 @@ interface BookingsProps {
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
 }
 
 class Bookings extends React.Component<BookingsProps> {
@@ -67,6 +68,7 @@ class Bookings extends React.Component<BookingsProps> {
                       getBookingDetails={this.props.getBookingDetails}
                       cancelBooking={this.props.cancelBooking}
                       queueBooking={this.props.queueBooking}
+                      ticketBooking={this.props.ticketBooking}
                       authDetails={this.props.authDetails}
                       loading={this.props.bookingsList.loading}
                       multiplePnrDisplay={this.state.pnrView}

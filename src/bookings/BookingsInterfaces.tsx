@@ -36,6 +36,7 @@ export interface PnrInfo {
   route: string;
   pnr_number: string;
   departure_date: string;
+  pnr_status: string;
 }
 
 export interface PrimaryPassenger {

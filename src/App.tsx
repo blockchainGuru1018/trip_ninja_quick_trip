@@ -35,7 +35,14 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/Bo
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
+import TagManager from 'react-gtm-module';
 
+//Google Tag Manager
+const tagManagerArgs = {
+  gtmId: "GTM-KRXRHFP",
+};
+
+TagManager.initialize(tagManagerArgs);
 
 interface IAppProps {
   searchDetails: SearchDetails;

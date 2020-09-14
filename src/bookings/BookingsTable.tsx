@@ -52,7 +52,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   state = {
     rowsPerPage: 10,
     page: 0,
-    order: 'asc',
+    order: 'desc',
     orderBy: 'booking_date',
   }
 

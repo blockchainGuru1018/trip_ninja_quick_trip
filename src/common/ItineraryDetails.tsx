@@ -70,11 +70,11 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
           bookedSegments[segment.segment_id] = segment;
-          flightResultsPathComponents[segment.segment_id] =<FlightResultsPath
+          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
           />;
-          fareRulesPreviewComponents[segment.segment_id] =<FareRulesPreview
+          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}
             currency={currency}
@@ -127,9 +127,9 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           <h5>Flight Details</h5>
           <div className="flight-details">
             {state.flightResultsPathComponents.length === 0 &&
-              <div className="row">
+            <div className="row">
                 <p>Information is not available.</p>
-              </div>
+            </div>
             }
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>

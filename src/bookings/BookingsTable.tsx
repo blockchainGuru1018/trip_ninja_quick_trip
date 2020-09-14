@@ -161,7 +161,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 </TableCell>
                 <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
                 <TableCell align="left">{pnr.route}</TableCell>
-                <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
+                <TableCell align="left">{firstLetterCapital(pnr.pnr_status != 'priced' ? pnr.pnr_status : booking.status)}</TableCell>
               </TableRow>
             );
           });

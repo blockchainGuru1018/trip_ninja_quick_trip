@@ -66,23 +66,25 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     let bookedSegments: Array<BookingSegment> = [];
-    selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
-      itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-        bookedSegments[segment.segment_id] = segment;
-        flightResultsPathComponents[segment.segment_id] =<FlightResultsPath
-          flightDetails={segment.flight_details}
-          key={index}
-        />;
-        fareRulesPreviewComponents[segment.segment_id] =<FareRulesPreview
-          bookingSegment={segment}
-          flightDetails={segment.flight_details}
-          currency={currency}
-          itineraryDisplay={true}
-          index={index}
-          bookingDrawer={true}
-        />;
+    if (selectedTrip) {
+      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+        itinerary.segments.forEach((segment: BookingSegment, index: number) => {
+          bookedSegments[segment.segment_id] = segment;
+          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+            flightDetails={segment.flight_details}
+            key={index}
+          />;
+          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+            bookingSegment={segment}
+            flightDetails={segment.flight_details}
+            currency={currency}
+            itineraryDisplay={true}
+            index={index}
+            bookingDrawer={true}
+          />;
+        });
       });
-    });
+    }
     setBookedTripSegments(bookedSegments);
     return {flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents};
@@ -124,6 +126,11 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
         <div className="col-lg-6 booking-details-info-container">
           <h5>Flight Details</h5>
           <div className="flight-details">
+            {state.flightResultsPathComponents.length === 0 &&
+            <div className="row">
+                <p>Information is not available.</p>
+            </div>
+            }
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
                 <TimelineItem classes={{root: classes.root}} key={index.toString()}>

@@ -9,6 +9,7 @@ import PricingErrorModal from './PricingErrorModal';
 import BookingErrorModal from './BookingErrorModal';
 import QueueingErrorModal from './QueueingErrorModal';
 import CancellingErrorModal from './CancellingErrorModal';
+import TicketingErrorModal from './TicketingErrorModal';
 import { setErrorDetails } from '../../actions/ResultsActions';
 
 const useStyles = makeStyles(() =>
@@ -37,6 +38,7 @@ export default function DefaultErrorModal(props: DefaultErrorModalProps) {
     .set('pricing', <PricingErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('booking', <BookingErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('queueing', <QueueingErrorModal setErrorDetails={props.setErrorDetails}/>)
+    .set('ticketing', <TicketingErrorModal setErrorDetails={props.setErrorDetails}/>)
     .set('cancelling', <CancellingErrorModal setErrorDetails={props.setErrorDetails}/>);
 
   return (

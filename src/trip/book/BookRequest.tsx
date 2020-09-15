@@ -24,19 +24,20 @@ class BookRequest extends React.Component<BookRequestProps> {
     passengerDetailsValid: true
   }
 
-  bookFlights = (add_to_ticketing_queue: boolean) => {
+  bookFlights = (queue: boolean, ticket: boolean) => {
     const passengersValidated: boolean = this.validatePassengerBookingDetails();
     return passengersValidated
-      ? this.submitBookingRequest(add_to_ticketing_queue)
+      ? this.submitBookingRequest(queue, ticket)
       : this.setState({'passengerDetailsValid': false});
   }
 
-  submitBookingRequest = (add_to_ticketing_queue: boolean) => {
+  submitBookingRequest = (queue: boolean, ticket: boolean) => {
     this.setState({'passengerDetailsValid': true});
 
     this.props.bookingDetails.trip_id = this.props.pricingDetails.trip_id;
-    this.props.bookingDetails.add_to_ticketing_queue = add_to_ticketing_queue;
+    this.props.bookingDetails.add_to_ticketing_queue = queue;
     this.props.bookingDetails.ticketing_queue = this.props.authDetails.ticketing_queue;
+    this.props.bookingDetails.ticket = ticket;
     this.props.bookingDetails.agent_email = this.props.authDetails.userEmail;
     this.props.bookingDetails.agency = this.props.authDetails.agency;
 
@@ -115,12 +116,12 @@ class BookRequest extends React.Component<BookRequestProps> {
         <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">
           <span>          
             <Button 
-              variant="outlined" 
+              variant="contained" 
               color="primary"
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
-              onClick={ (e) => this.bookFlights(false)}>
-              Book and Save
+              onClick={ (e) => this.bookFlights(false, false)}>
+              Book
             </Button>
           </span>
         </Tooltip>
@@ -137,7 +138,25 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
               disableElevation
-              onClick={ (e) => this.bookFlights(true)}>
+              onClick={ (e) => this.bookFlights(true, false)}>
+              Book and Queue
+            </Button>
+          </span>
+        </Tooltip>
+        {!this.state.passengerDetailsValid &&
+        <Alert severity="error" className='validation-error-alert'>
+          Passenger details are not filled out properly - please review.
+        </Alert>
+        }
+        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
+          <span>
+            <Button
+              variant="contained" 
+              color="primary"
+              className="book-button"
+              disabled={this.props.authDetails.bookingDisabled || true}
+              disableElevation
+              onClick={ (e) => this.bookFlights(false, true)}>
               Book and Ticket
             </Button>
           </span>

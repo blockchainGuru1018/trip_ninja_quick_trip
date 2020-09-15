@@ -36,6 +36,7 @@ export interface PnrInfo {
   route: string;
   pnr_number: string;
   departure_date: string;
+  pnr_status: string;
 }
 
 export interface PrimaryPassenger {
@@ -57,7 +58,7 @@ export interface BookingSegment {
   flight_details: Array<FlightResultsDetails>;
   additional_details: AdditionalDetails;
   brands: Array<Brand>;
-  source?: string;
+  source: string;
   fare_type?: string;
 }
 

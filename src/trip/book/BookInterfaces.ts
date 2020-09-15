@@ -4,6 +4,7 @@ export interface BookingDetails {
   trip_id?: string;
   add_to_ticketing_queue?: boolean;
   ticketing_queue?: string;
+  ticket?: boolean;
   agent_email?: string;
   agency?: string;
   passengers: Array<PassengerInfo>;

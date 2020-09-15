@@ -73,8 +73,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             updateSortType={this.props.updateSortType}
           />
           <div className='row'>
-            {enabledFilters.map((item) =>
-              <div>
+            {enabledFilters.map((item, index) =>
+              <div key={index.toString()}>
                 <FlightsFilter
                   filterName={item}
                   segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(

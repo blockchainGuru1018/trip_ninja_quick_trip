@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     fontFamily: 'NeuzeitGro-Reg',
     '&:hover': {
       borderColor: '#CACDD6',
-      borderBottom: 'solid 3px #0DBE7CEB',
+      borderBottom: 'solid 3px var(--primary)',
       backgroundColor: '#fff'
     }
   },

@@ -29,6 +29,13 @@ const Theme = createMuiTheme({
         }
       },
     },
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: '#ffffff'
+        }
+      }
+    },
     MuiOutlinedInput: {
       root: {
         borderRadius: '2px',

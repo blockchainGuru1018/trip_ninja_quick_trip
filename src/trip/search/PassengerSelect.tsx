@@ -96,7 +96,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
         onClick={handleClick}
       >
         <PersonAddOutlinedIcon color="primary" className="passengers-icon"/>
-        {t('Passenger')}
+        {t('Passengers')}
       </Button>
       <StyledMenu
         id="customized-menu"

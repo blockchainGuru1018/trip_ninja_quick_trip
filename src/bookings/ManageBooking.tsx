@@ -44,7 +44,7 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             color="secondary"
             className="update-booking-btn"
             disableElevation
-            disabled={this.props.status === 'cancelled' || this.props.status === 'ticketed'}
+            disabled={this.props.status === 'cancelled' || this.props.status === 'ticketed' || true}
             onClick={(e) => {this.props.ticketBooking(this.props.booking);}}>
             Issue Ticket
           </Button>

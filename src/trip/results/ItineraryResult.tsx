@@ -14,6 +14,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
+import {Alert} from "@material-ui/lab";
 
 interface ItineraryResultsProps {
   resultsDetails: ResultsDetails;
@@ -100,6 +101,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                     />
                   </div>
                 )}
+              </div>
+              <div>
+                {this.props.resultsDetails.filterWarning
+                  && <Alert severity='error'>There was no combination of flights that fit these filters</Alert>
+                }
               </div>
             </div>
             <div className="col-md-4">

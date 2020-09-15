@@ -5,6 +5,7 @@ import { identifyAndSetInitialActives, setRelativesAndUpdateActives, setIndex0As
 } from '../helpers/RelativesHelper';
 import { filterItinerary } from "../helpers/Filters";
 import _ from 'lodash';
+import { setFilterWarning } from '../actions/ResultsActions';
 
 function resultsReducer(state: ResultsDetails = {} as any, action: any) {
   switch(action.type) {
@@ -40,12 +41,12 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_ENTIRE_TRIP':
-      const viable: boolean = [...state.activeSegments.values()].every((segment: Segment) => !segment.filtered);
-      if (!viable) {
+      if (!viable(state)) {
         setIndex0AsActives(state)
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
+      checkFiltersSuccess(state)
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':
@@ -73,6 +74,9 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         state.segmentSortBy[action.segmentIndex] = action.sortBy;
         return {...state};
       }
+
+    case 'SET_FILTER_WARNING':
+      return {...state, filterWarning: action.warning};
 
     default:
       return state;
@@ -147,6 +151,17 @@ function updateFilterReturnValue(state: ResultsDetails, action: any) {
   const tripType = state.tripType
   filterItinerary(state[tripType].segments, state.itineraryFilters!);
   return state
+}
+
+function viable(state: ResultsDetails) {
+  const activeSegments: Array<Segment> = [...state.activeSegments.values()]
+  return activeSegments.every((segment: Segment) => !segment.filtered)
+}
+
+function checkFiltersSuccess(state: ResultsDetails) {
+  const numberOfFailedFilters: number = state.itineraryFilters!.reduce((total, filter: Filter) =>
+    filter.failed ? total += 1 : total, 0)
+  setFilterWarning(!viable(state) && numberOfFailedFilters === 0)
 }
 
 export default resultsReducer;

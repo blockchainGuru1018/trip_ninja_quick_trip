@@ -35,26 +35,46 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
   let totalPrice: number = totals[0];
   let totalWeight: number = totals[1];
   let totalTime: number = totals[2];
-  let minimumWeight: number = totalWeight;
-  let minimumPrice: number = totalPrice;
+  let minimumWeight: any = totalWeight;
+  let minimumPrice: any = totalPrice;
   let minimumTime: number = totalTime;
-  let bestTrip: Array<string> = actives.map(
+  let bestTrip: any = actives.map(
     (segment: Segment) => segment.itinerary_id
   );
-  results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
 
+  function compareBestTripByBest(targetActivesTotal: any) {
+    if (targetActivesTotal.totalWeight <= minimumWeight && targetActivesTotal.viable) {
+      if (targetActivesTotal.totalWeight === minimumWeight && targetActivesTotal.totalPrice < minimumPrice) {
+        setMinPriceAndWeight(targetActivesTotal, true, true)
+      } else {
+        setMinPriceAndWeight(targetActivesTotal, false, true)
+      }
+    }
+  }
+
+  function compareBestTripByCheapest(targetActivesTotal: any) {
+    if (targetActivesTotal.totalPrice < minimumPrice && targetActivesTotal.viable) {
+      if (targetActivesTotal.totalPrice === minimumPrice && targetActivesTotal.totalWeight < minimumWeight) {
+        setMinPriceAndWeight(targetActivesTotal, true, true)
+      } else {
+        setMinPriceAndWeight(targetActivesTotal, true, false)
+      }
+    }
+  }
+
+  function setMinPriceAndWeight(targetActivesTotal: any, price: boolean, weight: boolean) {
+    minimumPrice = price ? targetActivesTotal.totalPrice : minimumPrice
+    minimumWeight = weight ? targetActivesTotal.totalWeight : minimumWeight
+    bestTrip = targetActivesTotal.itineraryIdList
+  }
+
+  results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
     segmentOptions.forEach((segment: Segment, index: number) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, actives, segment);
       if (sortBy === 'best') {
-        if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
-          minimumWeight = targetActivesTotal.totalWeight;
-          bestTrip = targetActivesTotal.itineraryIdList;
-        }
+       compareBestTripByBest(targetActivesTotal)
       } else if (sortBy === 'cheapest') {
-        if (targetActivesTotal.totalPrice < minimumPrice && targetActivesTotal.viable) {
-          minimumPrice = targetActivesTotal.totalPrice;
-          bestTrip = targetActivesTotal.itineraryIdList;
-        }
+        compareBestTripByCheapest(targetActivesTotal)
       } else {
         if (targetActivesTotal.totalTime < minimumTime && targetActivesTotal.viable) {
           minimumTime = targetActivesTotal.totalTime;
@@ -66,7 +86,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       segment.relativeTime = targetActivesTotal.totalTime - totalTime;
     });
     if (setActivesInitial) {
-      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
+      bestTrip.forEach((segmentPosition: string, index: number) =>  updateActiveSegments(resultsDetails, index, segmentPosition))
       actives = [...resultsDetails.activeSegments.values()];
       totals = setTotals(resultsDetails.activeSegments);
       totalPrice = totals[0];

@@ -110,3 +110,10 @@ export const getTravelportBrands = (pricingPayload: PricingRequestInterface, seg
     });
 };
 
+export function setFilterWarning(warning: boolean) {
+  return {
+    type: 'SET_FILTER_WARNING',
+    warning
+  }
+}
+

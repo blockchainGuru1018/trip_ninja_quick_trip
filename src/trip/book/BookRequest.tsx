@@ -154,7 +154,7 @@ class BookRequest extends React.Component<BookRequestProps> {
               variant="contained" 
               color="primary"
               className="book-button"
-              disabled={this.props.authDetails.bookingDisabled}
+              disabled={this.props.authDetails.bookingDisabled || true}
               disableElevation
               onClick={ (e) => this.bookFlights(false, true)}>
               Book and Ticket

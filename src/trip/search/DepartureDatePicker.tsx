@@ -49,6 +49,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
       <FormControl fullWidth>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
+            autoOk
             disableToolbar
             disablePast
             variant="inline"

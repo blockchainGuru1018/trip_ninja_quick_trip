@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Popper from '@material-ui/core/Popper';
 import { updateFlightValue, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
@@ -30,6 +31,10 @@ class FlightInput extends React.Component<FlightInputProps> {
     destinationOpen: false
   }
 
+  FlightInputPopper = function (props: any) {
+    return (<Popper {...props} style={{ width: 'fit-content' }} placement='bottom-start' />);
+  };
+
   render() {
     const flight = this.props.flights[this.props.i];
     const filterOptions = (options: any, { inputValue }: any) =>
@@ -41,9 +46,10 @@ class FlightInput extends React.Component<FlightInputProps> {
       <div className="row flight-input">
         <div className="col-md-3 search-input" ref={"flightInputRef"}>
           <FormControl fullWidth>
-            <Autocomplete
+            <Autocomplete PopperComponent={this.FlightInputPopper}
               autoHighlight
               autoSelect
+              debug
               forcePopupIcon={false}
               filterOptions={filterOptions}
               id={"from-destination" + this.props.i}

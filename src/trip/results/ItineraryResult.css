@@ -5,8 +5,7 @@
 
 #segment-nav {
   background-color: #45565E0D;
-  text-align: center;
-  padding: 25px 0px;
+  padding: 25px 80px;
   height: 100%;
 }
 
@@ -17,6 +16,8 @@
 
 .segment-nav-item {
   margin-bottom: 20px;
+  padding-left: 22px;
+  text-align: left;
 }
 
 .segment-nav-link {

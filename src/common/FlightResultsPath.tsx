@@ -136,7 +136,10 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
                 && <FlightLand className='flight-icon' color='primary' />
             }
             <div className='text-bold origin-destination-text-container'>
-              {cityName(flightDetail.origin_name) + ' (' + flightDetail.origin + ')'}
+              {flightDetail.origin_name
+                ? cityName(flightDetail.origin_name) + ' (' + flightDetail.origin + ')'
+                : flightDetail.origin
+              }
             </div>
             <FlightTakeoff className="flight-icon" color="primary" />
           </div>
@@ -153,7 +156,10 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
         <div>
           <FlightLand className='flight-icon' color='primary' />
           <div className='text-bold origin-destination-text-container'>
-            {cityName(finalFlightDetail.destination_name) + ' (' + finalFlightDetail.destination + ')'}
+            {finalFlightDetail.destination_name
+              ? cityName(finalFlightDetail.destination_name) + ' (' + finalFlightDetail.destination + ')'
+              : finalFlightDetail.destination
+            }
           </div>
         </div>
         <div>

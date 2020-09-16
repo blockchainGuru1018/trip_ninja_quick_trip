@@ -6,11 +6,13 @@ import { login } from '../actions/AuthActions';
 import  { Redirect } from 'react-router-dom';
 import { getAdminUrl } from '../helpers/AdminUrlHelper';
 import Alert from '@material-ui/lab/Alert';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface LoginFormProps {
-  login: typeof login,
-  authenticated: boolean
-  invalidAuth: boolean
+
+interface LoginFormProps extends WithTranslation {
+  login: typeof login;
+  authenticated: boolean;
+  invalidAuth: boolean;
 }
 
 const LoginTextField = styled(TextField)({
@@ -29,12 +31,13 @@ class LoginForm extends React.Component<LoginFormProps> {
   }
 
   render() {
+
     return (
       <div>
         {this.props.authenticated
           ? <Redirect to='/search/' />
           : <div className="login-form">
-            <h1 className="text-center login-welcome-message">Welcome Back!</h1>
+            <h1 className="text-center login-welcome-message">{this.props.t('Welcome Back!')}</h1>
             <div className="row">
               <div className="col-sm-10 offset-sm-1">
                 <h4>Sign In</h4>
@@ -89,4 +92,4 @@ class LoginForm extends React.Component<LoginFormProps> {
   }
 }
 
-export default LoginForm;
+export default withTranslation('common')(LoginForm);

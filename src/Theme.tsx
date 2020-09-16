@@ -44,6 +44,14 @@ const Theme = createMuiTheme({
           borderBottom: 'solid 3px #0DBE7CEB'
         }
       }
+    },
+    MuiIconButton: {
+      root: {
+        '&:hover': {
+          backgroundColor: 'none',
+          opacity: '0.7'
+        }
+      }
     }
   },
 });

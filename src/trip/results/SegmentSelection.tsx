@@ -89,7 +89,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </div>
         </div>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-2 no-padding">
             <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)} />
           </div>
           <div className="col-md-10 select-segment-list">

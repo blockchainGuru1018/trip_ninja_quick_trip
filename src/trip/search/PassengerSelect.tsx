@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu, { MenuProps } from '@material-ui/core/Menu';
@@ -46,6 +46,12 @@ const StyledMenu = withStyles({
   />
 ));
 
+const PassengerMenuItem = styled(MenuItem)({
+  '&:hover': {
+    backgroundColor: '#ffffff'
+  }
+});
+
 interface PassengerSelectProps {
   passengers: Array<Passenger>
   updatePassengers: typeof updatePassengers
@@ -66,7 +72,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
   const classes = useStyles();
 
   const passengerMenu = props.passengers.map((passenger, index) => (
-    <MenuItem key={index}>
+    <PassengerMenuItem key={index} disableRipple>
       <ListItemText primary={passenger.type} />
       <IconButton onClick={() =>
         props.updatePassengers(passenger.type, -1)
@@ -79,7 +85,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
       }>
         <AddIcon fontSize="small" />
       </IconButton>
-    </MenuItem>
+    </PassengerMenuItem>
   ));
   return (
     <div>

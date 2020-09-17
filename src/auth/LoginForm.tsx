@@ -8,7 +8,6 @@ import { getAdminUrl } from '../helpers/AdminUrlHelper';
 import Alert from '@material-ui/lab/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-
 interface LoginFormProps extends WithTranslation {
   login: typeof login;
   authenticated: boolean;
@@ -44,7 +43,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                 <form>
                   <LoginTextField
                     id="login-email"
-                    label="Email"
+                    label={this.props.t("commonWords.email")}
                     variant="outlined"
                     fullWidth
                     required

@@ -1,4 +1,7 @@
-{   
+{   "commonWords":{
+        "email": "email",
+        "password": "password"
+    },
     "auth":{
         "loginForm":{
             "welcomeMessage": "Welcome Back!",
@@ -11,6 +14,5 @@
 
         }
     },
-    "Passengers": "Passengers",
-    "Welcome Back!": "Welcome Back!"
+    "Passengers": "Passengers"
 }

@@ -87,7 +87,7 @@ class BookRequest extends React.Component<BookRequestProps> {
     if (activeSegment.source === 'travelport') {
       return activeSegment.brands ? activeSegment.brands[selectedBrandIndex] : undefined;
     } else {
-      return activeSegment.brands ? activeSegment.brands[activeSegment.segment_id][selectedBrandIndex] : undefined;
+      return activeSegment.brands ? activeSegment.brands[Object.keys(activeSegment.brands)[0]][selectedBrandIndex] : undefined;
     }
   }
 

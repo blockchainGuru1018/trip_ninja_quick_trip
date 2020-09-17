@@ -51,7 +51,7 @@ class LoginForm extends React.Component<LoginFormProps> {
                     onChange={e => this.setState({'email': e.target.value})}/>
                   <LoginTextField
                     id="login-password"
-                    label="Password"
+                    label={this.props.t("commonWords.password")}
                     type="password"
                     variant="outlined"
                     fullWidth

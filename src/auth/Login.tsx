@@ -6,7 +6,7 @@ import { AuthDetails } from './AuthInterfaces';
 import { login } from '../actions/AuthActions';
 import logo from '../assets/images/trip_ninja_logo.png';
 
-interface LoginProps {
+interface LoginProps{
   authDetails: AuthDetails
   login: typeof login
 }

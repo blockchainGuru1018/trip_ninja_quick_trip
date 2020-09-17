@@ -1,6 +1,21 @@
 {   "commonWords":{
-        "email": "email",
-        "password": "password"
+        "email": "Email",
+        "password": "Password",
+        "passengers": "Passengers",
+        "passengerTypes": {
+            "ADT": "Adult",
+            "CHD": "Child",
+            "INF": "Infant",
+            "STU": "Student",
+            "YTH": "Youth"
+        },
+        "cabins":{
+            "E": "Economy",
+            "PE": "Premium Economy",
+            "BC": "Business Class",
+            "FC": "First Class",
+            "PFC": "Premium First Class"
+        }
     },
     "auth":{
         "loginForm":{
@@ -11,8 +26,26 @@
             "loginButton": "Log in",
             "signUp": "Don't have an account yet?",
             "freeTrial": "Start your free trial"
-
+        },
+        "marketingPanel":{
+            "header":"How efficient is your flight booking process?",
+            "description":"Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.",
+            "callToAction":"See how Trip Ninja increases agent efficiency"
         }
     },
-    "Passengers": "Passengers"
+    "search": {
+        "search": {
+            "header": "Flight Search",
+            "addFlightButton": "Add Flight",
+            "additionalDetailsHeader": "Additional Details"
+        },
+        "searchRequest": {
+            "searchFlights": "Search Flights",
+            "searchFlightsError": "Invalid search details - please check dates and flights are correct."
+        },
+        "flightInput": {
+            "origin": "Origin",
+            "destination": "Destination"
+        }
+    }
 }

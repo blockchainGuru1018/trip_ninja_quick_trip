@@ -1,4 +1,22 @@
-{   
+{   "commonWords":{
+        "email": "Correo",
+        "password": "Contraseña",
+        "passengers": "Pasajeros",
+        "passengerTypes": {
+            "ADT": "Adultos",
+            "CHD": "Menores",
+            "INF": "Infantes",
+            "STU": "Estudiantes",
+            "YTH": "Juveniles"
+        },
+        "cabins":{
+            "E": "Económica",
+            "PE": "Económica Premium",
+            "BC": "Ejecutiva",
+            "FC": "Primera Clase",
+            "PFC": "Primera Clase Premium"
+        }
+    },
     "auth":{
         "loginForm":{
             "welcomeMessage": "Bienvenido!",
@@ -8,8 +26,26 @@
             "loginButton": "Ingresar",
             "signUp": "No tiene cuenta todavia?",
             "freeTrial": "Comienza tu prueba gratuita "
-
+        },
+        "marketingPanel":{
+            "header":"Que tan eficiente es tu proceso de reservacion de vuelos?",
+            "description": "Dale a tus agentes el poder de encontrar los mejores itinerarios complejos en segundos, para que tu equipo haga mas con menos.",
+            "callToAction": "Ve como Trip Ninja mejora la eficiencia de agentes"
         }
     },
-    "Passengers": "Pasajeros"
+    "search": {
+        "search": {
+            "header": "Busqueda de Vuelos",
+            "addFlightButton": "Agregar Trayecto",
+            "additionalDetailsHeader": "Mas Detalles"
+        },
+        "searchRequest": {
+            "searchFlights": "Buscar Vuelos",
+            "searchFlightsError": "Busqueda invalida - favor verificar fechas y vuelos."
+        },
+        "flightInput": {
+            "origin": "Origen",
+            "destination": "Destino"
+        }
+    }
 }

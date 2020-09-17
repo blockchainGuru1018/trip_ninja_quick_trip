@@ -52,7 +52,7 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>)
         segment.filtered = filterType(segment, filter);
       }
     });
-    if (checkFilteredLength(segments) === 0) {
+    if (filter.failed || checkFilteredLength(segments) === 0) {
       segments = segments_copy;
       filter.failed = true;
     } else {
@@ -63,9 +63,10 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>)
   return segments;
 };
 
-
 export const filterItinerary = (segmentOptions: Array<Array<Segment>>, filters: Array<Filter>) => {
-  segmentOptions.forEach((segments: Array<Segment>, index: number) =>
-    segmentOptions[index] = filterSegments(segments, filters)
+  filters.forEach((filter: Filter) => filter.failed = false)
+  segmentOptions.forEach((segments: Array<Segment>, index: number) => {
+    filterSegments(segments, filters)
+    }
   );
 };

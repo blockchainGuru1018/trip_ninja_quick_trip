@@ -95,6 +95,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     }
     actives.forEach((segment: Segment, index: number) => updateActiveSegments(clonedResults, index, segment.itinerary_id));
   });
+  actives.forEach((segment: Segment) => segment.status = 'active')
 }
 
 function getActivesItineraryIds(activeSegment: Array<Segment>) {
@@ -114,8 +115,7 @@ export function setIndex0AsActives(state: ResultsDetails) {
   resetSegmentsStatus(trip.segments)
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
     segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
-    const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
-
+    const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered) || segmentOptions[0];
     if (segmentToChange!.status !== 'active') {
       updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
     }

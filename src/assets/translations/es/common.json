@@ -1,4 +1,15 @@
-{
-    "Passengers": "Pasajeros",
-    "Welcome Back!": "Bienvenido!"
+{   
+    "auth":{
+        "loginForm":{
+            "welcomeMessage": "Bienvenido!",
+            "signIn": "Ingresar",
+            "loginFail": "Verifique su contraseña y pruebe otra vez!",
+            "forgotPassword": "Olvido su contraseña?",
+            "loginButton": "Ingresar",
+            "signUp": "No tiene cuenta todavia?",
+            "freeTrial": "Comienza tu prueba gratuita "
+
+        }
+    },
+    "Passengers": "Pasajeros"
 }

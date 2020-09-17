@@ -37,10 +37,10 @@ class LoginForm extends React.Component<LoginFormProps> {
         {this.props.authenticated
           ? <Redirect to='/search/' />
           : <div className="login-form">
-            <h1 className="text-center login-welcome-message">{this.props.t('Welcome Back!')}</h1>
+            <h1 className="text-center login-welcome-message">{this.props.t("auth.loginForm.welcomeMessage")}</h1>
             <div className="row">
               <div className="col-sm-10 offset-sm-1">
-                <h4>Sign In</h4>
+                <h4>{this.props.t("auth.loginForm.signIn")}</h4>
                 <form>
                   <LoginTextField
                     id="login-email"
@@ -59,10 +59,10 @@ class LoginForm extends React.Component<LoginFormProps> {
                     required
                     value={this.state.password}
                     onChange={e => this.setState({'password': e.target.value})}/>
-                  {this.props.invalidAuth && <Alert severity="error">Unable to login - check your password and try again!</Alert>}
+                  {this.props.invalidAuth && <Alert severity="error">{this.props.t("auth.loginForm.loginFail")}</Alert>}
                   <div className="row login-button-row">
                     <div className="col-sm-6">
-                      <a href={getAdminUrl()} className="login-link">Forgot Password?</a>
+                      <a href={getAdminUrl()} className="login-link">{this.props.t("auth.loginForm.forgotPassword")}</a>
                     </div>
                     <div className="col-sm-6">
                       <Button
@@ -73,15 +73,15 @@ class LoginForm extends React.Component<LoginFormProps> {
                         size="large"
                         type="submit"
                         onClick={this.loginUser}>
-                        Log in
+                        {this.props.t("auth.loginForm.loginButton")}
                       </Button>
                     </div>
                   </div>
                 </form>
                 <hr className="login-form-horizontal-line"/>
                 <p>
-                  Don't have an account yet?
-                  <a href="https://www.tripninja.io/book-a-demo" className="login-link"> Start your free trial</a>
+                  {this.props.t("auth.loginForm.signUp")}
+                  <a href="https://www.tripninja.io/book-a-demo" className="login-link"> {this.props.t("auth.loginForm.freeTrial")}</a>
                 </p>
               </div>
             </div>

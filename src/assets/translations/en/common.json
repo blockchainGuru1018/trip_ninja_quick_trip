@@ -1,4 +1,16 @@
-{
+{   
+    "auth":{
+        "loginForm":{
+            "welcomeMessage": "Welcome Back!",
+            "signIn": "Sign In",
+            "loginFail": "Unable to login - check your password and try again!",
+            "forgotPassword": "Forgot Password?",
+            "loginButton": "Log in",
+            "signUp": "Don't have an account yet?",
+            "freeTrial": "Start your free trial"
+
+        }
+    },
     "Passengers": "Passengers",
     "Welcome Back!": "Welcome Back!"
 }

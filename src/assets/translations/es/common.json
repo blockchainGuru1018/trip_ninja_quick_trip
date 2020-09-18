@@ -112,6 +112,35 @@
             "cheapest": "precio",
             "best": "mejor",
             "fastest": "tiempo"
+        },
+        "tooltips":{
+            "incompatibleInfoTooltip":{
+                "segment": "Segmento",
+                "selectionImpact": "Seleccionar este segmento modificara los siguientes segmentos:"
+            }
+        },
+        "filters":{
+            "flightsFilter":{
+                "baggage": "Equipaje",
+                "baggageDescription": "Equipaje incluido",
+                "baggage0Label": "Cualquiera",
+                "baggage1Label": "1 pieza",
+                "baggage2Label": "2 piezas",
+                "baggage3Label": "3 piezas",
+                "alliance": "Alianza",
+                "allianceDescription": "Alianza",
+                "allianceAnyLabel": "Cualquiera",
+                "alliance*ALabel": "Star Alliance",
+                "alliance*OLabel": "Oneworld",
+                "alliance*SLabel": "Skyteam",
+                "noOfStops": "Escalas",
+                "noOfStopsDescription": "Maximo numero de escalas",
+                "noOfStopsAnyLabel": "Cualquiera",
+                "noOfStops0Label": "Solo directo",
+                "noOfStops1Label": "1 escala",
+                "noOfStops2Label": "2 escalas",
+                "filterFailMessage": "No hay vuelos para este filtro"
+            }
         }
     }
 }

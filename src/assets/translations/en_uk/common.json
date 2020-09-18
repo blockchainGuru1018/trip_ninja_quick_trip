@@ -112,6 +112,35 @@
             "cheapest": "cheapest",
             "best": "best",
             "fastest": "fastest"
+        },
+        "tooltips":{
+            "incompatibleInfoTooltip":{
+                "segment": "Segment",
+                "selectionImpact": "Selecting this segment will affect the following segments:"
+            }
+        },
+        "filters":{
+            "flightsFilter":{
+                "baggage": "baggage",
+                "baggageDescription": "Minimum # of checked bags",
+                "baggage0Label": "Any",
+                "baggage1Label": "1 bag",
+                "baggage2Label": "2 bags",
+                "baggage3Label": "3 bags",
+                "alliance": "alliance",
+                "allianceDescription": "Alliance",
+                "allianceAnyLabel": "Any",
+                "alliance*ALabel": "Star Alliance",
+                "alliance*OLabel": "Oneworld",
+                "alliance*SLabel": "Skyteam",
+                "noOfStops": "stops",
+                "noOfStopsDescription": "Max Number of Stops",
+                "noOfStopsAnyLabel": "Any",
+                "noOfStops0Label": "Direct Only",
+                "noOfStops1Label": "1 stop",
+                "noOfStops2Label": "2 stops",
+                "filterFailMessage": "No flights for this filter"
+            }
         }
     }
 }

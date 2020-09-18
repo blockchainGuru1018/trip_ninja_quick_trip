@@ -144,11 +144,6 @@ class BookRequest extends React.Component<BookRequestProps> {
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
-        </Alert>
-        }
         <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
           <span>
             <Button
@@ -162,11 +157,6 @@ class BookRequest extends React.Component<BookRequestProps> {
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
-        </Alert>
-        }
       </div>
     );
   }

@@ -50,9 +50,10 @@
 
 .flight-remove-container {
   display: grid;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   max-height: 56px;
+  padding-right: 0px;
 }
 
 .cabin-selector-container {

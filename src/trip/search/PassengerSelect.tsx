@@ -53,7 +53,7 @@ interface PassengerSelectProps {
 
 const PassengerSelect = (props: PassengerSelectProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | any>(null);
-  const [ t ] = useTranslation('common');
+  const [t, i18n] = useTranslation('common');
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);

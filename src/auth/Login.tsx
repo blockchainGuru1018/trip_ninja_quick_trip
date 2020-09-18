@@ -5,7 +5,6 @@ import MarketingPanel from './MarketingPanel';
 import { AuthDetails } from './AuthInterfaces';
 import { login } from '../actions/AuthActions';
 import logo from '../assets/images/trip_ninja_logo.png';
-import LanguageSelector from '../common/LanguageSelector';
 
 interface LoginProps {
   authDetails: AuthDetails
@@ -17,16 +16,7 @@ class Login extends React.Component<LoginProps> {
     return (
       <div className="row">
         <div className="col-xl-4 col-lg-6 login-col">
-          <div className="row">
-            <div className="col-xl-6">
-              <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
-            </div>
-            <div className="col-xl-6">
-              <div className="float-right login-language-selector">
-                <LanguageSelector />
-              </div>
-            </div>
-          </div>
+          <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
           <LoginForm
             login={this.props.login}
             authenticated={this.props.authDetails.authenticated}

@@ -8,7 +8,7 @@
 }
 
 .marketing-panel {
-  padding: 250px 100px;
+  padding: 250px 25px;
 }
 
 .login-link {
@@ -27,7 +27,6 @@
 .login-language-selector {
   padding-top: 25px;
   padding-right: 30px;
-
 }
 
 .logo-img {
@@ -49,5 +48,4 @@
 
 .marketing-description {
   padding-left: 0px;
-  width: 86%;
 }

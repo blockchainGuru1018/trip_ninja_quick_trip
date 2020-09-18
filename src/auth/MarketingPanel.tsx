@@ -14,28 +14,30 @@ class MarketingPanel extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xl-6">
+        <div className="col-xl-5 offset-xl-1">
           <h1>How efficient is your flight booking process?</h1>
+         
           <div className="row">
-            <div className="col-xl marketing-description">
-              <h4 className="marketing-description">Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
-              <MarketingButton
-                color="secondary"
-                variant="contained"
-                id="website-link-button"
-                size="large"
-                href="https://www.tripninja.io/book-a-demo"
-              >
-                See how Trip Ninja increases agent efficiency
-              </MarketingButton>
+            <div className="col-sm-9 marketing-description">
+              <h4>Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.</h4>
             </div>
           </div>
+          <MarketingButton
+            color="secondary"
+            variant="contained"
+            id="website-link-button"
+            size="large"
+            href="https://www.tripninja.io/book-a-demo"
+          >
+            See how Trip Ninja increases agent efficiency
+          </MarketingButton>
+
         </div>
-        <div className="col-xl-6">
-          <img src={marketingImage} width="100%" alt="" />
+        <div className="col-xl-5">
+          <img src={marketingImage} width="100%" alt="trip-ninja-marketing-image" />
         </div>        
       </div>
-    )
+    );
   }
 }
 

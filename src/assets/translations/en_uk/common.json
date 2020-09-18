@@ -106,6 +106,12 @@
             "selectedFlight": "Selected Flight",
             "otherOptions": "Other Options",
             "otherOptionsWarning": "Selecting these flights may impact other linked segments."
+        },
+        "sortOption": {
+            "sortBy": "Sort By",
+            "cheapest": "cheapest",
+            "best": "best",
+            "fastest": "fastest"
         }
     }
 }

@@ -152,9 +152,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       <div className="col-xl">
                         <h5>{this.props.t("results.segmentSelection.otherOptions")}</h5>
                         <p>{this.props.t("results.segmentSelection.otherOptionsWarning")}</p>
-                        <Alert severity="info">
-                          {this.props.t("results.segmentSelection.otherOptionsAlert")}
-                        </Alert>
                       </div>
                     </div>
                     <SegmentPreviews

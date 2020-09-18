@@ -5,6 +5,7 @@ import { logout } from '../actions/AuthActions';
 import UserMenu from '../common/UserMenu';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import history from '../History';
+import LanguageSelector from '../common/LanguageSelector';
 
 interface NavBarProps {
   logout: typeof logout
@@ -12,6 +13,11 @@ interface NavBarProps {
 }
 
 class NavBar extends React.Component<NavBarProps> {
+
+  state = {
+    lng: 'en'
+  };
+
   render() {
     return (
       <nav className="navbar navbar-light navbar-expand-lg">
@@ -31,6 +37,7 @@ class NavBar extends React.Component<NavBarProps> {
             </li>
           </ul>
         </div>
+        <LanguageSelector />
         <UserMenu
           logout={() => this.logout()}
           authDetails={this.props.authDetails}

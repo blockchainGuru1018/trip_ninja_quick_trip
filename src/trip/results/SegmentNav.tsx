@@ -19,14 +19,18 @@ class SegmentNav extends React.Component<SegmentNavProps> {
     return (
       <div id="segment-nav">
         <h3>Itinerary</h3>
-        <div className="segment-nav-item">
-          <button className={'segment-nav-link ' + (typeof this.props.currentIndex === 'undefined' ? 'active' : '')}
-            onClick={() => history.push('/results/itinerary/')} 
-            key="overview">
-            Overview
-          </button>
+        <div className="row justify-content-md-center">
+          <div className="col-md-auto">
+            <div className="segment-nav-item justify-content-start">
+              <button className={'segment-nav-link ' + (typeof this.props.currentIndex === 'undefined' ? 'active' : '')}
+                onClick={() => history.push('/results/itinerary/')} 
+                key="overview">
+                Overview
+              </button>
+            </div>
+            {segments}
+          </div>
         </div>
-        {segments}
       </div>
     );
   }

@@ -56,5 +56,33 @@
             "origin": "Origin",
             "destination": "Destination"
         }
+    },
+    "results": {
+        "preResults":{
+            "yourTrip": "Your Trip",
+            "from": "From",
+            "seeFlightOptions": "See flight options",
+            "reorderDestinationsPrompt": "Reorder destinations to save up to: $"
+        },
+        "resultsHeader":{
+            "backToFlexTrip": "Back To FlexTrip Results",
+            "changeSearch": "Change Search"
+        },
+        "fareSelect": {
+            "total": "Total",
+            "selectSegment": "Select Segment",
+            "informationNotAvailable": "Information not available",
+            "na":"N/A",
+            "features": "Features",
+            "description": "Description",
+            "checkedBags": "Checked Bags",
+            "cabinBags": "Cabin Bags",
+            "seatSelection": "Seat Selection",
+            "changes": "Changes",
+            "refundable": "Refundable",
+            "bookingCode": "Booking Code",
+            "fareBasis": "Fare Basis",
+            "price": "Price"
+        }
     }
 }

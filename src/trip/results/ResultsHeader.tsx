@@ -6,6 +6,7 @@ import { styled } from '@material-ui/core/styles';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import history from '../../History';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -21,7 +22,7 @@ const BackToFlexTripButton = styled(Button)({
   color: 'var(--tertiary)',
 });
 
-interface ResultsHeaderProps {
+interface ResultsHeaderProps extends WithTranslation {
   segments: Array<Segment>
   pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
@@ -47,7 +48,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
               <BackToFlexTripButton
                 startIcon={<KeyboardBackspaceIcon />}
                 onClick={() => history.push('/results/pre-results/')}>
-                Back To FlexTrip Results
+                {this.props.t("results.resultsHeader.backToFlexTrip")}
               </BackToFlexTripButton>
             </div>
           </div>
@@ -62,7 +63,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
               <ChangeSearchButton
                 variant="contained"
                 onClick={() => history.push('/search/')}>
-                Change Search
+                {this.props.t("results.resultsHeader.changeSearch")}
               </ChangeSearchButton>
             </div>
           </div>
@@ -78,4 +79,4 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
   }
 }
 
-export default ResultsHeader;
+export default withTranslation('common')(ResultsHeader);

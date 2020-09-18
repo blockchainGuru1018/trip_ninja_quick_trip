@@ -56,5 +56,33 @@
             "origin": "Origen",
             "destination": "Destino"
         }
+    },
+    "results": {
+        "preResults":{
+            "yourTrip": "Tu Viaje",
+            "from": "Desde",
+            "seeFlightOptions": "Ver Vuelos",
+            "reorderDestinationsPrompt": "Reordenar destinos para ahorrar hasta: $"
+        },
+        "resultsHeader":{
+            "backToFlexTrip": "Ver resultados de FlexTrip",
+            "changeSearch": "Cambiar Búsqueda"
+        },
+        "fareSelect": {
+            "total": "Total",
+            "selectSegment": "Seleccionar Segmento",
+            "informationNotAvailable": "Información no disponible",
+            "na":"N/A",
+            "features": "Características",
+            "description": "Descripción",
+            "checkedBags": "Maletas",
+            "cabinBags": "Maletas de Cabina",
+            "seatSelection": "Selección de Asientos",
+            "changes": "Cambios",
+            "refundable": "Retornable",
+            "bookingCode": "Codigo de Reserva",
+            "fareBasis": "Tarifa",
+            "price": "Precio"
+        }
     }
 }

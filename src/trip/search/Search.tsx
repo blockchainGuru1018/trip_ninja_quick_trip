@@ -14,6 +14,10 @@ import { styled } from '@material-ui/core/styles';
 
 const AddFlightButton = styled(Button)({
   color: 'var(--tertiary)',
+  '&:hover': {
+    backgroundColor: '#ffffff',
+    opacity: '0.7'
+  }
 });
 
 

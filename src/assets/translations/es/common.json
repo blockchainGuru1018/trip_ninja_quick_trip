@@ -76,8 +76,8 @@
             "na":"N/A",
             "features": "Características",
             "description": "Descripción",
-            "checkedBags": "Maletas",
-            "cabinBags": "Maletas de Cabina",
+            "checkedBags": "Equipaje",
+            "cabinBags": "Equipaje de Cabina",
             "seatSelection": "Selección de Asientos",
             "changes": "Cambios",
             "refundable": "Retornable",
@@ -141,6 +141,19 @@
                 "noOfStops2Label": "2 escalas",
                 "filterFailMessage": "No hay vuelos para este filtro"
             }
+        }
+    },
+    "book":{
+        "book":{
+            "return": "Regresar a Resultados",
+            "title": "Resumen de Itinerario"
+        },
+        "bookRequest":{
+            "bookAndSave": "Reservar y Salvar",
+            "bookAndQueue": "Reservar y poner en cola",
+            "bookAndTicket": "Reservar y Emitir",
+            "passengerDetailsError": "Los detalles de pasajero no estan correctos - favor verificar.",
+            "bookingDisabled": "No tiene permiso para reservar - favor contactar a su administrador"            
         }
     }
 }

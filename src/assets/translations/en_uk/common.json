@@ -142,5 +142,19 @@
                 "filterFailMessage": "No flights for this filter"
             }
         }
+    },
+    "book":{
+        "book":{
+            "return": "Back to Results",
+            "title": "Itinerary Summary"
+        },
+        "bookRequest":{
+            "bookAndSave": "Book and Save",
+            "bookAndQueue": "Book and Queue",
+            "bookAndTicket": "Book and Ticket",
+            "passengerDetailsError": "Passenger details are not filled out properly - please review.",
+            "bookingDisabled": "Booking disabled - please contact your team admin"
+            
+        }
     }
 }

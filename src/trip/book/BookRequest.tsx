@@ -9,9 +9,9 @@ import { AdditionalDetails, ResultsDetails, BrandInfo, FareInfo, Brand} from "..
 import { Segment } from "../results/ResultsInterfaces";
 import history from '../../History';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-
-interface BookRequestProps {
+interface BookRequestProps extends WithTranslation {
   resultsDetails: ResultsDetails
   bookingDetails: BookingDetails
   authDetails: AuthDetails
@@ -113,7 +113,7 @@ class BookRequest extends React.Component<BookRequestProps> {
   render() {
     return (
       <div className="float-right">
-        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">
+        <Tooltip title={this.props.authDetails.bookingDisabled ? this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">
           <span>          
             <Button 
               variant="contained" 
@@ -121,16 +121,16 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
               onClick={ (e) => this.bookFlights(false, false)}>
-              Book
+              {this.props.t("book.bookRequest.bookAndSave")}
             </Button>
           </span>
         </Tooltip>
         {!this.state.passengerDetailsValid &&
         <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
+          {this.props.t("book.bookRequest.passengerDetailsError")}
         </Alert>
         }
-        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
+        <Tooltip title={this.props.authDetails.bookingDisabled ? this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">  
           <span>
             <Button
               variant="contained" 
@@ -139,16 +139,16 @@ class BookRequest extends React.Component<BookRequestProps> {
               disabled={this.props.authDetails.bookingDisabled}
               disableElevation
               onClick={ (e) => this.bookFlights(true, false)}>
-              Book and Queue
+              {this.props.t("book.bookRequest.bookAndQueue")}
             </Button>
           </span>
         </Tooltip>
         {!this.state.passengerDetailsValid &&
         <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
+          {this.props.t("book.bookRequest.passengerDetailsError")}
         </Alert>
         }
-        <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
+        <Tooltip title={this.props.authDetails.bookingDisabled ? this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">  
           <span>
             <Button
               variant="contained" 
@@ -157,13 +157,13 @@ class BookRequest extends React.Component<BookRequestProps> {
               disabled={this.props.authDetails.bookingDisabled || true}
               disableElevation
               onClick={ (e) => this.bookFlights(false, true)}>
-              Book and Ticket
+              {this.props.t("book.bookRequest.bookAndTicket")}
             </Button>
           </span>
         </Tooltip>
         {!this.state.passengerDetailsValid &&
         <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
+          {this.props.t("book.bookRequest.passengerDetailsError")}
         </Alert>
         }
       </div>
@@ -172,4 +172,4 @@ class BookRequest extends React.Component<BookRequestProps> {
 
 }
 
-export default BookRequest;
+export default withTranslation('common')(BookRequest);

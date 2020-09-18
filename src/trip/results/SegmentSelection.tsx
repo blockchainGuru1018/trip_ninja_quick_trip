@@ -14,15 +14,16 @@ import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
 import Alert from '@material-ui/lab/Alert';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface MatchParams {
+interface MatchParams{
   index: string;
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {
 }
 
-interface SegmentSelectionProps {
+interface SegmentSelectionProps extends WithTranslation {
   resultsDetails: ResultsDetails
   currency: string;
   updateActives: typeof updateActives;
@@ -64,7 +65,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
           <h4 id="itinerary-total">
-            <strong>Total: </strong>
+            <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
           </h4>
           <SortOption
@@ -97,7 +98,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
               <div className="col-lg-10 offset-lg-1">
                 <div className="row">
                   <div className="col-xl">
-                    <h5>Selected Flight</h5>
+                    <h5>{this.props.t("results.segmentSelection.selectedFlight")}</h5>
                   </div>
                 </div>
                 <SegmentPreviews
@@ -149,10 +150,10 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   <div>
                     <div className="row">
                       <div className="col-xl">
-                        <h5>Other Options</h5>
-                        <p>Selecting these flights may impact other linked segments.</p>
+                        <h5>{this.props.t("results.segmentSelection.otherOptions")}</h5>
+                        <p>{this.props.t("results.segmentSelection.otherOptionsWarning")}</p>
                         <Alert severity="info">
-                          To see which segments are impacted by changes, hover over the flight number.
+                          {this.props.t("results.segmentSelection.otherOptionsAlert")}
                         </Alert>
                       </div>
                     </div>
@@ -190,4 +191,4 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
 
 }
 
-export default SegmentSelection;
+export default withTranslation('common')(SegmentSelection);

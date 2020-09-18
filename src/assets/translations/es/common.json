@@ -2,6 +2,7 @@
         "email": "Correo",
         "password": "Contraseña",
         "passengers": "Pasajeros",
+        "total": "Total",
         "passengerTypes": {
             "ADT": "Adultos",
             "CHD": "Menores",
@@ -83,6 +84,28 @@
             "bookingCode": "Codigo de Reserva",
             "fareBasis": "Tarifa",
             "price": "Precio"
+        },
+        "itineraryResult":{
+            "title": "Tu Itinerario"
+        },
+        "pricingRequest": {
+            "callToAction": "Confirmar Precios"
+        },
+        "segmentNav":{
+            "title": "Itinerario",
+            "overview": "Resumen"
+        },
+        "segmentPreviewDetails":{
+            "loading": "Cargando opciones...",
+            "selectSegment": "Seleccionar Segmento"
+        },
+        "segmentPrice":{
+            "source": "Origen"
+        },
+        "segmentSelection":{
+            "selectedFlight": "Vuelo Seleccionado",
+            "otherOptions": "Otras Opciones",
+            "otherOptionsWarning": "Seleccionar estos vuelos puede impactar otros segmentos vinculados."
         }
     }
 }

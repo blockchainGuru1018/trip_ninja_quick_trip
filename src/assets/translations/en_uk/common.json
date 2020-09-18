@@ -2,6 +2,7 @@
         "email": "Email",
         "password": "Password",
         "passengers": "Passengers",
+        "total": "Total",
         "passengerTypes": {
             "ADT": "Adult",
             "CHD": "Child",
@@ -83,6 +84,28 @@
             "bookingCode": "Booking Code",
             "fareBasis": "Fare Basis",
             "price": "Price"
+        },
+        "itineraryResult":{
+            "title": "Your Itinerary"
+        },
+        "pricingRequest": {
+            "callToAction": "Continue to Price Confirm"
+        },
+        "segmentNav":{
+            "title": "Itinerary",
+            "overview": "Overview"
+        },
+        "segmentPreviewDetails":{
+            "loading": "Loading fare options...",
+            "selectSegment": "Select Segment"
+        },
+        "segmentPrice":{
+            "source": "Source"
+        },
+        "segmentSelection":{
+            "selectedFlight": "Selected Flight",
+            "otherOptions": "Other Options",
+            "otherOptionsWarning": "Selecting these flights may impact other linked segments."
         }
     }
 }

@@ -185,7 +185,7 @@ class FareSelect extends React.Component<FareSelectProps> {
             {relativePrice}
           </p>
           <p className="text-small text-center">
-            {this.props.t("results.fareSelect.total")} : {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
+            {this.props.t("commonWords.total")} : {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
               ? Math.round(this.props.totalPrice + relativePriceNum)
               : Math.round(this.props.totalPrice - relativePriceNum)}
           </p>

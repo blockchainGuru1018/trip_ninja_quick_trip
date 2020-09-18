@@ -1,7 +1,8 @@
 import React from 'react';
 import history from '../../History';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface SegmentNavProps {
+interface SegmentNavProps extends WithTranslation {
   pathSequence: Array<string>
   currentIndex?: number
 }
@@ -18,12 +19,12 @@ class SegmentNav extends React.Component<SegmentNavProps> {
     ));
     return (
       <div id="segment-nav">
-        <h3>Itinerary</h3>
+        <h3>{this.props.t("results.segmentNav.title")}</h3>
         <div className="segment-nav-item">
           <button className={'segment-nav-link ' + (typeof this.props.currentIndex === 'undefined' ? 'active' : '')}
             onClick={() => history.push('/results/itinerary/')} 
             key="overview">
-            Overview
+            {this.props.t("results.segmentNav.overview")}
           </button>
         </div>
         {segments}
@@ -32,4 +33,4 @@ class SegmentNav extends React.Component<SegmentNavProps> {
   }
 }
 
-export default SegmentNav;
+export default withTranslation('common')(SegmentNav);

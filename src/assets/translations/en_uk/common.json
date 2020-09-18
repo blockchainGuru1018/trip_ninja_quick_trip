@@ -17,6 +17,15 @@
             "PFC": "Premium First Class"
         }
     },
+    "common": {
+        "navBar":{
+            "flightSearch": "Flight Search",
+            "bookings": "Bookings"
+        },
+        "userMenu": {
+            "signOut": "Sign out"
+        }
+    },
     "auth":{
         "loginForm":{
             "welcomeMessage": "Welcome Back!",

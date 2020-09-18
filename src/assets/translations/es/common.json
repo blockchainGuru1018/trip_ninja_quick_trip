@@ -17,13 +17,22 @@
             "PFC": "Primera Clase Premium"
         }
     },
+    "common": {
+        "navBar":{
+            "flightSearch": "Vuelos",
+            "bookings": "Reservas"
+        },
+        "userMenu": {
+            "signOut": "Cerrar sesión"
+        }
+    },
     "auth":{
         "loginForm":{
             "welcomeMessage": "Bienvenido!",
-            "signIn": "Ingresar",
+            "signIn": "Iniciar Sesión",
             "loginFail": "Verifique su contraseña y pruebe otra vez!",
             "forgotPassword": "Olvido su contraseña?",
-            "loginButton": "Ingresar",
+            "loginButton": "Iniciar Sesión",
             "signUp": "No tiene cuenta todavia?",
             "freeTrial": "Comienza tu prueba gratuita "
         },

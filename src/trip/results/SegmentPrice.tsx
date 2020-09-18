@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment } from './ResultsInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import { firstLetterCapital } from '../../helpers/MiscHelpers';
 
 interface SegmentPriceProps {
   segment: Segment;
@@ -18,7 +19,7 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       <div className="col-sm-2 my-auto">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(Math.round(relativePrice))}</p>
         <p className='text-small text-center'>Total: {currencySymbol(this.props.currency)}{Math.round(this.props.totalPrice + relativePrice)}</p>
-        <p className='text-small text-center'>Source: {this.props.segment.source} - {this.props.segment.credential_info.pcc}</p>
+        <p className='text-small text-center'>{firstLetterCapital(this.props.segment.source)} - {this.props.segment.credential_info.pcc}</p>
       </div>
     );
   }

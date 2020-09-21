@@ -61,7 +61,9 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             <div className="float-right">
               <ChangeSearchButton
                 variant="contained"
-                onClick={() => history.push('/search/')}>
+                onClick={() => history.push('/search/')}
+                disableElevation
+              >
                 Change Search
               </ChangeSearchButton>
             </div>

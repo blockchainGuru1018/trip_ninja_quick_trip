@@ -11,7 +11,7 @@ class FlightLogo extends React.Component<FlightLogoProps> {
   render() {
     return(
       <div className={(this.props.itineraryDisplay ? 'col-sm-1' : 'col-sm-2') + ' airline-logo-container my-auto'}>
-        <div>
+        <div className="my-auto">
           <img
             className='img-airline-logo '
             src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + this.props.flights[0].carrier + "_48x48.png"}

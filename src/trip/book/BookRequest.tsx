@@ -87,7 +87,7 @@ class BookRequest extends React.Component<BookRequestProps> {
     if (activeSegment.source === 'travelport') {
       return activeSegment.brands ? activeSegment.brands[selectedBrandIndex] : undefined;
     } else {
-      return activeSegment.brands ? activeSegment.brands[activeSegment.segment_id][selectedBrandIndex] : undefined;
+      return activeSegment.brands ? activeSegment.brands[Object.keys(activeSegment.brands)[0]][selectedBrandIndex] : undefined;
     }
   }
 
@@ -120,7 +120,8 @@ class BookRequest extends React.Component<BookRequestProps> {
               color="primary"
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
-              onClick={ (e) => this.bookFlights(false, false)}>
+              disableElevation
+              onClick={(e) => this.bookFlights(false, false)}>
               Book
             </Button>
           </span>
@@ -138,7 +139,7 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
               disableElevation
-              onClick={ (e) => this.bookFlights(true, false)}>
+              onClick={(e) => this.bookFlights(true, false)}>
               Book and Queue
             </Button>
           </span>
@@ -156,7 +157,7 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled || true}
               disableElevation
-              onClick={ (e) => this.bookFlights(false, true)}>
+              onClick={(e) => this.bookFlights(false, true)}>
               Book and Ticket
             </Button>
           </span>

@@ -39,7 +39,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
     ));
 
     return (
-      <div>
+      <div className="results-header">
         <div className="row">
           { this.props.flexTripResults &&
           <div className="col-xl-2 col-lg-3">

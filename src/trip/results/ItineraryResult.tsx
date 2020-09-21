@@ -55,13 +55,13 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
     return (
       <div id="itinerary-result">
-        <div className="results-header">
-          <ResultsHeader 
-            segments={selectedTrip} 
-            pathSequence={trip.path_sequence}
-            flights={trip.flight_details}
-            flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
-          />
+        <ResultsHeader 
+          segments={selectedTrip} 
+          pathSequence={trip.path_sequence}
+          flights={trip.flight_details}
+          flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
+        />
+        <div className="results-section-header">          
           <h1 className="itinerary-title">Your Itinerary</h1>
           <h4>
             <strong>Total: </strong>

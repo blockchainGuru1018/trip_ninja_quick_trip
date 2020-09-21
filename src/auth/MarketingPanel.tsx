@@ -14,7 +14,7 @@ class MarketingPanel extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xl-5 offset-xl-1">
+        <div className="col-xl-6">
           <h1>How efficient is your flight booking process?</h1>
          
           <div className="row">
@@ -33,8 +33,8 @@ class MarketingPanel extends React.Component {
           </MarketingButton>
 
         </div>
-        <div className="col-xl-5">
-          <img src={marketingImage} width="100%" alt="trip-ninja-marketing-image" />
+        <div className="col-xl-6">
+          <img src={marketingImage} width="100%" alt="trip-ninja-marketing" />
         </div>        
       </div>
     );

@@ -18,8 +18,7 @@
 .flight-option-box {
   max-width: 290px;
   min-width: 233px;
-  min-height: 500px;
-  padding: 28px 24px;
+  padding: 28px 24px 0px 24px;
   width: 100%;
 }
 
@@ -40,12 +39,12 @@
 }
 
 .flight-section {
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   position: relative;
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 40px 1fr;
-  min-height: 100px
+  min-height: 80px
 }
 
 .dotted-connector {

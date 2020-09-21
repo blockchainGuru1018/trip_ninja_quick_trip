@@ -8,7 +8,6 @@ import { getAdminUrl } from '../helpers/AdminUrlHelper';
 import Alert from '@material-ui/lab/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-
 interface LoginFormProps extends WithTranslation {
   login: typeof login;
   authenticated: boolean;

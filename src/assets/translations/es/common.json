@@ -28,6 +28,108 @@
         },
         "userMenu": {
             "signOut": "Cerrar sesión"
+        },
+        "custom404":{
+            "title": "404 - Página no encontrada",
+            "subHeader": "Oops! No pudimos encontrar la página que buscaba. No es usted, somos nosotros.\nPruebe buscar desde nuestro",
+            "helpCentre": "Centro de Ayuda",
+            "subHeaderEnding": " para guiarlo en la direccion apropiada.",
+            "missingLinkPrompt": "Algo no esta donde deberia? ",
+            "missingLinkCTA": "Haganos saber.",
+            "back": "Regresar"
+        },
+        "fareBreakdown": {
+            "title": "Detalles de Tarifa",
+            "altTitle": "Costos de Reservación",
+            "airTransportationCharges": "Cargos de transporte aereo",
+            "taxes": "Impuestos",
+            "infoMissing": "Información no disponible."
+        },
+        "fareRulesPreview": {
+            "title": "Reglas de Tarifa",
+            "selectedFareFamily": "Familia de Tarifa Seleccionada",
+            "cabinBaggage": "Equipaje de Cabina",
+            "included": "Incluido",
+            "notIncluded": "No Incluido",
+            "changePenalty": "Penalidad de Cambio",
+            "fareType": "Tipo de Tarifa",
+            "wifiTitle": "Internet",
+            "wifi": "Internet",
+            "seatSelection": "Selección de Asientos",
+            "checkedBags": "Equipaje",
+            "cancellationPenalty": "Penalidad de Cancelacion",
+            "fareSource": "Origen", 
+            "bookingCode": "Codigo de Reserva",
+            "editFareFamily": "*Cambiar familia de tarifas desde seleccion de vuelos",
+            "bookingClass": "Clase",
+            "atACost": "A un costo",
+            "available": "Disponible",
+            "unavailable": "No Disponible"
+        },
+        "flightLogo": {
+            "multipleAirlines": "Varias Aerolineas"
+        },
+        "flightStops": {
+            "stop": "Escala",
+            "stopsPlural": "Escalas",
+            "direct": "Directo"
+        },
+        "flightTime": {
+            "hoursIndicator": "h",
+            "minutesIndicator": "m"
+        },
+        "flightTypes": {
+            "class": "Clase"
+        },
+        "itineraryDetails": {
+            "bookingDetailsHeader": "Detalles de Reservacion",
+            "flightDetailsHeader": "Detalles de Vuelo",
+            "informationNotAvailable": "Informacion no disponible",
+            "fareDetailsHeader": "Detalles de Tarifa"
+        },
+        "modals" : {
+            "bookingErrorModal": {
+                "title": "Reservacion fallida",
+                "body": "Esta reservacion no se pudo procesar, pruebe diferentes vuelos o iniciar la busqueda otra vez.",
+                "return": "Regresar a Resultados"
+            },
+            "bookModal": {
+                "primaryText": "Reservando su viaje"
+            },
+            "cancellingErrorModal": {
+                "title": "Cencelacion fallida",
+                "body": "Hubo un error en cancelar este itinerario, favor pruebe otra vez mas tarde o cancele directamente con el proveedor.",
+                "return": "Regresar a Resumen de Reserva"
+            },
+            "pricingErrorModal": {
+                "title": "Confirmacion de precios fallida",
+                "body": "Estos vuelos no estan disponibles, favor confirmar diferentes vuelos o iniciar la busqueda otra vez.",
+                "return": "Regresar a Resultados"
+            },
+            "pricingModal": {
+                "primaryText": "Confirmando sus vuelos"
+            },
+            "queueingErrorModal": {
+                "title": "Falla en poner los vuelos en cola",
+                "body": "Hubo un error en poner el itinerario en cola, favor prueve otra vez mas tarde.",
+                "return": "Regresar a Resumen de Reserva"
+            },
+            "searchErrorModal": {
+                "title": "No Encontramos Vuelos",
+                "body": "No encontramos vuelos para su busqueda. Favor pruebe una diferente busqueda.",
+                "body2": "Para mas informacion sobre el error, use nuestro",
+                "knowledgeBase": "Centro de Ayuda.",
+                "supportTeam": " Siempre puede contactar nuestro equipo de soporte via support@tripninja.io\npara asistencia.",
+                "return": "Regresar a Busqueda"
+            },
+            "searchModal": {
+                "primaryText": "Encontrando la mejor ruta y vuelos"
+            },
+            "ticketingErrorModal": {
+                "title": "Emisión Fallida",
+                "body": "Hubo un error en emitir este itinerario, favor pruebe otra vez mas tarde.",
+                "return":"Regresar a Resumen de Reserva"
+            }
         }
     },
     "auth":{
@@ -41,7 +143,7 @@
             "freeTrial": "Comienza tu prueba gratuita "
         },
         "marketingPanel":{
-            "header":"Que tan eficiente es tu proceso de reservacion de vuelos?",
+            "header":"Que tan eficiente es tu proceso de reservación de vuelos?",
             "description": "Dale a tus agentes el poder de encontrar los mejores itinerarios complejos en segundos, para que tu equipo haga mas con menos.",
             "callToAction": "Ve como Trip Ninja mejora la eficiencia de agentes"
         }

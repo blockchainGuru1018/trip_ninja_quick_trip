@@ -28,6 +28,108 @@
         },
         "userMenu": {
             "signOut": "Sign out"
+        },
+        "custom404":{
+            "title": "404 - The page was not found",
+            "subHeader": "Oops! We can’t find the page you are looking for. It’s not you, it’s us.\nTry starting from our",
+            "helpCentre": "Help Centre",
+            "subHeaderEnding": " to point you in the right direction.",
+            "missingLinkPrompt": "Is something not where it should be? ",
+            "missingLinkCTA": "Let us know.",
+            "back": "Back to home"
+        },
+        "fareBreakdown": {
+            "title": "Fare Breakdown",
+            "altTitle": "Booking Costs",
+            "airTransportationCharges": "Air Transportation Charges",
+            "taxes": "Taxes and Fees",
+            "infoMissing": "Information is not available."
+        },
+        "fareRulesPreview": {
+            "title": "Fare Rules",
+            "selectedFareFamily": "Selected Fare Family",
+            "cabinBaggage": "Cabin Baggage",
+            "included": "Included",
+            "notIncluded": "Not Included",
+            "changePenalty": "Change Penalty",
+            "fareType": "Fare Type",
+            "wifiTitle": "Wifi availability",
+            "wifi": "Wifi",
+            "seatSelection": "Seat selection",
+            "checkedBags": "Checked Bags",
+            "cancellationPenalty": "Cancellation Penalty",
+            "fareSource": "Fare Source", 
+            "bookingCode": "Booking Code",
+            "editFareFamily": "*Edit fare family from the flight selection",
+            "bookingClass": "Class",
+            "atACost": "At a cost",
+            "available": "Available",
+            "unavailable": "Unavailable"
+        },
+        "flightLogo": {
+            "multipleAirlines": "Multiple Airlines"
+        },
+        "flightStops": {
+            "stop": "Stop",
+            "stopsPlural": "Stops",
+            "direct": "Direct"
+        },
+        "flightTime": {
+            "hoursIndicator": "h",
+            "minutesIndicator": "m"
+        },
+        "flightTypes": {
+            "class": "Class"
+        },
+        "itineraryDetails": {
+            "bookingDetailsHeader": "Booking Details",
+            "flightDetailsHeader": "Flight Details",
+            "informationNotAvailable": "Information not available",
+            "fareDetailsHeader": "Fare Details"
+        },
+        "modals" : {
+            "bookingErrorModal": {
+                "title": "Booking failed",
+                "body": "This booking was unable to be processed, try different flights or re-running the search.",
+                "return": "Return to Results"
+            },
+            "bookModal": {
+                "primaryText": "Booking your trip"
+            },
+            "cancellingErrorModal": {
+                "title": "Cancellation failed",
+                "body": "There was an error cancelling this itinerary, please try again later or cancel directly with data source.",
+                "return": "Return to Booking Overview"
+            },
+            "pricingErrorModal": {
+                "title": "Price confirm failed",
+                "body": "These flights are no longer available, please try confirming a different flight option or re-running the search.",
+                "return": "Return to Results"
+            },
+            "pricingModal": {
+                "primaryText": "Confirming your flights"
+            },
+            "queueingErrorModal": {
+                "title": "Queueing failed",
+                "body": "There was an error queueing this itinerary, please try again later.",
+                "return": "Return to Booking Overview"
+            },
+            "searchErrorModal": {
+                "title": "No Flights Found",
+                "body": "There were no flights found for your search. Please try a different search.",
+                "body2": "For more information on what might have gone wrong, head to our",
+                "knowledgeBase": "Knowledge Base.",
+                "supportTeam": " You can always reach out to our support team at support@tripninja.io\nfor assistance.",
+                "return": "Return to Search"
+            },
+            "searchModal": {
+                "primaryText": "Finding the best route and flight options"
+            },
+            "ticketingErrorModal": {
+                "title": "Ticketing failed",
+                "body": "There was an error ticketing this itinerary, please try again later.",
+                "return":"Return to Booking Overview"
+            }
         }
     },
     "auth":{

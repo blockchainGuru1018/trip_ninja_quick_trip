@@ -51,7 +51,7 @@ export default function UserMenu(props: UserMenuProps) {
         primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
         secondary={props.authDetails.userEmail} />
     </MenuItem>;
-    
+
   return (
     <div>
       <Button
@@ -83,7 +83,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <LogoutMenuItem onClick={() => {props.logout()}}>{t('common.userMenu.signOut')}</LogoutMenuItem>
+        <LogoutMenuItem onClick={() => {props.logout();}}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>
   );
@@ -95,5 +95,4 @@ const parseUserInitials = (firstName: string, lastName: string) => {
   } else {
     return "TN";
   }
-  
-}
+};

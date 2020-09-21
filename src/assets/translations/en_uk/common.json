@@ -16,7 +16,10 @@
             "BC": "Business Class",
             "FC": "First Class",
             "PFC": "Premium First Class"
-        }
+        },
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female"
     },
     "common": {
         "navBar":{
@@ -155,6 +158,38 @@
             "passengerDetailsError": "Passenger details are not filled out properly - please review.",
             "bookingDisabled": "Booking disabled - please contact your team admin"
             
+        },
+        "flightDetailsDrawer":{
+            "title": "Booking Overview",
+            "toTop": "Back to top",
+            "openButton": "See Flight Details"
+        },
+        "itinerary":{
+            "title": "Itinerary"
+        },
+        "passengerCountrySelect":{
+            "nationality": "Nationality"
+        },
+        "passengerDetails":{
+            "edit": "Edit",
+            "add": "Add",
+            "title": "Passenger Details",
+            "passenger1": "Passenger 1"
+        },
+        "passengerDetailsModal":{
+            "title": "Passenger Information",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "dateOfBirth": "Date of Birth",
+            "passportNumber": "Passport Number",
+            "passportExpiration": "Passport Expiration",
+            "warning": "This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.",
+            "email": "Email", 
+            "phoneNumber": "Phone Number",
+            "invalidInputWarning": "Ensure all required fields are completed!",
+            "save": "Save",
+            "invalidPhoneNumber": "Invalid phone number",
+            "invalidEmailAddress": "Invalid email address"
         }
     }
 }

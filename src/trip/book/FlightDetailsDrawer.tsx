@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import ItineraryDetails from '../../common/ItineraryDetails';
-
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +38,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     bottom: false,
     right: false,
   });
+  const [ t ] = useTranslation('common');
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -63,7 +64,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
     >
       <div className="flight-details-drawer">
         <div className="d-flex">
-          <h1>Booking Overview</h1>
+          <h1>{t('book.flightDetailsDrawer.title')}</h1>
           <div className="close-button-container">
             <IconButton onClick={() => setState({...state, [anchor]: false})}>
               <CloseIcon fontSize="large" />
@@ -81,7 +82,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           <div className='col-lg-2 offset-lg-5' onClick={() =>
             document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0
           }>
-            <div className='btn-drawer-back-to-top'>Back to top</div>
+            <div className='btn-drawer-back-to-top'>{t('book.flightDetailsDrawer.toTop')}</div>
           </div>
         </div>
       </div>
@@ -96,7 +97,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             color="secondary"
             variant="contained"
             onClick={toggleDrawer(anchor, true)}>
-            See Flight Details
+            {t('book.flightDetailsDrawer.openButton')}
           </Button>
           <Drawer className='flight-details-drawer-comp' anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {flightDrawerComponent(anchor)}

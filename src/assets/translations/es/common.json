@@ -4,11 +4,11 @@
         "passengers": "Pasajeros",
         "total": "Total",
         "passengerTypes": {
-            "ADT": "Adultos",
-            "CHD": "Menores",
-            "INF": "Infantes",
-            "STU": "Estudiantes",
-            "YTH": "Juveniles"
+            "ADT": "Adulto",
+            "CHD": "Menor",
+            "INF": "Infante",
+            "STU": "Estudiante",
+            "YTH": "Juvenil"
         },
         "cabins":{
             "E": "Económica",
@@ -16,7 +16,10 @@
             "BC": "Ejecutiva",
             "FC": "Primera Clase",
             "PFC": "Primera Clase Premium"
-        }
+        },
+        "gender": "Género",
+        "male": "Masculino",
+        "female": "Femenino"
     },
     "common": {
         "navBar":{
@@ -150,10 +153,42 @@
         },
         "bookRequest":{
             "bookAndSave": "Reservar y Salvar",
-            "bookAndQueue": "Reservar y poner en cola",
+            "bookAndQueue": "Reservar y Poner en Cola",
             "bookAndTicket": "Reservar y Emitir",
             "passengerDetailsError": "Los detalles de pasajero no estan correctos - favor verificar.",
             "bookingDisabled": "No tiene permiso para reservar - favor contactar a su administrador"            
+        },
+        "flightDetailsDrawer":{
+            "title": "Resumen de Reserva",
+            "toTop": "Regresar arriba",
+            "openButton": "Ver Detalles de Vuelos"
+        },
+        "itinerary":{
+            "title": "Itinerario"
+        },
+        "passengerCountrySelect":{
+            "nationality": "Nacionalidad"
+        },
+        "passengerDetails":{
+            "edit": "Editar",
+            "add": "Agregar",
+            "title": "Detalles de Pasajeros",
+            "passenger1": "Pasajero 1"
+        },
+        "passengerDetailsModal":{
+            "title": "Informacion de Pasajero",
+            "firstName": "Primer Nombre",
+            "lastName": "Apellido",
+            "dateOfBirth": "Fecha de Nacimiento",
+            "passportNumber": "Numero de Pasaporte",
+            "passportExpiration": "Expiración de Pasaporte",
+            "warning": "Esta informacion debe coincidir con la del pasaporte. Cualquier diferencia puede resultar en no poder abordar.",
+            "email": "Correo Electronico", 
+            "phoneNumber": "Numero de Telefono",
+            "invalidInputWarning": "Favor llenar toda la informacion.",
+            "save": "Salvar",
+            "invalidPhoneNumber": "Numero de telefono invalido",
+            "invalidEmailAddress": "Correo electronico invalido"
         }
     }
 }

@@ -50,8 +50,8 @@ export default function UserMenu(props: UserMenuProps) {
       <ListItemText 
         primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
         secondary={props.authDetails.userEmail} />
-    </MenuItem>
-
+    </MenuItem>;
+    
   return (
     <div>
       <Button

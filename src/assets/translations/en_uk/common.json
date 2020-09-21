@@ -17,9 +17,19 @@
             "FC": "First Class",
             "PFC": "Premium First Class"
         },
+        "status":{
+            "booked": "Booked",
+            "cancelled": "Cancelled",
+            "queued": "Queued",
+            "ticketed": "Ticketed" 
+        },
         "gender": "Gender",
         "male": "Male",
-        "female": "Female"
+        "female": "Female",
+        "nationality": "Nationality",
+        "passportNumber": "Passport #",
+        "passportExpiry": "Passport Expiry",
+        "phone": "Phone"
     },
     "common": {
         "navBar":{
@@ -292,6 +302,51 @@
             "save": "Save",
             "invalidPhoneNumber": "Invalid phone number",
             "invalidEmailAddress": "Invalid email address"
+        }
+    },
+    "bookings": {
+        "bookingDetailsDrawer": {
+            "loadingErrorTitle": "Unable to load booking details.",
+            "loadingErrorBody": "Please contact support if the problem persists.",
+            "loadingErrorButton": "OK",
+            "loadingMessage": "Loading Booking Details...",
+            "title": "Booking Overview - Status:",
+            "navigationTitle": "Jump To",
+            "overviewNav": "Overview",
+            "bookingCostNav": "Booking Cost",
+            "flightOverviewNav": "Flight Overview",
+            "passengerInformationNav": "Passenger Information",
+            "overviewTitle": "Overview",
+            "bookingAgent": "Booking Agent", 
+            "team": "Team",
+            "backToTop": "Back to top"
+        },
+        "bookings": {
+            "title": "Bookings"
+        },
+        "bookingsTable": {
+            "noBookings": "No bookings found!",
+            "pnrNumbers": "PNR Numbers",
+            "passenger1": "Passenger 1",
+            "bookingDate": "Booking Date",
+            "departureDate": "Departure Date",
+            "price": "Price",
+            "route": "Route",
+            "status": "Status"
+        },
+        "manageBooking" : {
+            "title": "Manage",
+            "cancelBookingButton": "Cancel Booking",
+            "sendToQueueButton": "Send to Queue",
+            "issueTicketButton": "Issue Ticket"
+        },
+        "multiPNRViewToggle": {
+            "title": "Multiple PNRs", 
+            "pnrsByTrip": "Group PNRs by trip",
+            "pnrsByEach": "Show each PNR"
+        },
+        "passengerDetails": {
+            "title": "Passenger Details"
         }
     }
 }

@@ -17,9 +17,19 @@
             "FC": "Primera Clase",
             "PFC": "Primera Clase Premium"
         },
+        "status":{
+            "booked": "Reservado",
+            "cancelled": "Cancelado",
+            "queued": "En Cola",
+            "ticketed": "Emitido" 
+        },
         "gender": "Género",
         "male": "Masculino",
-        "female": "Femenino"
+        "female": "Femenino",
+        "nationality": "Nacionalidad",
+        "passportNumber": "Numero de Pasaporte",
+        "passportExpiry": "Expiración de Pasaporte",
+        "phone": "Telefono"
     },
     "common": {
         "navBar":{
@@ -291,6 +301,51 @@
             "save": "Salvar",
             "invalidPhoneNumber": "Numero de telefono invalido",
             "invalidEmailAddress": "Correo electronico invalido"
+        }
+    },
+    "bookings": {
+        "bookingDetailsDrawer": {
+            "loadingErrorTitle": "No pudimos cargar el resumen de reserva",
+            "loadingErrorBody": "Favor contactar al equipo de soporte si el problema persiste.",
+            "loadingErrorButton": "OK",
+            "loadingMessage": "Cargando resumen de reserva...",
+            "title": "Resumen de Reserva - Status:",
+            "navigationTitle": "Salta a",
+            "overviewNav": "Resumen",
+            "bookingCostNav": "Costos",
+            "flightOverviewNav": "Vuelos",
+            "passengerInformationNav": "Pasajeros",
+            "overviewTitle": "Resumen",
+            "bookingAgent": "Agente", 
+            "team": "Equipo",
+            "backToTop": "Regresar arriba"
+        },
+        "bookings": {
+            "title": "Bookings"
+        },
+        "bookingsTable": {
+            "noBookings": "No hay reservaciones!",
+            "pnrNumbers": "Numeros de PNR",
+            "passenger1": "Pasajero 1",
+            "bookingDate": "Fecha de Reservacion",
+            "departureDate": "Fecha de Partida",
+            "price": "Precio",
+            "route": "Ruta",
+            "status": "Estado"
+        },
+        "manageBooking" : {
+            "title": "Editar",
+            "cancelBookingButton": "Cancelar",
+            "sendToQueueButton": "Mandar a cola",
+            "issueTicketButton": "Emitir"
+        },
+        "multiPNRViewToggle": {
+            "title": "Multiples PNRs", 
+            "pnrsByTrip": "Agrupar PNRs por viaje",
+            "pnrsByEach": "Mostar todos los PNRs"
+        },
+        "passengerDetails": {
+            "title": "Pasajeros"
         }
     }
 }

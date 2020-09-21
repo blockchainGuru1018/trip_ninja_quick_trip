@@ -38,8 +38,13 @@
 }
 
 .results-header {
+  padding: 25px 100px 0px 100px;
+}
+
+.results-section-header {
   border-bottom: solid 1px #C1BDBD;
-  padding: 25px 100px;
+  padding: 15px 100px 25px 100px;
+  background-color: #ffffff;
 }
 
 .itinerary-path {

@@ -310,7 +310,7 @@
             "loadingErrorButton": "OK",
             "loadingMessage": "Cargando resumen de reserva...",
             "title": "Resumen de Reserva - Status:",
-            "navigationTitle": "Salta a",
+            "navigationTitle": "Ir a",
             "overviewNav": "Resumen",
             "bookingCostNav": "Costos",
             "flightOverviewNav": "Vuelos",

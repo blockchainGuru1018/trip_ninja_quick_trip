@@ -23,8 +23,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
     let passengerInfo: Array<PassengerInfo> = this.props.bookingDetails.passengers;
 
     const passengers = passengerInfo.map((passenger: PassengerInfo, index: number) => (
-      <div className="row passenger-row" key={index.toString()}>
-        <div className="col-sm-8 passenger-label">
+      <div className={'row' + ((passengerInfo.length-1 !== index) ? ' passenger-row': '')} key={index.toString()}>
+        <div className="col-sm-8 my-auto">
           <PersonOutlineIcon color="primary"/>
           <span className="text-bold icon-label">{passenger.updated ? passenger.first_name + ' ' + passenger.last_name : passenger.passenger_type_name} </span>
           {index === 0 && <span>(Passenger 1)</span>}

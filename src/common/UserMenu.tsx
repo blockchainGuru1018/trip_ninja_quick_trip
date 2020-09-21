@@ -38,8 +38,15 @@ export default function UserMenu(props: UserMenuProps) {
     color: '#4BAFD7'
   });
 
+  const UserMenuItem = styled(MenuItem)({
+    '&:hover': {
+      cursor: 'default',
+      backgroundColor: '#fff'
+    }
+  });
+
   const userDetails =
-    <MenuItem>
+    <UserMenuItem>
       <ListItemAvatar>
         <UserAvatar>
           {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
@@ -48,7 +55,7 @@ export default function UserMenu(props: UserMenuProps) {
       <ListItemText 
         primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
         secondary={props.authDetails.userEmail} />
-    </MenuItem>
+    </UserMenuItem>;
 
   return (
     <div>
@@ -81,7 +88,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <LogoutMenuItem onClick={() => {props.logout()}}>Sign out</LogoutMenuItem>
+        <LogoutMenuItem onClick={() => props.logout()}>Sign out</LogoutMenuItem>
       </Menu>
     </div>
   );
@@ -93,5 +100,4 @@ const parseUserInitials = (firstName: string, lastName: string) => {
   } else {
     return "TN";
   }
-  
-}
+};

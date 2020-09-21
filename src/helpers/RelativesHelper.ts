@@ -86,7 +86,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       segment.relativeTime = targetActivesTotal.totalTime - totalTime;
     });
     if (setActivesInitial) {
-      bestTrip.forEach((segmentPosition: string, index: number) =>  updateActiveSegments(resultsDetails, index, segmentPosition))
+      bestTrip.forEach((bestTripSegmentPosition: string, index: number) =>  updateActiveSegments(resultsDetails, index, bestTripSegmentPosition))
       actives = [...resultsDetails.activeSegments.values()];
       totals = setTotals(resultsDetails.activeSegments);
       totalPrice = totals[0];
@@ -116,8 +116,8 @@ export function setIndex0AsActives(state: ResultsDetails) {
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
     segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
     const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered) || segmentOptions[0];
-    if (segmentToChange!.status !== 'active') {
-      updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
+    if (segmentToChange.status !== 'active') {
+      updateSegmentActivesAndAlternates(segmentToChange, state, segmentPositionIndex, true);
     }
     return segmentOptions
   });

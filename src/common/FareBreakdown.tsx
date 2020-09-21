@@ -34,12 +34,12 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
                   <p>{this.formatPrice(pricing.taxes+pricing.fees)}</p>
                 </div>
               </div>
-              <div className="row text-bold fare-breakdown-total">
+              <div className="row fare-breakdown-total">
                 <div className="col-sm-8 fare-breakdown-text">
-                  <p>Total</p>
+                  <p className="text-bold">Total</p>
                 </div>
                 <div className="col-sm-4 fare-breakdown-price">
-                  <p>{this.formatPrice(pricing.confirmed_total_price)}</p>
+                  <p className="text-bold">{this.formatPrice(pricing.confirmed_total_price)}</p>
                 </div>
               </div>
             </div>

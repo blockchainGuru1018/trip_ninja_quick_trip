@@ -8,8 +8,8 @@ i18n
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
-    lng: 'en-uk',
-    fallbackLng: 'en-uk',
+    lng: 'en_uk',
+    fallbackLng: 'en_uk',
     debug: true,
     interpolation: {
       escapeValue: false, // React already does escaping

@@ -38,7 +38,6 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               <div className="row fare-breakdown-total">
                 <div className="col-sm-8 fare-breakdown-text">
                   <p className="text-bold">{this.props.t("commonWords.total")}</p>
-                  <p className="text-bold">Total</p>
                 </div>
                 <div className="col-sm-4 fare-breakdown-price">
                   <p className="text-bold">{this.formatPrice(pricing.confirmed_total_price)}</p>

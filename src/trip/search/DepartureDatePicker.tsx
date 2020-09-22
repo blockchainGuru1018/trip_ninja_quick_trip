@@ -1,12 +1,9 @@
 import 'date-fns';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
 import TodayIcon from '@material-ui/icons/Today';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { updateFlightValue } from '../../actions/SearchActions';
 
 interface DepartureDatePickerProps {
@@ -17,58 +14,51 @@ interface DepartureDatePickerProps {
   previousDate?: string
 }
 
-class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
-  state = { errorText: '', error: false};
+export default function DepartureDatePicker(props: DepartureDatePickerProps) {
+  const [errorText, setErrorText] = useState('');
 
-  validateDate(dateEvent: any){
-    if (dateEvent && !isNaN(dateEvent.valueOf())){
-      if (this.props.previousDate ? dateEvent?.toISOString() <= this.props.previousDate : false) {
-        this.setState({ errorText: 'Invalid departure date' });
-        this.setState({ error: true });
-      } else {
-        this.setState({ errorText: '' });
-        this.setState({ error: false });
-      }
-    }
-  }
+  useEffect(() => {
+    setErrorText(validateDate(props.departureDate));
+  });
 
-  setDateChange = (dateEvent: any) => {
-    this.validateDate(dateEvent);
-
-    return dateEvent
-      ? isNaN(dateEvent.valueOf())
-        ? ''
-        : this.props.updateFlightValue(
-          this.props.i, 'departureDate', dateEvent?.toISOString()!
-        )
-      : '';
+  const validateDate = (departureDate: string) => {
+    return (props.previousDate ? departureDate < props.previousDate : false) ? 'Invalid departure date' : '';
   };
 
-  render() {
-    return(
-      <FormControl fullWidth>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            disableToolbar
-            disablePast
-            variant="inline"
-            inputVariant="outlined"
-            format={this.props.dateFormat}
-            margin="none"
-            id={"departure-date" + this.props.i}
-            value={new Date(this.props.departureDate)}
-            onChange={(e: any) => this.setDateChange(e)}
-            InputAdornmentProps={{ position: 'start'}}
-            helperText= {this.state.errorText}
-            KeyboardButtonProps={{
-              'aria-label': 'Without label',
-            }}
-            keyboardIcon={<TodayIcon color="primary"/>}
-          />
-        </MuiPickersUtilsProvider>
-      </FormControl>
-    );
-  }
-}
+  const setDateChange = (dateEvent: any) => {
+    if (dateEvent && !isNaN(dateEvent.valueOf())) {
+      validateDate(dateEvent.toISOString());
+    }
 
-export default DepartureDatePicker;
+    return dateEvent.valueOf() ? props.updateFlightValue(props.i, 'departureDate', dateEvent?.toISOString()!) : '';
+    //? isNaN(dateEvent.valueOf())
+    //  ? ''
+    //  : props.updateFlightValue(props.i, 'departureDate', dateEvent?.toISOString()!)
+    //: '';
+
+  };
+
+  return(
+    <FormControl fullWidth>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          disablePast
+          variant="inline"
+          inputVariant="outlined"
+          format={props.dateFormat}
+          margin="none"
+          id={"departure-date" + props.i}
+          value={new Date(props.departureDate)}
+          onChange={(e: any) => setDateChange(e)}
+          InputAdornmentProps={{ position: 'start'}}
+          helperText= {errorText}
+          KeyboardButtonProps={{
+            'aria-label': 'Without label',
+          }}
+          keyboardIcon={<TodayIcon color="primary"/>}
+        />
+      </MuiPickersUtilsProvider>
+    </FormControl>
+  );
+}

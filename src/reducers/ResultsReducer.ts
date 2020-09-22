@@ -153,7 +153,7 @@ function updateFilterReturnValue(state: ResultsDetails, action: any) {
   return state
 }
 
-function viable(state: ResultsDetails) {
+export function viable(state: ResultsDetails) {
   const activeSegments: Array<Segment> = [...state.activeSegments.values()]
   return activeSegments.every((segment: Segment) => !segment.filtered)
 }

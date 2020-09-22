@@ -2,6 +2,7 @@ import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterface
 import _ from 'lodash';
 import { updateActiveSegments, updateSegmentActivesAndAlternates } from './CompatibilityHelpers';
 import { getTotal } from './MiscHelpers';
+import { viable } from '../reducers/ResultsReducer';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails, sortBy: string) {
   setIndex0AsActives(resultsDetails);
@@ -17,13 +18,12 @@ function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPo
   const targetTotalWeight: number = getTotal(targetActives, 'weight');
   const targetTotalTime: number = targetActives.reduce((total: number, targetActiveSegment: Segment) => total += targetActiveSegment.segment_time_w_connections, 0);
   const targetItineraryIdList = getActivesItineraryIds(targetActives);
-  const viable: boolean = targetActives.every((viableSegment: Segment) => !viableSegment.filtered);
   return {
     "totalPrice": targetTotalPrice,
     "totalWeight": targetTotalWeight,
     "totalTime": targetTotalTime,
     "itineraryIdList": targetItineraryIdList,
-    viable
+    "viable": viable(clonedResults)
   };
 }
 
@@ -113,15 +113,25 @@ const setTotals = (activeSegments: any) => {
 export function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
   resetSegmentsStatus(trip.segments)
+  updateActivesToFiltered(trip, state)
+  if (!viable(state)) {
+    updateActivesToFiltered(trip, state)
+  }
+  return state;
+}
+
+function updateActivesToFiltered(trip: Results, state: ResultsDetails) {
+  const actives = [...state.activeSegments.values()]
   trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
-    const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered) || segmentOptions[0];
-    if (segmentToChange.status !== 'active') {
-      updateSegmentActivesAndAlternates(segmentToChange, state, segmentPositionIndex, true);
+    if (actives.length === 0 || actives[segmentPositionIndex].filtered) {
+      segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
+      const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
+      if (segmentToChange!.status !== 'active') {
+        updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
+      }
     }
     return segmentOptions
   });
-  return state;
 }
 
 function resetSegmentsStatus(segments: Array<Array<Segment>>) {

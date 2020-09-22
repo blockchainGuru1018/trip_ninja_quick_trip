@@ -96,6 +96,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           <Button 
             color="secondary"
             variant="contained"
+            disableElevation
             onClick={toggleDrawer(anchor, true)}>
             {t('book.flightDetailsDrawer.openButton')}
           </Button>

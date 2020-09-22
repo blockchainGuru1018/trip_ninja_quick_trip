@@ -74,8 +74,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             updateSortType={this.props.updateSortType}
           />
           <div className='row'>
-            {enabledFilters.map((item) =>
-              <div>
+            {enabledFilters.map((item, index) =>
+              <div key={index.toString()}>
                 <FlightsFilter
                   filterName={item}
                   segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
@@ -95,7 +95,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
-              <div className="col-lg-10 offset-lg-1">
+              <div className="col-xl">
                 <div className="row">
                   <div className="col-xl">
                     <h5>{this.props.t("results.segmentSelection.selectedFlight")}</h5>

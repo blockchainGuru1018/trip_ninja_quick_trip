@@ -43,9 +43,11 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     return (
       <div className="float-right">
         <Button
+          disableElevation
           color="primary"
           variant="contained"
-          onClick={this.submitPricingRequest}>
+          onClick={this.submitPricingRequest}
+        >
           {this.props.t("results.pricingRequest.callToAction")}
         </Button>
       </div>

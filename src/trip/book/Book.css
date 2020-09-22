@@ -42,15 +42,11 @@
 }
 
 .MuiButtonBase-root.book-button {
-  margin: 5px 30px 0px 0px;
+  margin: 5px 0px 0px 30px;
 }
 
 .passenger-row {
   margin-bottom: 25px;
-}
-
-.passenger-label {
-  margin-top: 5px;
 }
 
 .fare-breakdown-total {

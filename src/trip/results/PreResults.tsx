@@ -62,6 +62,7 @@ class PreResults extends React.Component<PreResultsProps> {
               </div>
               <div className="flight-options-btn-container">
                 <Button
+                  disableElevation
                   variant="contained"
                   className="btn-flight-options"
                   onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}>
@@ -87,6 +88,7 @@ class PreResults extends React.Component<PreResultsProps> {
               </div>
               <div className="flight-options-btn-container">
                 <Button
+                  disableElevation
                   variant="contained"
                   className="btn-flight-options"
                   onClick={() => {

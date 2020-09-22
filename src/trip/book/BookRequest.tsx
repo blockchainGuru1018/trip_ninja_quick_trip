@@ -119,8 +119,9 @@ class BookRequest extends React.Component<BookRequestProps> {
               variant="contained" 
               color="primary"
               className="book-button"
+              disableElevation
               disabled={this.props.authDetails.bookingDisabled}
-              onClick={ (e) => this.bookFlights(false, false)}>
+              onClick={(e) => this.bookFlights(false, false)}>
               {this.props.t("book.bookRequest.bookAndSave")}
             </Button>
           </span>
@@ -138,17 +139,12 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
               disableElevation
-              onClick={ (e) => this.bookFlights(true, false)}>
+              onClick={(e) => this.bookFlights(true, false)}>
               {this.props.t("book.bookRequest.bookAndQueue")}
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          {this.props.t("book.bookRequest.passengerDetailsError")}
-        </Alert>
-        }
-        <Tooltip title={this.props.authDetails.bookingDisabled ? this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">  
+        <Tooltip title={this.props.authDetails.bookingDisabled ?  this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">  
           <span>
             <Button
               variant="contained" 
@@ -156,16 +152,11 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled || true}
               disableElevation
-              onClick={ (e) => this.bookFlights(false, true)}>
+              onClick={(e) => this.bookFlights(false, true)}>
               {this.props.t("book.bookRequest.bookAndTicket")}
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          {this.props.t("book.bookRequest.passengerDetailsError")}
-        </Alert>
-        }
       </div>
     );
   }

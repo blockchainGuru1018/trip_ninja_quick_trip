@@ -35,7 +35,7 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
 
   return(
     <FormControl fullWidth>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} >
         <KeyboardDatePicker
           disableToolbar
           disablePast

@@ -16,6 +16,8 @@ import { Alert } from "@material-ui/lab";
 import { RadioGroup } from '@material-ui/core';
 import { Radio } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { firstLetterCapital } from '../../../helpers/MiscHelpers';
 
 interface FlightsFilterProps {
   filterName: string;
@@ -33,6 +35,7 @@ interface FlightsFilterProps {
 }
               
 const FlightsFilter = (props: FlightsFilterProps) => {
+  const [ t ] = useTranslation('common');
 
   const useStyles = makeStyles({
     root: {
@@ -96,42 +99,42 @@ const FlightsFilter = (props: FlightsFilterProps) => {
 
   const filtersDict = {
     'baggage': { 
-      'name': 'Baggage',
-      'nameSuffix': '+',
-      'description': 'Minimum # of checked bags',
+      'name': t('results.filters.flightsFilter.baggage'),
+      'nameSuffix': '',
+      'description': t('results.filters.flightsFilter.baggageDescription'),
       'picker':
         <MenuItem>
-          <RadioGroup aria-label="Min Baggage" value={filter!.value} name="Baggage Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="0" label="Any" />
-            <FormControlLabel control={<Radio />} value="1" label="1 bag" />
-            <FormControlLabel control={<Radio />} value="2" label="2 bags" />
-            <FormControlLabel control={<Radio />} value="3" label="3 bags" />
+          <RadioGroup aria-label={t('results.filters.flightsFilter.baggageDescription')} value={filter!.value} name="Baggage Filter" onChange={updateFilter}>
+            <FormControlLabel control={<Radio />} value="0" label={t('results.filters.flightsFilter.baggage0Label')} />
+            <FormControlLabel control={<Radio />} value="1" label={t('results.filters.flightsFilter.baggage1Label')} />
+            <FormControlLabel control={<Radio />} value="2" label={t('results.filters.flightsFilter.baggage2Label')} />
+            <FormControlLabel control={<Radio />} value="3" label={t('results.filters.flightsFilter.baggage3Label')} />
           </RadioGroup>
         </MenuItem>},
     'alliance': { 
-      'name': 'Alliance',
+      'name': t('results.filters.flightsFilter.alliance'),
       'nameSuffix': '',
-      'description': 'Alliance',
+      'description': t('results.filters.flightsFilter.allianceDescription'),
       'picker':
         <MenuItem>
-          <RadioGroup aria-label="Alliance" value={filter!.value} name="Alliance Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="Any" label="Any" />
-            <FormControlLabel control={<Radio />} value="*A" label="Star Alliance" />
-            <FormControlLabel control={<Radio />} value="*O" label="Oneworld" />
-            <FormControlLabel control={<Radio />} value="*S" label="Skyteam" />
+          <RadioGroup aria-label={t('results.filters.flightsFilter.allianceDescription')} value={filter!.value} name="Alliance Filter" onChange={updateFilter}>
+            <FormControlLabel control={<Radio />} value="Any" label={t('results.filters.flightsFilter.allianceAnyLabel')} />
+            <FormControlLabel control={<Radio />} value="*A" label={t('results.filters.flightsFilter.alliance*ALabel')} />
+            <FormControlLabel control={<Radio />} value="*O" label={t('results.filters.flightsFilter.alliance*OLabel')} />
+            <FormControlLabel control={<Radio />} value="*S" label={t('results.filters.flightsFilter.alliance*SLabel')} />
           </RadioGroup>
         </MenuItem>},
     'noOfStops': { 
-      'name': 'Stops',
+      'name': t('results.filters.flightsFilter.noOfStops'),
       'nameSuffix': '',
-      'description': 'Max Number of Stops',
+      'description': t('results.filters.flightsFilter.noOfStopsDescription'),
       'picker':
         <MenuItem>
-          <RadioGroup aria-label="Max Number of Stops" value={filter!.value} name="Number Of Stops Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="Any" label="Any" />
-            <FormControlLabel control={<Radio />} value="0" label="Direct Only" />
-            <FormControlLabel control={<Radio />} value="1" label="1 stop" />
-            <FormControlLabel control={<Radio />} value="2" label="2 stops" />
+          <RadioGroup aria-label={t('results.filters.flightsFilter.noOfStopsDescription')} value={filter!.value} name="Number Of Stops Filter" onChange={updateFilter}>
+            <FormControlLabel control={<Radio />} value="Any" label={t('results.filters.flightsFilter.noOfStopsAnyLabel')} />
+            <FormControlLabel control={<Radio />} value="0" label={t('results.filters.flightsFilter.noOfStops0Label')} />
+            <FormControlLabel control={<Radio />} value="1" label={t('results.filters.flightsFilter.noOfStops1Label')} />
+            <FormControlLabel control={<Radio />} value="2" label={t('results.filters.flightsFilter.noOfStops2Label')} />
           </RadioGroup>
         </MenuItem>}
   };
@@ -152,7 +155,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
             size="large"
             onClick={handleClick}
           >
-            {filtersDict[props.filterName]['name']}: {`${filter.value} `} {filtersDict[props.filterName]['nameSuffix']}
+            {firstLetterCapital(filtersDict[props.filterName]['name'])}: {t('results.filters.flightsFilter.' + props.filterName + filter.value + "Label")} {filtersDict[props.filterName]['nameSuffix']}
           </Button>
           <StyledMenu
             id="customized-menu"
@@ -168,7 +171,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
             </div>
           </StyledMenu>
           {filter.failed
-            && <Alert severity='error'>No flights for this filter</Alert>
+            && <Alert severity='error'>{t('results.filters.flightsFilter.filterFailMessage')}</Alert>
           }
         </div>
         : ''}

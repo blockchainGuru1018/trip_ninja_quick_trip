@@ -15,6 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Tooltip from '@material-ui/core/Tooltip';
 import { updateFareFamily } from '../../actions/ResultsActions';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 const FareTableCell = styled(TableCell)({
   border: 'solid 1px #CACDD6',
@@ -32,7 +33,7 @@ const FareTableHeader = styled(TableCell)({
 });
 
 
-interface FareSelectProps {
+interface FareSelectProps extends WithTranslation {
   brands: Array<BrandInfo> | undefined;
   currency: string;
   segment: Segment;
@@ -53,45 +54,45 @@ class FareSelect extends React.Component<FareSelectProps> {
           <Table aria-label="fare select table">
             <TableHead>
               <TableRow>
-                <FareTableHeader>Features</FareTableHeader>
+                <FareTableHeader>{this.props.t("results.fareSelect.features")}</FareTableHeader>
                 {this.brandNamesRow(brandsList)}
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
-                <FareTableLabelCell align="left">Description</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.description")}</FareTableLabelCell>
                 {this.brandDescriptionRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Checked Bags</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.checkedBags")}</FareTableLabelCell>
                 {this.checkedBagsRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Cabin Bags</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.cabinBags")}</FareTableLabelCell>
                 {this.cabinBagsRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Seat Selection</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.seatSelection")}</FareTableLabelCell>
                 {this.seatSelectionRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Changes</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.changes")}</FareTableLabelCell>
                 {this.changesRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Refundable</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.refundable")}</FareTableLabelCell>
                 {this.refundableRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Booking Code</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.bookingCode")}</FareTableLabelCell>
                 {this.bookingCodeRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Fare Basis</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.fareBasis")}</FareTableLabelCell>
                 {this.fareBasisRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left">Price</FareTableLabelCell>
+                <FareTableLabelCell align="left">{this.props.t("results.fareSelect.price")}</FareTableLabelCell>
                 {this.priceRow(brandsList)}
               </TableRow>
               <TableRow>
@@ -184,7 +185,7 @@ class FareSelect extends React.Component<FareSelectProps> {
             {relativePrice}
           </p>
           <p className="text-small text-center">
-            Total: {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
+            {this.props.t("commonWords.total")} : {currencySymbol(this.props.currency)}{relativePrice[0] === '+'
               ? Math.round(this.props.totalPrice + relativePriceNum)
               : Math.round(this.props.totalPrice - relativePriceNum)}
           </p>
@@ -200,15 +201,15 @@ class FareSelect extends React.Component<FareSelectProps> {
           variant="contained"
           color="secondary"
           onClick={() => this.updateSegmentFareFamily(brand, index)}>
-          Select Segment
+          {this.props.t("results.fareSelect.selectSegment")}
         </Button>
       </FareTableCell>
     ));
 
   brandNotAvailableCell = (index: number) => {
-    return <Tooltip key={index.toString()} title="Information not available" placement="top">
+    return <Tooltip key={index.toString()} title={this.props.t("results.fareSelect.informationNotAvailable").toString()} placement="top">
       <FareTableCell key={index.toString()} align="center" className="no-brand-info">
-        N/A
+        {this.props.t("results.fareSelect.na")}
       </FareTableCell>
     </Tooltip>;
   }
@@ -234,4 +235,4 @@ class FareSelect extends React.Component<FareSelectProps> {
   }
 }
 
-export default FareSelect;
+export default withTranslation('common')(FareSelect);

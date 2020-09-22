@@ -9,8 +9,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
 import { getOtherPositionsInItineraryStructure } from '../../helpers/CompatibilityHelpers';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface SegmentPreviewDetailsProps {
+interface SegmentPreviewDetailsProps extends WithTranslation {
   segment: Segment;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
@@ -58,7 +59,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
         }
         {this.state.loadingBrands &&
           <div className="text-center">
-            <h6>Loading fare options...</h6>
+            <h6>{this.props.t("results.segmentPreviewDetails.loading")}</h6>
             <CircularProgress />
           </div>
         }
@@ -82,7 +83,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
               onClick={() =>
                 this.updateActives()
               } >
-              Select segment
+              {this.props.t("results.segmentPreviewDetails.selectSegment")}
             </Button>
           </div>
           : ''
@@ -135,4 +136,4 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 }
 
-export default SegmentPreviewDetails;
+export default withTranslation('common')(SegmentPreviewDetails);

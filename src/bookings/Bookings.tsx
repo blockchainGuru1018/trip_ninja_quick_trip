@@ -8,8 +8,9 @@ import { BookingsList } from './BookingsInterfaces';
 import './Bookings.css';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { Redirect } from 'react-router-dom';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface BookingsProps {
+interface BookingsProps extends WithTranslation {
   authDetails: AuthDetails;
   bookingsList: BookingsList;
   getBookingsList: typeof getBookingsList;
@@ -40,7 +41,7 @@ class Bookings extends React.Component<BookingsProps> {
           <div>
             <div className="row bookings-header">
               <div className="col-xl-10 offset-xl-1">
-                <h1>Bookings</h1>
+                <h1>{this.props.t("bookings.bookings.title")}</h1>
               </div>
             </div>
             <div className="row bookings-container">
@@ -92,4 +93,4 @@ class Bookings extends React.Component<BookingsProps> {
   }
 }
 
-export default Bookings;
+export default withTranslation('common')(Bookings);

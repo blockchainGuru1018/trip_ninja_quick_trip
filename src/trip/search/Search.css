@@ -39,6 +39,10 @@
   margin-right: 10px
 }
 
+.passenger-select {
+  height: 56px;
+}
+
 .path-iata {
   padding: 0px 5px;
 }

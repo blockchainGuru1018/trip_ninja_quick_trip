@@ -14,14 +14,14 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   root: {
-    height: '56px',
     textTransform: 'none',
     justifyContent: 'left',
     fontFamily: 'NeuzeitGro-Reg',
+    padding: '14px 10px',
     '&:hover': {
       borderColor: '#CACDD6',
       borderBottom: 'solid 3px var(--primary)',
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     }
   },
 });
@@ -88,7 +88,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
     </PassengerMenuItem>
   ));
   return (
-    <div>
+    <div className="passenger-select">
       <Button
         fullWidth
         classes={{

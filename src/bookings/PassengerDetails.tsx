@@ -3,8 +3,9 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Moment from 'react-moment';
 import { PassengerInfo } from '../trip/book/BookInterfaces';
 import CountryList from '../assets/data/countries.json';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface PassengerDetailsProps {
+interface PassengerDetailsProps extends WithTranslation {
   passengers?: Array<PassengerInfo>
 }
 
@@ -13,7 +14,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   render() {
     return (
       <div>
-        <h5 className="section-header">Passenger Details</h5>
+        <h5 className="section-header">{this.props.t("bookings.passengerDetails.title")}</h5>
         {this.passengersInfo()}
       </div>
     );
@@ -33,10 +34,10 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           </div>
         </div>
         <div className="col-sm-2 border-left">
-          <p className="passenger-field">Gender</p>
-          <p className="passenger-field">Nationality</p>
-          <p className="passenger-field">Passport #</p>
-          <p className="passenger-field">Passport Expiry</p>
+          <p className="passenger-field">{this.props.t("commonWords.gender")}</p>
+          <p className="passenger-field">{this.props.t("commonWords.nationality")}</p>
+          <p className="passenger-field">{this.props.t("commonWords.passportNumber")}</p>
+          <p className="passenger-field">{this.props.t("commonWords.passportExpiry")}</p>
         </div>
         <div className="col-sm-1 no-pad-left">
           <p>{this.getPassengerGender(passenger.gender)}</p>
@@ -45,8 +46,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           <p>{passenger.passport_expiration ? <Moment format="DD/MM/YYYY">{passenger.passport_expiration}</Moment> : '-'}</p>
         </div>
         <div className="col-sm-1">
-          <p className="passenger-field">Phone</p>
-          <p className="passenger-field">Email</p>
+          <p className="passenger-field">{this.props.t("commonWords.phone")}</p>
+          <p className="passenger-field">{this.props.t("commonWords.email")}</p>
         </div>
         <div className="col-sm-2 no-pad-left">
           <p>{passenger.phone_number ? passenger.phone_number : '-'}</p>
@@ -63,13 +64,13 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
 
   getPassengerGender = (gender: string) => {
     if (gender === 'F') {
-      return 'Female';
+      return this.props.t("commonWords.female");
     } else if (gender === 'M') {
-      return 'Male';
+      return this.props.t("commonWords.male");
     } else {
       return '-';
     }
   }
 }
 
-export default PassengerDetails;
+export default withTranslation('common')(PassengerDetails);

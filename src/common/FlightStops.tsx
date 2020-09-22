@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import { getTimeDifference } from '../helpers/DateHelpers';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FlightStopsProps {
+interface FlightStopsProps extends WithTranslation {
   flights: Array<FlightResultsDetails>
 }
 
@@ -12,8 +13,8 @@ class FlightStops extends React.Component<FlightStopsProps> {
       <div className='col-sm-2 my-auto'>
         {
           this.props.flights.length > 1
-            ? <div className="text-bold">{this.props.flights.length - 1} Stop{this.props.flights.length > 2 ? "s" : ""}</div>
-            : <p className="text-bold">Direct</p>
+            ? <div className="text-bold">{this.props.flights.length - 1} {this.props.flights.length > 2 ? this.props.t("common.flightStops.stopsPlural") : this.props.t("common.flightStops.stop")}</div>
+            : <p className="text-bold">{this.props.t("common.flightStops.direct")}</p>
         }
         {
           this.props.flights.length > 1
@@ -43,4 +44,4 @@ class FlightStops extends React.Component<FlightStopsProps> {
   }
 }
 
-export default FlightStops;
+export default withTranslation('common')(FlightStops);

@@ -4,8 +4,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CountryList from '../../assets/data/countries.json';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface PassengerCountrySelectProps {
+interface PassengerCountrySelectProps extends WithTranslation {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
   country?: string;
@@ -29,7 +30,7 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
           renderInput={(params) =>
             <TextField {...params}
               variant="outlined"
-              placeholder="Nationality"
+              placeholder={this.props.t("book.passengerCountrySelect.nationality")}
             />
           }
         />
@@ -51,4 +52,4 @@ class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps
   }
 }
 
-export default PassengerCountrySelect;
+export default withTranslation('common')(PassengerCountrySelect);

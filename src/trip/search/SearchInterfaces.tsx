@@ -1,6 +1,7 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
   removeFlight, searchFlights }
   from '../../actions/SearchActions';
+import { WithTranslation } from 'react-i18next';
 
 export interface SearchDetails {
   flights: Array<Flight>;
@@ -28,7 +29,7 @@ export const defaultFlight: Flight = {
   'endType': ''
 };
 
-export interface SearchProps {
+export interface SearchProps extends WithTranslation {
   searchDetails: SearchDetails,
   defaultCurrency: string;
   setValue: typeof setValue;

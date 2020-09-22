@@ -16,26 +16,27 @@ interface DepartureDatePickerProps {
 
 export default function DepartureDatePicker(props: DepartureDatePickerProps) {
   const [errorText, setErrorText] = useState('');
-
-  useEffect(() => {
-    setErrorText(validateDate(props.departureDate));
-  });
-
+  
   const validateDate = (departureDate: string) => {
     return (props.previousDate ? departureDate < props.previousDate : false) ? 'Invalid departure date' : '';
   };
+
+  useEffect(() =>
+    setErrorText(validateDate(props.departureDate)), 
+  [validateDate, props.departureDate]);
+
+  
 
   const setDateChange = (dateEvent: any) => {
     if (dateEvent && !isNaN(dateEvent.valueOf())) {
       validateDate(dateEvent.toISOString());
     }
 
-    return dateEvent.valueOf() ? props.updateFlightValue(props.i, 'departureDate', dateEvent?.toISOString()!) : '';
-    //? isNaN(dateEvent.valueOf())
-    //  ? ''
-    //  : props.updateFlightValue(props.i, 'departureDate', dateEvent?.toISOString()!)
-    //: '';
-
+    return dateEvent
+      ? isNaN(dateEvent.valueOf())
+        ? ''
+        : props.updateFlightValue(props.i, 'departureDate', dateEvent?.toISOString()!)
+      : '';
   };
 
   return(

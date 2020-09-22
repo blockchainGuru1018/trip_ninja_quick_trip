@@ -119,9 +119,10 @@ class BookRequest extends React.Component<BookRequestProps> {
               variant="contained" 
               color="primary"
               className="book-button"
+              disableElevation
               disabled={this.props.authDetails.bookingDisabled}
-              onClick={ (e) => this.bookFlights(false, false)}>
-              Book
+              onClick={(e) => this.bookFlights(false, false)}>
+              Book and Save
             </Button>
           </span>
         </Tooltip>
@@ -138,16 +139,11 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled}
               disableElevation
-              onClick={ (e) => this.bookFlights(true, false)}>
+              onClick={(e) => this.bookFlights(true, false)}>
               Book and Queue
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
-        </Alert>
-        }
         <Tooltip title={this.props.authDetails.bookingDisabled ? 'Booking disabled - please contact your team admin' : ''} placement="top">  
           <span>
             <Button
@@ -156,16 +152,11 @@ class BookRequest extends React.Component<BookRequestProps> {
               className="book-button"
               disabled={this.props.authDetails.bookingDisabled || true}
               disableElevation
-              onClick={ (e) => this.bookFlights(false, true)}>
+              onClick={(e) => this.bookFlights(false, true)}>
               Book and Ticket
             </Button>
           </span>
         </Tooltip>
-        {!this.state.passengerDetailsValid &&
-        <Alert severity="error" className='validation-error-alert'>
-          Passenger details are not filled out properly - please review.
-        </Alert>
-        }
       </div>
     );
   }

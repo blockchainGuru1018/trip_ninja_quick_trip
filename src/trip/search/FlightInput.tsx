@@ -47,7 +47,8 @@ class FlightInput extends React.Component<FlightInputProps> {
       <div className="row flight-input">
         <div className="col-md-3 search-input" ref={"flightInputRef"}>
           <FormControl fullWidth>
-            <Autocomplete PopperComponent={this.FlightInputPopper}
+            <Autocomplete 
+              PopperComponent={this.FlightInputPopper}
               autoHighlight
               autoSelect
               debug
@@ -82,7 +83,8 @@ class FlightInput extends React.Component<FlightInputProps> {
         </div>
         <div className="col-md-3 search-input">
           <FormControl fullWidth>
-            <Autocomplete
+            <Autocomplete 
+              PopperComponent={this.FlightInputPopper}
               autoHighlight
               autoSelect
               forcePopupIcon={false}

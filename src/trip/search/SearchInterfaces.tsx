@@ -1,7 +1,7 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
   removeFlight, searchFlights }
   from '../../actions/SearchActions';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 
 export interface SearchDetails {
   flights: Array<Flight>;

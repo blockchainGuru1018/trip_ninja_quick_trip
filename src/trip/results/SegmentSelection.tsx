@@ -13,7 +13,6 @@ import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBran
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
-import Alert from '@material-ui/lab/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface MatchParams{

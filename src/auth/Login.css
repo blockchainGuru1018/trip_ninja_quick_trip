@@ -8,7 +8,7 @@
 }
 
 .marketing-panel {
-  padding: 250px 50px;
+  padding: 250px 50px 50px 50px;
 }
 
 .login-link {
@@ -48,4 +48,8 @@
 
 .marketing-description {
   padding-left: 0px;
+}
+
+.login-button-col {
+  padding: 0px;
 }

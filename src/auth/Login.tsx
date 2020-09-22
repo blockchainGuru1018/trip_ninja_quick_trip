@@ -18,10 +18,10 @@ class Login extends React.Component<LoginProps> {
       <div className="row">
         <div className="col-xl-4 col-lg-6 login-col">
           <div className="row">
-            <div className="col-xl-6">
+            <div className="col-sm-6">
               <img src={logo} width="133" height="40" className="logo-img" alt="" loading="lazy" />
             </div>
-            <div className="col-xl-6">
+            <div className="col-sm-6">
               <div className="float-right login-language-selector">
                 <LanguageSelector />
               </div>

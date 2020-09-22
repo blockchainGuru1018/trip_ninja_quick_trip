@@ -15,8 +15,9 @@ import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface ItineraryResultsProps {
+interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
   priceFlights: typeof priceFlights;
@@ -63,9 +64,9 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             flights={trip.flight_details}
             flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
           />
-          <h1 className="itinerary-title">Your Itinerary</h1>
+          <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>
           <h4>
-            <strong>Total: </strong>
+            <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
@@ -137,4 +138,4 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
 }
 
-export default ItineraryResult;
+export default withTranslation('common')(ItineraryResult);

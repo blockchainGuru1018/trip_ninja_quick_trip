@@ -6,8 +6,9 @@ import UserMenu from '../common/UserMenu';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import history from '../History';
 import LanguageSelector from '../common/LanguageSelector';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface NavBarProps {
+interface NavBarProps extends WithTranslation {
   logout: typeof logout
   authDetails: AuthDetails
 }
@@ -30,10 +31,10 @@ class NavBar extends React.Component<NavBarProps> {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <div className="nav-link" onClick={() => history.push('/search/')}>Flight Search<span className="sr-only">(current)</span></div>
+              <div className="nav-link" onClick={() => history.push('/search/')}>{this.props.t("common.navBar.flightSearch")}<span className="sr-only">(current)</span></div>
             </li>
             <li className="nav-item">
-              <div className="nav-link" onClick={() => history.push('/bookings/')}>Bookings<span className="sr-only">(current)</span></div>
+              <div className="nav-link" onClick={() => history.push('/bookings/')}>{this.props.t("common.navBar.bookings")}<span className="sr-only">(current)</span></div>
             </li>
           </ul>
         </div>
@@ -52,4 +53,4 @@ class NavBar extends React.Component<NavBarProps> {
   }
 }
 
-export default NavBar;
+export default withTranslation('common')(NavBar);

@@ -8,8 +8,9 @@ import FlightStops from '../../common/FlightStops';
 import FlightDetailsDrawer from './FlightDetailsDrawer';
 import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface ItineraryProps {
+interface ItineraryProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
 }
@@ -55,7 +56,7 @@ class Itinerary extends React.Component<ItineraryProps> {
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     return (
       <div>
-        <h5>Itinerary</h5>
+        <h5>{this.props.t("book.itinerary.title")}</h5>
         <div className="book-container">
           {this.displayItinerarySegments(selectedTrip, trip)}
           <div className="row">
@@ -71,4 +72,4 @@ class Itinerary extends React.Component<ItineraryProps> {
   }
 }
 
-export default Itinerary;
+export default withTranslation('common')(Itinerary);

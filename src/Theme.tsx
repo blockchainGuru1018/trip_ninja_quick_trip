@@ -43,6 +43,9 @@ const Theme = createMuiTheme({
           borderColor: '#CACDD6',
           borderBottom: 'solid 3px #0DBE7CEB'
         }
+      },
+      adornedStart: {
+        paddingLeft: '0px'
       }
     },
     MuiIconButton: {

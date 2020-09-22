@@ -53,7 +53,6 @@ class FlightInput extends React.Component<FlightInputProps> {
                   PopperComponent={this.FlightInputPopper}
                   autoHighlight
                   autoSelect
-                  debug
                   forcePopupIcon={false}
                   filterOptions={filterOptions}
                   id={"from-destination" + this.props.i}

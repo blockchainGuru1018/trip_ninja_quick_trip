@@ -14,8 +14,9 @@ import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { baggageLabel } from '../helpers/BaggageHelper';
 import { BookingSegment } from '../bookings/BookingsInterfaces';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FareRulesProps {
+interface FareRulesProps extends WithTranslation {
   segment?: Segment;
   bookingSegment?: BookingSegment
   flightDetails: Array<FlightResultsDetails>;
@@ -45,10 +46,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
       <div key={this.props.index?.toString()}>
         {!this.props.itineraryDisplay && 
           <div>
-            <p className="text-center text-bold">Fare Rules</p>
+            <p className="text-center text-bold">{this.props.t("common.fareRulesPreview.title")}</p>
             <p className="text-center text-small">
               {
-                'Selected Fare Family: ' +
+                this.props.t("common.fareRulesPreview.selectedFareFamily") + ': ' +
                 (this.props.segment!.brands
                   ? firstLetterCapital(this.getBrand().name)
                   : 'Default')
@@ -60,37 +61,37 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
             <div className='row text-small'>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Carry on baggage" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.cabinBaggage").toString()} placement="top">
                   <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
                 </Tooltip>
-                <span className='icon-label'>Cabin Baggage {this.state.carryOn > 0 ? 'Included' : 'Not Included'}</span>
+                <span className='icon-label'>{this.props.t("common.fareRulesPreview.cabinBaggage")} {this.state.carryOn > 0 ? this.props.t("common.fareRulesPreview.included") : this.props.t("common.fareRulesPreview.notIncluded")}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Change penalty" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.changePenalty").toString()} placement="top">
                   <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
                 </Tooltip>
                 <span className="icon-label">{this.state.changePenalty ? this.state.changePenalty : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Fare type" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.fareType").toString()} placement="top">
                   <ConfirmationNumberOutlinedIcon color="primary"/>
                 </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: '-'}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Wifi availability" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.wifiTitle").toString()} placement="top">
                   <WifiIcon color={this.setIconColor(this.state.wifi)}/>
                 </Tooltip>
-                <span className="icon-label">Wifi</span>
+                <span className="icon-label">{this.props.t("common.fareRulesPreview.wifi")}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Seat selection" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.seatSelection").toString()} placement="top">
                   <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
                 </Tooltip>
                 <span className="icon-label">{this.state.seatAssignment ? this.state.seatAssignment : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Checked bags" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.checkedBags").toString()} placement="top">
                   <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>
                 </Tooltip>
                 <span className="icon-label">
@@ -98,19 +99,19 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Cancellation penalty" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.cancellationPenalty").toString()} placement="top">
                   <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
                 </Tooltip>
                 <span className="icon-label">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Fare source" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.fareSource").toString()} placement="top">
                   <LanguageIcon color="primary"/>
                 </Tooltip>
                 <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</span>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title="Booking code" placement="top">
+                <Tooltip title={this.props.t("common.fareRulesPreview.bookingCode").toString()} placement="top">
                   <ClassIcon color="primary"/>
                 </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
@@ -121,7 +122,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         {!this.props.itineraryDisplay &&
           <div className="row">
             <div className="col-md-10 offset-md-2">
-              <p className="text-small">*Edit fare family from the flight selection</p>
+              <p className="text-small">{this.props.t("common.fareRulesPreview.editFareFamily")}</p>
             </div>
           </div>
         }
@@ -151,7 +152,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
       total += flight.booking_code;
       return index !== this.props.segment!.flights.length - 1
         ? total += ', '
-        : total += ' Class';
+        : total += ' '+ this.props.t("common.fareRulesPreview.bookingClass");
     }, '');
 
   setNumBaggage = () => {
@@ -193,9 +194,9 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
       wifi = brandServices.wifi || false;
       seatAssignment = brandServices.seat_assignment
         ? brandServices.seat_assignment === '$'
-          ? 'At a cost'
-          : 'Available'
-        : 'Unavailable';
+          ? this.props.t("common.fareRulesPreview.atACost")
+          : this.props.t("common.fareRulesPreview.available")
+        : this.props.t("common.fareRulesPreview.unavailable");
       carryOn = brandServices.carry_on_hand_baggage || -1;
     }
     this.setState({
@@ -209,4 +210,4 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 }
 
-export default FareRulesPreview;
+export default withTranslation('common')(FareRulesPreview);

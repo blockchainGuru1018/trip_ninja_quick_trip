@@ -111,7 +111,8 @@ class Search extends React.Component<SearchProps> {
   onAddFlight = async () => {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
-    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin});
+    const departureDate: string = flights[flights.length - 1].departureDate; 
+    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
     addFlight.then(() => this.setInputFocus());
   }
 

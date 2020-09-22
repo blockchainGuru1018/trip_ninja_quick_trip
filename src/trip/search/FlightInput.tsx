@@ -45,99 +45,107 @@ class FlightInput extends React.Component<FlightInputProps> {
 
     return (
       <div className="row flight-input">
-        <div className="col-md-3 search-input" ref={"flightInputRef"}>
-          <FormControl fullWidth>
-            <Autocomplete 
-              PopperComponent={this.FlightInputPopper}
-              autoHighlight
-              autoSelect
-              debug
-              forcePopupIcon={false}
-              filterOptions={filterOptions}
-              id={"from-destination" + this.props.i}
-              options={this.state.destinations}
-              getOptionLabel={(option: any) => option.name}
-              onChange={(_, values) => {
-                this.setState({'originOpen': false});
-                this.updateFlightType(values, 'origin');
-              }}
-              open={this.state.originOpen}
-              value={this.getDestinationByName(flight.origin) || null}
-              renderInput={(params) =>
-                <TextField {...params}
-                  variant="outlined"
-                  placeholder={this.props.t("search.flightInput.origin")}
-                  onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FlightTakeoff color="primary"/>
-                      </InputAdornment>
-                    ),
+        <div className="col-md-7 no-padding">
+          <div className="row">
+            <div className="col-md-6 search-input" ref={"flightInputRef"}>
+              <FormControl fullWidth>
+                <Autocomplete 
+                  PopperComponent={this.FlightInputPopper}
+                  autoHighlight
+                  autoSelect
+                  debug
+                  forcePopupIcon={false}
+                  filterOptions={filterOptions}
+                  id={"from-destination" + this.props.i}
+                  options={this.state.destinations}
+                  getOptionLabel={(option: any) => option.name}
+                  onChange={(_, values) => {
+                    this.setState({'originOpen': false});
+                    this.updateFlightType(values, 'origin');
                   }}
+                  open={this.state.originOpen}
+                  value={this.getDestinationByName(flight.origin) || null}
+                  renderInput={(params) =>
+                    <TextField {...params}
+                      variant="outlined"
+                      placeholder={this.props.t("search.flightInput.origin")}
+                      onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
+                      InputProps={{
+                        ...params.InputProps,
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <FlightTakeoff color="primary"/>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  }
                 />
-              }
-            />
-          </FormControl>
-        </div>
-        <div className="col-md-3 search-input">
-          <FormControl fullWidth>
-            <Autocomplete 
-              PopperComponent={this.FlightInputPopper}
-              autoHighlight
-              autoSelect
-              forcePopupIcon={false}
-              filterOptions={filterOptions}
-              id={"to-destination" + this.props.i}
-              options={this.state.destinations}
-              getOptionLabel={(option) => option.name}
-              open={this.state.destinationOpen}
-              onChange={(_, values) => {
-                this.setState({'destinationOpen': false});
-                this.updateFlightType(values, 'destination');
-              }}
-              value={this.getDestinationByName(flight.destination) || null}
-              renderInput={(params) =>
-                <TextField {...params}
-                  variant="outlined"
-                  placeholder={this.props.t("search.flightInput.destination")}
-                  onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FlightLand color="primary"/>
-                      </InputAdornment>
-                    ),
+              </FormControl>
+            </div>
+            <div className="col-md-6 search-input">
+              <FormControl fullWidth>
+                <Autocomplete 
+                  PopperComponent={this.FlightInputPopper}
+                  autoHighlight
+                  autoSelect
+                  forcePopupIcon={false}
+                  filterOptions={filterOptions}
+                  id={"to-destination" + this.props.i}
+                  options={this.state.destinations}
+                  getOptionLabel={(option) => option.name}
+                  open={this.state.destinationOpen}
+                  onChange={(_, values) => {
+                    this.setState({'destinationOpen': false});
+                    this.updateFlightType(values, 'destination');
                   }}
+                  value={this.getDestinationByName(flight.destination) || null}
+                  renderInput={(params) =>
+                    <TextField {...params}
+                      variant="outlined"
+                      placeholder={this.props.t("search.flightInput.destination")}
+                      onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
+                      InputProps={{
+                        ...params.InputProps,
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <FlightLand color="primary"/>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  }
                 />
-              }
-            />
-          </FormControl>
-        </div>
-        <div className="col-md-3 search-input">
-          <DepartureDatePicker
-            i={this.props.i}
-            departureDate={flight.departureDate}
-            updateFlightValue={this.props.updateFlightValue}
-            dateFormat={this.props.dateFormat}
-            previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
-          />
-        </div>
-        <div className="col-md-2 col-sm-10 search-input cabin-selector-container">
-          <CabinSelect
-            i={this.props.i}
-            cabinClass={flight.cabinClass}
-            updateFlightValue={this.props.updateFlightValue}/>
-        </div>
-        {this.props.flights.length > 1
-          && <div className='col-md-1 col-sm-2 flight-remove-container'>
-            <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
-              <CloseIcon fontSize="large" color="secondary"/>
-            </IconButton>
+              </FormControl>
+            </div>
           </div>
-        }
+        </div>
+        <div className="col-md-5 no-padding">
+          <div className="row">
+            <div className="col-md-5 search-input">
+              <DepartureDatePicker
+                i={this.props.i}
+                departureDate={flight.departureDate}
+                updateFlightValue={this.props.updateFlightValue}
+                dateFormat={this.props.dateFormat}
+                previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
+              />
+            </div>
+            <div className="col-md-5 col-sm-10 search-input cabin-selector-container">
+              <CabinSelect
+                i={this.props.i}
+                cabinClass={flight.cabinClass}
+                updateFlightValue={this.props.updateFlightValue}/>
+            </div>
+            {this.props.flights.length > 1
+              && <div className='col-md-2 col-sm-2 flight-remove-container'>
+                <IconButton onClick={() => this.props.removeFlight(this.props.i)}>
+                  <CloseIcon fontSize="large" color="secondary"/>
+                </IconButton>
+              </div>
+            }
+          </div>
+        </div>
       </div>
     );
   }

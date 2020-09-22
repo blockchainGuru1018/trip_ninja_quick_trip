@@ -47,7 +47,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
   render() {
     return(
       <FormControl fullWidth>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
           <KeyboardDatePicker
             autoOk
             disableToolbar

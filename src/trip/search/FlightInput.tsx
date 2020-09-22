@@ -15,8 +15,9 @@ import { updateFlightValue, removeFlight }
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FlightInputProps {
+interface FlightInputProps extends WithTranslation {
   i: number;
   updateFlightValue: typeof updateFlightValue;
   removeFlight: typeof removeFlight;
@@ -64,7 +65,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
-                  placeholder="From"
+                  placeholder={this.props.t("search.flightInput.origin")}
                   onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
                   InputProps={{
                     ...params.InputProps,
@@ -98,7 +99,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               renderInput={(params) =>
                 <TextField {...params}
                   variant="outlined"
-                  placeholder="To"
+                  placeholder={this.props.t("search.flightInput.destination")}
                   onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
                   InputProps={{
                     ...params.InputProps,
@@ -154,4 +155,5 @@ class FlightInput extends React.Component<FlightInputProps> {
   }
 }
 
-export default FlightInput;
+export default withTranslation('common')(FlightInput);
+

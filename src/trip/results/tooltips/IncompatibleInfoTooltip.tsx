@@ -3,6 +3,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import InfoIcon from '@material-ui/icons/Info';
 import { Segment } from '../ResultsInterfaces';
+import { useTranslation } from 'react-i18next';
 
 const HtmlTooltip = withStyles((theme: Theme) => ({
   tooltip: {
@@ -22,6 +23,7 @@ interface IncompatibleInfoTooltipProps {
   pathSequence: Array<string>;
 }
 export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipProps) {
+  const [ t ] = useTranslation('common');
 
   const removeValue = (array: Array<number>, item: number) => {
     var index = array.indexOf(item);
@@ -38,7 +40,7 @@ export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipPr
     return (
       <div>
         <h5 className='standard-text'>
-          {`Segment ${difference+1}: ${props.pathSequence[difference]}`}
+          {t('results.tooltips.incompatibleInfoTooltip.segment') + ` ${difference+1}: ${props.pathSequence[difference]}`}
         </h5>
       </div>
     );
@@ -48,7 +50,7 @@ export default function IncompatibleInfoTooltip(props: IncompatibleInfoTooltipPr
     <HtmlTooltip
       title={
         <React.Fragment>
-          <h5 className='bold-text'>Selecting this segment will affect the following segments:</h5>
+          <h5 className='bold-text'>{t('results.tooltips.incompatibleInfoTooltip.selectionImpact')}</h5>
           {segmentDifferences.map((difference: number) => getDifferenceHTML(difference))}
         </React.Fragment>
       }

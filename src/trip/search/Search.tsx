@@ -11,6 +11,7 @@ import './Search.css';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
+import { withTranslation } from 'react-i18next';
 
 const AddFlightButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -31,9 +32,7 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) => {
         return <FlightInput
-          key={index}
           i={index}
-          ref={'flightInput' + index}
           updateFlightValue={this.props.updateFlightValue}
           flights={this.props.searchDetails.flights}
           removeFlight={this.props.removeFlight}
@@ -48,7 +47,7 @@ class Search extends React.Component<SearchProps> {
           ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
             <div className="row">
               <div className="col-xl">
-                <h1 className="flight-search-header">Flight Search</h1>
+                <h1 className="flight-search-header">{this.props.t("search.search.header")}</h1>
               </div>
             </div>        
             {flights}
@@ -56,14 +55,14 @@ class Search extends React.Component<SearchProps> {
               <div className="col-xl add-flight-btn-container">
                 <AddFlightButton
                   onClick={this.onAddFlight}>
-                  Add Flight
+                  {this.props.t("search.search.addFlightButton")}
                 </AddFlightButton>
               </div>
             </div>            
             <div className="row">
               <div className="col-xl">
                 <hr/>
-                <h4>Additional Details</h4>
+                <h4>{this.props.t("search.search.additionalDetailsHeader")}</h4>
               </div>
             </div>            
             <div className="row">
@@ -130,4 +129,4 @@ class Search extends React.Component<SearchProps> {
   }
 }
 
-export default Search;
+export default withTranslation('common')(Search);

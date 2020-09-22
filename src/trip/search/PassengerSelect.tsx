@@ -73,7 +73,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
 
   const passengerMenu = props.passengers.map((passenger, index) => (
     <PassengerMenuItem key={index} disableRipple>
-      <ListItemText primary={passenger.type} />
+      <ListItemText primary={t('commonWords.passengerTypes.'+passenger.code)} />
       <IconButton onClick={() =>
         props.updatePassengers(passenger.type, -1)
       }>
@@ -102,7 +102,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
         onClick={handleClick}
       >
         <PersonAddOutlinedIcon color="primary" className="passengers-icon"/>
-        {t('Passengers')}
+        {t('commonWords.passengers')}
       </Button>
       <StyledMenu
         id="customized-menu"

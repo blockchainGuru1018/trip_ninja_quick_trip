@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
 import { setErrorDetails } from '../../actions/ResultsActions';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,20 +26,20 @@ interface CancellingErrorModalProps {
 
 export default function CancellingErrorModal(props: CancellingErrorModalProps) {
   const classes = useStyles();
+  const [ t ] = useTranslation('common');
 
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>Cancellation failed</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>{t('common.modals.cancellingErrorModal.title')}</h2>
       <div className='search-modal-text-container'>
-        <p>
-          There was an error cancelling this itinerary, please try again later or cancel directly with data source.
+        <p>{t('common.modals.cancellingErrorModal.body')}
         </p>
         <Button
           onClick={() => (props.setErrorDetails(false, 'cancelling'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>
-          Return to Booking Overview
+          {t('common.modals.cancellingErrorModal.return')}
         </Button>
       </div>
     </div>

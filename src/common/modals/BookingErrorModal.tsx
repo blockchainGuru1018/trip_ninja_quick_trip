@@ -4,6 +4,7 @@ import './Modals.css';
 import Button from '@material-ui/core/Button';
 import { setErrorDetails } from '../../actions/ResultsActions';
 import history from '../../History';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,6 +27,7 @@ interface BookingErrorModalProps {
 
 export default function BookingErrorModal(props: BookingErrorModalProps) {
   const classes = useStyles();
+  const [ t ] = useTranslation('common');
 
   const bookingErrorButton = () => {
     props.setErrorDetails(false, 'booking');
@@ -34,17 +36,15 @@ export default function BookingErrorModal(props: BookingErrorModalProps) {
 
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>Booking failed</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>{t('common.modals.bookingErrorModal.title')}</h2>
       <div className='search-modal-text-container'>
-        <p>
-          This booking was unable to be processed, try different flights or re-running the search.
-        </p>
+        <p>{t('common.modals.bookingErrorModal.body')}</p>
         <Button
           onClick={() => bookingErrorButton()}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>
-          Return to Results
+          {t('common.modals.bookingErrorModal.return')}
         </Button>
       </div>
     </div>

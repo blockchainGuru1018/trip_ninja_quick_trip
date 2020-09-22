@@ -7,7 +7,7 @@ import { login } from '../actions/AuthActions';
 import logo from '../assets/images/trip_ninja_logo.png';
 import LanguageSelector from '../common/LanguageSelector';
 
-interface LoginProps {
+interface LoginProps{
   authDetails: AuthDetails
   login: typeof login
 }

@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
 import { setErrorDetails } from '../../actions/ResultsActions';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,20 +26,19 @@ interface PricingErrorModalProps {
 
 export default function PricingErrorModal(props: PricingErrorModalProps) {
   const classes = useStyles();
-
+  const [ t ] = useTranslation('common');
+  
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>Price confirm failed</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>{t('common.modals.pricingErrorModal.title')}</h2>
       <div className='search-modal-text-container'>
-        <p>
-          These flights are no longer available, please try confirming a different flight option or re-running the search.
-        </p>
+        <p>{t('common.modals.pricingErrorModal.body')}</p>
         <Button
           onClick={() => (props.setErrorDetails(false, 'pricing'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>
-          Return to Results
+          {t('common.modals.pricingErrorModal.return')}
         </Button>
       </div>
     </div>

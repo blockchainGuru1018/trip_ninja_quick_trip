@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SearchRequest from './SearchRequest';
+import  { SearchRequest } from './SearchRequest';
 import TripPath from './TripPath';
-import CabinSelect from './CabinSelect';
+import { CabinSelect } from './CabinSelect';
 import { SearchDetails, Flight, defaultSearchDetails } from './SearchInterfaces';
 import { searchFlights, updateFlightValue } from '../../actions/SearchActions';
 import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
@@ -67,7 +67,10 @@ test('datesAreOnSameDayOrLater', () => {
 });
 
 const validateSearchTest = (searchDetails: SearchDetails) => {
-  const component: any = shallow(<SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} />);
+  const component: any = shallow(
+    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights}
+                   t={(key: any) => key} />
+  );
   const instance = component.instance();
   return instance.validateSearchDetails();
 };
@@ -114,7 +117,11 @@ test('checkForOriginDestinationPair', () => {
 
 test('getCabinClassByName', () => {
   const cabinSelectComponent: any = shallow(
-    <CabinSelect  i={0} cabinClass={"E"} updateFlightValue={updateFlightValue} />
+    <CabinSelect  i={0}
+                  cabinClass={"E"}
+                  updateFlightValue={updateFlightValue}
+                  t={(key: any) => key}
+    />
   );
   const instance = cabinSelectComponent.instance();
   expect(instance.getCabinClassByName()).toBe("E");

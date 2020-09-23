@@ -16,7 +16,7 @@ interface PreResultsProps extends WithTranslation {
   setActiveSegments: typeof setActiveSegments;
 }
 
-class PreResults extends React.Component<PreResultsProps> {
+export class PreResults extends React.Component<PreResultsProps> {
   state = {
     flexPrice: 0,
     farePrice: 0,

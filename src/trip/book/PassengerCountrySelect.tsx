@@ -12,7 +12,7 @@ interface PassengerCountrySelectProps extends WithTranslation {
   country?: string;
 }
 
-class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps> {
+export class PassengerCountrySelect extends React.Component<PassengerCountrySelectProps> {
   state = {
     countries: CountryList
   }

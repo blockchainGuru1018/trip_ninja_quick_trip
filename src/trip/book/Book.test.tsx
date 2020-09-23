@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { bookFlights, updatePassengerInfo } from '../../actions/BookActions';
-import BookRequest from './BookRequest';
-import PassengerCountrySelect from './PassengerCountrySelect';
-import PassengerDetailsModal from './PassengerDetailsModal'; 
+import { BookRequest } from './BookRequest';
+import { PassengerCountrySelect } from './PassengerCountrySelect';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
@@ -111,6 +110,7 @@ test('bookRequestComponent', () => {
       pricingDetails={testPricingDetails}
       resultsDetails={testResultsDetails}
       bookFlights={bookFlights}
+      t={(key: any) => key}
     />
   );
 
@@ -126,6 +126,7 @@ test('passengerCountrySelectComponent', () => {
       index={0}
       updatePassengerInfo={updatePassengerInfo}
       country={"AU"}
+      t={(key: any) => key}
     />
   );
 

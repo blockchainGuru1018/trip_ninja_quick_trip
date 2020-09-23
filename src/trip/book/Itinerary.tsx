@@ -9,6 +9,9 @@ import FlightDetailsDrawer from './FlightDetailsDrawer';
 import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import localeMap from '../../localeMap';
+import { format } from 'date-fns';
 
 interface ItineraryProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -21,7 +24,7 @@ class Itinerary extends React.Component<ItineraryProps> {
     return(
       <div className="row segment-container" key={index.toString()}>
         <p className="segment-date">
-          <Moment format="MMMM Do YYYY">{segmentFlightDetails[0].departure_time}</Moment>
+          {format(new Date(segmentFlightDetails[0].departure_time), this.props.t("book.itinerary.dateFormat"), {locale:localeMap[i18n.language]})}
         </p>
         <div className='row col-md-12'>
           <div className="row itinerary-segment col-md-12">

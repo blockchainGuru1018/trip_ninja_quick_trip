@@ -11,7 +11,7 @@ interface SegmentOriginDestinationProps {
 class SegmentOriginDestination extends React.Component<SegmentOriginDestinationProps> {
   render() {
     return (
-      <div className={(this.props.itineraryDisplay ? ' col-sm-3' : 'col-sm-2') + ' my-auto no-pad-left'}>
+      <div className={(this.props.itineraryDisplay ? ' col-sm-3 no-pad-left' : 'col-sm-2') + ' my-auto'}>
         <p className={'origin-destination flight-preview-grey-border' + (this.props.itineraryDisplay ? ' text-center' : '')} >{this.props.segment.origin}
           <span className="circle-divider">•</span>{this.props.segment.destination} 
         </p>

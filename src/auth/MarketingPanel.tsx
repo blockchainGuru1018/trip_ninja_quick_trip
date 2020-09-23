@@ -16,24 +16,25 @@ class MarketingPanel extends React.Component<WithTranslation> {
     return (
       <div className="row">
         <div className="col-xl-6">
-          <h1>{this.props.t("auth.marketingPanel.header")}</h1>
+          <h1>{this.props.t("auth.marketingPanel.header")}</h1>  
           <div className="row">
-            <div className="col-xl marketing-description">
-              <h4 className="marketing-description">{this.props.t("auth.marketingPanel.description")}</h4>
-              <MarketingButton
-                color="secondary"
-                variant="contained"
-                id="website-link-button"
-                size="large"
-                href="https://www.tripninja.io/book-a-demo"
-              >
-                {this.props.t("auth.marketingPanel.callToAction")}
-              </MarketingButton>
+            <div className="col-sm-9 marketing-description">
+              <h4>{this.props.t("auth.marketingPanel.description")}</h4>
             </div>
           </div>
+          <MarketingButton
+            color="secondary"
+            variant="contained"
+            id="website-link-button"
+            size="large"
+            href="https://www.tripninja.io/book-a-demo"
+          >
+            {this.props.t("auth.marketingPanel.callToAction")}
+          </MarketingButton>
+
         </div>
         <div className="col-xl-6">
-          <img src={marketingImage} width="100%" alt="" />
+          <img src={marketingImage} width="100%" alt="trip-ninja-marketing" />
         </div>        
       </div>
     );

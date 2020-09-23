@@ -60,10 +60,10 @@ class LoginForm extends React.Component<LoginFormProps> {
                     onChange={e => this.setState({'password': e.target.value})}/>
                   {this.props.invalidAuth && <Alert severity="error">{this.props.t("auth.loginForm.loginFail")}</Alert>}
                   <div className="row login-button-row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-7 no-pad-left">
                       <a href={getAdminUrl()} className="login-link">{this.props.t("auth.loginForm.forgotPassword")}</a>
                     </div>
-                    <div className="col-sm-6">
+                    <div className="col-sm-5 login-button-col">
                       <Button
                         disableElevation
                         variant="contained"

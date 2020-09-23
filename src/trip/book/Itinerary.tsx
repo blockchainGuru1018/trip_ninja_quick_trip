@@ -6,7 +6,6 @@ import FlightTime from '../../common/FlightTime';
 import SegmentBaggage from '../../common/SegmentBaggage';
 import FlightStops from '../../common/FlightStops';
 import FlightDetailsDrawer from './FlightDetailsDrawer';
-import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import i18n from '../../i18n';

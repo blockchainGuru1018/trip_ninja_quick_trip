@@ -8,6 +8,9 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { updateFlightValue } from '../../actions/SearchActions';
+import i18n from '../../i18n';
+import localeMap from '../../localeMap';
+
 
 interface DepartureDatePickerProps {
   i: number;
@@ -47,7 +50,7 @@ class DepartureDatePicker extends React.Component<DepartureDatePickerProps> {
   render() {
     return(
       <FormControl fullWidth>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[i18n.language]}>
           <KeyboardDatePicker
             disableToolbar
             disablePast

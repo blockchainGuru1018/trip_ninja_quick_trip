@@ -121,7 +121,7 @@ class FlightInput extends React.Component<FlightInputProps> {
         </div>
         <div className="col-md-5 no-padding">
           <div className="row">
-            <div className="col-md-5 search-input">
+            <div className="col-md-6 search-input">
               <DepartureDatePicker
                 i={this.props.i}
                 departureDate={flight.departureDate}
@@ -130,7 +130,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                 previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
               />
             </div>
-            <div className="col-md-5 col-sm-10 search-input cabin-selector-container">
+            <div className="col-md-4 col-sm-10 search-input cabin-selector-container">
               <CabinSelect
                 i={this.props.i}
                 cabinClass={flight.cabinClass}

@@ -51,13 +51,13 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
 
     return (
       <div id="segment-selection">
-        <div className="results-header">
-          <ResultsHeader 
-            segments={selectedTrip} 
-            pathSequence={trip.path_sequence}
-            flights={trip.flight_details}
-            flexTripResults={false}
-          />
+        <ResultsHeader 
+          segments={selectedTrip} 
+          pathSequence={trip.path_sequence}
+          flights={trip.flight_details}
+          flexTripResults={false}
+        />
+        <div className="results-section-header sticky-top">
           <h1>
             {trip.path_sequence[segmentIndex].substring(0, 3)}
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>

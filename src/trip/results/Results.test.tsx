@@ -200,8 +200,9 @@ test('getFlightDetailsBySegment', () => {
 
 test('getFlightTypes', () => {
   const flightTypesComponent: any = shallow(
-    <FlightTypes segment={testResults.segments[0][0]}
-                 t={(key: any) => key}
+    <FlightTypes 
+      segment={testResults.segments[0][0]}
+      t={(key: any) => key}
     />
   ).instance();
   expect(
@@ -238,11 +239,12 @@ test('createPassengerStringFromPayload', () => {
 
 test('checkFlexTripRouteIsSame', () => {
   const preResultsComponent: any = shallow(
-    <PreResults resultsDetails={testResultsDetails} 
-                currency="USD"
-                setTripType={setTripType}
-                setActiveSegments={setActiveSegments}
-                t={(key: any) => key}
+    <PreResults 
+      resultsDetails={testResultsDetails} 
+      currency="USD"
+      setTripType={setTripType}
+      setActiveSegments={setActiveSegments}
+      t={(key: any) => key}
     />
   );
   const instance = preResultsComponent.instance();

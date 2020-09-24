@@ -5,6 +5,9 @@ import FormControl from '@material-ui/core/FormControl';
 import TodayIcon from '@material-ui/icons/Today';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { updateFlightValue } from '../../actions/SearchActions';
+import i18n from '../../i18n';
+import localeMap from '../../localeMap';
+
 
 interface DepartureDatePickerProps {
   i: number;
@@ -35,7 +38,7 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
 
   return(
     <FormControl fullWidth>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} >
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[i18n.language]}>
         <KeyboardDatePicker
           autoOk
           disableToolbar

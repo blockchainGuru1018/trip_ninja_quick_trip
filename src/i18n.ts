@@ -16,10 +16,10 @@ i18n
     },
     resources: {
       en_uk: {
-        common: common_en_uk
+        common: common_en_uk,
       },
       es: {
-        common: common_es
+        common: common_es,
       }
     },
   });

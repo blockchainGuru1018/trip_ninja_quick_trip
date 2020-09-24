@@ -4,7 +4,6 @@ import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
-import Moment from "react-moment";
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
 import {
@@ -16,7 +15,9 @@ import {
   TimelineSeparator
 } from "@material-ui/lab";
 import { useTranslation } from 'react-i18next';
-
+import i18n from '../i18n';
+import localeMap from '../localeMap';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {
@@ -96,7 +97,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:localeMap[i18n.language]}) : ''}</p>
     );
   };
 

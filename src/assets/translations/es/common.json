@@ -92,6 +92,7 @@
             "class": "Clase"
         },
         "itineraryDetails": {
+            "dateFormat": "eeee e MMM, yyy",
             "bookingDetailsHeader": "Detalles de Reservacion",
             "flightDetailsHeader": "Detalles de Vuelo",
             "informationNotAvailable": "Informacion no disponible",
@@ -181,6 +182,7 @@
             "reorderDestinationsPrompt": "Reordenar destinos para ahorrar hasta: $"
         },
         "resultsHeader":{
+            "dateFormat": "d MMM",
             "backToFlexTrip": "Ver resultados de FlexTrip",
             "changeSearch": "Cambiar Búsqueda"
         },
@@ -276,7 +278,8 @@
             "openButton": "Ver Detalles de Vuelos"
         },
         "itinerary":{
-            "title": "Itinerario"
+            "title": "Itinerario",
+            "dateFormat": "d MMM yyy"
         },
         "passengerCountrySelect":{
             "nationality": "Nacionalidad"
@@ -324,6 +327,7 @@
             "title": "Bookings"
         },
         "bookingsTable": {
+            "dateFormat": "M MMM, Y",
             "noBookings": "No hay reservaciones!",
             "pnrNumbers": "Numeros de PNR",
             "passenger1": "Pasajero 1",

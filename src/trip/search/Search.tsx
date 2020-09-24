@@ -15,6 +15,10 @@ import { withTranslation } from 'react-i18next';
 
 const AddFlightButton = styled(Button)({
   color: 'var(--tertiary)',
+  '&:hover': {
+    backgroundColor: '#ffffff',
+    opacity: '0.7'
+  }
 });
 
 

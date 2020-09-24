@@ -182,7 +182,7 @@
             "reorderDestinationsPrompt": "Reorder destinations to save up to: $"
         },
         "resultsHeader":{
-            "dateFormat": "MMM L",
+            "dateFormat": "MMM d",
             "backToFlexTrip": "Back To FlexTrip Results",
             "changeSearch": "Change Search"
         },

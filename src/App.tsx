@@ -36,6 +36,7 @@ import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
 import TagManager from 'react-gtm-module';
+import i18n from './i18n';
 
 //Google Tag Manager
 const tagManagerArgs = {
@@ -94,8 +95,12 @@ class App extends React.Component<IAppProps> {
 
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
-    if(token !== '') {
+    if (token !== '') {
       this.props.fetchUserParameters();
+    }
+    const language: string = localStorage.getItem('language') || '';
+    if (language !== '') {
+      i18n.changeLanguage(language);
     }
   }
 

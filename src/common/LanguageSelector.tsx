@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import i18n from '../i18n';
-import { CircleFlag } from 'react-circle-flags'
+import { CircleFlag } from 'react-circle-flags';
 
 
 export default function LanguageSelector() {
@@ -14,8 +14,8 @@ export default function LanguageSelector() {
   ];
 
   const getCountryCode = (code: string) => {
-    const languageObject = languages.find((language: any) => language.languageCode===code)
-    return languageObject ? languageObject.countryCode : "gb"
+    const languageObject = languages.find((language: any) => language.languageCode===code);
+    return languageObject ? languageObject.countryCode : "gb";
   };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,6 +29,7 @@ export default function LanguageSelector() {
     setAnchorEl(null);
     setLanguage(value);
     i18n.changeLanguage(value);
+    localStorage.setItem('language', value);
   };
 
   const handleClose = (value: string) => {

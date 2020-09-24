@@ -18,7 +18,7 @@ interface SearchRequestProps extends WithTranslation {
   searchFlights: typeof searchFlights
 }
 
-class SearchRequest extends React.Component<SearchRequestProps> {
+export class SearchRequest extends React.Component<SearchRequestProps> {
   state = {
     searchDetailsValid: true
   }

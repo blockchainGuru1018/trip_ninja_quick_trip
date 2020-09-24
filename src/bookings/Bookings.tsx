@@ -20,7 +20,7 @@ interface BookingsProps extends WithTranslation {
   ticketBooking: typeof ticketBooking;
 }
 
-class Bookings extends React.Component<BookingsProps> {
+export class Bookings extends React.Component<BookingsProps> {
   componentDidMount() {    
     this.props.getBookingsList(this.getUserType());
   }

@@ -38,7 +38,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex]);
+    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex], true);
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const filteredCompatibleSegments: Array<Segment> = compatibleSegments.filter((segment: Segment) => !segment.filtered);
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');

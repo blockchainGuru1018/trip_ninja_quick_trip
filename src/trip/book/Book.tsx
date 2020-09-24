@@ -50,10 +50,10 @@ class Book extends React.Component<BookProps> {
               {this.props.t("book.book.return")}
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-sm-6">
+              <div className="col-md-6">
                 <h1>{this.props.t("book.book.title")}</h1>
               </div>
-              <div className="col-sm-6">
+              <div className="col-md-6">
                 <BookRequest
                   resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
@@ -65,13 +65,13 @@ class Book extends React.Component<BookProps> {
             </div>
           </div>
           <div className="row itinerary-details">
-            <div className="col-sm-7">
+            <div className="col-md-7">
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
               />
             </div>
-            <div className="col-sm-5">
+            <div className="col-md-5">
               <FareBreakdown 
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}

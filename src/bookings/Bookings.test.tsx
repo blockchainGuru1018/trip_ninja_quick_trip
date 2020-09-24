@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Bookings from './Bookings';
+import { Bookings } from './Bookings';
 import { AuthDetails, defaultAuth } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
@@ -24,6 +24,7 @@ it('getUserTypeAdmin', () => {
       getBookingDetails={getBookingDetails}
       cancelBooking={cancelBooking}
       queueBooking={queueBooking}
+      t={(key: any) => key}
     />
   );
   const instance = bookingsComponent.instance();
@@ -41,6 +42,7 @@ it('getUserTypeAgent', () => {
       getBookingDetails={getBookingDetails}
       cancelBooking={cancelBooking}
       queueBooking={queueBooking}
+      t={(key: any) => key}
     />
   );
   const instance = bookingsComponent.instance();

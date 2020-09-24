@@ -19,7 +19,7 @@ interface BookRequestProps extends WithTranslation {
   bookFlights: typeof bookFlights
 }
 
-class BookRequest extends React.Component<BookRequestProps> {
+export class BookRequest extends React.Component<BookRequestProps> {
   state = {
     passengerDetailsValid: true
   }

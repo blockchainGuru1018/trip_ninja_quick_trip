@@ -45,7 +45,7 @@ export const allianceFilter = (segment: Segment, filter: Filter) => {
 export const checkFilteredLength = (segments: Array<Segment>) => 
   segments.filter((segment: Segment) => !segment.filtered).length;
 
-export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>) => {
+export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>, segmentLevelFilter: boolean = false) => {
   resetFilters(segments);
   const filterMap = {
     baggage: baggageFilter,
@@ -57,7 +57,7 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>)
     const filterType = filterMap[filter.type];
     let segments_copy = cloneDeep(segments);
     setSegmentFilterStatus(filterType, filter, segments);
-    if (filter.failed || checkFilteredLength(segments) === 0) {
+    if ((filter.failed || checkFilteredLength(segments) === 0) && !segmentLevelFilter) {
       filter.failed = true;
       segments = segments_copy;
       setSegmentFilterStatus(filterType, filter, segments);

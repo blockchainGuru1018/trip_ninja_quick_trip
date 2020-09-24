@@ -62,7 +62,7 @@ export const defaultSearchDetails: SearchDetails = {
   ],
   currency: 'USD',
   passengers: defaultPassengerList,
-  routeFlexible: false,
+  routeFlexible: true,
   loading: false,
 };
 

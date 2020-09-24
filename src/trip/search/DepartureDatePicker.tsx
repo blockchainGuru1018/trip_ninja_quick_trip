@@ -40,6 +40,7 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
     <FormControl fullWidth>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[i18n.language]}>
         <KeyboardDatePicker
+          autoOk
           disableToolbar
           disablePast
           variant="inline"

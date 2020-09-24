@@ -6,7 +6,7 @@ interface FlightTypesProps extends WithTranslation {
   segment: Segment
 }
 
-class FlightTypes extends React.Component<FlightTypesProps> {
+export class FlightTypes extends React.Component<FlightTypesProps> {
   render() {
     return (
       <div className="col-sm-2 my-auto">

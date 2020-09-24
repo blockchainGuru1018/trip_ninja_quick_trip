@@ -1,6 +1,7 @@
 import {Credentials} from "./PricingInterfaces";
 
 export interface ResultsDetails {
+  filterWarning: boolean;
   fareStructureResults?: Results;
   flexTripResults?: Results;
   errors: Errors;
@@ -72,6 +73,7 @@ export class SegmentValueMap extends Map<string, any> {
 }
 
 export const defaultResultsDetails: ResultsDetails = {
+  filterWarning: false,
   activeSegments: new ActiveSegmentsMap(),
   errors: {
     errorFound: false,

@@ -12,7 +12,7 @@ interface CabinSelectProps extends WithTranslation {
   updateFlightValue: typeof updateFlightValue;
 }
 
-class CabinSelect extends React.Component<CabinSelectProps> {
+export class CabinSelect extends React.Component<CabinSelectProps> {
   render() {
     const cabins = CabinList.map((item, index) => (
       <MenuItem key={index} value={item.code}>{this.props.t('commonWords.cabins.'+item.code)}</MenuItem>

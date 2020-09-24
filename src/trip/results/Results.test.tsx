@@ -207,10 +207,10 @@ test('getFlightTypes', () => {
   ).instance();
   expect(
     flightTypesComponent.getFlightTypes(testResults.segments[0][0].flights)
-  ).toBe("X Class");
+  ).toBe("X common.flightTypes.class");
   expect(
     flightTypesComponent.getFlightTypes(testResults.segments[1][0].flights)
-  ).toBe("Y, Y Class");
+  ).toBe("Y, Y common.flightTypes.class");
 });
 
 test('createPassengerStringFromPayload', () => {

@@ -64,6 +64,10 @@ h5 {
   padding-bottom: 0px;
 }
 
+button:focus {
+  outline: none;
+}
+
 .container-fluid {
   padding: 0px;
 }

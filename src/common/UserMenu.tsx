@@ -51,7 +51,9 @@ export default function UserMenu(props: UserMenuProps) {
     <UserMenuItem>
       <ListItemAvatar>
         <UserAvatar>
-          {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
+          <div className='user-avatar'>
+            {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
+          </div>
         </UserAvatar>
       </ListItemAvatar>
       <ListItemText 
@@ -68,7 +70,9 @@ export default function UserMenu(props: UserMenuProps) {
         endIcon={<ExpandMoreIcon />}
         onClick={handleClick}>
         <UserAvatar>
-          {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
+          <div className='user-avatar'>
+            {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
+          </div>
         </UserAvatar>
       </Button>
       <Menu

@@ -1,11 +1,13 @@
-import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
 import React from 'react';
 import { shallow } from 'enzyme';
-import SearchRequest from './SearchRequest';
-import { defaultSearchDetails } from './SearchInterfaces';
-import { SearchDetails, Flight } from './SearchInterfaces';
-import TripOptions from './TripOptions';
-import { setValue, searchFlights } from '../../actions/SearchActions';
+import  { SearchRequest } from './SearchRequest';
+import TripPath from './TripPath';
+import { CabinSelect } from './CabinSelect';
+import { SearchDetails, Flight, defaultSearchDetails } from './SearchInterfaces';
+import { searchFlights, updateFlightValue } from '../../actions/SearchActions';
+import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
+import { datesAreOnSameDayOrLater } from '../../helpers/DateHelpers';
+
 
 const testSearchDetails = {
   "flights": [
@@ -65,16 +67,19 @@ test('datesAreOnSameDayOrLater', () => {
 });
 
 const validateSearchTest = (searchDetails: SearchDetails) => {
-  const component: any = shallow(<SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} />);
+  const component: any = shallow(
+    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights}
+                   t={(key: any) => key} />
+  );
   const instance = component.instance();
   return instance.validateSearchDetails();
 };
 
-test('validateSearchDetails Success', () => {
+test('validateSearchDetailsSuccess', () => {
   expect(validateSearchTest({ ...testSearchDetails })).toBeTruthy();
 });
 
-test('validateSearchDetails Failure', () => {
+test('validateSearchDetailsFailure', () => {
   expect(validateSearchTest(defaultSearchDetails)).toBeFalsy();
   const alteredSearchDetails: SearchDetails = {
     ...testSearchDetails, flights: [{ ...testSearchDetails.flights[0] }]
@@ -88,21 +93,36 @@ test('validateSearchDetails Failure', () => {
   expect(validateSearchTest(alteredSearchDetails2)).toBeFalsy();
 });
 
-test('flexTripAllowed Success', () => {
-  const component: any = shallow(<TripOptions flights={testFlights} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  const instance = component.instance();
-  expect(instance.flexTripAllowed()).toBeTruthy();
+test('flexTripAllowedSuccess', () => {
+  expect(flexTripAllowed(testFlights)).toBeTruthy();
 });
 
-test('flexTripAllowed Fail', () => {
-  const component: any = shallow(<TripOptions flights={[testFlights[0], testFlights[1]]} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+test('flexTripAllowedFail', () => {
+  expect(flexTripAllowed([testFlights[0], testFlights[1]])).toBeFalsy();
 });
 
-test('allCabinsEqual Fail', () => {
+test('allCabinsEqualFail', () => {
   let newTestFlights: Array<Flight> = [...testFlights];
   newTestFlights[0].cabinClass = 'BC';
-  const component: any = shallow(<TripOptions flights={[...newTestFlights]} routeFlexible={testSearchDetails.routeFlexible} setValue={setValue} />);
-  expect(component.instance().flexTripAllowed()).toBeFalsy();
+  expect(flexTripAllowed([...newTestFlights])).toBeFalsy();
 });
 
+test('checkForOriginDestinationPair', () => {
+  const tripPathComponent: any = shallow(
+    <TripPath flights={testFlights} />
+  );
+  const instance = tripPathComponent.instance();
+  expect(instance.checkForOriginDestinationPair(testFlights[0])).toBe("YHZ | Halifax, NS, Canada");
+});
+
+test('getCabinClassByName', () => {
+  const cabinSelectComponent: any = shallow(
+    <CabinSelect  i={0}
+                  cabinClass={"E"}
+                  updateFlightValue={updateFlightValue}
+                  t={(key: any) => key}
+    />
+  );
+  const instance = cabinSelectComponent.instance();
+  expect(instance.getCabinClassByName()).toBe("E");
+});

@@ -13,15 +13,16 @@ import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBran
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface MatchParams {
+interface MatchParams{
   index: string;
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {
 }
 
-interface SegmentSelectionProps {
+interface SegmentSelectionProps extends WithTranslation {
   resultsDetails: ResultsDetails
   currency: string;
   updateActives: typeof updateActives;
@@ -37,7 +38,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
     const segmentIndex = this.props.match.params.index;
-    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex]);
+    const currentSegments: Array<Segment> = filterSegments(trip.segments[segmentIndex], this.props.resultsDetails.segmentFilters![segmentIndex], true);
     const compatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'compatible');
     const filteredCompatibleSegments: Array<Segment> = compatibleSegments.filter((segment: Segment) => !segment.filtered);
     const incompatibleSegments: Array<Segment> = currentSegments.filter((segment: Segment) => segment.status === 'incompatible');
@@ -50,19 +51,20 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
 
     return (
       <div id="segment-selection">
-        <div className="results-header">
-          <ResultsHeader 
-            segments={selectedTrip} 
-            pathSequence={trip.path_sequence}
-            flights={trip.flight_details}
-          />
+        <ResultsHeader 
+          segments={selectedTrip} 
+          pathSequence={trip.path_sequence}
+          flights={trip.flight_details}
+          flexTripResults={false}
+        />
+        <div className="results-section-header sticky-top">
           <h1>
             {trip.path_sequence[segmentIndex].substring(0, 3)}
             <FlightIcon color="primary" className="rotate-90 segment-icon" fontSize="large"/>
             {trip.path_sequence[segmentIndex].substring(4)}
           </h1>
           <h4 id="itinerary-total">
-            <strong>Total: </strong>
+            <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
           </h4>
           <SortOption
@@ -71,8 +73,8 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             updateSortType={this.props.updateSortType}
           />
           <div className='row'>
-            {enabledFilters.map((item) =>
-              <div className='col-md-2'>
+            {enabledFilters.map((item, index) =>
+              <div key={index.toString()}>
                 <FlightsFilter
                   filterName={item}
                   segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
@@ -92,8 +94,12 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
-              <div className="col-lg-10 offset-lg-1">
-                <h5>Selected Flight</h5>
+              <div className="col-xl">
+                <div className="row">
+                  <div className="col-xl">
+                    <h5>{this.props.t("results.segmentSelection.selectedFlight")}</h5>
+                  </div>
+                </div>
                 <SegmentPreviews
                   totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
@@ -107,12 +113,15 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
                 />
-                <hr className="segment-divider"/>
+                <div className="row">
+                  <div className="col-xl">
+                    <hr className="segment-divider"/>
+                  </div>
+                </div>
                 {
                   compatibleSegments.length > 0 &&
                   filteredCompatibleSegments.length > 0 &&
                   <div>
-                    <h5>Other Departure Times</h5>
                     <SegmentPreviews
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
@@ -127,17 +136,23 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
                     />
-                    <hr className="segment-divider"/>
+                    <div className="row">
+                      <div className="col-xl">
+                        <hr className="segment-divider"/>
+                      </div>
+                    </div>
                   </div>
                 }
                 {
                   incompatibleSegments.length > 0 &&
                   filteredIncompatibleSegments &&
                   <div>
-                    <h5>Other Options</h5>
-                    <p>
-                      Changing these flights may impact other linked segments. To see which segments will be affected, hover over the flight number.
-                    </p>
+                    <div className="row">
+                      <div className="col-xl">
+                        <h5>{this.props.t("results.segmentSelection.otherOptions")}</h5>
+                        <p>{this.props.t("results.segmentSelection.otherOptionsWarning")}</p>
+                      </div>
+                    </div>
                     <SegmentPreviews
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
@@ -172,4 +187,4 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
 
 }
 
-export default SegmentSelection;
+export default withTranslation('common')(SegmentSelection);

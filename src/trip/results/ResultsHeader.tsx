@@ -1,10 +1,14 @@
 import React from 'react';
-import Moment from 'react-moment';
 import './ItineraryResult.css';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { Segment, FlightResultsDetails } from './ResultsInterfaces';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import history from '../../History';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import localeMap from '../../localeMap';
+import { format } from 'date-fns';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -16,10 +20,15 @@ const ChangeSearchButton = styled(Button)({
   }
 });
 
-interface ResultsHeaderProps {
+const BackToFlexTripButton = styled(Button)({
+  color: 'var(--tertiary)',
+});
+
+interface ResultsHeaderProps extends WithTranslation {
   segments: Array<Segment>
   pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
+  flexTripResults: boolean
 }
 
 class ResultsHeader extends React.Component<ResultsHeaderProps> {
@@ -33,9 +42,20 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
     ));
 
     return (
-      <div>
+      <div className="results-header">
         <div className="row">
-          <div className="col-xl-10 col-lg-9">
+          { this.props.flexTripResults &&
+          <div className="col-xl-2 col-lg-3">
+            <div className="float-left">
+              <BackToFlexTripButton
+                startIcon={<KeyboardBackspaceIcon />}
+                onClick={() => history.push('/results/pre-results/')}>
+                {this.props.t("results.resultsHeader.backToFlexTrip")}
+              </BackToFlexTripButton>
+            </div>
+          </div>
+          }
+          <div className={this.props.flexTripResults ? 'col-xl-8 col-lg-6' : 'col-xl-10 col-lg-9'}>
             <div className="float-right itinerary-path">
               <p>{segmentPath}</p>
             </div>
@@ -44,8 +64,10 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             <div className="float-right">
               <ChangeSearchButton
                 variant="contained"
-                onClick={() => history.push('/search/')}>
-                Change Search
+                onClick={() => history.push('/search/')}
+                disableElevation
+              >
+                {this.props.t("results.resultsHeader.changeSearch")}
               </ChangeSearchButton>
             </div>
           </div>
@@ -57,8 +79,8 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   getDepartureDate = (flightDetailRef: string) => {
     const firstFlight: FlightResultsDetails[] = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
-    return <span><Moment format="MMM DD">{firstFlight[0].departure_time}</Moment></span>;
+    return <span>{format(new Date(firstFlight[0].departure_time), this.props.t("results.resultsHeader.dateFormat"), {locale:localeMap[i18n.language]})}</span>;
   }
 }
 
-export default ResultsHeader;
+export default withTranslation('common')(ResultsHeader);

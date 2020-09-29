@@ -17,6 +17,9 @@ function bookingsReducer(state: BookingsList = {} as any, action: any) {
     case 'QUEUE_LOADING':
       return {...state, loading: action.value};
 
+    case 'TICKET_LOADING':
+      return {...state, loading: action.value};
+
     case 'SET_BOOKING_STATUS':
       return setBookingStatus(state, action);
 

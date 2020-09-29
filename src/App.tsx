@@ -34,8 +34,16 @@ import history from './History';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
-import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from './actions/BookingsActions';
+import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
+import TagManager from 'react-gtm-module';
+import i18n from './i18n';
 
+//Google Tag Manager
+const tagManagerArgs = {
+  gtmId: "GTM-KRXRHFP",
+};
+
+TagManager.initialize(tagManagerArgs);
 
 interface IAppProps {
   searchDetails: SearchDetails;
@@ -69,6 +77,7 @@ interface IAppProps {
   updateEntireTrip: typeof updateEntireTrip;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   getTravelportBrands: typeof getTravelportBrands;
   setActiveSegments: typeof setActiveSegments;
 }
@@ -78,16 +87,20 @@ const theme = Theme;
 class App extends React.Component<IAppProps> {
 
   constructor(props:IAppProps) {
-    super(props)
+    super(props);
     if (!this.props.resultsDetails.fareStructureResults) {
-      history.push('/')
+      history.push('/');
     }
   }
 
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
-    if(token !== '') {
+    if (token !== '') {
       this.props.fetchUserParameters();
+    }
+    const language: string = localStorage.getItem('language') || '';
+    if (language !== '') {
+      i18n.changeLanguage(language);
     }
   }
 
@@ -202,6 +215,7 @@ class App extends React.Component<IAppProps> {
                     getBookingDetails={this.props.getBookingDetails}  
                     cancelBooking={this.props.cancelBooking}
                     queueBooking={this.props.queueBooking}
+                    ticketBooking={this.props.ticketBooking}
                   />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />

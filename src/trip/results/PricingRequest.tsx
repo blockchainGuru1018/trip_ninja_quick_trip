@@ -5,8 +5,9 @@ import { PricingRequestInterface } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
 import { createItinerariesPayload } from '../../helpers/PricingPayloadHelper';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface PricingRequestProps{
+interface PricingRequestProps extends WithTranslation {
   resultsDetails: ResultsDetails,
   currency: string,
   totalPrice: number,
@@ -42,10 +43,12 @@ class PricingRequest extends React.Component<PricingRequestProps>{
     return (
       <div className="float-right">
         <Button
+          disableElevation
           color="primary"
           variant="contained"
-          onClick={this.submitPricingRequest}>
-          Continue to Price Confirm
+          onClick={this.submitPricingRequest}
+        >
+          {this.props.t("results.pricingRequest.callToAction")}
         </Button>
       </div>
     );
@@ -53,4 +56,4 @@ class PricingRequest extends React.Component<PricingRequestProps>{
 
 }
 
-export default PricingRequest;
+export default withTranslation('common')(PricingRequest);

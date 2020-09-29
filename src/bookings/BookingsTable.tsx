@@ -11,12 +11,17 @@ import Paper from '@material-ui/core/Paper';
 import SortIcon from '@material-ui/icons/Sort';
 import Moment from 'react-moment';
 import { styled } from '@material-ui/core/styles';
-import { Booking } from './BookingsInterfaces';
+import { Booking, PnrInfo } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import BookingDetailsDrawer from './BookingDetailsDrawer';
-import { getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { getBookingDetails, cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import expandedIcon from '../assets/images/expanded_icon.svg';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import i18n from '../i18n';
+import localeMap from '../localeMap';
+import { format } from 'date-fns';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -35,22 +40,23 @@ const DetailsLinkCell = styled(TableCell)({
 
 
 
-interface BookingsTableProps {
+interface BookingsTableProps extends WithTranslation {
   bookings: Array<Booking>
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   authDetails: AuthDetails;
   loading: boolean;
+  multiplePnrDisplay: string;
 }
 
 class BookingsTable extends React.Component<BookingsTableProps> {
   state = {
     rowsPerPage: 10,
     page: 0,
-    order: 'asc',
+    order: 'desc',
     orderBy: 'booking_date',
-    showPnr: false
   }
 
   render() {
@@ -66,7 +72,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableBody>
               {this.props.bookings.length > 0 
                 ? this.displayBookings(this.props.bookings)
-                : <TableRow><TableCell align="center" colSpan={7}>No bookings found!</TableCell></TableRow>
+                : <TableRow><TableCell align="center" colSpan={7}>{this.props.t("bookings.bookingsTable.noBookings")}</TableCell></TableRow>
               }
             </TableBody>
             <TableFooter>
@@ -89,13 +95,13 @@ class BookingsTable extends React.Component<BookingsTableProps> {
 
   displayTableHeader = () => {
     const headerFields = [
-      {"label": "PNR Numbers", "name": "pnr_numbers"},
-      {"label": "Passenger 1", "name": "passenger.last_name"}, 
-      {"label": "Booking Date", "name": "booking_date"}, 
-      {"label": "Departure Date", "name": "departure_date"},
-      {"label": "Price", "name": "total_price"},
-      {"label": "Route", "name": "route"},
-      {"label": "Status", "name": "status"}
+      {"label": this.props.t("bookings.bookingsTable.pnrNumbers"), "name": "pnr_numbers"},
+      {"label": this.props.t("bookings.bookingsTable.passenger1"), "name": "passenger.last_name"}, 
+      {"label": this.props.t("bookings.bookingsTable.bookingDate"), "name": "booking_date"}, 
+      {"label": this.props.t("bookings.bookingsTable.departureDate"), "name": "departure_date"},
+      {"label": this.props.t("bookings.bookingsTable.price"), "name": "total_price"},
+      {"label": this.props.t("bookings.bookingsTable.route"), "name": "route"},
+      {"label": this.props.t("bookings.bookingsTable.status"), "name": "status"}
     ];
     return headerFields.map((column: any, index: number) => {
       return (
@@ -115,7 +121,8 @@ class BookingsTable extends React.Component<BookingsTableProps> {
     return bookings.sort(this.compareRows(this.state.orderBy, this.state.order))
       .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
       .map((booking: Booking, index: number) => {
-        return (
+        let bookingRows: Array<any> = [];
+        bookingRows.push(
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left">
               <BookingDetailsDrawer 
@@ -123,22 +130,46 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 getBookingDetails={this.props.getBookingDetails}
                 cancelBooking={this.props.cancelBooking}
                 queueBooking={this.props.queueBooking}
+                ticketBooking={this.props.ticketBooking}
                 authDetails={this.props.authDetails}
                 loading={this.props.loading}
               />
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+              {format(new Date(booking.booking_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+              {format(new Date(booking.departure_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>
-            <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
+            <TableCell align="left">{firstLetterCapital(this.props.t("commonWords.status." + booking.status))}</TableCell>
           </TableRow>
         );
+        if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 1) { 
+          booking.pnr_list.forEach((pnr: PnrInfo, pnrIndex: number) => {
+            bookingRows.push(
+              <TableRow key={index.toString()+'-'+ pnrIndex.toString()} selected>
+                <DetailsLinkCell align="left">
+                  <img src={expandedIcon} alt="expanded-icon" className="pnr-icon my-auto" />
+                  <span className="expanded-pnr-label">{pnr.pnr_number}</span>
+                </DetailsLinkCell>
+                <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
+                <TableCell align="left">
+                  <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+                </TableCell>
+                <TableCell align="left">
+                  <Moment format="MMM DD, YYYY">{pnr.departure_date}</Moment>
+                </TableCell>
+                <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
+                <TableCell align="left">{pnr.route}</TableCell>
+                <TableCell align="left">{firstLetterCapital(pnr.pnr_status !== 'priced' ? pnr.pnr_status : booking.status)}</TableCell>
+              </TableRow>
+            );
+          });
+        }
+        return bookingRows;
       });
   }
 
@@ -175,4 +206,4 @@ class BookingsTable extends React.Component<BookingsTableProps> {
 
 }
 
-export default BookingsTable;
+export default withTranslation('common')(BookingsTable);

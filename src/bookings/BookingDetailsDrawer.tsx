@@ -14,8 +14,9 @@ import { Booking, PnrInfo } from './BookingsInterfaces';
 import ItineraryDetails from '../common/ItineraryDetails';
 import { getBookingDetails } from '../actions/BookingsActions';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
-import { cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import { useTranslation } from 'react-i18next';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -38,6 +39,7 @@ interface BookingsDetailsDrawerProps {
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
   queueBooking: typeof queueBooking;
+  ticketBooking: typeof ticketBooking;
   authDetails: AuthDetails;
   loading: boolean;
 }
@@ -52,10 +54,21 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
   });
   const [selected, setSelected] = React.useState(false);
   const [bookingDetails, setBookingDetails] = React.useState(false);
+  const [detailsError, setBookingDetailsError] = React.useState(false);
+  const [ t ] = useTranslation('common');
 
   const checkBookingDetails = () => {
-    let details = props.getBookingDetails(props.booking.trip_id);
-    return setBookingDetails(details);
+    const agency = props.authDetails.isAgencyAdmin ? '?agency=' + props.authDetails.agency : '';
+    const promise = new Promise((resolve) => {
+      resolve(props.getBookingDetails(props.booking.trip_id, agency));
+    });
+    promise.then((result: any) => {
+      if(result.success) {
+        setBookingDetails(result);
+      } else {
+        setBookingDetailsError(true);
+      }
+    });
   };
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
@@ -85,9 +98,21 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       })}
       role="presentation"
     >
+      {detailsError &&
+        <div className="booking-details-loading">
+          <h3>{t('bookings.bookingDetailsDrawer.loadingErrorTitle')}</h3>
+          <p>{t('bookings.bookingDetailsDrawer.loadingErrorBody')}</p>
+          <Button onClick={() => handleClose(anchor)} 
+            variant="contained" 
+            color="primary"
+          >
+            {t('bookings.bookingDetailsDrawer.loadingErrorButton')}
+          </Button>
+        </div>
+      }
       {props.loading &&
         <div className="booking-details-loading">
-          <h2>Loading Booking Details..</h2>
+          <h2>{t('bookings.bookingDetailsDrawer.loadingMessage')}</h2>
           <div>
             <CircularProgress />
           </div>
@@ -96,7 +121,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       {!props.loading && bookingDetails &&
         <div className="booking-details-container">
           <div className="row booking-details-section">
-            <h1>Booking Overview - Status: {firstLetterCapital(props.booking.status)}</h1>
+            <h1>{t('bookings.bookingDetailsDrawer.title')} {firstLetterCapital(t('commonWords.status.' + props.booking.status))}</h1>
             <div className="close-button-container">
               <IconButton onClick={() => handleClose(anchor)}>
                 <CloseIcon fontSize="large" />
@@ -110,43 +135,44 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
               trip_id={props.booking.trip_id}
               cancelBooking={props.cancelBooking}
               queueBooking={props.queueBooking}
+              ticketBooking={props.ticketBooking}
               authDetails={props.authDetails}
               booking={props.booking}
             />
           </div> 
           <Divider />
           <div className="booking-details-section">
-            <h5 className="section-header">Jump To</h5>
+            <h5 className="section-header">{t('bookings.bookingDetailsDrawer.navigationTitle')}</h5>
             <div className="row">
               <div className="col-sm-12 no-pad-left">
                 <NavButton href="#overview">
-                  Overview
+                  {t('bookings.bookingDetailsDrawer.overviewNav')}
                 </NavButton>
                 <NavButton href="#booking-cost">
-                  Booking Cost
+                  {t('bookings.bookingDetailsDrawer.bookingCostNav')}
                 </NavButton>
                 <NavButton href="#flight-overview">
-                  Flight Overview
+                  {t('bookings.bookingDetailsDrawer.flightOverviewNav')}
                 </NavButton>
                 <NavButton href="#passenger-info">
-                  Passenger Information
+                  {t('bookings.bookingDetailsDrawer.passengerInformationNav')}
                 </NavButton>
               </div>
             </div>
           </div>
           <Divider />
           <div className="booking-details-section" id="overview">
-            <h5 className="section-header">Overview</h5>
+            <h5 className="section-header">{t('bookings.bookingDetailsDrawer.overviewTitle')}</h5>
             <div className="row">
               <div className="col-sm-3 no-pad-left">
                 <p>
-                  <span className="text-bold">Booking Agent: </span> 
+                  <span className="text-bold">{t('bookings.bookingDetailsDrawer.bookingAgent')}: </span> 
                   <span>{props.booking.agent_email}</span>
                 </p>
               </div>
               <div className="col-sm-3">
                 <p>
-                  <span className="text-bold">Team: </span> 
+                  <span className="text-bold">{t('bookings.bookingDetailsDrawer.team')}: </span> 
                   <span>{props.booking.agency ? firstLetterCapital(props.booking.agency) : '-'}</span>
                 </p>
               </div>
@@ -156,7 +182,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <div className="row booking-details-section" id="booking-cost">
             <div className="col-sm-4 no-pad-left">
               <FareBreakdown 
-                pricing={props.booking.details!.pricing} 
+                pricing={props.booking.details!.pricing}
                 currency={props.booking.currency}
               />
             </div>
@@ -178,7 +204,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
                 onClick={() => document.getElementsByClassName('MuiDrawer-paper')[0].scrollTop = 0}
                 size="large"
               >
-                Back to top
+                {t('bookings.bookingDetailsDrawer.backToTop')}
               </NavButton>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import './Modals.css';
 import Button from '@material-ui/core/Button';
 import { setErrorDetails } from '../../actions/ResultsActions';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,26 +26,26 @@ interface SearchErrorModalProps {
 
 export default function SearchErrorModal(props: SearchErrorModalProps) {
   const classes = useStyles();
+  const [ t ] = useTranslation('common');
 
   return (
     <div className={classes.paper + ' centered-container'}>
-      <h2 id="transition-modal-title" className='search-modal-title'>No Flights Found</h2>
+      <h2 id="transition-modal-title" className='search-modal-title'>{t('common.modals.searchErrorModal.title')}</h2>
       <div className='search-modal-text-container'>
         <p>
-          There were no flights found for your search. Please try a different search.
+          {t('common.modals.searchErrorModal.body')}
         </p>
         <p>
-          For more information on what might have gone wrong, head to our
-          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> Knowledege Base</a>
-          . You can always reach out to our support team at support@tripninja.io
-          for assistance.
+          {t('common.modals.searchErrorModal.body2')}
+          <a href="https://help.tripninja.io/" style={{color: '#00B4C3'}}> {t('common.modals.searchErrorModal.knowledgeBase')}</a>
+          {t('common.modals.searchErrorModal.supportTeam')}
         </p>
         <Button
           onClick={() => (props.setErrorDetails(false, 'search'))}
           color='secondary'
           variant="contained"
           style={{display: 'grid', margin: 'auto'}}>
-          Return to Search
+          {t('common.modals.searchErrorModal.return')}
         </Button>
       </div>
     </div>

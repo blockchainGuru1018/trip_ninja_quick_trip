@@ -13,6 +13,7 @@ import { updatePassengerInfo } from '../../actions/BookActions';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -54,6 +55,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [invalidPassenger, setInvalidPassenger] = React.useState(false);
+  const [ t ] = useTranslation('common');
 
   useEffect(() => setOpen(props.modalState), [props.modalState]);
   return (
@@ -71,12 +73,12 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
             <IconButton aria-label="close-passenger-modal" className="float-right" onClick={() => (props.handleModalOpen(props.currentPassengerIndex))}>
               <CloseIcon />
             </IconButton>
-            <h3 id="transition-modal-title">Passenger Information</h3>
+            <h3 id="transition-modal-title">{t('book.passengerDetailsModal.title')}</h3>
             <div className="row passenger-form-row">
               <div className="col-sm-3">
                 <TextField 
                   id="passenger-first-name" 
-                  label="First Name" 
+                  label={t('book.passengerDetailsModal.firstName')}
                   variant="outlined" 
                   value={props.passenger.first_name}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'first_name', event.target.value)}
@@ -87,7 +89,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <div className="col-sm-3">
                 <TextField 
                   id="passenger-last-name" 
-                  label="Last Name" 
+                  label={t('book.passengerDetailsModal.lastName')}
                   variant="outlined" 
                   value={props.passenger.last_name}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'last_name', event.target.value)}
@@ -101,7 +103,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                   fieldName="date_of_birth"
-                  label="Date of Birth"
+                  label={t('book.passengerDetailsModal.dateOfBirth')}
                   disablePast={false}
                   dateFormat={props.dateFormat}
                 />
@@ -125,7 +127,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               <div className="col-sm-3">
                 <TextField 
                   id="passport-number" 
-                  label="Passport Number" 
+                  label={t('book.passengerDetailsModal.passportNumber')}
                   variant="outlined" 
                   value={props.passenger.passport_number}
                   onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'passport_number', event.target.value)}
@@ -137,14 +139,14 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   index={props.currentPassengerIndex}
                   updatePassengerInfo={props.updatePassengerInfo}
                   fieldName="passport_expiration"
-                  label="Passport Expiration"
+                  label={t('book.passengerDetailsModal.passportExpiration')}
                   disablePast={true}
                   dateFormat={props.dateFormat}
                 />
               </div>
             </div>
             <div className="row passenger-form-row">
-              <p>This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.</p>
+              <p>{t('book.passengerDetailsModal.warning')}</p>
             </div>
             <hr/>
             {props.currentPassengerIndex === 0 &&
@@ -154,11 +156,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   <div className="col-sm-4">
                     <TextField 
                       id="primary-email" 
-                      label="Email" 
+                      label={t('book.passengerDetailsModal.email')}
                       variant="outlined"
                       type="email"
                       value={props.passenger.email}
-                      helperText= {props.passenger.email ? validateEmail(props.passenger.email) : ''}
+                      helperText= {props.passenger.email ? validateEmail(props.passenger.email, t) : ''}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'email', event.target.value)}
                       fullWidth
                     />
@@ -166,11 +168,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                   <div className="col-sm-4">
                     <TextField 
                       id="primary-phone-number" 
-                      label="Phone Number" 
+                      label={t('book.passengerDetailsModal.phoneNumber')}
                       variant="outlined"
                       type="tel"
                       value={props.passenger.phone_number}
-                      helperText= {props.passenger.phone_number ? validatePhoneNumber(props.passenger.phone_number) : ''}
+                      helperText= {props.passenger.phone_number ? validatePhoneNumber(props.passenger.phone_number, t) : ''}
                       onChange={(event: any) => props.updatePassengerInfo(props.currentPassengerIndex, 'phone_number', event.target.value)}
                       fullWidth
                     />
@@ -195,11 +197,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                     : setInvalidPassenger(true);
                 }}
               >
-                Save
+                {t('book.passengerDetailsModal.save')}
               </Button>
             </div>
             {invalidPassenger &&
-            <Alert severity="error" className="invalid-passenger-alert">Ensure all required fields are completed!</Alert>
+            <Alert severity="error" className="invalid-passenger-alert">{t('book.passengerDetailsModal.invalidInputWarning')}</Alert>
             }
           </div>
         </Fade>
@@ -235,13 +237,13 @@ const validateContactInput = (passenger: PassengerInfo) => {
   return valid;
 };
 
-const validatePhoneNumber = (phoneNumber: string) => {
+const validatePhoneNumber = (phoneNumber: string, t: any) => {
   const re = /^[+]*[ |-\s./0-9]*[(]{0,1}[0-9]{1,4}[)]{0,1}[ |-\s./0-9]*$/;
-  return re.test(phoneNumber) ? '' : 'Invalid phone number';
+  return re.test(phoneNumber) ? '' : t('book.passengerDetailsModal.invalidPhoneNumber');
 };
 
 
-const validateEmail = (email: string) => {
+const validateEmail = (email: string, t: any) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email) ? '' : 'Invalid email address';
+  return re.test(email) ? '' : t('book.passengerDetailsModal.invalidEmailAddress');
 };

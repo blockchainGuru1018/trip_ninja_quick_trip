@@ -14,8 +14,10 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
+import {Alert} from "@material-ui/lab";
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface ItineraryResultsProps {
+interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
   priceFlights: typeof priceFlights;
@@ -55,15 +57,16 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
     return (
       <div id="itinerary-result">
-        <div className="results-header">
-          <ResultsHeader 
-            segments={selectedTrip} 
-            pathSequence={trip.path_sequence}
-            flights={trip.flight_details}
-          />
-          <h1 className="itinerary-title">Your Itinerary</h1>
+        <ResultsHeader 
+          segments={selectedTrip} 
+          pathSequence={trip.path_sequence}
+          flights={trip.flight_details}
+          flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
+        />
+        <div className="results-section-header">          
+          <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>
           <h4>
-            <strong>Total: </strong>
+            <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
@@ -81,10 +84,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
           </div>
           <div className="row">
-            <div className='col-md-8'>
-              <div className='row'>
-                {enabledFilters.map((item) =>
-                  <div className='col-md-3'>
+            <div className="col-md-8 no-pad-left">
+              <div className="row">
+                {enabledFilters.map((item, index) =>
+                  <div key={index.toString()}>
                     <FlightsFilter
                       filterName={item}
                       itineraryFilters={this.props.itineraryFilters!.find((filter: Filter) => filter.type === item)}
@@ -99,6 +102,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                     />
                   </div>
                 )}
+              </div>
+              <div>
+                {this.props.resultsDetails.filterWarning
+                  && <Alert severity='error'>There was no combination of flights that fit these filters</Alert>
+                }
               </div>
             </div>
             <div className="col-md-4">
@@ -130,4 +138,4 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     );
 }
 
-export default ItineraryResult;
+export default withTranslation('common')(ItineraryResult);

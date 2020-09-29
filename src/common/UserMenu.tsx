@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import { styled } from '@material-ui/core/styles';
 import { logout } from '../actions/AuthActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
+import { useTranslation } from 'react-i18next';
 
 interface UserMenuProps {
   logout: typeof logout
@@ -18,6 +19,7 @@ interface UserMenuProps {
 
 export default function UserMenu(props: UserMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [ t ] = useTranslation('common');
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,8 +40,15 @@ export default function UserMenu(props: UserMenuProps) {
     color: '#4BAFD7'
   });
 
+  const UserMenuItem = styled(MenuItem)({
+    '&:hover': {
+      cursor: 'default',
+      backgroundColor: '#fff'
+    }
+  });
+
   const userDetails =
-    <MenuItem>
+    <UserMenuItem>
       <ListItemAvatar>
         <UserAvatar>
           {parseUserInitials(props.authDetails.userFirstName, props.authDetails.userLastName)}
@@ -48,7 +57,7 @@ export default function UserMenu(props: UserMenuProps) {
       <ListItemText 
         primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
         secondary={props.authDetails.userEmail} />
-    </MenuItem>
+    </UserMenuItem>;
 
   return (
     <div>
@@ -81,7 +90,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <LogoutMenuItem onClick={() => {props.logout()}}>Sign out</LogoutMenuItem>
+        <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>
   );
@@ -93,5 +102,4 @@ const parseUserInitials = (firstName: string, lastName: string) => {
   } else {
     return "TN";
   }
-  
-}
+};

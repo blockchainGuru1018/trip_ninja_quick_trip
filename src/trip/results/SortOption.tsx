@@ -9,8 +9,9 @@ import {
 } from '../../actions/ResultsActions';
 import SortIcon from '@material-ui/icons/Sort';
 import { Results } from "./ResultsInterfaces";
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface SortOptionProps {
+interface SortOptionProps extends WithTranslation {
   segmentPosition: number
   sortBy: string
   updateSortType: typeof updateSortType;
@@ -24,13 +25,13 @@ const sortOptionList = ["cheapest", "best", "fastest"]; //TODO: make this enum?
 class SortOption extends React.Component<SortOptionProps> {
   render() {
     const sortOptions = sortOptionList.map((item, index) => (
-      <MenuItem className="capitalize" key={index} value={item}>{item}</MenuItem>
+      <MenuItem className="capitalize" key={index} value={item}>{this.props.t("results.sortOption."+item)}</MenuItem>
     ));
 
     return (
       <div className='sort-select-container'>
         <div className='sort-icon-container'><SortIcon color="primary" />
-          <div className='text-bold'>Sort By:</div>
+          <div className='text-bold'>{this.props.t("results.sortOption.sortBy")}:</div>
         </div>
         <FormControl className="capitalize" color="primary">
           <Select
@@ -60,4 +61,4 @@ class SortOption extends React.Component<SortOptionProps> {
 
 }
 
-export default SortOption;
+export default withTranslation('common')(SortOption);

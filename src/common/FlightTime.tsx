@@ -2,8 +2,9 @@ import React from 'react';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import Moment from 'react-moment';
 import moment from 'moment';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FlightTimeProps {
+interface FlightTimeProps extends WithTranslation {
   flights: Array<FlightResultsDetails>
   itineraryDisplay?: boolean;
 }
@@ -32,8 +33,8 @@ class FlightTime extends React.Component<FlightTimeProps> {
         </div>
         <p className="text-small">
           {
-            Math.floor(minutesDifference / 60) + 'h ' +
-            Math.round(60 * (minutesDifference / 60 % 1)) + 'm'
+            Math.floor(minutesDifference / 60) + this.props.t("common.flightTime.hoursIndicator") +' ' +
+            Math.round(60 * (minutesDifference / 60 % 1)) + this.props.t("common.flightTime.minutesIndicator")
           }
         </p>
       </div>
@@ -42,4 +43,4 @@ class FlightTime extends React.Component<FlightTimeProps> {
 
 }
 
-export default FlightTime;
+export default withTranslation('common')(FlightTime);

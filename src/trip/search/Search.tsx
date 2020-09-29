@@ -11,9 +11,14 @@ import './Search.css';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
+import { withTranslation } from 'react-i18next';
 
 const AddFlightButton = styled(Button)({
   color: 'var(--tertiary)',
+  '&:hover': {
+    backgroundColor: '#ffffff',
+    opacity: '0.7'
+  }
 });
 
 
@@ -27,9 +32,7 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) => {
         return <FlightInput
-          key={index}
           i={index}
-          ref={'flightInput' + index}
           updateFlightValue={this.props.updateFlightValue}
           flights={this.props.searchDetails.flights}
           removeFlight={this.props.removeFlight}
@@ -42,31 +45,41 @@ class Search extends React.Component<SearchProps> {
       <div className="row">
         {this.props.authenticated
           ? <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" id="search-form">
-            <h1 className="flight-search">Flight Search</h1>
+            <div className="row">
+              <div className="col-xl">
+                <h1 className="flight-search-header">{this.props.t("search.search.header")}</h1>
+              </div>
+            </div>        
             {flights}
             <div className="row">
-              <AddFlightButton
-                onClick={this.onAddFlight}>
-                Add Flight
-              </AddFlightButton>
-            </div>
-            <hr/>
-            <h4>Additional Details</h4>
+              <div className="col-xl add-flight-btn-container">
+                <AddFlightButton
+                  onClick={this.onAddFlight}>
+                  {this.props.t("search.search.addFlightButton")}
+                </AddFlightButton>
+              </div>
+            </div>            
             <div className="row">
-              <div className="col-md-3 col-sm-4">
+              <div className="col-xl">
+                <hr/>
+                <h4>{this.props.t("search.search.additionalDetailsHeader")}</h4>
+              </div>
+            </div>            
+            <div className="row">
+              <div className="col-md-3 col-sm-5 search-input">
                 <PassengerSelect
                   passengers={this.props.searchDetails.passengers}
                   updatePassengers={this.props.updatePassengers}
                 />
               </div>
-              <div className="col-md-2 col-sm-3">
+              <div className="col-md-2 col-sm-3 search-input">
                 <CurrencySelect
                   currency={this.props.searchDetails.currency}
                   setValue={this.props.setValue}
                   defaultCurrency={this.props.defaultCurrency}
                 />
               </div>
-              <div className="col-md-7 col-sm-5">
+              <div className="col-md-7 col-sm-4">
                 <TripOptions
                   routeFlexible={this.props.searchDetails.routeFlexible}
                   setValue={this.props.setValue}
@@ -74,7 +87,11 @@ class Search extends React.Component<SearchProps> {
                 />
               </div>
             </div>
-            <hr/>
+            <div className="row">
+              <div className="col-xl">
+                <hr/>
+              </div>
+            </div>
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <TripPath
@@ -97,7 +114,8 @@ class Search extends React.Component<SearchProps> {
   onAddFlight = async () => {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
-    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin});
+    const departureDate: string = flights[flights.length - 1].departureDate; 
+    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
     addFlight.then(() => this.setInputFocus());
   }
 
@@ -111,4 +129,4 @@ class Search extends React.Component<SearchProps> {
   }
 }
 
-export default Search;
+export default withTranslation('common')(Search);

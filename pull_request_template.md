@@ -7,6 +7,5 @@
 
 ## HOW TO TEST
 
-1. run all automatic tests
-2. 
-3. Test any other scenario you can
+1. Run 'npm test'
+2. {Describe manual testing process}

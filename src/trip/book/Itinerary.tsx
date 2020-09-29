@@ -6,10 +6,13 @@ import FlightTime from '../../common/FlightTime';
 import SegmentBaggage from '../../common/SegmentBaggage';
 import FlightStops from '../../common/FlightStops';
 import FlightDetailsDrawer from './FlightDetailsDrawer';
-import Moment from 'react-moment';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import localeMap from '../../localeMap';
+import { format } from 'date-fns';
 
-interface ItineraryProps {
+interface ItineraryProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
 }
@@ -20,7 +23,7 @@ class Itinerary extends React.Component<ItineraryProps> {
     return(
       <div className="row segment-container" key={index.toString()}>
         <p className="segment-date">
-          <Moment format="MMMM Do YYYY">{segmentFlightDetails[0].departure_time}</Moment>
+          {format(new Date(segmentFlightDetails[0].departure_time), this.props.t("book.itinerary.dateFormat"), {locale:localeMap[i18n.language]})}
         </p>
         <div className='row col-md-12'>
           <div className="row itinerary-segment col-md-12">
@@ -55,7 +58,7 @@ class Itinerary extends React.Component<ItineraryProps> {
     let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     return (
       <div>
-        <h5>Itinerary</h5>
+        <h5>{this.props.t("book.itinerary.title")}</h5>
         <div className="book-container">
           {this.displayItinerarySegments(selectedTrip, trip)}
           <div className="row">
@@ -71,4 +74,4 @@ class Itinerary extends React.Component<ItineraryProps> {
   }
 }
 
-export default Itinerary;
+export default withTranslation('common')(Itinerary);

@@ -4,7 +4,6 @@ import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
-import Moment from "react-moment";
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
 import {
@@ -15,8 +14,10 @@ import {
   TimelineItem,
   TimelineSeparator
 } from "@material-ui/lab";
-
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
+import localeMap from '../localeMap';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {
@@ -36,8 +37,10 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     flightResultsPathComponents:  [] as  any,
-    fareRulesPreviewComponents: [] as any
+    fareRulesPreviewComponents: [] as any,
   });
+  const [bookedTripSegments, setBookedTripSegments] = React.useState([] as Array<BookingSegment>);
+  const [ t ] = useTranslation('common');
 
   const setPricingFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
@@ -64,22 +67,27 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
-      itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-        flightResultsPathComponents.push(<FlightResultsPath
-          flightDetails={segment.flight_details}
-          key={index}
-        />);
-        fareRulesPreviewComponents.push(<FareRulesPreview
-          bookingSegment={segment}
-          flightDetails={segment.flight_details}
-          currency={currency}
-          itineraryDisplay={true}
-          index={index}
-          bookingDrawer={true}
-        />);
+    let bookedSegments: Array<BookingSegment> = [];
+    if (selectedTrip) {
+      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+        itinerary.segments.forEach((segment: BookingSegment, index: number) => {
+          bookedSegments[segment.segment_id] = segment;
+          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+            flightDetails={segment.flight_details}
+            key={index}
+          />;
+          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+            bookingSegment={segment}
+            flightDetails={segment.flight_details}
+            currency={currency}
+            itineraryDisplay={true}
+            index={index}
+            bookingDrawer={true}
+          />;
+        });
       });
-    });
+    }
+    setBookedTripSegments(bookedSegments);
     return {flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents};
   };
@@ -87,9 +95,9 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const getSegmentDateString = (index: number) => {
     const flightDetails: FlightResultsDetails | undefined = props.selectedTrip 
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
-      : props.bookedTrip![index].segments[0].flight_details[0];
+      : bookedTripSegments[index].flight_details[0];
     return (
-      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:localeMap[i18n.language]}) : ''}</p>
     );
   };
 
@@ -97,7 +105,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     const segment: Segment = props.selectedTrip![index];
     return (
       <div className="row">
-        <div className='text-bold booking-details-text-container'>Booking Details:
+        <div className='text-bold booking-details-text-container'>{t('common.itineraryDetails.bookingDetailsHeader')}:
           <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
         </div>
       </div>
@@ -118,8 +126,13 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     <div className={props.pricingDisplay ? 'flight-details-drawer' : ''}>
       <div className={'row ' + (props.pricingDisplay ? 'flight-details-container' : '')}>
         <div className="col-lg-6 booking-details-info-container">
-          <h5>Flight Details</h5>
+          <h5>{t('common.itineraryDetails.flightDetailsHeader')}</h5>
           <div className="flight-details">
+            {state.flightResultsPathComponents.length === 0 &&
+            <div className="row">
+              <p>{t('common.itineraryDetails.informationNotAvailable')}</p>
+            </div>
+            }
             <Timeline>
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
                 <TimelineItem classes={{root: classes.root}} key={index.toString()}>
@@ -139,10 +152,10 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           </div>
         </div>
         <div className="col-lg-6 booking-details-info-container">
-          <h5>Fare Details</h5>
+          <h5>{t('common.itineraryDetails.fareDetailsHeader')}</h5>
           <div className="fare-details">
             {
-              state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
+              state.fareRulesPreviewComponents.map((fareRulesPreview: typeof FareRulesPreview, index: number) =>
                 <div className='fare-rules-preview-container' key={index.toString()}>
                   {fareRulesPreview}
                   {props.pricingDisplay && getFareRulesBookingDetailsHTML(index)}

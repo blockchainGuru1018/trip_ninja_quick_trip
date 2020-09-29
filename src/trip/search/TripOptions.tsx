@@ -3,7 +3,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { setValue } from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
-
+import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 
 interface TripOptionsProps {
   routeFlexible: boolean;
@@ -13,39 +13,22 @@ interface TripOptionsProps {
 
 class TripOptions extends React.Component<TripOptionsProps> {
 
-  flexTripAllowed = (): boolean => {
-    const flightLength: number = this.props.flights.length;
-    return flightLength > 2 &&
-    flightLength <= 5 &&
-    this.allCabinsEqual();
-  }
-
-  allCabinsEqual = (): boolean => {
-    const cabinClass: string = this.props.flights[0].cabinClass;
-    const flightsWithSameCabinClass: Array<Flight> = this.props.flights.filter(
-      flight => flight.cabinClass === cabinClass
-    );
-    return flightsWithSameCabinClass.length === this.props.flights.length;
-  }
-
-
   render() {
     return (
       <div className="trip-options">
         {
-          this.flexTripAllowed()
-            ? <FormControlLabel
+          flexTripAllowed(this.props.flights)
+            && <FormControlLabel
               value={this.props.routeFlexible}
               control={<Checkbox
                 id="route-flexible"
                 checked={this.props.routeFlexible}
-                color="default"
+                color="secondary"
                 onChange={e => this.props.setValue('routeFlexible', e.target.checked)}
               />}
               label="Route Flexible"
               labelPlacement="end"
             />
-            : ''
         }
       </div>
     );

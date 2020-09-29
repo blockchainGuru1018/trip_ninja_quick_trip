@@ -1,11 +1,12 @@
 import React from 'react';
 import { Segment, FlightResult } from '../trip/results/ResultsInterfaces';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FlightTypesProps {
+interface FlightTypesProps extends WithTranslation {
   segment: Segment
 }
 
-class FlightTypes extends React.Component<FlightTypesProps> {
+export class FlightTypes extends React.Component<FlightTypesProps> {
   render() {
     return (
       <div className="col-sm-2 my-auto">
@@ -21,10 +22,10 @@ class FlightTypes extends React.Component<FlightTypesProps> {
       if (index !== flightResults.length - 1) {
         total += ', ';
       } else {
-        return total += ' Class';
+        return total += ' ' + this.props.t("common.flightTypes.class");
       }
       return total;
     }, '')
 }
 
-export default FlightTypes;
+export default withTranslation('common')(FlightTypes);

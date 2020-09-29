@@ -8,7 +8,7 @@
 }
 
 .marketing-panel {
-  padding: 250px 100px;
+  padding: 250px 50px 50px 50px;
 }
 
 .login-link {
@@ -22,6 +22,11 @@
 .login-button-row {
   padding-top: 25px;
   align-items: center;
+}
+
+.login-language-selector {
+  padding-top: 25px;
+  padding-right: 30px;
 }
 
 .logo-img {
@@ -43,5 +48,8 @@
 
 .marketing-description {
   padding-left: 0px;
-  width: 86%;
+}
+
+.login-button-col {
+  padding: 0px;
 }

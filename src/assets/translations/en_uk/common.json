@@ -1,0 +1,356 @@
+{   "commonWords":{
+        "email": "Email",
+        "password": "Password",
+        "passengers": "Passengers",
+        "total": "Total",
+        "passengerTypes": {
+            "ADT": "Adult",
+            "CHD": "Child",
+            "INF": "Infant",
+            "STU": "Student",
+            "YTH": "Youth"
+        },
+        "cabins":{
+            "E": "Economy",
+            "PE": "Premium Economy",
+            "BC": "Business Class",
+            "FC": "First Class",
+            "PFC": "Premium First Class"
+        },
+        "status":{
+            "booked": "Booked",
+            "cancelled": "Cancelled",
+            "queued": "Queued",
+            "ticketed": "Ticketed" 
+        },
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "nationality": "Nationality",
+        "passportNumber": "Passport #",
+        "passportExpiry": "Passport Expiry",
+        "phone": "Phone"
+    },
+    "common": {
+        "navBar":{
+            "flightSearch": "Flight Search",
+            "bookings": "Bookings"
+        },
+        "userMenu": {
+            "signOut": "Sign out"
+        },
+        "custom404":{
+            "title": "404 - The page was not found",
+            "subHeader": "Oops! We can’t find the page you are looking for. It’s not you, it’s us.\nTry starting from our",
+            "helpCentre": "Help Centre",
+            "subHeaderEnding": " to point you in the right direction.",
+            "missingLinkPrompt": "Is something not where it should be? ",
+            "missingLinkCTA": "Let us know.",
+            "back": "Back to home"
+        },
+        "fareBreakdown": {
+            "title": "Fare Breakdown",
+            "altTitle": "Booking Costs",
+            "airTransportationCharges": "Air Transportation Charges",
+            "taxes": "Taxes and Fees",
+            "infoMissing": "Information is not available."
+        },
+        "fareRulesPreview": {
+            "title": "Fare Rules",
+            "selectedFareFamily": "Selected Fare Family",
+            "cabinBaggage": "Cabin Baggage",
+            "included": "Included",
+            "notIncluded": "Not Included",
+            "changePenalty": "Change Penalty",
+            "fareType": "Fare Type",
+            "wifiTitle": "Wifi availability",
+            "wifi": "Wifi",
+            "seatSelection": "Seat selection",
+            "checkedBags": "Checked Bags",
+            "cancellationPenalty": "Cancellation Penalty",
+            "fareSource": "Fare Source", 
+            "bookingCode": "Booking Code",
+            "editFareFamily": "*Edit fare family from the flight selection",
+            "bookingClass": "Class",
+            "atACost": "At a cost",
+            "available": "Available",
+            "unavailable": "Unavailable"
+        },
+        "flightLogo": {
+            "multipleAirlines": "Multiple Airlines"
+        },
+        "flightStops": {
+            "stop": "Stop",
+            "stopsPlural": "Stops",
+            "direct": "Direct"
+        },
+        "flightTime": {
+            "hoursIndicator": "h",
+            "minutesIndicator": "m"
+        },
+        "flightTypes": {
+            "class": "Class"
+        },
+        "itineraryDetails": {
+            "dateFormat": "eeee MMM eo, yyy",
+            "bookingDetailsHeader": "Booking Details",
+            "flightDetailsHeader": "Flight Details",
+            "informationNotAvailable": "Information not available",
+            "fareDetailsHeader": "Fare Details"
+        },
+        "modals" : {
+            "bookingErrorModal": {
+                "title": "Booking failed",
+                "body": "This booking was unable to be processed, try different flights or re-running the search.",
+                "return": "Return to Results"
+            },
+            "bookModal": {
+                "primaryText": "Booking your trip"
+            },
+            "cancellingErrorModal": {
+                "title": "Cancellation failed",
+                "body": "There was an error cancelling this itinerary, please try again later or cancel directly with data source.",
+                "return": "Return to Booking Overview"
+            },
+            "pricingErrorModal": {
+                "title": "Price confirm failed",
+                "body": "These flights are no longer available, please try confirming a different flight option or re-running the search.",
+                "return": "Return to Results"
+            },
+            "pricingModal": {
+                "primaryText": "Confirming your flights"
+            },
+            "queueingErrorModal": {
+                "title": "Queueing failed",
+                "body": "There was an error queueing this itinerary, please try again later.",
+                "return": "Return to Booking Overview"
+            },
+            "searchErrorModal": {
+                "title": "No Flights Found",
+                "body": "There were no flights found for your search. Please try a different search.",
+                "body2": "For more information on what might have gone wrong, head to our",
+                "knowledgeBase": "Knowledge Base.",
+                "supportTeam": " You can always reach out to our support team at support@tripninja.io\nfor assistance.",
+                "return": "Return to Search"
+            },
+            "searchModal": {
+                "primaryText": "Finding the best route and flight options"
+            },
+            "ticketingErrorModal": {
+                "title": "Ticketing failed",
+                "body": "There was an error ticketing this itinerary, please try again later.",
+                "return":"Return to Booking Overview"
+            }
+        }
+    },
+    "auth":{
+        "loginForm":{
+            "welcomeMessage": "Welcome Back!",
+            "signIn": "Sign In",
+            "loginFail": "Unable to login - check your password and try again!",
+            "forgotPassword": "Forgot Password?",
+            "loginButton": "Log in",
+            "signUp": "Don't have an account yet?",
+            "freeTrial": "Start your free trial"
+        },
+        "marketingPanel":{
+            "header":"How efficient is your flight booking process?",
+            "description":"Empower travel agents to find the best complex itineraries in seconds, so your team can do more with less.",
+            "callToAction":"See how Trip Ninja increases agent efficiency"
+        }
+    },
+    "search": {
+        "search": {
+            "header": "Flight Search",
+            "addFlightButton": "Add Flight",
+            "additionalDetailsHeader": "Additional Details"
+        },
+        "searchRequest": {
+            "searchFlights": "Search Flights",
+            "searchFlightsError": "Invalid search details - please check dates and flights are correct."
+        },
+        "flightInput": {
+            "origin": "Origin",
+            "destination": "Destination"
+        }
+    },
+    "results": {
+        "preResults":{
+            "yourTrip": "Your Trip",
+            "from": "From",
+            "seeFlightOptions": "See flight options",
+            "reorderDestinationsPrompt": "Reorder destinations to save up to: $"
+        },
+        "resultsHeader":{
+            "dateFormat": "MMM d",
+            "backToFlexTrip": "Back To FlexTrip Results",
+            "changeSearch": "Change Search"
+        },
+        "fareSelect": {
+            "total": "Total",
+            "selectSegment": "Select Segment",
+            "informationNotAvailable": "Information not available",
+            "na":"N/A",
+            "features": "Features",
+            "description": "Description",
+            "checkedBags": "Checked Bags",
+            "cabinBags": "Cabin Bags",
+            "seatSelection": "Seat Selection",
+            "changes": "Changes",
+            "refundable": "Refundable",
+            "bookingCode": "Booking Code",
+            "fareBasis": "Fare Basis",
+            "price": "Price"
+        },
+        "itineraryResult":{
+            "title": "Your Itinerary"
+        },
+        "pricingRequest": {
+            "callToAction": "Continue to Price Confirm"
+        },
+        "segmentNav":{
+            "title": "Itinerary",
+            "overview": "Overview"
+        },
+        "segmentPreviewDetails":{
+            "loading": "Loading fare options...",
+            "selectSegment": "Select Segment"
+        },
+        "segmentPrice":{
+            "source": "Source"
+        },
+        "segmentSelection":{
+            "selectedFlight": "Selected Flight",
+            "otherOptions": "Other Options",
+            "otherOptionsWarning": "Selecting these flights may impact other linked segments."
+        },
+        "sortOption": {
+            "sortBy": "Sort By",
+            "cheapest": "cheapest",
+            "best": "best",
+            "fastest": "fastest"
+        },
+        "tooltips":{
+            "incompatibleInfoTooltip":{
+                "segment": "Segment",
+                "selectionImpact": "Selecting this segment will affect the following segments:"
+            }
+        },
+        "filters":{
+            "flightsFilter":{
+                "baggage": "baggage",
+                "baggageDescription": "Minimum # of checked bags",
+                "baggage0Label": "Any",
+                "baggage1Label": "1 bag",
+                "baggage2Label": "2 bags",
+                "baggage3Label": "3 bags",
+                "alliance": "alliance",
+                "allianceDescription": "Alliance",
+                "allianceAnyLabel": "Any",
+                "alliance*ALabel": "Star Alliance",
+                "alliance*OLabel": "Oneworld",
+                "alliance*SLabel": "Skyteam",
+                "noOfStops": "stops",
+                "noOfStopsDescription": "Max Number of Stops",
+                "noOfStopsAnyLabel": "Any",
+                "noOfStops0Label": "Direct Only",
+                "noOfStops1Label": "1 stop",
+                "noOfStops2Label": "2 stops",
+                "filterFailMessage": "No flights for this filter"
+            }
+        }
+    },
+    "book":{
+        "book":{
+            "return": "Back to Results",
+            "title": "Itinerary Summary"
+        },
+        "bookRequest":{
+            "bookAndSave": "Book and Save",
+            "bookAndQueue": "Book and Queue",
+            "bookAndTicket": "Book and Ticket",
+            "passengerDetailsError": "Passenger details are not filled out properly - please review.",
+            "bookingDisabled": "Booking disabled - please contact your team admin"
+            
+        },
+        "flightDetailsDrawer":{
+            "title": "Booking Overview",
+            "toTop": "Back to top",
+            "openButton": "See Flight Details"
+        },
+        "itinerary":{
+            "title": "Itinerary",
+            "dateFormat": "MMMM do yyy"
+        },
+        "passengerCountrySelect":{
+            "nationality": "Nationality"
+        },
+        "passengerDetails":{
+            "edit": "Edit",
+            "add": "Add",
+            "title": "Passenger Details",
+            "passenger1": "Passenger 1"
+        },
+        "passengerDetailsModal":{
+            "title": "Passenger Information",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "dateOfBirth": "Date of Birth",
+            "passportNumber": "Passport Number",
+            "passportExpiration": "Passport Expiration",
+            "warning": "This information must match the information on your travellers passport. Discrepancies could lead to denied boarding.",
+            "email": "Email", 
+            "phoneNumber": "Phone Number",
+            "invalidInputWarning": "Ensure all required fields are completed!",
+            "save": "Save",
+            "invalidPhoneNumber": "Invalid phone number",
+            "invalidEmailAddress": "Invalid email address"
+        }
+    },
+    "bookings": {
+        "bookingDetailsDrawer": {
+            "loadingErrorTitle": "Unable to load booking details.",
+            "loadingErrorBody": "Please contact support if the problem persists.",
+            "loadingErrorButton": "OK",
+            "loadingMessage": "Loading Booking Details...",
+            "title": "Booking Overview - Status:",
+            "navigationTitle": "Jump To",
+            "overviewNav": "Overview",
+            "bookingCostNav": "Booking Cost",
+            "flightOverviewNav": "Flight Overview",
+            "passengerInformationNav": "Passenger Information",
+            "overviewTitle": "Overview",
+            "bookingAgent": "Booking Agent", 
+            "team": "Team",
+            "backToTop": "Back to top"
+        },
+        "bookings": {
+            "title": "Bookings"
+        },
+        "bookingsTable": {
+            "dateFormat": "MMM Mo, Y",
+            "noBookings": "No bookings found!",
+            "pnrNumbers": "PNR Numbers",
+            "passenger1": "Passenger 1",
+            "bookingDate": "Booking Date",
+            "departureDate": "Departure Date",
+            "price": "Price",
+            "route": "Route",
+            "status": "Status"
+        },
+        "manageBooking" : {
+            "title": "Manage",
+            "cancelBookingButton": "Cancel Booking",
+            "sendToQueueButton": "Send to Queue",
+            "issueTicketButton": "Issue Ticket"
+        },
+        "multiPNRViewToggle": {
+            "title": "Multiple PNRs", 
+            "pnrsByTrip": "Group PNRs by trip",
+            "pnrsByEach": "Show each PNR"
+        },
+        "passengerDetails": {
+            "title": "Passenger Details"
+        }
+    }
+}

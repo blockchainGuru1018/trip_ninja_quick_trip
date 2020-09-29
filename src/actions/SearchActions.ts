@@ -80,11 +80,11 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: Dispat
         return setSearchSuccess(dispatch, response);
       }
       else {
-        return setSearchFailed(dispatch)
+        return setSearchFailed(dispatch);
       }
     })
     .catch((error: any) => {
-      return setSearchFailed(dispatch)
+      return setSearchFailed(dispatch);
     });
 };
 
@@ -94,10 +94,10 @@ const setSearchSuccess = (dispatch: Dispatch<any>, response: any) => {
   dispatch(setErrorDetails(false, 'search'));
   dispatch(searchLoading(false));
   return {'success': true, 'flex_trip': response.data.flex_trip ? true : false};
-}
+};
 
 const setSearchFailed = (dispatch: any) => {
   dispatch(searchLoading(false));
   dispatch(setErrorDetails(true, 'search'));
   return {'success': false};
-}
+};

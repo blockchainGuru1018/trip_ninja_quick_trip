@@ -5,8 +5,9 @@ import PassengerDetailsModal from './PassengerDetailsModal';
 import { Passenger } from '../search/SearchInterfaces';
 import { PassengerInfo, BookingDetails } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface PassengerDetailsProps {
+interface PassengerDetailsProps extends WithTranslation {
   passengers: Array<Passenger>;
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
@@ -23,11 +24,11 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
     let passengerInfo: Array<PassengerInfo> = this.props.bookingDetails.passengers;
 
     const passengers = passengerInfo.map((passenger: PassengerInfo, index: number) => (
-      <div className="row passenger-row" key={index.toString()}>
-        <div className="col-sm-8 passenger-label">
+      <div className={'row' + ((passengerInfo.length-1 !== index) ? ' passenger-row': '')} key={index.toString()}>
+        <div className="col-sm-8 my-auto">
           <PersonOutlineIcon color="primary"/>
-          <span className="text-bold icon-label">{passenger.updated ? passenger.first_name + ' ' + passenger.last_name : passenger.passenger_type_name} </span>
-          {index === 0 && <span>(Passenger 1)</span>}
+          <span className="text-bold icon-label">{passenger.updated ? passenger.first_name + ' ' + passenger.last_name : this.props.t("commonWords.passengerTypes." + passenger.passenger_type)} </span>
+          {index === 0 && <span>({this.props.t("book.passengerDetails.passenger1")})</span>}
         </div>
         <div className="col-sm-4">
           {passenger.updated 
@@ -38,7 +39,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
               className="float-right"
               onClick={(e) => this.handleModalOpen(index)}
             >
-            Edit
+              {this.props.t("book.passengerDetails.edit")}
             </Button>
             : <Button 
               variant="contained"
@@ -48,7 +49,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
               onClick={(e) => this.handleModalOpen(index)}
               disableElevation
             >
-            Add
+              {this.props.t("book.passengerDetails.add")}
             </Button>
           }
           
@@ -57,7 +58,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
 
     return (
       <div>
-        <h5>Passenger Details</h5>
+        <h5>{this.props.t("book.passengerDetails.title")}</h5>
         <div className="book-container">
           {passengers}
         </div>      
@@ -78,4 +79,4 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
   }
 }
 
-export default PassengerDetails;
+export default withTranslation('common')(PassengerDetails);

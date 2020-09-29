@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import iataAirports from '../assets/data/iataAirports.json';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface FlightLogoProps {
+interface FlightLogoProps extends WithTranslation {
   flights: Array<FlightResultsDetails>
   itineraryDisplay?: boolean
 }
@@ -11,7 +12,7 @@ class FlightLogo extends React.Component<FlightLogoProps> {
   render() {
     return(
       <div className={(this.props.itineraryDisplay ? 'col-sm-1' : 'col-sm-2') + ' airline-logo-container my-auto'}>
-        <div>
+        <div className="my-auto">
           <img
             className='img-airline-logo '
             src={"https://s3-us-west-2.amazonaws.com/tn-airline-logos/" + this.props.flights[0].carrier + "_48x48.png"}
@@ -31,7 +32,7 @@ class FlightLogo extends React.Component<FlightLogoProps> {
             }
             {
               this.multipleAirlines(this.props.flights)
-                ? <div className="text-small">{"Multiple Airlines"}</div>
+                ? <div className="text-small">{this.props.t("common.flightLogo.multipleAirlines")}</div>
                 : <div className="text-small">{iataAirports[this.props.flights[0].carrier]}</div>
             }
           </div>
@@ -46,4 +47,4 @@ class FlightLogo extends React.Component<FlightLogoProps> {
     ).length !== flights.length;
 }
 
-export default FlightLogo;
+export default withTranslation('common')(FlightLogo);

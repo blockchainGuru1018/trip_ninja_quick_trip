@@ -1,7 +1,8 @@
 import React from 'react';
-import { bookFlights } from '../../actions/BookActions';
-import BookRequest from './BookRequest';
 import { shallow } from 'enzyme';
+import { bookFlights, updatePassengerInfo } from '../../actions/BookActions';
+import { BookRequest } from './BookRequest';
+import { PassengerCountrySelect } from './PassengerCountrySelect';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
@@ -43,7 +44,8 @@ const testAuthDetails: AuthDetails = {
   userFirstName: "",
   userLastName: "",
   isAgencyAdmin: false,
-  isSuperUser: false
+  isSuperUser: false,
+  bookingDisabled: false
 };
 
 
@@ -100,7 +102,7 @@ const testResultsDetails: ResultsDetails = {
 };
 
 
-test('checkBookingRequestComponent', () => {
+test('bookRequestComponent', () => {
   const bookRequestComponent: any = shallow(
     <BookRequest
       bookingDetails={testBookingDetails}
@@ -108,15 +110,26 @@ test('checkBookingRequestComponent', () => {
       pricingDetails={testPricingDetails}
       resultsDetails={testResultsDetails}
       bookFlights={bookFlights}
+      t={(key: any) => key}
     />
   );
 
-  const bookRequestComponentInstance = bookRequestComponent.instance();
-
-  bookRequestComponentInstance.validatePassengerBookingDetails();
-
-  expect(bookRequestComponentInstance.props.bookingDetails.agent_email).toStrictEqual(testAuthDetails.userEmail);
-  expect(bookRequestComponentInstance.props.bookingDetails.trip_id).toStrictEqual(testPricingDetails.trip_id);
-
+  const bookRequestInstance = bookRequestComponent.instance();
+  expect(bookRequestInstance.validatePassengerBookingDetails()).toStrictEqual(true);
+  expect(bookRequestInstance.props.bookingDetails.agent_email).toStrictEqual(testAuthDetails.userEmail);
+  expect(bookRequestInstance.props.bookingDetails.trip_id).toStrictEqual(testPricingDetails.trip_id);
 });
 
+test('passengerCountrySelectComponent', () => {
+  const countrySelectComponent: any = shallow(
+    <PassengerCountrySelect
+      index={0}
+      updatePassengerInfo={updatePassengerInfo}
+      country={"AU"}
+      t={(key: any) => key}
+    />
+  );
+
+  const countrySelectInstance = countrySelectComponent.instance();
+  expect(countrySelectInstance.getCountryByCode("AU")).toEqual({"code": "AU", "name": "Australia"});
+});

@@ -18,7 +18,10 @@ import { getBookingDetails, cancelBooking, queueBooking, ticketBooking } from '.
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import expandedIcon from '../assets/images/expanded_icon.svg';
-
+import { withTranslation, WithTranslation } from 'react-i18next';
+import i18n from '../i18n';
+import localeMap from '../localeMap';
+import { format } from 'date-fns';
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -37,7 +40,7 @@ const DetailsLinkCell = styled(TableCell)({
 
 
 
-interface BookingsTableProps {
+interface BookingsTableProps extends WithTranslation {
   bookings: Array<Booking>
   getBookingDetails: typeof getBookingDetails;
   cancelBooking: typeof cancelBooking;
@@ -52,7 +55,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
   state = {
     rowsPerPage: 10,
     page: 0,
-    order: 'asc',
+    order: 'desc',
     orderBy: 'booking_date',
   }
 
@@ -69,7 +72,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             <TableBody>
               {this.props.bookings.length > 0 
                 ? this.displayBookings(this.props.bookings)
-                : <TableRow><TableCell align="center" colSpan={7}>No bookings found!</TableCell></TableRow>
+                : <TableRow><TableCell align="center" colSpan={7}>{this.props.t("bookings.bookingsTable.noBookings")}</TableCell></TableRow>
               }
             </TableBody>
             <TableFooter>
@@ -92,13 +95,13 @@ class BookingsTable extends React.Component<BookingsTableProps> {
 
   displayTableHeader = () => {
     const headerFields = [
-      {"label": "PNR Numbers", "name": "pnr_numbers"},
-      {"label": "Passenger 1", "name": "passenger.last_name"}, 
-      {"label": "Booking Date", "name": "booking_date"}, 
-      {"label": "Departure Date", "name": "departure_date"},
-      {"label": "Price", "name": "total_price"},
-      {"label": "Route", "name": "route"},
-      {"label": "Status", "name": "status"}
+      {"label": this.props.t("bookings.bookingsTable.pnrNumbers"), "name": "pnr_numbers"},
+      {"label": this.props.t("bookings.bookingsTable.passenger1"), "name": "passenger.last_name"}, 
+      {"label": this.props.t("bookings.bookingsTable.bookingDate"), "name": "booking_date"}, 
+      {"label": this.props.t("bookings.bookingsTable.departureDate"), "name": "departure_date"},
+      {"label": this.props.t("bookings.bookingsTable.price"), "name": "total_price"},
+      {"label": this.props.t("bookings.bookingsTable.route"), "name": "route"},
+      {"label": this.props.t("bookings.bookingsTable.status"), "name": "status"}
     ];
     return headerFields.map((column: any, index: number) => {
       return (
@@ -134,14 +137,14 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+              {format(new Date(booking.booking_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">
-              <Moment format="MMM DD, YYYY">{booking.departure_date}</Moment>
+              {format(new Date(booking.departure_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>
-            <TableCell align="left">{firstLetterCapital(booking.status)}</TableCell>
+            <TableCell align="left">{firstLetterCapital(this.props.t("commonWords.status." + booking.status))}</TableCell>
           </TableRow>
         );
         if (this.props.multiplePnrDisplay === 'expanded' && booking.pnr_list.length > 1) { 
@@ -161,7 +164,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 </TableCell>
                 <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
                 <TableCell align="left">{pnr.route}</TableCell>
-                <TableCell align="left">{firstLetterCapital(pnr.pnr_status != 'priced' ? pnr.pnr_status : booking.status)}</TableCell>
+                <TableCell align="left">{firstLetterCapital(pnr.pnr_status !== 'priced' ? pnr.pnr_status : booking.status)}</TableCell>
               </TableRow>
             );
           });
@@ -203,4 +206,4 @@ class BookingsTable extends React.Component<BookingsTableProps> {
 
 }
 
-export default BookingsTable;
+export default withTranslation('common')(BookingsTable);

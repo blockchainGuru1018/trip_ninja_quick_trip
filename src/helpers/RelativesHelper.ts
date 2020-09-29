@@ -2,6 +2,7 @@ import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterface
 import _ from 'lodash';
 import { updateActiveSegments, updateSegmentActivesAndAlternates } from './CompatibilityHelpers';
 import { getTotal } from './MiscHelpers';
+import { viable } from '../reducers/ResultsReducer';
 
 export function identifyAndSetInitialActives(resultsDetails: ResultsDetails, sortBy: string) {
   setIndex0AsActives(resultsDetails);
@@ -17,13 +18,12 @@ function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPo
   const targetTotalWeight: number = getTotal(targetActives, 'weight');
   const targetTotalTime: number = targetActives.reduce((total: number, targetActiveSegment: Segment) => total += targetActiveSegment.segment_time_w_connections, 0);
   const targetItineraryIdList = getActivesItineraryIds(targetActives);
-  const viable: boolean = targetActives.every((viableSegment: Segment) => !viableSegment.filtered);
   return {
     "totalPrice": targetTotalPrice,
     "totalWeight": targetTotalWeight,
     "totalTime": targetTotalTime,
     "itineraryIdList": targetItineraryIdList,
-    viable
+    "viable": viable(clonedResults)
   };
 }
 
@@ -35,26 +35,46 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
   let totalPrice: number = totals[0];
   let totalWeight: number = totals[1];
   let totalTime: number = totals[2];
-  let minimumWeight: number = totalWeight;
-  let minimumPrice: number = totalPrice;
+  let minimumWeight: any = totalWeight;
+  let minimumPrice: any = totalPrice;
   let minimumTime: number = totalTime;
-  let bestTrip: Array<string> = actives.map(
+  let bestTrip: any = actives.map(
     (segment: Segment) => segment.itinerary_id
   );
-  results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
 
+  function compareBestTripByBest(targetActivesTotal: any) {
+    if (targetActivesTotal.totalWeight <= minimumWeight && targetActivesTotal.viable) {
+      if (targetActivesTotal.totalWeight === minimumWeight && targetActivesTotal.totalPrice < minimumPrice) {
+        setMinPriceAndWeight(targetActivesTotal, true, true);
+      } else {
+        setMinPriceAndWeight(targetActivesTotal, false, true);
+      }
+    }
+  }
+
+  function compareBestTripByCheapest(targetActivesTotal: any) {
+    if (targetActivesTotal.totalPrice < minimumPrice && targetActivesTotal.viable) {
+      if (targetActivesTotal.totalPrice === minimumPrice && targetActivesTotal.totalWeight < minimumWeight) {
+        setMinPriceAndWeight(targetActivesTotal, true, true);
+      } else {
+        setMinPriceAndWeight(targetActivesTotal, true, false);
+      }
+    }
+  }
+
+  function setMinPriceAndWeight(targetActivesTotal: any, price: boolean, weight: boolean) {
+    minimumPrice = price ? targetActivesTotal.totalPrice : minimumPrice;
+    minimumWeight = weight ? targetActivesTotal.totalWeight : minimumWeight;
+    bestTrip = targetActivesTotal.itineraryIdList;
+  }
+
+  results.segments.forEach((segmentOptions: Array<Segment>, segmentPosition: number) => {
     segmentOptions.forEach((segment: Segment, index: number) => {
       let targetActivesTotal = calculateTotalForTargetActives(clonedResults, segmentPosition, actives, segment);
       if (sortBy === 'best') {
-        if (targetActivesTotal.totalWeight < minimumWeight && targetActivesTotal.viable) {
-          minimumWeight = targetActivesTotal.totalWeight;
-          bestTrip = targetActivesTotal.itineraryIdList;
-        }
+        compareBestTripByBest(targetActivesTotal);
       } else if (sortBy === 'cheapest') {
-        if (targetActivesTotal.totalPrice < minimumPrice && targetActivesTotal.viable) {
-          minimumPrice = targetActivesTotal.totalPrice;
-          bestTrip = targetActivesTotal.itineraryIdList;
-        }
+        compareBestTripByCheapest(targetActivesTotal);
       } else {
         if (targetActivesTotal.totalTime < minimumTime && targetActivesTotal.viable) {
           minimumTime = targetActivesTotal.totalTime;
@@ -66,7 +86,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
       segment.relativeTime = targetActivesTotal.totalTime - totalTime;
     });
     if (setActivesInitial) {
-      updateActiveSegments(resultsDetails, segmentPosition, bestTrip[segmentPosition]);
+      bestTrip.forEach((bestTripSegmentPosition: string, index: number) =>  updateActiveSegments(resultsDetails, index, bestTripSegmentPosition));
       actives = [...resultsDetails.activeSegments.values()];
       totals = setTotals(resultsDetails.activeSegments);
       totalPrice = totals[0];
@@ -75,6 +95,7 @@ export function setRelativesAndUpdateActives(resultsDetails: ResultsDetails, set
     }
     actives.forEach((segment: Segment, index: number) => updateActiveSegments(clonedResults, index, segment.itinerary_id));
   });
+  actives.forEach((segment: Segment) => segment.status = 'active');
 }
 
 function getActivesItineraryIds(activeSegment: Array<Segment>) {
@@ -91,21 +112,30 @@ const setTotals = (activeSegments: any) => {
 
 export function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
-  resetSegmentsStatus(trip.segments)
-  trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
-    segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
-    const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
-
-    if (segmentToChange!.status !== 'active') {
-      updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
-    }
-    return segmentOptions
-  });
+  resetSegmentsStatus(trip.segments);
+  updateActivesToFiltered(trip, state);
+  if (!viable(state)) {
+    updateActivesToFiltered(trip, state);
+  }
   return state;
+}
+
+function updateActivesToFiltered(trip: Results, state: ResultsDetails) {
+  const actives = [...state.activeSegments.values()];
+  trip.segments.forEach((segmentOptions: Array<Segment>, segmentPositionIndex: number) => {
+    if (actives.length === 0 || actives[segmentPositionIndex].filtered) {
+      segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
+      const segmentToChange = segmentOptions.find((segment: Segment) => !segment.filtered);
+      if (segmentToChange!.status !== 'active') {
+        updateSegmentActivesAndAlternates(segmentToChange!, state, segmentPositionIndex, true);
+      }
+    }
+    return segmentOptions;
+  });
 }
 
 function resetSegmentsStatus(segments: Array<Array<Segment>>) {
   segments.forEach((segmentOptions: Array<Segment>) =>
     segmentOptions.forEach((segment: Segment) => segment.status = '')
-  )
+  );
 }

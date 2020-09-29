@@ -7,16 +7,16 @@ import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
 import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-
-interface PreResultsProps {
+interface PreResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
   setTripType: typeof setTripType;
   setActiveSegments: typeof setActiveSegments;
 }
 
-class PreResults extends React.Component<PreResultsProps> {
+export class PreResults extends React.Component<PreResultsProps> {
   state = {
     flexPrice: 0,
     farePrice: 0,
@@ -44,13 +44,13 @@ class PreResults extends React.Component<PreResultsProps> {
     return (
       <div className="row">
         <div className="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 default-form" id="pre-results-form">
-          <h1 className="pre-results-title">Your Trip</h1>
+          <h1 className="pre-results-title">{this.props.t("results.preResults.yourTrip")}</h1>
           <div className="row">
             <div className="col-xl-4 offset-xl-1 col-md-4 offset-md-4 col-sm-6 offset-sm-3 flight-option-container-fare" id='fare-structure-pre-result'>
               <div className="default-box-styles flight-option-box">
-                <p className="pre-result-subtitle">Your Trip</p>
+                <p className="pre-result-subtitle">{this.props.t("results.preResults.yourTrip")}</p>
                 <p className="standard-text">
-                  {'From: ' + this.state.farePrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.state.farePrice + ' ' + this.props.currency}
                 </p>
                 <p className="standard-text text-small">
                   {this.state.fareStructurePassengersString}
@@ -62,19 +62,21 @@ class PreResults extends React.Component<PreResultsProps> {
               </div>
               <div className="flight-options-btn-container">
                 <Button
+                  disableElevation
                   variant="contained"
                   className="btn-flight-options"
-                  onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}
-                >See flight options</Button>
+                  onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}>
+                  {this.props.t("results.preResults.seeFlightOptions")}
+                </Button>
               </div>
             </div>
             <div className="col-xl-4 offset-xl-2 col-md-4 offset-md-4 flight-option-container-flex col-sm-6 offset-sm-3" id='flex-trip-pre-result'>
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">
-                  {'Reorder destinations to save up to: $' + (this.state.farePrice - this.state.flexPrice)}
+                  {this.props.t("results.preResults.reorderDestinationsPrompt") + (this.state.farePrice - this.state.flexPrice)}
                 </p>
                 <p className="standard-text">
-                  {'From: ' + this.state.flexPrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.state.flexPrice + ' ' + this.props.currency}
                 </p>
                 <p className='standard-text text-small'>
                   {this.state.flexTripPassengersString}
@@ -86,14 +88,16 @@ class PreResults extends React.Component<PreResultsProps> {
               </div>
               <div className="flight-options-btn-container">
                 <Button
+                  disableElevation
                   variant="contained"
                   className="btn-flight-options"
                   onClick={() => {
                     this.props.setTripType('flexTripResults');
                     this.props.setActiveSegments();
                     history.push('/results/itinerary/');
-                  }}
-                >See flight options</Button>
+                  }}>
+                  {this.props.t("results.preResults.seeFlightOptions")}
+                </Button>
               </div>
             </div>
           </div>
@@ -132,4 +136,4 @@ class PreResults extends React.Component<PreResultsProps> {
   }
 }
 
-export default PreResults;
+export default withTranslation('common')(PreResults);

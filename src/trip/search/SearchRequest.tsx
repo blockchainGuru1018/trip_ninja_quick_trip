@@ -11,13 +11,14 @@ import iataCodeHelper from '../../helpers/IataCodeHelper';
 import Alert from '@material-ui/lab/Alert';
 import history from '../../History';
 import Hotkeys from 'react-hot-keys';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface SearchRequestProps {
+interface SearchRequestProps extends WithTranslation {
   searchDetails: SearchDetails;
   searchFlights: typeof searchFlights
 }
 
-class SearchRequest extends React.Component<SearchRequestProps> {
+export class SearchRequest extends React.Component<SearchRequestProps> {
   state = {
     searchDetailsValid: true
   }
@@ -97,11 +98,11 @@ class SearchRequest extends React.Component<SearchRequestProps> {
           color="primary"
           size="large"
           onClick={this.searchForFlights}>
-            Search Flights
+          {this.props.t("search.searchRequest.searchFlights")}
         </Button>
         {!this.state.searchDetailsValid &&
         <Alert severity="error" className='validation-error-alert'>
-          Invalid search details - please check dates and flights are correct.
+          {this.props.t("search.searchRequest.searchFlightsError")}
         </Alert>
         }
       </div>
@@ -109,4 +110,4 @@ class SearchRequest extends React.Component<SearchRequestProps> {
   }
 }
 
-export default SearchRequest;
+export default withTranslation('common')(SearchRequest);

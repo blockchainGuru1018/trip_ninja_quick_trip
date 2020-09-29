@@ -14,13 +14,13 @@ import { Passenger } from '../search/SearchInterfaces';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
-
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
 });
 
-interface BookProps {
+interface BookProps extends WithTranslation {
   authDetails: AuthDetails;
   resultsDetails: ResultsDetails;
   currency: string;
@@ -47,13 +47,13 @@ class Book extends React.Component<BookProps> {
               onClick={() => history.push('/results/itinerary/')} 
             >
               <KeyboardBackspaceIcon /> 
-              Back to Results
+              {this.props.t("book.book.return")}
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-sm-6">
-                <h1>Itinerary Summary</h1>
+              <div className="col-md-6">
+                <h1>{this.props.t("book.book.title")}</h1>
               </div>
-              <div className="col-sm-6">
+              <div className="col-md-6">
                 <BookRequest
                   resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
@@ -65,13 +65,13 @@ class Book extends React.Component<BookProps> {
             </div>
           </div>
           <div className="row itinerary-details">
-            <div className="col-sm-7">
+            <div className="col-md-7">
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
               />
             </div>
-            <div className="col-sm-5">
+            <div className="col-md-5">
               <FareBreakdown 
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
@@ -91,4 +91,4 @@ class Book extends React.Component<BookProps> {
   }
 }
 
-export default Book;
+export default withTranslation('common')(Book);

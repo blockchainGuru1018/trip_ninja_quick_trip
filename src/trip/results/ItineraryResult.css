@@ -5,8 +5,7 @@
 
 #segment-nav {
   background-color: #45565E0D;
-  text-align: center;
-  padding: 25px 0px;
+  padding: 25px;
   height: 100%;
 }
 
@@ -24,6 +23,7 @@
   text-transform: uppercase;
   border: none;
   background-color: inherit;
+  padding: 0px;
 }
 
 .segment-nav-link:hover {
@@ -38,8 +38,13 @@
 }
 
 .results-header {
+  padding: 25px 100px 0px 100px;
+}
+
+.results-section-header {
   border-bottom: solid 1px #C1BDBD;
-  padding: 25px 100px;
+  padding: 25px 100px 25px 100px;
+  background-color: #ffffff;
 }
 
 .itinerary-path {
@@ -75,12 +80,12 @@
 }
 
 .segment-list {
-  padding: 25px 25px 150px 25px;
+  padding: 25px 65px 150px 25px;
   background-color: #ffffff;
 }
 
 .select-segment-list {
-  padding: 75px 25px;
+  padding: 75px 50px;
   background-color: #ffffff;
 }
 

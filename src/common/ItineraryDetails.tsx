@@ -4,7 +4,6 @@ import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
-import Moment from "react-moment";
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
 import {
@@ -15,8 +14,10 @@ import {
   TimelineItem,
   TimelineSeparator
 } from "@material-ui/lab";
-
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
+import localeMap from '../localeMap';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +40,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     fareRulesPreviewComponents: [] as any,
   });
   const [bookedTripSegments, setBookedTripSegments] = React.useState([] as Array<BookingSegment>);
+  const [ t ] = useTranslation('common');
 
   const setPricingFlightComponents = (selectedTrip: Array<Segment>, trip: Results, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
@@ -95,7 +97,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <Moment format="dddd, MMM DD">{flightDetails ? flightDetails.departure_time: ''}</Moment>
+      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:localeMap[i18n.language]}) : ''}</p>
     );
   };
 
@@ -103,7 +105,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     const segment: Segment = props.selectedTrip![index];
     return (
       <div className="row">
-        <div className='text-bold booking-details-text-container'>Booking Details:
+        <div className='text-bold booking-details-text-container'>{t('common.itineraryDetails.bookingDetailsHeader')}:
           <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
         </div>
       </div>
@@ -124,11 +126,11 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     <div className={props.pricingDisplay ? 'flight-details-drawer' : ''}>
       <div className={'row ' + (props.pricingDisplay ? 'flight-details-container' : '')}>
         <div className="col-lg-6 booking-details-info-container">
-          <h5>Flight Details</h5>
+          <h5>{t('common.itineraryDetails.flightDetailsHeader')}</h5>
           <div className="flight-details">
             {state.flightResultsPathComponents.length === 0 &&
             <div className="row">
-                <p>Information is not available.</p>
+              <p>{t('common.itineraryDetails.informationNotAvailable')}</p>
             </div>
             }
             <Timeline>
@@ -150,10 +152,10 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           </div>
         </div>
         <div className="col-lg-6 booking-details-info-container">
-          <h5>Fare Details</h5>
+          <h5>{t('common.itineraryDetails.fareDetailsHeader')}</h5>
           <div className="fare-details">
             {
-              state.fareRulesPreviewComponents.map((fareRulesPreview: FareRulesPreview, index: number) =>
+              state.fareRulesPreviewComponents.map((fareRulesPreview: typeof FareRulesPreview, index: number) =>
                 <div className='fare-rules-preview-container' key={index.toString()}>
                   {fareRulesPreview}
                   {props.pricingDisplay && getFareRulesBookingDetailsHTML(index)}

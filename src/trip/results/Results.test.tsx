@@ -1,9 +1,9 @@
 import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
-import PreResults from './PreResults';
+import { PreResults } from './PreResults';
 import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
-import FlightTypes from '../../common/FlightTypes';
+import { FlightTypes } from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
 import { Results, ResultsDetails, defaultResultsDetails } from './ResultsInterfaces';
@@ -199,13 +199,18 @@ test('getFlightDetailsBySegment', () => {
 
 
 test('getFlightTypes', () => {
-  const flightTypesComponent: any = shallow(<FlightTypes segment={testResults.segments[0][0]}/>).instance();
+  const flightTypesComponent: any = shallow(
+    <FlightTypes 
+      segment={testResults.segments[0][0]}
+      t={(key: any) => key}
+    />
+  ).instance();
   expect(
     flightTypesComponent.getFlightTypes(testResults.segments[0][0].flights)
-  ).toBe("X Class");
+  ).toBe("X common.flightTypes.class");
   expect(
     flightTypesComponent.getFlightTypes(testResults.segments[1][0].flights)
-  ).toBe("Y, Y Class");
+  ).toBe("Y, Y common.flightTypes.class");
 });
 
 test('createPassengerStringFromPayload', () => {
@@ -234,10 +239,13 @@ test('createPassengerStringFromPayload', () => {
 
 test('checkFlexTripRouteIsSame', () => {
   const preResultsComponent: any = shallow(
-    <PreResults resultsDetails={testResultsDetails} 
-      currency="USD" 
-      setTripType={setTripType} 
-      setActiveSegments={setActiveSegments} />
+    <PreResults 
+      resultsDetails={testResultsDetails} 
+      currency="USD"
+      setTripType={setTripType}
+      setActiveSegments={setActiveSegments}
+      t={(key: any) => key}
+    />
   );
   const instance = preResultsComponent.instance();
   expect(instance.compareFlexTripRoute()).toBe(true);

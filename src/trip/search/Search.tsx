@@ -84,6 +84,8 @@ class Search extends React.Component<SearchProps> {
                   routeFlexible={this.props.searchDetails.routeFlexible}
                   setValue={this.props.setValue}
                   flights={this.props.searchDetails.flights}
+                  virtualInterliningAccess={this.props.virtualInterliningAccess}
+                  virtualInterlining={this.props.searchDetails.virtualInterlining}
                 />
               </div>
             </div>
@@ -102,6 +104,7 @@ class Search extends React.Component<SearchProps> {
                 <SearchRequest
                   searchDetails={this.props.searchDetails}
                   searchFlights={this.props.searchFlights}
+                  virtualInterliningAccess={this.props.virtualInterliningAccess}
                 />
               </div>
             </div>

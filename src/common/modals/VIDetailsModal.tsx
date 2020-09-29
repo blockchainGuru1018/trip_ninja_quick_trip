@@ -7,7 +7,6 @@ import SegmentPreview from '../../trip/results/SegmentPreview';
 import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
-import { AuthDetails } from '../../auth/AuthInterfaces';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -60,7 +59,6 @@ interface VIDetailsModalProps {
   getTravelportBrands?: typeof getTravelportBrands;
   pathSequence?: Array<string>;
   totalPrice: number;
-  authDetails: AuthDetails;
   trip: Results;
 };
 
@@ -127,7 +125,6 @@ export function VIDetailsModal(props: VIDetailsModalProps) {
               updateFareFamily={props.updateFareFamily}
               pathSequence={props.pathSequence}
               totalPrice={props.totalPrice}
-              authDetails={props.authDetails}
               getTravelportBrands={props.getTravelportBrands}
               trip={props.trip}
               viDisplay={false}

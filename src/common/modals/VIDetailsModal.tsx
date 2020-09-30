@@ -84,11 +84,11 @@ export function VIDetailsModal(props: VIDetailsModalProps) {
     });
 
   
-  const getVISegments = (itinerary_id: string, segments: Array<Segment>): Array<Segment> => {
+  const getVISegments = (option_id: string, segments: Array<Segment>): Array<Segment> => {
     console.log("segments:", segments);
     const filteredSegments = segments.filter(
       (segment: Segment) =>
-        segment.itinerary_id === itinerary_id
+        segment.option_id === option_id
     );
     console.log("filtered segments:", filteredSegments);
 
@@ -104,7 +104,7 @@ export function VIDetailsModal(props: VIDetailsModalProps) {
 
     console.log("index:", props.index);
 
-    const VISegments: Array<Segment> = getVISegments(props.segment.itinerary_id, props.trip.segments[0]);
+    const VISegments: Array<Segment> = getVISegments(props.segment.option_id!, props.trip.segments[0]);
 
     return VISegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment);

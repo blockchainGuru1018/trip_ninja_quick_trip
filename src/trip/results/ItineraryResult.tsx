@@ -35,7 +35,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
-    let selectedTrip: Array<Segment> = this.getActiveSegments(trip);
+    let selectedTrip: Array<Segment> = [...this.props.resultsDetails.activeSegments.values()];
 
     const totalPrice: number = getTotal(selectedTrip, 'price');
 
@@ -97,7 +97,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                       trip={trip}
                       updateActives={this.props.updateActives}
                       segmentIndex={-1}
-                      activeSegments={this.getActiveSegments(trip)}
+                      activeSegments={selectedTrip}
                       updateEntireTrip={this.props.updateEntireTrip}
                     />
                   </div>
@@ -131,11 +131,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       </div>
     );
   }
-
-  getActiveSegments = (trip: Results) =>
-    trip.segments.map((segments: Array<Segment>) =>
-      segments.find((object: Segment) => object.status === 'active') || segments[0]
-    );
 }
 
 export default withTranslation('common')(ItineraryResult);

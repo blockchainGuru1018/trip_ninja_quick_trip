@@ -57,7 +57,10 @@ export interface PricingRequestItinerary {
 
 export interface FlightSegment {
   segment_id: string;
-  flights: Array<Flight>
+  flights: Array<Flight>;
+  option_part?: number;
+  vi_position?: number;
+  contains_virtual_interline?: boolean
 }
 
 export interface Flight {

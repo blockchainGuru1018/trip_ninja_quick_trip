@@ -5,6 +5,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface FlightStopsProps extends WithTranslation {
   flights: Array<FlightResultsDetails>
+  viParent: boolean;
 }
 
 class FlightStops extends React.Component<FlightStopsProps> {
@@ -13,7 +14,10 @@ class FlightStops extends React.Component<FlightStopsProps> {
       <div className='col-sm-2 my-auto'>
         {
           this.props.flights.length > 1
-            ? <div className="text-bold">{this.props.flights.length - 1} {this.props.flights.length > 2 ? this.props.t("common.flightStops.stopsPlural") : this.props.t("common.flightStops.stop")}</div>
+            ? <div className="text-bold">
+              {this.props.flights.length - 1} {this.props.flights.length > 2 ? this.props.t("common.flightStops.stopsPlural") : this.props.t("common.flightStops.stop")}
+              {this.props.viParent && ', Self Transfer'}
+            </div>
             : <p className="text-bold">{this.props.t("common.flightStops.direct")}</p>
         }
         {

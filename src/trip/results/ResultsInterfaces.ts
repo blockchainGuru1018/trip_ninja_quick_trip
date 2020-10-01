@@ -113,7 +113,7 @@ export interface Segment {
   option_part?: string;
   virtual_interline: boolean;
   vi_type?: string;
-  vi_position?: string;
+  vi_position?: number;
   weight: number;
   price: number;
   base_price: number;

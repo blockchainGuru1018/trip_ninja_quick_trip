@@ -30,7 +30,7 @@ class Itinerary extends React.Component<ItineraryProps> {
             <SegmentOriginDestination segment={segment} itineraryDisplay={true}/>
             <FlightLogo flights={segmentFlightDetails} itineraryDisplay={true}/>
             <FlightTime flights={segmentFlightDetails} itineraryDisplay={true}/>
-            <FlightStops flights={segmentFlightDetails} />
+            <FlightStops flights={segmentFlightDetails} viParent={false}/>
             <SegmentBaggage baggage={segment.baggage.number_of_pieces}itineraryDisplay={true}/>
           </div>
         </div>

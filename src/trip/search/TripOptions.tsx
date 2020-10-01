@@ -7,8 +7,10 @@ import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
 
 interface TripOptionsProps {
   routeFlexible: boolean;
+  virtualInterlining: boolean;
   setValue: typeof setValue;
-  flights: Array<Flight>
+  flights: Array<Flight>;
+  virtualInterliningAccess: boolean;
 }
 
 class TripOptions extends React.Component<TripOptionsProps> {
@@ -30,6 +32,15 @@ class TripOptions extends React.Component<TripOptionsProps> {
               labelPlacement="end"
             />
         }
+        {
+          this.props.virtualInterliningAccess &&
+            <FormControlLabel control={
+              <Checkbox id="virtual-interlining" checked={this.props.virtualInterlining} color="secondary"
+                onChange={e => this.props.setValue('virtualInterlining', e.target.checked)}
+              />
+            } label="Virtual Interlining" labelPlacement="end"/>
+        }
+
       </div>
     );
   }

@@ -34,7 +34,7 @@ const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, fullT
       flights: createFlightsPayload(flightDetails, fullTripWithVi, segmentIndex),
     };
     if (itineraryElement.virtual_interline) {
-      flightSegment.option_part = itineraryElement.option_part;
+      flightSegment.itinerary_index = itineraryElement.itinerary_index;
       flightSegment.virtual_interline = itineraryElement.virtual_interline;
       flightSegment.vi_position = itineraryElement.vi_position;
       flightSegment.vi_solution_id = itineraryElement.vi_solution_id;

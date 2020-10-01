@@ -105,7 +105,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(this.props.trip.flight_details, [this.props.segment], this.props.trip),
+      itineraries: createItinerariesPayload(this.props.trip.flight_details, this.getLinkedSegments(), this.props.trip),
       pseudo_price_confirm: true
     };
     const pricingResult: any = this.props.getTravelportBrands!(pricingPayload, this.props.segment);
@@ -132,7 +132,6 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
 
   setTravelportBrandedFares = (result: any) => {
     this.setState({loadingBrands: false});
-
   }
 }
 

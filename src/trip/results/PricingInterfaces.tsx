@@ -61,6 +61,7 @@ export interface FlightSegment {
   option_part?: number;
   vi_position?: number;
   contains_virtual_interline?: boolean
+  vi_solution_id?: string;
 }
 
 export interface Flight {

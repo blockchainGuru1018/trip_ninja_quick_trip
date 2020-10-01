@@ -1,6 +1,7 @@
 
 import { Segment, FlightResult, FlightResultsDetails, Results } from '../trip/results/ResultsInterfaces';
 import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
+import { getFullTripWithVi } from "./VirtualInterliningHelpers";
 import moment from 'moment';
 
 
@@ -36,6 +37,7 @@ const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, fullT
       flightSegment.option_part = itineraryElement.option_part;
       flightSegment.contains_virtual_interline = itineraryElement.virtual_interline;
       flightSegment.vi_position = itineraryElement.vi_position;
+      flightSegment.vi_solution_id = itineraryElement.vi_solution_id;
     }
     return flightSegment;
   });
@@ -67,20 +69,3 @@ const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, fullTr
   });
   return flightsPayload;
 };
-
-function getFullTripWithVi(actives: Array<Segment>, trip: Results) {
-  let fullTrip: Array<Segment> = [];
-  actives.forEach((segment: Segment, segmentIndex: number) => {
-    fullTrip.push(segment);
-    if (segment.virtual_interline) {
-      const vi_solution_id = segment.vi_solution_id;
-      const vi_solution_segment: Segment | undefined = trip.segments[segmentIndex].find((segment: Segment) =>
-        segment.virtual_interline &&
-        segment.vi_solution_id === vi_solution_id &&
-        segment.option_part === 1
-      );
-      vi_solution_segment ? fullTrip.push(vi_solution_segment) : '';
-    }
-  });
-  return fullTrip;
-}

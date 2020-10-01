@@ -44,7 +44,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
   
   getVirtualInterlineLinkedSegment = (currentSegment: Segment) => {
     return currentSegment.virtual_interline ?
-      this.props.segments.find((segment: Segment) => (segment.option_id === currentSegment.option_id && segment.vi_position === 1) || undefined)
+      this.props.trip.segments[currentSegment.segment_position].find((segment: Segment) => (segment.option_id === currentSegment.option_id && segment.vi_position === 1) || undefined)
       : undefined;
   }
 
@@ -55,9 +55,8 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       const linkedViSegment = this.getVirtualInterlineLinkedSegment(segment);
-      console.log(linkedViSegment);
       const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
-      console.log(linkedViSegmentFlightDetails);
+
       return(
         <div key={index.toString()}>
           {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)

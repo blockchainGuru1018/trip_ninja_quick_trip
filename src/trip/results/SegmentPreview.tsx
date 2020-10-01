@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, FlightResultsDetails, Results } from './ResultsInterfaces';
 import SegmentPreviewDetails from './SegmentPreviewDetails';
+import VirtualInterlineSegments from './VirtualInterlineSegments';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 import FlightLogo from '../../common/FlightLogo';
@@ -47,7 +48,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
   render() {
     const open = this.state.expandedSegment === this.props.index;
     let flightDetails = this.props.segmentFlightDetails.concat(this.props.viLinkedSegmentFlightDetails && this.props.segment.virtual_interline ? this.props.viLinkedSegmentFlightDetails : []);
-    console.log(flightDetails);
 
     return(
       <div
@@ -59,7 +59,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
             && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>
             }
             {!this.props.segmentSelect
-            && <SegmentOriginDestination segment={this.props.segment} departure={flightDetails[0].departure_time} />
+            && <SegmentOriginDestination segment={this.props.segment}  linkedViSegment={this.props.viLinkedSegment} departure={flightDetails[0].departure_time} />
             }
             <FlightLogo flights={flightDetails} />
             <FlightTime flights={flightDetails} />
@@ -67,7 +67,10 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               flights={flightDetails} 
               viParent={this.props.segment.virtual_interline} 
             />
-            <FlightTypes segment={this.props.segment} />
+            <FlightTypes 
+              segment={this.props.segment} 
+              linkedViSegment={this.props.viLinkedSegment} 
+            />
             <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
             {this.props.activeSegment
               ? <SegmentPrice
@@ -89,7 +92,6 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
               >
                 <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>
               </IconButton>
-              <span>VI Segment:: {this.props.segment.virtual_interline ? "TRUE" : "FALSE"}</span>
             </div>
           </div>
           <Fade
@@ -113,56 +115,26 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 viParent={this.props.segment.virtual_interline}
               />
               }
-              {
-                open && this.props.segment.virtual_interline &&
-                <div className="vi-segment-container">
-                  <div className="row">
-                    <div className="col-xl-1 my-auto">
-                      <img src={expandedIcon} alt="vi-segment-icon" className="vi-segment-icon" />
-                    </div>
-                    <div className="col-xl-11">
-                      <div className="row segment">
-                        <FlightLogo flights={this.props.segmentFlightDetails} />
-                        <FlightTime flights={this.props.segmentFlightDetails} />
-                        <FlightStops flights={this.props.segmentFlightDetails} viParent={false}/>
-                        <FlightTypes segment={this.props.segment} />
-                        <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
-                        <div className="col-sm-1 icon-expand-preview my-auto">
-                          <IconButton
-                            className={'expand-icon' + (open ? ' rotated-180' : '')}
-                            onClick={(() =>
-                              this.state.expandedSegment === this.props.index
-                                ? this.setState({expandedSegment: -1})
-                                : this.setState({expandedSegment: this.props.index})
-                            )}
-                          >
-                            <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>
-                          </IconButton>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <SelfTransferLabel 
-                    destinationName={this.props.segment.destination_name}
-                    flights={flightDetails}
+              { open && this.props.segment.virtual_interline &&
+                  <VirtualInterlineSegments 
+                    segment={this.props.segment}
+                    segments={this.props.segments}
+                    viLinkedSegment={this.props.viLinkedSegment}
+                    index={this.props.index}
+                    key={this.props.index}
+                    segmentFlightDetails={this.props.segmentFlightDetails}
+                    viLinkedSegmentFlightDetails={this.props.viLinkedSegmentFlightDetails}
+                    segmentSelect={this.props.segmentSelect}
+                    activeSegment={this.props.activeSegment}
+                    currency={this.props.currency}
+                    segmentOptionsIndex={this.props.segmentOptionsIndex}
+                    updateActives={this.props.updateActives}
+                    updateFareFamily={this.props.updateFareFamily}
+                    pathSequence={this.props.pathSequence}
+                    totalPrice={this.props.totalPrice}
+                    getTravelportBrands={this.props.getTravelportBrands}
+                    trip={this.props.trip}
                   />
-                  { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
-                  <div className="row">
-                    <div className="col-xl-1 my-auto">
-                      <img src={expandedIcon} alt="vi-segment-icon" className="vi-segment-icon" />
-                    </div>
-                    <div className="col-xl-11">
-                      <div className="row segment">
-                        <FlightLogo flights={this.props.viLinkedSegmentFlightDetails} />
-                        <FlightTime flights={this.props.viLinkedSegmentFlightDetails} />
-                        <FlightStops flights={this.props.viLinkedSegmentFlightDetails} viParent={false} />
-                        <FlightTypes segment={this.props.viLinkedSegment} />
-                        <SegmentBaggage baggage={this.props.viLinkedSegment.baggage.number_of_pieces} />
-                      </div>
-                    </div>
-                  </div>
-                  }
-                </div>
               }
             </div>
           </Fade>

@@ -198,6 +198,7 @@ class FareSelect extends React.Component<FareSelectProps> {
     brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">
         <Button
+          disableElevation
           variant="contained"
           color="secondary"
           onClick={() => this.updateSegmentFareFamily(brand, index)}>

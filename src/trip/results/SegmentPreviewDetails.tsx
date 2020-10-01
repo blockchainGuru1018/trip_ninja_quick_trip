@@ -77,7 +77,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
             </div>
           </div>
         }
-        {!this.props.segmentSelect
+        {!this.props.segmentSelect && !this.props.viParent
         && <FareRulesPreview
           segment={this.props.segment}
           flightDetails={this.props.flightDetails}

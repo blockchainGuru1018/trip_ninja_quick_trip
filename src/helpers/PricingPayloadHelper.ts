@@ -32,7 +32,6 @@ const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, fullT
     let flightSegment: FlightSegment  = {
       segment_id: segmentIndex,
       flights: createFlightsPayload(flightDetails, fullTripWithVi, segmentIndex),
-      virtual_interline: true
     };
     if (itineraryElement.virtual_interline) {
       flightSegment.option_part = itineraryElement.option_part;

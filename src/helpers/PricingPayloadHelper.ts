@@ -31,11 +31,12 @@ const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, fullT
   let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex => {
     let flightSegment: FlightSegment  = {
       segment_id: segmentIndex,
-      flights: createFlightsPayload(flightDetails, fullTripWithVi, segmentIndex)
+      flights: createFlightsPayload(flightDetails, fullTripWithVi, segmentIndex),
+      virtual_interline: true
     };
     if (itineraryElement.virtual_interline) {
       flightSegment.option_part = itineraryElement.option_part;
-      flightSegment.contains_virtual_interline = itineraryElement.virtual_interline;
+      flightSegment.virtual_interline = itineraryElement.virtual_interline;
       flightSegment.vi_position = itineraryElement.vi_position;
       flightSegment.vi_solution_id = itineraryElement.vi_solution_id;
     }

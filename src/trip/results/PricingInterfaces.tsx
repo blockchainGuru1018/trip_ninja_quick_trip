@@ -60,7 +60,7 @@ export interface FlightSegment {
   flights: Array<Flight>;
   option_part?: number;
   vi_position?: number;
-  contains_virtual_interline?: boolean
+  virtual_interline?: boolean
   vi_solution_id?: string;
 }
 

@@ -144,7 +144,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                   </div>
                   <SelfTransferLabel 
                     destinationName={this.props.segment.destination_name}
-                    layoverTime={99}
+                    flights={flightDetails}
                   />
                   { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
                   <div className="row">

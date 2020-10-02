@@ -9,7 +9,6 @@ import FlightTime from '../../common/FlightTime';
 import SegmentBaggage from '../../common/SegmentBaggage';
 import FlightStops from '../../common/FlightStops';
 import FlightTypes from '../../common/FlightTypes';
-import SelfTransferLabel from '../../common/SelfTransferLabel';
 import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import SegmentPrice from './SegmentPrice';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -17,7 +16,6 @@ import { updateActives, updateFareFamily, getTravelportBrands } from '../../acti
 import IncompatibleInfoTooltip from './tooltips/IncompatibleInfoTooltip';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import expandedIcon from '../../assets/images/expanded_icon.svg';
 
 
 interface SegmentPreviewProps {

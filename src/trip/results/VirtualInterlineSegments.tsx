@@ -41,8 +41,8 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
   }
 
   render() {
-    const open = this.state.expandedSegment === 0;
-    const open1 = this.state.expandedSegment === 1;
+    const openViPosition0 = this.state.expandedSegment === 0;
+    const openViPosition1 = this.state.expandedSegment === 1;
     let flightDetails = this.props.segmentFlightDetails.concat(this.props.viLinkedSegmentFlightDetails && this.props.segment.virtual_interline ? this.props.viLinkedSegmentFlightDetails : []);
 
     return(
@@ -64,7 +64,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                 <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
                 <div className="col-sm-1 icon-expand-preview my-auto">
                   <IconButton
-                    className={'expand-icon' + (open ? ' rotated-180' : '')}
+                    className={'expand-icon' + (openViPosition0 ? ' rotated-180' : '')}
                     onClick={(() =>
                       this.state.expandedSegment === 0
                         ? this.setState({expandedSegment: -1})
@@ -76,10 +76,10 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                 </div>
               </div>
               <Fade
-                in={open}
-                style={{display: open ? 'block' : 'none', width: '100%'}}>
+                in={openViPosition0}
+                style={{display: openViPosition0 ? 'block' : 'none', width: '100%'}}>
                 <div>
-                  { open
+                  { openViPosition0
                   && <SegmentPreviewDetails
                     segmentOptionsIndex={this.props.segmentOptionsIndex}
                     segment={this.props.segment}
@@ -121,7 +121,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                   <SegmentBaggage baggage={this.props.viLinkedSegment.baggage.number_of_pieces} />
                   <div className="col-sm-1 icon-expand-preview my-auto">
                     <IconButton
-                      className={'expand-icon' + (open1 ? ' rotated-180' : '')}
+                      className={'expand-icon' + (openViPosition1 ? ' rotated-180' : '')}
                       onClick={(() =>
                         this.state.expandedSegment === 1
                           ? this.setState({expandedSegment: -1})
@@ -133,10 +133,10 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                   </div>
                 </div>
                 <Fade
-                  in={open1}
-                  style={{display: open1 ? 'block' : 'none', width: '100%'}}>
+                  in={openViPosition1}
+                  style={{display: openViPosition1 ? 'block' : 'none', width: '100%'}}>
                   <div>
-                    { open1
+                    { openViPosition1
                     && <SegmentPreviewDetails
                       segmentOptionsIndex={this.props.segmentOptionsIndex}
                       segment={this.props.viLinkedSegment}

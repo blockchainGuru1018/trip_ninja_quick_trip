@@ -6,7 +6,7 @@ import ResultsHeader from './ResultsHeader';
 import SegmentPreviews from './SegmentPreviews';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
-import {ResultsDetails, Results, Segment, Filter} from './ResultsInterfaces';
+import {ResultsDetails, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
 import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}

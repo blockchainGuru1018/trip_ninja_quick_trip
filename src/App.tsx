@@ -158,6 +158,7 @@ class App extends React.Component<IAppProps> {
                     removeFlight={this.props.removeFlight}
                     authenticated={this.props.authDetails.authenticated}
                     searchFlights={this.props.searchFlights}
+                    virtualInterliningAccess={this.props.authDetails.virtualInterliningAccess}
                   />
                 } />
                 <Route exact path="/results/pre-results/" render={() =>

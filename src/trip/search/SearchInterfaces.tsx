@@ -9,6 +9,7 @@ export interface SearchDetails {
   passengers: Array<Passenger>;
   routeFlexible: boolean;
   loading: boolean;
+  virtualInterlining: boolean;
 }
 
 export interface Flight {
@@ -40,6 +41,7 @@ export interface SearchProps extends WithTranslation {
   authenticated: boolean;
   searchFlights: typeof searchFlights;
   dateFormat: string;
+  virtualInterliningAccess: boolean;
 }
 
 export interface Passenger {
@@ -64,6 +66,7 @@ export const defaultSearchDetails: SearchDetails = {
   passengers: defaultPassengerList,
   routeFlexible: true,
   loading: false,
+  virtualInterlining: true
 };
 
 export interface SearchPayload {
@@ -72,6 +75,7 @@ export interface SearchPayload {
   travellers: object;
   route_flexible: boolean;
   max_cache: number;
+  virtual_interlining: boolean;
 }
 
 export interface FlightPayload {

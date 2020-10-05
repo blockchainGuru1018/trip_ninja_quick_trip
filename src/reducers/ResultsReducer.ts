@@ -87,6 +87,19 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
   const selectedSegment: Segment = action.segment;
   const brand: BrandInfo = action.brand;
   setSegmentFareFamily(selectedSegment, brand, action.index);
+  if (selectedSegment.virtual_interline) {
+    let viOtherPosition = selectedSegment.vi_position === 0 ? 1 : 0;
+    let segmentsList = state[state.tripType].segments[selectedSegment.segment_position];
+    const linkedViSegment: Segment | undefined = segmentsList.find((segment: Segment) =>
+      segment.option_id === selectedSegment.option_id &&
+      segment.vi_position === viOtherPosition
+    );
+    if (linkedViSegment) {
+      linkedViSegment.base_price = selectedSegment.base_price;
+      linkedViSegment.taxes = selectedSegment.taxes;
+      linkedViSegment.price = selectedSegment.price;
+    }    
+  }
   if (selectedSegment.itinerary_type === 'OPEN_JAW') {
     const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
     relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {

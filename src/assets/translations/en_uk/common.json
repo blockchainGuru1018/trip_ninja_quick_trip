@@ -82,7 +82,8 @@
         "flightStops": {
             "stop": "Stop",
             "stopsPlural": "Stops",
-            "direct": "Direct"
+            "direct": "Direct",
+            "selfTransfer": "Self Transfer"
         },
         "flightTime": {
             "hoursIndicator": "h",
@@ -97,6 +98,10 @@
             "flightDetailsHeader": "Flight Details",
             "informationNotAvailable": "Information not available",
             "fareDetailsHeader": "Fare Details"
+        },
+        "selfTransferLabel": {
+            "selfTransferIn": "Self Transfer in",
+            "layover": "Layover"
         },
         "modals" : {
             "bookingErrorModal": {

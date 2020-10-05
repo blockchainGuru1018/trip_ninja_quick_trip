@@ -2,19 +2,22 @@ import React from 'react';
 import { cityName } from '../helpers/CityNameHelper';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
 import { getTimeDifference } from '../helpers/DateHelpers';
+import { useTranslation } from 'react-i18next';
 
 interface SelfTransferLabelProps {
   destinationName: string;
   flights: Array<FlightResultsDetails>
 }
 
-function SelfTransferLabel (props: SelfTransferLabelProps) {
+export default function SelfTransferLabel (props: SelfTransferLabelProps) {
+  const [ t ] = useTranslation('common');
+
   return (
     <div className="row">
       <div className="col">
         <p className="self-transfer text-center">
-          <span className="text-bold">Self Transfer in {cityName(props.destinationName)}. </span>
-          <span>Layover: {getLayoverTime(props.flights)}</span>
+          <span className="text-bold">{t('common.selfTransferLabel.selfTransferIn')} {cityName(props.destinationName)}. </span>
+          <span>{t('common.selfTransferLabel.layover')}: {getLayoverTime(props.flights)}</span>
         </p>
       </div>
     </div>
@@ -26,5 +29,3 @@ const getLayoverTime = (flights: Array<FlightResultsDetails>) => {
   const departingFlightTime: Date = new Date(flights[1].departure_time);
   return getTimeDifference(arrivingFlightTime, departingFlightTime);
 };
-
-export default SelfTransferLabel;

@@ -16,7 +16,7 @@ class FlightStops extends React.Component<FlightStopsProps> {
           this.props.flights.length > 1
             ? <div className="text-bold">
               {this.props.flights.length - 1} {this.props.flights.length > 2 ? this.props.t("common.flightStops.stopsPlural") : this.props.t("common.flightStops.stop")}
-              {this.props.viParent && ', Self Transfer'}
+              {this.props.viParent && ', ' + this.props.t("common.flightStops.selfTransfer")}
             </div>
             : <p className="text-bold">{this.props.t("common.flightStops.direct")}</p>
         }

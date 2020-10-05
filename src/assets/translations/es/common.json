@@ -83,7 +83,7 @@
             "stop": "Escala",
             "stopsPlural": "Escalas",
             "direct": "Directo",
-            "selfTransfer": "Self Transfer"
+            "selfTransfer": "Virtual Interlining"
         },
         "flightTime": {
             "hoursIndicator": "h",
@@ -100,8 +100,8 @@
             "fareDetailsHeader": "Detalles de Tarifa"
         },
         "selfTransferLabel": {
-            "selfTransferIn": "Self Transfer in",
-            "layover": "Layover"
+            "selfTransferIn": "Virtual Interlining en",
+            "layover": "Escala"
         },
         "modals" : {
             "bookingErrorModal": {

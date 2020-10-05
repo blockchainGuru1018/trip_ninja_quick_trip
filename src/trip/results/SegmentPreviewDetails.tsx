@@ -160,7 +160,6 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
 
   setTravelportBrandedFares = (result: any) => {
     this.setState({loadingBrands: false});
-
   }
 }
 

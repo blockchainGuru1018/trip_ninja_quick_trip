@@ -42,11 +42,11 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_ENTIRE_TRIP':
       if (!viable(state)) {
-        setIndex0AsActives(state)
+        setIndex0AsActives(state);
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
-      checkFiltersSuccess(state)
+      checkFiltersSuccess(state);
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':
@@ -61,7 +61,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_SEGMENT_FILTER':
       const relatedFilter: Filter | undefined = state.segmentFilters![action.segmentIndex].find((segmentFilter: Filter) =>
         segmentFilter.type === action.filterKey
-      )
+      );
       relatedFilter!.value = action.filterValue;
       return {...state};
 
@@ -139,29 +139,29 @@ function setDefaultSegmentFilters(fareStructureResults: Results) {
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey)
+  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey);
   filter!.value = action.filterValue;
   state.segmentFilters!.forEach((segmentFilters: Array<Filter>) => {
     segmentFilters.forEach((segmentFilter: Filter) => {
       if (segmentFilter.type === action.filterKey) {
         segmentFilter.value = action.filterValue;
       }
-    })
+    });
   });
-  const tripType = state.tripType
+  const tripType = state.tripType;
   filterItinerary(state[tripType].segments, state.itineraryFilters!);
-  return state
+  return state;
 }
 
 export function viable(state: ResultsDetails) {
-  const activeSegments: Array<Segment> = [...state.activeSegments.values()]
-  return activeSegments.every((segment: Segment) => !segment.filtered)
+  const activeSegments: Array<Segment> = [...state.activeSegments.values()];
+  return activeSegments.every((segment: Segment) => !segment.filtered);
 }
 
 function checkFiltersSuccess(state: ResultsDetails) {
   const numberOfFailedFilters: number = state.itineraryFilters!.reduce((total, filter: Filter) =>
-    filter.failed ? total += 1 : total, 0)
-  setFilterWarning(!viable(state) && numberOfFailedFilters === 0)
+    filter.failed ? total += 1 : total, 0);
+  setFilterWarning(!viable(state) && numberOfFailedFilters === 0);
 }
 
 export default resultsReducer;

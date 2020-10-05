@@ -45,7 +45,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const filteredIncompatibleSegments: Array<Segment> = incompatibleSegments.filter((segment: Segment) => !segment.filtered);
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
-    console.log('selectedSegment --- ' +selectedSegment.length);
     const totalPrice: number = getTotal(selectedTrip, 'price');
 
     const enabledFilters = ['baggage','noOfStops','alliance'];

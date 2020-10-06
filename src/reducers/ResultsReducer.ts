@@ -85,8 +85,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
   const selectedSegment: Segment = action.segment;
-  const brand: BrandInfo = action.brand;
-  setSegmentFareFamily(selectedSegment, brand, action.index);
+  setSegmentFareFamily(selectedSegment, action.brands, action.index);
   if (selectedSegment.virtual_interline) {
     let viOtherPosition = selectedSegment.vi_position === 0 ? 1 : 0;
     let segmentsList = state[state.tripType].segments[selectedSegment.segment_position];
@@ -107,17 +106,25 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
       let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
         segment.itinerary_id === selectedSegment.itinerary_id
       );
-      linkedSegment && setSegmentFareFamily(linkedSegment, brand, action.index);
+      linkedSegment && setSegmentFareFamily(linkedSegment, action.brands, action.index);
     });
   }
   return {...state};
 }
 
-function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: number) {
+function setSegmentFareFamily(segment: Segment, brands: Array<BrandInfo>, brandIndex: number) {
+  const brand: BrandInfo = brands[brandIndex];
+  let oldBrandIndex = segment.selected_brand_index ? segment.selected_brand_index : 0;
   segment.selected_brand_index = brandIndex;
-  segment.base_price = brand.base_price;
-  segment.taxes = brand.taxes;
-  segment.price = brand.price;
+  if (segment.virtual_interline) {
+    segment.base_price += brand.base_price - brands[oldBrandIndex].base_price;
+    segment.taxes += brand.taxes - brands[oldBrandIndex].taxes;
+    segment.price += brand.price - brands[oldBrandIndex].price;
+  } else {
+    segment.base_price = brand.base_price;
+    segment.taxes = brand.taxes;
+    segment.price = brand.price;
+  }  
   segment.baggage.number_of_pieces = brand.baggage_info.pieces;
   segment.flights.forEach((flight: any, index) => {
     let fareInfo = segment.source === 'travelport' ? brand.fare_info[0] : brand.fare_info[index];

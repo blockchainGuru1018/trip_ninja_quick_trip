@@ -15,6 +15,7 @@ export interface AuthDetails {
   isAgencyAdmin: boolean;
   isSuperUser: boolean;
   bookingDisabled: boolean;
+  virtualInterliningAccess: boolean;
 }
 
 export const defaultAuth = {
@@ -32,5 +33,6 @@ export const defaultAuth = {
   bookingDisabled: false,
   currency: 'CAD',
   agency: '',
-  ticketing_queue: ''
+  ticketing_queue: '',
+  virtualInterliningAccess: false
 };

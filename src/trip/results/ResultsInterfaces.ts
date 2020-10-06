@@ -109,11 +109,11 @@ export interface Segment {
   itinerary_id: string;
   itinerary_structure: string;
   segment_position: number;
-  option_id?: string;
-  option_part?: string;
+  vi_solution_id?: string;
+  itinerary_index?: number;
   virtual_interline: boolean;
   vi_type?: string;
-  vi_position?: string;
+  vi_position?: number;
   weight: number;
   price: number;
   base_price: number;

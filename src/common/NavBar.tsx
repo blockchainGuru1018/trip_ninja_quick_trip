@@ -49,7 +49,7 @@ class NavBar extends React.Component<NavBarProps> {
 
   logout = () => {
     this.props.logout();
-    history.push('/')
+    history.push('/');
   }
 }
 

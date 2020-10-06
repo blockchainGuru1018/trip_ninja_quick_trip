@@ -46,8 +46,8 @@ class Book extends React.Component<BookProps> {
             <BackButton 
               onClick={() => history.push('/results/itinerary/')} 
             >
-              <KeyboardBackspaceIcon /> 
-              {this.props.t("book.book.return")}
+              <KeyboardBackspaceIcon />
+              <div className='btn-back'>{this.props.t("book.book.return")}</div>
             </BackButton>
             <div className="row itinerary-summary">
               <div className="col-md-6">

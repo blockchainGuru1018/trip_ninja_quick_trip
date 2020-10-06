@@ -50,11 +50,11 @@ export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: stri
   };
 }
 
-export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
+export function updateFareFamily(segment: Segment, brands: Array<BrandInfo>, index: number) {
   return {
     type: 'UPDATE_FARE_FAMILY',
     segment,
-    brand,
+    brands,
     index
   };
 }
@@ -114,6 +114,6 @@ export function setFilterWarning(warning: boolean) {
   return {
     type: 'SET_FILTER_WARNING',
     warning
-  }
+  };
 }
 

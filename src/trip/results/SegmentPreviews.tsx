@@ -44,7 +44,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
   
   getVirtualInterlineLinkedSegment = (currentSegment: Segment) => {
     return currentSegment.virtual_interline ?
-      this.props.trip.segments[currentSegment.segment_position].find((segment: Segment) => (segment.option_id === currentSegment.option_id && segment.vi_position === 1) || undefined)
+      this.props.trip.segments[currentSegment.segment_position].find((segment: Segment) => (segment.vi_solution_id === currentSegment.vi_solution_id && segment.vi_position === 1) || undefined)
       : undefined;
   }
 

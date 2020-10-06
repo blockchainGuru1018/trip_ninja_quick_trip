@@ -227,7 +227,7 @@ function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: A
   );
   if (selectedSegment?.virtual_interline && selectedSegment.vi_position === 1){
     selectedSegment = segmentOptions.find((segment: Segment) =>
-      segment.option_id === selectedSegment?.option_id &&
+      segment.vi_solution_id === selectedSegment?.vi_solution_id &&
       segment.vi_position === 0
     );
   }

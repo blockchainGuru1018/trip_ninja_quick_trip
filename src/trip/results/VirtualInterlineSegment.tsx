@@ -71,7 +71,7 @@ class VirtualInterlineSegment extends React.Component<VirtualInterlineSegmentPro
               in={openVI}
               style={{display: openVI ? 'block' : 'none', width: '100%'}}>
               <div>
-                { open
+                { openVI
                 && <SegmentPreviewDetails
                   segmentOptionsIndex={this.props.segmentOptionsIndex}
                   segment={this.props.segment}

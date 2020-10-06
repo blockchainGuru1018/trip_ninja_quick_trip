@@ -35,7 +35,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
           <VirtualInterlineSegment
             segment={this.props.segment}
             index={1000}
-            key={this.props.index}
+            key={1000}
             segmentFlightDetails={this.props.segmentFlightDetails}
             segmentSelect={this.props.segmentSelect}
             activeSegment={this.props.activeSegment}
@@ -55,7 +55,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
             <VirtualInterlineSegment
               segment={this.props.viLinkedSegment}
               index={1001}
-              key={this.props.index}
+              key={1001}
               segmentFlightDetails={this.props.viLinkedSegmentFlightDetails}
               segmentSelect={this.props.segmentSelect}
               activeSegment={this.props.activeSegment}

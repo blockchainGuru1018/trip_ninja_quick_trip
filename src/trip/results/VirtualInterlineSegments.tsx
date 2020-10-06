@@ -62,7 +62,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                 <FlightStops flights={this.props.segmentFlightDetails} viParent={false}/>
                 <FlightTypes segment={this.props.segment} />
                 <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
-                <div className="col-sm-1 icon-expand-preview my-auto">
+                <div className="col-sm-1 offset-sm-2 icon-expand-preview my-auto">
                   <IconButton
                     className={'expand-icon' + (openViPosition0 ? ' rotated-180' : '')}
                     onClick={(() =>
@@ -119,7 +119,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
                   <FlightStops flights={this.props.viLinkedSegmentFlightDetails} viParent={false} />
                   <FlightTypes segment={this.props.viLinkedSegment} />
                   <SegmentBaggage baggage={this.props.viLinkedSegment.baggage.number_of_pieces} />
-                  <div className="col-sm-1 icon-expand-preview my-auto">
+                  <div className="col-sm-1 offset-sm-2 icon-expand-preview my-auto">
                     <IconButton
                       className={'expand-icon' + (openViPosition1 ? ' rotated-180' : '')}
                       onClick={(() =>

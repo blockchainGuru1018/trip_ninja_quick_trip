@@ -94,8 +94,6 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
       segment.vi_position === viOtherPosition
     );
     if (linkedViSegment) {
-      console.log(selectedSegment);
-      console.log(linkedViSegment);
       linkedViSegment.base_price = selectedSegment.base_price;
       linkedViSegment.taxes = selectedSegment.taxes;
       linkedViSegment.price = selectedSegment.price;
@@ -119,11 +117,9 @@ function setSegmentFareFamily(segment: Segment, brands: Array<BrandInfo>, brandI
   let oldBrandIndex = segment.selected_brand_index ? segment.selected_brand_index : 0;
   segment.selected_brand_index = brandIndex;
   if (segment.virtual_interline) {
-    console.log(oldBrandIndex);
     segment.base_price += brand.base_price - brands[oldBrandIndex].base_price;
     segment.taxes += brand.taxes - brands[oldBrandIndex].taxes;
     segment.price += brand.price - brands[oldBrandIndex].price;
-    console.log(segment);
   } else {
     segment.base_price = brand.base_price;
     segment.taxes = brand.taxes;

@@ -1,13 +1,15 @@
 
-import { Segment, FlightResult, FlightResultsDetails} from '../trip/results/ResultsInterfaces';
+import { Segment, FlightResult, FlightResultsDetails, Results } from '../trip/results/ResultsInterfaces';
 import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
+import { getFullTripWithVi } from "./VirtualInterliningHelpers";
 import moment from 'moment';
 
 
-export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>) => {
+export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, trip: Results) => {
   let itinerariesPayload : Array<PricingRequestItinerary> = [];
   let itinerariesCounter = 1;
-  selectedTrip.forEach((itineraryElement: Segment) => {
+  const fullTripWithVi: Array<Segment> = getFullTripWithVi(activeSegments, trip);
+  fullTripWithVi.forEach((itineraryElement: Segment) => {
     const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);  
     if (itineraryElement.segment_position === itineraryStructure[0]) {
       itinerariesPayload.push({
@@ -16,7 +18,7 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
         plating_carrier: itineraryElement.plating_carrier,
         credentials: itineraryElement.credential_info,
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-        segments: createSegmentsPayload(flightDetails, selectedTrip, itineraryStructure),
+        segments: createSegmentsPayload(flightDetails, fullTripWithVi, itineraryElement, itineraryStructure),
       });
       itinerariesCounter += 1;
     }
@@ -25,19 +27,27 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
   return itinerariesPayload;
 };
 
-const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, itineraryStructure:Array<any>) => {
-  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex =>
-    ({
+const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, fullTripWithVi: Array<Segment>, itineraryElement: Segment,  itineraryStructure:Array<any>) => {
+  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex => {
+    let flightSegment: FlightSegment  = {
       segment_id: segmentIndex,
-      flights: createFlightsPayload(flightDetails, selectedTrip, segmentIndex)
-    }));
+      flights: createFlightsPayload(flightDetails, fullTripWithVi, segmentIndex),
+    };
+    if (itineraryElement.virtual_interline) {
+      flightSegment.itinerary_index = itineraryElement.itinerary_index;
+      flightSegment.virtual_interline = itineraryElement.virtual_interline;
+      flightSegment.vi_position = itineraryElement.vi_position;
+      flightSegment.vi_solution_id = itineraryElement.vi_solution_id;
+    }
+    return flightSegment;
+  });
   return segmentsPayload;
 };
 
-const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, selectedTrip: Array<Segment>, segmentIndex: any) => {
+const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, fullTripWithVi: Array<Segment>, segmentIndex: any) => {
   let flightsPayload : Array<Flight> = [];
 
-  selectedTrip[segmentIndex].flights.forEach((flightResult: FlightResult) => {
+  fullTripWithVi[segmentIndex].flights.forEach((flightResult: FlightResult) => {
     const flightDetail = flightDetails.find(flight => flight.reference === flightResult.flight_detail_ref);
     if (flightDetail) {
       flightsPayload.push({

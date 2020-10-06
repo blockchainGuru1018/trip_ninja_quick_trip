@@ -110,7 +110,7 @@ export interface Segment {
   itinerary_structure: string;
   segment_position: number;
   vi_solution_id?: string;
-  option_part?: string;
+  itinerary_index?: number;
   virtual_interline: boolean;
   vi_type?: string;
   vi_position?: number;

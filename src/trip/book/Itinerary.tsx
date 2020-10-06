@@ -5,6 +5,7 @@ import FlightLogo from '../../common/FlightLogo';
 import FlightTime from '../../common/FlightTime';
 import SegmentBaggage from '../../common/SegmentBaggage';
 import FlightStops from '../../common/FlightStops';
+import SelfTransferLabel from '../../common/SelfTransferLabel';
 import FlightDetailsDrawer from './FlightDetailsDrawer';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -31,8 +32,14 @@ class Itinerary extends React.Component<ItineraryProps> {
             <FlightLogo flights={segmentFlightDetails} itineraryDisplay={true}/>
             <FlightTime flights={segmentFlightDetails} itineraryDisplay={true}/>
             <FlightStops flights={segmentFlightDetails} viParent={false}/>
-            <SegmentBaggage baggage={segment.baggage.number_of_pieces}itineraryDisplay={true}/>
+            <SegmentBaggage baggage={segment.baggage.number_of_pieces} itineraryDisplay={true}/>
           </div>
+          {segment.virtual_interline && segment.vi_position &&
+            <SelfTransferLabel 
+              destinationName={segment.destination_name}
+              flights={segmentFlightDetails}
+            />
+          }
         </div>
       </div>
     );

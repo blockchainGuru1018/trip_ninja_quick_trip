@@ -91,7 +91,7 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
     let viOtherPosition = selectedSegment.vi_position === 0 ? 1 : 0;
     let segmentsList = state[state.tripType].segments[selectedSegment.segment_position];
     const linkedViSegment: Segment | undefined = segmentsList.find((segment: Segment) =>
-      segment.option_id === selectedSegment.option_id &&
+      segment.vi_solution_id === selectedSegment.vi_solution_id &&
       segment.vi_position === viOtherPosition
     );
     if (linkedViSegment) {

@@ -49,7 +49,8 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
           />
           <SelfTransferLabel 
             destinationName={this.props.segment.destination_name}
-            flights={flightDetails}
+            firstFlight={flightDetails[0]}
+            secondFlight={flightDetails[1]}            
           />
           { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
             <VirtualInterlineSegment

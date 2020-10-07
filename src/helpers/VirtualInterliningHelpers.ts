@@ -10,7 +10,7 @@ export function getFullTripWithVi(actives: Array<Segment>, trip: Results) {
       const viSolutionSegment: Segment | undefined = trip.segments[segmentIndex].find((segment: Segment) =>
         segment.virtual_interline &&
         segment.vi_solution_id === viSolutionId &&
-        segment.itinerary_index === 1
+        segment.vi_position === 1
       );
       if (viSolutionSegment) {
         fullTrip.push(viSolutionSegment);

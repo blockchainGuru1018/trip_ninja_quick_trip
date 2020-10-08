@@ -21,7 +21,7 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
         plating_carrier: itineraryElement.plating_carrier,
         credentials: itineraryElement.credential_info,
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-        segments: createSegmentsPayload(flightDetails, activeSegments, linkedViSegments, itineraryElement, itineraryStructure, allSegments),
+        segments: createSegmentsPayload(flightDetails, itineraryElement, itineraryStructure, allSegments),
       });
       itinerariesCounter += 1;
     }
@@ -29,14 +29,16 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
   return itinerariesPayload;
 };
 
-const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, linkedViSegments: Array<Segment>, itineraryElement: Segment,  itineraryStructure: Array<any>, allSegments: Array<Segment>) => {
+const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, itineraryElement: Segment, itineraryStructure: Array<any>, allSegments: Array<Segment>) => {
   let itineraryId = itineraryElement.itinerary_id;
   let matchedSegments: Array<Segment> = [];
   matchedSegments = allSegments.filter((segment: Segment) => segment.itinerary_id === itineraryId);
 
   let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex => {
-    let currentSegment = matchedSegments.find((segment: Segment) => segment.segment_position === segmentIndex) || matchedSegments[segmentIndex];
-
+    let currentSegment = matchedSegments.find((segment: Segment) => segment.segment_position === segmentIndex);
+    if (!currentSegment) {
+      throw new Error(`Unable to find matching segment for pricing payload at segmentIndex ${segmentIndex}`);
+    }
     let flightSegment: FlightSegment  = {
       segment_id: segmentIndex,
       flights: createFlightsPayload(flightDetails, currentSegment),

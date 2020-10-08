@@ -21,7 +21,7 @@ interface ItineraryProps extends WithTranslation {
 
 class Itinerary extends React.Component<ItineraryProps> {
 
-  getSegmentDetails = (segment: Segment, segmentFlightDetails:Array<FlightResultsDetails>, index: number) => {
+  getSegmentDetails = (segment: Segment, segmentFlightDetails: Array<FlightResultsDetails>, index: number, nextSegmentFlightDetails?:  Array<FlightResultsDetails>) => {
     return(
       <div className="segment-container" key={index.toString()}>
         {segment.vi_position !== 1 &&
@@ -38,11 +38,11 @@ class Itinerary extends React.Component<ItineraryProps> {
             <SegmentBaggage baggage={segment.baggage.number_of_pieces} itineraryDisplay={true}/>
           </div>
         </div>
-        {segment.virtual_interline && segment.vi_position === 0 &&
+        {segment.virtual_interline && segment.vi_position === 0 && nextSegmentFlightDetails &&
           <SelfTransferLabel 
             destinationName={segment.destination_name}
             firstFlight={segmentFlightDetails[0]}
-            secondFlight={segmentFlightDetails[0]}
+            secondFlight={nextSegmentFlightDetails[0]}
           />
         }
       </div>
@@ -59,10 +59,17 @@ class Itinerary extends React.Component<ItineraryProps> {
   displayItinerarySegments = (selectedTrip: Array<Segment>, trip: Results) => {
     return selectedTrip.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, trip.flight_details);
-      return(this.getSegmentDetails(segment, segmentFlightDetails, index));
+      return(this.getSegmentDetails(segment, segmentFlightDetails, index, this.getNextViSegmentFlights(segment, selectedTrip, trip)));
     });
   }
 
+  getNextViSegmentFlights = (segment: Segment, selectedTrip: Array<Segment>, trip: Results) => {
+    if (segment.virtual_interline && segment.vi_position === 0) {
+      let linkedViSegment = selectedTrip.find((linkedSegment: Segment) => linkedSegment.vi_solution_id === segment.vi_solution_id && linkedSegment.vi_position === 1) || segment;
+      console.log(linkedViSegment);
+      return getFlightDetailsBySegment(linkedViSegment, trip.flight_details);
+    }
+  };
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'

@@ -15,23 +15,28 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
     const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);  
     if (itineraryElement.segment_position === itineraryStructure[0]) {
       itinerariesPayload.push({
+        itinerary_id: itineraryElement.itinerary_id,
         itinerary_reference: itinerariesCounter,
         traveller_list: itineraryElement.priced_passengers,
         plating_carrier: itineraryElement.plating_carrier,
         credentials: itineraryElement.credential_info,
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-        segments: createSegmentsPayload(flightDetails, activeSegments, linkedViSegments, itineraryElement, itineraryStructure),
+        segments: createSegmentsPayload(flightDetails, activeSegments, linkedViSegments, itineraryElement, itineraryStructure, allSegments),
       });
       itinerariesCounter += 1;
     }
   });
-  console.log(itinerariesPayload);
   return itinerariesPayload;
 };
 
-const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, linkedViSegments: Array<Segment>, itineraryElement: Segment,  itineraryStructure:Array<any>) => {
+const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, linkedViSegments: Array<Segment>, itineraryElement: Segment,  itineraryStructure: Array<any>, allSegments: Array<Segment>) => {
+  let itineraryId = itineraryElement.itinerary_id;
+  let matchedSegments: Array<Segment> = [];
+  matchedSegments = allSegments.filter((segment: Segment) => segment.itinerary_id === itineraryId);
+
   let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex => {
-    let currentSegment = itineraryElement.virtual_interline && itineraryElement.vi_position === 1 ? linkedViSegments[segmentIndex] : activeSegments[segmentIndex];
+    let currentSegment = matchedSegments.find((segment: Segment) => segment.segment_position === segmentIndex) || matchedSegments[segmentIndex];
+
     let flightSegment: FlightSegment  = {
       segment_id: segmentIndex,
       flights: createFlightsPayload(flightDetails, currentSegment),

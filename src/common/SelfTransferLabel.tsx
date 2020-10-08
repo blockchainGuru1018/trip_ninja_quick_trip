@@ -12,7 +12,6 @@ interface SelfTransferLabelProps {
 
 export default function SelfTransferLabel (props: SelfTransferLabelProps) {
   const [ t ] = useTranslation('common');
-  console.log(props.firstFlight);
   return (
     <div className="row">
       <div className="col">

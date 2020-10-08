@@ -52,7 +52,6 @@ class Itinerary extends React.Component<ItineraryProps> {
   getActiveSegments = (trip: Results) => {
     let activeSegments = [...this.props.resultsDetails.activeSegments.values()];
     const fullTripWithVi: Array<Segment> = getFullTripWithVi(activeSegments, trip);
-    console.log(fullTripWithVi);
     return fullTripWithVi;
   };
 

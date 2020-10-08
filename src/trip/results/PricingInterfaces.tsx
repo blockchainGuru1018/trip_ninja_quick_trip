@@ -46,6 +46,7 @@ export const defaultPricingDetails: PricingDetails = {
 
 
 export interface PricingRequestItinerary {
+  itinerary_id: string;
   itinerary_reference: number;
   traveller_list: Array<string>;
   plating_carrier?: string;

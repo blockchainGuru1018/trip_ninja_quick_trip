@@ -148,7 +148,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
               {state.flightResultsPathComponents.map((flightResultsPath: FlightResultsPath, index: number) =>
                 <TimelineItem classes={{root: classes.root}} key={index.toString()}>
                   <TimelineSeparator>
-                    {props.selectedTrip && props.selectedTrip[index].vi_position !== 1 && <TimelineDot color="primary"/>}
+                    <TimelineDot color="primary"/>
                     {index !== state.flightResultsPathComponents.length - 1 && <TimelineConnector/>}
                   </TimelineSeparator>
                   <TimelineContent>

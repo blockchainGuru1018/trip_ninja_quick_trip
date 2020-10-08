@@ -66,7 +66,6 @@ class Itinerary extends React.Component<ItineraryProps> {
   getNextViSegmentFlights = (segment: Segment, selectedTrip: Array<Segment>, trip: Results) => {
     if (segment.virtual_interline && segment.vi_position === 0) {
       let linkedViSegment = selectedTrip.find((linkedSegment: Segment) => linkedSegment.vi_solution_id === segment.vi_solution_id && linkedSegment.vi_position === 1) || segment;
-      console.log(linkedViSegment);
       return getFlightDetailsBySegment(linkedViSegment, trip.flight_details);
     }
   };

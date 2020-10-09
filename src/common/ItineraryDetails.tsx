@@ -68,15 +68,21 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     let bookedSegments: Array<BookingSegment> = [];
+    let viLinkedSegmentShift: number = 0;
     if (selectedTrip) {
-      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+      console.log(selectedTrip);
+      selectedTrip.forEach((itinerary: BookingItinerary) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-          bookedSegments[segment.segment_id] = segment;
-          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+          if (segment.virtual_interline && segment.vi_position === 1) {
+            viLinkedSegmentShift +=1;
+          } 
+          bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
+          console.log(bookedSegments);
+          flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
           />;
-          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+          fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}
             currency={currency}

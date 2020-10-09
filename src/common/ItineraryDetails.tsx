@@ -70,14 +70,12 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let bookedSegments: Array<BookingSegment> = [];
     let viLinkedSegmentShift: number = 0;
     if (selectedTrip) {
-      console.log(selectedTrip);
       selectedTrip.forEach((itinerary: BookingItinerary) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
           if (segment.virtual_interline && segment.vi_position === 1) {
             viLinkedSegmentShift +=1;
           } 
           bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
-          console.log(bookedSegments);
           flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}

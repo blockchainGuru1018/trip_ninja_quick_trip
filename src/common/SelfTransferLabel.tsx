@@ -6,26 +6,26 @@ import { useTranslation } from 'react-i18next';
 
 interface SelfTransferLabelProps {
   destinationName: string;
-  flights: Array<FlightResultsDetails>
+  firstFlight: FlightResultsDetails
+  secondFlight: FlightResultsDetails
 }
 
 export default function SelfTransferLabel (props: SelfTransferLabelProps) {
   const [ t ] = useTranslation('common');
-
   return (
     <div className="row">
       <div className="col">
         <p className="self-transfer text-center">
           <span className="text-bold">{t('common.selfTransferLabel.selfTransferIn')} {cityName(props.destinationName)}. </span>
-          <span>{t('common.selfTransferLabel.layover')}: {getLayoverTime(props.flights)}</span>
+          <span>{t('common.selfTransferLabel.layover')}: {getLayoverTime(props.firstFlight, props.secondFlight)}</span>
         </p>
       </div>
     </div>
   );
 }
 
-const getLayoverTime = (flights: Array<FlightResultsDetails>) => {
-  const arrivingFlightTime: Date = new Date(flights[0].arrival_time);
-  const departingFlightTime: Date = new Date(flights[1].departure_time);
+const getLayoverTime = (firstFlight: FlightResultsDetails, secondFlight: FlightResultsDetails) => {
+  const arrivingFlightTime: Date = new Date(firstFlight.arrival_time);
+  const departingFlightTime: Date = new Date(secondFlight.departure_time);
   return getTimeDifference(arrivingFlightTime, departingFlightTime);
 };

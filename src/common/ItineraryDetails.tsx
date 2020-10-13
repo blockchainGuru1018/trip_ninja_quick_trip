@@ -164,7 +164,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                       }
                       {flightResultsPath}
                       {((props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
-                      (bookedTripSegments && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)) &&
+                      (bookedTripSegments.length > 0 && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)) &&
                         getViSelfTransferLabel(index, props.selectedTrip, bookedTripSegments)
                       }
                     </div>

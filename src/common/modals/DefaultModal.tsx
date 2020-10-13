@@ -58,7 +58,7 @@ export default function DefaultModal(props: DefaultModalProps) {
       >
         <Fade in={open}>
           <div className={classes.paper + ' centered-container search-modal-container'}>
-            <h2 id="transition-modal-title" className='search-modal-title'>{props.primaryText}</h2>
+            <h2 id="transition-modal-title" className='modal-title'>{props.primaryText}</h2>
             <div>
               <CircularProgress />
             </div>

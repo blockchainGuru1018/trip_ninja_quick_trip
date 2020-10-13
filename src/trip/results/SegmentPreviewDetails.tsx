@@ -24,6 +24,7 @@ interface SegmentPreviewDetailsProps extends WithTranslation {
   totalPrice: number;
   activeSegment?: Segment;
   trip: Results;
+  viParent?: boolean;
 }
 
 class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> {
@@ -35,7 +36,8 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   componentDidMount() {
     if (this.props.segment.source === 'travelport'
       && this.props.segmentSelect 
-      && !this.props.segment.brands) {
+      && !this.props.segment.brands
+      && !this.props.viParent) {
       this.setState({loadingBrands: true});
       this.getTravelportBrandedFares();
     }
@@ -46,11 +48,36 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
     const segment_id = Object.keys(brands);
     return(
       <div className="col-md-12 segment-preview-details-container">
-        <FlightResultsPath
-          flightDetails={this.props.flightDetails}
-        />
-        <hr/>
-        {!this.props.segmentSelect
+        {((this.props.viParent && this.props.segment.status === 'active') || (!this.props.viParent && this.props.segmentSelect)) && 
+          <div>
+            <FlightResultsPath
+              flightDetails={this.props.flightDetails}
+            />
+            <hr/>
+          </div>
+        }
+        {this.props.viParent && this.props.segmentSelect && this.props.segment.status !== 'active' &&
+          <div className="row">
+            <div className="col-xl-10">
+              <FlightResultsPath
+                flightDetails={this.props.flightDetails}
+              />
+            </div>
+            <div className="col-xl-2 my-auto">
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                disableElevation
+                onClick={() =>
+                  this.updateActives()
+                } >
+                {this.props.t("results.segmentPreviewDetails.selectSegment")}
+              </Button>
+            </div>
+          </div>
+        }
+        {!this.props.segmentSelect && !this.props.viParent
         && <FareRulesPreview
           segment={this.props.segment}
           flightDetails={this.props.flightDetails}
@@ -63,7 +90,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
             <CircularProgress />
           </div>
         }
-        {this.props.segment.brands && this.props.segmentSelect && !this.state.loadingBrands
+        {this.props.segment.brands && this.props.segmentSelect && !this.state.loadingBrands && !this.props.viParent
         && <FareSelect 
           brands={this.props.segment.source === 'travelport' ? this.props.segment.brands! : this.props.segment.brands![segment_id[0]]} 
           currency={this.props.currency} 
@@ -74,11 +101,12 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
           totalPrice={this.props.totalPrice}
         /> 
         }
-        {!this.props.segment.brands && this.props.updateActives && this.props.segment.status !== 'active'
+        {!this.props.segment.brands && this.props.updateActives && this.props.segment.status !== 'active' && !this.props.viParent
           ? <div className='btn-segment-selection-container'>
             <Button
               variant="contained"
               color="secondary"
+              disableElevation
               size="large"
               onClick={() =>
                 this.updateActives()

@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
+import SelfTransferLabel from './SelfTransferLabel';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
-import {
-  Timeline,
+import {Timeline,
   TimelineConnector,
   TimelineContent,
   TimelineDot,
@@ -116,6 +116,17 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     flight.reference === ref
   );
 
+  const getViSelfTransferLabel = (selectedTrip: Array<Segment>, index: number) => {
+    let firstViFlight = getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref);
+    let secondViFlight = getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref);
+    return(firstViFlight && secondViFlight && 
+    <SelfTransferLabel 
+      destinationName={selectedTrip[index].destination_name}
+      firstFlight={firstViFlight}
+      secondFlight={secondViFlight}
+    />);
+  };
+
   useEffect(() => setState(props.selectedTrip 
     ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
     : setBookingFlightComponents(props.bookedTrip!, props.currency)), 
@@ -142,8 +153,13 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                   </TimelineSeparator>
                   <TimelineContent>
                     <div>
+                      {props.selectedTrip && props.selectedTrip[index].vi_position !== 1 &&
                       <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
+                      }
                       {flightResultsPath}
+                      {props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0 &&
+                        getViSelfTransferLabel(props.selectedTrip, index)
+                      }
                     </div>
                   </TimelineContent>
                 </TimelineItem>

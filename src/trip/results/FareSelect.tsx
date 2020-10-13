@@ -198,9 +198,10 @@ class FareSelect extends React.Component<FareSelectProps> {
     brandsList.map((brand: BrandInfo, index) => (
       <FareTableCell key={index} align="center">
         <Button
+          disableElevation
           variant="contained"
           color="secondary"
-          onClick={() => this.updateSegmentFareFamily(brand, index)}>
+          onClick={() => this.updateSegmentFareFamily(brandsList, index)}>
           {this.props.t("results.fareSelect.selectSegment")}
         </Button>
       </FareTableCell>
@@ -227,8 +228,8 @@ class FareSelect extends React.Component<FareSelectProps> {
     return (combinedPrice >= 0 ? '+ ' : '- ') + currencySymbol(this.props.currency) + absCombinedPrice;
   }
 
-  updateSegmentFareFamily = (brand: BrandInfo, index: number) => {
-    this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brand, index);
+  updateSegmentFareFamily = (brands: Array<BrandInfo>, index: number) => {
+    this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brands, index);
     if (this.props.segment.status !== 'active') {
       this.props.updateActives();
     }

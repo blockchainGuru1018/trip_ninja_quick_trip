@@ -5,13 +5,14 @@
   grid-template-rows: 120px;
 }
 
-.search-modal-text-container {
+.modal-text-container {
   max-width: 500px;
 }
 
-.search-modal-title {
+.modal-title {
   font-weight: bold;
   padding: 40px;
+  text-align: center;
 }
 
 .search-modal-container {

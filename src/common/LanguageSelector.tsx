@@ -44,13 +44,13 @@ export default function LanguageSelector() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {countryLocaleMap.map((language, index) => (
+        {countryLocaleMap.map((locale, index) => (
           <MenuItem 
             key={index.toString()}
-            value={language.languageCode}
-            onClick={(event) => handleLanguageSelection(language.languageCode)}
+            value={locale.languageCode}
+            onClick={(event) => handleLanguageSelection(locale.languageCode)}
           >
-            <CircleFlag countryCode={language.countryCode} height="38" />
+            <CircleFlag countryCode={locale.countryCode} height="38" />
           </MenuItem>
         ))}
       </Menu>

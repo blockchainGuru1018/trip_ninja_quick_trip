@@ -96,7 +96,7 @@ class FareSelect extends React.Component<FareSelectProps> {
                 {this.priceRow(brandsList)}
               </TableRow>
               <TableRow>
-                <FareTableLabelCell align="left"></FareTableLabelCell>
+                <FareTableLabelCell align="left"/>
                 {this.fareSelectionButtonRow(brandsList)}
               </TableRow>
             </TableBody>
@@ -230,9 +230,7 @@ class FareSelect extends React.Component<FareSelectProps> {
 
   updateSegmentFareFamily = (brands: Array<BrandInfo>, index: number) => {
     this.props.updateFareFamily && this.props.updateFareFamily(this.props.segment, brands, index);
-    if (this.props.segment.status !== 'active') {
-      this.props.updateActives();
-    }
+    this.props.updateActives();
   }
 }
 

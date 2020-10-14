@@ -1,9 +1,13 @@
-import { enGB, es } from 'date-fns/locale';
+import { enGB, es, ja } from 'date-fns/locale';
 
-const localeMap = {
+export const dateLocaleMap = {
   "en_uk": enGB,
-  "es": es
+  "es": es,
+  "jp": ja,
 };
 
-
-export default localeMap;
+export const countryLocaleMap = [
+  {"languageCode": "en_uk", "countryCode": "gb"},
+  {"languageCode": "es", "countryCode": "es"},
+  {"languageCode": "jp", "countryCode": "jp"},
+];

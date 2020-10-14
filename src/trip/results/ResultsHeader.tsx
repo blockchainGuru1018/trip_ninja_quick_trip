@@ -7,7 +7,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import history from '../../History';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-import localeMap from '../../localeMap';
+import { dateLocaleMap } from '../../localeMap';
 import { format } from 'date-fns';
 
 const ChangeSearchButton = styled(Button)({
@@ -79,7 +79,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   getDepartureDate = (flightDetailRef: string) => {
     const firstFlight: FlightResultsDetails[] = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
-    return <span>{format(new Date(firstFlight[0].departure_time), this.props.t("results.resultsHeader.dateFormat"), {locale:localeMap[i18n.language]})}</span>;
+    return <span>{format(new Date(firstFlight[0].departure_time), this.props.t("results.resultsHeader.dateFormat"), {locale:dateLocaleMap[i18n.language]})}</span>;
   }
 }
 

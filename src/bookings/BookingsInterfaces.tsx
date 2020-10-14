@@ -60,6 +60,10 @@ export interface BookingSegment {
   brands: Array<Brand>;
   source: string;
   fare_type?: string;
+  vi_position: number;
+  vi_solution_id: string;
+  virtual_interline: boolean;
+  itinerary_index: number;
 }
 
 export const defaultBookingsList: BookingsList = {

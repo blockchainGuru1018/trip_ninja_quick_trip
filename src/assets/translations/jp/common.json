@@ -83,7 +83,8 @@
   "flightStops": {
       "stop": "ストップ",
       "stopsPlural": "ストップ",
-      "direct": "ダイレクト"
+      "direct": "ダイレクト",
+      "selfTransfer": "乗り継ぎ保護なし"
   },
   "flightTime": {
       "hoursIndicator": "時間",
@@ -97,6 +98,10 @@
       "flightDetailsHeader": "フライトの詳細",
       "informationNotAvailable": "情報がありません",
       "fareDetailsHeader": "運賃の詳細"
+  },
+  "selfTransferLabel": {
+    "selfTransferIn": "ご自身で荷物の乗り継ぎ",
+    "layover": "乗り継ぎ間の待ち時間"
   },
   "modals" : {
       "bookingErrorModal": {

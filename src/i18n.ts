@@ -1,8 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import common_en_uk from "./assets/translations/en_uk/common.json";
-import common_es from "./assets/translations/es/common.json";
+import common_en_uk from './assets/translations/en_uk/common.json';
+import common_es from './assets/translations/es/common.json';
+import common_jp from './assets/translations/jp/common.json';
 
 i18n
   .use(initReactI18next)
@@ -12,7 +13,7 @@ i18n
     fallbackLng: 'en_uk',
     debug: false,
     interpolation: {
-      escapeValue: false, // React already does escaping
+      escapeValue: false,
     },
     resources: {
       en_uk: {
@@ -20,6 +21,9 @@ i18n
       },
       es: {
         common: common_es,
+      },
+      jp: {
+        common: common_jp,
       }
     },
   });

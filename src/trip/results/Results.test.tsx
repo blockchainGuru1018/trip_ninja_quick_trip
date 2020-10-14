@@ -200,7 +200,8 @@ test('getFlightDetailsBySegment', () => {
 
 test('getFlightTypes', () => {
   const flightTypesComponent: any = shallow(
-    <FlightTypes 
+    //@ts-ignore
+    <FlightTypes
       segment={testResults.segments[0][0]}
       t={(key: any) => key}
     />
@@ -239,6 +240,7 @@ test('createPassengerStringFromPayload', () => {
 
 test('checkFlexTripRouteIsSame', () => {
   const preResultsComponent: any = shallow(
+    //@ts-ignore
     <PreResults 
       resultsDetails={testResultsDetails} 
       currency="USD"

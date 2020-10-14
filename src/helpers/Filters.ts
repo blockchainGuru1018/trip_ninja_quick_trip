@@ -1,6 +1,7 @@
 
 import { Segment, Filter } from '../trip/results/ResultsInterfaces';
 import { cloneDeep } from 'lodash';
+import { getLinkedViSegment } from "./VirtualInterliningHelpers";
 
 const resetFilters = (segments: Array<Segment>) => {
   segments.forEach((segment: Segment) =>
@@ -12,6 +13,11 @@ const setSegmentFilterStatus = (filterType: any, filter: Filter, segments: Array
   segments.forEach((segment: Segment) => {
     if (!segment.filtered) {
       segment.filtered = filterType(segment, filter);
+    }
+    if (segment.virtual_interline) {
+      const linkedViSegment: Segment | undefined = getLinkedViSegment(segment, segments);
+      segment.filtered = segment.filtered || filterType(linkedViSegment, filter);
+      linkedViSegment!.filtered = segment.filtered;
     }
   });
   return segments;

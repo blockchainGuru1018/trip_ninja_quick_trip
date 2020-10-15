@@ -1,4 +1,4 @@
-import { ActiveSegmentsMap, FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import { ActiveSegmentsMap, FlightResult, ResultsDetails, Segment, Results } from '../trip/results/ResultsInterfaces';
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
@@ -187,7 +187,7 @@ export function updateActiveSegmentsFromAction(state: ResultsDetails, action: an
 export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string) {
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentOptionIndex];
   const selectedSegment: Segment | undefined = findSegmentByItineraryId(segmentItineraryRef, segmentOptions);
-  if (selectedSegment && selectedSegment.status === 'active'){
+  if (selectedSegment && selectedSegment.status === 'active') {
     return {...state};
   } else if (selectedSegment) {
     updateSegmentActivesAndAlternates(selectedSegment, state, segmentOptionIndex);
@@ -214,11 +214,26 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
 
 export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number,
   initial: boolean = false) {
+  const trip: Results = state[state.tripType];
+  const currentSegments: Array<Segment> = trip.segments[segmentOptionIndex];
   activateSegment(selectedSegment, state, segmentOptionIndex, initial);
-  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+  if (selectedSegment.itinerary_type === 'OPEN_JAW' || selectedSegmentIsViContainsOpenJaw(selectedSegment, currentSegments)) {
+    // TODO: confirm this works with open jaw VI when we have access to it.
     activateLinkedSegments(selectedSegment, state, initial);
-    setAlternatesStatus(state, selectedSegment, state[state.tripType].segments[segmentOptionIndex]);
+    setAlternatesStatus(state, selectedSegment, currentSegments);
   }
+}
+
+function selectedSegmentIsViContainsOpenJaw(selectedSegment: Segment, currentSegments: Array<Segment>) {
+  return selectedSegment.virtual_interline && linkedViSegmentIsOpenJaw(selectedSegment, currentSegments);
+}
+
+function linkedViSegmentIsOpenJaw(selectedSegment: Segment, currentSegments: Array<Segment>) {
+  const linkedViSegment: Segment | undefined = currentSegments.find((segment: Segment) =>
+    segment.vi_solution_id === selectedSegment.vi_solution_id &&
+    segment.vi_position !== selectedSegment.vi_position
+  );
+  return linkedViSegment?.itinerary_type === 'OPEN_JAW';
 }
 
 function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: Array<Segment>) {

@@ -16,7 +16,9 @@ const setSegmentFilterStatus = (filterType: any, filter: Filter, segments: Array
     }
     if (segment.virtual_interline) {
       const linkedViSegment: Segment | undefined = getLinkedViSegment(segment, segments);
-      segment.filtered = segment.filtered || filterType(linkedViSegment, filter);
+      segment.filtered = filter.type === 'noOfStops'
+        ? segment.filtered || filterType([], filter, [segment, linkedViSegment])
+        : segment.filtered || filterType(linkedViSegment, filter);
       linkedViSegment!.filtered = segment.filtered;
     }
   });
@@ -32,9 +34,12 @@ export const baggageFilter = (segment: Segment, filter: Filter) => {
   }
 };
 
-export const numberOfStopsFilter = (segment: Segment, filter: Filter) => {
+export const numberOfStopsFilter = (segment: Segment, filter: Filter, viSegments: Array<Segment> = []) => {
   if (filter.value === 'Any' || filter.failed) {
     return false;
+  } else if (viSegments.length) {
+    const nFlights = viSegments.reduce((total: number, segment: Segment) => total += segment.flights.length, 0);
+    return nFlights - 1 > filter.value;
   } else {
     return segment.flights.length - 1 > filter.value;
   }

@@ -69,6 +69,7 @@ export const testResults: Results = {
         fees: 0,
         transportation_time: 500,
         fare_type: 'published',
+        // @ts-ignore
         additional_details: {
           e_ticketability: true,
           latest_ticketing_time: '',
@@ -120,6 +121,7 @@ export const testResults: Results = {
         fees: 0,
         transportation_time: 375,
         fare_type: 'published',
+        // @ts-ignore
         additional_details: {
           e_ticketability: true,
           latest_ticketing_time: '',

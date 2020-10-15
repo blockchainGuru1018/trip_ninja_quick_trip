@@ -68,15 +68,19 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     let bookedSegments: Array<BookingSegment> = [];
+    let viLinkedSegmentShift: number = 0;
     if (selectedTrip) {
-      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+      selectedTrip.forEach((itinerary: BookingItinerary) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-          bookedSegments[segment.segment_id] = segment;
-          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+          if (segment.virtual_interline && segment.vi_position === 1) {
+            viLinkedSegmentShift +=1;
+          } 
+          bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
+          flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
           />;
-          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+          fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}
             currency={currency}
@@ -118,12 +122,13 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     flight.reference === ref
   );
 
-  const getViSelfTransferLabel = (selectedTrip: Array<Segment>, index: number) => {
-    let firstViFlight = getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref);
-    let secondViFlight = getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref);
+  const getViSelfTransferLabel = (index: number, selectedTrip?: Array<Segment>, bookedSegments?: Array<BookingSegment>) => {
+    let firstViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref) : bookedSegments![index].flight_details[0];
+    let secondViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref) : bookedSegments![index+1].flight_details[0];
+    let destinationName = selectedTrip ? selectedTrip[index].destination_name : bookedSegments![index].flight_details[0].destination_name;
     return(firstViFlight && secondViFlight && 
     <SelfTransferLabel 
-      destinationName={selectedTrip[index].destination_name}
+      destinationName={destinationName}
       firstFlight={firstViFlight}
       secondFlight={secondViFlight}
     />);
@@ -155,12 +160,14 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                   </TimelineSeparator>
                   <TimelineContent>
                     <div>
-                      {props.selectedTrip && props.selectedTrip[index].vi_position !== 1 &&
+                      {((props.selectedTrip && props.selectedTrip[index].vi_position !== 1) || 
+                      (bookedTripSegments && bookedTripSegments[index].vi_position !== 1)) &&
                       <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
                       }
                       {flightResultsPath}
-                      {props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0 &&
-                        getViSelfTransferLabel(props.selectedTrip, index)
+                      {((props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
+                      (bookedTripSegments.length > 0 && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)) &&
+                        getViSelfTransferLabel(index, props.selectedTrip, bookedTripSegments)
                       }
                     </div>
                   </TimelineContent>

@@ -10,7 +10,7 @@ import { countryLocaleMap } from '../localeMap';
 export default function LanguageSelector() {
 
   const getCountryCode = (code: string) => {
-    const languageObject = countryLocaleMap.find((language: any) => language.languageCode===code);
+    const languageObject = countryLocaleMap.find((language: any) => language.languageCode === code);
     return languageObject ? languageObject.countryCode : "gb";
   };
 

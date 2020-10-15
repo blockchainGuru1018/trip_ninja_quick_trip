@@ -6,7 +6,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { updatePassengerInfo } from '../../actions/BookActions';
 import moment from 'moment';
 import i18n from '../../i18n';
-import localeMap from '../../localeMap';
+import { dateLocaleMap } from '../../localeMap';
 
 interface PassengerDatePickerProps {
   index: number;
@@ -23,7 +23,7 @@ class PassengerDatePicker extends React.Component<PassengerDatePickerProps> {
   render() {   
     return (
       <FormControl fullWidth>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[i18n.language]}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={dateLocaleMap[i18n.language]}>
           <KeyboardDatePicker
             disableToolbar
             {...(this.props.disablePast ? {disablePast: true} : {disableFuture: true})}

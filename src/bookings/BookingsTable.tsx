@@ -20,7 +20,7 @@ import { AuthDetails } from '../auth/AuthInterfaces';
 import expandedIcon from '../assets/images/expanded_icon.svg';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import localeMap from '../localeMap';
+import {dateLocaleMap} from '../localeMap';
 import { format } from 'date-fns';
 
 const BookingsTableHeader = styled(TableCell)({
@@ -137,10 +137,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">
-              {format(new Date(booking.booking_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
+              {format(new Date(booking.booking_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">
-              {format(new Date(booking.departure_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:localeMap[i18n.language]})}
+              {format(new Date(booking.departure_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>

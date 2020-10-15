@@ -4,17 +4,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import i18n from '../i18n';
 import { CircleFlag } from 'react-circle-flags';
+import { countryLocaleMap } from '../localeMap';
 
 
 export default function LanguageSelector() {
 
-  const languages = [
-    {"languageCode": "en_uk", "countryCode": "gb"},
-    {"languageCode": "es", "countryCode": "es"},
-  ];
-
   const getCountryCode = (code: string) => {
-    const languageObject = languages.find((language: any) => language.languageCode===code);
+    const languageObject = countryLocaleMap.find((language: any) => language.languageCode === code);
     return languageObject ? languageObject.countryCode : "gb";
   };
 
@@ -48,13 +44,13 @@ export default function LanguageSelector() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {languages.map((language, index) => (
+        {countryLocaleMap.map((locale, index) => (
           <MenuItem 
             key={index.toString()}
-            value={language.languageCode}
-            onClick={(event) => handleLanguageSelection(language.languageCode)}
+            value={locale.languageCode}
+            onClick={(event) => handleLanguageSelection(locale.languageCode)}
           >
-            <CircleFlag countryCode={language.countryCode} height="38" />
+            <CircleFlag countryCode={locale.countryCode} height="38" />
           </MenuItem>
         ))}
       </Menu>

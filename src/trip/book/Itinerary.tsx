@@ -10,7 +10,7 @@ import FlightDetailsDrawer from './FlightDetailsDrawer';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-import localeMap from '../../localeMap';
+import { dateLocaleMap } from '../../localeMap';
 import { format } from 'date-fns';
 import { getFullTripWithVi } from "../../helpers/VirtualInterliningHelpers";
 
@@ -26,7 +26,7 @@ class Itinerary extends React.Component<ItineraryProps> {
       <div className="segment-container" key={index.toString()}>
         {segment.vi_position !== 1 &&
         <p className="segment-date">
-          {format(new Date(segmentFlightDetails[0].departure_time), this.props.t("book.itinerary.dateFormat"), {locale:localeMap[i18n.language]})}
+          {format(new Date(segmentFlightDetails[0].departure_time), this.props.t("book.itinerary.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
         </p>
         }
         <div className='row col-md-12'>

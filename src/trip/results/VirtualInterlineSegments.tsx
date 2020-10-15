@@ -27,7 +27,12 @@ interface VirtualInterlineSegmentsProps {
 class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsProps> {
 
   render() {
-    let flightDetails = this.props.segmentFlightDetails.concat(this.props.viLinkedSegmentFlightDetails && this.props.segment.virtual_interline ? this.props.viLinkedSegmentFlightDetails : []);
+    let flightDetails = [
+      this.props.segmentFlightDetails,
+      this.props.viLinkedSegmentFlightDetails && this.props.segment.virtual_interline
+        ? this.props.viLinkedSegmentFlightDetails
+        : []
+    ];
 
     return(
       <div>        
@@ -49,8 +54,8 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
           />
           <SelfTransferLabel 
             destinationName={this.props.segment.destination_name}
-            firstFlight={flightDetails[0]}
-            secondFlight={flightDetails[1]}            
+            firstFlight={flightDetails[0][flightDetails[0].length - 1]}
+            secondFlight={flightDetails[1][0]}
           />
           { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
             <VirtualInterlineSegment

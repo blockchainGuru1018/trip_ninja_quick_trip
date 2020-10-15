@@ -1,7 +1,7 @@
 import React from 'react';
 import { cityName } from '../helpers/CityNameHelper';
 import { FlightResultsDetails } from '../trip/results/ResultsInterfaces';
-import { getTimeDifference } from '../helpers/DateHelpers';
+import { getLayoverTime } from '../helpers/DateHelpers';
 import { useTranslation } from 'react-i18next';
 
 interface SelfTransferLabelProps {
@@ -24,8 +24,3 @@ export default function SelfTransferLabel (props: SelfTransferLabelProps) {
   );
 }
 
-const getLayoverTime = (firstFlight: FlightResultsDetails, secondFlight: FlightResultsDetails) => {
-  const arrivingFlightTime: Date = new Date(firstFlight.arrival_time);
-  const departingFlightTime: Date = new Date(secondFlight.departure_time);
-  return getTimeDifference(arrivingFlightTime, departingFlightTime);
-};

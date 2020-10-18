@@ -12,6 +12,8 @@ import Alert from '@material-ui/lab/Alert';
 import history from '../../History';
 import Hotkeys from 'react-hot-keys';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import API from '../../Api';
+
 
 interface SearchRequestProps extends WithTranslation {
   searchDetails: SearchDetails;
@@ -65,6 +67,20 @@ export class SearchRequest extends React.Component<SearchRequestProps> {
     return flightPayload;
   }
 
+//(origin: string, destination:string,year: number, month: number, currency:string )
+  priceMap = () => {
+    const url: string = '/price-map/';
+    let payload = {'origin': 'YHZ', 'destination':'YYZ','year':2021, 'month':1, 'currency':'USD'};
+
+    return API.post(url, payload)
+      .then((response: any) => {
+        if (response.status === 200) {
+          console.log(response.data);
+          //return setSearchSuccess(dispatch, response);
+        }
+      });
+  };
+
   validateSearchDetails = () => {
     let currentDate: Date = new Date();
     const flights: Array<Flight> = this.props.searchDetails.flights;
@@ -90,6 +106,14 @@ export class SearchRequest extends React.Component<SearchRequestProps> {
   render() {
     return (
       <div className="float-right">
+        <Button
+          disableElevation
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={this.priceMap}>
+          get prices
+        </Button>
         <Hotkeys 
           keyName="ctrl+enter, command+enter" 
           onKeyDown={this.searchForFlights}

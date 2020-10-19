@@ -16,6 +16,7 @@ import { updateFlightValue, removeFlight }
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import iataCodeHelper from '../../helpers/IataCodeHelper';
 
 interface FlightInputProps extends WithTranslation {
   i: number;
@@ -23,6 +24,7 @@ interface FlightInputProps extends WithTranslation {
   removeFlight: typeof removeFlight;
   flights: Array<Flight>;
   dateFormat: string;
+  currency: string;
 }
 
 class FlightInput extends React.Component<FlightInputProps> {
@@ -128,6 +130,9 @@ class FlightInput extends React.Component<FlightInputProps> {
                 updateFlightValue={this.props.updateFlightValue}
                 dateFormat={this.props.dateFormat}
                 previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
+                origin={this.props.flights[this.props.i].origin ? iataCodeHelper(this.props.flights[this.props.i].origin) : ''}
+                destination={this.props.flights[this.props.i].destination ? iataCodeHelper(this.props.flights[this.props.i].destination) : ''}
+                currency={this.props.currency}
               />
             </div>
             <div className="col-md-4 col-sm-10 search-input cabin-selector-container">

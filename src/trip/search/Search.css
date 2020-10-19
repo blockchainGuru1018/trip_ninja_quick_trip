@@ -73,3 +73,8 @@
 .add-flight-btn-container {
   padding-left: 7px;
 }
+
+.price-graph-label {
+  font-size: 10px;
+  color: var(--primary)
+}

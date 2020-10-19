@@ -3,6 +3,7 @@ import { setResults, setErrorDetails, setActiveSegments }
   from './ResultsActions';
 import API from '../Api';
 import {Dispatch} from "react";
+import { Dictionary } from 'lodash';
 
 export function fetchSearch(tripDetails: Object) {
   return {
@@ -87,6 +88,7 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: Dispat
       return setSearchFailed(dispatch);
     });
 };
+
 
 const setSearchSuccess = (dispatch: Dispatch<any>, response: any) => {
   dispatch(setResults(response.data));

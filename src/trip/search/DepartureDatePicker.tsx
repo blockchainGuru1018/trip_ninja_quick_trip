@@ -7,7 +7,8 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { updateFlightValue } from '../../actions/SearchActions';
 import i18n from '../../i18n';
 import { dateLocaleMap } from '../../localeMap';
-
+import API from '../../Api';
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 
 interface DepartureDatePickerProps {
   i: number;
@@ -15,10 +16,15 @@ interface DepartureDatePickerProps {
   updateFlightValue: typeof updateFlightValue;
   dateFormat: string
   previousDate?: string
+  origin:string
+  destination:string
+  currency: string
 }
 
 export default function DepartureDatePicker(props: DepartureDatePickerProps) {
   const [errorText, setErrorText] = useState('');
+  const [priceGraph, setPriceGraph] = useState({});
+
 
   useEffect(() => {
     const validateDate = (departureDate: string) => {
@@ -36,6 +42,41 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
       : '';
   };
 
+  const renderDayInPicker = (day: any, selectedDate: any, dayInCurrentMonth: any, dayComponent:any) => {
+    let price = priceGraph[day.toISOString().slice(0,10)] ? currencySymbol(props.currency)+priceGraph[day.toISOString().slice(0,10)] : '';
+
+    return (<div>
+      {dayComponent}
+      <span className = 'price-graph-label'>{price}</span>
+    </div>);
+  };
+
+  const onPickerViewChange = async(date:any) => {
+    const url: string = '/price-map/';
+
+    let payload = {'origin': props.origin,
+      'destination': props.destination,
+      'year':date.getFullYear(),
+      'month':date.getMonth()+1,
+      'currency':props.currency
+    };
+
+    console.log(payload);
+
+    return API.post(url, payload)
+      .then((response: any) => {
+        if (response.status === 200) {
+          console.log(response.data);
+          setPriceGraph(response.data);
+          //return setSearchSuccess(dispatch, response);
+        }
+      });
+  };
+
+  const onOpenPicker = () => {
+    onPickerViewChange(new Date(props.departureDate));
+  };
+
   return(
     <FormControl fullWidth>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={dateLocaleMap[i18n.language]}>
@@ -45,11 +86,15 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
           disablePast
           variant="inline"
           inputVariant="outlined"
+          renderDay={renderDayInPicker}
           format={props.dateFormat}
           margin="none"
           id={"departure-date" + props.i}
           value={new Date(props.departureDate)}
           onChange={(e: any) => setDateChange(e)}
+          onMonthChange={onPickerViewChange}
+          onYearChange={onPickerViewChange}
+          onOpen={onOpenPicker}
           InputAdornmentProps={{ position: 'start'}}
           helperText= {errorText}
           KeyboardButtonProps={{

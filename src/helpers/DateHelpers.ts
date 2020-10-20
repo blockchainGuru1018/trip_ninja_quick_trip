@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {FlightResultsDetails} from "../trip/results/ResultsInterfaces";
 
 export function datesAreOnSameDayOrLater(first: Date, second: Date) {
   return first.getFullYear() > second.getFullYear()
@@ -23,6 +24,12 @@ export function getTimeDifference(first: Date, second: Date) {
   const minutes = Math.round(60 * (timeDifference / (1000*60*60) % 1));
   return hours + 'h ' + minutes + 'm';
 }
+
+export const getLayoverTime = (firstFlight: FlightResultsDetails, secondFlight: FlightResultsDetails) => {
+  const arrivingFlightTime: Date = new Date(firstFlight.arrival_time);
+  const departingFlightTime: Date = new Date(secondFlight.departure_time);
+  return getTimeDifference(arrivingFlightTime, departingFlightTime);
+};
 
 export function numberOfDaysDifference(first: Date, second: Date): number {
   const differenceInTime = second.getTime() - first.getTime();

@@ -17,9 +17,8 @@ class FlightTime extends React.Component<FlightTimeProps> {
     const arrivalTime = moment(
       this.props.flights[this.props.flights.length - 1].arrival_time.slice(0, this.props.flights[0].arrival_time.length - 6)
     );
-    const minutesDifference: number = this.props.flights.reduce((total: number, flightResult: FlightResultsDetails) => {
-      return total += flightResult.flight_time;
-    }, 0);
+    const minutesDifference: number = this.getMinutesDifference();
+
     return (
       <div className={(this.props.itineraryDisplay ? ' col-sm-3' : 'col-sm-2') + ' my-auto'}>
         <div className="text-bold flight-preview-time">
@@ -41,6 +40,20 @@ class FlightTime extends React.Component<FlightTimeProps> {
     );
   }
 
+  getMinutesDifference = () => {
+    return this.props.flights.reduce((total: number, flightResult: FlightResultsDetails, index: number) => {
+      const layoverTime: number = index !== 0
+        ? this.getLayoverTimeInMinutes(index, this.props.flights)
+        : 0;
+      return total += (flightResult.flight_time + layoverTime);
+    }, 0);
+  }
+
+  getLayoverTimeInMinutes = (index: number, flightDetails: Array<FlightResultsDetails>) => {
+    const arrivingFlightTime: Date = new Date(flightDetails[index - 1].arrival_time);
+    const departingFlightTime: Date = new Date(flightDetails[index].departure_time);
+    return moment(departingFlightTime).diff(moment(arrivingFlightTime), 'minutes');
+  }
 }
 
 export default withTranslation('common')(FlightTime);

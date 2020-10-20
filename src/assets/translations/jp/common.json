@@ -1,0 +1,362 @@
+{
+  "commonWords": {
+  "email": "Eメール",
+  "password": "パスワード",
+  "passengers": "乗客",
+  "total": "合計",
+  "passengerTypes": {
+      "ADT": "大人",
+      "CHD": "子供",
+      "INF": "幼児",
+      "STU": "学生",
+      "YTH": "ユース"
+  },
+  "cabins":{
+      "E": "エコノミー",
+      "PE": "プレミアムエコノミー",
+      "BC": "ビジネスクラス",
+      "FC": "ファーストクラス",
+      "PFC": "プレミアム・ファーストクラス"
+  },
+  "status":{
+      "booked": "予約済み",
+      "cancelled": "キャンセル済み",
+      "queued": "キューに登録済み",
+      "ticketed": "発券済み"
+  },
+      "gender": "性別",
+      "male": "男性",
+      "female": "女性",
+      "nationality": "国籍",
+      "passportNumber": "パスポート番号",
+      "passportExpiry": "パスポートの有効期限",
+      "phone": "電話番号"
+},
+"common": {
+  "navBar":{
+      "flightSearch": "フライト検索",
+      "bookings": "予約"
+  },
+  "userMenu": {
+      "signOut": "サインアウト"
+  },
+  "custom404":{
+      "title": "404 - ページが見つかりませんでした",
+      "subHeader": "おっと！お探しのページが見つかりません。それはお客様ではなく、私たちです。から始めてみてください",
+      "helpCentre": "ヘルプセンター",
+      "subHeaderEnding": " お客様を正しい方向に導く",
+      "missingLinkPrompt": "あるべき場所に何かがありませんか？",
+      "missingLinkCTA": "お知らせください。",
+      "back": "ホームに戻る"
+  },
+  "fareBreakdown": {
+      "title": "運賃の内訳",
+      "altTitle": "予約費用",
+      "airTransportationCharges": "航空輸送料金",
+      "taxes": "税金および手数料",
+      "infoMissing": "情報がありません。"
+  },
+  "fareRulesPreview": {
+      "title": "運賃規則",
+      "selectedFareFamily": "選択された運賃ファミリー",
+      "cabinBaggage": "機内持ち込み手荷物",
+      "included": "含まれています",
+      "notIncluded": "含まれていません",
+      "changePenalty": "変更によるペナルティ",
+      "fareType": "運賃タイプ",
+      "wifiTitle": "Wi-Fiの有無",
+      "wifi": "Wi-Fi",
+      "seatSelection": "座席の選択",
+      "checkedBags": "預け入れ手荷物",
+      "cancellationPenalty": "キャンセルペナルティ",
+      "fareSource": "運賃ソース", 
+      "bookingCode": "予約コード",
+      "editFareFamily": "*フライトの選択から運賃ファミリーを編集",
+      "bookingClass": "クラス",
+      "atACost": "コストで",
+      "available": "利用可能",
+      "unavailable": "利用不可"
+  },
+  "flightLogo": {
+      "multipleAirlines": "複数の航空会社"
+  },
+  "flightStops": {
+      "stop": "ストップ",
+      "stopsPlural": "ストップ",
+      "direct": "ダイレクト",
+      "selfTransfer": "乗り継ぎ保護なし"
+  },
+  "flightTime": {
+      "hoursIndicator": "時間",
+      "minutesIndicator": "分"
+  },
+  "flightTypes": {
+      "class": "クラス"
+  },
+  "itineraryDetails": {
+      "bookingDetailsHeader": "予約の詳細",
+      "flightDetailsHeader": "フライトの詳細",
+      "informationNotAvailable": "情報がありません",
+      "fareDetailsHeader": "運賃の詳細"
+  },
+  "selfTransferLabel": {
+    "selfTransferIn": "ご自身で荷物の乗り継ぎ",
+    "layover": "乗り継ぎ間の待ち時間"
+  },
+  "modals" : {
+      "bookingErrorModal": {
+          "title": "予約に失敗しました",
+          "body": "この予約は処理できませんでした。別のフライトを試すか、検索を再実行してみてください。",
+          "return": "結果に戻る"
+      },
+      "bookModal": {
+          "primaryText": "旅行のご予約"
+      },
+      "cancellingErrorModal": {
+          "title": "キャンセルに失敗しました",
+          "body": "この旅程のキャンセル中にエラーが発生しました。後で再試行するか、データソースで直接キャンセルしてください。",
+          "return": "予約概要に戻る"
+      },
+      "pricingErrorModal": {
+          "title": "価格確認に失敗しました",
+          "body": "これらのフライトはご利用いただけなくなりました。別のフライトオプションの確認、または検索の再実行をお試しください。",
+          "return": "結果に戻る"
+      },
+      "pricingModal": {
+          "primaryText": "フライトの確認"
+      },
+      "queueingErrorModal": {
+          "title": "キューイングに失敗しました",
+          "body": "この旅程のキューイング中にエラーが発生しました。後で再試行してください。",
+          "return": "予約概要に戻る"
+      },
+      "searchErrorModal": {
+          "title": "フライトが見つかりません",
+          "body": "検索したフライトは見つかりませんでした。別の検索をお試しください。",
+          "body2": "何がうまくいかなかったのかについての詳細は、弊社の",
+          "knowledgeBase": "知識ベースにアクセスしてください。",
+          "supportTeam": " いつでも弊社のサポートチーム（support@tripninja.io）に連絡して支援を求めることができます。",
+          "return": "検索に戻る"
+      },
+      "searchModal": {
+          "primaryText": "最適なルートとフライトのオプションの検索"
+      },
+      "ticketingErrorModal": {
+          "title": "発券に失敗しました",
+          "body": "この旅程の発券中にエラーが発生しました。後で再試行してください。",
+          "return":"予約概要に戻る"
+      }
+  }
+},
+"auth":{
+  "loginForm":{
+      "welcomeMessage": "おかえりなさい！",
+      "signIn": "サインイン",
+      "loginFail": "ログインできません - パスワードを確認して再試行してください！",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "loginButton": "ログイン",
+      "signUp": "まだアカウントをお持ちではありませんか？",
+      "freeTrial": "無料トライアルを開始"
+  },
+  "marketingPanel":{
+      "header":"あなたのフライト予約プロセスはどのくらい効率的ですか？",
+      "description":"旅行代理店が数秒で最高に手の込んんだ旅程を見つけられるようにすることで、あなたのチームはより少ない時間でより多くのことを行うことができます。",
+      "callToAction":"「Trip Ninja」がエージェントの効率を高める方法をご覧ください"
+  }
+},
+"search": {
+  "search": {
+      "header": "フライト検索",
+      "addFlightButton": "フライトを追加",
+      "additionalDetailsHeader": "追加の詳細"
+  },
+  "searchRequest": {
+      "searchFlights": "フライトを検索",
+      "searchFlightsError": "無効な検索詳細 - 日付とフライトが正しいことを確認してください。"
+  },
+  "flightInput": {
+      "origin": "出発地",
+      "destination": "目的地"
+  },
+  "tripOptions": {
+    "routeFlexible": "ルート指定なし",
+    "virtualInterlining": "バーチャルインターライニング"
+  }
+},
+"results": {
+  "preResults":{
+      "yourTrip": "お客様の旅行",
+      "from": "から",
+      "seeFlightOptions": "フライトオプションを見る",
+      "reorderDestinationsPrompt": "目的地を並べ替えて最大で次の金額を節約できます：＄"
+  },
+  "resultsHeader":{
+      "backToFlexTrip": "FlexTrip結果に戻る",
+      "changeSearch": "検索を変更"
+  },
+  "fareSelect": {
+      "total": "合計",
+      "selectSegment": "セグメントを選択",
+      "informationNotAvailable": "情報がありません",
+      "na":"該当なし",
+      "features": "特徴",
+      "description": "説明",
+      "checkedBags": "預け入れ手荷物",
+      "cabinBags": "機内持ち込み手荷物",
+      "seatSelection": "座席の選択",
+      "changes": "変更",
+      "refundable": "返金可能",
+      "bookingCode": "予約コード",
+      "fareBasis": "運賃ベース",
+      "price": "価格"
+  },
+  "itineraryResult":{
+      "title": "お客様の旅程"
+  },
+  "pricingRequest": {
+      "callToAction": "価格確認を続行"
+  },
+  "segmentNav":{
+      "title": "旅程",
+      "overview": "概要"
+  },
+  "segmentPreviewDetails":{
+      "loading": "運賃オプションを読み込んでいます…",
+      "selectSegment": "セグメントを選択"
+  },
+  "segmentPrice":{
+      "source": "ソース"
+  },
+  "segmentSelection":{
+      "selectedFlight": "選択されたフライト",
+      "otherOptions": "その他のオプション",
+      "otherOptionsWarning": "これらのフライトを選択すると、他のリンクされたセグメントに影響を与える可能性があります。"
+  },
+  "sortOption": {
+      "sortBy": "並べ替え",
+      "cheapest": "最も安い",
+      "best": "最高",
+      "fastest": "最速"
+  },
+  "tooltips":{
+      "incompatibleInfoTooltip":{
+          "segment": "セグメント",
+          "selectionImpact": "このセグメントを選択すると、次のセグメントに影響します："
+      }
+  },
+  "filters":{
+      "flightsFilter":{
+          "baggage": "手荷物",
+          "baggageDescription": "預け入れ手荷物の最小数",
+          "baggage0Label": "任意",
+          "baggage1Label": "手荷物1個",
+          "baggage2Label": "手荷物2個",
+          "baggage3Label": "手荷物3個",
+          "alliance": "アライアンス",
+          "allianceDescription": "アライアンス",
+          "allianceAnyLabel": "任意",
+          "alliance*ALabel": "スターアライアンス",
+          "alliance*OLabel": "ワンワールド",
+          "alliance*SLabel": "スカイチーム",
+          "noOfStops": "ストップ",
+          "noOfStopsDescription": "最大ストップ数",
+          "noOfStopsAnyLabel": "任意",
+          "noOfStops0Label": "ダイレクトのみ",
+          "noOfStops1Label": "1 ストップ",
+          "noOfStops2Label": "2 ストップ",
+          "filterFailMessage": "このフィルターのフライトはありません"
+      }
+    }
+  },
+  "book":{
+    "book":{
+        "return": "結果に戻る",
+        "title": "旅程の概要"
+    },
+    "bookRequest":{
+        "bookAndSave": "予約して保存",
+        "bookAndQueue": "予約してキュー",
+        "bookAndTicket": "予約して発券",
+        "passengerDetailsError": "乗客の詳細が正しく入力されていません - 確認してください。",
+        "bookingDisabled": "予約が無効になっています - チーム管理者に連絡してください"
+        
+    },
+    "flightDetailsDrawer":{
+        "title": "予約の概要",
+        "toTop": "トップに戻る",
+        "openButton": "フライトの詳細を見る"
+    },
+    "itinerary":{
+        "title": "旅程"
+    },
+    "passengerCountrySelect":{
+        "nationality": "国籍"
+    },
+    "passengerDetails":{
+        "edit": "編集する",
+        "add": "追加する",
+        "title": "乗客の詳細",
+        "passenger1": "乗客 1"
+    },
+    "passengerDetailsModal":{
+        "title": "乗客情報",
+        "firstName": "名",
+        "lastName": "姓",
+        "dateOfBirth": "生年月日",
+        "passportNumber": "パスポート番号",
+        "passportExpiration": "パスポートの有効期限",
+        "warning": "この情報は、旅行者のパスポートの情報と一致している必要があります。不一致があると搭乗拒否の原因となる可能性があります。",
+        "email": "Eメール", 
+        "phoneNumber": "電話番号",
+        "invalidInputWarning": "すべての必須フィールドが入力されていることを確認してください！",
+        "save": "保存する",
+        "invalidPhoneNumber": "無効な電話番号",
+        "invalidEmailAddress": "無効なメールアドレス"
+    }
+  },
+  "bookings": {
+    "bookingDetailsDrawer": {
+        "loadingErrorTitle": "予約の詳細を読み込むことができません。",
+        "loadingErrorBody": "問題が解決しない場合はサポートにご連絡ください。",
+        "loadingErrorButton": "OK",
+        "loadingMessage": "予約の詳細を読み込んでいます…",
+        "title": "予約概要 - ステータス：",
+        "navigationTitle": "ジャンプ先",
+        "overviewNav": "概要",
+        "bookingCostNav": "予約コスト",
+        "flightOverviewNav": "フライト概要",
+        "passengerInformationNav": "乗客情報",
+        "overviewTitle": "概要",
+        "bookingAgent": "予約エージェント", 
+        "team": "チーム",
+        "backToTop": "トップに戻る"
+    },
+    "bookings": {
+        "title": "予約"
+    },
+    "bookingsTable": {
+        "noBookings": "予約が見つかりませんでした！",
+        "pnrNumbers": "PNR番号",
+        "passenger1": "乗客 1",
+        "bookingDate": "予約日",
+        "departureDate": "出発日",
+        "price": "価格",
+        "route": "ルート",
+        "status": "ステータス"
+    },
+    "manageBooking" : {
+        "title": "管理する",
+        "cancelBookingButton": "予約をキャンセル",
+        "sendToQueueButton": "キューに送信",
+        "issueTicketButton": "チケットを発行"
+    },
+    "multiPNRViewToggle": {
+        "title": "複数のPNR", 
+        "pnrsByTrip": "旅行ごとにPNRをグループ化する",
+        "pnrsByEach": "各PNRを表示"
+    },
+    "passengerDetails": {
+        "title": "乗客の詳細"
+    }
+  }
+}

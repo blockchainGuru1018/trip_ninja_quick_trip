@@ -4,8 +4,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { setValue } from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
 import { flexTripAllowed } from '../../helpers/FlexTripAllowedHelper';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface TripOptionsProps {
+interface TripOptionsProps extends WithTranslation {
   routeFlexible: boolean;
   virtualInterlining: boolean;
   setValue: typeof setValue;
@@ -28,7 +29,7 @@ class TripOptions extends React.Component<TripOptionsProps> {
                 color="secondary"
                 onChange={e => this.props.setValue('routeFlexible', e.target.checked)}
               />}
-              label="Route Flexible"
+              label={this.props.t("search.tripOptions.routeFlexible")}
               labelPlacement="end"
             />
         }
@@ -38,7 +39,10 @@ class TripOptions extends React.Component<TripOptionsProps> {
               <Checkbox id="virtual-interlining" checked={this.props.virtualInterlining} color="secondary"
                 onChange={e => this.props.setValue('virtualInterlining', e.target.checked)}
               />
-            } label="Virtual Interlining" labelPlacement="end"/>
+            } 
+            label={this.props.t("search.tripOptions.virtualInterlining")} 
+            labelPlacement="end"
+            />
         }
 
       </div>
@@ -46,4 +50,4 @@ class TripOptions extends React.Component<TripOptionsProps> {
   }
 }
 
-export default TripOptions;
+export default withTranslation('common')(TripOptions);

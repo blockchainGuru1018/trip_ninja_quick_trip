@@ -16,7 +16,7 @@ import {Timeline,
 } from "@material-ui/lab";
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import localeMap from '../localeMap';
+import { dateLocaleMap } from '../localeMap';
 import { format } from 'date-fns';
 
 const useStyles = makeStyles({
@@ -101,7 +101,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:localeMap[i18n.language]}) : ''}</p>
+      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:dateLocaleMap[i18n.language]}) : ''}</p>
     );
   };
 

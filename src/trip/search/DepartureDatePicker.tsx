@@ -4,12 +4,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
 import TodayIcon from '@material-ui/icons/Today';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { updateFlightValue } from '../../actions/SearchActions';
+import { getPriceGraph, updateFlightValue } from '../../actions/SearchActions';
 import i18n from '../../i18n';
 import { dateLocaleMap } from '../../localeMap';
-import API from '../../Api';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import {priceParser} from "../../helpers/MiscHelpers";
+import { priceParser } from "../../helpers/MiscHelpers";
+import { PriceGraphPayload } from "./SearchInterfaces";
 
 interface DepartureDatePickerProps {
   i: number;
@@ -20,12 +20,12 @@ interface DepartureDatePickerProps {
   origin:string
   destination:string
   currency: string
+  priceGraph: any
+  getPriceGraph: typeof getPriceGraph
 }
 
 export default function DepartureDatePicker(props: DepartureDatePickerProps) {
   const [errorText, setErrorText] = useState('');
-  const [priceGraph, setPriceGraph] = useState({});
-
 
   useEffect(() => {
     const validateDate = (departureDate: string) => {
@@ -44,8 +44,8 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
   };
 
   const renderDayInPicker = (day: any, selectedDate: any, dayInCurrentMonth: any, dayComponent:any) => {
-    let price = priceGraph[day.toISOString().slice(0,10)]
-      ? currencySymbol(props.currency) + priceParser(priceGraph[day.toISOString().slice(0,10)]) : '';
+    let price = props.priceGraph[day.toISOString().slice(0,10)]
+      ? currencySymbol(props.currency) + priceParser(props.priceGraph[day.toISOString().slice(0,10)]) : '';
     return (
       <div className='date-price-container'>
         {dayComponent}
@@ -54,26 +54,15 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
     );
   };
 
-  const onPickerViewChange = async(date:any) => {
-    const url: string = '/price-map/';
-
-    let payload = {'origin': props.origin,
+  const onPickerViewChange = (date: any) => {
+    let priceGraphPayload: PriceGraphPayload = {
+      'origin': props.origin,
       'destination': props.destination,
       'year':date.getFullYear(),
-      'month':date.getMonth()+1,
+      'month':date.getMonth() + 1,
       'currency':props.currency
     };
-
-    console.log(payload);
-
-    return API.post(url, payload)
-      .then((response: any) => {
-        if (response.status === 200) {
-          console.log(response.data);
-          setPriceGraph(response.data);
-          //return setSearchSuccess(dispatch, response);
-        }
-      });
+    props.getPriceGraph(priceGraphPayload);
   };
 
   const onOpenPicker = () => {

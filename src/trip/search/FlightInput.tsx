@@ -11,7 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Popper from '@material-ui/core/Popper';
-import { updateFlightValue, removeFlight }
+import {updateFlightValue, removeFlight, getPriceGraph}
   from '../../actions/SearchActions';
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
@@ -25,6 +25,8 @@ interface FlightInputProps extends WithTranslation {
   flights: Array<Flight>;
   dateFormat: string;
   currency: string;
+  priceGraph: any;
+  getPriceGraph: typeof getPriceGraph;
 }
 
 class FlightInput extends React.Component<FlightInputProps> {
@@ -133,6 +135,8 @@ class FlightInput extends React.Component<FlightInputProps> {
                 origin={this.props.flights[this.props.i].origin ? iataCodeHelper(this.props.flights[this.props.i].origin) : ''}
                 destination={this.props.flights[this.props.i].destination ? iataCodeHelper(this.props.flights[this.props.i].destination) : ''}
                 currency={this.props.currency}
+                priceGraph={this.props.priceGraph}
+                getPriceGraph={this.props.getPriceGraph}
               />
             </div>
             <div className="col-md-4 col-sm-10 search-input cabin-selector-container">

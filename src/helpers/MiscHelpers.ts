@@ -20,7 +20,7 @@ export const isFirstPositionInStructure = (segment: Segment) => {
 
 export const priceParser = (price: number) => {
   if (price >= 1000) {
-    const priceToOneDecimal = Math.round(price / 100) / 10;
+    const priceToOneDecimal = Math.round(price / 10) / 100;
     return `${priceToOneDecimal}k`;
   }
   else {

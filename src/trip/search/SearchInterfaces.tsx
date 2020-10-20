@@ -1,5 +1,5 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
-  removeFlight, searchFlights }
+  removeFlight, searchFlights, getPriceGraph }
   from '../../actions/SearchActions';
 import { WithTranslation } from 'react-i18next';
 
@@ -10,6 +10,7 @@ export interface SearchDetails {
   routeFlexible: boolean;
   loading: boolean;
   virtualInterlining: boolean;
+  priceGraph: any;
 }
 
 export interface Flight {
@@ -42,6 +43,7 @@ export interface SearchProps extends WithTranslation {
   searchFlights: typeof searchFlights;
   dateFormat: string;
   virtualInterliningAccess: boolean;
+  getPriceGraph: typeof getPriceGraph;
 }
 
 export interface Passenger {
@@ -66,7 +68,8 @@ export const defaultSearchDetails: SearchDetails = {
   passengers: defaultPassengerList,
   routeFlexible: true,
   loading: false,
-  virtualInterlining: true
+  virtualInterlining: true,
+  priceGraph: {}
 };
 
 export interface SearchPayload {
@@ -86,4 +89,12 @@ export interface FlightPayload {
   start_type: string;
   from_city: string;
   to_city: string;
+}
+
+export interface PriceGraphPayload {
+  origin: string,
+  destination: string,
+  year: number,
+  month: number,
+  currency: string
 }

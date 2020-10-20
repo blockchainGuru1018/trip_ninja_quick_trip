@@ -38,6 +38,8 @@ class Search extends React.Component<SearchProps> {
           removeFlight={this.props.removeFlight}
           dateFormat={this.props.dateFormat}
           currency={this.props.searchDetails.currency}
+          priceGraph={this.props.searchDetails.priceGraph}
+          getPriceGraph={this.props.getPriceGraph}
         />;
       }
     );

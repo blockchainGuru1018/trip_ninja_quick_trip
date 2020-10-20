@@ -177,6 +177,10 @@
   "flightInput": {
       "origin": "出発地",
       "destination": "目的地"
+  },
+  "tripOptions": {
+    "routeFlexible": "ルート指定なし",
+    "virtualInterlining": "バーチャルインターライニング"
   }
 },
 "results": {

@@ -177,6 +177,10 @@
         "flightInput": {
             "origin": "Origin",
             "destination": "Destination"
+        },
+        "tripOptions": {
+            "routeFlexible": "Route Flexible",
+            "virtualInterlining": "Virtual Interlining"
         }
     },
     "results": {

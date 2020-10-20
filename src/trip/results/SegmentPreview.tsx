@@ -76,6 +76,7 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
                 segment={this.props.segment}
                 currency={this.props.currency}
                 activeSegment={this.props.activeSegment}
+                viLinkedSegment={this.props.viLinkedSegment}
               />
               : this.props.segmentSelect && <div className="col-sm-2"></div>
             }

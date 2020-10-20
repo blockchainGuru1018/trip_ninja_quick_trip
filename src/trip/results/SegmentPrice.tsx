@@ -9,6 +9,7 @@ interface SegmentPriceProps extends WithTranslation {
   currency: string;
   activeSegment?: Segment;
   totalPrice: number;
+  viLinkedSegment?: Segment;
 }
 
 class SegmentPrice extends React.Component<SegmentPriceProps> {
@@ -17,8 +18,9 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
       ? this.props.segment.relativePrice! - this.props.activeSegment.relativePrice!
       : 0;
     const segmentSource: string = this.props.segment.virtual_interline
-      ? 'Multiple Data Sources'
-      : `${firstLetterCapital(this.props.segment.source)} - ${this.props.segment.credential_info.pcc}`;
+      ? this.setViSegmentSource(this.props.segment)
+      : this.makePrettySegmentSource(this.props.segment);
+
     return (
       <div className="col-sm-2 my-auto">
         <p className="text-bold text-center segment-price">{this.setRelativePriceString(Math.round(relativePrice))}</p>
@@ -26,6 +28,16 @@ class SegmentPrice extends React.Component<SegmentPriceProps> {
         <p className='text-small text-center'>{segmentSource}</p>
       </div>
     );
+  }
+
+  setViSegmentSource(segment: Segment) {
+    return this.props.viLinkedSegment && segment.source === this.props.viLinkedSegment.source
+      ? this.makePrettySegmentSource(segment)
+      : 'Multiple Data Sources';
+  }
+
+  makePrettySegmentSource(segment: Segment) {
+    return `${firstLetterCapital(segment.source)} - ${segment.credential_info.pcc}`
   }
 
   setRelativePriceString = (relativePrice: number) =>

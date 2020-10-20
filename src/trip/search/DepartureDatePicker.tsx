@@ -9,6 +9,7 @@ import i18n from '../../i18n';
 import { dateLocaleMap } from '../../localeMap';
 import API from '../../Api';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import {priceParser} from "../../helpers/MiscHelpers";
 
 interface DepartureDatePickerProps {
   i: number;
@@ -43,12 +44,14 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
   };
 
   const renderDayInPicker = (day: any, selectedDate: any, dayInCurrentMonth: any, dayComponent:any) => {
-    let price = priceGraph[day.toISOString().slice(0,10)] ? currencySymbol(props.currency)+priceGraph[day.toISOString().slice(0,10)] : '';
-
-    return (<div>
-      {dayComponent}
-      <span className = 'price-graph-label'>{price}</span>
-    </div>);
+    let price = priceGraph[day.toISOString().slice(0,10)]
+      ? currencySymbol(props.currency) + priceParser(priceGraph[day.toISOString().slice(0,10)]) : '';
+    return (
+      <div className='date-price-container'>
+        {dayComponent}
+        <span className='price-graph-label'>{price}</span>
+      </div>
+    );
   };
 
   const onPickerViewChange = async(date:any) => {

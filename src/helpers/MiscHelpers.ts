@@ -17,3 +17,13 @@ export const isFirstPositionInStructure = (segment: Segment) => {
   const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
   return segment.segment_position === itineraryStructure[0];
 };
+
+export const priceParser = (price: number) => {
+  if (price >= 1000) {
+    const priceToOneDecimal = Math.round(price / 100) / 10;
+    return `${priceToOneDecimal}k`;
+  }
+  else {
+    return price.toFixed();
+  }
+};

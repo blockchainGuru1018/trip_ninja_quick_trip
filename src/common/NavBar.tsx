@@ -15,10 +15,6 @@ interface NavBarProps extends WithTranslation {
 
 class NavBar extends React.Component<NavBarProps> {
 
-  state = {
-    lng: 'en'
-  };
-
   render() {
     return (
       <nav className="navbar navbar-light navbar-expand-lg">

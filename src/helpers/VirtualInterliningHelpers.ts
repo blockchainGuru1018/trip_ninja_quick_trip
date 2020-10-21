@@ -5,7 +5,7 @@ export function getFullTripWithVi(actives: Array<Segment>, trip: Results) {
   let fullTrip: Array<Segment> = [];
   actives.forEach((activeSegment: Segment, segmentIndex: number) => {
     fullTrip.push(activeSegment);
-    const viSolutionSegment: Segment | undefined = getLinkedViSegment(activeSegment, segmentIndex, trip);
+    const viSolutionSegment: Segment | undefined = getLinkedViSegment(activeSegment, trip.segments[segmentIndex]);
     if (viSolutionSegment) {
       fullTrip.push(viSolutionSegment);
     }
@@ -16,7 +16,7 @@ export function getFullTripWithVi(actives: Array<Segment>, trip: Results) {
 export function getLinkedViSegmentsForPricing(actives: Array<Segment>, trip: Results) {
   let fullTrip: Array<Segment> = [];
   actives.forEach((activeSegment: Segment, segmentIndex: number) => {
-    const viSolutionSegment: Segment | undefined = getLinkedViSegment(activeSegment, segmentIndex, trip);
+    const viSolutionSegment: Segment | undefined = getLinkedViSegment(activeSegment, trip.segments[segmentIndex]);
     if (viSolutionSegment) {
       fullTrip[viSolutionSegment.segment_position] = viSolutionSegment;
     }
@@ -24,14 +24,13 @@ export function getLinkedViSegmentsForPricing(actives: Array<Segment>, trip: Res
   return fullTrip;
 }
 
-export function getLinkedViSegment(activeSegment: Segment, segmentIndex: number, trip: Results) {
-  if (activeSegment.virtual_interline) {
-    const viSolutionId = activeSegment.vi_solution_id;
-    const viLinkedSegment: Segment | undefined = trip.segments[segmentIndex].find((segment: Segment) =>
-      segment.virtual_interline &&
-      segment.vi_solution_id === viSolutionId &&
-      segment.vi_position === 1
+export function getLinkedViSegment(segment: Segment, segments: Array<Segment>) {
+  if (segment.virtual_interline) {
+    const viSolutionId = segment.vi_solution_id;
+    return segments.find((potentialLinkedSegment: Segment) =>
+      potentialLinkedSegment.virtual_interline &&
+      potentialLinkedSegment.vi_solution_id === viSolutionId &&
+      potentialLinkedSegment.vi_position !== segment.vi_position
     );
-    return viLinkedSegment;
   }
 }

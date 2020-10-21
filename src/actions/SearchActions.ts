@@ -1,8 +1,9 @@
-import { SearchPayload } from '../trip/search/SearchInterfaces';
+import { SearchPayload, PriceGraphPayload } from '../trip/search/SearchInterfaces';
 import { setResults, setErrorDetails, setActiveSegments }
   from './ResultsActions';
 import API from '../Api';
-import {Dispatch} from "react";
+import { Dispatch } from "react";
+
 
 export function fetchSearch(tripDetails: Object) {
   return {
@@ -87,6 +88,29 @@ export const searchFlights = (searchPayload: SearchPayload) => (dispatch: Dispat
       return setSearchFailed(dispatch);
     });
 };
+
+export const getPriceGraph = (priceGraphPayload: PriceGraphPayload) => (dispatch: any) => {
+  API.post('/price-map/', priceGraphPayload)
+    .then((response: any) => {
+      let prices = {};
+      if (response.status === 200) {
+        prices = response.data;
+      }
+      dispatch(setPriceGraph(prices));
+    })
+    .catch((error: any) => {
+      dispatch(setPriceGraph({}));
+    });
+};
+
+
+function setPriceGraph (prices: any) {
+  return {
+    type: 'SET_PRICE_GRAPH',
+    prices
+  };
+}
+
 
 const setSearchSuccess = (dispatch: Dispatch<any>, response: any) => {
   dispatch(setResults(response.data));

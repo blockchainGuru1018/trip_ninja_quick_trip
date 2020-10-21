@@ -73,3 +73,31 @@
 .add-flight-btn-container {
   padding-left: 7px;
 }
+
+.price-graph-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--primary);
+  padding-top: 3px;
+  min-height: 20px;
+  text-align: center;
+}
+
+.date-price-container {
+  display: grid
+}
+
+.MuiPickersBasePicker-pickerView {
+  min-height: 430px !important;
+  min-width: 350px !important;
+  justify-content: normal !important;
+}
+
+.MuiPickersDay-day {
+  width: 40px;
+  height: 40px;
+}
+
+.MuiPickersCalendarHeader-dayLabel {
+  width: 40px;
+}

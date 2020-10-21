@@ -13,6 +13,7 @@ import history from '../../History';
 import Hotkeys from 'react-hot-keys';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+
 interface SearchRequestProps extends WithTranslation {
   searchDetails: SearchDetails;
   searchFlights: typeof searchFlights

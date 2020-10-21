@@ -110,7 +110,9 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     return (
       <div className="row">
         <div className='text-bold booking-details-text-container'>{t('common.itineraryDetails.bookingDetailsHeader')}:
-          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
+          <span className='text-small'>
+            &nbsp;{segment.flights[0].fare_type} • {firstLetterCapital(segment.source)} • {segment.credential_info.pcc}
+          </span>
         </div>
       </div>
     );

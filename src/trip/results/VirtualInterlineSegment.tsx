@@ -12,6 +12,7 @@ import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import expandedIcon from '../../assets/images/expanded_icon.svg';
+import {firstLetterCapital} from "../../helpers/MiscHelpers";
 
 
 interface VirtualInterlineSegmentProps {
@@ -54,13 +55,17 @@ class VirtualInterlineSegment extends React.Component<VirtualInterlineSegmentPro
               <FlightStops flights={this.props.segmentFlightDetails} viParent={false}/>
               <FlightTypes segment={this.props.segment} />
               <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
-              <div className={(this.props.segmentSelect ? 'offset-sm-2 ' : '') + 'col-sm-1 icon-expand-preview my-auto'}>
+              <div className='col-sm-2 my-auto'>
+                <p className='text-small text-center'>{firstLetterCapital(this.props.segment.source)} - {this.props.segment.credential_info.pcc}</p>
+              </div>
+              <div className='col-sm-1 icon-expand-preview my-auto'>
                 <IconButton
                   className={'expand-icon' + (openVI ? ' rotated-180' : '')}
-                  onClick={(() =>
-                    this.state.expandedSegment === 0
+                  onClick={(() => {
+                    this.state.expandedSegment === this.props.index
                       ? this.setState({expandedSegment: -1})
-                      : this.setState({expandedSegment: this.props.index})
+                      : this.setState({expandedSegment: this.props.index});
+                  }
                   )}
                 >
                   <ExpandMoreIcon fontSize="large" style={{ color: 'var(--tertiary)' }}/>

@@ -38,7 +38,6 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticket
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 
-//Google Tag Manager
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
 };
@@ -93,6 +92,7 @@ class App extends React.Component<IAppProps> {
     }
   }
 
+  
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
     if (token !== '') {

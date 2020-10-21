@@ -16,6 +16,7 @@ import { updateFlightValue, removeFlight }
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import CovidRestrictionsModal from './CovidRestrictionsModal';
 
 interface FlightInputProps extends WithTranslation {
   i: number;
@@ -144,6 +145,7 @@ class FlightInput extends React.Component<FlightInputProps> {
               </div>
             }
           </div>
+          <CovidRestrictionsModal />
         </div>
       </div>
     );

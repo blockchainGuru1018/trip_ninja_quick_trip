@@ -42,10 +42,10 @@ class VirtualInterlineSegment extends React.Component<VirtualInterlineSegmentPro
     return(
       <div>        
         <div className="row">
-          <div className="col-xl-1 my-auto">
+          <div className="col-xl-1 no-pad-left my-auto">
             <img src={viExpandedIcon} alt="vi-segment-icon" className="vi-segment-icon" />
           </div>
-          <div className="col-xl-11">
+          <div className="col-xl-11 no-pad-right">
             <div className="row segment">
               {!this.props.segmentSelect
               && <SegmentOriginDestination segment={this.props.segment} departure={this.props.segmentFlightDetails[0].departure_time} />

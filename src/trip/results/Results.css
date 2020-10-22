@@ -164,7 +164,7 @@
 }
 
 .vi-segment-container {
-  padding: 5px 25px 25px 25px;
+  padding: 5px 0px 25px 0px;
 }
 
 .vi-segment-icon {
@@ -172,6 +172,15 @@
 }
 
 .self-transfer {
-  margin: 25px 0px 0px 0px;
+  margin: 0px;
+  padding: 10px 0px;
   color: var(--primary);
+}
+
+.self-transfer-container {
+  margin: 25px 0px 0px 0px;
+}
+
+.self-transfer-background {
+  background-color: #f1f1f1;
 }

@@ -52,16 +52,12 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
             getTravelportBrands={this.props.getTravelportBrands}
             trip={this.props.trip}
           />
-          <div className="row">
-            <div className="col-xl-11 offset-xl-1 no-pad-right">
-              <SelfTransferLabel 
-                destinationName={this.props.segment.destination_name}
-                firstFlight={flightDetails[0][flightDetails[0].length - 1]}
-                secondFlight={flightDetails[1][0]}
-                resultsDisplay={true}
-              />
-            </div>
-          </div>
+          <SelfTransferLabel 
+            destinationName={this.props.segment.destination_name}
+            firstFlight={flightDetails[0][flightDetails[0].length - 1]}
+            secondFlight={flightDetails[1][0]}
+            resultsDisplay={true}
+          />
           { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
             <VirtualInterlineSegment
               segment={this.props.viLinkedSegment}

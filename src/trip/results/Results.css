@@ -168,7 +168,7 @@
 }
 
 .vi-segment-icon {
-  width: 50px;
+  width: 40px;
 }
 
 .self-transfer {
@@ -183,4 +183,5 @@
 
 .self-transfer-background {
   background-color: #f1f1f1;
+  margin-left: 70px;
 }

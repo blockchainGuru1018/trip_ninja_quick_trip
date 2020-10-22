@@ -8,6 +8,7 @@ interface SelfTransferLabelProps {
   destinationName: string;
   firstFlight: FlightResultsDetails
   secondFlight: FlightResultsDetails
+  resultsDisplay: boolean
 }
 
 export default function SelfTransferLabel (props: SelfTransferLabelProps) {

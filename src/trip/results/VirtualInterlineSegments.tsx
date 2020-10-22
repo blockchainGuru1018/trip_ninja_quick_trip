@@ -56,6 +56,7 @@ class VirtualInterlineSegments extends React.Component<VirtualInterlineSegmentsP
             destinationName={this.props.segment.destination_name}
             firstFlight={flightDetails[0][flightDetails[0].length - 1]}
             secondFlight={flightDetails[1][0]}
+            resultsDisplay={true}
           />
           { this.props.viLinkedSegment && this.props.viLinkedSegmentFlightDetails &&
             <VirtualInterlineSegment

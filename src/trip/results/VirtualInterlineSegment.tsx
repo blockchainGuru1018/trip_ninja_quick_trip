@@ -11,7 +11,7 @@ import FlightTypes from '../../common/FlightTypes';
 import SegmentOriginDestination from '../../common/SegmentOriginDestination';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
-import expandedIcon from '../../assets/images/expanded_icon.svg';
+import viExpandedIcon from '../../assets/images/vi_expanded_icon.svg';
 import {firstLetterCapital} from "../../helpers/MiscHelpers";
 
 
@@ -43,7 +43,7 @@ class VirtualInterlineSegment extends React.Component<VirtualInterlineSegmentPro
       <div>        
         <div className="row">
           <div className="col-xl-1 my-auto">
-            <img src={expandedIcon} alt="vi-segment-icon" className="vi-segment-icon" />
+            <img src={viExpandedIcon} alt="vi-segment-icon" className="vi-segment-icon" />
           </div>
           <div className="col-xl-11">
             <div className="row segment">

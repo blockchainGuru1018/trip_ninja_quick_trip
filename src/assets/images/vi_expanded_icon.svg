@@ -1,26 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="150" viewBox="0 0 150 150">
   <defs>
-    <clipPath id="clip-Expanded">
-      <rect width="400" height="400"/>
+    <clipPath id="clip-Icon">
+      <rect width="150" height="150"/>
     </clipPath>
   </defs>
-  <g id="Expanded" clip-path="url(#clip-Expanded)">
-    <g id="Group_524" data-name="Group 524" transform="translate(-118 -989)">
-      <g id="Rectangle_2161" data-name="Rectangle 2161" transform="translate(118 989)" fill="none" stroke="#45565e" stroke-width="10">
-        <rect width="400" height="122" rx="10" stroke="none"/>
-        <rect x="5" y="5" width="390" height="112" rx="5" fill="none"/>
+  <g id="Icon" clip-path="url(#clip-Icon)">
+    <g id="Group_407" data-name="Group 407" transform="translate(5.801 135)">
+      <g id="Group_386" data-name="Group 386" transform="translate(-5.801 -124.656)">
+        <g id="Group_764" data-name="Group 764" transform="translate(0)">
+          <g id="Path_513" data-name="Path 513" fill="none">
+            <path d="M10,0H140a10,10,0,0,1,10,10V30a10,10,0,0,1-10,10H10A10,10,0,0,1,0,30V10A10,10,0,0,1,10,0Z" stroke="none"/>
+            <path d="M 10 4 C 6.69158935546875 4 4 6.69158935546875 4 10 L 4 30 C 4 33.30841064453125 6.69158935546875 36 10 36 L 140 36 C 143.3084106445312 36 146 33.30841064453125 146 30 L 146 10 C 146 6.69158935546875 143.3084106445312 4 140 4 L 10 4 M 10 0 L 140 0 C 145.5228424072266 0 150 4.477157592773438 150 10 L 150 30 C 150 35.52284240722656 145.5228424072266 40 140 40 L 10 40 C 4.477157592773438 40 0 35.52284240722656 0 30 L 0 10 C 0 4.477157592773438 4.477157592773438 0 10 0 Z" stroke="none" fill="#636f75"/>
+          </g>
+          <g id="Rectangle_2162" data-name="Rectangle 2162" transform="translate(52.941 86.588)" fill="none" stroke="#636f75" stroke-width="4">
+            <rect width="97" height="40" rx="10" stroke="none"/>
+            <rect x="2" y="2" width="93" height="36" rx="8" fill="none"/>
+          </g>
+          <line id="Line_106" data-name="Line 106" x1="0.559" y2="68.542" transform="translate(21.5 37.614)" fill="none" stroke="#636f75" stroke-width="4"/>
+          <line id="Line_107" data-name="Line 107" x2="34.853" transform="translate(20.5 104.156)" fill="none" stroke="#636f75" stroke-width="4"/>
+        </g>
       </g>
-      <g id="Rectangle_2162" data-name="Rectangle 2162" transform="translate(252 1164)" fill="none" stroke="#45565e" stroke-width="10">
-        <rect width="266" height="75" rx="10" stroke="none"/>
-        <rect x="5" y="5" width="256" height="65" rx="5" fill="none"/>
-      </g>
-      <line id="Line_106" data-name="Line 106" x2="0.5" y2="236" transform="translate(184.5 1104.5)" fill="none" stroke="#45565e" stroke-width="10"/>
-      <path id="Path_1" data-name="Path 1" d="M-1.028,0H66.114" transform="translate(185.886 1201.529)" fill="none" stroke="#45565e" stroke-width="10"/>
-      <g id="Rectangle_2163" data-name="Rectangle 2163" transform="translate(252 1292)" fill="none" stroke="#45565e" stroke-width="10">
-        <rect width="266" height="75" rx="10" stroke="none"/>
-        <rect x="5" y="5" width="256" height="65" rx="5" fill="none"/>
-      </g>
-      <path id="Path_2" data-name="Path 2" d="M-1.028,0H70.88" transform="translate(181.12 1340.529)" fill="none" stroke="#45565e" stroke-width="10"/>
     </g>
   </g>
 </svg>

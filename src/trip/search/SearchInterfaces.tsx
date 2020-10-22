@@ -96,5 +96,6 @@ export interface PriceGraphPayload {
   destination: string,
   year: number,
   month: number,
-  currency: string
+  currency: string,
+  cabin_class: string
 }

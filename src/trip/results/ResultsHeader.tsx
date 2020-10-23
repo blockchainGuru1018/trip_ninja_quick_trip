@@ -55,7 +55,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             </div>
           </div>
           }
-          <div className='col col-md-8'>
+          <div className="col">
             <div className="float-right itinerary-path">
               <p>{segmentPath}</p>
             </div>

@@ -55,9 +55,11 @@ class VirtualInterlineSegment extends React.Component<VirtualInterlineSegmentPro
               <FlightStops flights={this.props.segmentFlightDetails} viParent={false}/>
               <FlightTypes segment={this.props.segment} />
               <SegmentBaggage baggage={this.props.segment.baggage.number_of_pieces} />
-              <div className='col-sm-2 my-auto'>
-                <p className='text-small text-center'>{firstLetterCapital(this.props.segment.source)} - {this.props.segment.credential_info.pcc}</p>
-              </div>
+              {this.props.segmentSelect &&
+                <div className='col-sm-2 my-auto'>
+                  <p className='text-small text-center'>{firstLetterCapital(this.props.segment.source)} - {this.props.segment.credential_info.pcc}</p>
+                </div>
+              }
               <div className='col-sm-1 icon-expand-preview my-auto'>
                 <IconButton
                   className={'expand-icon' + (openVI ? ' rotated-180' : '')}

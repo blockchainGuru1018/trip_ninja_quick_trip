@@ -79,7 +79,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 sortBy={this.props.resultsDetails.itinerarySortBy}
                 updateSortType={this.props.updateSortType}
                 updateEntireTrip={this.props.updateEntireTrip}
-                updateActives={this.props.updateActives}
               />
             </div>
           </div>

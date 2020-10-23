@@ -179,14 +179,15 @@ function updateOneWay(segment: Segment, state: ResultsDetails, segmentOptions: A
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
   const segmentOptionIndex: number = action.segmentOptionIndex;
   const segmentItineraryRef: string = action.segmentItineraryRef;
-  const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);
+  const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef, action.virtualInterline);
   setRelativesAndUpdateActives(updateState, action.setActivesInitial, action.sortBy);
   return updateState;
 }
 
-export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string) {
+export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string,
+  virtualInterline: boolean = false) {
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentOptionIndex];
-  const selectedSegment: Segment | undefined = findSegmentByItineraryId(segmentItineraryRef, segmentOptions);
+  const selectedSegment: Segment | undefined = findSegmentByItineraryId(segmentItineraryRef, segmentOptions, virtualInterline);
   if (selectedSegment && selectedSegment.status === 'active') {
     return {...state};
   } else if (selectedSegment) {
@@ -236,9 +237,11 @@ function linkedViSegmentIsOpenJaw(selectedSegment: Segment, currentSegments: Arr
   return linkedViSegment?.itinerary_type === 'OPEN_JAW';
 }
 
-function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: Array<Segment>) {
+function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: Array<Segment>, virtual_interline: boolean) {
   let selectedSegment = segmentOptions.find((segment: Segment) =>
-    segment.itinerary_id === segmentItineraryRef
+    virtual_interline
+      ? segment.vi_solution_id === segmentItineraryRef
+      : segment.itinerary_id === segmentItineraryRef
   );
   if (selectedSegment?.virtual_interline && selectedSegment.vi_position === 1){
     selectedSegment = segmentOptions.find((segment: Segment) =>

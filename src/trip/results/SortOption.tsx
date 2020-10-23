@@ -3,7 +3,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {
-  updateActives,
   updateEntireTrip,
   updateSortType
 } from '../../actions/ResultsActions';
@@ -17,7 +16,6 @@ interface SortOptionProps extends WithTranslation {
   updateSortType: typeof updateSortType;
   trip?: Results;
   updateEntireTrip?: typeof updateEntireTrip;
-  updateActives?: typeof updateActives;
 }
 
 const sortOptionList = ["cheapest", "best", "fastest"]; //TODO: make this enum?

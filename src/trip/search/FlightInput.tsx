@@ -134,6 +134,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                 previousDate= {this.props.i > 0 ? this.props.flights[this.props.i-1].departureDate : ''}
                 origin={this.props.flights[this.props.i].origin ? iataCodeHelper(this.props.flights[this.props.i].origin) : ''}
                 destination={this.props.flights[this.props.i].destination ? iataCodeHelper(this.props.flights[this.props.i].destination) : ''}
+                cabinClass={this.props.flights[this.props.i].cabinClass}
                 currency={this.props.currency}
                 priceGraph={this.props.priceGraph}
                 getPriceGraph={this.props.getPriceGraph}

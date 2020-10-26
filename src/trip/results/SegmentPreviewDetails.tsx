@@ -53,7 +53,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
             <FlightResultsPath
               flightDetails={this.props.flightDetails}
             />
-            <hr/>
+            {(!this.props.viParent && this.props.segmentSelect) && <hr/>}
           </div>
         }
         {this.props.viParent && this.props.segmentSelect && this.props.segment.status !== 'active' &&

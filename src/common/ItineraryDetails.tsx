@@ -131,6 +131,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       destinationName={destinationName}
       firstFlight={firstViFlight}
       secondFlight={secondViFlight}
+      resultsDisplay={false}
     />);
   };
 

@@ -14,7 +14,7 @@ const testSearchDetails = {
     {
       "origin": "NYC | New York City, NY, USA - All Airports",
       "destination": "YHZ | Halifax, NS, Canada",
-      "departureDate": "2020-10-12T14:29:00.000Z",
+      "departureDate": "2027-10-12T14:29:00.000Z",
       "cabinClass": "E",
       "endType": "A",
       "startType": "C"
@@ -49,7 +49,8 @@ const testSearchDetails = {
     }
   ],
   "routeFlexible": true,
-  "loading": false
+  "loading": false,
+  "virtualInterlining": false
 };
 
 const testFlights: Array<Flight> = [
@@ -68,8 +69,8 @@ test('datesAreOnSameDayOrLater', () => {
 
 const validateSearchTest = (searchDetails: SearchDetails) => {
   const component: any = shallow(
-    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights}
-                   t={(key: any) => key} />
+    //@ts-ignore
+    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} virtualInterliningAccess={false} t={(key: any) => key} />
   );
   const instance = component.instance();
   return instance.validateSearchDetails();
@@ -117,11 +118,8 @@ test('checkForOriginDestinationPair', () => {
 
 test('getCabinClassByName', () => {
   const cabinSelectComponent: any = shallow(
-    <CabinSelect  i={0}
-                  cabinClass={"E"}
-                  updateFlightValue={updateFlightValue}
-                  t={(key: any) => key}
-    />
+    //@ts-ignore
+    <CabinSelect i={0} cabinClass={"E"} updateFlightValue={updateFlightValue} t={(key: any) => key} />
   );
   const instance = cabinSelectComponent.instance();
   expect(instance.getCabinClassByName()).toBe("E");

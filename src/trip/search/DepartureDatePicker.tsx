@@ -4,10 +4,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
 import TodayIcon from '@material-ui/icons/Today';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { updateFlightValue } from '../../actions/SearchActions';
+import { getPriceGraph, updateFlightValue } from '../../actions/SearchActions';
 import i18n from '../../i18n';
-import localeMap from '../../localeMap';
-
+import { dateLocaleMap } from '../../localeMap';
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
+import { priceParser } from "../../helpers/MiscHelpers";
+import { PriceGraphPayload } from "./SearchInterfaces";
 
 interface DepartureDatePickerProps {
   i: number;
@@ -15,6 +17,12 @@ interface DepartureDatePickerProps {
   updateFlightValue: typeof updateFlightValue;
   dateFormat: string
   previousDate?: string
+  origin:string
+  destination:string
+  currency: string
+  cabinClass: string
+  priceGraph: any
+  getPriceGraph: typeof getPriceGraph
 }
 
 export default function DepartureDatePicker(props: DepartureDatePickerProps) {
@@ -36,20 +44,51 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
       : '';
   };
 
+  const renderDayInPicker = (day: any, selectedDate: any, dayInCurrentMonth: any, dayComponent:any) => {
+    let price = props.priceGraph[day.toISOString().slice(0,10)]
+      ? currencySymbol(props.currency) + priceParser(props.priceGraph[day.toISOString().slice(0,10)]) : '';
+    return (
+      <div className='date-price-container'>
+        {dayComponent}
+        <span className='price-graph-label'>{price}</span>
+      </div>
+    );
+  };
+
+  const onPickerViewChange = (date: any) => {
+    let priceGraphPayload: PriceGraphPayload = {
+      'origin': props.origin,
+      'destination': props.destination,
+      'year':date.getFullYear(),
+      'month':date.getMonth() + 1,
+      'currency':props.currency,
+      'cabin_class':props.cabinClass,
+    };
+    props.getPriceGraph(priceGraphPayload);
+  };
+
+  const onOpenPicker = () => {
+    onPickerViewChange(new Date(props.departureDate));
+  };
+
   return(
     <FormControl fullWidth>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[i18n.language]}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={dateLocaleMap[i18n.language]}>
         <KeyboardDatePicker
           autoOk
           disableToolbar
           disablePast
           variant="inline"
           inputVariant="outlined"
+          renderDay={renderDayInPicker}
           format={props.dateFormat}
           margin="none"
           id={"departure-date" + props.i}
           value={new Date(props.departureDate)}
           onChange={(e: any) => setDateChange(e)}
+          onMonthChange={onPickerViewChange}
+          onYearChange={onPickerViewChange}
+          onOpen={onOpenPicker}
           InputAdornmentProps={{ position: 'start'}}
           helperText= {errorText}
           KeyboardButtonProps={{

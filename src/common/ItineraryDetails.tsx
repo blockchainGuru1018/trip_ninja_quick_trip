@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FareRulesPreview from './FareRulesPreview';
 import FlightResultsPath from './FlightResultsPath';
+import SelfTransferLabel from './SelfTransferLabel';
 import { FlightResultsDetails, Results, Segment } from '../trip/results/ResultsInterfaces';
 import { getFlightDetailsBySegment } from '../helpers/FlightDetailsHelper';
 import { firstLetterCapital } from "../helpers/MiscHelpers";
 import { BookingSegment, BookingItinerary } from '../bookings/BookingsInterfaces';
-import {
-  Timeline,
+import {Timeline,
   TimelineConnector,
   TimelineContent,
   TimelineDot,
@@ -16,7 +16,7 @@ import {
 } from "@material-ui/lab";
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import localeMap from '../localeMap';
+import { dateLocaleMap } from '../localeMap';
 import { format } from 'date-fns';
 
 const useStyles = makeStyles({
@@ -68,15 +68,19 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
     let bookedSegments: Array<BookingSegment> = [];
+    let viLinkedSegmentShift: number = 0;
     if (selectedTrip) {
-      selectedTrip.forEach((itinerary: BookingItinerary, itineraryIndex: number) => {
+      selectedTrip.forEach((itinerary: BookingItinerary) => {
         itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-          bookedSegments[segment.segment_id] = segment;
-          flightResultsPathComponents[segment.segment_id] = <FlightResultsPath
+          if (segment.virtual_interline && segment.vi_position === 1) {
+            viLinkedSegmentShift +=1;
+          } 
+          bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
+          flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
           />;
-          fareRulesPreviewComponents[segment.segment_id] = <FareRulesPreview
+          fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}
             currency={currency}
@@ -97,7 +101,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:localeMap[i18n.language]}) : ''}</p>
+      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:dateLocaleMap[i18n.language]}) : ''}</p>
     );
   };
 
@@ -106,7 +110,9 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     return (
       <div className="row">
         <div className='text-bold booking-details-text-container'>{t('common.itineraryDetails.bookingDetailsHeader')}:
-          <span className='text-small'>&nbsp;{segment.flights[0].fare_type}•{firstLetterCapital(segment.source)}</span>
+          <span className='text-small'>
+            &nbsp;{segment.flights[0].fare_type} • {firstLetterCapital(segment.source)} • {segment.credential_info.pcc}
+          </span>
         </div>
       </div>
     );
@@ -115,6 +121,19 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const getFlightResultByRef = (ref: string) => props.trip!.flight_details.find((flight: FlightResultsDetails) =>
     flight.reference === ref
   );
+
+  const getViSelfTransferLabel = (index: number, selectedTrip?: Array<Segment>, bookedSegments?: Array<BookingSegment>) => {
+    let firstViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref) : bookedSegments![index].flight_details[0];
+    let secondViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref) : bookedSegments![index+1].flight_details[0];
+    let destinationName = selectedTrip ? selectedTrip[index].destination_name : bookedSegments![index].flight_details[0].destination_name;
+    return(firstViFlight && secondViFlight && 
+    <SelfTransferLabel 
+      destinationName={destinationName}
+      firstFlight={firstViFlight}
+      secondFlight={secondViFlight}
+      resultsDisplay={false}
+    />);
+  };
 
   useEffect(() => setState(props.selectedTrip 
     ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
@@ -142,8 +161,15 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                   </TimelineSeparator>
                   <TimelineContent>
                     <div>
+                      {((props.selectedTrip && props.selectedTrip[index].vi_position !== 1) || 
+                      (bookedTripSegments && bookedTripSegments[index].vi_position !== 1)) &&
                       <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
+                      }
                       {flightResultsPath}
+                      {((props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
+                      (bookedTripSegments.length > 0 && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)) &&
+                        getViSelfTransferLabel(index, props.selectedTrip, bookedTripSegments)
+                      }
                     </div>
                   </TimelineContent>
                 </TimelineItem>

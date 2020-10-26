@@ -32,13 +32,14 @@ export function setActiveSegments(){
 }
 
 export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
-  updateActivesInitial: boolean = false, sortBy: string = 'best') {
+  updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) {
   return {
     type: 'UPDATE_ACTIVES',
     segmentOptionIndex,
     segmentItineraryRef,
     updateActivesInitial,
-    sortBy
+    sortBy,
+    virtualInterline
   };
 }
 
@@ -50,11 +51,11 @@ export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: stri
   };
 }
 
-export function updateFareFamily(segment: Segment, brand: BrandInfo, index: number) {
+export function updateFareFamily(segment: Segment, brands: Array<BrandInfo>, index: number) {
   return {
     type: 'UPDATE_FARE_FAMILY',
     segment,
-    brand,
+    brands,
     index
   };
 }
@@ -114,6 +115,6 @@ export function setFilterWarning(warning: boolean) {
   return {
     type: 'SET_FILTER_WARNING',
     warning
-  }
+  };
 }
 

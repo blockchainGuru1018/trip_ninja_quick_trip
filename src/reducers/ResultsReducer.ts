@@ -42,11 +42,11 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
     case 'UPDATE_ENTIRE_TRIP':
       if (!viable(state)) {
-        setIndex0AsActives(state)
+        setIndex0AsActives(state);
       }
       setRelativesAndUpdateActives(state, true, action.sortBy);
       setRelativesAndUpdateActives(state);
-      checkFiltersSuccess(state)
+      checkFiltersSuccess(state);
       return {...state};
 
     case 'UPDATE_FARE_FAMILY':
@@ -61,7 +61,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'UPDATE_SEGMENT_FILTER':
       const relatedFilter: Filter | undefined = state.segmentFilters![action.segmentIndex].find((segmentFilter: Filter) =>
         segmentFilter.type === action.filterKey
-      )
+      );
       relatedFilter!.value = action.filterValue;
       return {...state};
 
@@ -85,8 +85,20 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {
   const selectedSegment: Segment = action.segment;
-  const brand: BrandInfo = action.brand;
-  setSegmentFareFamily(selectedSegment, brand, action.index);
+  setSegmentFareFamily(selectedSegment, action.brands, action.index);
+  if (selectedSegment.virtual_interline) {
+    let viOtherPosition = selectedSegment.vi_position === 0 ? 1 : 0;
+    let segmentsList = state[state.tripType].segments[selectedSegment.segment_position];
+    const linkedViSegment: Segment | undefined = segmentsList.find((segment: Segment) =>
+      segment.vi_solution_id === selectedSegment.vi_solution_id &&
+      segment.vi_position === viOtherPosition
+    );
+    if (linkedViSegment) {
+      linkedViSegment.base_price = selectedSegment.base_price;
+      linkedViSegment.taxes = selectedSegment.taxes;
+      linkedViSegment.price = selectedSegment.price;
+    }    
+  }
   if (selectedSegment.itinerary_type === 'OPEN_JAW') {
     const relatedSegmentPositions: Array<number> = getOtherPositionsInItineraryStructure(selectedSegment);
     relatedSegmentPositions.forEach((linkedSegmentPosition: number) => {
@@ -94,17 +106,25 @@ function updateSegmentFareFamily(state: ResultsDetails, action: any) {
       let linkedSegment: Segment | undefined = linkedSegmentOptions.find((segment: Segment) =>
         segment.itinerary_id === selectedSegment.itinerary_id
       );
-      linkedSegment && setSegmentFareFamily(linkedSegment, brand, action.index);
+      linkedSegment && setSegmentFareFamily(linkedSegment, action.brands, action.index);
     });
   }
   return {...state};
 }
 
-function setSegmentFareFamily(segment: Segment, brand: BrandInfo, brandIndex: number) {
+function setSegmentFareFamily(segment: Segment, brands: Array<BrandInfo>, brandIndex: number) {
+  const brand: BrandInfo = brands[brandIndex];
+  let oldBrandIndex = segment.selected_brand_index ? segment.selected_brand_index : 0;
   segment.selected_brand_index = brandIndex;
-  segment.base_price = brand.base_price;
-  segment.taxes = brand.taxes;
-  segment.price = brand.price;
+  if (segment.virtual_interline) {
+    segment.base_price += brand.base_price - brands[oldBrandIndex].base_price;
+    segment.taxes += brand.taxes - brands[oldBrandIndex].taxes;
+    segment.price += brand.price - brands[oldBrandIndex].price;
+  } else {
+    segment.base_price = brand.base_price;
+    segment.taxes = brand.taxes;
+    segment.price = brand.price;
+  }  
   segment.baggage.number_of_pieces = brand.baggage_info.pieces;
   segment.flights.forEach((flight: any, index) => {
     let fareInfo = segment.source === 'travelport' ? brand.fare_info[0] : brand.fare_info[index];
@@ -139,29 +159,29 @@ function setDefaultSegmentFilters(fareStructureResults: Results) {
 }
 
 function updateFilterReturnValue(state: ResultsDetails, action: any) {
-  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey)
+  let filter = state.itineraryFilters!.find((itineraryFilter: Filter) => itineraryFilter.type === action.filterKey);
   filter!.value = action.filterValue;
   state.segmentFilters!.forEach((segmentFilters: Array<Filter>) => {
     segmentFilters.forEach((segmentFilter: Filter) => {
       if (segmentFilter.type === action.filterKey) {
         segmentFilter.value = action.filterValue;
       }
-    })
+    });
   });
-  const tripType = state.tripType
+  const tripType = state.tripType;
   filterItinerary(state[tripType].segments, state.itineraryFilters!);
-  return state
+  return state;
 }
 
 export function viable(state: ResultsDetails) {
-  const activeSegments: Array<Segment> = [...state.activeSegments.values()]
-  return activeSegments.every((segment: Segment) => !segment.filtered)
+  const activeSegments: Array<Segment> = [...state.activeSegments.values()];
+  return activeSegments.every((segment: Segment) => !segment.filtered);
 }
 
 function checkFiltersSuccess(state: ResultsDetails) {
   const numberOfFailedFilters: number = state.itineraryFilters!.reduce((total, filter: Filter) =>
-    filter.failed ? total += 1 : total, 0)
-  setFilterWarning(!viable(state) && numberOfFailedFilters === 0)
+    filter.failed ? total += 1 : total, 0);
+  setFilterWarning(!viable(state) && numberOfFailedFilters === 0);
 }
 
 export default resultsReducer;

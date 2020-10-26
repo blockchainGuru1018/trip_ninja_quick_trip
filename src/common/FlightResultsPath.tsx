@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { numberOfNightsDifference, getTimeDifference } from '../helpers/DateHelpers';
+import { numberOfNightsDifference, getLayoverTime } from '../helpers/DateHelpers';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { cityName } from '../helpers/CityNameHelper';
@@ -42,7 +42,7 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
             Array(flightDetailsLength + 1).fill(0).map((_: number, index: number )=>
               <Step key={index.toString()}>
                 <StepLabel StepIconComponent={index === 0 || index === flightDetailsLength ? FiberManualRecordIcon : RadioButtonUncheckedIcon}>
-                  {index !== 0 && index !== flightDetailsLength ? this.getLayoverTime(index) : '' }
+                  {index !== 0 && index !== flightDetailsLength ? getLayoverTime(this.props.flightDetails[index - 1], this.props.flightDetails[index]) : '' }
                 </StepLabel>
               </Step>
             )
@@ -169,12 +169,6 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
     );
 
     return flightDetails;
-  }
-
-  getLayoverTime = (index: number) => {
-    const arrivingFlightTime: Date = new Date(this.props.flightDetails[index - 1].arrival_time);
-    const departingFlightTime: Date = new Date(this.props.flightDetails[index].departure_time);
-    return getTimeDifference(arrivingFlightTime, departingFlightTime);
   }
 }
 

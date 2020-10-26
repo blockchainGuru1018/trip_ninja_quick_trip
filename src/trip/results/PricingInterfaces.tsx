@@ -46,6 +46,7 @@ export const defaultPricingDetails: PricingDetails = {
 
 
 export interface PricingRequestItinerary {
+  itinerary_id: string;
   itinerary_reference: number;
   traveller_list: Array<string>;
   plating_carrier?: string;
@@ -57,7 +58,11 @@ export interface PricingRequestItinerary {
 
 export interface FlightSegment {
   segment_id: string;
-  flights: Array<Flight>
+  flights: Array<Flight>;
+  itinerary_index?: number;
+  vi_position?: number;
+  virtual_interline?: boolean
+  vi_solution_id?: string;
 }
 
 export interface Flight {

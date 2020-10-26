@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { ResultsDetails, Segment } from './ResultsInterfaces';
+import { ResultsDetails, Segment, Results } from './ResultsInterfaces';
 import { PricingRequestInterface } from './PricingInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import history from '../../History';
@@ -19,7 +19,7 @@ interface PricingRequestProps extends WithTranslation {
 class PricingRequest extends React.Component<PricingRequestProps>{
 
   submitPricingRequest = () => {
-    const trip = this.props.resultsDetails.tripType === 'flexTripResults'
+    const trip: Results = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
 
     const pricingPayload: PricingRequestInterface = {
@@ -28,7 +28,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       currency: this.props.currency,
       price: this.props.totalPrice,
       markup: 0,
-      itineraries: createItinerariesPayload(trip.flight_details, this.props.selectedTrip)
+      itineraries: createItinerariesPayload(trip.flight_details, [...this.props.resultsDetails.activeSegments.values()], trip)
     };
     const pricingResult: any = this.props.priceFlights(pricingPayload);
     pricingResult.then((result: any) => this.handlePricingResult(result));

@@ -11,8 +11,11 @@ export function identifyAndSetInitialActives(resultsDetails: ResultsDetails, sor
 }
 
 function calculateTotalForTargetActives(clonedResults: ResultsDetails, segmentPosition: number, actives: Array<Segment>, segment: Segment) {
-  actives.forEach((activeSegment: Segment, index: number) => updateActiveSegments(clonedResults, index, activeSegment.itinerary_id));
-  updateActiveSegments(clonedResults, segmentPosition, segment.itinerary_id);
+  actives.forEach((activeSegment: Segment, index: number) => updateActiveSegments(clonedResults, index,
+    activeSegment.virtual_interline ? activeSegment.vi_solution_id! : activeSegment.itinerary_id,
+    activeSegment.virtual_interline));
+  updateActiveSegments(clonedResults, segmentPosition,
+    segment.virtual_interline ? segment.vi_solution_id! : segment.itinerary_id, segment.virtual_interline);
   const targetActives: Array<Segment> = [...clonedResults.activeSegments.values()];
   const targetTotalPrice: number = getTotal(targetActives, 'price');
   const targetTotalWeight: number = getTotal(targetActives, 'weight');

@@ -37,6 +37,9 @@ class Search extends React.Component<SearchProps> {
           flights={this.props.searchDetails.flights}
           removeFlight={this.props.removeFlight}
           dateFormat={this.props.dateFormat}
+          currency={this.props.searchDetails.currency}
+          priceGraph={this.props.searchDetails.priceGraph}
+          getPriceGraph={this.props.getPriceGraph}
         />;
       }
     );
@@ -84,6 +87,8 @@ class Search extends React.Component<SearchProps> {
                   routeFlexible={this.props.searchDetails.routeFlexible}
                   setValue={this.props.setValue}
                   flights={this.props.searchDetails.flights}
+                  virtualInterliningAccess={this.props.virtualInterliningAccess}
+                  virtualInterlining={this.props.searchDetails.virtualInterlining}
                 />
               </div>
             </div>
@@ -102,6 +107,7 @@ class Search extends React.Component<SearchProps> {
                 <SearchRequest
                   searchDetails={this.props.searchDetails}
                   searchFlights={this.props.searchFlights}
+                  virtualInterliningAccess={this.props.virtualInterliningAccess}
                 />
               </div>
             </div>

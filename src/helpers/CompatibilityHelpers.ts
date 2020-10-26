@@ -1,4 +1,4 @@
-import { ActiveSegmentsMap, FlightResult, ResultsDetails, Segment } from '../trip/results/ResultsInterfaces';
+import { ActiveSegmentsMap, FlightResult, ResultsDetails, Segment, Results } from '../trip/results/ResultsInterfaces';
 import { setRelativesAndUpdateActives } from "./RelativesHelper";
 
 function resetOldActiveStatusAndPotentialMissingPositions(newActiveSegment: Segment, state: ResultsDetails, oldActiveSegment: Segment, isNotCompatible: boolean) {
@@ -26,7 +26,7 @@ export function activateSegment(segment: Segment, state: ResultsDetails, segment
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentPosition];
   segment.status = 'active';
   state.activeSegments.set(segmentPosition, segment);
-  state.activeSegments = new ActiveSegmentsMap([...state.activeSegments.entries()].sort())
+  state.activeSegments = new ActiveSegmentsMap([...state.activeSegments.entries()].sort());
 
   if(!isInitialActivation || oldActiveSegment) {
     resetOldActiveStatusAndPotentialMissingPositions(segment, state, oldActiveSegment!, isNotCompatible); // oldActiveSegment should exist at this point
@@ -113,7 +113,7 @@ export function activateLinkedSegments(selectedSegment: Segment, state: ResultsD
 }
 
 function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetails, segmentPosition: number,
-                            activeSegmentStructure: Array<number>) {
+  activeSegmentStructure: Array<number>) {
   segmentOptions.sort((a: Segment, b: Segment) => a.weight - b.weight);
   const bestOneWay: Segment | undefined = segmentOptions.find((segment: Segment) =>
     segment.itinerary_type === 'ONE_WAY' && !segment.filtered
@@ -126,32 +126,32 @@ function activateBestOneWay(segmentOptions: Array<Segment>, state: ResultsDetail
 }
 
 function updateOpenJaw(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
-                                 segmentPosition: number) {
+  segmentPosition: number) {
   const bestUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, true, activeSegmentStructure);
   if (bestUnrelatedOpenJaw) {
-    updateSegmentActivesAndAlternates(bestUnrelatedOpenJaw, state, segmentPosition, false)
+    updateSegmentActivesAndAlternates(bestUnrelatedOpenJaw, state, segmentPosition, false);
   } else {
     setUnfilteredOneWay(segmentOptions, activeSegmentStructure, state, segmentPosition);
   }
 }
 
 function setUnfilteredOneWay(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
-                             segmentPosition: number) {
+  segmentPosition: number) {
   const unfilteredBestOneWay: Segment | undefined = segmentOptions.find(
     (segment: Segment) => segment.itinerary_type === 'ONE_WAY'
   );
   if (unfilteredBestOneWay) {
     updateOneWay(unfilteredBestOneWay, state, segmentOptions, segmentPosition);
   } else {
-    setUnfilteredUnrelatedOpenJaw(segmentOptions, activeSegmentStructure, state, segmentPosition)
+    setUnfilteredUnrelatedOpenJaw(segmentOptions, activeSegmentStructure, state, segmentPosition);
   }
 }
 
 function setUnfilteredUnrelatedOpenJaw(segmentOptions: Array<Segment>, activeSegmentStructure: Array<number>, state: ResultsDetails,
-                                       segmentPosition: number) {
+  segmentPosition: number) {
   const bestUnfilteredUnrelatedOpenJaw: Segment | undefined = findOpenJaw(segmentOptions, false, activeSegmentStructure);
   if (bestUnfilteredUnrelatedOpenJaw) {
-    updateSegmentActivesAndAlternates(bestUnfilteredUnrelatedOpenJaw, state, segmentPosition, false)
+    updateSegmentActivesAndAlternates(bestUnfilteredUnrelatedOpenJaw, state, segmentPosition, false);
   } else {
     throw new Error(`No segments match the filter`);
   }
@@ -179,17 +179,16 @@ function updateOneWay(segment: Segment, state: ResultsDetails, segmentOptions: A
 export function updateActiveSegmentsFromAction(state: ResultsDetails, action: any) {
   const segmentOptionIndex: number = action.segmentOptionIndex;
   const segmentItineraryRef: string = action.segmentItineraryRef;
-  const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef);
+  const updateState = updateActiveSegments(state, segmentOptionIndex, segmentItineraryRef, action.virtualInterline);
   setRelativesAndUpdateActives(updateState, action.setActivesInitial, action.sortBy);
   return updateState;
 }
 
-export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string) {
+export function updateActiveSegments(state: ResultsDetails, segmentOptionIndex: number, segmentItineraryRef: string,
+  virtualInterline: boolean = false) {
   const segmentOptions: Array<Segment> = state[state.tripType].segments[segmentOptionIndex];
-  const selectedSegment: Segment | undefined = segmentOptions.find((segment: Segment) =>
-    segment.itinerary_id === segmentItineraryRef
-  );
-  if (selectedSegment && selectedSegment.status === 'active'){
+  const selectedSegment: Segment | undefined = findSegmentByItineraryId(segmentItineraryRef, segmentOptions, virtualInterline);
+  if (selectedSegment && selectedSegment.status === 'active') {
     return {...state};
   } else if (selectedSegment) {
     updateSegmentActivesAndAlternates(selectedSegment, state, segmentOptionIndex);
@@ -216,10 +215,40 @@ function selectOneWaysForMissingPositions(selectedSegment: Segment,
 
 export function updateSegmentActivesAndAlternates(selectedSegment: Segment, state: ResultsDetails, segmentOptionIndex: number,
   initial: boolean = false) {
+  const trip: Results = state[state.tripType];
+  const currentSegments: Array<Segment> = trip.segments[segmentOptionIndex];
   activateSegment(selectedSegment, state, segmentOptionIndex, initial);
-  if (selectedSegment.itinerary_type === 'OPEN_JAW') {
+  if (selectedSegment.itinerary_type === 'OPEN_JAW' || selectedSegmentIsViContainsOpenJaw(selectedSegment, currentSegments)) {
+    // TODO: confirm this works with open jaw VI when we have access to it.
     activateLinkedSegments(selectedSegment, state, initial);
-    setAlternatesStatus(state, selectedSegment, state[state.tripType].segments[segmentOptionIndex]);
+    setAlternatesStatus(state, selectedSegment, currentSegments);
   }
+}
+
+function selectedSegmentIsViContainsOpenJaw(selectedSegment: Segment, currentSegments: Array<Segment>) {
+  return selectedSegment.virtual_interline && linkedViSegmentIsOpenJaw(selectedSegment, currentSegments);
+}
+
+function linkedViSegmentIsOpenJaw(selectedSegment: Segment, currentSegments: Array<Segment>) {
+  const linkedViSegment: Segment | undefined = currentSegments.find((segment: Segment) =>
+    segment.vi_solution_id === selectedSegment.vi_solution_id &&
+    segment.vi_position !== selectedSegment.vi_position
+  );
+  return linkedViSegment?.itinerary_type === 'OPEN_JAW';
+}
+
+function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: Array<Segment>, virtual_interline: boolean) {
+  let selectedSegment = segmentOptions.find((segment: Segment) =>
+    virtual_interline
+      ? segment.vi_solution_id === segmentItineraryRef
+      : segment.itinerary_id === segmentItineraryRef
+  );
+  if (selectedSegment?.virtual_interline && selectedSegment.vi_position === 1){
+    selectedSegment = segmentOptions.find((segment: Segment) =>
+      segment.vi_solution_id === selectedSegment?.vi_solution_id &&
+      segment.vi_position === 0
+    );
+  }
+  return selectedSegment;
 }
 

@@ -4,14 +4,16 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface FlightTypesProps extends WithTranslation {
   segment: Segment
+  linkedViSegment?: Segment;
 }
 
 export class FlightTypes extends React.Component<FlightTypesProps> {
   render() {
+    const flights = this.props.segment.flights.concat(this.props.linkedViSegment ? this.props.linkedViSegment.flights : []);
     return (
       <div className="col-sm-2 my-auto">
         <p className="text-bold">{this.props.segment.fare_type}</p>
-        <p className="text-small">{this.getFlightTypes(this.props.segment.flights)}</p>
+        <p className="text-small">{this.getFlightTypes(flights)}</p>
       </div>
     );
   }

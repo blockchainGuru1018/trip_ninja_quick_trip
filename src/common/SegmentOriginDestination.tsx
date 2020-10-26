@@ -6,6 +6,7 @@ interface SegmentOriginDestinationProps {
   segment: Segment
   departure?: string
   itineraryDisplay?: boolean
+  linkedViSegment?: Segment
 }
 
 class SegmentOriginDestination extends React.Component<SegmentOriginDestinationProps> {
@@ -13,7 +14,7 @@ class SegmentOriginDestination extends React.Component<SegmentOriginDestinationP
     return (
       <div className={(this.props.itineraryDisplay ? ' col-sm-3 no-pad-left' : 'col-sm-2') + ' my-auto'}>
         <p className={'origin-destination flight-preview-grey-border' + (this.props.itineraryDisplay ? ' text-center' : '')} >{this.props.segment.origin}
-          <span className="circle-divider">•</span>{this.props.segment.destination} 
+          <span className="circle-divider">•</span>{this.props.linkedViSegment ? this.props.linkedViSegment.destination : this.props.segment.destination} 
         </p>
         {this.props.departure &&
           <p className="text-small flight-preview-grey-border">

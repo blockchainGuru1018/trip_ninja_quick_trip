@@ -8,7 +8,7 @@ import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
-  activeSegment?: Segment
+  activeSegment?: Segment;
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
@@ -41,6 +41,12 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       );
       return filteredFlightDetails[0];
     });
+  
+  getVirtualInterlineLinkedSegment = (currentSegment: Segment) => {
+    return currentSegment.virtual_interline ?
+      this.props.trip.segments[currentSegment.segment_position].find((segment: Segment) => (segment.vi_solution_id === currentSegment.vi_solution_id && segment.vi_position === 1) || undefined)
+      : undefined;
+  }
 
   setSegmentsHTML = () => {
     const shownSegments: Array<Segment> = this.props.sortOrder
@@ -48,15 +54,20 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       : this.props.segments;
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
+      const linkedViSegment = this.getVirtualInterlineLinkedSegment(segment);
+      const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
+
       return(
         <div key={index.toString()}>
-          {!segment.filtered || segment.status === 'active'
+          {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)
             ? <SegmentPreview
               segment={segment}
               segments={this.props.segments}
+              viLinkedSegment={linkedViSegment}
               index={index}
               key={index}
               segmentFlightDetails={segmentFlightDetails}
+              viLinkedSegmentFlightDetails={linkedViSegmentFlightDetails}
               segmentSelect={this.props.segmentSelect}
               activeSegment={this.props.activeSegment}
               currency={this.props.currency}

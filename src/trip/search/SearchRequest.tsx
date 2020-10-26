@@ -13,9 +13,11 @@ import history from '../../History';
 import Hotkeys from 'react-hot-keys';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+
 interface SearchRequestProps extends WithTranslation {
   searchDetails: SearchDetails;
   searchFlights: typeof searchFlights
+  virtualInterliningAccess: boolean
 }
 
 export class SearchRequest extends React.Component<SearchRequestProps> {
@@ -37,7 +39,8 @@ export class SearchRequest extends React.Component<SearchRequestProps> {
       flights: this.createFlightPayload(),
       travellers: createPassengerPayload(this.props.searchDetails.passengers),
       route_flexible: this.props.searchDetails.routeFlexible && flexTripAllowed(this.props.searchDetails.flights),
-      max_cache: 24
+      max_cache: 24,
+      virtual_interlining: this.props.virtualInterliningAccess ? this.props.searchDetails.virtualInterlining : false
     };
     let searchResult: any = this.props.searchFlights(searchPayload);
     searchResult.then((result: any) => this.handleSearchResult(result));
@@ -91,7 +94,7 @@ export class SearchRequest extends React.Component<SearchRequestProps> {
         <Hotkeys 
           keyName="ctrl+enter, command+enter" 
           onKeyDown={this.searchForFlights}
-        ></Hotkeys>
+        />
         <Button
           disableElevation
           variant="contained"

@@ -53,7 +53,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
             <FlightResultsPath
               flightDetails={this.props.flightDetails}
             />
-            <hr/>
+            {(!this.props.viParent && this.props.segmentSelect) && <hr/>}
           </div>
         }
         {this.props.viParent && this.props.segmentSelect && this.props.segment.status !== 'active' &&
@@ -121,7 +121,11 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
   }
 
   updateActives = () => {
-    this.props.updateActives!(this.props.segmentOptionsIndex!, this.props.segment.itinerary_id);
+    this.props.updateActives!(
+      this.props.segmentOptionsIndex!,
+      this.props.segment.virtual_interline ? this.props.segment.vi_solution_id! : this.props.segment.itinerary_id,
+      undefined, undefined, this.props.segment.virtual_interline
+    );
     window.scrollTo({ top: 0, behavior: 'smooth' });
     this.props.closeAllDropDowns!();
   }

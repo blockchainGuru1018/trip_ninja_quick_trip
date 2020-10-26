@@ -20,6 +20,7 @@ interface DepartureDatePickerProps {
   origin:string
   destination:string
   currency: string
+  cabinClass: string
   priceGraph: any
   getPriceGraph: typeof getPriceGraph
 }
@@ -60,7 +61,8 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
       'destination': props.destination,
       'year':date.getFullYear(),
       'month':date.getMonth() + 1,
-      'currency':props.currency
+      'currency':props.currency,
+      'cabin_class':props.cabinClass,
     };
     props.getPriceGraph(priceGraphPayload);
   };

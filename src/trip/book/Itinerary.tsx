@@ -43,6 +43,7 @@ class Itinerary extends React.Component<ItineraryProps> {
             destinationName={segment.destination_name}
             firstFlight={segmentFlightDetails[0]}
             secondFlight={nextSegmentFlightDetails[0]}
+            resultsDisplay={false}
           />
         }
       </div>

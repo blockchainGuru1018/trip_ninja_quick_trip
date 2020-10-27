@@ -1,4 +1,4 @@
-import {Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
+import {ActiveSegmentsMap, Results, ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from 'lodash';
 import { updateActiveSegments, updateSegmentActivesAndAlternates } from './CompatibilityHelpers';
 import { getTotal } from './MiscHelpers';
@@ -116,6 +116,7 @@ const setTotals = (activeSegments: any) => {
 export function setIndex0AsActives(state: ResultsDetails) {
   const trip: Results = state[state.tripType];
   resetSegmentsStatus(trip.segments);
+  state.activeSegments = [...state.activeSegments.values()].length > 0 ? new ActiveSegmentsMap() : state.activeSegments;
   updateActivesToFiltered(trip, state);
   if (!viable(state)) {
     updateActivesToFiltered(trip, state);

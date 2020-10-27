@@ -65,7 +65,11 @@ export class PreResults extends React.Component<PreResultsProps> {
                   disableElevation
                   variant="contained"
                   className="btn-flight-options"
-                  onClick={() => {this.props.setTripType('fareStructureResults'); history.push('/results/itinerary/');}}>
+                  onClick={() => {
+                    this.props.setTripType('fareStructureResults');
+                    this.props.setActiveSegments();
+                    history.push('/results/itinerary/');
+                  }}>
                   {this.props.t("results.preResults.seeFlightOptions")}
                 </Button>
               </div>

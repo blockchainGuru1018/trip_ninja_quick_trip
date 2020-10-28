@@ -24,7 +24,8 @@ export interface Filter {
 export const defaultFilters: Array<Filter> = [
   {type: 'baggage', value: '0', position: 0, failed: false},
   {type: 'noOfStops', value: 'Any', position: 1, failed: false},
-  {type: 'alliance', value: 'Any', position: 2, failed: false}
+  {type: 'alliance', value: 'Any', position: 2, failed: false},
+  {type: 'refundability', value: 'Any', position: 0, failed: false}
 ];
 
 export class ActiveSegmentsMap extends Map<number, Segment>{

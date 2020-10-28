@@ -45,6 +45,22 @@ export const numberOfStopsFilter = (segment: Segment, filter: Filter, viSegments
   }
 };
 
+
+export const refundabilityFilter = (segment: Segment, filter: Filter) => {
+  const amount = segment.additional_details.cancel_penalty.amount? segment.additional_details.cancel_penalty.amount : null;
+  const percentage = segment.additional_details.cancel_penalty.percentage? segment.additional_details.cancel_penalty.percentage : null;
+
+  if (filter.value === 'Any' || filter.failed) {
+    return false;
+  } else if (filter.value === 'Non-Refundable') {
+    return ((amount === null && percentage === null)  || percentage !== 100);
+  } else if (filter.value === 'Refundable') {
+    return ((amount === null && percentage === null) || percentage !== 0 || amount! > 0);
+  } else if (filter.value === 'Partially Refundable') {
+    return ((amount === null && percentage === null) || percentage === 100);
+  }
+};
+
 export const allianceFilter = (segment: Segment, filter: Filter) => {
   if (filter.value === 'Any' || filter.failed) {
     return false;
@@ -61,7 +77,8 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>,
   const filterMap = {
     baggage: baggageFilter,
     noOfStops: numberOfStopsFilter,
-    alliance: allianceFilter
+    alliance: allianceFilter, 
+    refundability: refundabilityFilter,
   };
 
   filters.forEach((filter: Filter) => {

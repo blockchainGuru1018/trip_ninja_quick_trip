@@ -53,7 +53,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
       </div>;
 
-    const enabledFilters = ['baggage','noOfStops','alliance'];
+    const enabledFilters = ['baggage','noOfStops','alliance','refundability'];
 
     return (
       <div id="itinerary-result">

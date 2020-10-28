@@ -38,6 +38,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     let selectedTrip: Array<Segment> = [...this.props.resultsDetails.activeSegments.values()];
 
     const totalPrice: number = getTotal(selectedTrip, 'price');
+    const markup: number = trip.markup;
 
     const selectedSegments =
       <div className="row">
@@ -113,6 +114,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
                 totalPrice={totalPrice}
+                markup={markup}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
               />

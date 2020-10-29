@@ -52,21 +52,10 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       : undefined;
   }
 
-  getItineraryOrder = (segments: Array<Segment>) => {
-    let segmentsList: Array<Segment> = cloneDeep(segments);
-    segmentsList.forEach((segment: Segment) => {
-      let viSegment = this.getVirtualInterlineLinkedSegment(segment);
-      if (viSegment) {
-        segment.virtual_interline = false;
-        viSegment.virtual_interline = false;
-        segmentsList.push(viSegment);
-      } 
-    });
-    segmentsList.sort(function(a: Segment, b: Segment) {
+  sortItineraryByPNR = (segments: Array<Segment>) => {
+    return segments.sort(function(a: Segment, b: Segment) {
       let segmentA = JSON.parse(a.itinerary_structure)[0].toString()+(a.vi_position ? a.vi_position : 0).toString()+(a.itinerary_id);
       let segmentB = JSON.parse(b.itinerary_structure)[0].toString()+(b.vi_position ? b.vi_position : 0).toString()+(b.itinerary_id);
-      console.log(segmentA);
-      console.log(segmentB);
       if (segmentA < segmentB) {
         return -1;
       }
@@ -78,6 +67,19 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       }
       return 0;
     });
+  }
+
+  getItineraryOrder = (segments: Array<Segment>) => {
+    let segmentsList: Array<Segment> = cloneDeep(segments);
+    segmentsList.forEach((segment: Segment) => {
+      let viSegment = this.getVirtualInterlineLinkedSegment(segment);
+      if (viSegment) {
+        segment.virtual_interline = false;
+        viSegment.virtual_interline = false;
+        segmentsList.push(viSegment);
+      } 
+    });
+    segmentsList = this.sortItineraryByPNR(segmentsList);
     return segmentsList;
   }
 

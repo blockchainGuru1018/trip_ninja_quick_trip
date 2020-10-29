@@ -16,7 +16,7 @@ import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
-
+import ResultsViewToggle from './ResultsViewToggle';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
@@ -37,7 +37,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   state = {
     view: 'pnr'
   }
-  handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
+  handleViewChange = (newValue: string | null) => {
     this.setState({view: newValue});
   };
 
@@ -82,22 +82,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
-          <div className="row">
-            <div className="col">
-              <ToggleButtonGroup
-                value={this.state.view}
-                exclusive
-                onChange={this.handleChange}
-              >
-                <ToggleButton value="normal" aria-label="normal">
-                  Normal View
-                </ToggleButton>
-                <ToggleButton value="pnr" aria-label="pnr">
-                  PNR View
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-          </div>
+          <ResultsViewToggle
+            viewType={this.state.view}
+            handleViewChange={this.handleViewChange}
+          />
           <div className="row">
             <div className='col-md-12 itinerary-sort-container'>
               <SortOption

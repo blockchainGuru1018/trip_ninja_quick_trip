@@ -45,7 +45,7 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
       <div className="results-header">
         <div className="row">
           { this.props.flexTripResults &&
-          <div className="col-xl-2 col-lg-3">
+          <div className="col-xl-auto col-md-12">
             <div className="float-left">
               <BackToFlexTripButton
                 startIcon={<KeyboardBackspaceIcon />}
@@ -55,12 +55,12 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
             </div>
           </div>
           }
-          <div className={this.props.flexTripResults ? 'col-xl-8 col-lg-6' : 'col-xl-10 col-lg-9'}>
+          <div className="col">
             <div className="float-right itinerary-path">
               <p>{segmentPath}</p>
             </div>
           </div>
-          <div className="col-xl-2 col-lg-3">
+          <div className="col-xl-auto col-md-4">
             <div className="float-right">
               <ChangeSearchButton
                 variant="contained"

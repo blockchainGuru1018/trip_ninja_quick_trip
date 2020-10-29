@@ -265,7 +265,13 @@
                 "noOfStops0Label": "Direct Only",
                 "noOfStops1Label": "1 stop",
                 "noOfStops2Label": "2 stops",
-                "filterFailMessage": "No flights for this filter"
+                "filterFailMessage": "No flights for this filter",
+                "refundability": "refundability",
+                "refundabilityDescription": "Refundability",
+                "refundabilityAnyLabel": "Any",
+                "refundabilityNon-RefundableLabel": "Non-Refundable",
+                "refundabilityPartialLabel": "Partial",
+                "refundabilityRefundableLabel": "Refundable"
             }
         }
     },

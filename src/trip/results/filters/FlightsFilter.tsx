@@ -138,16 +138,16 @@ const FlightsFilter = (props: FlightsFilterProps) => {
           </RadioGroup>
         </MenuItem>},
     'refundability': { 
-      'name': 'refundability',
+      'name': t('results.filters.flightsFilter.refundability'),
       'nameSuffix': '',
-      'description': 'Refundability',
+      'description': t('results.filters.flightsFilter.refundabilityDescription'),
       'picker':
         <MenuItem>
-          <RadioGroup aria-label='Refundability' value={filter!.value} name="Refundability Filter" onChange={updateFilter}>
-            <FormControlLabel control={<Radio />} value="Any" label='Any' />
-            <FormControlLabel control={<Radio />} value="Non-Refundable" label='Non-Refundable' />
-            <FormControlLabel control={<Radio />} value="Partially Refundable" label='Partially Refundable' />
-            <FormControlLabel control={<Radio />} value="Refundable" label='Refundable' />            
+          <RadioGroup aria-label={t('results.filters.flightsFilter.refundabilityDescription')} value={filter!.value} name="Refundability Filter" onChange={updateFilter}>
+            <FormControlLabel control={<Radio />} value="Any" label={t('results.filters.flightsFilter.refundabilityAnyLabel')} />
+            <FormControlLabel control={<Radio />} value="Non-Refundable" label={t('results.filters.flightsFilter.refundabilityNon-RefundableLabel')} />
+            <FormControlLabel control={<Radio />} value="Partial" label={t('results.filters.flightsFilter.refundabilityPartialLabel')} />
+            <FormControlLabel control={<Radio />} value="Refundable" label={t('results.filters.flightsFilter.refundabilityRefundableLabel')} />            
           </RadioGroup>
         </MenuItem>}
   };

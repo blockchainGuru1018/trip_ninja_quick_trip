@@ -50,13 +50,15 @@ export const refundabilityFilter = (segment: Segment, filter: Filter) => {
   const amount = segment.additional_details.cancel_penalty.amount? segment.additional_details.cancel_penalty.amount : null;
   const percentage = segment.additional_details.cancel_penalty.percentage? segment.additional_details.cancel_penalty.percentage : null;
 
+  console.log("filter.value:", filter.value);
+
   if (filter.value === 'Any' || filter.failed) {
     return false;
   } else if (filter.value === 'Non-Refundable') {
     return ((amount === null && percentage === null)  || percentage !== 100);
   } else if (filter.value === 'Refundable') {
     return ((amount === null && percentage === null) || percentage !== 0 || amount! > 0);
-  } else if (filter.value === 'Partially Refundable') {
+  } else if (filter.value === 'Partial') {
     return ((amount === null && percentage === null) || percentage === 100);
   }
 };

@@ -17,8 +17,7 @@ import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;

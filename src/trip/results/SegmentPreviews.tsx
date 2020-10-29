@@ -6,6 +6,8 @@ import PnrResultHeader from './PnrResultHeader';
 import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
+import { cloneDeep } from 'lodash';
+
 
 interface SegmentPreviewsProps {
   segments: Array<Segment>;
@@ -50,10 +52,41 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       : undefined;
   }
 
+  getItineraryOrder = (segments: Array<Segment>) => {
+    let segmentsList: Array<Segment> = cloneDeep(segments);
+    segmentsList.forEach((segment: Segment) => {
+      let viSegment = this.getVirtualInterlineLinkedSegment(segment);
+      if (viSegment) {
+        segment.virtual_interline = false;
+        viSegment.virtual_interline = false;
+        segmentsList.push(viSegment);
+      } 
+    });
+    segmentsList.sort(function(a: Segment, b: Segment) {
+      let segmentA = JSON.parse(a.itinerary_structure)[0].toString()+(a.vi_position ? a.vi_position : 0).toString()+(a.itinerary_id);
+      let segmentB = JSON.parse(b.itinerary_structure)[0].toString()+(b.vi_position ? b.vi_position : 0).toString()+(b.itinerary_id);
+      console.log(segmentA);
+      console.log(segmentB);
+      if (segmentA < segmentB) {
+        return -1;
+      }
+      if (segmentA > segmentB) {
+        return 1;
+      }
+      if (segmentA === segmentB) {
+        return a.segment_position - b.segment_position;
+      }
+      return 0;
+    });
+    return segmentsList;
+  }
+
   setSegmentsHTML = () => {
-    const shownSegments: Array<Segment> = this.props.sortOrder
+    let shownSegments: Array<Segment> = this.props.sortOrder
       ? sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
       : this.props.segments;
+    shownSegments = this.props.orderByPnr ? this.getItineraryOrder(shownSegments) : shownSegments;
+
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       const linkedViSegment = this.getVirtualInterlineLinkedSegment(segment);
@@ -69,6 +102,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               currency={this.props.currency}
               segmentType={segment.itinerary_type}
               segmentCount={this.props.segments.length}
+              structure={JSON.parse(segment.itinerary_structure)}
             /> 
           }
           {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)
@@ -81,7 +115,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               key={index}
               segmentFlightDetails={segmentFlightDetails}
               viLinkedSegmentFlightDetails={linkedViSegmentFlightDetails}
-              orderByPnr={true}
+              orderByPnr={this.props.orderByPnr}
               segmentSelect={this.props.segmentSelect}
               activeSegment={this.props.activeSegment}
               currency={this.props.currency}

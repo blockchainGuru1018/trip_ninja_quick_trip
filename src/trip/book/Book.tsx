@@ -72,10 +72,12 @@ class Book extends React.Component<BookProps> {
               />
             </div>
             <div className="col-md-5">
-              <FareBreakdown 
+              <FareBreakdown
+                resultsDetails={this.props.resultsDetails}
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
+                pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
               />
               <PassengerDetails
                 passengers={this.props.passengers}

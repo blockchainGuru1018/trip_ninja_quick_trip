@@ -181,10 +181,10 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <Divider />
           <div className="row booking-details-section" id="booking-cost">
             <div className="col-sm-4 no-pad-left">
-              <FareBreakdown 
-                pricing={props.booking.details!.pricing}
-                currency={props.booking.currency}
-              />
+              {/*<FareBreakdown */}
+              {/*  pricing={props.booking.details!.pricing}*/}
+              {/*  currency={props.booking.currency}*/}
+              {/*/>*/}
             </div>
           </div>
           <Divider />

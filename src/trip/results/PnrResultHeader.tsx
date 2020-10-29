@@ -19,7 +19,7 @@ export default function PnrResultHeader(props: PnrResultHeaderProps) {
   const segmentIndicators = () => {
     let indicatorGroup = [];
     for (let i=0; i<props.segmentCount; i++) {
-      indicatorGroup.push(<div className={'col ' + (props.structure.includes(i) ? 'current-segment-indicator' : 'segment-indicator')}></div>);    
+      indicatorGroup.push(<div key={i.toString()} className={'col ' + (props.structure.includes(i) ? 'current-segment-indicator' : 'segment-indicator')}></div>);    
     }
     return indicatorGroup;
   };

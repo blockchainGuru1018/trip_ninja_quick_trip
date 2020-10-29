@@ -185,3 +185,15 @@
   background-color: #f1f1f1;
   margin-left: 70px;
 }
+
+.segment-indicator {
+  border-bottom: dashed 2px#45565E0D;
+  width: 100px;
+  display: inline-block;
+}
+
+.current-segment-indicator {
+  border-bottom: solid 3px var(--primary);
+  width: 100px;
+  display: inline-block;
+}

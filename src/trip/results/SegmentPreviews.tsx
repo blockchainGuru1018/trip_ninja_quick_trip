@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, FlightResultsDetails, ResultsDetails, Results } from './ResultsInterfaces';
 import '../../index.css';
 import SegmentPreview from './SegmentPreview';
+import PnrResultHeader from './PnrResultHeader';
 import { updateActives, updateFareFamily, getTravelportBrands } from '../../actions/ResultsActions';
 import { sortBySortOrder } from '../../helpers/SortHelper';
 import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
@@ -12,6 +13,7 @@ interface SegmentPreviewsProps {
   flightDetails: Array<FlightResultsDetails>;
   currency: string;
   segmentSelect: boolean;
+  orderByPnr: boolean;
   updateActives?: typeof updateActives;
   segmentOptionsIndex?: number;
   resultsDetails?: ResultsDetails;
@@ -56,11 +58,22 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       const linkedViSegment = this.getVirtualInterlineLinkedSegment(segment);
       const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
+      const firstPositionInStructure = segment.segment_position === JSON.parse(segment.itinerary_structure)[0];
 
       return(
         <div key={index.toString()}>
+          {this.props.orderByPnr && firstPositionInStructure &&
+            <PnrResultHeader 
+              itineraryNumber={segment.segment_position+1}
+              price={segment.price}
+              currency={this.props.currency}
+              segmentType={segment.itinerary_type}
+              segmentCount={this.props.segments.length}
+            /> 
+          }
           {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)
-            ? <SegmentPreview
+            ? 
+            <SegmentPreview
               segment={segment}
               segments={this.props.segments}
               viLinkedSegment={linkedViSegment}
@@ -68,6 +81,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               key={index}
               segmentFlightDetails={segmentFlightDetails}
               viLinkedSegmentFlightDetails={linkedViSegmentFlightDetails}
+              orderByPnr={true}
               segmentSelect={this.props.segmentSelect}
               activeSegment={this.props.activeSegment}
               currency={this.props.currency}

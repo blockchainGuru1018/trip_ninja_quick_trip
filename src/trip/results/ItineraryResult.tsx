@@ -43,6 +43,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
+            orderByPnr={true}
             totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}
@@ -71,6 +72,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
+          <div className="row">
+            <div className="col">
+              <p>PNR View</p>
+            </div>
+          </div>
           <div className="row">
             <div className='col-md-12 itinerary-sort-container'>
               <SortOption

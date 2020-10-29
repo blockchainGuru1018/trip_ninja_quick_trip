@@ -17,6 +17,9 @@ import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
@@ -31,6 +34,13 @@ interface ItineraryResultsProps extends WithTranslation {
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
+  state = {
+    view: 'pnr'
+  }
+  handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
+    this.setState({view: newValue});
+  };
+
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
       ? this.props.resultsDetails.flexTripResults! : this.props.resultsDetails.fareStructureResults!;
@@ -43,7 +53,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
-            orderByPnr={true}
+            orderByPnr={this.state.view === 'pnr' ? true : false}
             totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}
@@ -74,7 +84,18 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </h4>
           <div className="row">
             <div className="col">
-              <p>PNR View</p>
+              <ToggleButtonGroup
+                value={this.state.view}
+                exclusive
+                onChange={this.handleChange}
+              >
+                <ToggleButton value="normal" aria-label="normal">
+                  Normal View
+                </ToggleButton>
+                <ToggleButton value="pnr" aria-label="pnr">
+                  PNR View
+                </ToggleButton>
+              </ToggleButtonGroup>
             </div>
           </div>
           <div className="row">

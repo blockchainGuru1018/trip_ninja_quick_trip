@@ -69,6 +69,8 @@ class Book extends React.Component<BookProps> {
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
+                pricing={this.props.pricingDetails!.pricing!}
+                pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
               />
             </div>
             <div className="col-md-5">

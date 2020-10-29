@@ -43,3 +43,17 @@
   padding: 0;
   max-width: 523px;
 }
+
+.booking-details-title-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.btn-fare-breakdown-details {
+  text-align: right;
+  color: var(--tertiary)
+}
+
+.btn-fare-breakdown-details:hover {
+  cursor: pointer
+}

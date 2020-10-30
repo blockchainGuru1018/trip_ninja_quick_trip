@@ -88,6 +88,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       ? sortBySortOrder(this.props.segments, this.props.sortOrder ? this.props.sortOrder : 'best')
       : this.props.segments;
     shownSegments = this.props.orderByPnr ? this.getItineraryOrder(shownSegments) : shownSegments;
+    let itineraryNumber: number = 0;
 
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
@@ -95,12 +96,18 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
       const firstPositionInStructure = segment.segment_position === JSON.parse(segment.itinerary_structure)[0];
 
+      const increaseTicketNumber = () => {return ++itineraryNumber;};
+
+      let itineraryPrice: number = segment.price;
+      if(segment.vi_segment_base_price){
+        itineraryPrice = segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes!;
+      }
       return(
         <div key={index.toString()}>
-          {this.props.orderByPnr && firstPositionInStructure &&
+          {this.props.orderByPnr && firstPositionInStructure && increaseTicketNumber() &&
             <PnrResultHeader 
-              itineraryNumber={segment.segment_position+1}
-              price={segment.price}
+              itineraryNumber={itineraryNumber}
+              price={itineraryPrice}
               currency={this.props.currency}
               segmentType={segment.itinerary_type}
               segmentCount={this.props.segments.length}

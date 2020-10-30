@@ -26,17 +26,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function SimpleModal() {
+export default function TravelRestrictionsModal() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+  //useEffect(() => {
+  //  const script = document.createElement("script");
+  //  script.src = "https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja";
+  //  script.async = true;
+  //  document.body.appendChild(script);
+  //}, []);
   function onSherpaEvent(event: any) {
     console.log(event);
   }
@@ -57,9 +57,10 @@ export default function SimpleModal() {
       "nationality": "GBR"
     }]
   };
-  onSherpaEvent(widgetOptions);
-  //CREATEWIDGET(widgetOptions);
-  $sherpa.V1.createWidget(widgetOptions);
+  let sdk = window.sherpa;
+  sdk.V1.createWidget(widgetOptions);
+  //onSherpaEvent(widgetOptions);
+  //$sherpa.V1.createWidget(widgetOptions);
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,6 +72,7 @@ export default function SimpleModal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <h1>This is the modal</h1>
       <div id="sherpa-widget"></div>
     </div>
   );
@@ -86,7 +88,7 @@ export default function SimpleModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        {body}
+        {body}      
       </Modal>
     </div>
   );

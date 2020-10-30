@@ -107,6 +107,7 @@ export interface Segment {
   destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
+  itinerary_markup: number;
   itinerary_structure: string;
   segment_position: number;
   vi_solution_id?: string;

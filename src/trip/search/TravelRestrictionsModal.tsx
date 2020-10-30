@@ -10,7 +10,7 @@ declare global {
 }
 
 function getModalStyle() {
-  const top = 25;
+  const top = 50;
   const left = 50;
 
   return {

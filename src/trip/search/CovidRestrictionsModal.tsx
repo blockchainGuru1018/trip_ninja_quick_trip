@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
-function rand() {
-  return 0;
-}
-
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
@@ -35,6 +31,35 @@ export default function SimpleModal() {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+  function onSherpaEvent(event: any) {
+    console.log(event);
+  }
+  
+  const widgetOptions = {
+    "requirementsApiKey": "AIzaSyCspi4awT4hipRKu79jdZ0upRLJwBXeeG4",
+    "affiliateId": "tripninja",
+    "defaultNationalityCountry": "GBR",
+    "finalAirportName": "",
+    "language": "en",
+    "currency": "USD",
+    "itinerary":  [{
+      "originCountry": "LON",
+      "destinationCountry": "USA",
+    }],
+    "travellers": [{
+      "displayName": "Mr Smith",
+      "nationality": "GBR"
+    }]
+  };
+  onSherpaEvent(widgetOptions);
+  //CREATEWIDGET(widgetOptions);
+  $sherpa.V1.createWidget(widgetOptions);
 
   const handleOpen = () => {
     setOpen(true);
@@ -53,7 +78,7 @@ export default function SimpleModal() {
   return (
     <div>
       <button type="button" onClick={handleOpen} >
-        Open Modal
+        Travel Restrictions
       </button>
       <Modal
         open={open}

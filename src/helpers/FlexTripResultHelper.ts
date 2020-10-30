@@ -1,4 +1,3 @@
-import { invalid } from 'moment';
 import { Results, ResultsDetails } from '../trip/results/ResultsInterfaces';
 
 export const invalidFlexTripResult = (results: ResultsDetails) => {

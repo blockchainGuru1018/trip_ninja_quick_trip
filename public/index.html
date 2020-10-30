@@ -11,38 +11,13 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-
+    <script src="https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja"></script>
     <title>QuickTrip</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="sherpa-widget"></div>
     <div id="root"></div>
   </body>
-  <script src="https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja"></script>
-  <script>
-    function onSherpaEvent(event) {
-      console.log(event);
-    }
-    const widgetOptions = {
-      "requirementsApiKey": "AIzaSyCspi4awT4hipRKu79jdZ0upRLJwBXeeG4",
-      "affiliateId": "tripninja",
-      "defaultNationalityCountry": "GBR",
-      "finalAirportName": "",
-      "language": "en",
-      "currency": "USD",
-      "itinerary":  [{
-          "originCountry": "GBR",
-          "destinationCountry": "USA",
-        }],
-      "travellers": [{
-        "displayName": "Mr Smith",
-        "nationality": "GBR"
-      }]
-    }
-    window.sherpa = $sherpa;
-    //$sherpa.V1.createWidget(widgetOptions);
-  </script>
   
   <script>
     if ('%NODE_ENV%' && '%NODE_ENV%' === 'production') {

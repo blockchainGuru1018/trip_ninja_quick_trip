@@ -2,8 +2,15 @@ import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
+
+declare global {
+  interface Window {
+      $sherpa:any;
+  }
+}
+
 function getModalStyle() {
-  const top = 50;
+  const top = 25;
   const left = 50;
 
   return {
@@ -49,7 +56,7 @@ export default function TravelRestrictionsModal() {
     "language": "en",
     "currency": "USD",
     "itinerary":  [{
-      "originCountry": "LON",
+      "originCountry": "USA",
       "destinationCountry": "USA",
     }],
     "travellers": [{
@@ -57,13 +64,11 @@ export default function TravelRestrictionsModal() {
       "nationality": "GBR"
     }]
   };
-  let sdk = window.sherpa;
-  sdk.V1.createWidget(widgetOptions);
-  //onSherpaEvent(widgetOptions);
-  //$sherpa.V1.createWidget(widgetOptions);
 
   const handleOpen = () => {
     setOpen(true);
+    const sdk = window.$sherpa;
+    sdk.V1.createWidget(widgetOptions);
   };
 
   const handleClose = () => {
@@ -88,7 +93,10 @@ export default function TravelRestrictionsModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        {body}      
+        <div style={modalStyle} className={classes.paper}>
+          <h1>This is the modal</h1>
+          <div id="sherpa-widget"></div>
+        </div>    
       </Modal>
     </div>
   );

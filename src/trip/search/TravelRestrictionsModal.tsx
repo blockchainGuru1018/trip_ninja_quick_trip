@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: 'absolute',
-      width: 400,
+      width: 900,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -35,19 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function TravelRestrictionsModal() {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  //useEffect(() => {
-  //  const script = document.createElement("script");
-  //  script.src = "https://sdk-sandbox.joinsherpa.io/widget.js?affiliateId=tripninja";
-  //  script.async = true;
-  //  document.body.appendChild(script);
-  //}, []);
-  function onSherpaEvent(event: any) {
-    console.log(event);
-  }
-  
+
   const widgetOptions = {
     "requirementsApiKey": "AIzaSyCspi4awT4hipRKu79jdZ0upRLJwBXeeG4",
     "affiliateId": "tripninja",
@@ -92,9 +82,9 @@ export default function TravelRestrictionsModal() {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        keepMounted
       >
         <div style={modalStyle} className={classes.paper}>
-          <h1>This is the modal</h1>
           <div id="sherpa-widget"></div>
         </div>    
       </Modal>

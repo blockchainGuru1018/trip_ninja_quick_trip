@@ -1,13 +1,23 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-
+import Button from '@material-ui/core/Button';
+import { styled } from '@material-ui/core/styles';
 
 declare global {
   interface Window {
       $sherpa:any;
   }
 }
+
+const TravelRestrictionsButton = styled(Button)({
+  color: 'var(--tertiary)',
+  textDecoration: 'underline',
+  '&:hover': {
+    backgroundColor: '#ffffff',
+    opacity: '0.7'
+  }
+});
 
 function getModalStyle() {
   const top = 50;
@@ -24,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: 'absolute',
-      width: 900,
+      width: 1100,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -46,7 +56,7 @@ export default function TravelRestrictionsModal() {
     "language": "en",
     "currency": "USD",
     "itinerary":  [{
-      "originCountry": "USA",
+      "originCountry": "CAN",
       "destinationCountry": "USA",
     }],
     "travellers": [{
@@ -57,26 +67,19 @@ export default function TravelRestrictionsModal() {
 
   const handleOpen = () => {
     setOpen(true);
-    const sdk = window.$sherpa;
-    sdk.V1.createWidget(widgetOptions);
+    const sherpa = window.$sherpa;
+    sherpa.V1.createWidget(widgetOptions);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h1>This is the modal</h1>
-      <div id="sherpa-widget"></div>
-    </div>
-  );
-
   return (
-    <div>
-      <button type="button" onClick={handleOpen} >
+    <div className="travel-restrictions-container">
+      <TravelRestrictionsButton type="button" onClick={handleOpen} size="small">
         Travel Restrictions
-      </button>
+      </TravelRestrictionsButton>
       <Modal
         open={open}
         onClose={handleClose}

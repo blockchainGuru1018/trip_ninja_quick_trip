@@ -101,3 +101,8 @@
 .MuiPickersCalendarHeader-dayLabel {
   width: 40px;
 }
+
+.travel-restrictions-container {
+  float: right;
+  padding-right: 65px;
+}

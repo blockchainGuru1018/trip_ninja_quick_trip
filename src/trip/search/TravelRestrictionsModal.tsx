@@ -88,7 +88,15 @@ export default function TravelRestrictionsModal() {
         keepMounted
       >
         <div style={modalStyle} className={classes.paper}>
-          <div id="sherpa-widget"></div>
+          <div id="sherpa-widget" className="sherpa-widget"></div>
+          <Button
+            disableElevation
+            onClick={() => handleClose()}
+            color='secondary'
+            variant="contained"
+            style={{display: 'grid', margin: 'auto'}}>
+            Close
+          </Button>
         </div>    
       </Modal>
     </div>

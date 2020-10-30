@@ -1,6 +1,7 @@
 
 import { Segment, Filter } from '../trip/results/ResultsInterfaces';
 import { cloneDeep } from 'lodash';
+import { getLinkedViSegment } from "./VirtualInterliningHelpers";
 
 const resetFilters = (segments: Array<Segment>) => {
   segments.forEach((segment: Segment) =>
@@ -12,6 +13,13 @@ const setSegmentFilterStatus = (filterType: any, filter: Filter, segments: Array
   segments.forEach((segment: Segment) => {
     if (!segment.filtered) {
       segment.filtered = filterType(segment, filter);
+    }
+    if (segment.virtual_interline) {
+      const linkedViSegment: Segment | undefined = getLinkedViSegment(segment, segments);
+      segment.filtered = filter.type === 'noOfStops'
+        ? segment.filtered || filterType([], filter, [segment, linkedViSegment])
+        : segment.filtered || filterType(linkedViSegment, filter);
+      linkedViSegment!.filtered = segment.filtered;
     }
   });
   return segments;
@@ -26,9 +34,12 @@ export const baggageFilter = (segment: Segment, filter: Filter) => {
   }
 };
 
-export const numberOfStopsFilter = (segment: Segment, filter: Filter) => {
+export const numberOfStopsFilter = (segment: Segment, filter: Filter, viSegments: Array<Segment> = []) => {
   if (filter.value === 'Any' || filter.failed) {
     return false;
+  } else if (viSegments.length) {
+    const nFlights = viSegments.reduce((total: number, viSegment: Segment) => total += viSegment.flights.length, 0);
+    return nFlights - 1 > filter.value;
   } else {
     return segment.flights.length - 1 > filter.value;
   }

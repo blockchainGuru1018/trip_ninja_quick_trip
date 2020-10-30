@@ -12,8 +12,10 @@ import SegmentSelection from './trip/results/SegmentSelection';
 import Book from './trip/book/Book';
 import Bookings from './bookings/Bookings';
 import './index.css';
-import { setValue, addFlight, updateFlightValue, updatePassengers,removeFlight,
-  searchFlights } from './actions/SearchActions';
+import {
+  setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
+  searchFlights, getPriceGraph
+} from './actions/SearchActions';
 import { priceFlights } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
@@ -79,6 +81,7 @@ interface IAppProps {
   ticketBooking: typeof ticketBooking;
   getTravelportBrands: typeof getTravelportBrands;
   setActiveSegments: typeof setActiveSegments;
+  getPriceGraph: typeof getPriceGraph;
 }
 
 const theme = Theme;
@@ -159,6 +162,7 @@ class App extends React.Component<IAppProps> {
                     authenticated={this.props.authDetails.authenticated}
                     searchFlights={this.props.searchFlights}
                     virtualInterliningAccess={this.props.authDetails.virtualInterliningAccess}
+                    getPriceGraph={this.props.getPriceGraph}
                   />
                 } />
                 <Route exact path="/results/pre-results/" render={() =>

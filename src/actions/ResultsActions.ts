@@ -32,13 +32,14 @@ export function setActiveSegments(){
 }
 
 export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
-  updateActivesInitial: boolean = false, sortBy: string = 'best') {
+  updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) {
   return {
     type: 'UPDATE_ACTIVES',
     segmentOptionIndex,
     segmentItineraryRef,
     updateActivesInitial,
-    sortBy
+    sortBy,
+    virtualInterline
   };
 }
 

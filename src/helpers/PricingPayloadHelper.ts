@@ -21,6 +21,7 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
         plating_carrier: itineraryElement.plating_carrier,
         credentials: itineraryElement.credential_info,
         itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
+        itinerary_markup: itineraryElement.itinerary_markup,
         segments: createSegmentsPayload(flightDetails, itineraryElement, itineraryStructure, allSegments),
       });
       itinerariesCounter += 1;

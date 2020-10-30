@@ -69,8 +69,8 @@ test('datesAreOnSameDayOrLater', () => {
 
 const validateSearchTest = (searchDetails: SearchDetails) => {
   const component: any = shallow(
-    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} virtualInterliningAccess={false}
-                   t={(key: any) => key} />
+    //@ts-ignore
+    <SearchRequest searchDetails={{ ...searchDetails }} searchFlights={searchFlights} virtualInterliningAccess={false} t={(key: any) => key} />
   );
   const instance = component.instance();
   return instance.validateSearchDetails();
@@ -118,11 +118,8 @@ test('checkForOriginDestinationPair', () => {
 
 test('getCabinClassByName', () => {
   const cabinSelectComponent: any = shallow(
-    <CabinSelect  i={0}
-                  cabinClass={"E"}
-                  updateFlightValue={updateFlightValue}
-                  t={(key: any) => key}
-    />
+    //@ts-ignore
+    <CabinSelect i={0} cabinClass={"E"} updateFlightValue={updateFlightValue} t={(key: any) => key} />
   );
   const instance = cabinSelectComponent.instance();
   expect(instance.getCabinClassByName()).toBe("E");

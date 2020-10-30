@@ -69,6 +69,7 @@ export const testResults: Results = {
         fees: 0,
         transportation_time: 500,
         fare_type: 'published',
+        // @ts-ignore
         additional_details: {
           e_ticketability: true,
           latest_ticketing_time: '',
@@ -120,6 +121,7 @@ export const testResults: Results = {
         fees: 0,
         transportation_time: 375,
         fare_type: 'published',
+        // @ts-ignore
         additional_details: {
           e_ticketability: true,
           latest_ticketing_time: '',
@@ -200,7 +202,8 @@ test('getFlightDetailsBySegment', () => {
 
 test('getFlightTypes', () => {
   const flightTypesComponent: any = shallow(
-    <FlightTypes 
+    //@ts-ignore
+    <FlightTypes
       segment={testResults.segments[0][0]}
       t={(key: any) => key}
     />
@@ -239,6 +242,7 @@ test('createPassengerStringFromPayload', () => {
 
 test('checkFlexTripRouteIsSame', () => {
   const preResultsComponent: any = shallow(
+    //@ts-ignore
     <PreResults 
       resultsDetails={testResultsDetails} 
       currency="USD"

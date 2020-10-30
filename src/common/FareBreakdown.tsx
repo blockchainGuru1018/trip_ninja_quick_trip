@@ -1,17 +1,18 @@
 import React from 'react';
 import { Pricing } from "../trip/results/PricingInterfaces";
-import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import FareBreakdownDetails from "./FareBreakdownDetails";
-import { Button } from "@material-ui/core";
-import { ResultsDetails } from "../trip/results/ResultsInterfaces";
+import { Results, Segment } from "../trip/results/ResultsInterfaces";
+import { BookingItinerary } from "../bookings/BookingsInterfaces";
 
 interface FareBreakdownProps extends WithTranslation {
     pricing: Pricing;
     pricingDisplay?: boolean;
     currency: string;
-    resultsDetails?: ResultsDetails
-    pathSequence: Array<string>
+    trip?: Results;
+    actives?: Array<Segment>;
+    itineraries?: Array<BookingItinerary>
+    pathSequence?: Array<string>
     flightDetailsDisplay?: boolean;
 }
 
@@ -35,7 +36,8 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing 
             ? <FareBreakdownDetails pricing={pricing} expanded={this.state.expanded} currency={this.props.currency}
-              resultsDetails={this.props.resultsDetails} pathSequence={this.props.pathSequence}/>
+              trip={this.props.trip} actives={this.props.actives} itineraries={this.props.itineraries}
+              pathSequence={this.props.pathSequence}/>
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>
             </div>

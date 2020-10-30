@@ -82,7 +82,8 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             <FareBreakdown
               pricing={props.pricing}
               currency={props.currency}
-              resultsDetails={props.resultsDetails}
+              actives={[...props.resultsDetails.activeSegments.values()]}
+              trip={props.trip}
               pathSequence={props.pathSequence}
               flightDetailsDisplay={true}
             />

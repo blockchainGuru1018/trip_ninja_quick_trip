@@ -2,9 +2,13 @@ import { Passenger } from '../trip/search/SearchInterfaces';
 
 export function createPassengersString(segments: any) {
   const pricedPassengers: Array<string>  = segments[0].priced_passengers;
+  return createStringFromPassengerList(pricedPassengers);
+}
+
+export const createStringFromPassengerList = (passengerList: Array<string>) => {
   const potentialPassengers = ['ADT', 'CHD', 'YTH', 'STU', 'INF'];
   const passengerString: string = potentialPassengers.reduce((total: string, potentialPassenger: string) => {
-    const nPassengersOfType: Array<any> = pricedPassengers.filter((pricedPassenger: string) =>
+    const nPassengersOfType: Array<any> = passengerList.filter((pricedPassenger: string) =>
       pricedPassenger === potentialPassenger || (potentialPassenger === 'CHD' ? pricedPassenger === 'CNN' : false)
     );
     return total += nPassengersOfType.length > 0
@@ -12,7 +16,7 @@ export function createPassengersString(segments: any) {
       : '';
   }, '');
   return passengerString.slice(0, -2);
-}
+};
 
 export const createPassengerPayload = (passengers: Array<Passenger>)  => {
   let passengerPayload = {};

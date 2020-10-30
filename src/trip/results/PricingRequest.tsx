@@ -11,6 +11,7 @@ interface PricingRequestProps extends WithTranslation {
   resultsDetails: ResultsDetails,
   currency: string,
   totalPrice: number,
+  markup: number,
   selectedTrip: Array<Segment>,
   priceFlights: typeof priceFlights,
 }
@@ -27,7 +28,7 @@ class PricingRequest extends React.Component<PricingRequestProps>{
       trip_type: this.props.resultsDetails.tripType === "fareStructureResults" ? "fare_structure" : "flex_trip",
       currency: this.props.currency,
       price: this.props.totalPrice,
-      markup: 0,
+      markup: this.props.markup,
       itineraries: createItinerariesPayload(trip.flight_details, [...this.props.resultsDetails.activeSegments.values()], trip)
     };
     const pricingResult: any = this.props.priceFlights(pricingPayload);

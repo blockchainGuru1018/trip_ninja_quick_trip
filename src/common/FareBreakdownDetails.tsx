@@ -139,20 +139,20 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   }
 
   setPricingHtml = (baseFare: number, taxesAndFees: number, expanded: boolean = false) => <div>
-    <div className="row">
+    <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
-        <p className={expanded ? '' : 'text-bold'}>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
+        <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p className={expanded ? '' : 'text-bold'}>{this.formatPrice(baseFare)}</p>
+        <p>{this.formatPrice(baseFare)}</p>
       </div>
     </div>
-    <div className="row">
+    <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>{this.props.t("common.fareBreakdown.taxes")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p className={expanded ? '' : 'text-bold'}>{this.formatPrice(taxesAndFees)}</p>
+        <p>{this.formatPrice(taxesAndFees)}</p>
       </div>
     </div>
   </div>

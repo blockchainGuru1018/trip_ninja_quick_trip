@@ -57,3 +57,7 @@
 .btn-fare-breakdown-details:hover {
   cursor: pointer
 }
+
+.charges-row {
+  max-height: 30px
+}

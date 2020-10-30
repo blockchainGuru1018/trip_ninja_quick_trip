@@ -16,6 +16,7 @@ import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -62,7 +63,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           segments={selectedTrip} 
           pathSequence={trip.path_sequence}
           flights={trip.flight_details}
-          flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
+          flexTripResults={invalidFlexTripResult(this.props.resultsDetails) ? false : true}
         />
         <div className="results-section-header">          
           <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>

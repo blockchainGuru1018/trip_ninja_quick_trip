@@ -38,7 +38,8 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         isAgencyAdmin: action.parameters.is_group_admin,
         isSuperUser: action.parameters.is_superuser,
         bookingDisabled: action.parameters.booking_disabled,
-        virtualInterliningAccess: action.parameters.virtual_interlining
+        virtualInterliningAccess: action.parameters.virtual_interlining,
+        markupVisible: action.parameters.markup_visible
       };
 
     case 'SET_AUTH_INVALID':

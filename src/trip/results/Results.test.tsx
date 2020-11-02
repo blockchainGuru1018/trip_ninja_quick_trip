@@ -8,6 +8,7 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import { Passenger } from '../search/SearchInterfaces';
 import { Results, ResultsDetails, defaultResultsDetails } from './ResultsInterfaces';
 import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
+import { invalidFlexTripResult, getTripPrice } from '../../helpers/FlexTripResultHelper';
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 
@@ -240,17 +241,6 @@ test('createPassengerStringFromPayload', () => {
 });
 
 
-test('checkFlexTripRouteIsSame', () => {
-  const preResultsComponent: any = shallow(
-    //@ts-ignore
-    <PreResults 
-      resultsDetails={testResultsDetails} 
-      currency="USD"
-      setTripType={setTripType}
-      setActiveSegments={setActiveSegments}
-      t={(key: any) => key}
-    />
-  );
-  const instance = preResultsComponent.instance();
-  expect(instance.compareFlexTripRoute()).toBe(true);
+test('checkFlexTripInvalid', () => {
+  expect(invalidFlexTripResult(testResultsDetails)).toBe(true);
 });

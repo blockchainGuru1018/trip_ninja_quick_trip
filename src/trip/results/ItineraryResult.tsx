@@ -63,7 +63,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           segments={selectedTrip} 
           pathSequence={trip.path_sequence}
           flights={trip.flight_details}
-          flexTripResults={invalidFlexTripResult(this.props.resultsDetails) ? false : true}
+          flexTripResults={!invalidFlexTripResult(this.props.resultsDetails)}
         />
         <div className="results-section-header">          
           <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>

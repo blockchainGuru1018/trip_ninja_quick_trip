@@ -163,8 +163,8 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                     <div>
                       {
                         (
-                          (props.selectedTrip && props.selectedTrip.length && props.selectedTrip[index].vi_position !== 1) ||
-                          (bookedTripSegments && bookedTripSegments.length && bookedTripSegments[index].vi_position !== 1)
+                          (props.selectedTrip && props.selectedTrip.length !== 0 && props.selectedTrip[index].vi_position !== 1) ||
+                          (bookedTripSegments && bookedTripSegments.length !== 0 && bookedTripSegments[index].vi_position !== 1)
                         ) &&
                         <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
                       }
@@ -172,7 +172,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                       {
                         (
                           (props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
-                          (bookedTripSegments && bookedTripSegments.length && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)
+                          (bookedTripSegments && bookedTripSegments.length !== 0 && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)
                         ) &&
                         getViSelfTransferLabel(index, props.selectedTrip, bookedTripSegments)
                       }

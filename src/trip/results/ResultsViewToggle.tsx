@@ -23,7 +23,7 @@ export default function ResultsViewToggle(props:ResultsViewToggleProps) {
           exclusive
           onChange={handleChange}
         >
-          <ToggleButton value="normal" aria-label="normal">
+          <ToggleButton value="itinerary" aria-label="itinerary">
             Itinerary
           </ToggleButton>
           <ToggleButton value="pnr" aria-label="pnr">

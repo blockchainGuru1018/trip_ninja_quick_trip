@@ -34,8 +34,9 @@ interface ItineraryResultsProps extends WithTranslation {
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   state = {
-    view: 'pnr'
+    view: 'itinerary'
   }
+  
   handleViewChange = (newValue: string | null) => {
     this.setState({view: newValue});
   };

@@ -16,17 +16,18 @@ export default function ResultsViewToggle(props:ResultsViewToggleProps) {
 
   return (
     <div className="row">
-      <div className="col">
+      <div className="col no-pad-left">
+        <span className="text-bold">View by: </span>
         <ToggleButtonGroup
           value={props.viewType}
           exclusive
           onChange={handleChange}
         >
           <ToggleButton value="normal" aria-label="normal">
-            Normal View
+            Itinerary
           </ToggleButton>
           <ToggleButton value="pnr" aria-label="pnr">
-            PNR View
+            PNR
           </ToggleButton>
         </ToggleButtonGroup>
       </div>

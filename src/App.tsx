@@ -184,6 +184,7 @@ class App extends React.Component<IAppProps> {
                     updateActives={this.props.updateActives}
                     updateSortType={this.props.updateSortType}
                     updateEntireTrip={this.props.updateEntireTrip}
+                    viewPnrPricing={this.props.authDetails.viewPnrPricing}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>

@@ -14,7 +14,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
 
@@ -29,6 +29,7 @@ interface ItineraryResultsProps extends WithTranslation {
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
+  viewPnrPricing: boolean;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -82,10 +83,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
-          <ResultsViewToggle
-            viewType={this.state.view}
-            handleViewChange={this.handleViewChange}
-          />
+          {this.props.viewPnrPricing &&
+            <ResultsViewToggle
+              viewType={this.state.view}
+              handleViewChange={this.handleViewChange}
+            />
+          }
           <div className="row">
             <div className='col-md-12 itinerary-sort-container'>
               <SortOption

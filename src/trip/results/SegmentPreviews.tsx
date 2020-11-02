@@ -74,9 +74,10 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
     segmentsList.forEach((segment: Segment) => {
       let viSegment = this.getVirtualInterlineLinkedSegment(segment);
       if (viSegment) {
+        let newViSegment = cloneDeep(viSegment);
         segment.virtual_interline = false;
-        viSegment.virtual_interline = false;
-        segmentsList.push(viSegment);
+        newViSegment.virtual_interline = false;
+        segmentsList.push(newViSegment);
       } 
     });
     segmentsList = this.sortItineraryByPNR(segmentsList);

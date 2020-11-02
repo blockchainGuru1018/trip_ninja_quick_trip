@@ -1,50 +1,44 @@
 import React from 'react';
 import { Pricing } from "../trip/results/PricingInterfaces";
-import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import FareBreakdownDetails from "./FareBreakdownDetails";
+import { Results, Segment } from "../trip/results/ResultsInterfaces";
+import { BookingItinerary } from "../bookings/BookingsInterfaces";
 
 interface FareBreakdownProps extends WithTranslation {
     pricing: Pricing;
     pricingDisplay?: boolean;
     currency: string;
     markupVisible: boolean;
+    trip?: Results;
+    actives?: Array<Segment>;
+    itineraries?: Array<BookingItinerary>
+    pathSequence?: Array<string>
+    flightDetailsDisplay?: boolean;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
-
+  state = {
+    expanded: false
+  }
   render() {
     const pricing = this.props.pricing!;
+
     return (
-      <div>
-        {this.props.pricingDisplay ? <h5>{this.props.t("common.fareBreakdown.title")}</h5> : <h5 className="section-header">{this.props.t("common.fareBreakdown.altTitle")}</h5>}
+      <div className={this.props.flightDetailsDisplay ? 'flight-details-drawer' : ''}>
+        <div className='booking-details-title-container'>
+          {
+            this.props.pricingDisplay || this.props.flightDetailsDisplay
+              ? <h5>{this.props.t("common.fareBreakdown.title")}</h5>
+              : <h5 className="section-header">{this.props.t("common.fareBreakdown.altTitle")}</h5>
+          }
+          <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-fare-breakdown-details'>{`Show ${this.state.expanded ? 'less' : 'more'} details`}</div>
+        </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing 
-            ? <div>
-              <div className="row">
-                <div className="col-sm-8 fare-breakdown-text">
-                  <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
-                </div>
-                <div className="col-sm-4 fare-breakdown-price">
-                  <p>{this.formatPrice(pricing.base_fare)}</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-sm-8 fare-breakdown-text">
-                  <p>{this.props.t("common.fareBreakdown.taxes")}</p>
-                </div>
-                <div className="col-sm-4 fare-breakdown-price">
-                  <p>{this.formatPrice(pricing.taxes+pricing.fees)}</p>
-                </div>
-              </div>
-              <div className="row fare-breakdown-total">
-                <div className="col-sm-8 fare-breakdown-text">
-                  <p className="text-bold">{this.props.t("commonWords.total")}</p>
-                </div>
-                <div className="col-sm-4 fare-breakdown-price">
-                  <p className="text-bold">{this.formatPrice(pricing.confirmed_total_price)}</p>
-                </div>
-              </div>
-            </div>
+            ? <FareBreakdownDetails pricing={pricing} expanded={this.state.expanded} currency={this.props.currency}
+              trip={this.props.trip} actives={this.props.actives} itineraries={this.props.itineraries}
+              pathSequence={this.props.pathSequence}/>
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>
             </div>
@@ -53,10 +47,6 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
         </div>
       </div>
     );
-  }
-  formatPrice = (price: number) => {
-    const currency = this.props.currency;
-    return `${currencySymbol(currency)}${price.toFixed()} ${currency}`;
   }
 
 }

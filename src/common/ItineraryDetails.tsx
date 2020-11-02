@@ -161,13 +161,19 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
                   </TimelineSeparator>
                   <TimelineContent>
                     <div>
-                      {((props.selectedTrip && props.selectedTrip[index].vi_position !== 1) || 
-                      (bookedTripSegments && bookedTripSegments[index].vi_position !== 1)) &&
-                      <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
+                      {
+                        (
+                          (props.selectedTrip && props.selectedTrip.length && props.selectedTrip[index].vi_position !== 1) ||
+                          (bookedTripSegments && bookedTripSegments.length && bookedTripSegments[index].vi_position !== 1)
+                        ) &&
+                        <div className='text-bold booking-drawer-flight-departure-date'>{getSegmentDateString(index)}</div>
                       }
                       {flightResultsPath}
-                      {((props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
-                      (bookedTripSegments.length > 0 && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)) &&
+                      {
+                        (
+                          (props.selectedTrip && props.selectedTrip[index].virtual_interline && props.selectedTrip[index].vi_position === 0) ||
+                          (bookedTripSegments && bookedTripSegments.length && bookedTripSegments[index].virtual_interline && bookedTripSegments[index].vi_position === 0)
+                        ) &&
                         getViSelfTransferLabel(index, props.selectedTrip, bookedTripSegments)
                       }
                     </div>

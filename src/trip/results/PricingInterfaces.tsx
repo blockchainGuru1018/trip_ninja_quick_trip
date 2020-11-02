@@ -52,6 +52,7 @@ export interface PricingRequestItinerary {
   plating_carrier?: string;
   credentials: Credentials;
   itinerary_type: string;
+  itinerary_markup: number;
   segments: Array<FlightSegment>;
 }
 

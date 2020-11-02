@@ -1,8 +1,4 @@
 import React, { useEffect } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
-import { styled } from '@material-ui/core/styles';
 
 declare global {
   interface Window {
@@ -28,7 +24,7 @@ export default function TravelRestrictions() {
       "nationality": "CAN"
     }]
   };
-  
+
   useEffect(() => {
     const sherpa = window.$sherpa;
     sherpa.V1.createWidget(widgetOptions);

@@ -68,7 +68,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
-            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>

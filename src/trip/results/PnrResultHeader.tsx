@@ -10,7 +10,7 @@ interface PnrResultHeaderProps {
   currency: string;
   segmentType: string;
   segmentCount: number;
-  structure: Array<Number>;
+  structure: Array<number>;
 }
 
 export default function PnrResultHeader(props: PnrResultHeaderProps) {

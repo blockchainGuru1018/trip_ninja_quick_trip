@@ -184,6 +184,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
               <FareBreakdown 
                 pricing={props.booking.details!.pricing}
                 currency={props.booking.currency}
+                markupVisible={props.authDetails.markupVisible}
               />
             </div>
           </div>

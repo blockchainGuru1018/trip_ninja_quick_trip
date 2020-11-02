@@ -7,6 +7,7 @@ interface FareBreakdownProps extends WithTranslation {
     pricing: Pricing;
     pricingDisplay?: boolean;
     currency: string;
+    markupVisible: boolean;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {

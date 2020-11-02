@@ -76,6 +76,7 @@ class Book extends React.Component<BookProps> {
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
+                markupVisible={this.props.authDetails.markupVisible}
               />
               <PassengerDetails
                 passengers={this.props.passengers}

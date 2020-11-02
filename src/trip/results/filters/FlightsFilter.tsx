@@ -39,7 +39,7 @@ const FlightsFilter = (props: FlightsFilterProps) => {
 
   const useStyles = makeStyles({
     root: {
-      maxWidth: '200px',
+      maxWidth: '300px',
       height: '31px',
       width: 'auto',
       border: '1px solid var(--primary)',

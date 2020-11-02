@@ -16,7 +16,6 @@ import {updateFlightValue, removeFlight, getPriceGraph}
 import { Flight } from './SearchInterfaces';
 import matchSorter from 'match-sorter';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import TravelRestrictionsModal from './TravelRestrictionsModal';
 import iataCodeHelper from '../../helpers/IataCodeHelper';
 
 interface FlightInputProps extends WithTranslation {
@@ -155,7 +154,6 @@ class FlightInput extends React.Component<FlightInputProps> {
               </div>
             }
           </div>
-          <TravelRestrictionsModal />
         </div>
       </div>
     );

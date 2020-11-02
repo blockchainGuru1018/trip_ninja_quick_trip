@@ -31,6 +31,7 @@ import PricingModal from './common/modals/PricingModal';
 import SearchModal from './common/modals/SearchModal';
 import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
+import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
@@ -222,6 +223,9 @@ class App extends React.Component<IAppProps> {
                     queueBooking={this.props.queueBooking}
                     ticketBooking={this.props.ticketBooking}
                   />
+                } />
+                <Route exact path="/travel-restrictions/" render={() =>
+                  <TravelRestrictions />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

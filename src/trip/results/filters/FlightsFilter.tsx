@@ -146,7 +146,6 @@ const FlightsFilter = (props: FlightsFilterProps) => {
           <RadioGroup aria-label={t('results.filters.flightsFilter.refundabilityDescription')} value={filter!.value} name="Refundability Filter" onChange={updateFilter}>
             <FormControlLabel control={<Radio />} value="Any" label={t('results.filters.flightsFilter.refundabilityAnyLabel')} />
             <FormControlLabel control={<Radio />} value="Non-Refundable" label={t('results.filters.flightsFilter.refundabilityNon-RefundableLabel')} />
-            <FormControlLabel control={<Radio />} value="Partial" label={t('results.filters.flightsFilter.refundabilityPartialLabel')} />
             <FormControlLabel control={<Radio />} value="Refundable" label={t('results.filters.flightsFilter.refundabilityRefundableLabel')} />            
           </RadioGroup>
         </MenuItem>}

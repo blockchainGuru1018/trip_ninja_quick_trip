@@ -159,7 +159,7 @@ export interface Baggage {
 export interface AdditionalDetails {
   e_ticketability: boolean;
   latest_ticketing_time: string;
-  refundable: string;
+  refundable: boolean;
   cancel_penalty: Penalty;
   change_penalty: Penalty;
   fare_types_info: string;

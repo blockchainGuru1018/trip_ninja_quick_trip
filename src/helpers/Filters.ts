@@ -47,21 +47,12 @@ export const numberOfStopsFilter = (segment: Segment, filter: Filter, viSegments
 
 
 export const refundabilityFilter = (segment: Segment, filter: Filter) => {
-  const amount = segment.additional_details.cancel_penalty.amount? segment.additional_details.cancel_penalty.amount : null;
-  const percentage = segment.additional_details.cancel_penalty.percentage? segment.additional_details.cancel_penalty.percentage : null;
-
-  console.log("filter.value:", filter.value);
-
   if (filter.value === 'Any' || filter.failed) {
     return false;
-  } else if (amount === null && percentage === null) {
-    return true;
   } else if (filter.value === 'Non-Refundable') {
-    return percentage !== 100;
+    return segment.additional_details.refundable === true;
   } else if (filter.value === 'Refundable') {
-    return (percentage! > 0 || amount! > 0);
-  } else if (filter.value === 'Partial') {
-    return percentage === 100;
+    return segment.additional_details.refundable === false;
   }
 };
 

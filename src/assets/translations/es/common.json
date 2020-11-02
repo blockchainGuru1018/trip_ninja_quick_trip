@@ -270,7 +270,6 @@
                 "refundabilityDescription": "Reembolso",
                 "refundabilityAnyLabel": "Cualquiera",
                 "refundabilityNon-RefundableLabel": "No Reembolsable",
-                "refundabilityPartialLabel": "Parcial",
                 "refundabilityRefundableLabel": "Reembolsable"
             }
         }

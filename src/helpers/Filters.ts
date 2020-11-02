@@ -54,12 +54,14 @@ export const refundabilityFilter = (segment: Segment, filter: Filter) => {
 
   if (filter.value === 'Any' || filter.failed) {
     return false;
+  } else if (amount === null && percentage === null) {
+    return true;
   } else if (filter.value === 'Non-Refundable') {
-    return ((amount === null && percentage === null)  || percentage !== 100);
+    return percentage !== 100;
   } else if (filter.value === 'Refundable') {
-    return ((amount === null && percentage === null) || percentage !== 0 || amount! > 0);
+    return (percentage! > 0 || amount! > 0);
   } else if (filter.value === 'Partial') {
-    return ((amount === null && percentage === null) || percentage === 100);
+    return percentage === 100;
   }
 };
 

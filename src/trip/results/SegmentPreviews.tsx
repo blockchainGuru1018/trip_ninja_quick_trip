@@ -113,6 +113,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               segmentType={segment.itinerary_type}
               segmentCount={this.props.segments.length}
               structure={JSON.parse(segment.itinerary_structure)}
+              segmentIsVi={segment.vi_solution_id ? true : false}
             /> 
           }
           {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)

@@ -10,7 +10,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { styled } from '@material-ui/core/styles';
 import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
-import { ResultsDetails } from '../results/ResultsInterfaces';
+import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
 import { setPassengerInfo, updatePassengerInfo, bookFlights, updateAdditionalMarkup } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
@@ -41,6 +41,9 @@ class Book extends React.Component<BookProps> {
   }
 
   render() {
+    const trip: Results = this.props.resultsDetails![this.props.resultsDetails!.tripType];
+    const actives: Array<Segment> = [...this.props.resultsDetails?.activeSegments.values()];
+
     return (
       <div className="row" id="book-itinerary">
         <div className="col-xl-10 offset-xl-1">
@@ -71,13 +74,18 @@ class Book extends React.Component<BookProps> {
               <Itinerary
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
+                pricing={this.props.pricingDetails!.pricing!}
+                pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
               />
             </div>
             <div className="col-md-5">
-              <FareBreakdown 
+              <FareBreakdown
+                trip={trip}
+                actives={actives}
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
+                pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
               />
               <AdditionalMarkup
                 additionalMarkupDisplay={true}

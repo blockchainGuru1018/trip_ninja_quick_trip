@@ -55,7 +55,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
-            orderByPnr={this.state.view === 'pnr' ? true : false}
+            orderByPnr={this.state.view === 'pnr'}
             totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}

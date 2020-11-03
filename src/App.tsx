@@ -33,7 +33,7 @@ import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateAdditionalMarkup } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
@@ -69,6 +69,7 @@ interface IAppProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAdditionalMarkup: typeof updateAdditionalMarkup;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
@@ -207,6 +208,7 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
+                    updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}

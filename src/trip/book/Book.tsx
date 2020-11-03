@@ -3,6 +3,7 @@ import './Book.css';
 import Itinerary from './Itinerary';
 import FareBreakdown from '../../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
+import AdditionalMarkup from './AdditionalMarkup';
 import BookRequest from './BookRequest';
 import Button from '@material-ui/core/Button';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -11,7 +12,7 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { ResultsDetails } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateAdditionalMarkup } from '../../actions/BookActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -28,6 +29,7 @@ interface BookProps extends WithTranslation {
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAdditionalMarkup: typeof updateAdditionalMarkup;
   bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
   dateFormat: string;
@@ -76,6 +78,12 @@ class Book extends React.Component<BookProps> {
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
+              />
+              <AdditionalMarkup
+                additionalMarkupDisplay={true}
+                currency={this.props.pricingDetails.currency}
+                additionalMarkup={this.props.bookingDetails.additional_markup}
+                updateAdditionalMarkup={this.props.updateAdditionalMarkup}
               />
               <PassengerDetails
                 passengers={this.props.passengers}

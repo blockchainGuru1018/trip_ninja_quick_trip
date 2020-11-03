@@ -27,6 +27,14 @@ export function bookingLoading(value: boolean) {
   };
 }
 
+
+export function updateAdditionalMarkup(additionalMarkup: number) {
+  return {
+    type: 'UPDATE_ADDITIONAL_MARKUP',
+    additionalMarkup
+  };
+}
+
 export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) => {
   dispatch(bookingLoading(true));
   const url: string = '/create_pnr/';

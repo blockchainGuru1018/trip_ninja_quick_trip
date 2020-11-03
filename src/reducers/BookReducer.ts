@@ -10,6 +10,13 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
 
     case 'BOOKING_LOADING':
       return {...state, loading: action.value};
+
+    case 'UPDATE_ADDITIONAL_MARKUP':
+      console.log('Updating additional markup with ', action.additionalMarkup, action.additionalMarkup.type);
+      state.additional_markup = parseFloat(action.additionalMarkup);
+      console.log(state);
+      return {...state};
+
     default:
       return state;
   }

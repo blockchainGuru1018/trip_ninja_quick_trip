@@ -47,7 +47,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
     const totalPrice: number = getTotal(selectedTrip, 'price');
 
-    const enabledFilters = ['baggage','noOfStops','alliance'];
+    const enabledFilters = ['baggage','noOfStops','alliance', 'refundability'];
 
     return (
       <div id="segment-selection">

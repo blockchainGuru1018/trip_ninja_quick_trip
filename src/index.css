@@ -159,3 +159,7 @@ button:focus {
 .no-pad-right {
   padding-right: 0px;
 }
+
+.travel-restrictions-container {
+  padding: 75px 25px
+}

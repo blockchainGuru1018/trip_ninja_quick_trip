@@ -32,6 +32,9 @@ class NavBar extends React.Component<NavBarProps> {
             <li className="nav-item">
               <div className="nav-link" onClick={() => history.push('/bookings/')}>{this.props.t("common.navBar.bookings")}<span className="sr-only">(current)</span></div>
             </li>
+            <li className="nav-item">
+              <div className="nav-link" onClick={() => history.push('/travel-restrictions/')}>Travel Restrictions<span className="sr-only">(current)</span></div>
+            </li>
           </ul>
         </div>
         <LanguageSelector />

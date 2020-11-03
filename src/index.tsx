@@ -10,9 +10,9 @@ import './i18n';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
-        <Main />
-      </Provider>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

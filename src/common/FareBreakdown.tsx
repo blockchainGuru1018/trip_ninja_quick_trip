@@ -35,8 +35,13 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
         </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing 
-            ? <FareBreakdownDetails pricing={pricing} expanded={this.state.expanded} currency={this.props.currency}
-              trip={this.props.trip} actives={this.props.actives} itineraries={this.props.itineraries}
+            ? <FareBreakdownDetails
+              pricing={pricing}
+              expanded={this.state.expanded}
+              currency={this.props.currency}
+              trip={this.props.trip}
+              actives={this.props.actives}
+              itineraries={this.props.itineraries}
               pathSequence={this.props.pathSequence}/>
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>

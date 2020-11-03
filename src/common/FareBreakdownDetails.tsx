@@ -138,13 +138,13 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return pathSequenceString.slice(0, -2);
   }
 
-  setPricingHtml = (baseFare: number, taxesAndFees: number, expanded: boolean = false) => <div>
+  setPricingHtml = (baseFare: number, taxesAndFees: number, expanded: boolean = false) => <div className='pricing-header-container'>
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p>{this.formatPrice(baseFare)}</p>
+        <p>{this.formatPrice(baseFare)}</p- added some styling padding
       </div>
     </div>
     <div className="row charges-row">

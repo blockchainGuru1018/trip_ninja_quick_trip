@@ -1,0 +1,366 @@
+{   "commonWords":{
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "passengers": "Passagers",
+        "total": "Total",
+        "passengerTypes": {
+            "ADT": "Adulte",
+            "CHD": "Enfant",
+            "INF": "Bébé",
+            "STU": "étudiant",
+            "YTH": "Jeune"
+        },
+        "cabins":{
+            "E": "Economy",
+            "PE": "Premium Economy",
+            "BC": "Classe Affaires",
+            "FC": "Première Classe",
+            "PFC": "Première Classe Premium"
+        },
+        "status":{
+            "booked": "Réservé",
+            "cancelled": "Annulé",
+            "queued": "En attente",
+            "ticketed": "Billet créé" 
+        },
+        "gender": "Sexe",
+        "male": "Mâle",
+        "female": "Femelle",
+        "nationality": "Nationalité",
+        "passportNumber": "Numéro de passeport",
+        "passportExpiry": "Date d'expiration de passeport",
+        "phone": "Numéro de téléphone"
+    },
+    "common": {
+        "navBar":{
+            "flightSearch": "Rechercher",
+            "bookings": "Réservations"
+        },
+        "userMenu": {
+            "signOut": "Déconnecter"
+        },
+        "custom404":{
+            "title": "404 - Page non trouvée",
+            "subHeader": "Une erreur s'est produite, nous vous prions de nous excuser.\nEssayer nos",
+            "helpCentre": "Centre d'information",
+            "subHeaderEnding": " pour vous directer dans la bonne direction.",
+            "missingLinkPrompt": "Est-ce qu'il y a une problème? ",
+            "missingLinkCTA": "Nous contacter.",
+            "back": "Retourner à la page d'accueil"
+        },
+        "fareBreakdown": {
+            "title": "Les détails des tarifs",
+            "altTitle": "Les coûts de réservation",
+            "airTransportationCharges": "Charges du transport aérien",
+            "taxes": "Les impôts",
+            "infoMissing": "L'information que vous recherchez n'est pas disponible"
+        },
+        "fareRulesPreview": {
+            "title": "Règles des tarifs",
+            "selectedFareFamily": "Famille tarifaire sélectionné",
+            "cabinBaggage": "Bagage de cabine",
+            "included": "Inclus",
+            "notIncluded": "Non inclus",
+            "changePenalty": "Peine des changements",
+            "fareType": "Type de tarif",
+            "wifiTitle": "Disponibilité de Wifi",
+            "wifi": "Wifi",
+            "seatSelection": "Sélection du siège",
+            "checkedBags": "Nombre de bagage(s)",
+            "cancellationPenalty": "Peine d'annulation",
+            "fareSource": "Source de tarif", 
+            "bookingCode": "Code de réservation",
+            "editFareFamily": "*Changer la famille tarifaire",
+            "bookingClass": "Classe",
+            "atACost": "à un prix",
+            "available": "Disponible",
+            "unavailable": "Non disponible"
+        },
+        "flightLogo": {
+            "multipleAirlines": "Plusieurs compagnie aèrienne"
+        },
+        "flightStops": {
+            "stop": "Arrête",
+            "stopsPlural": "Arrêtes",
+            "direct": "Direct",
+            "selfTransfer": "Auto-transfert"
+        },
+        "flightTime": {
+            "hoursIndicator": "h",
+            "minutesIndicator": "m"
+        },
+        "flightTypes": {
+            "class": "Classe"
+        },
+        "itineraryDetails": {
+            "dateFormat": "eeee MMM eo, yyy",
+            "bookingDetailsHeader": "Détails de réservation",
+            "flightDetailsHeader": "Détails de vol",
+            "informationNotAvailable": "L'information n'est pas disponible",
+            "fareDetailsHeader": "Détails des tarifs"
+        },
+        "selfTransferLabel": {
+            "selfTransferIn": "Auto-transfert en",
+            "layover": "Correspondance"
+        },
+        "modals" : {
+            "bookingErrorModal": {
+                "title": "La réservation a échoué",
+                "body": "Une erreur s'est produite et nous ne pouvons pas traiter votre réservation. Essayer une nouvelle option ou réessayer votre recherche.",
+                "return": "Retourner au résultats"
+            },
+            "bookModal": {
+                "primaryText": "Nous réservons votre voyage"
+            },
+            "cancellingErrorModal": {
+                "title": "L'annulation a échoué",
+                "body": "Une erreur s'est produite. L'annulation a échoué. Essayer encore ou contacter la source pour annuler les vols.",
+                "return": "Retourner au réservations"
+            },
+            "pricingErrorModal": {
+                "title": "Confirmation du prix a échoué",
+                "body": "Ces vols n'ont pas disponible. Essayer une nouvelle option ou réessayer votre recherche.",
+                "return": "Retourner au résultats"
+            },
+            "pricingModal": {
+                "primaryText": "Nous confirmons votre vols"
+            },
+            "queueingErrorModal": {
+                "title": "Attente a échoué",
+                "body": "Une erreur s'est produite, essayer encore.",
+                "return": "Retourner au réservations"
+            },
+            "searchErrorModal": {
+                "title": "Aucun vol ont été trouvés",
+                "body": "Aucun vol ont été trouvés. Essayer encore.",
+                "body2": "Si vous en a besoin de l'aide, vous pouvez",
+                "knowledgeBase": "Consulter nos rubriques",
+                "supportTeam": "Nous contacter ici: support@tripninja.io",
+                "return": "Retourner au recherches"
+            },
+            "searchModal": {
+                "primaryText": "Nous recherchons les meilleures options"
+            },
+            "ticketingErrorModal": {
+                "title": "Ces billets n'est pas disponible",
+                "body": "Une erreur s'est produite avec ces billets. Essayer encore.",
+                "return":"Retourner au réservation"
+            }
+        }
+    },
+    "auth":{
+        "loginForm":{
+            "welcomeMessage": "Bienvenue!",
+            "signIn": "Se connecter",
+            "loginFail": "Connexion a échoué - vérifier votre mot de passe",
+            "forgotPassword": "Mot de passe oublié?",
+            "loginButton": "Connectez-vous",
+            "signUp": "Vous n'avez pas encore de compte?",
+            "freeTrial": "Commencer un essai gratuit"
+        },
+        "marketingPanel":{
+            "header":"Votre processus, est-il efficace? Essayer Trip Ninja maintenant.",
+            "description":"Réserver des itinéraires plus complexes en minutes. Avec Trip Ninja, votre collaborateurs peuvent beaucoup améliorer leur processus!",
+            "callToAction":"Essayer aujourd'hui pour créer des itinéraires complexes, vitement."
+        }
+    },
+    "search": {
+        "search": {
+            "header": "Rechercher un vol",
+            "addFlightButton": "Ajouter un vol",
+            "additionalDetailsHeader": "Détails"
+        },
+        "searchRequest": {
+            "searchFlights": "Rechercher des vols",
+            "searchFlightsError": "Détails non valable - essayer encore s'il vous plait."
+        },
+        "flightInput": {
+            "origin": "Origine",
+            "destination": "Destination"
+        }
+    },
+    "results": {
+        "preResults":{
+            "yourTrip": "Votre voyage",
+            "from": "Départ de",
+            "seeFlightOptions": "Aller à les options",
+            "reorderDestinationsPrompt": "Réorganiser votre destinations pour économiser: $"
+        },
+        "resultsHeader":{
+            "dateFormat": "MMM d",
+            "backToFlexTrip": "Retourner au résultats FlexTrip",
+            "changeSearch": "Faire des changements"
+        },
+        "fareSelect": {
+            "total": "Total",
+            "selectSegment": "Sélectionner un segment",
+            "informationNotAvailable": "L'information n'est pas disponible",
+            "na":"N/A",
+            "features": "Services à bord",
+            "description": "La description",
+            "checkedBags": "Bagage(s) en soute",
+            "cabinBags": "Bagage(s) en cabine",
+            "seatSelection": "Sélectionner votre siège",
+            "changes": "Modification",
+            "refundable": "Remboursable",
+            "bookingCode": "Code de réservation",
+            "fareBasis": "Principe de base des tarifs",
+            "price": "Prix"
+        },
+        "itineraryResult":{
+            "title": "Votre itinéraire"
+        },
+        "pricingRequest": {
+            "callToAction": "Continuer à la page de confirmation"
+        },
+        "segmentNav":{
+            "title": "Itinéraire",
+            "overview": "Résumer"
+        },
+        "segmentPreviewDetails":{
+            "loading": "Charger des options...",
+            "selectSegment": "Sélectionner un segment"
+        },
+        "segmentPrice":{
+            "source": "Source"
+        },
+        "segmentSelection":{
+            "selectedFlight": "Vol sélectionner",
+            "otherOptions": "D'autre options",
+            "otherOptionsWarning": "La sélection de ces vols peuvent modifier d'autre segments de votre voyage."
+        },
+        "sortOption": {
+            "sortBy": "Trier par",
+            "cheapest": "moins cher",
+            "best": "meilleure",
+            "fastest": "plus vite"
+        },
+        "tooltips":{
+            "incompatibleInfoTooltip":{
+                "segment": "Segment",
+                "selectionImpact": "La sélection de cette vol va modifier les vol suivant:"
+            }
+        },
+        "filters":{
+            "flightsFilter":{
+                "baggage": "bagages",
+                "baggageDescription": "Nombre minimum des bagages",
+                "baggage0Label": "N'importe quel",
+                "baggage1Label": "1 bagage",
+                "baggage2Label": "2 bagages",
+                "baggage3Label": "3 bagages",
+                "alliance": "alliance",
+                "allianceDescription": "Alliance",
+                "allianceAnyLabel": "N'importe quel",
+                "alliance*ALabel": "Star Alliance",
+                "alliance*OLabel": "Oneworld",
+                "alliance*SLabel": "Skyteam",
+                "noOfStops": "Arrêtes",
+                "noOfStopsDescription": "Nombre maximum d'arrêtes",
+                "noOfStopsAnyLabel": "N'importe quel",
+                "noOfStops0Label": "Vol direct seulement",
+                "noOfStops1Label": "1 arrête",
+                "noOfStops2Label": "2 arrêtes",
+                "filterFailMessage": "Il n'y a aucun vol avec ses qualifications",
+                "refundability": "Remboursabilité",
+                "refundabilityDescription": "Remboursabilité",
+                "refundabilityAnyLabel": "N'importe quel",
+                "refundabilityNon-RefundableLabel": "Non remboursable",
+                "refundabilityRefundableLabel": "Remboursable"
+            }
+        }
+    },
+    "book":{
+        "book":{
+            "return": "Retourner au résultats",
+            "title": "La sommaire de votre itinéraire"
+        },
+        "bookRequest":{
+            "bookAndSave": "Réserver et enregistrer",
+            "bookAndQueue": "Réserver et mettre en attente",
+            "bookAndTicket": "Réserver et créer un billet",
+            "passengerDetailsError": "Une erreur s'est produite avec les détails du passager - Réessayer s'il vous plait",
+            "bookingDisabled": "Vous n'avez pas la capacité pour faire des réservations. Contacter votre administrateur s'il vous plait."
+            
+        },
+        "flightDetailsDrawer":{
+            "title": "Résumé des réservations",
+            "toTop": "Retourner en haut",
+            "openButton": "Les détails des vols"
+        },
+        "itinerary":{
+            "title": "Itinéraire",
+            "dateFormat": "MMMM do yyy"
+        },
+        "passengerCountrySelect":{
+            "nationality": "Nationalité"
+        },
+        "passengerDetails":{
+            "edit": "éditer",
+            "add": "Ajouter",
+            "title": "Détails du passager",
+            "passenger1": "Première passager"
+        },
+        "passengerDetailsModal":{
+            "title": "L'information du passager",
+            "firstName": "Prénom",
+            "lastName": "Nom du famille",
+            "dateOfBirth": "Date de naissance",
+            "passportNumber": "Numéro de passeport",
+            "passportExpiration": "Date de l'expiration de passeport",
+            "warning": "L'information au dessus doit être la même que l'information de passeport. S'il y a les contradictions, il est possible que le passager se voie refuser l'embarquement.",
+            "email": "E-mail", 
+            "phoneNumber": "Numéro de téléphone",
+            "invalidInputWarning": "Assurez-vous que les champs sont rempli!",
+            "save": "Enregistrer",
+            "invalidPhoneNumber": "Numéro de téléphone non valable",
+            "invalidEmailAddress": "Addresse e-mail non valable"
+        }
+    },
+    "bookings": {
+        "bookingDetailsDrawer": {
+            "loadingErrorTitle": "On ne peut pas charger les détails. Essayer encore.",
+            "loadingErrorBody": "Si l'erreur se continue, contacter nous.",
+            "loadingErrorButton": "OK",
+            "loadingMessage": "Nous cherchons les détails...",
+            "title": "La résumé des réservations - état:",
+            "navigationTitle": "Aller à",
+            "overviewNav": "Résumer",
+            "bookingCostNav": "Coût de réservation",
+            "flightOverviewNav": "Le résumer des vols",
+            "passengerInformationNav": "L'information de passager",
+            "overviewTitle": "Résumer",
+            "bookingAgent": "Agent de réservation", 
+            "team": "équipe",
+            "backToTop": "Retourner en haut"
+        },
+        "bookings": {
+            "title": "Réservations"
+        },
+        "bookingsTable": {
+            "dateFormat": "MMM Mo, Y",
+            "noBookings": "Aucun réservations trouvée!",
+            "pnrNumbers": "Numéro de PNR",
+            "passenger1": "Première Passager",
+            "bookingDate": "Date de Réservation",
+            "departureDate": "Date de départ",
+            "price": "Prix",
+            "route": "Route",
+            "status": "état"
+        },
+        "manageBooking" : {
+            "title": "Gérer",
+            "cancelBookingButton": "Annuler la réservation",
+            "sendToQueueButton": "Mettre en attente",
+            "issueTicketButton": "émettre le billet"
+        },
+        "multiPNRViewToggle": {
+            "title": "Plusieurs PNRs", 
+            "pnrsByTrip": "Organiser les PNRs par voyage",
+            "pnrsByEach": "Voir chaque PNR"
+        },
+        "passengerDetails": {
+            "title": "Détails du passager"
+        }
+    }
+}

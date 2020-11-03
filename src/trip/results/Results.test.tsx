@@ -1,14 +1,12 @@
 import React from 'react';
 import PreResultsFlightSections from './PreResultsFlightSections';
-import { PreResults } from './PreResults';
 import SegmentPreviews from './SegmentPreviews';
 import { shallow } from 'enzyme';
 import { FlightTypes } from '../../common/FlightTypes';
 import { createPassengerStringFromPayload } from '../../helpers/PassengersListHelper';
 import { Passenger } from '../search/SearchInterfaces';
 import { Results, ResultsDetails, defaultResultsDetails } from './ResultsInterfaces';
-import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
-import { invalidFlexTripResult, getTripPrice } from '../../helpers/FlexTripResultHelper';
+import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
 
 const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0,23) + '+03:00';
 

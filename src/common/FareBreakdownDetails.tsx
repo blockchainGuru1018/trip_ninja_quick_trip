@@ -144,7 +144,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p>{this.formatPrice(baseFare)}</p- added some styling padding
+        <p>{this.formatPrice(baseFare)}</p>
       </div>
     </div>
     <div className="row charges-row">

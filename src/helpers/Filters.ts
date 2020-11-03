@@ -45,6 +45,17 @@ export const numberOfStopsFilter = (segment: Segment, filter: Filter, viSegments
   }
 };
 
+
+export const refundabilityFilter = (segment: Segment, filter: Filter) => {
+  if (filter.value === 'Any' || filter.failed) {
+    return false;
+  } else if (filter.value === 'Non-Refundable') {
+    return segment.additional_details.refundable === true;
+  } else if (filter.value === 'Refundable') {
+    return segment.additional_details.refundable === false;
+  }
+};
+
 export const allianceFilter = (segment: Segment, filter: Filter) => {
   if (filter.value === 'Any' || filter.failed) {
     return false;
@@ -61,7 +72,8 @@ export const filterSegments = (segments: Array<Segment>, filters: Array<Filter>,
   const filterMap = {
     baggage: baggageFilter,
     noOfStops: numberOfStopsFilter,
-    alliance: allianceFilter
+    alliance: allianceFilter, 
+    refundability: refundabilityFilter,
   };
 
   filters.forEach((filter: Filter) => {

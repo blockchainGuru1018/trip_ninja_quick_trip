@@ -202,5 +202,9 @@
 }
 
 .pnr-result-header {
-  padding-top: 50px;
+  padding-top: 25px;
+}
+
+.itinerary-type-label {
+  margin-bottom: 7px;
 }

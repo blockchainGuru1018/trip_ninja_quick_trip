@@ -31,7 +31,9 @@ export default function PnrResultHeader(props: PnrResultHeaderProps) {
         <h2>
           <span className="text-bold">{t('commonWords.ticket')} {props.itineraryNumber}</span> | {currencySymbol(props.currency)}{Math.round(props.price)}
         </h2>
-        <p>{itineraryTypeMap(props.segmentType)} {props.segmentIsVi ? '- ' + t('search.tripOptions.virtualInterlining') : ''}</p>
+        <p className="itinerary-type-label">
+          {itineraryTypeMap(props.segmentType)} {props.segmentIsVi ? '- ' + t('search.tripOptions.virtualInterlining') : ''}
+        </p>
         <div className="row indicator-row">
           {segmentIndicators()}
         </div>

@@ -264,7 +264,12 @@
           "noOfStops0Label": "ダイレクトのみ",
           "noOfStops1Label": "1 ストップ",
           "noOfStops2Label": "2 ストップ",
-          "filterFailMessage": "このフィルターのフライトはありません"
+          "filterFailMessage": "このフィルターのフライトはありません",
+          "refundability": "refundability",
+          "refundabilityDescription": "Refundability",
+          "refundabilityAnyLabel": "任意",
+          "refundabilityNon-RefundableLabel": "Non-Refundable",
+          "refundabilityRefundableLabel": "Refundable"
       }
     }
   },

@@ -50,20 +50,20 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
         const taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment, undefined),
+          this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
           this.setPricingHtml(baseFare, taxesAndFees, true)
         );
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
         const viBaseFare: number = linkedViSegment!.vi_segment_base_price || 0;
         const viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment, undefined),
+          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
           this.setPricingHtml(viBaseFare, viTaxesAndFees, true)
         );
       } else {
         const taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment, undefined),
+          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
           this.setPricingHtml(activeSegment.base_price, taxesAndFees, true)
         );
       }

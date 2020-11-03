@@ -43,7 +43,9 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               trip={this.props.trip}
               actives={this.props.actives}
               itineraries={this.props.itineraries}
-              pathSequence={this.props.pathSequence}/>
+              pathSequence={this.props.pathSequence}
+              markupVisible={this.props.markupVisible}  
+            />
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>
             </div>

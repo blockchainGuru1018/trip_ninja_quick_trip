@@ -100,7 +100,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const increaseTicketNumber = () => {return ++itineraryNumber;};
 
       let itineraryPrice: number = segment.price;
-      if(segment.vi_segment_base_price){
+      if (segment.vi_segment_base_price) {
         itineraryPrice = segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes!;
       }
       return(

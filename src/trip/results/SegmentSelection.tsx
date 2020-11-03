@@ -45,7 +45,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const filteredIncompatibleSegments: Array<Segment> = incompatibleSegments.filter((segment: Segment) => !segment.filtered);
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
-    const totalPrice: number = getTotal(selectedTrip, 'price');
+    const totalPrice: number = getTotal(selectedTrip, 'price') + trip.markup;
 
     const enabledFilters = ['baggage','noOfStops','alliance', 'refundability'];
 
@@ -65,7 +65,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
           </h1>
           <h4 id="itinerary-total">
             <strong>{this.props.t("commonWords.total")}: </strong>
-            {currencySymbol(this.props.currency)}{Math.round(totalPrice+trip.markup)}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
           </h4>
           <SortOption
             segmentPosition={parseInt(segmentIndex)}

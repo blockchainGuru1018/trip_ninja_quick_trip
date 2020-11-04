@@ -116,6 +116,9 @@ export interface Segment {
   virtual_interline: boolean;
   vi_type?: string;
   vi_position?: number;
+  vi_segment_base_price?: number;
+  vi_segment_taxes?: number;
+  vi_segment_fees?: number;
   weight: number;
   price: number;
   base_price: number;
@@ -140,8 +143,11 @@ export interface Segment {
   relativePrice?: number;
   relativeWeight?: number;
   relativeTime?: number;
-  filtered?: boolean
-  credential_info: Credentials
+  filtered?: boolean;
+  credential_info: Credentials;
+  vi_segment_base_price?: number;
+  vi_segment_taxes?: number;
+  vi_segment_fees?: number;
 }
 
 export interface FareInfo {

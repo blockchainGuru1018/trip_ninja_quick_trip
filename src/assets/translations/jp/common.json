@@ -30,7 +30,8 @@
       "nationality": "国籍",
       "passportNumber": "パスポート番号",
       "passportExpiry": "パスポートの有効期限",
-      "phone": "電話番号"
+      "phone": "電話番号",
+      "ticket": "Ticket"
 },
 "common": {
   "navBar":{

@@ -34,6 +34,9 @@ export const numberOfItineraries = (segments: Array<Segment>) => {
     if (isFirstPositionInStructure(segment)) {
       itinerariesCount++;
     }
+    if (segment.virtual_interline && segment.vi_position === 0) {
+      itinerariesCount++;
+    }
   });
   return itinerariesCount;
 };

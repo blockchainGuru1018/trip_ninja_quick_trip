@@ -61,3 +61,7 @@
 .charges-row {
   max-height: 30px
 }
+
+.pricing-header-container {
+  padding-bottom: 20px;
+}

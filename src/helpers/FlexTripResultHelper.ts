@@ -1,9 +1,12 @@
-import { Results, ResultsDetails } from '../trip/results/ResultsInterfaces';
+import { ResultsDetails } from '../trip/results/ResultsInterfaces';
+import _ from "lodash";
+import { getTotal } from "./MiscHelpers";
+import { identifyAndSetInitialActives } from "./RelativesHelper";
 
 export const invalidFlexTripResult = (results: ResultsDetails) => {
   if (results.flexTripResults && results.fareStructureResults) {
-    return compareFlexTripPrice(results.fareStructureResults, results.flexTripResults) ||
-    compareFlexTripRoute(results.fareStructureResults.path_sequence, results.flexTripResults.path_sequence);
+    return compareFlexTripPrice(results) ||
+      compareFlexTripRoute(results.fareStructureResults.path_sequence, results.flexTripResults.path_sequence);
   } else {
     return true;
   }
@@ -15,15 +18,16 @@ export const compareFlexTripRoute = (fareStructureRoute: Array<string>, flexTrip
   return flexTripPath === fareStructurePath;
 };
 
-export const compareFlexTripPrice = (fareStructureResults: Results, flexTripResults: Results) => {
-  const farePrice: number = getTripPrice(fareStructureResults);
-  const flexPrice: number = getTripPrice(flexTripResults);
-  return flexPrice >= farePrice;
+export const compareFlexTripPrice = (resultsDetails: ResultsDetails) => {
+  const fareStructureTripPrice: number = getTripPrice(resultsDetails, 'fareStructureResults');
+  const flexTripPrice: number = getTripPrice(resultsDetails, 'flexTripResults');
+  return flexTripPrice >= fareStructureTripPrice;
 };
 
-export const getTripPrice = (results: Results) => {
-  return results.segments.reduce((total, segment) =>
-  {return total + segment[0].price;}, 0
-  );
+export const getTripPrice = (resultsDetails: ResultsDetails, tripType: string) => {
+  let clonedResultsDetails: ResultsDetails = _.cloneDeep(resultsDetails);
+  clonedResultsDetails.tripType = tripType;
+  const priceState: ResultsDetails = identifyAndSetInitialActives(clonedResultsDetails, 'best');
+  return getTotal([...priceState.activeSegments.values()], 'price');
 };
 

@@ -114,11 +114,9 @@ export class PreResults extends React.Component<PreResultsProps> {
   validateFlexTripResult = () => {
     const results: ResultsDetails = this.props.resultsDetails;
     if (results.flexTripResults && results.fareStructureResults) {
-      const flexPrice: number = getTripPrice(results.flexTripResults);
-      const farePrice: number = getTripPrice(results.fareStructureResults);
       this.setState({
-        farePrice: Math.round(farePrice),
-        flexPrice: Math.round(flexPrice)
+        farePrice: Math.round(getTripPrice(results, 'fareStructureResults')),
+        flexPrice: Math.round(getTripPrice(results, 'flexTripResults'))
       });
       return invalidFlexTripResult(results) ? history.push('/results/itinerary/') : '';
     }

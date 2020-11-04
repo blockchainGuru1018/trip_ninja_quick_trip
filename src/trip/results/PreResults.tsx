@@ -124,8 +124,8 @@ export class PreResults extends React.Component<PreResultsProps> {
       {return total + segment[0].price;},0
       );
       this.setState({
-        farePrice: Math.round(farePrice),
-        flexPrice: Math.round(flexPrice)
+        farePrice: Math.round(farePrice+results.fareStructureResults.markup),
+        flexPrice: Math.round(flexPrice+results.flexTripResults.markup)
       });
       return flexPrice >= farePrice;
     } else {

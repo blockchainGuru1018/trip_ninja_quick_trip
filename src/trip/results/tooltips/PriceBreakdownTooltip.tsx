@@ -34,7 +34,7 @@ export default function PriceBreakdownTooltip(props: PriceBreakdownTooltipProps)
         <React.Fragment>
           <div>
             <p className='standard-text'>
-              <span className="float-left">Airfare + Taxes + Fees:</span>
+              <span className="float-left">{t("results.fareSelect.price")}:</span>
               <span className="float-right">{currencySymbol(props.currency)}{props.totalPrice}</span> 
             </p>
             <p className='standard-text'>

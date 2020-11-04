@@ -28,6 +28,7 @@ interface ItineraryResultsProps extends WithTranslation {
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
+  markupVisible: boolean;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -70,11 +71,13 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
+            {this.props.markupVisible &&
             <PriceBreakdownTooltip
               totalPrice={totalPrice}
               markup={markup}
               currency={this.props.currency}
             />
+            }
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>

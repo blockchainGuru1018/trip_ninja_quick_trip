@@ -26,6 +26,7 @@ interface SegmentPreviewProps {
   segmentFlightDetails: Array<FlightResultsDetails>;
   viLinkedSegmentFlightDetails?: Array<FlightResultsDetails>;
   segmentSelect: boolean;
+  orderByPnr: boolean;
   activeSegment?: Segment;
   segmentOptionsIndex?: number;
   currency: string;
@@ -50,8 +51,8 @@ class SegmentPreview extends React.Component<SegmentPreviewProps> {
     return(
       <div
         className="row segment-container" key={this.props.index.toString()}>
-        {!this.props.segmentSelect && this.setFlightPreviewIcons(this.props.index)}
-        <div className={'row ' + (this.props.segmentSelect ? 'col-md-12' : 'col-md-11')}>
+        {(!this.props.segmentSelect && !this.props.orderByPnr) && this.setFlightPreviewIcons(this.props.index)}
+        <div className={'row ' + ((this.props.segmentSelect || this.props.orderByPnr) ? 'col-md-12' : 'col-md-11')}>
           <div className="row segment col-md-12">
             {this.props.segment.status === 'incompatible' && this.props.activeSegment
             && <IncompatibleInfoTooltip key={this.props.index} activeSegment={this.props.activeSegment} segment={this.props.segment} pathSequence={this.props.pathSequence!}/>

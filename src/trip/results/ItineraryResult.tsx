@@ -15,6 +15,7 @@ import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
 import {Alert} from "@material-ui/lab";
+import PriceBreakdownTooltip from './tooltips/PriceBreakdownTooltip';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface ItineraryResultsProps extends WithTranslation {
@@ -69,6 +70,11 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
+            <PriceBreakdownTooltip
+              totalPrice={totalPrice}
+              markup={markup}
+              currency={this.props.currency}
+            />
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>

@@ -101,6 +101,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   </div>
                 </div>
                 <SegmentPreviews
+                  orderByPnr={false}
                   totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
@@ -123,6 +124,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   filteredCompatibleSegments.length > 0 &&
                   <div>
                     <SegmentPreviews
+                      orderByPnr={false}
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
                       segments={compatibleSegments}
@@ -154,6 +156,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       </div>
                     </div>
                     <SegmentPreviews
+                      orderByPnr={false}
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
                       segments={incompatibleSegments}

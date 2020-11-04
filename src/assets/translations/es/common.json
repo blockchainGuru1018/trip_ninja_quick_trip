@@ -29,7 +29,8 @@
         "nationality": "Nacionalidad",
         "passportNumber": "Numero de Pasaporte",
         "passportExpiry": "Expiración de Pasaporte",
-        "phone": "Telefono"
+        "phone": "Telefono",
+        "ticket": "Ticket"
     },
     "common": {
         "navBar":{

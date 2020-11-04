@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import common_en_uk from './assets/translations/en_uk/common.json';
 import common_es from './assets/translations/es/common.json';
 import common_jp from './assets/translations/jp/common.json';
+import common_fr from './assets/translations/fr/common.json';
 
 i18n
   .use(initReactI18next)
@@ -24,6 +25,9 @@ i18n
       },
       jp: {
         common: common_jp,
+      },
+      fr: {
+        common: common_fr,
       }
     },
   });

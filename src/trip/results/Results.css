@@ -185,3 +185,26 @@
   background-color: #f1f1f1;
   margin-left: 70px;
 }
+
+.indicator-row {
+  padding-right: 20px;
+  padding-top: 5px;
+}
+
+.segment-indicator {
+  border-bottom: dashed 2px #45565E0D;
+  width: 100%;
+}
+
+.current-segment-indicator {
+  border-bottom: solid 3px var(--primary);
+  width: 100%;
+}
+
+.pnr-result-header {
+  padding-top: 25px;
+}
+
+.itinerary-type-label {
+  margin-bottom: 7px;
+}

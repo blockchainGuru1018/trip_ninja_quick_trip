@@ -169,7 +169,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   </div>
 
 
-
   formatPrice = (price: number) => {
     const currency = this.props.currency;
     return `${currencySymbol(currency)}${price.toFixed()} ${currency}`;

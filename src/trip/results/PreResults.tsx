@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
-import { invalidFlexTripResult, getTripPrice } from '../../helpers/FlexTripResultHelper';
-import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
+import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
+import { setActiveSegments, setTripType, updateStateValue } from '../../actions/ResultsActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface PreResultsProps extends WithTranslation {
@@ -15,12 +15,11 @@ interface PreResultsProps extends WithTranslation {
   currency: string;
   setTripType: typeof setTripType;
   setActiveSegments: typeof setActiveSegments;
+  updateStateValue: typeof updateStateValue;
 }
 
 export class PreResults extends React.Component<PreResultsProps> {
   state = {
-    flexPrice: 0,
-    farePrice: 0,
     fareStructurePassengersString: '',
     flexTripPassengersString: ''
   }
@@ -51,7 +50,7 @@ export class PreResults extends React.Component<PreResultsProps> {
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">{this.props.t("results.preResults.yourTrip")}</p>
                 <p className="standard-text">
-                  {this.props.t("results.preResults.from") + ': ' + this.state.farePrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.props.resultsDetails.fareStructureResultsPrice + ' ' + this.props.currency}
                 </p>
                 <p className="standard-text text-small">
                   {this.state.fareStructurePassengersString}
@@ -78,10 +77,10 @@ export class PreResults extends React.Component<PreResultsProps> {
             <div className="col-xl-4 offset-xl-2 col-md-4 offset-md-4 flight-option-container-flex col-sm-6 offset-sm-3" id='flex-trip-pre-result'>
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">
-                  {this.props.t("results.preResults.reorderDestinationsPrompt") + (this.state.farePrice - this.state.flexPrice)}
+                  {this.props.t("results.preResults.reorderDestinationsPrompt") + (this.props.resultsDetails.fareStructureResultsPrice - this.props.resultsDetails.flexTripResultsPrice)}
                 </p>
                 <p className="standard-text">
-                  {this.props.t("results.preResults.from") + ': ' + this.state.flexPrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.props.resultsDetails.flexTripResultsPrice + ' ' + this.props.currency}
                 </p>
                 <p className='standard-text text-small'>
                   {this.state.flexTripPassengersString}
@@ -114,11 +113,12 @@ export class PreResults extends React.Component<PreResultsProps> {
   validateFlexTripResult = () => {
     const results: ResultsDetails = this.props.resultsDetails;
     if (results.flexTripResults && results.fareStructureResults) {
-      this.setState({
-        farePrice: Math.round(getTripPrice(results, 'fareStructureResults')),
-        flexPrice: Math.round(getTripPrice(results, 'flexTripResults'))
-      });
-      return invalidFlexTripResult(results) ? history.push('/results/itinerary/') : '';
+
+      // this.setState({
+      //   farePrice: Math.round(getTripPrice(results, 'fareStructureResults')),
+      //   flexPrice: Math.round(getTripPrice(results, 'flexTripResults'))
+      // });
+      return invalidFlexTripResult(results, this.props.updateStateValue) ? history.push('/results/itinerary/') : '';
     }
   };
 }

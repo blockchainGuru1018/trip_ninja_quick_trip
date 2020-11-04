@@ -72,6 +72,10 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'SET_FILTER_WARNING':
       return {...state, filterWarning: action.warning};
 
+    case 'UPDATE_STATE_VALUE':
+      state[action.key] = action.value;
+      return {...state};
+
     default:
       return state;
   }

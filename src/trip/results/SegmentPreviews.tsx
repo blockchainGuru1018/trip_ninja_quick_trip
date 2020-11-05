@@ -98,10 +98,11 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
       const firstPositionInStructure = segment.segment_position === JSON.parse(segment.itinerary_structure)[0];
 
-      let itineraryPrice: number = segment.price + distributedMarkup;
+      let markup = segment.itinerary_markup > 0 ? segment.itinerary_markup : distributedMarkup;
+      let itineraryPrice: number = segment.price + markup;
       
       if (segment.vi_segment_base_price) {
-        itineraryPrice = segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes! + distributedMarkup;
+        itineraryPrice = segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes! + markup;
       }
       return(
         <div key={index.toString()}>

@@ -51,7 +51,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
     let selectedTrip: Array<Segment> = [...this.props.resultsDetails.activeSegments.values()];
 
     const totalPrice: number = getTotal(selectedTrip, 'price');
-    const markup: number = trip.markup;
+    const markup: number = trip.markup > 0 ? trip.markup : getTotal(selectedTrip, 'itinerary_markup');
 
     const selectedSegments =
       <div className="row">
@@ -83,7 +83,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
-            {this.props.markupVisible && markup !== 0 &&
+            {this.props.markupVisible &&
             <PriceBreakdownTooltip
               totalPrice={totalPrice}
               markup={markup}
@@ -141,7 +141,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                 resultsDetails={this.props.resultsDetails}
                 currency={this.props.currency}
                 totalPrice={totalPrice}
-                markup={markup}
+                markup={trip.markup}
                 selectedTrip= {selectedTrip}
                 priceFlights = {this.props.priceFlights}
               />

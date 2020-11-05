@@ -3,7 +3,6 @@ import './Book.css';
 import Itinerary from './Itinerary';
 import FareBreakdown from '../../common/FareBreakdown';
 import PassengerDetails from './PassengerDetails';
-import AdditionalMarkup from './AdditionalMarkup';
 import BookRequest from './BookRequest';
 import Button from '@material-ui/core/Button';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';

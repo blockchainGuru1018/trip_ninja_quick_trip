@@ -48,7 +48,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   getActiveSegmentExpandedPricing = () => {
     const pricesByTicketHtml: any = [];
     const distributedMarkup = calculateDistributedMarkup(this.props.pricing.markup, this.props.actives!);
-    
+
     this.props.actives!.forEach((activeSegment: Segment, segmentIndex: number) => {
       let markup = activeSegment.itinerary_markup > 0 ? activeSegment.itinerary_markup : distributedMarkup;
       if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
@@ -73,7 +73,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         let taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
         if (!this.props.markupVisible) taxesAndFees += markup;
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees + markup), activeSegment),
+          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
           this.setPricingHtml(activeSegment.base_price, taxesAndFees, markup, true)
         );
       }

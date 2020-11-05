@@ -7,6 +7,7 @@ import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsI
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
 import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -44,28 +45,32 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   getActiveSegmentExpandedPricing = () => {
     const pricesByTicketHtml: any = [];
+    const distributedMarkup = calculateDistributedMarkup(this.props.pricing.markup, this.props.actives!);
     this.props.actives!.forEach((activeSegment: Segment, segmentIndex: number) => {
       if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
         return;
       } else if (activeSegment.virtual_interline) {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
-        const taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
+        let taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
+        taxesAndFees = this.props.markupVisible ? taxesAndFees : taxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
-          this.setPricingHtml(baseFare, taxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(baseFare, taxesAndFees, distributedMarkup, true)
         );
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
         const viBaseFare: number = linkedViSegment!.vi_segment_base_price || 0;
-        const viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
+        let viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
+        viTaxesAndFees = this.props.markupVisible ? viTaxesAndFees : viTaxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
-          this.setPricingHtml(viBaseFare, viTaxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(viBaseFare, viTaxesAndFees, distributedMarkup, true)
         );
       } else {
-        const taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
+        let taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
+        taxesAndFees = this.props.markupVisible ? taxesAndFees : taxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
-          this.setPricingHtml(activeSegment.base_price, taxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(activeSegment.base_price, taxesAndFees, distributedMarkup, true)
         );
       }
     });

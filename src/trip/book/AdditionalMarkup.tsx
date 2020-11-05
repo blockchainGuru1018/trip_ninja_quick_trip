@@ -43,10 +43,10 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
         return <AdditionalMarkupButton onClick={() => handleClick('editing')}>+ {t("common.fareBreakdown.additionalMarkup")}</AdditionalMarkupButton>;
       case 'editing':
         return <div className="row additional-markup-input-row">
-          <div className="col-sm-10 fare-breakdown-text my-auto">
+          <div className="col-sm-9 fare-breakdown-text my-auto">
             <p className="standard-text">{t("common.fareBreakdown.additionalMarkup")}</p>
           </div>
-          <div className="col-sm-2 fare-breakdown-price">
+          <div className="col-sm-3 fare-breakdown-price">
             {props.additionalMarkupDisplay &&
                 <TextField
                   id="additional-markup"
@@ -73,10 +73,10 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
         </div>;
       case 'set':
         return <div className="row additional-markup-input-row">
-          <div className="col-sm-2 fare-breakdown-text my-auto">
+          <div className="col-sm-3 fare-breakdown-text my-auto">
             <p className="standard-text">{t("common.fareBreakdown.additionalMarkup")}</p>
           </div>
-          <div className="col-sm-6 edit-icon">
+          <div className="col-sm-5 edit-icon">
             <EditIcon
               color="disabled"
               onClick={() => handleClick('editing')}

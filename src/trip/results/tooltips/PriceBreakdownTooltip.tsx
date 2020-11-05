@@ -9,12 +9,13 @@ const HtmlTooltip = withStyles((theme: Theme) => ({
   tooltip: {
     backgroundColor: '#ffffff',
     color: 'var(--secondary)',
-    minWidth: '250px',
-    minHeight: '75px',
+    width: '225px',
+    height: '75px',
     padding: '20px;',
     fontFamily: 'NeuzeitGro-Reg',
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
+    boxShadow: '0px 3px 6px #00000029',
   },
 }))(Tooltip);
 
@@ -33,14 +34,23 @@ export default function PriceBreakdownTooltip(props: PriceBreakdownTooltipProps)
       title={
         <React.Fragment>
           <div>
-            <p className='standard-text'>
-              <span className="float-left">{t("results.fareSelect.price")}:</span>
-              <span className="float-right">{currencySymbol(props.currency)}{props.totalPrice}</span> 
-            </p>
-            <p className='standard-text'>
-              <span className="float-left">Markup:</span>
-              <span className="float-right">{currencySymbol(props.currency)}{props.markup}</span> 
-            </p>
+            <div className="row">
+              <div className="col">
+                <p className='standard-text'>
+                  <span className="float-left">{t("results.fareSelect.price")}:</span>
+                  <span className="float-right">{currencySymbol(props.currency)}{props.totalPrice.toFixed()}</span> 
+                </p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <p className='standard-text'>
+                  <span className="float-left">Markup:</span>
+                  <span className="float-right">{currencySymbol(props.currency)}{props.markup.toFixed()}</span> 
+                </p>
+              </div>
+            </div>
+            
           </div>
         </React.Fragment>
       }

@@ -14,8 +14,11 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
-import {Alert} from "@material-ui/lab";
+import PriceBreakdownTooltip from './tooltips/PriceBreakdownTooltip';
+import { Alert } from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
+import ResultsViewToggle from './ResultsViewToggle';
+import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -27,9 +30,19 @@ interface ItineraryResultsProps extends WithTranslation {
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
+  markupVisible: boolean;
+  viewPnrPricing: boolean;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
+
+  state = {
+    view: 'itinerary'
+  }
+  
+  handleViewChange = (newValue: string | null) => {
+    this.setState({view: newValue});
+  };
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -44,6 +57,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
       <div className="row">
         <div className="col-xl">
           <SegmentPreviews
+            orderByPnr={this.state.view === 'pnr'}
             totalPrice={totalPrice}
             segments={selectedTrip}
             flightDetails={trip.flight_details}
@@ -54,7 +68,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
       </div>;
 
-    const enabledFilters = ['baggage','noOfStops','alliance'];
+    const enabledFilters = ['baggage','noOfStops','alliance','refundability'];
 
     return (
       <div id="itinerary-result">
@@ -62,16 +76,29 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           segments={selectedTrip} 
           pathSequence={trip.path_sequence}
           flights={trip.flight_details}
-          flexTripResults={this.props.resultsDetails.flexTripResults ? true : false}
+          flexTripResults={!invalidFlexTripResult(this.props.resultsDetails)}
         />
         <div className="results-section-header">          
           <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
-            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
+            {this.props.markupVisible &&
+            <PriceBreakdownTooltip
+              totalPrice={totalPrice}
+              markup={markup}
+              currency={this.props.currency}
+            />
+            }
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>
+          {this.props.viewPnrPricing &&
+            <ResultsViewToggle
+              viewType={this.state.view}
+              handleViewChange={this.handleViewChange}
+            />
+          }
           <div className="row">
             <div className='col-md-12 itinerary-sort-container'>
               <SortOption

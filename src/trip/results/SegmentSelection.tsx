@@ -45,9 +45,9 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     const filteredIncompatibleSegments: Array<Segment> = incompatibleSegments.filter((segment: Segment) => !segment.filtered);
     const selectedTrip: Array<Segment> = this.getActiveSegments(trip);
     const selectedSegment: Array<Segment> = [selectedTrip[segmentIndex]];
-    const totalPrice: number = getTotal(selectedTrip, 'price');
+    const totalPrice: number = getTotal(selectedTrip, 'price') + trip.markup;
 
-    const enabledFilters = ['baggage','noOfStops','alliance'];
+    const enabledFilters = ['baggage','noOfStops','alliance', 'refundability'];
 
     return (
       <div id="segment-selection">
@@ -101,6 +101,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   </div>
                 </div>
                 <SegmentPreviews
+                  orderByPnr={false}
                   totalPrice={totalPrice}
                   segmentOptionsIndex={parseInt(segmentIndex)}
                   segments={selectedSegment}
@@ -123,6 +124,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   filteredCompatibleSegments.length > 0 &&
                   <div>
                     <SegmentPreviews
+                      orderByPnr={false}
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
                       segments={compatibleSegments}
@@ -154,6 +156,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       </div>
                     </div>
                     <SegmentPreviews
+                      orderByPnr={false}
                       totalPrice={totalPrice}
                       segmentOptionsIndex={parseInt(segmentIndex)}
                       segments={incompatibleSegments}

@@ -29,7 +29,8 @@
         "nationality": "Nacionalidad",
         "passportNumber": "Numero de Pasaporte",
         "passportExpiry": "Expiración de Pasaporte",
-        "phone": "Telefono"
+        "phone": "Telefono",
+        "ticket": "Ticket"
     },
     "common": {
         "navBar":{
@@ -266,7 +267,12 @@
                 "noOfStops0Label": "Solo directo",
                 "noOfStops1Label": "1 escala",
                 "noOfStops2Label": "2 escalas",
-                "filterFailMessage": "No hay vuelos para este filtro"
+                "filterFailMessage": "No hay vuelos para este filtro",
+                "refundability": "reembolso",
+                "refundabilityDescription": "Reembolso",
+                "refundabilityAnyLabel": "Cualquiera",
+                "refundabilityNon-RefundableLabel": "No Reembolsable",
+                "refundabilityRefundableLabel": "Reembolsable"
             }
         }
     },

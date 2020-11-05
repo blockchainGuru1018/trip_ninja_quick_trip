@@ -31,6 +31,7 @@ import PricingModal from './common/modals/PricingModal';
 import SearchModal from './common/modals/SearchModal';
 import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
+import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
@@ -40,7 +41,6 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticket
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 
-//Google Tag Manager
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
 };
@@ -97,6 +97,7 @@ class App extends React.Component<IAppProps> {
     }
   }
 
+  
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
     if (token !== '') {
@@ -185,6 +186,8 @@ class App extends React.Component<IAppProps> {
                     updateActives={this.props.updateActives}
                     updateSortType={this.props.updateSortType}
                     updateEntireTrip={this.props.updateEntireTrip}
+                    markupVisible={this.props.authDetails.markupVisible}
+                    viewPnrPricing={this.props.authDetails.viewPnrPricing}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -224,6 +227,9 @@ class App extends React.Component<IAppProps> {
                     queueBooking={this.props.queueBooking}
                     ticketBooking={this.props.ticketBooking}
                   />
+                } />
+                <Route exact path="/travel-restrictions/" render={() =>
+                  <TravelRestrictions />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

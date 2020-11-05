@@ -18,6 +18,7 @@ interface FareBreakdownDetailsProps extends WithTranslation {
   actives?: Array<Segment>;
   pathSequence?: Array<string>;
   itineraries?: Array<BookingItinerary>;
+  markupVisible: boolean;
   pricingDisplay?: boolean;
   updateAdditionalMarkup?: typeof updateAdditionalMarkup;
 }
@@ -37,8 +38,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
               {this.fareBreakdownTotalHtml()}
             </div>
             : <div>
-              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees),
-                false)}
+              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees), this.props.pricing.markup)}
               {this.fareBreakdownTotalHtml()}
             </div>
         }
@@ -55,21 +55,21 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
         const taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment, undefined),
-          this.setPricingHtml(baseFare, taxesAndFees, true)
+          this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
+          this.setPricingHtml(baseFare, taxesAndFees, this.props.pricing.markup, true)
         );
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
         const viBaseFare: number = linkedViSegment!.vi_segment_base_price || 0;
         const viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment, undefined),
-          this.setPricingHtml(viBaseFare, viTaxesAndFees, true)
+          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
+          this.setPricingHtml(viBaseFare, viTaxesAndFees, this.props.pricing.markup, true)
         );
       } else {
         const taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment, undefined),
-          this.setPricingHtml(activeSegment.base_price, taxesAndFees, true)
+          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
+          this.setPricingHtml(activeSegment.base_price, taxesAndFees, this.props.pricing.markup, true)
         );
       }
     });
@@ -83,7 +83,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
       pricesByTicketHtml.push(
         this.setSegmentHeaderHtml((baseFare + taxesAndFees), undefined, itinerary),
-        this.setPricingHtml(baseFare, taxesAndFees, true)
+        this.setPricingHtml(baseFare, taxesAndFees, itinerary.price_breakdown.markup, true)
       );
     });
     return pricesByTicketHtml;
@@ -143,7 +143,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return pathSequenceString.slice(0, -2);
   }
 
-  setPricingHtml = (baseFare: number, taxesAndFees: number, expanded: boolean = false) => <div>
+  setPricingHtml = (baseFare: number, taxesAndFees: number, markup: number, expanded: boolean = false) => <div className='pricing-header-container'>
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
@@ -160,7 +160,17 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{formatPrice(taxesAndFees, this.props.currency)}</p>
       </div>
     </div>
-    {!this.props.expanded &&
+    {this.props.markupVisible && !expanded &&
+    <div className="row charges-row">
+      <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
+        <p>Markup</p>
+      </div>
+      <div className="col-sm-4 fare-breakdown-price">
+        <p>{formatPrice(markup, this.props.currency)}</p>
+      </div>
+    </div>
+    }
+    {!expanded &&
       <AdditionalMarkup
         additionalMarkupDisplay={true}
         additionalMarkup={this.props.pricing.additional_markup}
@@ -173,6 +183,16 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   fareBreakdownTotalHtml = () =>
     <div className="fare-breakdown-total">
+      {this.props.markupVisible && this.props.expanded &&
+      <div className="row charges-row">
+        <div className="col-sm-8 fare-breakdown-text">
+          <p>Markup</p>
+        </div>
+        <div className="col-sm-4 fare-breakdown-price">
+          <p>{formatPrice(this.props.pricing.markup, this.props.currency)}</p>
+        </div>
+      </div>
+      }
       {this.props.expanded &&
       <AdditionalMarkup
         additionalMarkup={this.props.pricing.additional_markup}
@@ -187,7 +207,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
           <p className="text-bold">{this.props.t("commonWords.total")}</p>
         </div>
         <div className="col-sm-4 fare-breakdown-price">
-          <p className="text-bold">{formatPrice(this.props.pricing.confirmed_total_price + this.props.pricing.additional_markup, this.props.currency)}</p>
+          <p className="text-bold">{formatPrice(this.props.pricing.confirmed_total_price + this.props.pricing.markup + this.props.pricing.additional_markup, this.props.currency)}</p>
         </div>
       </div>
     </div>

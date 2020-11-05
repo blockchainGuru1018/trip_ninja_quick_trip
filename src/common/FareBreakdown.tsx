@@ -11,6 +11,7 @@ interface FareBreakdownProps extends WithTranslation {
     pricing: Pricing;
     pricingDisplay?: boolean;
     currency: string;
+    markupVisible: boolean;
     trip?: Results;
     actives?: Array<Segment>;
     itineraries?: Array<BookingItinerary>
@@ -38,10 +39,18 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
         </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing 
-            ? <FareBreakdownDetails pricing={pricing} expanded={this.state.expanded} currency={this.props.currency}
-              trip={this.props.trip} actives={this.props.actives} itineraries={this.props.itineraries}
-              pathSequence={this.props.pathSequence} pricingDisplay={this.props.pricingDisplay}
-              updateAdditionalMarkup={this.props.updateAdditionalMarkup}/>
+            ? <FareBreakdownDetails
+              pricing={pricing}
+              expanded={this.state.expanded}
+              currency={this.props.currency}
+              trip={this.props.trip}
+              actives={this.props.actives}
+              itineraries={this.props.itineraries}
+              pathSequence={this.props.pathSequence}
+              markupVisible={this.props.markupVisible}
+              pricingDisplay={this.props.pricingDisplay}
+              updateAdditionalMarkup={this.props.updateAdditionalMarkup}
+            />
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>
             </div>

@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
+import { invalidFlexTripResult, getTripPrice } from '../../helpers/FlexTripResultHelper';
 import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
@@ -25,7 +26,7 @@ export class PreResults extends React.Component<PreResultsProps> {
   }
 
   componentDidMount() {
-    this.invalidFlexTripResult();
+    this.validateFlexTripResult();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
@@ -110,34 +111,18 @@ export class PreResults extends React.Component<PreResultsProps> {
     );
   }
 
-  invalidFlexTripResult = () => {
-    return this.compareFlexTripPrice() && this.compareFlexTripRoute() ? history.push('/results/itinerary/') : '';
-  }
-
-  compareFlexTripPrice = () => {
+  validateFlexTripResult = () => {
     const results: ResultsDetails = this.props.resultsDetails;
     if (results.flexTripResults && results.fareStructureResults) {
-      const flexPrice: number = results.flexTripResults.segments.reduce((total, segment) =>
-      {return total + segment[0].price;}, 0
-      );
-      const farePrice: number = results.fareStructureResults.segments.reduce((total, segment) =>
-      {return total + segment[0].price;},0
-      );
+      const flexPrice: number = getTripPrice(results.flexTripResults);
+      const farePrice: number = getTripPrice(results.fareStructureResults);
       this.setState({
-        farePrice: Math.round(farePrice),
-        flexPrice: Math.round(flexPrice)
+        farePrice: Math.round(farePrice+results.fareStructureResults.markup),
+        flexPrice: Math.round(flexPrice+results.flexTripResults.markup)
       });
-      return flexPrice >= farePrice;
-    } else {
-      return true;
+      return invalidFlexTripResult(results) ? history.push('/results/itinerary/') : '';
     }
-  }
-
-  compareFlexTripRoute = () => {
-    const flexTripPath = JSON.stringify(this.props.resultsDetails.flexTripResults?.path_sequence);
-    const fareStructurePath = JSON.stringify(this.props.resultsDetails.fareStructureResults?.path_sequence);
-    return flexTripPath === fareStructurePath;
-  }
+  };
 }
 
 export default withTranslation('common')(PreResults);

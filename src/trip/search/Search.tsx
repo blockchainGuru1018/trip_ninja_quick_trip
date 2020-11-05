@@ -12,6 +12,9 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+
 
 const AddFlightButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -124,6 +127,26 @@ class Search extends React.Component<SearchProps> {
     const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
     addFlight.then(() => this.setInputFocus());
   }
+
+  // downloadStuff = () => {
+  //   const input: HTMLElement | null = document.getElementById('search-form');
+  //   if (input) {
+  //     html2canvas(input)
+  //       .then((canvas: HTMLCanvasElement) => {
+  //         console.log(canvas);
+  //         const imgData: string = canvas.toDataURL('image/png');
+  //         const pdf = new jsPDF();
+  //         // @ts-ignore
+  //         pdf.addImage(imgData, 'PNG', 0, 0);
+  //         pdf.addPage();
+  //         pdf.setPage(2);
+  //         // @ts-ignore
+  //         pdf.addImage(imgData, 'PNG', 0, 0);
+  //         pdf.save("download.pdf");
+  //
+  //       });
+  //   }
+  // }
 
   setInputFocus = () => {
     if(this.refs) {

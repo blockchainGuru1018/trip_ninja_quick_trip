@@ -4,6 +4,7 @@ import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsA
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { Booking } from './BookingsInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import SaveAlt from "@material-ui/icons/Print";
 
 
 interface ManageBookingProps extends WithTranslation {
@@ -47,6 +48,12 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             disabled={this.props.status === 'cancelled' || this.props.status === 'ticketed' || true}
             onClick={(e) => {this.props.ticketBooking(this.props.booking);}}>
             {this.props.t("bookings.manageBooking.issueTicketButton")}
+          </Button>
+          <Button className='btn-booking-print'
+            onClick={() => console.log('working')}
+            startIcon={<SaveAlt />}
+          >
+            {this.props.t("bookings.manageBooking.downloadButton")}
           </Button>
         </div>     
       </div>

@@ -356,7 +356,8 @@
             "title": "Gérer",
             "cancelBookingButton": "Annuler la réservation",
             "sendToQueueButton": "Mettre en attente",
-            "issueTicketButton": "émettre le billet"
+            "issueTicketButton": "émettre le billet",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Plusieurs PNRs", 

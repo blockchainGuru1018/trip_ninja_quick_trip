@@ -356,7 +356,8 @@
             "title": "Editar",
             "cancelBookingButton": "Cancelar",
             "sendToQueueButton": "Mandar a cola",
-            "issueTicketButton": "Emitir"
+            "issueTicketButton": "Emitir",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Multiples PNRs", 

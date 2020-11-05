@@ -354,7 +354,9 @@
         "title": "管理する",
         "cancelBookingButton": "予約をキャンセル",
         "sendToQueueButton": "キューに送信",
-        "issueTicketButton": "チケットを発行"
+        "issueTicketButton": "チケットを発行",
+        "downloadButton": "Download Quote"
+
     },
     "multiPNRViewToggle": {
         "title": "複数のPNR", 

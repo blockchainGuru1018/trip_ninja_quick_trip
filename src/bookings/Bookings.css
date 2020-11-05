@@ -74,3 +74,7 @@
 .expanded-pnr-label {
   padding-left: 10px;
 }
+
+.btn-booking-print {
+  color: var(--primary) !important
+}

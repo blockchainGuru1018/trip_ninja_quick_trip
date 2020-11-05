@@ -15,6 +15,9 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../action
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+import SaveAlt from "@material-ui/icons/Print";
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -93,10 +96,40 @@ class Book extends React.Component<BookProps> {
               />
             </div>
           </div>
+          <div className='row'>
+            <div className='col-md-6'>
+              <Button
+                onClick={() => this.downloadStuff()}
+                startIcon={<SaveAlt />}
+              >
+                {this.props.t("bookings.manageBooking.downloadButton")}
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
+
+  downloadStuff = () => {
+    const input: HTMLElement | null = document.getElementById('search-form');
+    if (input) {
+      html2canvas(input)
+        .then((canvas: HTMLCanvasElement) => {
+          console.log(canvas);
+          const imgData: string = canvas.toDataURL('image/png');
+          const pdf = new jsPDF();
+          // @ts-ignore
+          pdf.addImage(imgData, 'PNG', 0, 0);
+          pdf.addPage();
+          pdf.setPage(2);
+          // @ts-ignore
+          pdf.addImage(imgData, 'PNG', 0, 0);
+          pdf.save("download.pdf");
+        });
+    }
+  }
+
 }
 
 export default withTranslation('common')(Book);

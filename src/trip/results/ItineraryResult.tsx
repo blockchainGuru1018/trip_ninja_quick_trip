@@ -83,7 +83,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
             {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
-            {this.props.markupVisible &&
+            {this.props.markupVisible && markup !== 0 &&
             <PriceBreakdownTooltip
               totalPrice={totalPrice}
               markup={markup}

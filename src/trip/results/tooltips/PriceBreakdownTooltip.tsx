@@ -9,7 +9,7 @@ const HtmlTooltip = withStyles((theme: Theme) => ({
   tooltip: {
     backgroundColor: '#ffffff',
     color: 'var(--secondary)',
-    width: '250px',
+    width: '225px',
     height: '75px',
     padding: '20px;',
     fontFamily: 'NeuzeitGro-Reg',

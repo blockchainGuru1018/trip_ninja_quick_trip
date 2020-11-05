@@ -52,7 +52,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       } else if (activeSegment.virtual_interline) {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
         let taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
-        taxesAndFees = this.props.markupVisible ? taxesAndFees : taxesAndFees += distributedMarkup;
+        if (!this.props.markupVisible) taxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
           this.setPricingHtml(baseFare, taxesAndFees, distributedMarkup, true)
@@ -60,14 +60,14 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
         const viBaseFare: number = linkedViSegment!.vi_segment_base_price || 0;
         let viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
-        viTaxesAndFees = this.props.markupVisible ? viTaxesAndFees : viTaxesAndFees += distributedMarkup;
+        if (!this.props.markupVisible) viTaxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
           this.setPricingHtml(viBaseFare, viTaxesAndFees, distributedMarkup, true)
         );
       } else {
         let taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
-        taxesAndFees = this.props.markupVisible ? taxesAndFees : taxesAndFees += distributedMarkup;
+        if (!this.props.markupVisible) taxesAndFees += distributedMarkup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
           this.setPricingHtml(activeSegment.base_price, taxesAndFees, distributedMarkup, true)

@@ -53,7 +53,7 @@
       "title": "運賃の内訳",
       "altTitle": "予約費用",
       "airTransportationCharges": "航空輸送料金",
-      "additionalMarkup": "Additional Markup",
+      "additionalMarkup": "Agent Fee",
       "taxes": "税金および手数料",
       "infoMissing": "情報がありません。"
   },

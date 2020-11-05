@@ -16,7 +16,7 @@ import {
   setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
   searchFlights, getPriceGraph
 } from './actions/SearchActions';
-import { priceFlights } from './actions/PricingActions';
+import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
   updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments
@@ -33,7 +33,7 @@ import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights, updateAdditionalMarkup } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';

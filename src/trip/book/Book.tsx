@@ -12,7 +12,8 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { setPassengerInfo, updatePassengerInfo, bookFlights, updateAdditionalMarkup } from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
+import { updateAdditionalMarkup } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -86,11 +87,6 @@ class Book extends React.Component<BookProps> {
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
                 pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
-              />
-              <AdditionalMarkup
-                additionalMarkupDisplay={true}
-                currency={this.props.pricingDetails.currency}
-                additionalMarkup={this.props.bookingDetails.additional_markup}
                 updateAdditionalMarkup={this.props.updateAdditionalMarkup}
               />
               <PassengerDetails

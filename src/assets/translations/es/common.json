@@ -52,7 +52,7 @@
             "title": "Detalles de Tarifa",
             "altTitle": "Costos de Reservación",
             "airTransportationCharges": "Cargos de transporte aereo",
-            "additionalMarkup": "Additional Markup",
+            "additionalMarkup": "Agent Fee",
             "taxes": "Impuestos",
             "infoMissing": "Información no disponible."
         },

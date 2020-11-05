@@ -61,3 +61,11 @@
 .charges-row {
   max-height: 30px
 }
+
+.additional-markup-input-row {
+  padding-bottom: 5px;
+}
+
+.edit-icon{
+  padding-left: 0px;
+}

@@ -37,7 +37,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
               {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
             : <div>
-              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees), totalMarkup)}
+              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees + (this.props.markupVisible ? 0 : totalMarkup)), totalMarkup)}
               {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
         }

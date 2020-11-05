@@ -48,10 +48,9 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   getActiveSegmentExpandedPricing = () => {
     const pricesByTicketHtml: any = [];
     const distributedMarkup = calculateDistributedMarkup(this.props.pricing.markup, this.props.actives!);
-    console.log(this.props.actives);
+    
     this.props.actives!.forEach((activeSegment: Segment, segmentIndex: number) => {
       let markup = activeSegment.itinerary_markup > 0 ? activeSegment.itinerary_markup : distributedMarkup;
-      console.log(markup);
       if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
         return;
       } else if (activeSegment.virtual_interline) {
@@ -166,7 +165,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{this.formatPrice(taxesAndFees)}</p>
       </div>
     </div>
-    {this.props.markupVisible && markup > 0 &&
+    {this.props.markupVisible && this.props.pricing.markup === 0 &&
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>Markup</p>
@@ -186,7 +185,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   fareBreakdownTotalHtml = (markup: number) =>
     <div className="fare-breakdown-total">
-      {this.props.markupVisible && this.props.expanded && this.props.pricing.markup > 0 &&
+      {this.props.markupVisible && this.props.pricing.markup > 0 &&
       <div className="row charges-row">
         <div className="col-sm-8 fare-breakdown-text">
           <p>Markup</p>

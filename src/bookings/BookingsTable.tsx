@@ -9,7 +9,6 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import SortIcon from '@material-ui/icons/Sort';
-import Moment from 'react-moment';
 import { styled } from '@material-ui/core/styles';
 import { Booking, PnrInfo } from './BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';

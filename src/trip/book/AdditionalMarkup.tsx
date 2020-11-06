@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import {formatPrice} from "../../helpers/CurrencySymbolHelper";
 import EditIcon from '@material-ui/icons/Edit';
 import {styled} from "@material-ui/core/styles";
+import {Alert} from "@material-ui/lab";
+
 
 interface AdditionalMarkupProps {
     additionalMarkup: number;
@@ -29,18 +31,26 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
   let initialState: string;
   if(props.pricingDisplay) {
     initialState = props.additionalMarkup > 0 ? 'set' : 'not-set';
-  }else{
+  } else {
     initialState = props.additionalMarkup > 0 ? 'final' : 'hide';
   }
   const [addMarkupView, setAddMarkupView] = React.useState<string>(initialState);/*'not-set', 'editing', 'set', 'final'*/
-  const handleClick = (value: string) => {
-    setAddMarkupView(value);
-  }; 
+  const [negativeMarkup, setNegativeMarkup] = React.useState<boolean>(false);
+  const validateMarkup = (markup: number) => {
+    if(markup < 0) {
+      setNegativeMarkup(true);
+      props.updateAdditionalMarkup(0);
+    } else {
+      setNegativeMarkup(false);
+      props.updateAdditionalMarkup(markup);
+    }
+  };
+
 
   function getComponent(){
     switch(addMarkupView){
       case 'not-set':
-        return <AdditionalMarkupButton onClick={() => handleClick('editing')}>+ {t("common.fareBreakdown.additionalMarkup")}</AdditionalMarkupButton>;
+        return <AdditionalMarkupButton onClick={() => setAddMarkupView('editing')}>+ {t("common.fareBreakdown.additionalMarkup")}</AdditionalMarkupButton>;
       case 'editing':
         return <div className="row additional-markup-input-row">
           <div className="col-sm-9 fare-breakdown-text my-auto">
@@ -53,14 +63,21 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
                   variant="outlined"
                   type="number"
                   size="small"
-                  value={props.additionalMarkup}
-                  onChange={(event: any) => props.updateAdditionalMarkup(event.target.value)}
-                  onKeyPressCapture={(event: any) => event.key === 'Enter' && handleClick('set')}
-                  onBlur={event => handleClick('set')}
+                  value={props.additionalMarkup === 0 ? '' : props.additionalMarkup}
+                  onChange={(event: any) => validateMarkup(event.target.value)}
+                  onKeyPressCapture={(event: any) => event.key === 'Enter' && setAddMarkupView('set')}
+                  onBlur={() => {
+                    const value: string = props.additionalMarkup === 0 ? 'not-set' : 'set';
+                    setAddMarkupView(value);
+                  }}
                   fullWidth
+                  autoFocus
                 />
             }
           </div>
+          {
+            negativeMarkup && <Alert severity="error">No -ve markups allowed</Alert>
+          }
         </div>;
       case 'final':
         return <div className="row additional-markup-input-row">
@@ -73,13 +90,14 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
         </div>;
       case 'set':
         return <div className="row additional-markup-input-row">
-          <div className="col-sm-3 fare-breakdown-text my-auto">
+          <div className="col-sm-8 fare-breakdown-text my-auto edit-additional-markup-row">
             <p className="standard-text">{t("common.fareBreakdown.additionalMarkup")}</p>
-          </div>
-          <div className="col-sm-5 edit-icon">
             <EditIcon
+              className="btn-edit-additional-markup"
               color="disabled"
-              onClick={() => handleClick('editing')}
+              onClick={() => {
+                setAddMarkupView('editing');
+              }}
               fontSize="small"
             />
           </div>
@@ -94,5 +112,4 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
   return (
     getComponent()
   );
-
 }

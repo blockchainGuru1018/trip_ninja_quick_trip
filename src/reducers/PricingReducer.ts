@@ -17,7 +17,6 @@ function pricingReducer(state: PricingDetails = {} as any, action: any) {
 
     case 'UPDATE_ADDITIONAL_MARKUP':
       let additionalMarkup = action.additionalMarkup === '' ? 0 : parseFloat(action.additionalMarkup);
-      console.log(action.additionalMarkup)
       state.pricing!.additional_markup = additionalMarkup;
       return {...state};
 

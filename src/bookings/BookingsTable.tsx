@@ -122,6 +122,7 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
       .map((booking: Booking, index: number) => {
         let bookingRows: Array<any> = [];
+        console.log(new Date(booking.booking_date+'T00:00:00.000'));
         bookingRows.push(
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left">
@@ -137,10 +138,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">
-              {format(new Date(booking.booking_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+              {format(new Date(booking.booking_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">
-              {format(new Date(booking.departure_date), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+              {format(new Date(booking.departure_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>
@@ -157,10 +158,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 </DetailsLinkCell>
                 <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
                 <TableCell align="left">
-                  <Moment format="MMM DD, YYYY">{booking.booking_date}</Moment>
+                  {format(new Date(booking.booking_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
                 </TableCell>
                 <TableCell align="left">
-                  <Moment format="MMM DD, YYYY">{pnr.departure_date}</Moment>
+                  {format(new Date(pnr.departure_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
                 </TableCell>
                 <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
                 <TableCell align="left">{pnr.route}</TableCell>

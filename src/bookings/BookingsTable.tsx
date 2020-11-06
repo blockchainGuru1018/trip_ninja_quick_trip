@@ -122,7 +122,6 @@ class BookingsTable extends React.Component<BookingsTableProps> {
       .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
       .map((booking: Booking, index: number) => {
         let bookingRows: Array<any> = [];
-        console.log(new Date(booking.booking_date+'T00:00:00.000'));
         bookingRows.push(
           <TableRow key={index.toString()}>
             <DetailsLinkCell align="left">

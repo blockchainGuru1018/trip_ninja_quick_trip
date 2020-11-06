@@ -76,5 +76,9 @@
 }
 
 .btn-booking-print {
-  color: var(--primary) !important
+  color: var(--primary) !important;
+}
+
+.btn-booking-print:hover {
+  background-color: transparent !important;
 }

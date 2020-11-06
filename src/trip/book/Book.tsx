@@ -94,16 +94,6 @@ class Book extends React.Component<BookProps> {
               />
             </div>
           </div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <Button
-                onClick={() => history.push('/download-itinerary-pdf/')}
-                endIcon={<SaveAlt />}
-              >
-                {this.props.t("bookings.manageBooking.downloadButton")}
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     );

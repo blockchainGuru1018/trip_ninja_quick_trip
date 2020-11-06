@@ -117,8 +117,8 @@ export class PreResults extends React.Component<PreResultsProps> {
       const flexPrice: number = getTripPrice(results.flexTripResults);
       const farePrice: number = getTripPrice(results.fareStructureResults);
       this.setState({
-        farePrice: Math.round(farePrice),
-        flexPrice: Math.round(flexPrice)
+        farePrice: Math.round(farePrice+results.fareStructureResults.markup),
+        flexPrice: Math.round(flexPrice+results.flexTripResults.markup)
       });
       return invalidFlexTripResult(results) ? history.push('/results/itinerary/') : '';
     }

@@ -20,6 +20,7 @@ interface ItineraryProps extends WithTranslation {
   currency: string;
   pathSequence: Array<string>;
   pricing: Pricing;
+  markupVisible: boolean;
 }
 
 class Itinerary extends React.Component<ItineraryProps> {
@@ -91,6 +92,7 @@ class Itinerary extends React.Component<ItineraryProps> {
               resultsDetails={this.props.resultsDetails}
               pathSequence={this.props.pathSequence}
               pricing={this.props.pricing}
+              markupVisible={this.props.markupVisible}
             />
           </div>
         </div>

@@ -30,7 +30,8 @@ export const getAndSetTripPrice = (resultsDetails: ResultsDetails, tripType: str
   let clonedResultsDetails: ResultsDetails = _.cloneDeep(resultsDetails);
   clonedResultsDetails.tripType = tripType;
   const priceState: ResultsDetails = identifyAndSetInitialActives(clonedResultsDetails, 'best');
-  const total: number = getTotal([...priceState.activeSegments.values()], 'price');
+  const markup: number = clonedResultsDetails[tripType].markup;
+  const total: number = getTotal([...priceState.activeSegments.values()], 'price') + markup;
   updateStateValue(`${tripType}Price`, Math.round(total));
 };
 

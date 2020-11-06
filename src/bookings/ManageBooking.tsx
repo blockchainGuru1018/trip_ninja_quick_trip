@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import Button from '@material-ui/core/Button';
 import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { Booking } from './BookingsInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import SaveAlt from "@material-ui/icons/Print";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import history from "../History";
 
 
 interface ManageBookingProps extends WithTranslation {
@@ -49,9 +50,10 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             onClick={(e) => {this.props.ticketBooking(this.props.booking);}}>
             {this.props.t("bookings.manageBooking.issueTicketButton")}
           </Button>
-          <Button className='btn-booking-print'
-            onClick={() => console.log('working')}
-            startIcon={<SaveAlt />}
+          <Button
+            className='btn-booking-print'
+            onClick={() => history.push('/download-itinerary-pdf/')}
+            endIcon={<SaveAlt />}
           >
             {this.props.t("bookings.manageBooking.downloadButton")}
           </Button>

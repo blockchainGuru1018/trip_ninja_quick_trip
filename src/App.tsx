@@ -40,6 +40,7 @@ import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
+import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
 
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
@@ -227,6 +228,9 @@ class App extends React.Component<IAppProps> {
                 } />
                 <Route exact path="/travel-restrictions/" render={() =>
                   <TravelRestrictions />
+                } />
+                <Route exact path="/download-itinerary-pdf/" render={() =>
+                  <PDFItineraryDownload/>
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

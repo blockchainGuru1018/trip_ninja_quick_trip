@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import './Book.css';
 import Itinerary from './Itinerary';
 import FareBreakdown from '../../common/FareBreakdown';
@@ -15,9 +15,7 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../action
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
-import SaveAlt from "@material-ui/icons/Print";
+import SaveAlt from "@material-ui/icons/SaveAlt";
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -99,8 +97,8 @@ class Book extends React.Component<BookProps> {
           <div className='row'>
             <div className='col-md-6'>
               <Button
-                onClick={() => this.downloadStuff()}
-                startIcon={<SaveAlt />}
+                onClick={() => history.push('/download-itinerary-pdf/')}
+                endIcon={<SaveAlt />}
               >
                 {this.props.t("bookings.manageBooking.downloadButton")}
               </Button>
@@ -109,25 +107,6 @@ class Book extends React.Component<BookProps> {
         </div>
       </div>
     );
-  }
-
-  downloadStuff = () => {
-    const input: HTMLElement | null = document.getElementById('search-form');
-    if (input) {
-      html2canvas(input)
-        .then((canvas: HTMLCanvasElement) => {
-          console.log(canvas);
-          const imgData: string = canvas.toDataURL('image/png');
-          const pdf = new jsPDF();
-          // @ts-ignore
-          pdf.addImage(imgData, 'PNG', 0, 0);
-          pdf.addPage();
-          pdf.setPage(2);
-          // @ts-ignore
-          pdf.addImage(imgData, 'PNG', 0, 0);
-          pdf.save("download.pdf");
-        });
-    }
   }
 
 }

@@ -6,7 +6,5 @@ export function currencySymbol(currency: string) {
 }
 
 export function formatPrice(price: number, currency: string){
-  console.log('price: ', price);
-  console.log('currency: ', currency);
   return `${currencySymbol(currency)}${price.toFixed()} ${currency}`;
 }

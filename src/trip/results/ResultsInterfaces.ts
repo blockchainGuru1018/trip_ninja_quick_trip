@@ -145,9 +145,6 @@ export interface Segment {
   relativeTime?: number;
   filtered?: boolean;
   credential_info: Credentials;
-  vi_segment_base_price?: number;
-  vi_segment_taxes?: number;
-  vi_segment_fees?: number;
 }
 
 export interface FareInfo {

@@ -33,6 +33,7 @@ interface FlightDetailsDrawerProps {
   resultsDetails: ResultsDetails;
   pathSequence: Array<string>;
   pricing: Pricing;
+  markupVisible: boolean;
 }
 
 export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
@@ -85,6 +86,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
               actives={[...props.resultsDetails.activeSegments.values()]}
               trip={props.trip}
               pathSequence={props.pathSequence}
+              markupVisible={props.markupVisible}
               flightDetailsDisplay={true}
             />
           </div>

@@ -16,6 +16,7 @@ export interface AuthDetails {
   isSuperUser: boolean;
   bookingDisabled: boolean;
   virtualInterliningAccess: boolean;
+  markupVisible: boolean;
   viewPnrPricing: boolean;
 }
 
@@ -36,5 +37,6 @@ export const defaultAuth = {
   agency: '',
   ticketing_queue: '',
   virtualInterliningAccess: false,
+  markupVisible: false,
   viewPnrPricing: false
 };

@@ -36,6 +36,10 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
   }
   const [addMarkupView, setAddMarkupView] = React.useState<string>(initialState);/*'not-set', 'editing', 'set', 'final'*/
   const [negativeMarkup, setNegativeMarkup] = React.useState<boolean>(false);
+  const handleMarkupIsSet = () => {
+    const value: string = props.additionalMarkup === 0 ? 'not-set' : 'set';
+    setAddMarkupView(value);
+  };
   const validateMarkup = (markup: number) => {
     if(markup < 0) {
       setNegativeMarkup(true);
@@ -65,11 +69,8 @@ export default function AdditionalMarkup(props: AdditionalMarkupProps) {
                   size="small"
                   value={props.additionalMarkup === 0 ? '' : props.additionalMarkup}
                   onChange={(event: any) => validateMarkup(event.target.value)}
-                  onKeyPressCapture={(event: any) => event.key === 'Enter' && setAddMarkupView('set')}
-                  onBlur={() => {
-                    const value: string = props.additionalMarkup === 0 ? 'not-set' : 'set';
-                    setAddMarkupView(value);
-                  }}
+                  onKeyPressCapture={(event: any) => event.key === 'Enter' && handleMarkupIsSet()}
+                  onBlur={() => handleMarkupIsSet()}
                   fullWidth
                   autoFocus
                 />

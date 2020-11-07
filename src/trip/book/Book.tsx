@@ -75,6 +75,7 @@ class Book extends React.Component<BookProps> {
                 currency={this.props.currency}
                 pricing={this.props.pricingDetails!.pricing!}
                 pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
+                markupVisible={this.props.authDetails.markupVisible}
               />
             </div>
             <div className="col-md-5">
@@ -84,6 +85,7 @@ class Book extends React.Component<BookProps> {
                 pricing={this.props.pricingDetails!.pricing!}
                 pricingDisplay={true}
                 currency={this.props.pricingDetails.currency}
+                markupVisible={this.props.authDetails.markupVisible}
                 pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
               />
               <PassengerDetails

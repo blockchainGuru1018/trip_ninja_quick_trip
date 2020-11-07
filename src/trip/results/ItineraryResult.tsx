@@ -14,6 +14,7 @@ import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
 import SortOption from "./SortOption";
+import PriceBreakdownTooltip from './tooltips/PriceBreakdownTooltip';
 import { Alert } from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
@@ -29,6 +30,7 @@ interface ItineraryResultsProps extends WithTranslation {
   updateActives: typeof updateActives;
   updateSortType: typeof updateSortType;
   updateEntireTrip: typeof updateEntireTrip;
+  markupVisible: boolean;
   viewPnrPricing: boolean;
 }
 
@@ -80,7 +82,14 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           <h1 className="itinerary-title">{this.props.t("results.itineraryResult.title")}</h1>
           <h4>
             <strong>{this.props.t("commonWords.total")}: </strong>
-            {currencySymbol(this.props.currency)}{Math.round(totalPrice)}
+            {currencySymbol(this.props.currency)}{Math.round(totalPrice+markup)}
+            {this.props.markupVisible &&
+            <PriceBreakdownTooltip
+              totalPrice={totalPrice}
+              markup={markup}
+              currency={this.props.currency}
+            />
+            }
             <span className="divider">|</span>
             {createPassengerStringFromPayload(this.props.passengers)}
           </h4>

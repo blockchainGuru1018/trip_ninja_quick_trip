@@ -5,7 +5,7 @@ import { Pricing } from "../trip/results/PricingInterfaces";
 import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import {Booking, BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import { BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';

@@ -49,6 +49,7 @@ export interface BookingItinerary {
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;
+  itinerary_markup: number;
   segments: Array<BookingSegment>;
   price_breakdown: Pricing
   passengers: Array<BookingPassenger>

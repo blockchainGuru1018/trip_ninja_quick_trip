@@ -112,7 +112,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       }
       {props.loading &&
         <div className="booking-details-loading">
-          <h2>{t('bookings.bookingDetailsDrawer.loadingMessage')}</h2>
+          <h3>{t('bookings.bookingDetailsDrawer.loadingMessage')}</h3>
           <div>
             <CircularProgress />
           </div>

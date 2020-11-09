@@ -27,3 +27,16 @@ export const priceParser = (price: number) => {
     return price.toFixed();
   }
 };
+
+export const numberOfItineraries = (segments: Array<Segment>) => {
+  let itinerariesCount: number = 0;
+  segments.forEach((segment: Segment) => {
+    if (isFirstPositionInStructure(segment)) {
+      itinerariesCount++;
+    }
+    if (segment.virtual_interline && segment.vi_position === 0) {
+      itinerariesCount++;
+    }
+  });
+  return itinerariesCount;
+};

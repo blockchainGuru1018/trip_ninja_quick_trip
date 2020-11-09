@@ -5,7 +5,7 @@ import { Pricing } from "../trip/results/PricingInterfaces";
 import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import {Booking, BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
@@ -26,8 +26,8 @@ interface FareBreakdownDetailsProps extends WithTranslation {
 }
 
 class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
-  render() {
-    const totalMarkup: number = this.props.pricing.markup > 0 ? this.props.pricing.markup : getTotal(this.props.actives!, 'itinerary_markup') ;
+  render() {    
+    const totalMarkup: number = this.props.pricing.markup > 0 ? this.props.pricing.markup : this.getItineraryMarkupTotal();
     return (
       <div>
         {
@@ -91,8 +91,8 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       const baseFare: number = itinerary.price_breakdown.base_fare;
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes; 
       pricesByTicketHtml.push(
-        this.setSegmentHeaderHtml((baseFare + taxesAndFees), undefined, itinerary),
-        this.setPricingHtml(baseFare, taxesAndFees, itinerary.price_breakdown.markup, true)
+        this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
+        this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)
       );
     });
     return pricesByTicketHtml;
@@ -141,6 +141,18 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       ? pathSequenceString += `${segment.origin} - ${segment.destination}, `
       : pathSequenceString += `${this.props.pathSequence![itineraryPosition]}, `);
     return pathSequenceString.slice(0, -2);
+  }
+
+  getItineraryMarkupTotal = () => {
+    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : this.getItinerariesMarkup();
+  }
+
+  getItinerariesMarkup = () => {
+    let itineraryMarkupSum: number = 0;
+    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
+      itineraryMarkupSum += itinerary.itinerary_markup;
+    });
+    return itineraryMarkupSum;
   }
 
   createItineraryPathSequenceStringBooking = (itinerary: BookingItinerary) => {

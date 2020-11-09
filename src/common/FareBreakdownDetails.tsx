@@ -1,7 +1,6 @@
 
 import React from "react";
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { currencySymbol } from "../helpers/CurrencySymbolHelper";
 import { Pricing } from "../trip/results/PricingInterfaces";
 import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
@@ -9,6 +8,9 @@ import { createPassengersString, createStringFromPassengerList } from "../helper
 import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
+import { updateAdditionalMarkup } from '../actions/PricingActions';
+import AdditionalMarkup from "../trip/book/AdditionalMarkup";
+import { formatPrice } from "../helpers/CurrencySymbolHelper";
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -19,6 +21,8 @@ interface FareBreakdownDetailsProps extends WithTranslation {
   pathSequence?: Array<string>;
   itineraries?: Array<BookingItinerary>;
   markupVisible: boolean;
+  pricingDisplay?: boolean;
+  updateAdditionalMarkup?: typeof updateAdditionalMarkup;
 }
 
 class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
@@ -120,7 +124,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         </div>
       </div>
       <div className='col-sm-4 fare-breakdown-price'>
-        <p className="text-bold">{this.formatPrice(itineraryTotal)}</p>
+        <p className="text-bold">{formatPrice(itineraryTotal, this.props.currency)}</p>
       </div>
     </div>
 
@@ -154,7 +158,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{this.props.t("common.fareBreakdown.airTransportationCharges")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p>{this.formatPrice(baseFare)}</p>
+        <p>{formatPrice(baseFare, this.props.currency)}</p>
       </div>
     </div>
     <div className="row charges-row">
@@ -162,26 +166,29 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{this.props.t("common.fareBreakdown.taxes")}</p>
       </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p>{this.formatPrice(taxesAndFees)}</p>
+        <p>{formatPrice(taxesAndFees, this.props.currency)}</p>
       </div>
     </div>
     {this.props.markupVisible && this.props.pricing.markup === 0 &&
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>Markup</p>
-      </div>      
+      </div>
       <div className="col-sm-4 fare-breakdown-price">
-        <p>{this.formatPrice(markup)}</p>
+        <p>{formatPrice(markup, this.props.currency)}</p>
       </div>
     </div>
     }
+    {!expanded &&
+      <AdditionalMarkup
+        additionalMarkupDisplay={true}
+        additionalMarkup={this.props.pricing.additional_markup}
+        currency={this.props.currency}
+        updateAdditionalMarkup={this.props.updateAdditionalMarkup!}
+        pricingDisplay={this.props.pricingDisplay}
+      />
+    }
   </div>
-
-
-  formatPrice = (price: number) => {
-    const currency = this.props.currency;
-    return `${currencySymbol(currency)}${price.toFixed()} ${currency}`;
-  }
 
   fareBreakdownTotalHtml = (markup: number) =>
     <div className="fare-breakdown-total">
@@ -189,18 +196,27 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       <div className="row charges-row">
         <div className="col-sm-8 fare-breakdown-text">
           <p>Markup</p>
-        </div>      
+        </div>
         <div className="col-sm-4 fare-breakdown-price">
-          <p>{this.formatPrice(markup)}</p>
+          <p>{formatPrice(markup, this.props.currency)}</p>
         </div>
       </div>
+      }
+      {this.props.expanded &&
+      <AdditionalMarkup
+        additionalMarkup={this.props.pricing.additional_markup}
+        currency={this.props.currency}
+        additionalMarkupDisplay={true}
+        updateAdditionalMarkup={this.props.updateAdditionalMarkup!}
+        pricingDisplay={this.props.pricingDisplay}
+      />
       }
       <div className="row">
         <div className="col-sm-8 fare-breakdown-text">
           <p className="text-bold">{this.props.t("commonWords.total")}</p>
         </div>
         <div className="col-sm-4 fare-breakdown-price">
-          <p className="text-bold">{this.formatPrice(this.props.pricing.confirmed_total_price + markup)}</p>
+          <p className="text-bold">{formatPrice(this.props.pricing.confirmed_total_price + markup + this.props.pricing.additional_markup, this.props.currency)}</p>
         </div>
       </div>
     </div>

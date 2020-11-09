@@ -5,10 +5,12 @@ import { Pricing } from "../trip/results/PricingInterfaces";
 import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import { BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
+import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
 import AdditionalMarkup from "../trip/book/AdditionalMarkup";
-import {formatPrice} from "../helpers/CurrencySymbolHelper";
+import { formatPrice } from "../helpers/CurrencySymbolHelper";
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -24,7 +26,8 @@ interface FareBreakdownDetailsProps extends WithTranslation {
 }
 
 class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
-  render() {
+  render() {    
+    const totalMarkup: number = this.props.pricing.markup > 0 ? this.props.pricing.markup : this.getItineraryMarkupTotal();
     return (
       <div>
         {
@@ -35,11 +38,11 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
                   ? this.getActiveSegmentExpandedPricing()
                   : this.getActiveSegmentExpandedPricingBookingTable()
               }
-              {this.fareBreakdownTotalHtml()}
+              {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
             : <div>
-              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees), this.props.pricing.markup)}
-              {this.fareBreakdownTotalHtml()}
+              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees + (this.props.markupVisible ? 0 : totalMarkup)), totalMarkup)}
+              {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
         }
       </div>
@@ -48,28 +51,34 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   getActiveSegmentExpandedPricing = () => {
     const pricesByTicketHtml: any = [];
+    const distributedMarkup = calculateDistributedMarkup(this.props.pricing.markup, this.props.actives!);
+
     this.props.actives!.forEach((activeSegment: Segment, segmentIndex: number) => {
+      let markup = activeSegment.itinerary_markup > 0 ? activeSegment.itinerary_markup : distributedMarkup;
       if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
         return;
       } else if (activeSegment.virtual_interline) {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
-        const taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
+        let taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
+        if (!this.props.markupVisible) taxesAndFees += markup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
-          this.setPricingHtml(baseFare, taxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(baseFare, taxesAndFees, markup, true)
         );
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
         const viBaseFare: number = linkedViSegment!.vi_segment_base_price || 0;
-        const viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
+        let viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
+        if (!this.props.markupVisible) viTaxesAndFees += markup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
-          this.setPricingHtml(viBaseFare, viTaxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(viBaseFare, viTaxesAndFees, markup, true)
         );
       } else {
-        const taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
+        let taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
+        if (!this.props.markupVisible) taxesAndFees += markup;
         pricesByTicketHtml.push(
           this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
-          this.setPricingHtml(activeSegment.base_price, taxesAndFees, this.props.pricing.markup, true)
+          this.setPricingHtml(activeSegment.base_price, taxesAndFees, markup, true)
         );
       }
     });
@@ -80,10 +89,10 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     const pricesByTicketHtml: any = [];
     this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
-      const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
+      const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes; 
       pricesByTicketHtml.push(
-        this.setSegmentHeaderHtml((baseFare + taxesAndFees), undefined, itinerary),
-        this.setPricingHtml(baseFare, taxesAndFees, itinerary.price_breakdown.markup, true)
+        this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
+        this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)
       );
     });
     return pricesByTicketHtml;
@@ -134,6 +143,18 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return pathSequenceString.slice(0, -2);
   }
 
+  getItineraryMarkupTotal = () => {
+    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : this.getItinerariesMarkup();
+  }
+
+  getItinerariesMarkup = () => {
+    let itineraryMarkupSum: number = 0;
+    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
+      itineraryMarkupSum += itinerary.itinerary_markup;
+    });
+    return itineraryMarkupSum;
+  }
+
   createItineraryPathSequenceStringBooking = (itinerary: BookingItinerary) => {
     let pathSequenceString = '';
     itinerary.segments.forEach((segment: BookingSegment) => {
@@ -160,7 +181,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{formatPrice(taxesAndFees, this.props.currency)}</p>
       </div>
     </div>
-    {this.props.markupVisible && !expanded &&
+    {this.props.markupVisible && this.props.pricing.markup === 0 &&
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>Markup</p>
@@ -181,15 +202,15 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     }
   </div>
 
-  fareBreakdownTotalHtml = () =>
+  fareBreakdownTotalHtml = (markup: number) =>
     <div className="fare-breakdown-total">
-      {this.props.markupVisible && this.props.expanded &&
+      {this.props.markupVisible && this.props.pricing.markup > 0 &&
       <div className="row charges-row">
         <div className="col-sm-8 fare-breakdown-text">
           <p>Markup</p>
         </div>
         <div className="col-sm-4 fare-breakdown-price">
-          <p>{formatPrice(this.props.pricing.markup, this.props.currency)}</p>
+          <p>{formatPrice(markup, this.props.currency)}</p>
         </div>
       </div>
       }
@@ -207,7 +228,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
           <p className="text-bold">{this.props.t("commonWords.total")}</p>
         </div>
         <div className="col-sm-4 fare-breakdown-price">
-          <p className="text-bold">{formatPrice(this.props.pricing.confirmed_total_price + this.props.pricing.markup + this.props.pricing.additional_markup, this.props.currency)}</p>
+          <p className="text-bold">{formatPrice(this.props.pricing.confirmed_total_price + markup + this.props.pricing.additional_markup, this.props.currency)}</p>
         </div>
       </div>
     </div>

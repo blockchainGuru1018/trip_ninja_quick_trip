@@ -343,7 +343,7 @@
             "title": "Bookings"
         },
         "bookingsTable": {
-            "dateFormat": "M MMM, Y",
+            "dateFormat": "d MMM, Y",
             "noBookings": "No hay reservaciones!",
             "pnrNumbers": "Numeros de PNR",
             "passenger1": "Pasajero 1",

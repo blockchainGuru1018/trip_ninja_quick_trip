@@ -126,26 +126,6 @@ class Search extends React.Component<SearchProps> {
     addFlight.then(() => this.setInputFocus());
   }
 
-  // downloadStuff = () => {
-  //   const input: HTMLElement | null = document.getElementById('search-form');
-  //   if (input) {
-  //     html2canvas(input)
-  //       .then((canvas: HTMLCanvasElement) => {
-  //         console.log(canvas);
-  //         const imgData: string = canvas.toDataURL('image/png');
-  //         const pdf = new jsPDF();
-  //         // @ts-ignore
-  //         pdf.addImage(imgData, 'PNG', 0, 0);
-  //         pdf.addPage();
-  //         pdf.setPage(2);
-  //         // @ts-ignore
-  //         pdf.addImage(imgData, 'PNG', 0, 0);
-  //         pdf.save("download.pdf");
-  //
-  //       });
-  //   }
-  // }
-
   setInputFocus = () => {
     if(this.refs) {
       let ref: any = this.refs['flightInput' + (this.props.searchDetails.flights.length - 1)];

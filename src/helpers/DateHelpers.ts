@@ -50,14 +50,6 @@ export function numberOfNightsDifference(first: string, second: string): number 
 }
 
 export function getTodaysDate() {
-  const date = new Date();
-  let month = '' + (date.getMonth() + 1);
-  let day = '' + date.getDate();
-
-  if (month.length < 2)
-    month = '0' + month;
-  if (day.length < 2)
-    day = '0' + day;
-
-  return [date.getFullYear(), month, day].join('-');
+  const date = new Date().toISOString();
+  return date.slice(0, 10);
 }

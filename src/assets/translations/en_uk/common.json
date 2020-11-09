@@ -53,6 +53,7 @@
             "title": "Fare Breakdown",
             "altTitle": "Booking Costs",
             "airTransportationCharges": "Air Transportation Charges",
+            "additionalMarkup": "Agent Fee",
             "taxes": "Taxes and Fees",
             "infoMissing": "Information is not available."
         },

@@ -27,6 +27,7 @@ export interface PricingRequestInterface {
 }
 
 export const defaultPricing: Pricing = {
+  additional_markup: 0,
   confirmed_total_price: 100,
   original_total_price: 100,
   base_fare: 75,
@@ -90,6 +91,7 @@ export interface Credentials {
 }
 
 export interface Pricing {
+  additional_markup: number;
   confirmed_total_price: number;
   original_total_price: number;
   base_fare: number;

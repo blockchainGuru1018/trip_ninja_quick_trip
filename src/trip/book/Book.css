@@ -59,8 +59,23 @@
   padding: 0px;
 }
 
+.edit-additional-markup-row {
+  display: grid;
+  grid-template-columns: 90px 1fr
+}
+
+.btn-edit-additional-markup {
+  max-width: 20px;
+}
+
+.btn-edit-additional-markup:hover {
+  color: var(--primary);
+  cursor: pointer;
+}
+
 .fare-breakdown-price {
   text-align: right;
+  padding-right: 0px;
 }
 
 .passenger-form-row {

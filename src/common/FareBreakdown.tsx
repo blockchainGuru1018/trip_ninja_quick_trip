@@ -4,6 +4,8 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import FareBreakdownDetails from "./FareBreakdownDetails";
 import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { BookingItinerary } from "../bookings/BookingsInterfaces";
+import { updateAdditionalMarkup } from '../actions/PricingActions';
+
 
 interface FareBreakdownProps extends WithTranslation {
     pricing: Pricing;
@@ -15,6 +17,7 @@ interface FareBreakdownProps extends WithTranslation {
     itineraries?: Array<BookingItinerary>
     pathSequence?: Array<string>
     flightDetailsDisplay?: boolean;
+    updateAdditionalMarkup?: typeof updateAdditionalMarkup;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
@@ -44,7 +47,9 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               actives={this.props.actives}
               itineraries={this.props.itineraries}
               pathSequence={this.props.pathSequence}
-              markupVisible={this.props.markupVisible}  
+              markupVisible={this.props.markupVisible}
+              pricingDisplay={this.props.pricingDisplay}
+              updateAdditionalMarkup={this.props.updateAdditionalMarkup}
             />
             : <div className="row">
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>

@@ -12,6 +12,7 @@ import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
+import { updateAdditionalMarkup } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -28,6 +29,7 @@ interface BookProps extends WithTranslation {
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAdditionalMarkup: typeof updateAdditionalMarkup;
   bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
   dateFormat: string;
@@ -86,6 +88,7 @@ class Book extends React.Component<BookProps> {
                 currency={this.props.pricingDetails.currency}
                 markupVisible={this.props.authDetails.markupVisible}
                 pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
+                updateAdditionalMarkup={this.props.updateAdditionalMarkup}
               />
               <PassengerDetails
                 passengers={this.props.passengers}

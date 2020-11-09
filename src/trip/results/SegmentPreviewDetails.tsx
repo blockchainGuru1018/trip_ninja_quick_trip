@@ -48,7 +48,7 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
     const segment_id = Object.keys(brands);
     return(
       <div className="col-md-12 segment-preview-details-container">
-        {((this.props.viParent && this.props.segment.status === 'active') || (!this.props.viParent && this.props.segmentSelect)) && 
+        {((this.props.segment.status === 'active') || (!this.props.viParent && this.props.segmentSelect)) && 
           <div>
             <FlightResultsPath
               flightDetails={this.props.flightDetails}

@@ -16,7 +16,7 @@ import {
   setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
   searchFlights, getPriceGraph
 } from './actions/SearchActions';
-import { priceFlights } from './actions/PricingActions';
+import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
   updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments
@@ -69,6 +69,7 @@ interface IAppProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAdditionalMarkup: typeof updateAdditionalMarkup;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
@@ -210,6 +211,7 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
+                    updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}

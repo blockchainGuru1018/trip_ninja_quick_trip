@@ -12,8 +12,6 @@ import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 
 
 const AddFlightButton = styled(Button)({

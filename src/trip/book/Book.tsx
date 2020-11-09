@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React from 'react';
 import './Book.css';
 import Itinerary from './Itinerary';
 import FareBreakdown from '../../common/FareBreakdown';
@@ -15,7 +15,6 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../action
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import SaveAlt from "@material-ui/icons/SaveAlt";
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',

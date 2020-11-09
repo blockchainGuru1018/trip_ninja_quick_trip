@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';

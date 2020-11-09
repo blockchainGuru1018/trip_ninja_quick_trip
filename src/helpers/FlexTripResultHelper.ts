@@ -1,4 +1,4 @@
-import { ResultsDetails } from '../trip/results/ResultsInterfaces';
+import {ResultsDetails, Segment} from '../trip/results/ResultsInterfaces';
 import _ from "lodash";
 import { getTotal } from "./MiscHelpers";
 import { identifyAndSetInitialActives } from "./RelativesHelper";
@@ -30,8 +30,10 @@ export const getAndSetTripPrice = (resultsDetails: ResultsDetails, tripType: str
   let clonedResultsDetails: ResultsDetails = _.cloneDeep(resultsDetails);
   clonedResultsDetails.tripType = tripType;
   const priceState: ResultsDetails = identifyAndSetInitialActives(clonedResultsDetails, 'best');
-  const markup: number = clonedResultsDetails[tripType].markup;
-  const total: number = getTotal([...priceState.activeSegments.values()], 'price') + markup;
+  const tripMarkup: number = clonedResultsDetails[tripType].markup;
+  const clonedActives: Array<Segment> = [...priceState.activeSegments.values()];
+  const markup: number = tripMarkup !== 0 ? tripMarkup : getTotal(clonedActives, 'itinerary_markup');
+  const total: number = getTotal(clonedActives, 'price') + markup;
   updateStateValue(`${tripType}Price`, Math.round(total));
 };
 

@@ -41,13 +41,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_ENTIRE_TRIP':
-      if (!viable(state)) {
-        setIndex0AsActives(state);
-      }
-      setRelativesAndUpdateActives(state, true, action.sortBy);
-      setRelativesAndUpdateActives(state);
-      checkFiltersSuccess(state);
-      return {...state};
+      return updateEntireTripReducer(state, action);
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);
@@ -78,9 +72,23 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
     case 'SET_FILTER_WARNING':
       return {...state, filterWarning: action.warning};
 
+    case 'UPDATE_STATE_VALUE':
+      state[action.key] = action.value;
+      return {...state};
+
     default:
       return state;
   }
+}
+
+function updateEntireTripReducer(state: ResultsDetails, sortBy: string) {
+  if (!viable(state)) {
+    setIndex0AsActives(state);
+  }
+  setRelativesAndUpdateActives(state, true, sortBy);
+  setRelativesAndUpdateActives(state);
+  checkFiltersSuccess(state);
+  return {...state};
 }
 
 function updateSegmentFareFamily(state: ResultsDetails, action: any) {

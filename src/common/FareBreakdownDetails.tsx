@@ -26,7 +26,7 @@ interface FareBreakdownDetailsProps extends WithTranslation {
 }
 
 class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
-  render() {    
+  render() {
     const totalMarkup: number = this.props.pricing.markup > 0 ? this.props.pricing.markup : this.getItineraryMarkupTotal();
     return (
       <div>
@@ -89,7 +89,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     const pricesByTicketHtml: any = [];
     this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
-      const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes; 
+      const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
       pricesByTicketHtml.push(
         this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
         this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)

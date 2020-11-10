@@ -3,12 +3,14 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import { Results, Segment } from '../results/ResultsInterfaces';
+import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import ItineraryDetails from '../../common/ItineraryDetails';
 import { useTranslation } from 'react-i18next';
+import { Pricing } from "../results/PricingInterfaces";
+import FareBreakdown from "../../common/FareBreakdown";
 
 const useStyles = makeStyles({
   root: {
@@ -28,6 +30,10 @@ interface FlightDetailsDrawerProps {
   selectedTrip: Array<Segment>;
   trip: Results;
   currency: string;
+  resultsDetails: ResultsDetails;
+  pathSequence: Array<string>;
+  pricing: Pricing;
+  markupVisible: boolean;
 }
 
 export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
@@ -69,6 +75,20 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
             <IconButton onClick={() => setState({...state, [anchor]: false})}>
               <CloseIcon fontSize="large" />
             </IconButton>
+          </div>
+        </div>
+        <Divider />
+        <div>
+          <div className="col-sm-4 no-pad-left">
+            <FareBreakdown
+              pricing={props.pricing}
+              currency={props.currency}
+              actives={[...props.resultsDetails.activeSegments.values()]}
+              trip={props.trip}
+              pathSequence={props.pathSequence}
+              markupVisible={props.markupVisible}
+              flightDetailsDisplay={true}
+            />
           </div>
         </div>
         <Divider />

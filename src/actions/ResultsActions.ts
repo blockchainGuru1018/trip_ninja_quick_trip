@@ -94,6 +94,14 @@ export function setBrandedFaresInfo(segment: Segment, data: PricingDetails) {
   };
 }
 
+export function updateStateValue(key: string, value: any) {
+  return {
+    type: 'UPDATE_STATE_VALUE',
+    key,
+    value
+  };
+}
+
 export const getTravelportBrands = (pricingPayload: PricingRequestInterface, segment: Segment) => (dispatch: any) => {
   const url: string = '/price/';
   return API.post(url, pricingPayload)

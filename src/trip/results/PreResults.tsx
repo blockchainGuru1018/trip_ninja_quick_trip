@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import history from '../../History';
 import { ResultsDetails } from './ResultsInterfaces';
 import { createPassengersString } from '../../helpers/PassengersListHelper';
-import { setActiveSegments, setTripType } from '../../actions/ResultsActions';
+import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
+import { setActiveSegments, setTripType, updateStateValue } from '../../actions/ResultsActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface PreResultsProps extends WithTranslation {
@@ -14,18 +15,17 @@ interface PreResultsProps extends WithTranslation {
   currency: string;
   setTripType: typeof setTripType;
   setActiveSegments: typeof setActiveSegments;
+  updateStateValue: typeof updateStateValue;
 }
 
 export class PreResults extends React.Component<PreResultsProps> {
   state = {
-    flexPrice: 0,
-    farePrice: 0,
     fareStructurePassengersString: '',
     flexTripPassengersString: ''
   }
 
   componentDidMount() {
-    this.invalidFlexTripResult();
+    this.validateFlexTripResult();
     return this.props.resultsDetails.fareStructureResults
       ? this.setState({
         fareStructurePassengersString: createPassengersString(
@@ -36,6 +36,10 @@ export class PreResults extends React.Component<PreResultsProps> {
         )
       })
       : '';
+  }
+
+  componentDidUpdate() {
+    this.validateFlexTripResult();
   }
 
   render() {
@@ -50,7 +54,7 @@ export class PreResults extends React.Component<PreResultsProps> {
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">{this.props.t("results.preResults.yourTrip")}</p>
                 <p className="standard-text">
-                  {this.props.t("results.preResults.from") + ': ' + this.state.farePrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.props.resultsDetails.fareStructureResultsPrice + ' ' + this.props.currency}
                 </p>
                 <p className="standard-text text-small">
                   {this.state.fareStructurePassengersString}
@@ -77,10 +81,10 @@ export class PreResults extends React.Component<PreResultsProps> {
             <div className="col-xl-4 offset-xl-2 col-md-4 offset-md-4 flight-option-container-flex col-sm-6 offset-sm-3" id='flex-trip-pre-result'>
               <div className="default-box-styles flight-option-box">
                 <p className="pre-result-subtitle">
-                  {this.props.t("results.preResults.reorderDestinationsPrompt") + (this.state.farePrice - this.state.flexPrice)}
+                  {this.props.t("results.preResults.reorderDestinationsPrompt") + (this.props.resultsDetails.fareStructureResultsPrice - this.props.resultsDetails.flexTripResultsPrice)}
                 </p>
                 <p className="standard-text">
-                  {this.props.t("results.preResults.from") + ': ' + this.state.flexPrice + ' ' + this.props.currency}
+                  {this.props.t("results.preResults.from") + ': ' + this.props.resultsDetails.flexTripResultsPrice + ' ' + this.props.currency}
                 </p>
                 <p className='standard-text text-small'>
                   {this.state.flexTripPassengersString}
@@ -110,34 +114,12 @@ export class PreResults extends React.Component<PreResultsProps> {
     );
   }
 
-  invalidFlexTripResult = () => {
-    return this.compareFlexTripPrice() && this.compareFlexTripRoute() ? history.push('/results/itinerary/') : '';
-  }
-
-  compareFlexTripPrice = () => {
+  validateFlexTripResult = () => {
     const results: ResultsDetails = this.props.resultsDetails;
     if (results.flexTripResults && results.fareStructureResults) {
-      const flexPrice: number = results.flexTripResults.segments.reduce((total, segment) =>
-      {return total + segment[0].price;}, 0
-      );
-      const farePrice: number = results.fareStructureResults.segments.reduce((total, segment) =>
-      {return total + segment[0].price;},0
-      );
-      this.setState({
-        farePrice: Math.round(farePrice),
-        flexPrice: Math.round(flexPrice)
-      });
-      return flexPrice >= farePrice;
-    } else {
-      return true;
+      return invalidFlexTripResult(results, this.props.updateStateValue) ? history.push('/results/itinerary/') : '';
     }
-  }
-
-  compareFlexTripRoute = () => {
-    const flexTripPath = JSON.stringify(this.props.resultsDetails.flexTripResults?.path_sequence);
-    const fareStructurePath = JSON.stringify(this.props.resultsDetails.fareStructureResults?.path_sequence);
-    return flexTripPath === fareStructurePath;
-  }
+  };
 }
 
 export default withTranslation('common')(PreResults);

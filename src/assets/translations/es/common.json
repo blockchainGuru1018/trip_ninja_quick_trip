@@ -29,7 +29,8 @@
         "nationality": "Nacionalidad",
         "passportNumber": "Numero de Pasaporte",
         "passportExpiry": "Expiración de Pasaporte",
-        "phone": "Telefono"
+        "phone": "Telefono",
+        "ticket": "Ticket"
     },
     "common": {
         "navBar":{
@@ -52,6 +53,7 @@
             "title": "Detalles de Tarifa",
             "altTitle": "Costos de Reservación",
             "airTransportationCharges": "Cargos de transporte aereo",
+            "additionalMarkup": "Agent Fee",
             "taxes": "Impuestos",
             "infoMissing": "Información no disponible."
         },
@@ -265,7 +267,12 @@
                 "noOfStops0Label": "Solo directo",
                 "noOfStops1Label": "1 escala",
                 "noOfStops2Label": "2 escalas",
-                "filterFailMessage": "No hay vuelos para este filtro"
+                "filterFailMessage": "No hay vuelos para este filtro",
+                "refundability": "reembolso",
+                "refundabilityDescription": "Reembolso",
+                "refundabilityAnyLabel": "Cualquiera",
+                "refundabilityNon-RefundableLabel": "No Reembolsable",
+                "refundabilityRefundableLabel": "Reembolsable"
             }
         }
     },
@@ -336,7 +343,7 @@
             "title": "Bookings"
         },
         "bookingsTable": {
-            "dateFormat": "M MMM, Y",
+            "dateFormat": "d MMM, Y",
             "noBookings": "No hay reservaciones!",
             "pnrNumbers": "Numeros de PNR",
             "passenger1": "Pasajero 1",

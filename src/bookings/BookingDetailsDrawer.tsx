@@ -112,7 +112,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
       }
       {props.loading &&
         <div className="booking-details-loading">
-          <h2>{t('bookings.bookingDetailsDrawer.loadingMessage')}</h2>
+          <h3>{t('bookings.bookingDetailsDrawer.loadingMessage')}</h3>
           <div>
             <CircularProgress />
           </div>
@@ -181,9 +181,11 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           <Divider />
           <div className="row booking-details-section" id="booking-cost">
             <div className="col-sm-4 no-pad-left">
-              <FareBreakdown 
+              <FareBreakdown
                 pricing={props.booking.details!.pricing}
                 currency={props.booking.currency}
+                markupVisible={props.authDetails.markupVisible}
+                itineraries={props.booking.details?.itinerary}
               />
             </div>
           </div>

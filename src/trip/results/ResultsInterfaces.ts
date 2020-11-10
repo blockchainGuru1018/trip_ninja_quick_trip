@@ -6,12 +6,14 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
-  activeSegments: ActiveSegmentsMap
+  activeSegments: ActiveSegmentsMap;
   segmentPositionMap: SegmentPositionMap;
   itinerarySortBy: string;
   segmentSortBy: Array<string>;
-  segmentFilters?: Array<Array<Filter>>
-  itineraryFilters?: Array<Filter>
+  segmentFilters?: Array<Array<Filter>>;
+  itineraryFilters?: Array<Filter>;
+  fareStructureResultsPrice: number;
+  flexTripResultsPrice: number;
 }
 
 export interface Filter {
@@ -24,7 +26,8 @@ export interface Filter {
 export const defaultFilters: Array<Filter> = [
   {type: 'baggage', value: '0', position: 0, failed: false},
   {type: 'noOfStops', value: 'Any', position: 1, failed: false},
-  {type: 'alliance', value: 'Any', position: 2, failed: false}
+  {type: 'alliance', value: 'Any', position: 2, failed: false},
+  {type: 'refundability', value: 'Any', position: 0, failed: false}
 ];
 
 export class ActiveSegmentsMap extends Map<number, Segment>{
@@ -82,7 +85,9 @@ export const defaultResultsDetails: ResultsDetails = {
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
   itinerarySortBy: 'best',
-  segmentSortBy: []
+  segmentSortBy: [],
+  fareStructureResultsPrice: 0,
+  flexTripResultsPrice: 0
 };
 
 export interface Errors {
@@ -107,6 +112,7 @@ export interface Segment {
   destination_name: string;
   itinerary_type: string;
   itinerary_id: string;
+  itinerary_markup: number;
   itinerary_structure: string;
   segment_position: number;
   vi_solution_id?: string;
@@ -138,8 +144,11 @@ export interface Segment {
   relativePrice?: number;
   relativeWeight?: number;
   relativeTime?: number;
-  filtered?: boolean
-  credential_info: Credentials
+  filtered?: boolean;
+  credential_info: Credentials;
+  vi_segment_base_price?: number;
+  vi_segment_taxes?: number;
+  vi_segment_fees?: number;
 }
 
 export interface FareInfo {
@@ -157,7 +166,7 @@ export interface Baggage {
 export interface AdditionalDetails {
   e_ticketability: boolean;
   latest_ticketing_time: string;
-  refundable: string;
+  refundable: boolean;
   cancel_penalty: Penalty;
   change_penalty: Penalty;
   fare_types_info: string;

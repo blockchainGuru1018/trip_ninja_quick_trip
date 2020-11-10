@@ -49,7 +49,26 @@ export interface BookingItinerary {
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;
-  segments: Array<BookingSegment>; 
+  itinerary_markup: number;
+  segments: Array<BookingSegment>;
+  price_breakdown: Pricing
+  passengers: Array<BookingPassenger>
+}
+
+export interface BookingPassenger {
+  date_of_birth: string;
+  email: string
+  first_name: string
+  gender: string
+  is_primary: boolean
+  last_name: string
+  passenger_type: string
+  passport_country?: string
+  passport_expiration?: string
+  passport_number?: string
+  phone_number: string
+  title?: string
+  unique_identifier: string
 }
 
 export interface BookingSegment {

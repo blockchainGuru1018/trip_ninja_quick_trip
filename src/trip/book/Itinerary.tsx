@@ -13,10 +13,14 @@ import i18n from '../../i18n';
 import { dateLocaleMap } from '../../localeMap';
 import { format } from 'date-fns';
 import { getFullTripWithVi } from "../../helpers/VirtualInterliningHelpers";
+import { Pricing } from "../results/PricingInterfaces";
 
 interface ItineraryProps extends WithTranslation {
   resultsDetails: ResultsDetails;
   currency: string;
+  pathSequence: Array<string>;
+  pricing: Pricing;
+  markupVisible: boolean;
 }
 
 class Itinerary extends React.Component<ItineraryProps> {
@@ -85,6 +89,10 @@ class Itinerary extends React.Component<ItineraryProps> {
               trip={trip}
               selectedTrip={selectedTrip}
               currency={this.props.currency}
+              resultsDetails={this.props.resultsDetails}
+              pathSequence={this.props.pathSequence}
+              pricing={this.props.pricing}
+              markupVisible={this.props.markupVisible}
             />
           </div>
         </div>

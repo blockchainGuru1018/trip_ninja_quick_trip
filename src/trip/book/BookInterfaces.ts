@@ -3,6 +3,7 @@ import { AdditionalDetails, Brand } from "../results/ResultsInterfaces";
 export interface BookingDetails {
   trip_id?: string;
   add_to_ticketing_queue?: boolean;
+  additional_markup: number;
   ticketing_queue?: string;
   ticket?: boolean;
   agent_email?: string;
@@ -67,5 +68,6 @@ export const defaultBookingDetails: BookingDetails = {
   'trip_id': '',
   'passengers': [defaultPassengerInfo],
   'billing': defaultBilling,
-  'loading': false
+  'loading': false,
+  'additional_markup': 0,
 };

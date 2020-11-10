@@ -17,6 +17,14 @@ function setPricingResults(data: PricingDetails) {
   };
 }
 
+
+export function updateAdditionalMarkup(additionalMarkup: number) {
+  return {
+    type: 'UPDATE_ADDITIONAL_MARKUP',
+    additionalMarkup
+  };
+}
+
 export const priceFlights = (pricingPayload: PricingRequestInterface) => (dispatch: any) => {
   const url: string = '/price/';
   dispatch(pricingLoading(true));

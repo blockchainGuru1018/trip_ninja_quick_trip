@@ -10,6 +10,7 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
 
     case 'BOOKING_LOADING':
       return {...state, loading: action.value};
+
     default:
       return state;
   }

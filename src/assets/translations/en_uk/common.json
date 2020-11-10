@@ -29,7 +29,8 @@
         "nationality": "Nationality",
         "passportNumber": "Passport #",
         "passportExpiry": "Passport Expiry",
-        "phone": "Phone"
+        "phone": "Phone",
+        "ticket": "Ticket"
     },
     "common": {
         "navBar":{
@@ -52,6 +53,7 @@
             "title": "Fare Breakdown",
             "altTitle": "Booking Costs",
             "airTransportationCharges": "Air Transportation Charges",
+            "additionalMarkup": "Agent Fee",
             "taxes": "Taxes and Fees",
             "infoMissing": "Information is not available."
         },
@@ -265,7 +267,12 @@
                 "noOfStops0Label": "Direct Only",
                 "noOfStops1Label": "1 stop",
                 "noOfStops2Label": "2 stops",
-                "filterFailMessage": "No flights for this filter"
+                "filterFailMessage": "No flights for this filter",
+                "refundability": "refundability",
+                "refundabilityDescription": "Refundability",
+                "refundabilityAnyLabel": "Any",
+                "refundabilityNon-RefundableLabel": "Non-Refundable",
+                "refundabilityRefundableLabel": "Refundable"
             }
         }
     },
@@ -337,7 +344,7 @@
             "title": "Bookings"
         },
         "bookingsTable": {
-            "dateFormat": "MMM Mo, Y",
+            "dateFormat": "MMM do, Y",
             "noBookings": "No bookings found!",
             "pnrNumbers": "PNR Numbers",
             "passenger1": "Passenger 1",

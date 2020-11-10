@@ -30,7 +30,8 @@
       "nationality": "国籍",
       "passportNumber": "パスポート番号",
       "passportExpiry": "パスポートの有効期限",
-      "phone": "電話番号"
+      "phone": "電話番号",
+      "ticket": "Ticket"
 },
 "common": {
   "navBar":{
@@ -53,6 +54,7 @@
       "title": "運賃の内訳",
       "altTitle": "予約費用",
       "airTransportationCharges": "航空輸送料金",
+      "additionalMarkup": "Agent Fee",
       "taxes": "税金および手数料",
       "infoMissing": "情報がありません。"
   },
@@ -264,7 +266,12 @@
           "noOfStops0Label": "ダイレクトのみ",
           "noOfStops1Label": "1 ストップ",
           "noOfStops2Label": "2 ストップ",
-          "filterFailMessage": "このフィルターのフライトはありません"
+          "filterFailMessage": "このフィルターのフライトはありません",
+          "refundability": "refundability",
+          "refundabilityDescription": "Refundability",
+          "refundabilityAnyLabel": "任意",
+          "refundabilityNon-RefundableLabel": "Non-Refundable",
+          "refundabilityRefundableLabel": "Refundable"
       }
     }
   },

@@ -16,10 +16,10 @@ import {
   setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
   searchFlights, getPriceGraph
 } from './actions/SearchActions';
-import { priceFlights } from './actions/PricingActions';
+import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments
+  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -31,6 +31,7 @@ import PricingModal from './common/modals/PricingModal';
 import SearchModal from './common/modals/SearchModal';
 import BookModal from './common/modals/BookModal';
 import DefaultErrorModal from './common/modals/DefaultErrorModal';
+import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
 import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
@@ -40,7 +41,6 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticket
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 
-//Google Tag Manager
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
 };
@@ -69,6 +69,7 @@ interface IAppProps {
   updateActives: typeof updateActives;
   updateFareFamily: typeof updateFareFamily;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAdditionalMarkup: typeof updateAdditionalMarkup;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
@@ -83,6 +84,7 @@ interface IAppProps {
   getTravelportBrands: typeof getTravelportBrands;
   setActiveSegments: typeof setActiveSegments;
   getPriceGraph: typeof getPriceGraph;
+  updateStateValue: typeof updateStateValue;
 }
 
 const theme = Theme;
@@ -96,6 +98,7 @@ class App extends React.Component<IAppProps> {
     }
   }
 
+  
   componentDidMount() {
     const token: string =  localStorage.getItem('token') || '';
     if (token !== '') {
@@ -171,6 +174,7 @@ class App extends React.Component<IAppProps> {
                     currency={this.props.searchDetails.currency}
                     setTripType={this.props.setTripType}
                     setActiveSegments={this.props.setActiveSegments}
+                    updateStateValue={this.props.updateStateValue}
                   />
                 } />
                 <Route exact path="/results/itinerary/" render={() =>
@@ -184,6 +188,8 @@ class App extends React.Component<IAppProps> {
                     updateActives={this.props.updateActives}
                     updateSortType={this.props.updateSortType}
                     updateEntireTrip={this.props.updateEntireTrip}
+                    markupVisible={this.props.authDetails.markupVisible}
+                    viewPnrPricing={this.props.authDetails.viewPnrPricing}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -207,6 +213,7 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
+                    updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}
@@ -222,6 +229,9 @@ class App extends React.Component<IAppProps> {
                     queueBooking={this.props.queueBooking}
                     ticketBooking={this.props.ticketBooking}
                   />
+                } />
+                <Route exact path="/travel-restrictions/" render={() =>
+                  <TravelRestrictions />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

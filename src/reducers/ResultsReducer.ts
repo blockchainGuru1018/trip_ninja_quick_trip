@@ -18,7 +18,9 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         activeSegments: new ActiveSegmentsMap(),
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
         itineraryFilters: _.cloneDeep(defaultFilters),
-        segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best')
+        segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best'),
+        flexTripResultsPrice: 0,
+        fareStructureResultsPrice: 0
       };
 
     case 'SET_VALUE_FOR_SEGMENT_POSITION_MAP':

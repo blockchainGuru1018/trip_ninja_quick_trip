@@ -38,6 +38,10 @@ export class PreResults extends React.Component<PreResultsProps> {
       : '';
   }
 
+  componentDidUpdate() {
+    this.validateFlexTripResult();
+  }
+
   render() {
     const results = this.props.resultsDetails;
 

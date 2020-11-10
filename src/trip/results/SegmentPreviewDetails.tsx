@@ -77,12 +77,14 @@ class SegmentPreviewDetails extends React.Component<SegmentPreviewDetailsProps> 
             </div>
           </div>
         }
-        {((!this.props.segmentSelect && !this.props.viParent) || (!this.props.segment.brands && this.props.segmentSelect && !this.state.loadingBrands && !this.props.viParent))
-        && <FareRulesPreview
-          segment={this.props.segment}
-          flightDetails={this.props.flightDetails}
-          currency={this.props.currency}
-        />
+        {
+          ((!this.props.segmentSelect && !this.props.viParent) 
+          || (!this.props.segment.brands && this.props.segmentSelect && !this.state.loadingBrands && !this.props.viParent))
+          && <FareRulesPreview
+            segment={this.props.segment}
+            flightDetails={this.props.flightDetails}
+            currency={this.props.currency}
+          />
         }
         {this.state.loadingBrands &&
           <div className="text-center">

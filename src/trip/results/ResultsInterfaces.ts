@@ -6,12 +6,14 @@ export interface ResultsDetails {
   flexTripResults?: Results;
   errors: Errors;
   tripType: string;
-  activeSegments: ActiveSegmentsMap
+  activeSegments: ActiveSegmentsMap;
   segmentPositionMap: SegmentPositionMap;
   itinerarySortBy: string;
   segmentSortBy: Array<string>;
-  segmentFilters?: Array<Array<Filter>>
-  itineraryFilters?: Array<Filter>
+  segmentFilters?: Array<Array<Filter>>;
+  itineraryFilters?: Array<Filter>;
+  fareStructureResultsPrice: number;
+  flexTripResultsPrice: number;
 }
 
 export interface Filter {
@@ -83,7 +85,9 @@ export const defaultResultsDetails: ResultsDetails = {
   tripType: 'fareStructureResults',
   segmentPositionMap: new SegmentPositionMap(),
   itinerarySortBy: 'best',
-  segmentSortBy: []
+  segmentSortBy: [],
+  fareStructureResultsPrice: 0,
+  flexTripResultsPrice: 0
 };
 
 export interface Errors {

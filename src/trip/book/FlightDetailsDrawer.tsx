@@ -11,6 +11,7 @@ import ItineraryDetails from '../../common/ItineraryDetails';
 import { useTranslation } from 'react-i18next';
 import { Pricing } from "../results/PricingInterfaces";
 import FareBreakdown from "../../common/FareBreakdown";
+import CancellationPolicy from '../../common/CancellationPolicy';
 
 const useStyles = makeStyles({
   root: {
@@ -78,7 +79,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
           </div>
         </div>
         <Divider />
-        <div>
+        <div className="row">
           <div className="col-sm-4 no-pad-left">
             <FareBreakdown
               pricing={props.pricing}
@@ -89,6 +90,10 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
               markupVisible={props.markupVisible}
               flightDetailsDisplay={true}
             />
+          </div>
+          <div className="col-sm-4">
+            <h5>Rules</h5>
+
           </div>
         </div>
         <Divider />

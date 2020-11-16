@@ -147,7 +147,15 @@
                 "title": "Emisión Fallida",
                 "body": "Hubo un error en emitir este itinerario, favor pruebe otra vez mas tarde.",
                 "return":"Regresar a Resumen de Reserva"
+            },
+            "pdfErrorModal": {
+                "title": "PDF download failed.",
+                "body": "There was an error downloading the pdf, please try again or contact support.",
+                "return": "Return to Booking"
             }
+        },
+        "pdf": {
+            "page": "Page"
         }
     },
     "auth":{
@@ -367,6 +375,11 @@
         },
         "passengerDetails": {
             "title": "Pasajeros"
+        },
+        "pdf": {
+            "title": "Travel Proposal and Flight Itinerary",
+            "modalLoadingPrimary": "Loading Itinerary PDF",
+            "createdBy": "Created By"
         }
     }
 }

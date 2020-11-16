@@ -120,7 +120,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
               ? createPassengersString([segment])
               : this.createPassengersStringBooking(itinerary!)
           }
-
         </div>
       </div>
       <div className='col-sm-4 fare-breakdown-price'>

@@ -235,7 +235,13 @@ class App extends React.Component<IAppProps> {
                   <TravelRestrictions />
                 } />
                 <Route exact path="/download-itinerary-pdf/" render={() =>
-                  <PDFItineraryDownload/>
+                  <PDFItineraryDownload
+                    authDetails={this.props.authDetails}
+                    booking={this.props.bookingsList.bookings[this.props.bookingsList.bookingDetailIndex]}
+                    resultsDetails={this.props.resultsDetails}
+                    pricingDetails={this.props.pricingDetails}
+                    setErrorDetails={this.props.setErrorDetails}
+                  />
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

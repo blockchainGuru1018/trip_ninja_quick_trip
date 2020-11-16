@@ -118,7 +118,10 @@ export class BookRequest extends React.Component<BookRequestProps> {
         <Button
           className='btn-booking-print'
           disableElevation
-          onClick={() => history.push('/download-itinerary-pdf/')}
+          onClick={() => history.push({
+            pathname: '/download-itinerary-pdf/',
+            state: 'pre-booking'
+          })}
           endIcon={<SaveAlt />}
         >
           {this.props.t("bookings.manageBooking.downloadButton")}

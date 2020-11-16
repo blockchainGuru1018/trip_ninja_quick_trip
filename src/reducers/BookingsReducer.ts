@@ -33,9 +33,11 @@ function setBookingsList(state: any, action: any) {
   return {...state};
 }
 
-function setBookingDetails(state: any, action: any) {
-  state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id).details = action.booking;
-  return {...state};
+function setBookingDetails(state: BookingsList, action: any) {
+  const booking: Booking | undefined = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
+  booking!.details = action.booking;
+  const bookingIndex: number = state.bookings.indexOf(booking!);
+  return {...state, bookingDetailIndex: bookingIndex};
 }
 
 function setBookingStatus(state: any, action: any) {

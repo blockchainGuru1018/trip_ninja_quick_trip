@@ -147,7 +147,15 @@
           "title": "発券に失敗しました",
           "body": "この旅程の発券中にエラーが発生しました。後で再試行してください。",
           "return":"予約概要に戻る"
-      }
+      },
+    "pdfErrorModal": {
+      "title": "PDF download failed.",
+      "body": "There was an error downloading the pdf, please try again or contact support.",
+      "return": "Return to Booking"
+    }
+  },
+  "pdf": {
+    "page": "Page"
   }
 },
 "auth":{
@@ -366,6 +374,11 @@
     },
     "passengerDetails": {
         "title": "乗客の詳細"
+    },
+    "pdf": {
+      "title": "Travel Proposal and Flight Itinerary",
+      "modalLoadingPrimary": "Loading Itinerary PDF",
+      "createdBy": "Created By"
     }
   }
 }

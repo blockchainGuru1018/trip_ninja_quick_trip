@@ -52,7 +52,10 @@ class ManageBooking extends React.Component<ManageBookingProps> {
           </Button>
           <Button
             className='btn-booking-print'
-            onClick={() => history.push('/download-itinerary-pdf/')}
+            onClick={() => history.push({
+              pathname: '/download-itinerary-pdf/',
+              state: 'booking'
+            })}
             endIcon={<SaveAlt />}
           >
             {this.props.t("bookings.manageBooking.downloadButton")}

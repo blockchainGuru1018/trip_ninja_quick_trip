@@ -74,7 +74,8 @@
             "bookingClass": "Classe",
             "atACost": "à un prix",
             "available": "Disponible",
-            "unavailable": "Non disponible"
+            "unavailable": "Non disponible",
+            "platingCarrier": "Plating Carrier"
         },
         "flightLogo": {
             "multipleAirlines": "Plusieurs compagnie aèrienne"

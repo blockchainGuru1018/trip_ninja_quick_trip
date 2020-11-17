@@ -216,7 +216,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
         pdf.addPage();
         pdf.setPage(index + 2);
       }
-      pdf.addImage(page, 'image/png', 0, 0);
+      pdf.addImage(page, 'image/png', 0, 0, 320, 415);
     });
     return pdf;
   }

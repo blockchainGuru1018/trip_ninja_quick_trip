@@ -24,19 +24,19 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
   const setSegmentsRulesDetails = () => {
     return(<div>
       {props.segments!.map((segment: Segment, index: number) => {
-        if (isFirstPositionInStructure(segment)) {
-          return(<div key={index.toString()}>
-            <span className="text-bold">{createItineraryPathSequenceString(segment, props.pathSequence!)}</span>
-            <CancellationPolicy 
-              currency={props.currency}
-              price={props.price}
-              segments={[segment]}
-              tripTotal={false}
-              tripMarkup={props.tripMarkup}
-            />
-          </div>);
-        }
-      })}
+        return(isFirstPositionInStructure(segment) &&
+        <div key={index.toString()}>
+          <span className="text-bold">{createItineraryPathSequenceString(segment, props.pathSequence!)}</span>
+          <CancellationPolicy 
+            currency={props.currency}
+            price={props.price}
+            segments={[segment]}
+            tripTotal={false}
+            tripMarkup={props.tripMarkup}
+          />
+        </div>);
+      }
+      )}
     </div>);
   };
 

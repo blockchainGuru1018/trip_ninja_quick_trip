@@ -132,7 +132,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
           : this.getSecondHTMLSegment(segmentCount, segments);
         segmentCount += segmentHTML2 ? 1 : 0;
         detailsHTML.push(
-          <div id={`itinerary-pdf-page-${page}`} className='itinerary-pdf-page itinerary-details-pdf-page'>
+          <div key={page} id={`itinerary-pdf-page-${page}`} className='itinerary-pdf-page itinerary-details-pdf-page'>
             {segmentHTML1}
             {segmentHTML2}
             {this.getPageNumHTML(page + 2, numPages)}

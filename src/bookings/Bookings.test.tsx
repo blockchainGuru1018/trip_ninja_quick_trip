@@ -2,13 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Bookings } from './Bookings';
 import { AuthDetails, defaultAuth } from '../auth/AuthInterfaces';
-import {Booking, BookingsList} from './BookingsInterfaces';
+import { BookingsList } from './BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { PDFItineraryDownload } from "./PDFItineraryDownload";
-import {ResultsDetails} from "../trip/results/ResultsInterfaces";
-import {PricingDetails} from "../trip/results/PricingInterfaces";
 import { testingAuthDetails, testingResultsDetails, testingPricingDetails} from "../helpers/TestingObjectHelpers";
-import {setErrorDetails} from "../actions/ResultsActions";
+import { setErrorDetails } from "../actions/ResultsActions";
 
 let testBookingsList: BookingsList = {
   bookings: [],

@@ -15,11 +15,7 @@ import {Timeline,
   TimelineSeparator
 } from "@material-ui/lab";
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
-import { dateLocaleMap } from '../localeMap';
-import { format } from 'date-fns';
 import Moment from "react-moment";
-import TableCell from "@material-ui/core/TableCell";
 
 const useStyles = makeStyles({
   root: {

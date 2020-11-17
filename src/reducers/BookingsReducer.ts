@@ -34,9 +34,10 @@ function setBookingsList(state: any, action: any) {
 }
 
 function setBookingDetails(state: BookingsList, action: any) {
-  const booking: Booking | undefined = state.bookings.find((booking: Booking) => booking.trip_id === action.booking.trip_id);
-  booking!.details = action.booking;
-  const bookingIndex: number = state.bookings.indexOf(booking!);
+  const selectedBooking: Booking | undefined = state.bookings.find((potentialBooking: Booking) =>
+    potentialBooking.trip_id === action.booking.trip_id);
+  selectedBooking!.details = action.booking;
+  const bookingIndex: number = state.bookings.indexOf(selectedBooking!);
   return {...state, bookingDetailIndex: bookingIndex};
 }
 

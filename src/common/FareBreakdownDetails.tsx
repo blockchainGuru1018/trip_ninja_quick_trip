@@ -2,15 +2,16 @@
 import React from "react";
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Pricing } from "../trip/results/PricingInterfaces";
-import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
+import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import { BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import { BookingItinerary, BookingPassenger } from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
 import AdditionalMarkup from "../trip/book/AdditionalMarkup";
 import { formatPrice } from "../helpers/CurrencySymbolHelper";
+import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -110,8 +111,8 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <div className='text-bold'>
           {
             segment
-              ? this.createItineraryPathSequenceString(segment)
-              : this.createItineraryPathSequenceStringBooking(itinerary!)
+              ? createItineraryPathSequenceString(segment, this.props.pathSequence!)
+              : createItineraryPathSequenceStringBooking(itinerary!)
           }
         </div>
         <div className='text-small'>
@@ -134,15 +135,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return createStringFromPassengerList(passengerTypeList);
   }
 
-  createItineraryPathSequenceString = (segment: any) => {
-    let pathSequenceString = '';
-    const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
-    itineraryStructure.forEach((itineraryPosition: number) => segment.virtual_interline
-      ? pathSequenceString += `${segment.origin} - ${segment.destination}, `
-      : pathSequenceString += `${this.props.pathSequence![itineraryPosition]}, `);
-    return pathSequenceString.slice(0, -2);
-  }
-
   getItineraryMarkupTotal = () => {
     return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : this.getItinerariesMarkup();
   }
@@ -153,15 +145,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       itineraryMarkupSum += itinerary.itinerary_markup;
     });
     return itineraryMarkupSum;
-  }
-
-  createItineraryPathSequenceStringBooking = (itinerary: BookingItinerary) => {
-    let pathSequenceString = '';
-    itinerary.segments.forEach((segment: BookingSegment) => {
-      const flightDetails: Array<FlightResultsDetails> = segment.flight_details;
-      pathSequenceString += `${flightDetails[0].origin}-${flightDetails[flightDetails.length - 1].destination}, `;
-    });
-    return pathSequenceString.slice(0, -2);
   }
 
   setPricingHtml = (baseFare: number, taxesAndFees: number, markup: number, expanded: boolean = false) => <div className='pricing-header-container'>

@@ -80,6 +80,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
             flightDetails={segment.flight_details}
             key={index}
           />;
+          segment.plating_carrier = itinerary.plating_carrier;
           fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}

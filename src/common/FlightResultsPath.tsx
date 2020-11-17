@@ -75,6 +75,11 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
               <div>
                 {`${flightDetail.carrier} ${flightDetail.flight_number}`}
               </div>
+              {flightDetail.operating_carrier &&
+              <div>
+                {`Operated by ${flightDetail.operating_carrier}`}
+              </div>
+              }
             </div>
           );
         })

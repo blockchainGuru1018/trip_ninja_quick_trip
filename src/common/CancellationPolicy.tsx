@@ -41,7 +41,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
 
   if (props.segments) {
     totalMarkup = props.tripMarkup > 0 ? props.tripMarkup : getTotal(props.segments, 'itinerary_markup');
-    props.segments!.forEach((segment: Segment) => {
+    props.segments.forEach((segment: Segment) => {
       let markup: number = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(props.tripMarkup, props.segments!);
       if ((props.tripTotal && isFirstPositionInStructure(segment)) || !props.tripTotal) {
         cancelAmount += getCancelAmount(segment.additional_details.cancel_penalty, segment.price + markup);
@@ -52,7 +52,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
 
   if (props.itineraries) {
     totalMarkup = props.tripMarkup > 0 ? props.tripMarkup : getItinerariesMarkupTotal(props.itineraries);
-    props.itineraries!.forEach((itinerary: BookingItinerary) => {
+    props.itineraries.forEach((itinerary: BookingItinerary) => {
       cancelAmount += getCancelAmount(itinerary.segments[0].additional_details.cancel_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup);
       changeAmount += getChangeAmount(itinerary.segments[0].additional_details.change_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup); 
     });

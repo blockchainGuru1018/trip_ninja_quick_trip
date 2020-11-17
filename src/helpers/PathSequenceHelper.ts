@@ -15,6 +15,6 @@ export const createItineraryPathSequenceString = (segment: Segment, pathSequence
   const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
   itineraryStructure.forEach((itineraryPosition: number) => segment.virtual_interline
     ? pathSequenceString += `${segment.origin} - ${segment.destination}, `
-    : pathSequenceString += `${pathSequence![itineraryPosition]}, `);
+    : pathSequenceString += `${pathSequence[itineraryPosition]}, `);
   return pathSequenceString.slice(0, -2);
 };

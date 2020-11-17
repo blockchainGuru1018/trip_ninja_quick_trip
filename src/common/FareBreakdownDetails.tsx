@@ -139,7 +139,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : getItinerariesMarkupTotal(this.props.itineraries!);
   }
 
-
   setPricingHtml = (baseFare: number, taxesAndFees: number, markup: number, expanded: boolean = false) => <div className='pricing-header-container'>
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>

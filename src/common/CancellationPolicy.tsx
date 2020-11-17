@@ -3,7 +3,7 @@ import { BookingItinerary } from '../bookings/BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { Segment, Penalty } from '../trip/results/ResultsInterfaces';
 import { getTotal, isFirstPositionInStructure } from '../helpers/MiscHelpers';
-import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
+import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
 
 interface CancellationPolicyProps {
   currency: string;
@@ -51,6 +51,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   }
 
   if (props.itineraries) {
+    totalMarkup = props.tripMarkup > 0 ? props.tripMarkup : getItinerariesMarkupTotal(props.itineraries);
     props.itineraries!.forEach((itinerary: BookingItinerary) => {
       cancelAmount += getCancelAmount(itinerary.segments[0].additional_details.cancel_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup);
       changeAmount += getChangeAmount(itinerary.segments[0].additional_details.change_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup); 

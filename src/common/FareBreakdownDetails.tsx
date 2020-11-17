@@ -6,7 +6,7 @@ import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
 import { BookingItinerary, BookingPassenger } from "../bookings/BookingsInterfaces";
-import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
+import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
 import AdditionalMarkup from "../trip/book/AdditionalMarkup";
@@ -136,16 +136,9 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   }
 
   getItineraryMarkupTotal = () => {
-    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : this.getItinerariesMarkup();
+    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : getItinerariesMarkupTotal(this.props.itineraries!);
   }
 
-  getItinerariesMarkup = () => {
-    let itineraryMarkupSum: number = 0;
-    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
-      itineraryMarkupSum += itinerary.itinerary_markup;
-    });
-    return itineraryMarkupSum;
-  }
 
   setPricingHtml = (baseFare: number, taxesAndFees: number, markup: number, expanded: boolean = false) => <div className='pricing-header-container'>
     <div className="row charges-row">

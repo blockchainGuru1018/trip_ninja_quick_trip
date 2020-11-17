@@ -78,7 +78,8 @@ class FlightResultsPath extends React.Component<FlightResultsPathProps> {
               {flightDetail.operating_carrier &&
               <div>
                 {`Operated by ${flightDetail.operating_carrier}`}
-              </div>}
+              </div>
+              }
             </div>
           );
         })

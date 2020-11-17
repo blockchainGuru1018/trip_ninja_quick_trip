@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { dateLocaleMap } from '../localeMap';
 import { format } from 'date-fns';
+import Moment from "react-moment";
+import TableCell from "@material-ui/core/TableCell";
 
 const useStyles = makeStyles({
   root: {
@@ -101,7 +103,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:dateLocaleMap[i18n.language]}) : ''}</p>
+      <p>{flightDetails ? <Moment format={t("bookings.bookingsTable.dateFormat")}>{flightDetails.departure_time}</Moment> : ''}</p>
     );
   };
 

@@ -8,9 +8,6 @@ import { AuthDetails } from "../auth/AuthInterfaces";
 import { FlightResultsDetails, ResultsDetails, Segment } from "../trip/results/ResultsInterfaces";
 import FlightResultsPath from "../common/FlightResultsPath";
 import { Booking, BookingItinerary, BookingSegment } from "./BookingsInterfaces";
-import { format } from 'date-fns';
-import { dateLocaleMap } from "../localeMap";
-import i18n from "../i18n";
 import { withTranslation, WithTranslation } from "react-i18next";
 import FareRulesPreview from "../common/FareRulesPreview";
 import { prepareSvgForPdf } from "../helpers/PdfHelpers";
@@ -19,6 +16,7 @@ import { PricingDetails } from "../trip/results/PricingInterfaces";
 import { getFlightDetailsBySegment } from "../helpers/FlightDetailsHelper";
 import { setErrorDetails } from "../actions/ResultsActions";
 import DefaultModal from "../common/modals/DefaultModal";
+import Moment from "react-moment";
 
 interface  PDFItineraryDownloadProps extends WithTranslation {
   authDetails: AuthDetails;
@@ -29,7 +27,7 @@ interface  PDFItineraryDownloadProps extends WithTranslation {
   setErrorDetails: typeof setErrorDetails;
 }
 
-class PDFItineraryDownload extends React.Component<PDFItineraryDownloadProps> {
+export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadProps> {
   state = {
     type: ''
   }
@@ -204,7 +202,9 @@ class PDFItineraryDownload extends React.Component<PDFItineraryDownloadProps> {
       : `${flightDetails[0].origin_name} to ${flightDetails[flightDetails.length - 1].destination_name}`;
     return (
       <div className='itinerary-title-pdf-page'>
-        <h1 className='front-page-pdf-title'>{format(new Date(flightDetails[0].departure_time), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}</h1>
+        <h1 className='front-page-pdf-title'>
+          <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{flightDetails[0].departure_time}</Moment>
+        </h1>
         <h2 className='front-page-pdf-sub-title'>{flightString}</h2>
       </div>
     );

@@ -18,9 +18,7 @@ import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import expandedIcon from '../assets/images/expanded_icon.svg';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import i18n from '../i18n';
-import {dateLocaleMap} from '../localeMap';
-import { format } from 'date-fns';
+import Moment from "react-moment";
 
 const BookingsTableHeader = styled(TableCell)({
   backgroundColor: '#F5F8FA',
@@ -136,10 +134,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
             </DetailsLinkCell>
             <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
             <TableCell align="left">
-              {format(new Date(booking.booking_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+              <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{booking.booking_date}</Moment>
             </TableCell>
             <TableCell align="left">
-              {format(new Date(booking.departure_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+              <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{booking.departure_date}</Moment>
             </TableCell>
             <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
             <TableCell align="left">{booking.route}</TableCell>
@@ -156,10 +154,10 @@ class BookingsTable extends React.Component<BookingsTableProps> {
                 </DetailsLinkCell>
                 <TableCell align="left">{booking.primary_passenger.last_name}, {booking.primary_passenger.first_name}</TableCell>
                 <TableCell align="left">
-                  {format(new Date(booking.booking_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+                  <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{booking.booking_date}</Moment>
                 </TableCell>
                 <TableCell align="left">
-                  {format(new Date(pnr.departure_date+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+                  <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{pnr.departure_date}</Moment>
                 </TableCell>
                 <TableCell align="left">{currencySymbol(booking.currency)}{booking.total_price.toFixed()} {booking.currency}</TableCell>
                 <TableCell align="left">{pnr.route}</TableCell>

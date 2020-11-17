@@ -1,11 +1,8 @@
-import { Segment } from '../trip/results/ResultsInterfaces';
-import { numberOfItineraries } from './MiscHelpers';
 import { BookingItinerary } from '../bookings/BookingsInterfaces';
 
-export const calculateDistributedMarkup = (tripMarkup: number, segments: Array<Segment>) => {
-  const itineraryCount: number = numberOfItineraries(segments);
+export const calculateDistributedMarkup = (tripMarkup: number, segmentPrice: number, tripPrice: number) => {
   if (tripMarkup > 0) {
-    return tripMarkup/itineraryCount;
+    return tripMarkup * segmentPrice/tripPrice;
   }
   return 0;
 };

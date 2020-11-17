@@ -92,14 +92,14 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       : this.props.segments;
     shownSegments = this.props.orderByPnr ? this.getItineraryOrder(shownSegments) : shownSegments;
     let itineraryNumber: number = 0;
-    let distributedMarkup = calculateDistributedMarkup(this.props.trip.markup, this.props.segments);
+
     return shownSegments.map((segment: Segment, index: number) => {
       const segmentFlightDetails: Array<FlightResultsDetails> = getFlightDetailsBySegment(segment, this.props.flightDetails);
       const linkedViSegment = this.getVirtualInterlineLinkedSegment(segment);
       const linkedViSegmentFlightDetails = linkedViSegment ? getFlightDetailsBySegment(linkedViSegment, this.props.flightDetails) : undefined;
       const firstPositionInStructure = segment.segment_position === JSON.parse(segment.itinerary_structure)[0];
 
-      let markup = segment.itinerary_markup > 0 ? segment.itinerary_markup : distributedMarkup;
+      let markup = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(this.props.trip.markup, segment.price, this.props.totalPrice);
       let itineraryPrice: number = segment.price + markup;
       
       if (segment.vi_segment_base_price) {

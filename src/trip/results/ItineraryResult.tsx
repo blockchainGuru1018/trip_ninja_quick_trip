@@ -163,6 +163,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
                     price={totalPrice}
                     segments={selectedTrip}
                     tripTotal={true}
+                    tripMarkup={markup}
                   />
                 </div>
               </div>

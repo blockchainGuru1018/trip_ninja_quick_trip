@@ -11,6 +11,7 @@ interface CancelRulesBreakdownProps {
   segments?: Array<Segment>;
   itineraries?: Array<BookingItinerary>
   pathSequence?: Array<string>;
+  tripMarkup: number;
 }
 
 export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) {
@@ -31,6 +32,7 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
               price={props.price}
               segments={[segment]}
               tripTotal={false}
+              tripMarkup={props.tripMarkup}
             />
           </div>);
         }
@@ -48,6 +50,7 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
             price={props.price}
             itineraries={[itinerary]}
             tripTotal={false}
+            tripMarkup={props.tripMarkup}
           />
         </div>))
       }
@@ -74,6 +77,7 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
           segments={props.segments ? props.segments : undefined}
           itineraries={props.itineraries ? props.itineraries : undefined}
           tripTotal={true}
+          tripMarkup={props.tripMarkup}
         />
       } 
     </div>

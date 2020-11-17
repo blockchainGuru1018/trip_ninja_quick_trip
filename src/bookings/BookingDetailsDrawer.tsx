@@ -194,6 +194,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
                 price={props.booking.details!.pricing.confirmed_total_price}
                 currency={props.booking.currency}
                 itineraries={props.booking.details?.itinerary}
+                tripMarkup={props.booking.details ? props.booking.details.pricing.markup : 0}
               />
             </div>
           </div>

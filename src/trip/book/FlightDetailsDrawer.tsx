@@ -97,6 +97,7 @@ export default function FlightDetailsDrawer(props: FlightDetailsDrawerProps) {
               price={props.pricing.confirmed_total_price}
               segments={props.selectedTrip}
               pathSequence={props.pathSequence}
+              tripMarkup={props.pricing.markup}
             />
           </div>
         </div>

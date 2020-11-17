@@ -149,6 +149,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
             price={segment.price}
             segments={[segment]}
             tripTotal={false}
+            tripMarkup={markup}
           />
           }
         </div>

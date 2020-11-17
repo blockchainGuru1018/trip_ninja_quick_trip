@@ -142,7 +142,8 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
             />
             : ''
           }
-          {this.props.orderByPnr && ((firstPositionInStructure && segment.itinerary_type === 'ONE_WAY') || (!firstPositionInStructure && segment.itinerary_type === 'OPEN_JAW')) &&
+          {this.props.orderByPnr && 
+          ((firstPositionInStructure && segment.itinerary_type === 'ONE_WAY') || (!firstPositionInStructure && segment.itinerary_type === 'OPEN_JAW')) &&
           <CancellationPolicy 
             currency={this.props.currency}
             price={segment.price}

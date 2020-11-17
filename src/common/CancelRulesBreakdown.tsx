@@ -3,6 +3,7 @@ import CancellationPolicy from './CancellationPolicy';
 import { Segment } from '../trip/results/ResultsInterfaces';
 import { BookingItinerary } from "../bookings/BookingsInterfaces";
 import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
+import { isFirstPositionInStructure } from '../helpers/MiscHelpers';
 
 interface CancelRulesBreakdownProps {
   currency: string;
@@ -14,24 +15,26 @@ interface CancelRulesBreakdownProps {
 
 export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) {
   const [expanded, setExpanded] = React.useState(false);
-  console.log(props.itineraries);
+
   const setRulesDetails = () => {
     return props.segments ? setSegmentsRulesDetails() : setItinerariesRulesDetails();
   };
 
   const setSegmentsRulesDetails = () => {
     return(<div>
-      {props.segments!.map((segment: Segment, index: number) => (
-        <div key={index.toString()}>
-          <span className="text-bold">{createItineraryPathSequenceString(segment, props.pathSequence!)}</span>
-          <CancellationPolicy 
-            currency={props.currency}
-            price={props.price}
-            segments={[segment]}
-            tripTotal={false}
-          />
-        </div>))
-      }
+      {props.segments!.map((segment: Segment, index: number) => {
+        if (isFirstPositionInStructure(segment)) {
+          return(<div key={index.toString()}>
+            <span className="text-bold">{createItineraryPathSequenceString(segment, props.pathSequence!)}</span>
+            <CancellationPolicy 
+              currency={props.currency}
+              price={props.price}
+              segments={[segment]}
+              tripTotal={false}
+            />
+          </div>);
+        }
+      })}
     </div>);
   };
 

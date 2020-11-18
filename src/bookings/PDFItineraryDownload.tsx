@@ -281,7 +281,6 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
       updatedPdf.save(`itinerary-${getTodaysDate()}.pdf`);
       history.goBack();
     }
-    //TODO some sort of error modal or message here.
     catch (e) {
       this.props.setErrorDetails(true, 'pdf');
       history.goBack();

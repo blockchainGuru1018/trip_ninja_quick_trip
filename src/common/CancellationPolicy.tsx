@@ -50,7 +50,6 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
       if ((props.tripTotal && isFirstPositionInStructure(segment)) || !props.tripTotal) {
         cancelAmount += getCancelAmount(segment.additional_details.cancel_penalty, segment.price + markup);
         changeAmount += getChangeAmount(segment.additional_details.change_penalty, segment.price + markup);
-        console.log(changeAmount); 
       }
     });
   }

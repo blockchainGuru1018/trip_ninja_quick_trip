@@ -46,7 +46,7 @@ export interface PrimaryPassenger {
 }
 
 export interface BookingItinerary {
-  itinerary_reference: number;
+  itinerary_reference: any;
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;

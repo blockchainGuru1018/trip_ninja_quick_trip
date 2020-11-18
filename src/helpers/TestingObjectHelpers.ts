@@ -114,7 +114,8 @@ export const testingFlightResultsDetails: FlightResultsDetails = {
   arrival_time: '2021-04-15T12:55:00.000-04:00',
   flight_number: '2345',
   carrier: 'AA',
-  flight_time: 134
+  flight_time: 134,
+  operating_carrier: 'AA'
 };
 
 export const testingResults: Results = {
@@ -161,7 +162,7 @@ export const testingBaggageDetails: BaggageDetails = {
   carryon_restrictions: '',
   free_allowance: '',
   quantity_description: ''
-}
+};
 
 export const testingPricedFlightDetails: PricedFlightDetails = {
   automated_checkin: true,
@@ -172,13 +173,13 @@ export const testingPricedFlightDetails: PricedFlightDetails = {
   on_time_performance: '',
   origin_terminal: 1,
   special_segment: '',
-}
+};
 
 export const testingSegmentPricingInfo: SegmentPricingInfo = {
   segment_id: '123',
   baggage: testingBaggageDetails,
   flight_details: [testingPricedFlightDetails]
-}
+};
 
 export const testingPricedItinerary: PricedItinerary = {
   credentials: testingCredentials,

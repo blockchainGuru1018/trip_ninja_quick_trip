@@ -3,9 +3,9 @@ import React from 'react';
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import history from '../History';
-import { getTodaysDate } from "../helpers/DateHelpers";
+import {getLayoverTime, getTodaysDate} from "../helpers/DateHelpers";
 import { AuthDetails } from "../auth/AuthInterfaces";
-import { FlightResultsDetails, ResultsDetails, Segment } from "../trip/results/ResultsInterfaces";
+import { FlightResultsDetails, Results, defaultResults, ResultsDetails, Segment } from "../trip/results/ResultsInterfaces";
 import FlightResultsPath from "../common/FlightResultsPath";
 import { Booking, BookingItinerary, BookingSegment } from "./BookingsInterfaces";
 import { withTranslation, WithTranslation } from "react-i18next";
@@ -27,13 +27,24 @@ interface  PDFItineraryDownloadProps extends WithTranslation {
   setErrorDetails: typeof setErrorDetails;
 }
 
+interface PDFItineraryState {
+  type: string;
+  trip: Results
+}
+
 export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadProps> {
-  state = {
-    type: ''
+  state: PDFItineraryState = {
+    type: '',
+    trip: defaultResults,
   }
 
   componentWillMount() {
-    this.setState({...this.state, type: history.location.state});
+    this.setState(
+      {
+        ...this.state,
+        type: history.location.state,
+        trip: this.props.resultsDetails[this.props.resultsDetails.tripType]
+      });
   }
 
   componentDidMount() {
@@ -103,14 +114,14 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
   getSegmentsList = () => {
     if (this.state.type === 'booking') {
       let segmentList: Array<BookingSegment> = [];
+      let segmentCount: number = 0;
       this.props.booking!.details!.itinerary!.forEach(
         (bookingItinerary: BookingItinerary) => bookingItinerary.segments.forEach(
           (bookingSegment: BookingSegment) => {
-            const segment_id: number = bookingSegment.virtual_interline
-              ? bookingSegment.vi_position
-              : bookingSegment.segment_id;
-            segmentList[segment_id] = bookingSegment;
-          }));
+            segmentCount += bookingSegment.virtual_interline && bookingSegment.vi_position === 1 ? 1 : 0;
+            segmentList.splice(bookingSegment.segment_id + segmentCount, 0, bookingSegment);
+          })
+      );
       return segmentList;
     } else {
       return [...this.props.resultsDetails.activeSegments.values()];
@@ -123,10 +134,8 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     [...Array(numPages - 2).keys()].forEach((page: any) => {
       const segment = segments[segmentCount];
       if (!segment.virtual_interline || segment.vi_position !== 1) {
-        const segmentHTML1 = segments[segmentCount].virtual_interline
-          ? this.createViItineraryDetailHTML(segments, segmentCount)
-          : this.createItineraryDetailHTML(segments[segmentCount], segmentCount);
-        segmentCount += 1;
+        let segmentHTML1: any = this.getSegmentHTML1(segments, segmentCount);
+        segmentCount += segment.virtual_interline ? 2 : 1;
         const segmentHTML2 = segments[segmentCount - 1].virtual_interline || segments.length < segmentCount + 1
           ? undefined
           : this.getSecondHTMLSegment(segmentCount, segments);
@@ -143,6 +152,14 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     return detailsHTML;
   }
 
+  getSegmentHTML1 = (segments: Array<any>, segmentCount: number) => {
+    if (segments[segmentCount].virtual_interline) {
+      return this.createViItineraryDetailHTML(segments, segmentCount);
+    } else {
+      return this.createItineraryDetailHTML(segments[segmentCount], segmentCount);
+    }
+  }
+
   getSecondHTMLSegment = (segmentCount: number, segments: Array<Segment | BookingSegment>) => {
     const nextSegment: Segment | BookingSegment = segments[segmentCount];
     if (!nextSegment.virtual_interline) {
@@ -154,23 +171,29 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
   }
 
   createViItineraryDetailHTML = (segments: Array<any>, segmentCount: number) => {
-    const viFlightDetails: Array<FlightResultsDetails> = segments[segmentCount + 1].flightDetails;
+    const viFlight1Details: Array<FlightResultsDetails> = this.getFlightDetails(segments[segmentCount]);
+    const viFlight2Details: Array<FlightResultsDetails> = this.getFlightDetails(segments[segmentCount + 1]);
+
     return [
       <div>
         {this.createItineraryDetailHTML(segments[segmentCount], segmentCount)}
-        <div className='self-transfer-pdf-page'>Self transfer layover | 4 hours</div>
+        <div className='self-transfer-pdf-page'>Self transfer layover | {
+          getLayoverTime(viFlight1Details[viFlight1Details.length - 1], viFlight2Details[0])
+        }</div>
       </div>,
       <div>
-        {this.createItineraryDetailHTML(segments[segmentCount + 1], segmentCount, viFlightDetails, true)}
+        {this.createItineraryDetailHTML(segments[segmentCount + 1], segmentCount, viFlight2Details, true)}
       </div>
     ];
   }
 
-  createItineraryDetailHTML = (segment: any, index: number, viFlightDetails?: Array<FlightResultsDetails>, viItinerary2?: boolean) => {
-    const trip = this.props.resultsDetails[this.props.resultsDetails.tripType];
-    const flightDetails: Array<FlightResultsDetails> = this.state.type === 'booking'
+  getFlightDetails = (segment: any) =>
+    this.state.type === 'booking'
       ? segment.flight_details
-      : getFlightDetailsBySegment(segment, trip.flight_details);
+      : getFlightDetailsBySegment(segment, this.state.trip.flight_details);
+
+  createItineraryDetailHTML = (segment: any, index: number, viFlightDetails?: Array<FlightResultsDetails>, viItinerary2?: boolean) => {
+    const flightDetails: Array<FlightResultsDetails> = this.getFlightDetails(segment);
     const currency: string = this.state.type === 'booking'
       ? this.props.booking!.currency
       : this.props.pricingDetails.currency;

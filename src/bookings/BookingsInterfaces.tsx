@@ -84,6 +84,7 @@ export interface BookingSegment {
   vi_solution_id: string;
   virtual_interline: boolean;
   itinerary_index: number;
+  plating_carrier: string;
 }
 
 export const defaultBookingsList: BookingsList = {

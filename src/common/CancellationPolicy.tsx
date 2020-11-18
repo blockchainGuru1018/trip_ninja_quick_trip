@@ -4,6 +4,8 @@ import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { Segment, Penalty } from '../trip/results/ResultsInterfaces';
 import { getTotal, isFirstPositionInStructure } from '../helpers/MiscHelpers';
 import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
+import { useTranslation } from 'react-i18next';
+
 
 interface CancellationPolicyProps {
   currency: string;
@@ -15,8 +17,10 @@ interface CancellationPolicyProps {
 }
 
 export default function CancellationPolicy(props: CancellationPolicyProps) {
+  const [ t ] = useTranslation('common');
+  
   const convertPercentageToAmount = (percent: number, segmentPrice: number) => {
-    return percent/100 * segmentPrice;
+    return percent > 0 ? (percent/100 * segmentPrice) : 0;
   };
 
   const calculateRefundAmount = (cancelCost: number, price: number) => {
@@ -24,13 +28,13 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   };
   
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
-    return cancelPenalty.percentage 
+    return cancelPenalty.percentage !== undefined
       ? convertPercentageToAmount(cancelPenalty.percentage, price) 
       : cancelPenalty.amount!;
   };
 
   const getChangeAmount = (changePenalty: Penalty, price: number) => {
-    return changePenalty.percentage 
+    return changePenalty.percentage !== undefined
       ? convertPercentageToAmount(changePenalty.percentage, price) 
       : changePenalty.amount!;
   };
@@ -45,7 +49,8 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
       let markup: number = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(props.tripMarkup, segment.price, props.price);
       if ((props.tripTotal && isFirstPositionInStructure(segment)) || !props.tripTotal) {
         cancelAmount += getCancelAmount(segment.additional_details.cancel_penalty, segment.price + markup);
-        changeAmount += getChangeAmount(segment.additional_details.change_penalty, segment.price + markup); 
+        changeAmount += getChangeAmount(segment.additional_details.change_penalty, segment.price + markup);
+        console.log(changeAmount); 
       }
     });
   }
@@ -65,12 +70,12 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
     <div className="row cancel-policy-group">
       <div className="col">
         <p className="standard-text">
-          <span className="text-bold">Cancellation Cost: </span> 
-          {currencySymbol(props.currency)}{cancelAmount.toFixed()}, refund of {currencySymbol(props.currency)}{refundAmount.toFixed()}.
+          <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')} </span> 
+          {currencySymbol(props.currency)}{cancelAmount.toFixed()}, {t('common.cancellationPolicy.refundOf')} {currencySymbol(props.currency)}{refundAmount.toFixed()}.
         </p>
         <p className="standard-text">
-          <span className="text-bold">Change Cost: </span> 
-          {currencySymbol(props.currency)}{changeAmount.toFixed()} + fare differences.
+          <span className="text-bold">{t('common.cancellationPolicy.changeCost')} </span> 
+          {currencySymbol(props.currency)}{changeAmount.toFixed()} {t('common.cancellationPolicy.fareDifferences')}
         </p>
       </div>
     </div>

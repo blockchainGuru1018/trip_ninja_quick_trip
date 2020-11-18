@@ -40,6 +40,12 @@
         "userMenu": {
             "signOut": "Sign out"
         },
+        "cancellationPolicy": {
+            "cancellationCost": "Cancellation Cost:",
+            "changeCost": "Change Cost:",
+            "refundOf": "refund of",
+            "fareDifferences": "+ fare differences."
+        },
         "custom404":{
             "title": "404 - The page was not found",
             "subHeader": "Oops! We can’t find the page you are looking for. It’s not you, it’s us.\nTry starting from our",

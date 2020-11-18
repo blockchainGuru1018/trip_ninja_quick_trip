@@ -39,6 +39,12 @@
         "userMenu": {
             "signOut": "Déconnecter"
         },
+        "cancellationPolicy": {
+            "cancellationCost": "Cancellation Cost:",
+            "changeCost": "Change Cost:",
+            "refundOf": "refund of",
+            "fareDifferences": "+ fare differences."
+        },
         "custom404":{
             "title": "404 - Page non trouvée",
             "subHeader": "Une erreur s'est produite, nous vous prions de nous excuser.\nEssayer nos",

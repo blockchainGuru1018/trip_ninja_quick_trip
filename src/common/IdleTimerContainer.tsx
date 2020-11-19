@@ -9,12 +9,10 @@ interface IdleTimerContainerProps {
 class IdleTimeContainer extends React.Component<IdleTimerContainerProps> {
 
   render() {
-    let idleTimer = null;
     return (
       <div>
         <IdleTimer
-          ref={ref => { idleTimer = ref; }}
-          timeout={1000 * 60 * 90}
+          timeout={1000 * 60 * 0.5}
           onIdle={this.handleOnIdle}
           debounce={250}
         />

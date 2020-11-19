@@ -43,7 +43,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       return updateActiveSegmentsFromAction(state, action);
 
     case 'UPDATE_ENTIRE_TRIP':
-      return updateEntireTripReducer(state, action);
+      return updateEntireTripReducer(state, action.sortBy);
 
     case 'UPDATE_FARE_FAMILY':
       return updateSegmentFareFamily(state, action);

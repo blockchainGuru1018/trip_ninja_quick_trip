@@ -77,7 +77,8 @@
       "bookingClass": "クラス",
       "atACost": "コストで",
       "available": "利用可能",
-      "unavailable": "利用不可"
+      "unavailable": "利用不可",
+      "platingCarrier": "Plating Carrier"
   },
   "flightLogo": {
       "multipleAirlines": "複数の航空会社"

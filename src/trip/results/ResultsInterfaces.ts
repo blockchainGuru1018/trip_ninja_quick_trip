@@ -237,6 +237,7 @@ export interface FlightResultsDetails {
   arrival_time: string;
   flight_number: string;
   carrier: string;
+  operating_carrier: string;
   flight_time: number;
   booking_code?: string;
   cabin_class?: string;

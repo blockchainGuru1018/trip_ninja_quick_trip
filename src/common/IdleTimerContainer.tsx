@@ -6,7 +6,7 @@ interface IdleTimerContainerProps {
   logout: typeof logout
 }
 
-class IdleTimeContainer extends React.Component<IdleTimerContainerProps> {
+class IdleTimerContainer extends React.Component<IdleTimerContainerProps> {
 
   render() {
     return (
@@ -25,4 +25,4 @@ class IdleTimeContainer extends React.Component<IdleTimerContainerProps> {
   }
 }
 
-export default IdleTimeContainer;
+export default IdleTimerContainer;

@@ -29,7 +29,7 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
           <span className="text-bold">{createItineraryPathSequenceString(segment, props.pathSequence!)}</span>
           <CancellationPolicy 
             currency={props.currency}
-            price={props.price}
+            price={segment.vi_segment_base_price ? (segment.vi_segment_base_price + segment.vi_segment_taxes! + segment.vi_segment_fees!) : segment.price}
             segments={[segment]}
             tripTotal={false}
             tripMarkup={props.tripMarkup}

@@ -55,7 +55,12 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   if (props.segments) {
     totalMarkup = props.tripMarkup > 0 ? props.tripMarkup : getTotal(props.segments, 'itinerary_markup');
     props.segments.forEach((segment: Segment) => {
-      let price: number = (!props.tripTotal && segment.vi_segment_base_price) ? (segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes!) : segment.price;
+      let price: number = 0;
+      if (props.tripTotal) {
+        price = segment.price;
+      } else {
+        price = segment.vi_segment_base_price ? (segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes!) : segment.price;
+      }  
       let markup: number = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(props.tripMarkup, price, props.price);
       if ((props.tripTotal && isFirstPositionInStructure(segment)) || !props.tripTotal) {
         cancelAmount += getCancelAmount(segment.additional_details.cancel_penalty, price + markup);

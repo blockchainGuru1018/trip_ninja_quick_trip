@@ -47,7 +47,7 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
           <span className="text-bold">{createItineraryPathSequenceStringBooking(itinerary)}</span>
           <CancellationPolicy 
             currency={props.currency}
-            price={props.price}
+            price={itinerary.price_breakdown.confirmed_total_price}
             itineraries={[itinerary]}
             tripTotal={false}
             tripMarkup={props.tripMarkup}

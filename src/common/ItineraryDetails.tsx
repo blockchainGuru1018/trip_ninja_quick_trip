@@ -75,20 +75,20 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
           if (segment.virtual_interline && segment.vi_position === 1) {
             viLinkedSegmentShift +=1;
           } 
-          bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
-          flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
+          bookedSegments.splice(segment.segment_id + viLinkedSegmentShift, 0, segment);
+          flightResultsPathComponents.splice(segment.segment_id + viLinkedSegmentShift, 0, <FlightResultsPath
             flightDetails={segment.flight_details}
             key={index}
-          />;
+          />);
           segment.plating_carrier = itinerary.plating_carrier;
-          fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
+          fareRulesPreviewComponents.splice(segment.segment_id + viLinkedSegmentShift, 0, <FareRulesPreview
             bookingSegment={segment}
             flightDetails={segment.flight_details}
             currency={currency}
             itineraryDisplay={true}
             index={index}
             bookingDrawer={true}
-          />;
+          />);
         });
       });
     }

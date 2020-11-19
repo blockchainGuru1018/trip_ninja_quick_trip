@@ -58,6 +58,7 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
   const [ t ] = useTranslation('common');
 
   const checkBookingDetails = () => {
+    setBookingDetailsError(false);
     const agency = props.authDetails.isAgencyAdmin ? '?agency=' + props.authDetails.agency : '';
     const promise = new Promise((resolve) => {
       resolve(props.getBookingDetails(props.booking.trip_id, agency));

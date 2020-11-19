@@ -12,7 +12,7 @@ class IdleTimeContainer extends React.Component<IdleTimerContainerProps> {
     return (
       <div>
         <IdleTimer
-          timeout={1000 * 60 * 0.5}
+          timeout={1000 * 60 * 90}
           onIdle={this.handleOnIdle}
           debounce={250}
         />

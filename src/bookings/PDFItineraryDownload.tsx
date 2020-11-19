@@ -238,7 +238,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     return (
       <div className='itinerary-title-pdf-page'>
         <h1 className='front-page-pdf-title'>
-          {format(new Date(flightDetails[0].departure_time+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+          {format(new Date(flightDetails[0].departure_time), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
         </h1>
         <h2 className='front-page-pdf-sub-title'>{flightString}</h2>
       </div>

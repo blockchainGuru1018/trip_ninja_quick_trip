@@ -16,8 +16,10 @@ import { PricingDetails } from "../trip/results/PricingInterfaces";
 import { getFlightDetailsBySegment } from "../helpers/FlightDetailsHelper";
 import { setErrorDetails } from "../actions/ResultsActions";
 import DefaultModal from "../common/modals/DefaultModal";
-import Moment from "react-moment";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
+import i18n from '../i18n';
+import { dateLocaleMap } from '../localeMap';
+import { format } from 'date-fns';
 
 interface  PDFItineraryDownloadProps extends WithTranslation {
   authDetails: AuthDetails;
@@ -236,7 +238,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     return (
       <div className='itinerary-title-pdf-page'>
         <h1 className='front-page-pdf-title'>
-          <Moment format={this.props.t("bookings.bookingsTable.dateFormat")}>{flightDetails[0].departure_time}</Moment>
+          {format(new Date(flightDetails[0].departure_time+'T00:00:00.000'), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
         </h1>
         <h2 className='front-page-pdf-sub-title'>{flightString}</h2>
       </div>

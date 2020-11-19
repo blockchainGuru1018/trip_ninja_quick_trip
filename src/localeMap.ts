@@ -1,4 +1,5 @@
 import { enGB, es, ja, fr } from 'date-fns/locale';
+import 'moment/locale/enGb';
 
 export const dateLocaleMap = {
   "en_uk": enGB,

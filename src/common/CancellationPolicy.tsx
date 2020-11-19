@@ -29,7 +29,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   
   const noPenaltiesExist = (penalty: Penalty) => {
     return (penalty.percentage === undefined && penalty.amount === undefined);
-  }
+  };
 
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
     if (noPenaltiesExist(cancelPenalty)) return 0;

@@ -15,6 +15,7 @@ import { baggageLabel } from '../helpers/BaggageHelper';
 import { BookingSegment } from '../bookings/BookingsInterfaces';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import FlightIcon from '@material-ui/icons/Flight';
 
 interface FareRulesProps extends WithTranslation {
   segment?: Segment;
@@ -115,6 +116,12 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                   <ClassIcon color="primary"/>
                 </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
+              </div>
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
+                <Tooltip title={this.props.t("common.fareRulesPreview.platingCarrier").toString()} placement="top">
+                  <FlightIcon color="primary"/>
+                </Tooltip>
+                <span className="icon-label">{this.props.segment ? this.props.segment!.plating_carrier : this.props.bookingSegment!.plating_carrier}</span>
               </div>
             </div>
           </div>

@@ -27,13 +27,22 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
     return price - cancelCost;
   };
   
+  const noPenaltiesExist = (penalty: Penalty) => {
+    return (penalty.percentage === undefined && penalty.amount === undefined);
+  }
+
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
+    if (noPenaltiesExist(cancelPenalty)) return 0;
     return cancelPenalty.percentage !== undefined
       ? convertPercentageToAmount(cancelPenalty.percentage, price) 
       : cancelPenalty.amount!;
   };
 
   const getChangeAmount = (changePenalty: Penalty, price: number) => {
+    if (noPenaltiesExist(changePenalty)) return 0;
+    if (changePenalty.percentage === undefined && changePenalty.amount === undefined) {
+      return 0;
+    }
     return changePenalty.percentage !== undefined
       ? convertPercentageToAmount(changePenalty.percentage, price) 
       : changePenalty.amount!;

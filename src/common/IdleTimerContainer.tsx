@@ -1,22 +1,28 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import IdleTimer from 'react-idle-timer';
 import { logout } from '../actions/AuthActions';
 
-interface IdleTimerContainterProps {
+interface IdleTimerContainerProps {
   logout: typeof logout
 }
 
-function IdleTimerContainer (props: IdleTimerContainterProps) {
-  const idleTimerRef = useRef(null);
-  return (
-    <div>
-      <IdleTimer
-        ref={idleTimerRef}
-        timeout={14400000}
-        onIdle={() => props.logout()}
-      />
-    </div>
-  );
+class IdleTimerContainer extends React.Component<IdleTimerContainerProps> {
+
+  render() {
+    return (
+      <div>
+        <IdleTimer
+          timeout={1000 * 60 * 90}
+          onIdle={this.handleOnIdle}
+          debounce={250}
+        />
+      </div>
+    );
+  }
+
+  handleOnIdle = (event: any) => {
+    this.props.logout();
+  }
 }
 
 export default IdleTimerContainer;

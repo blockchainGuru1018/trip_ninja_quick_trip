@@ -152,7 +152,15 @@
                 "title": "Ces billets n'est pas disponible",
                 "body": "Une erreur s'est produite avec ces billets. Essayer encore.",
                 "return":"Retourner au réservation"
+            },
+            "pdfErrorModal": {
+                "title": "PDF download failed.",
+                "body": "There was an error downloading the pdf, please try again or contact support.",
+                "return": "Return to Booking"
             }
+        },
+        "pdf": {
+            "page": "Page"
         }
     },
     "auth":{
@@ -363,7 +371,8 @@
             "title": "Gérer",
             "cancelBookingButton": "Annuler la réservation",
             "sendToQueueButton": "Mettre en attente",
-            "issueTicketButton": "émettre le billet"
+            "issueTicketButton": "émettre le billet",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Plusieurs PNRs", 
@@ -372,6 +381,11 @@
         },
         "passengerDetails": {
             "title": "Détails du passager"
+        },
+        "pdf": {
+            "title": "Travel Proposal and Flight Itinerary",
+            "modalLoadingPrimary": "Loading Itinerary PDF",
+            "createdBy": "Created By"
         }
     }
 }

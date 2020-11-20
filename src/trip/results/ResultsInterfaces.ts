@@ -208,6 +208,8 @@ export interface BrandInfo {
   price: number;
   baggage_info: BaggageInfo
   fare_info: Array<FareInfo>
+  cancel_penalty: Penalty
+  change_penalty: Penalty
 }
 
 export interface BrandServices {

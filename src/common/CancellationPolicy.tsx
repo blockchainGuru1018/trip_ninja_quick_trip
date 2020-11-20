@@ -22,10 +22,6 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   const convertPercentageToAmount = (percent: number, segmentPrice: number) => {
     return percent > 0 ? (percent/100 * segmentPrice) : 0;
   };
-
-  const calculateRefundAmount = (cancelCost: number, price: number) => {
-    return price - cancelCost;
-  };
   
   const noPenaltiesExist = (penalty: Penalty) => {
     return (penalty.percentage === undefined && penalty.amount === undefined);
@@ -77,14 +73,12 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
     });
   }
 
-  let refundAmount: number = calculateRefundAmount(cancelAmount, props.price + totalMarkup);
-
   return (
     <div className="row cancel-policy-group">
       <div className="col">
         <p className="standard-text">
           <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')} </span> 
-          {currencySymbol(props.currency)}{cancelAmount.toFixed()}, {t('common.cancellationPolicy.refundOf')} {currencySymbol(props.currency)}{refundAmount.toFixed()}.
+          {currencySymbol(props.currency)}{cancelAmount.toFixed()}
         </p>
         <p className="standard-text">
           <span className="text-bold">{t('common.cancellationPolicy.changeCost')} </span> 

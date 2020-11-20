@@ -32,14 +32,14 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   };
 
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
-    if (noPenaltiesExist(cancelPenalty)) return 0;
+    if (noPenaltiesExist(cancelPenalty)) return price;
     return cancelPenalty.percentage !== undefined
       ? convertPercentageToAmount(cancelPenalty.percentage, price) 
       : cancelPenalty.amount!;
   };
 
   const getChangeAmount = (changePenalty: Penalty, price: number) => {
-    if (noPenaltiesExist(changePenalty)) return 0;
+    if (noPenaltiesExist(changePenalty)) return price;
     if (changePenalty.percentage === undefined && changePenalty.amount === undefined) {
       return 0;
     }

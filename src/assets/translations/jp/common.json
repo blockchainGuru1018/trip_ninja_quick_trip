@@ -41,6 +41,12 @@
   "userMenu": {
       "signOut": "サインアウト"
   },
+  "cancellationPolicy": {
+    "cancellationCost": "Cancellation Cost:",
+    "changeCost": "Change Cost:",
+    "refundOf": "refund of",
+    "fareDifferences": "+ fare differences."
+},
   "custom404":{
       "title": "404 - ページが見つかりませんでした",
       "subHeader": "おっと！お探しのページが見つかりません。それはお客様ではなく、私たちです。から始めてみてください",

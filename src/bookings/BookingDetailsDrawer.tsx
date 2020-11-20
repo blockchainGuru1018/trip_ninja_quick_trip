@@ -17,6 +17,7 @@ import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { cancelBooking, queueBooking, ticketBooking } from '../actions/BookingsActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { useTranslation } from 'react-i18next';
+import CancelRulesBreakdown from '../common/CancelRulesBreakdown';
 
 const NavButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -181,12 +182,20 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
           </div>
           <Divider />
           <div className="row booking-details-section" id="booking-cost">
-            <div className="col-sm-4 no-pad-left">
+            <div className="col-sm-6 no-pad-left">
               <FareBreakdown
                 pricing={props.booking.details!.pricing}
                 currency={props.booking.currency}
                 markupVisible={props.authDetails.markupVisible}
                 itineraries={props.booking.details?.itinerary}
+              />
+            </div>
+            <div className="col-sm-6">
+              <CancelRulesBreakdown
+                price={props.booking.details!.pricing.confirmed_total_price}
+                currency={props.booking.currency}
+                itineraries={props.booking.details?.itinerary}
+                tripMarkup={props.booking.details ? props.booking.details.pricing.markup : 0}
               />
             </div>
           </div>

@@ -104,6 +104,14 @@ export interface Results {
   path_sequence: Array<string>
 }
 
+export const defaultResults: Results = {
+  trip_id: '',
+  markup: 0,
+  segments: [[]],
+  flight_details: [],
+  path_sequence: ['']
+};
+
 export interface Segment {
   source: string;
   origin: string;

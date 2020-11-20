@@ -10,6 +10,7 @@ import { Segment } from "../results/ResultsInterfaces";
 import history from '../../History';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import SaveAlt from "@material-ui/icons/SaveAlt";
 
 interface BookRequestProps extends WithTranslation {
   resultsDetails: ResultsDetails
@@ -114,6 +115,17 @@ export class BookRequest extends React.Component<BookRequestProps> {
   render() {
     return (
       <div className="float-right">
+        <Button
+          className='btn-booking-print'
+          disableElevation
+          onClick={() => history.push({
+            pathname: '/download-itinerary-pdf/',
+            state: 'pre-booking'
+          })}
+          endIcon={<SaveAlt />}
+        >
+          {this.props.t("bookings.manageBooking.downloadButton")}
+        </Button>
         <Tooltip title={this.props.authDetails.bookingDisabled ? this.props.t("book.bookRequest.bookingDisabled").toString() : ''} placement="top">
           <span>          
             <Button 

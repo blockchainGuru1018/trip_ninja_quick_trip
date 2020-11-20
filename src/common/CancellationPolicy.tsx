@@ -74,7 +74,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
     <div className="row cancel-policy-group">
       <div className="col">
         <p className="standard-text">
-          <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')} </span> 
+          <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')}.</span> 
           {currencySymbol(props.currency)}{cancelAmount.toFixed()}
         </p>
         <p className="standard-text">

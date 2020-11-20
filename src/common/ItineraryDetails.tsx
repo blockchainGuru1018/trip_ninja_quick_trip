@@ -102,7 +102,12 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
       ? getFlightResultByRef(props.selectedTrip[index].flights[0].flight_detail_ref)
       : bookedTripSegments[index].flight_details[0];
     return (
-      <p>{flightDetails ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:dateLocaleMap[i18n.language]}) : ''}</p>
+      <p>{
+        flightDetails
+          ? format(new Date(flightDetails.departure_time), t('common.itineraryDetails.dateFormat'), {locale:dateLocaleMap[i18n.language]})
+          : ''
+      }</p>
+
     );
   };
 

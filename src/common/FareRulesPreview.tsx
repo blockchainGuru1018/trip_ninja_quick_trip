@@ -38,7 +38,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     seatAssignment: undefined
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setBaseFareRulesDetails();
   }
 
@@ -181,14 +181,14 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     let wifi: boolean = false;
     let seatAssignment: string | undefined = undefined;
     let carryOn: number = -1;
-    const numBaggage: any = this.setNumBaggage(); 
-    
+    const numBaggage: any = this.setNumBaggage();
+
     const changePenalty = additionalDetails.change_penalty.amount
       ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
       : additionalDetails.change_penalty.percentage
         ? additionalDetails.change_penalty.percentage + " %"
         : undefined;
-    
+
     const cancelPenalty = additionalDetails.cancel_penalty
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
@@ -196,6 +196,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           ? additionalDetails.cancel_penalty.percentage + " %"
           : undefined
       : undefined;
+
     if (brands) {
       const brandServices: any = this.setBrandServices();
       wifi = brandServices.wifi || false;

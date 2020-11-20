@@ -14,19 +14,20 @@ interface FareBreakdownProps extends WithTranslation {
     markupVisible: boolean;
     trip?: Results;
     actives?: Array<Segment>;
-    itineraries?: Array<BookingItinerary>
-    pathSequence?: Array<string>
+    itineraries?: Array<BookingItinerary>;
+    pathSequence?: Array<string>;
     flightDetailsDisplay?: boolean;
     updateAdditionalMarkup?: typeof updateAdditionalMarkup;
+    expanded?: boolean;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
   state = {
-    expanded: false
+    expanded: !!this.props.expanded
   }
+
   render() {
     const pricing = this.props.pricing!;
-
     return (
       <div className={this.props.flightDetailsDisplay ? 'flight-details-drawer' : ''}>
         <div className='booking-details-title-container'>
@@ -35,7 +36,7 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               ? <h5>{this.props.t("common.fareBreakdown.title")}</h5>
               : <h5 className="section-header">{this.props.t("common.fareBreakdown.altTitle")}</h5>
           }
-          <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-fare-breakdown-details'>{`Show ${this.state.expanded ? 'less' : 'more'} details`}</div>
+          <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-fare-breakdown-details'>{`Show ${this.state.expanded ? 'fewer' : 'more'} details`}</div>
         </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing 

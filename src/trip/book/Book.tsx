@@ -102,6 +102,7 @@ class Book extends React.Component<BookProps> {
       </div>
     );
   }
+
 }
 
 export default withTranslation('common')(Book);

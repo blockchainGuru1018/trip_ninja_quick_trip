@@ -154,7 +154,15 @@
                 "title": "Ticketing failed",
                 "body": "There was an error ticketing this itinerary, please try again later.",
                 "return":"Return to Booking Overview"
+            },
+            "pdfErrorModal": {
+                "title": "PDF download failed.",
+                "body": "There was an error downloading the pdf, please try again or contact support.",
+                "return": "Return to Booking"
             }
+        },
+        "pdf": {
+            "page": "Page"
         }
     },
     "auth":{
@@ -365,7 +373,8 @@
             "title": "Manage",
             "cancelBookingButton": "Cancel Booking",
             "sendToQueueButton": "Send to Queue",
-            "issueTicketButton": "Issue Ticket"
+            "issueTicketButton": "Issue Ticket",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Multiple PNRs", 
@@ -374,6 +383,11 @@
         },
         "passengerDetails": {
             "title": "Passenger Details"
+        },
+        "pdf": {
+            "title": "Travel Proposal and Flight Itinerary",
+            "modalLoadingPrimary": "Loading Itinerary PDF",
+            "createdBy": "Created By"
         }
     }
 }

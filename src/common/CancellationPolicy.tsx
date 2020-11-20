@@ -2,8 +2,8 @@ import React from 'react';
 import { BookingItinerary } from '../bookings/BookingsInterfaces';
 import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { Segment, Penalty } from '../trip/results/ResultsInterfaces';
-import { getTotal, isFirstPositionInStructure } from '../helpers/MiscHelpers';
-import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
+import { isFirstPositionInStructure } from '../helpers/MiscHelpers';
+import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
 import { useTranslation } from 'react-i18next';
 
 

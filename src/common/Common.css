@@ -49,12 +49,12 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.btn-fare-breakdown-details {
+.btn-breakdown-details {
   text-align: right;
   color: var(--tertiary)
 }
 
-.btn-fare-breakdown-details:hover {
+.btn-breakdown-details:hover {
   cursor: pointer
 }
 
@@ -72,4 +72,8 @@
 
 .edit-icon{
   padding-left: 0px;
+}
+
+.cancel-policy-group {
+  padding: 10px 0px;
 }

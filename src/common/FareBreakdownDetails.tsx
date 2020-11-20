@@ -5,7 +5,7 @@ import { Pricing } from "../trip/results/PricingInterfaces";
 import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import { BookingItinerary, BookingPassenger } from "../bookings/BookingsInterfaces";
+import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
@@ -89,15 +89,19 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   getActiveSegmentExpandedPricingBookingTable = () => {
     const pricesByTicketHtml: any = [];
+    let segmentCount: number = 0;
     this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
-      pricesByTicketHtml.push(
+      const firstSegment: BookingSegment = itinerary.segments[0];
+      const ticketPosition: number = firstSegment.segment_id + segmentCount;
+      segmentCount += firstSegment.virtual_interline ? 1 : 0;
+      pricesByTicketHtml.splice(ticketPosition, 0, [
         this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
         this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)
-      );
+      ]);
     });
-    return pricesByTicketHtml;
+    return pricesByTicketHtml.flat();
   }
 
   isSecondPartOfOpenJaw = (segment: Segment) => {

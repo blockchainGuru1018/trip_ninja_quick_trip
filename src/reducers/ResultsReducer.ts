@@ -134,7 +134,9 @@ function setSegmentFareFamily(segment: Segment, brands: Array<BrandInfo>, brandI
     segment.base_price = brand.base_price;
     segment.taxes = brand.taxes;
     segment.price = brand.price;
-  }  
+  } 
+  segment.additional_details.cancel_penalty = brand.cancel_penalty;
+  segment.additional_details.change_penalty = brand.change_penalty;
   segment.baggage.number_of_pieces = brand.baggage_info.pieces;
   segment.flights.forEach((flight: any, index) => {
     let fareInfo = segment.source === 'travelport' ? brand.fare_info[0] : brand.fare_info[index];

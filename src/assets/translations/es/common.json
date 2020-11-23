@@ -102,7 +102,7 @@
             "class": "Clase"
         },
         "itineraryDetails": {
-            "dateFormat": "eeee e MMM, yyy",
+            "dateFormat": "eeee do MMM, yyy",
             "bookingDetailsHeader": "Detalles de Reservacion",
             "flightDetailsHeader": "Detalles de Vuelo",
             "informationNotAvailable": "Informacion no disponible",

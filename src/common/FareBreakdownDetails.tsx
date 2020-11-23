@@ -5,13 +5,14 @@ import { Pricing } from "../trip/results/PricingInterfaces";
 import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import { BookingItinerary, BookingPassenger } from "../bookings/BookingsInterfaces";
+import { BookingItinerary, BookingPassenger, BookingSegment } from "../bookings/BookingsInterfaces";
 import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
 import AdditionalMarkup from "../trip/book/AdditionalMarkup";
 import { formatPrice } from "../helpers/CurrencySymbolHelper";
 import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
+import { getSegmentsFromBookingItinerary, sortItineraryList, sortSegmentList} from "../helpers/BookingsHelpers";
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -88,16 +89,18 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   }
 
   getActiveSegmentExpandedPricingBookingTable = () => {
-    const pricesByTicketHtml: any = [];
-    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
+    const segmentList: Array<BookingSegment> = getSegmentsFromBookingItinerary(this.props.itineraries!);
+    const orderedSegments: Array<BookingSegment> = sortSegmentList(segmentList);
+    const orderedItineraries: Array<any> = sortItineraryList(orderedSegments, this.props.itineraries!);
+    const pricesByTicketHtml: any = orderedItineraries.map((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
-      pricesByTicketHtml.push(
+      return [
         this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
         this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)
-      );
+      ];
     });
-    return pricesByTicketHtml;
+    return pricesByTicketHtml.flat();
   }
 
   isSecondPartOfOpenJaw = (segment: Segment) => {

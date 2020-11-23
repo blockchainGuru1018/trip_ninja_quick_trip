@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { dateLocaleMap } from '../localeMap';
 import { format } from 'date-fns';
+import {getSegmentsFromBookingItinerary, sortSegmentList} from "../helpers/BookingsHelpers";
 
 const useStyles = makeStyles({
   root: {
@@ -67,32 +68,27 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   const setBookingFlightComponents = (selectedTrip: Array<BookingItinerary>, currency: string) => {
     let flightResultsPathComponents: Array<JSX.Element> = [];
     let fareRulesPreviewComponents: Array<JSX.Element> = [];
-    let bookedSegments: Array<BookingSegment> = [];
-    let viLinkedSegmentShift: number = 0;
-    if (selectedTrip) {
-      selectedTrip.forEach((itinerary: BookingItinerary) => {
-        itinerary.segments.forEach((segment: BookingSegment, index: number) => {
-          if (segment.virtual_interline && segment.vi_position === 1) {
-            viLinkedSegmentShift +=1;
-          } 
-          bookedSegments[segment.segment_id + viLinkedSegmentShift] = segment;
-          flightResultsPathComponents[segment.segment_id + viLinkedSegmentShift] = <FlightResultsPath
-            flightDetails={segment.flight_details}
-            key={index}
-          />;
-          segment.plating_carrier = itinerary.plating_carrier;
-          fareRulesPreviewComponents[segment.segment_id + viLinkedSegmentShift] = <FareRulesPreview
-            bookingSegment={segment}
-            flightDetails={segment.flight_details}
-            currency={currency}
-            itineraryDisplay={true}
-            index={index}
-            bookingDrawer={true}
-          />;
-        });
-      });
-    }
-    setBookedTripSegments(bookedSegments);
+    const segmentList: Array<BookingSegment> = getSegmentsFromBookingItinerary(selectedTrip);
+    const sortedSegmentList: Array<BookingSegment> = sortSegmentList(segmentList);
+    sortedSegmentList.forEach((sortedSegment: BookingSegment, index: number) => {
+      flightResultsPathComponents.push(
+        <FlightResultsPath
+          flightDetails={sortedSegment.flight_details}
+          key={index}
+        />
+      );
+      fareRulesPreviewComponents.push(
+        <FareRulesPreview
+          bookingSegment={sortedSegment}
+          flightDetails={sortedSegment.flight_details}
+          currency={currency}
+          itineraryDisplay={true}
+          index={index}
+          bookingDrawer={true}
+        />
+      );
+    });
+    setBookedTripSegments(sortedSegmentList);
     return {flightResultsPathComponents: flightResultsPathComponents,
       fareRulesPreviewComponents: fareRulesPreviewComponents};
   };
@@ -129,9 +125,13 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   );
 
   const getViSelfTransferLabel = (index: number, selectedTrip?: Array<Segment>, bookedSegments?: Array<BookingSegment>) => {
-    let firstViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref) : bookedSegments![index].flight_details[0];
+    let firstViFlight = selectedTrip
+      ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref)
+      : bookedSegments![index].flight_details[bookedSegments![index].flight_details.length - 1];
     let secondViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref) : bookedSegments![index+1].flight_details[0];
-    let destinationName = selectedTrip ? selectedTrip[index].destination_name : bookedSegments![index].flight_details[0].destination_name;
+    let destinationName = selectedTrip
+      ? selectedTrip[index].destination_name
+      : bookedSegments![index].flight_details[bookedSegments![index].flight_details.length - 1].destination_name;
     return(firstViFlight && secondViFlight && 
     <SelfTransferLabel 
       destinationName={destinationName}

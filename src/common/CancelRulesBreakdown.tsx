@@ -4,6 +4,7 @@ import { Segment } from '../trip/results/ResultsInterfaces';
 import { BookingItinerary } from "../bookings/BookingsInterfaces";
 import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
 import { isFirstPositionInStructure } from '../helpers/MiscHelpers';
+import { getOrderedSegmentsFromItinerary, sortItineraryList } from "../helpers/BookingsHelpers";
 
 interface CancelRulesBreakdownProps {
   currency: string;
@@ -41,8 +42,10 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
   };
 
   const setItinerariesRulesDetails = () => {
+    const sortedSegments = getOrderedSegmentsFromItinerary(props.itineraries!);
+    const sortedItineraries: Array<any> = sortItineraryList(sortedSegments, props.itineraries!);
     return(<div>
-      {props.itineraries!.map((itinerary: BookingItinerary, index: number) => (
+      {sortedItineraries.map((itinerary: BookingItinerary, index: number) => (
         <div key={index.toString()}>
           <span className="text-bold">{createItineraryPathSequenceStringBooking(itinerary)}</span>
           <CancellationPolicy 

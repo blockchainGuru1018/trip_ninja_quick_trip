@@ -4,6 +4,7 @@ import { Segment } from '../trip/results/ResultsInterfaces';
 import { BookingItinerary } from "../bookings/BookingsInterfaces";
 import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
 import { isFirstPositionInStructure } from '../helpers/MiscHelpers';
+import { getOrderedSegmentsFromItinerary, sortItineraryList } from "../helpers/BookingsHelpers";
 
 interface CancelRulesBreakdownProps {
   currency: string;
@@ -40,20 +41,9 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
     </div>);
   };
 
-  const sortItinerariesBySegmentPosition = () => {
-    let itineraryCount: number = 0;
-    let sortedItineraries: Array<BookingItinerary> = [];
-    props.itineraries!.forEach((itinerary: BookingItinerary) => {
-      const firstSegment = itinerary.segments[0];
-      const ticketPosition: number = firstSegment.segment_id + itineraryCount;
-      itineraryCount += firstSegment.virtual_interline ? 1 : 0;
-      sortedItineraries.splice(ticketPosition, 0, itinerary);
-    });
-    return sortedItineraries;
-  };
-
   const setItinerariesRulesDetails = () => {
-    const sortedItineraries: Array<BookingItinerary> = sortItinerariesBySegmentPosition();
+    const sortedSegments = getOrderedSegmentsFromItinerary(props.itineraries!);
+    const sortedItineraries: Array<any> = sortItineraryList(sortedSegments, props.itineraries!);
     return(<div>
       {sortedItineraries.map((itinerary: BookingItinerary, index: number) => (
         <div key={index.toString()}>

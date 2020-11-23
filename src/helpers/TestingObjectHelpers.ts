@@ -1,7 +1,7 @@
 import { AuthDetails } from "../auth/AuthInterfaces";
 import {
   ActiveSegmentsMap, AdditionalDetails,
-  Baggage, FlightResult, FlightResultsDetails, Penalty,
+  Baggage, Brand, FlightResult, FlightResultsDetails, Penalty,
   Results,
   ResultsDetails, Segment,
   SegmentPositionMap
@@ -15,6 +15,7 @@ import {
   PricingDetails,
   SegmentPricingInfo
 } from "../trip/results/PricingInterfaces";
+import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
 
 
 export const testingAuthDetails: AuthDetails = {
@@ -196,4 +197,29 @@ export const testingPricingDetails: PricingDetails = {
   itineraries: [testingPricedItinerary],
   loading: false,
   pricing: testingPricing
+};
+
+export const testingBookingItinerary: BookingItinerary = {
+  itinerary_reference: "1",
+  plating_carrier: 'AA',
+  credentials: testingCredentials,
+  itinerary_type: 'one-way',
+  itinerary_markup: 0,
+  segments: [],
+  price_breakdown: testingPricing,
+  passengers: [],
+};
+
+export const testingBookingSegment: BookingSegment = {
+  segment_id: 0,
+  baggage: testingBaggageDetails,
+  flight_details: [],
+  additional_details: testingAdditionalDetails,
+  brands: [],
+  source: 'travelport',
+  vi_position: 0,
+  vi_solution_id: '1',
+  virtual_interline: false,
+  itinerary_index: "1",
+  plating_carrier: 'AA',
 };

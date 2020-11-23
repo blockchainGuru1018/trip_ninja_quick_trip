@@ -1,7 +1,7 @@
 import { AuthDetails } from "../auth/AuthInterfaces";
 import {
   ActiveSegmentsMap, AdditionalDetails,
-  Baggage, Brand, FlightResult, FlightResultsDetails, Penalty,
+  Baggage, FlightResult, FlightResultsDetails, Penalty,
   Results,
   ResultsDetails, Segment,
   SegmentPositionMap
@@ -15,7 +15,7 @@ import {
   PricingDetails,
   SegmentPricingInfo
 } from "../trip/results/PricingInterfaces";
-import {BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
+import {BookingItinerary, BookingSegment} from "../bookings/BookingsInterfaces";
 
 
 export const testingAuthDetails: AuthDetails = {

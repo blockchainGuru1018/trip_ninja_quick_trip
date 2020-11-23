@@ -92,7 +92,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     const segmentList: Array<BookingSegment> = getSegmentsFromBookingItinerary(this.props.itineraries!);
     const orderedSegments: Array<BookingSegment> = sortSegmentList(segmentList);
     const orderedItineraries: Array<any> = sortItineraryList(orderedSegments, this.props.itineraries!);
-    console.log({orderedItineraries});
     const pricesByTicketHtml: any = orderedItineraries.map((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;

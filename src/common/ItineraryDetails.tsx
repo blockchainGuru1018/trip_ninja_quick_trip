@@ -125,9 +125,13 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
   );
 
   const getViSelfTransferLabel = (index: number, selectedTrip?: Array<Segment>, bookedSegments?: Array<BookingSegment>) => {
-    let firstViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref) : bookedSegments![index].flight_details[0];
+    let firstViFlight = selectedTrip
+      ? getFlightResultByRef(selectedTrip[index].flights[0].flight_detail_ref)
+      : bookedSegments![index].flight_details[bookedSegments![index].flight_details.length - 1];
     let secondViFlight = selectedTrip ? getFlightResultByRef(selectedTrip[index+1].flights[0].flight_detail_ref) : bookedSegments![index+1].flight_details[0];
-    let destinationName = selectedTrip ? selectedTrip[index].destination_name : bookedSegments![index].flight_details[0].destination_name;
+    let destinationName = selectedTrip
+      ? selectedTrip[index].destination_name
+      : bookedSegments![index].flight_details[bookedSegments![index].flight_details.length - 1].destination_name;
     return(firstViFlight && secondViFlight && 
     <SelfTransferLabel 
       destinationName={destinationName}

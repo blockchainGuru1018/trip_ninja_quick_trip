@@ -74,6 +74,9 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     <div className='front-page-title-container'>
       <h1 className='text-white'>{this.props.authDetails.agency.toUpperCase()}</h1>
       <h2 className='text-white'>{this.props.t("bookings.pdf.title").toUpperCase()}</h2>
+      <p className='text-white'>
+        {format(new Date(this.props.booking ? this.props.booking.booking_date+'T00:00:00.000' : new Date()), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+      </p>
       <div className='pdf-title-page-created-by'>
         <h2 className='text-bold text-white'>{`${this.props.t("bookings.pdf.createdBy").toUpperCase()}:`}</h2>
         <h2 className='text-white'>{`${this.props.authDetails.userFirstName.toUpperCase()} ${this.props.authDetails.userLastName.toUpperCase()}`}</h2>

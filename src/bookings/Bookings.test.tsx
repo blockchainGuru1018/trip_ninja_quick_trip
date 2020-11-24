@@ -59,7 +59,7 @@ test('pdfItineraryDownload', () => {
       resultsDetails={testingResultsDetails}
       pricingDetails={testingPricingDetails}
       setErrorDetails={setErrorDetails}
-      t={(key: any) => key}
+      t={() => 'MMM do, Y'}
     />
   );
 

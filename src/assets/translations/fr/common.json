@@ -39,6 +39,11 @@
         "userMenu": {
             "signOut": "Déconnecter"
         },
+        "cancellationPolicy": {
+            "cancellationCost": "Cancellation Cost:",
+            "changeCost": "Change Cost:",
+            "fareDifferences": "+ fare differences."
+        },
         "custom404":{
             "title": "404 - Page non trouvée",
             "subHeader": "Une erreur s'est produite, nous vous prions de nous excuser.\nEssayer nos",
@@ -74,7 +79,8 @@
             "bookingClass": "Classe",
             "atACost": "à un prix",
             "available": "Disponible",
-            "unavailable": "Non disponible"
+            "unavailable": "Non disponible",
+            "platingCarrier": "Plating Carrier"
         },
         "flightLogo": {
             "multipleAirlines": "Plusieurs compagnie aèrienne"
@@ -93,7 +99,7 @@
             "class": "Classe"
         },
         "itineraryDetails": {
-            "dateFormat": "eeee MMM eo, yyy",
+            "dateFormat": "eeee MMM do, yyy",
             "bookingDetailsHeader": "Détails de réservation",
             "flightDetailsHeader": "Détails de vol",
             "informationNotAvailable": "L'information n'est pas disponible",
@@ -145,7 +151,15 @@
                 "title": "Ces billets n'est pas disponible",
                 "body": "Une erreur s'est produite avec ces billets. Essayer encore.",
                 "return":"Retourner au réservation"
+            },
+            "pdfErrorModal": {
+                "title": "PDF download failed.",
+                "body": "There was an error downloading the pdf, please try again or contact support.",
+                "return": "Return to Booking"
             }
+        },
+        "pdf": {
+            "page": "Page"
         }
     },
     "auth":{
@@ -356,7 +370,8 @@
             "title": "Gérer",
             "cancelBookingButton": "Annuler la réservation",
             "sendToQueueButton": "Mettre en attente",
-            "issueTicketButton": "émettre le billet"
+            "issueTicketButton": "émettre le billet",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Plusieurs PNRs", 
@@ -365,6 +380,11 @@
         },
         "passengerDetails": {
             "title": "Détails du passager"
+        },
+        "pdf": {
+            "title": "Travel Proposal and Flight Itinerary",
+            "modalLoadingPrimary": "Loading Itinerary PDF",
+            "createdBy": "Created By"
         }
     }
 }

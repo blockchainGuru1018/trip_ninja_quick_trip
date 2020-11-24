@@ -3,5 +3,8 @@ module.exports = {
     '\\.(jpg|jpeg|png|gif|webp|svg)$': 'identity-obj-proxy',
     "\\.(css|less|scss)$": "identity-obj-proxy"
   },
-  "setupFilesAfterEnv": ["./src/setupTests.ts"],
+  "setupFilesAfterEnv": [
+    "jest-canvas-mock",
+    "./src/setupTests.ts"
+  ],
 };

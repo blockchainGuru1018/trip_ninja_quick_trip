@@ -74,3 +74,72 @@
 .expanded-pnr-label {
   padding-left: 10px;
 }
+
+.btn-booking-print {
+  color: var(--primary) !important;
+}
+
+.btn-booking-print:hover {
+  background-color: transparent !important;
+}
+
+#itinerary-pdf-page-front {
+  background: url("../assets/images/travel_agency_background.png");
+  background-size: cover;
+}
+
+.itinerary-pdf-page {
+  width: 720px;
+  height: 925px;
+  position: relative;
+}
+
+.itinerary-pdf-page-last {
+  padding: 40px;
+}
+
+.itinerary-details-pdf-page {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.itinerary-title-pdf-page {
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  padding: 20px 60px;
+}
+
+
+
+.front-page {
+  display: grid;
+  align-items: center;
+}
+
+.front-page-title-container {
+  padding: 0 40px;
+}
+
+.flight-results-path-pdf-container {
+  padding-top: 20px;
+}
+
+.self-transfer-pdf-page {
+  text-align: center;
+  padding: 5px;
+  color: white;
+  background-color: #45565E;
+}
+
+.front-page-pdf-title {
+  font-size: 20px;
+}
+
+.front-page-pdf-sub-title {
+  font-size: 15px;
+}
+
+.pdf-title-page-created-by {
+  position: absolute;
+  bottom: 200px;
+}

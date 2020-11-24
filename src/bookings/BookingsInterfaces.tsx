@@ -5,6 +5,7 @@ import { PassengerInfo } from '../trip/book/BookInterfaces';
 export interface BookingsList {
   bookings: Array<Booking>;
   loading: boolean;
+  bookingDetailIndex: number;
 }
 
 export interface Booking {
@@ -45,7 +46,7 @@ export interface PrimaryPassenger {
 }
 
 export interface BookingItinerary {
-  itinerary_reference: number;
+  itinerary_reference: string;
   plating_carrier: string;
   credentials: Credentials;
   itinerary_type: string;
@@ -82,10 +83,12 @@ export interface BookingSegment {
   vi_position: number;
   vi_solution_id: string;
   virtual_interline: boolean;
-  itinerary_index: number;
+  itinerary_index: string;
+  plating_carrier: string;
 }
 
 export const defaultBookingsList: BookingsList = {
   bookings: [],
-  loading: false
+  loading: false,
+  bookingDetailIndex: 0
 };

@@ -19,6 +19,7 @@ import { Alert } from "@material-ui/lab";
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
 import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
+import CancellationPolicy from '../../common/CancellationPolicy';
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -154,6 +155,19 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </div>
           <div className="col-md-10 segment-list">
             {selectedSegments}
+            { this.state.view === 'itinerary' &&
+              <div className="row">
+                <div className="col-xl-11 offset-xl-1">
+                  <CancellationPolicy 
+                    currency={this.props.currency}
+                    price={totalPrice}
+                    segments={selectedTrip}
+                    tripTotal={true}
+                    tripMarkup={markup}
+                  />
+                </div>
+              </div>
+            }
           </div>
         </div>
       </div>

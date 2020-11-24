@@ -1,5 +1,6 @@
 import API from '../Api';
 import { setValue, resetSearch } from './SearchActions';
+import history from '../History';
 
 export const login = (email: string, password: string) => {
   return function(dispatch: any) {
@@ -26,6 +27,7 @@ export const logout: any = () => {
     dispatch(authenticateUser(false));
     dispatch(resetAuth());
     dispatch(resetSearch());
+    history.push('/login');
   };
 };
 

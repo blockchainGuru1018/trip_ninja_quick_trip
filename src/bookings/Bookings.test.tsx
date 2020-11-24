@@ -4,6 +4,9 @@ import { Bookings } from './Bookings';
 import { AuthDetails, defaultAuth } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
+import { PDFItineraryDownload } from "./PDFItineraryDownload";
+import { testingAuthDetails, testingResultsDetails, testingPricingDetails} from "../helpers/TestingObjectHelpers";
+import { setErrorDetails } from "../actions/ResultsActions";
 
 let testBookingsList: BookingsList = {
   bookings: [],
@@ -47,4 +50,19 @@ it('getUserTypeAgent', () => {
   );
   const instance = bookingsComponent.instance();
   expect(instance.getUserType()).toBe("user=testing1@tripninja.io");
+});
+
+test('pdfItineraryDownload', () => {
+  const pdfItineraryComponent: any = shallow(
+    <PDFItineraryDownload
+      authDetails={testingAuthDetails}
+      resultsDetails={testingResultsDetails}
+      pricingDetails={testingPricingDetails}
+      setErrorDetails={setErrorDetails}
+      t={() => 'MMM do, Y'}
+    />
+  );
+
+  const pdfInstance = pdfItineraryComponent.instance();
+  expect(pdfInstance.getSegmentsList().length).toStrictEqual(1);
 });

@@ -2,15 +2,17 @@
 import React from "react";
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Pricing } from "../trip/results/PricingInterfaces";
-import { FlightResultsDetails, Results, Segment } from "../trip/results/ResultsInterfaces";
+import { Results, Segment } from "../trip/results/ResultsInterfaces";
 import { getLinkedViSegment } from "../helpers/VirtualInterliningHelpers";
 import { createPassengersString, createStringFromPassengerList } from "../helpers/PassengersListHelper";
-import { BookingItinerary, BookingPassenger, BookingSegment} from "../bookings/BookingsInterfaces";
-import { calculateDistributedMarkup } from '../helpers/MarkupHelper';
+import { BookingItinerary, BookingPassenger, BookingSegment } from "../bookings/BookingsInterfaces";
+import { calculateDistributedMarkup, getItinerariesMarkupTotal } from '../helpers/MarkupHelper';
 import { getTotal } from "../helpers/MiscHelpers";
 import { updateAdditionalMarkup } from '../actions/PricingActions';
 import AdditionalMarkup from "../trip/book/AdditionalMarkup";
 import { formatPrice } from "../helpers/CurrencySymbolHelper";
+import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
+import { getSegmentsFromBookingItinerary, sortItineraryList, sortSegmentList} from "../helpers/BookingsHelpers";
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -51,10 +53,11 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
 
   getActiveSegmentExpandedPricing = () => {
     const pricesByTicketHtml: any = [];
-    const distributedMarkup = calculateDistributedMarkup(this.props.pricing.markup, this.props.actives!);
 
     this.props.actives!.forEach((activeSegment: Segment, segmentIndex: number) => {
-      let markup = activeSegment.itinerary_markup > 0 ? activeSegment.itinerary_markup : distributedMarkup;
+      let markup = activeSegment.itinerary_markup > 0 
+        ? activeSegment.itinerary_markup 
+        : calculateDistributedMarkup(this.props.pricing.markup, activeSegment.price, this.props.pricing.confirmed_total_price);
       if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
         return;
       } else if (activeSegment.virtual_interline) {
@@ -62,7 +65,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         let taxesAndFees: number = (activeSegment.vi_segment_taxes || 0) + (activeSegment.vi_segment_fees || 0);
         if (!this.props.markupVisible) taxesAndFees += markup;
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((baseFare + taxesAndFees), activeSegment),
+          this.setSegmentHeaderHtml((baseFare + taxesAndFees + (this.props.markupVisible ? markup : 0)), activeSegment),
           this.setPricingHtml(baseFare, taxesAndFees, markup, true)
         );
         const linkedViSegment: Segment | undefined = getLinkedViSegment(activeSegment, this.props.trip!.segments[segmentIndex]);
@@ -70,14 +73,14 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         let viTaxesAndFees: number = (linkedViSegment!.vi_segment_taxes || 0) + (linkedViSegment!.vi_segment_fees || 0);
         if (!this.props.markupVisible) viTaxesAndFees += markup;
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees), linkedViSegment),
+          this.setSegmentHeaderHtml((viBaseFare + viTaxesAndFees + (this.props.markupVisible ? markup : 0)), linkedViSegment),
           this.setPricingHtml(viBaseFare, viTaxesAndFees, markup, true)
         );
       } else {
         let taxesAndFees: number = activeSegment.taxes + (activeSegment.fees || 0);
         if (!this.props.markupVisible) taxesAndFees += markup;
         pricesByTicketHtml.push(
-          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees), activeSegment),
+          this.setSegmentHeaderHtml((activeSegment.base_price + taxesAndFees + (this.props.markupVisible ? markup : 0)), activeSegment),
           this.setPricingHtml(activeSegment.base_price, taxesAndFees, markup, true)
         );
       }
@@ -86,16 +89,18 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
   }
 
   getActiveSegmentExpandedPricingBookingTable = () => {
-    const pricesByTicketHtml: any = [];
-    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
+    const segmentList: Array<BookingSegment> = getSegmentsFromBookingItinerary(this.props.itineraries!);
+    const orderedSegments: Array<BookingSegment> = sortSegmentList(segmentList);
+    const orderedItineraries: Array<any> = sortItineraryList(orderedSegments, this.props.itineraries!);
+    const pricesByTicketHtml: any = orderedItineraries.map((itinerary: BookingItinerary) => {
       const baseFare: number = itinerary.price_breakdown.base_fare;
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
-      pricesByTicketHtml.push(
+      return [
         this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
         this.setPricingHtml(baseFare, taxesAndFees, itinerary.itinerary_markup, true)
-      );
+      ];
     });
-    return pricesByTicketHtml;
+    return pricesByTicketHtml.flat();
   }
 
   isSecondPartOfOpenJaw = (segment: Segment) => {
@@ -110,8 +115,8 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <div className='text-bold'>
           {
             segment
-              ? this.createItineraryPathSequenceString(segment)
-              : this.createItineraryPathSequenceStringBooking(itinerary!)
+              ? createItineraryPathSequenceString(segment, this.props.pathSequence!)
+              : createItineraryPathSequenceStringBooking(itinerary!)
           }
         </div>
         <div className='text-small'>
@@ -120,7 +125,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
               ? createPassengersString([segment])
               : this.createPassengersStringBooking(itinerary!)
           }
-
         </div>
       </div>
       <div className='col-sm-4 fare-breakdown-price'>
@@ -134,34 +138,8 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
     return createStringFromPassengerList(passengerTypeList);
   }
 
-  createItineraryPathSequenceString = (segment: any) => {
-    let pathSequenceString = '';
-    const itineraryStructure: Array<number> = JSON.parse(segment.itinerary_structure);
-    itineraryStructure.forEach((itineraryPosition: number) => segment.virtual_interline
-      ? pathSequenceString += `${segment.origin} - ${segment.destination}, `
-      : pathSequenceString += `${this.props.pathSequence![itineraryPosition]}, `);
-    return pathSequenceString.slice(0, -2);
-  }
-
   getItineraryMarkupTotal = () => {
-    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : this.getItinerariesMarkup();
-  }
-
-  getItinerariesMarkup = () => {
-    let itineraryMarkupSum: number = 0;
-    this.props.itineraries?.forEach((itinerary: BookingItinerary) => {
-      itineraryMarkupSum += itinerary.itinerary_markup;
-    });
-    return itineraryMarkupSum;
-  }
-
-  createItineraryPathSequenceStringBooking = (itinerary: BookingItinerary) => {
-    let pathSequenceString = '';
-    itinerary.segments.forEach((segment: BookingSegment) => {
-      const flightDetails: Array<FlightResultsDetails> = segment.flight_details;
-      pathSequenceString += `${flightDetails[0].origin}-${flightDetails[flightDetails.length - 1].destination}, `;
-    });
-    return pathSequenceString.slice(0, -2);
+    return this.props.actives ?  getTotal(this.props.actives!, 'itinerary_markup') : getItinerariesMarkupTotal(this.props.itineraries!);
   }
 
   setPricingHtml = (baseFare: number, taxesAndFees: number, markup: number, expanded: boolean = false) => <div className='pricing-header-container'>

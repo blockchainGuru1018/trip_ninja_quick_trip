@@ -15,6 +15,7 @@ import { baggageLabel } from '../helpers/BaggageHelper';
 import { BookingSegment } from '../bookings/BookingsInterfaces';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import FlightIcon from '@material-ui/icons/Flight';
 
 interface FareRulesProps extends WithTranslation {
   segment?: Segment;
@@ -37,7 +38,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     seatAssignment: undefined
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setBaseFareRulesDetails();
   }
 
@@ -116,6 +117,12 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </Tooltip>
                 <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
               </div>
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
+                <Tooltip title={this.props.t("common.fareRulesPreview.platingCarrier").toString()} placement="top">
+                  <FlightIcon color="primary"/>
+                </Tooltip>
+                <span className="icon-label">{this.props.segment ? this.props.segment!.plating_carrier : this.props.bookingSegment!.plating_carrier}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -174,14 +181,14 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     let wifi: boolean = false;
     let seatAssignment: string | undefined = undefined;
     let carryOn: number = -1;
-    const numBaggage: any = this.setNumBaggage(); 
-    
+    const numBaggage: any = this.setNumBaggage();
+
     const changePenalty = additionalDetails.change_penalty.amount
       ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
       : additionalDetails.change_penalty.percentage
         ? additionalDetails.change_penalty.percentage + " %"
         : undefined;
-    
+
     const cancelPenalty = additionalDetails.cancel_penalty
       ? additionalDetails.cancel_penalty.amount
         ? currencySymbol(this.props.currency)! + additionalDetails.cancel_penalty.amount + this.props.currency
@@ -189,6 +196,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           ? additionalDetails.cancel_penalty.percentage + " %"
           : undefined
       : undefined;
+
     if (brands) {
       const brandServices: any = this.setBrandServices();
       wifi = brandServices.wifi || false;

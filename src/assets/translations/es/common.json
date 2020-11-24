@@ -40,6 +40,11 @@
         "userMenu": {
             "signOut": "Cerrar sesión"
         },
+        "cancellationPolicy": {
+            "cancellationCost": "Cancellation Cost:",
+            "changeCost": "Change Cost:",
+            "fareDifferences": "+ fare differences."
+        },
         "custom404":{
             "title": "404 - Página no encontrada",
             "subHeader": "Oops! No pudimos encontrar la página que buscaba. No es usted, somos nosotros.\nPruebe buscar desde nuestro",
@@ -76,7 +81,8 @@
             "bookingClass": "Clase",
             "atACost": "A un costo",
             "available": "Disponible",
-            "unavailable": "No Disponible"
+            "unavailable": "No Disponible",
+            "platingCarrier": "Plating Carrier"
         },
         "flightLogo": {
             "multipleAirlines": "Varias Aerolineas"
@@ -95,7 +101,7 @@
             "class": "Clase"
         },
         "itineraryDetails": {
-            "dateFormat": "eeee e MMM, yyy",
+            "dateFormat": "eeee do MMM, yyy",
             "bookingDetailsHeader": "Detalles de Reservacion",
             "flightDetailsHeader": "Detalles de Vuelo",
             "informationNotAvailable": "Informacion no disponible",
@@ -147,7 +153,15 @@
                 "title": "Emisión Fallida",
                 "body": "Hubo un error en emitir este itinerario, favor pruebe otra vez mas tarde.",
                 "return":"Regresar a Resumen de Reserva"
+            },
+            "pdfErrorModal": {
+                "title": "PDF download failed.",
+                "body": "There was an error downloading the pdf, please try again or contact support.",
+                "return": "Return to Booking"
             }
+        },
+        "pdf": {
+            "page": "Page"
         }
     },
     "auth":{
@@ -357,7 +371,8 @@
             "title": "Editar",
             "cancelBookingButton": "Cancelar",
             "sendToQueueButton": "Mandar a cola",
-            "issueTicketButton": "Emitir"
+            "issueTicketButton": "Emitir",
+            "downloadButton": "Download Quote"
         },
         "multiPNRViewToggle": {
             "title": "Multiples PNRs", 
@@ -366,6 +381,11 @@
         },
         "passengerDetails": {
             "title": "Pasajeros"
+        },
+        "pdf": {
+            "title": "Travel Proposal and Flight Itinerary",
+            "modalLoadingPrimary": "Loading Itinerary PDF",
+            "createdBy": "Created By"
         }
     }
 }

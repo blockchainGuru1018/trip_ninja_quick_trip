@@ -5,6 +5,7 @@ import iataCodeHelper from './IataCodeHelper';
 import { currencySymbol } from './CurrencySymbolHelper';
 import { datesAreOnSameDayOrLater, getTimeDifference, numberOfDaysDifference, numberOfNightsDifference } from './DateHelpers';
 import { firstLetterCapital } from './MiscHelpers';
+import { calculateDistributedMarkup } from './MarkupHelper';
 
 test('testBaggageLabelMultiple', () => {
   const baggageLabelOutput: string = baggageLabel(2);
@@ -69,5 +70,10 @@ test('numberOfNightsDifference', () => {
 test('firstLetterCapital', () => {
   const capitalizedString: string = firstLetterCapital("miami");
   expect(capitalizedString).toStrictEqual("Miami");
+});
+
+test('calculateDistributedMarkup', () => {
+  const distributedMarkup: number = calculateDistributedMarkup(40, 25, 100);
+  expect(distributedMarkup).toStrictEqual(10);
 });
 

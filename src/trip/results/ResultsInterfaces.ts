@@ -104,6 +104,14 @@ export interface Results {
   path_sequence: Array<string>
 }
 
+export const defaultResults: Results = {
+  trip_id: '',
+  markup: 0,
+  segments: [[]],
+  flight_details: [],
+  path_sequence: ['']
+};
+
 export interface Segment {
   source: string;
   origin: string;
@@ -208,6 +216,8 @@ export interface BrandInfo {
   price: number;
   baggage_info: BaggageInfo
   fare_info: Array<FareInfo>
+  cancel_penalty: Penalty
+  change_penalty: Penalty
 }
 
 export interface BrandServices {
@@ -237,6 +247,7 @@ export interface FlightResultsDetails {
   arrival_time: string;
   flight_number: string;
   carrier: string;
+  operating_carrier: string;
   flight_time: number;
   booking_code?: string;
   cabin_class?: string;

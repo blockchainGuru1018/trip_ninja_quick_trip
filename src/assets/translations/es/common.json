@@ -43,7 +43,6 @@
         "cancellationPolicy": {
             "cancellationCost": "Cancellation Cost:",
             "changeCost": "Change Cost:",
-            "refundOf": "refund of",
             "fareDifferences": "+ fare differences."
         },
         "custom404":{

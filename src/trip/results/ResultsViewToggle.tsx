@@ -37,7 +37,7 @@ export default function ResultsViewToggle(props:ResultsViewToggleProps) {
             Itinerary
           </ToggleButton>
           <ToggleButton className={classes.root} value="pnr" aria-label="pnr">
-            PNR
+            Ticket
           </ToggleButton>
         </ToggleButtonGroup>
       </div>

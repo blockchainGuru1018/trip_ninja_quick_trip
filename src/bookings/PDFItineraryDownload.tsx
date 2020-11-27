@@ -124,7 +124,9 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     let passengers: Array<PassengerInfo> = this.props.booking?.details?.passengers ? this.props.booking?.details?.passengers : this.props.bookingDetails.passengers;
     return (
       <div>
-        <h5 className="passenger-section-header">Passengers</h5>
+        { (this.props.booking?.details?.passengers || this.props.bookingDetails.passengers[0].updated) &&
+          <h5 className="passenger-section-header">Passengers</h5>
+        }
         { passengers.map((passenger: PassengerInfo) => {
           return <p className="passenger-name">{passenger.first_name} {passenger.last_name}</p>;
         })}

@@ -28,6 +28,7 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
 
   render() {
     const pricing = this.props.pricing!;
+    console.log(pricing);
     return (
       <div className={this.props.flightDetailsDisplay ? 'flight-details-drawer' : ''}>
         <div className='booking-details-title-container'>
@@ -39,7 +40,7 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
           <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-breakdown-details'>{`Show ${this.state.expanded ? 'fewer' : 'more'} details`}</div>
         </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
-          {pricing 
+          {pricing && pricing.base_fare !== 0
             ? <FareBreakdownDetails
               pricing={pricing}
               expanded={this.state.expanded}
@@ -56,7 +57,6 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               <p>{this.props.t("common.fareBreakdown.infoMissing")}</p>
             </div>
           }
-          
         </div>
       </div>
     );

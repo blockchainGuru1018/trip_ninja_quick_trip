@@ -28,7 +28,6 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
 
   render() {
     const pricing = this.props.pricing!;
-    console.log(pricing);
     return (
       <div className={this.props.flightDetailsDisplay ? 'flight-details-drawer' : ''}>
         <div className='booking-details-title-container'>

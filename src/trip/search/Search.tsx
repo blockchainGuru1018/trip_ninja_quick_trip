@@ -119,7 +119,7 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
     const departureDate: string = flights[flights.length - 1].departureDate; 
-    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
+    this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
   }
 }
 

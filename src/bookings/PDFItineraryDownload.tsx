@@ -128,7 +128,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
           <h5 className="passenger-section-header">Passengers</h5>
         }
         { passengers.map((passenger: PassengerInfo) => {
-          return <p className="passenger-name">{passenger.first_name} {passenger.last_name}</p>;
+          return <p key={passenger.first_name} className="passenger-name">{passenger.first_name} {passenger.last_name}</p>;
         })}
       </div>
     );

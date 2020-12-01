@@ -9,7 +9,7 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands, setResultsLoading } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
@@ -30,9 +30,15 @@ interface SegmentSelectionProps extends WithTranslation {
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
+
+  componentDidMount() {
+    this.props.setResultsLoading(false);
+  }
+
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -91,7 +97,10 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)} />
+            <SegmentNav
+              pathSequence={trip.path_sequence}
+              currentIndex={parseInt(segmentIndex)}
+              setResultsLoading={this.props.setResultsLoading}/>
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">

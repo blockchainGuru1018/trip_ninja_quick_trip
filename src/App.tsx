@@ -19,7 +19,7 @@ import {
 import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue
+  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue, setResultsLoading
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -41,6 +41,8 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticket
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
+import DefaultModal from "./common/modals/DefaultModal";
+import DefaultLoadingModal from "./common/modals/DefaultLoadingModal";
 
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
@@ -86,6 +88,7 @@ interface IAppProps {
   setActiveSegments: typeof setActiveSegments;
   getPriceGraph: typeof getPriceGraph;
   updateStateValue: typeof updateStateValue;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 const theme = Theme;
@@ -114,7 +117,7 @@ class App extends React.Component<IAppProps> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
+        <div className={`App ${this.props.resultsDetails.loadingResults && 'blurred-app'}`}>
           <DefaultErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
@@ -128,6 +131,9 @@ class App extends React.Component<IAppProps> {
           />
           <BookModal
             loading={this.props.bookingDetails.loading!}
+          />
+          <DefaultLoadingModal
+            loading={this.props.resultsDetails.loadingResults}
           />
           <IdleTimerContainer
             logout={this.props.logout}
@@ -191,6 +197,7 @@ class App extends React.Component<IAppProps> {
                     updateEntireTrip={this.props.updateEntireTrip}
                     markupVisible={this.props.authDetails.markupVisible}
                     viewPnrPricing={this.props.authDetails.viewPnrPricing}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -203,6 +210,7 @@ class App extends React.Component<IAppProps> {
                     updateSegmentFilter={this.props.updateSegmentFilter}
                     updateSortType={this.props.updateSortType}
                     getTravelportBrands={this.props.getTravelportBrands}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

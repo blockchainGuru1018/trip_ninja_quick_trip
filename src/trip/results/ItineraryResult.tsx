@@ -9,7 +9,7 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import {ResultsDetails, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
+import { updateActives, updateItineraryFilter, updateSortType, updateEntireTrip, setResultsLoading }
   from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
@@ -33,6 +33,7 @@ interface ItineraryResultsProps extends WithTranslation {
   updateEntireTrip: typeof updateEntireTrip;
   markupVisible: boolean;
   viewPnrPricing: boolean;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -40,7 +41,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   state = {
     view: 'itinerary'
   }
-  
+
+  componentDidMount() {
+    console.log('it did mount')
+    this.props.setResultsLoading(false);
+  }
+
   handleViewChange = (newValue: string | null) => {
     this.setState({view: newValue});
   };
@@ -151,7 +157,10 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence}/>
+            <SegmentNav
+              pathSequence={trip.path_sequence}
+              setResultsLoading={this.props.setResultsLoading}
+            />
           </div>
           <div className="col-md-10 segment-list">
             {selectedSegments}

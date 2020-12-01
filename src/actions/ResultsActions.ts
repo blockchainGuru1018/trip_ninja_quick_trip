@@ -43,7 +43,16 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
   };
 }
 
-export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: string) {
+export const updateEntireTrip = (setActivesInitial: boolean = true, sortBy: string) => (dispatch: any) => {
+  dispatch(setResultsLoading(true));
+  setTimeout(() => {
+    dispatch(updateEntireTripAction(setActivesInitial, sortBy));
+    dispatch(setResultsLoading(false));
+  }, 2000);
+
+};
+
+export function updateEntireTripAction(setActivesInitial: boolean = true, sortBy: string) {
   return {
     type: 'UPDATE_ENTIRE_TRIP',
     setActivesInitial,
@@ -98,6 +107,13 @@ export function updateStateValue(key: string, value: any) {
   return {
     type: 'UPDATE_STATE_VALUE',
     key,
+    value
+  };
+}
+
+export function setResultsLoading(value: boolean) {
+  return {
+    type: "SET_RESULTS_LOADING",
     value
   };
 }

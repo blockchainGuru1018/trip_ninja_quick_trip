@@ -18,7 +18,8 @@ interface CancellationPolicyProps {
 
 export default function CancellationPolicy(props: CancellationPolicyProps) {
   const [ t ] = useTranslation('common');
-  const [infoAvailable, setInfoAvailable] = React.useState(true);
+  const [cancelInfoAvailable, setCancelInfoAvailable] = React.useState(true);
+  const [changeInfoAvailable, setChangeInfoAvailable] = React.useState(true);
   const [cancelAmount, setCancelAmount] = React.useState(0);
   const [changeAmount, setChangeAmount] = React.useState(0);
   
@@ -27,13 +28,13 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
   };
   
   const noPenaltiesExist = (penalty: Penalty) =>
-    penalty.percentage ==  null &&
+    penalty.percentage == null &&
     penalty.amount == null;
 
 
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
     if (noPenaltiesExist(cancelPenalty)) {
-      setInfoAvailable(false);
+      setCancelInfoAvailable(false);
     }
     return cancelPenalty.percentage != null
       ? convertPercentageToAmount(cancelPenalty.percentage, price) 
@@ -42,7 +43,7 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
 
   const getChangeAmount = (changePenalty: Penalty, price: number) => {
     if (noPenaltiesExist(changePenalty)) {
-      setInfoAvailable(false);
+      setChangeInfoAvailable(false);
     }
     return changePenalty.percentage != null
       ? convertPercentageToAmount(changePenalty.percentage, price) 
@@ -64,7 +65,8 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
             setCancelAmount(cancelAmount + getCancelAmount(segment.additional_details.cancel_penalty, price + markup));
             setChangeAmount(changeAmount + getChangeAmount(segment.additional_details.change_penalty, price + markup));
           } else {
-            setInfoAvailable(false);
+            setChangeInfoAvailable(false);
+            setCancelInfoAvailable(false);
           }
         }
       });
@@ -76,7 +78,8 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
           setCancelAmount(cancelAmount + getCancelAmount(itinerary.segments[0].additional_details.cancel_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup));
           setChangeAmount(changeAmount + getChangeAmount(itinerary.segments[0].additional_details.change_penalty, itinerary.price_breakdown.confirmed_total_price + itinerary.itinerary_markup));
         } else {
-          setInfoAvailable(false);
+          setChangeInfoAvailable(false);
+          setCancelInfoAvailable(false);
         }
       });
     }
@@ -86,18 +89,22 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
 
   return (
     <div className="row cancel-policy-group">
-      {infoAvailable
+      {changeInfoAvailable || cancelInfoAvailable
         ? <div className="col">
-          <p className="standard-text">
-            <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')} </span>
-            {currencySymbol(props.currency)}{cancelAmount.toFixed()}
-          </p>
-          <p className="standard-text">
-            <span className="text-bold">{t('common.cancellationPolicy.changeCost')} </span>
-            {currencySymbol(props.currency)}{changeAmount.toFixed()} {t('common.cancellationPolicy.fareDifferences')}
-          </p>
+          {cancelInfoAvailable
+            ? <p className="standard-text">
+              <span className="text-bold">{t('common.cancellationPolicy.cancellationCost')} </span>
+              {currencySymbol(props.currency)}{cancelAmount.toFixed()}
+            </p>
+            : <p className="standard-text">{t('common.cancellationPolicy.cancellationInfoMissing')}</p>}
+          {changeInfoAvailable
+            ? <p className="standard-text">
+              <span className="text-bold">{t('common.cancellationPolicy.changeCost')} </span>
+              {currencySymbol(props.currency)}{changeAmount.toFixed()} {t('common.cancellationPolicy.fareDifferences')}
+            </p>
+            : <p className="standard-text">{t('common.cancellationPolicy.changeInfoMissing')}</p>}
         </div>
-        : <p className='standard-text'>Cancellation information not available</p>
+        : <p className='standard-text'>{t('common.cancellationPolicy.refundInfoMissing')}</p>
       }
     </div>
   );

@@ -50,16 +50,18 @@ class ManageBooking extends React.Component<ManageBookingProps> {
             onClick={(e) => {this.props.ticketBooking(this.props.booking);}}>
             {this.props.t("bookings.manageBooking.issueTicketButton")}
           </Button>
-          <Button
+          {this.props.status !== 'cancelled' && <Button
+            disabled={this.props.status === 'cancelled'}
+            disableElevation
             className='btn-booking-print'
             onClick={() => history.push({
               pathname: '/download-itinerary-pdf/',
               state: 'booking'
             })}
-            endIcon={<SaveAlt />}
+            endIcon={<SaveAlt/>}
           >
             {this.props.t("bookings.manageBooking.downloadButton")}
-          </Button>
+          </Button>}
         </div>     
       </div>
     );

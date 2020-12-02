@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { dateLocaleMap } from '../localeMap';
 import { format } from 'date-fns';
-import {getSegmentsFromBookingItinerary, sortSegmentList} from "../helpers/BookingsHelpers";
+import { getSegmentsFromBookingItinerary, sortSegmentList } from "../helpers/BookingsHelpers";
 
 const useStyles = makeStyles({
   root: {
@@ -71,22 +71,24 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
     const segmentList: Array<BookingSegment> = getSegmentsFromBookingItinerary(selectedTrip);
     const sortedSegmentList: Array<BookingSegment> = sortSegmentList(segmentList);
     sortedSegmentList.forEach((sortedSegment: BookingSegment, index: number) => {
-      flightResultsPathComponents.push(
-        <FlightResultsPath
-          flightDetails={sortedSegment.flight_details}
-          key={index}
-        />
-      );
-      fareRulesPreviewComponents.push(
-        <FareRulesPreview
-          bookingSegment={sortedSegment}
-          flightDetails={sortedSegment.flight_details}
-          currency={currency}
-          itineraryDisplay={true}
-          index={index}
-          bookingDrawer={true}
-        />
-      );
+      if (sortedSegment) {
+        flightResultsPathComponents.push(
+          <FlightResultsPath
+            flightDetails={sortedSegment.flight_details}
+            key={index}
+          />
+        );
+        fareRulesPreviewComponents.push(
+          <FareRulesPreview
+            bookingSegment={sortedSegment}
+            flightDetails={sortedSegment.flight_details}
+            currency={currency}
+            itineraryDisplay={true}
+            index={index}
+            bookingDrawer={true}
+          />
+        );
+      }
     });
     setBookedTripSegments(sortedSegmentList);
     return {flightResultsPathComponents: flightResultsPathComponents,
@@ -143,7 +145,7 @@ export default function ItineraryDetails(props: ItineraryDetailsProps) {
 
   useEffect(() => setState(props.selectedTrip 
     ? setPricingFlightComponents(props.selectedTrip, props.trip!, props.currency)
-    : setBookingFlightComponents(props.bookedTrip!, props.currency)), 
+    : setBookingFlightComponents(props.bookedTrip!, props.currency)),
   [props.selectedTrip, props.trip, props.currency, props.bookedTrip]);
 
 

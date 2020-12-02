@@ -21,9 +21,9 @@ with open(f'{os.getcwd()}/src/assets/translations/fr/common.json') as json_file:
 with open(f'{os.getcwd()}/src/assets/translations/jp/common.json') as json_file:
     jp_data = json.load(json_file)
 
-def get_from_dict(dataDict, mapList):
+def get_from_dict(data_dict, map_list):
     try:
-        return reduce(operator.getitem, mapList, dataDict)
+        return reduce(operator.getitem, map_list, data_dict)
     except KeyError:
         return None
 

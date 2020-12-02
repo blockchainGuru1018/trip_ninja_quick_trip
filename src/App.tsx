@@ -41,8 +41,6 @@ import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticket
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
-import DefaultModal from "./common/modals/DefaultModal";
-import DefaultLoadingModal from "./common/modals/DefaultLoadingModal";
 
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
@@ -117,7 +115,7 @@ class App extends React.Component<IAppProps> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className={`App ${this.props.resultsDetails.loadingResults && 'blurred-app'}`}>
+        <div className='App'>
           <DefaultErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
@@ -131,9 +129,6 @@ class App extends React.Component<IAppProps> {
           />
           <BookModal
             loading={this.props.bookingDetails.loading!}
-          />
-          <DefaultLoadingModal
-            loading={this.props.resultsDetails.loadingResults}
           />
           <IdleTimerContainer
             logout={this.props.logout}

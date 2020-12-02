@@ -14,6 +14,7 @@ import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
 import { withTranslation, WithTranslation } from 'react-i18next';
+import RecalculatingFaresIndicator from "./RecalculatingFaresIndicator";
 
 interface MatchParams{
   index: string;
@@ -79,20 +80,33 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
             updateSortType={this.props.updateSortType}
           />
-          <div className='row'>
-            {enabledFilters.map((item, index) =>
-              <div key={index.toString()}>
-                <FlightsFilter
-                  filterName={item}
-                  segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                    (filter: Filter) => filter.type === item)}
-                  updateSegmentFilter={this.props.updateSegmentFilter}
-                  trip={trip}
-                  updateActives={this.props.updateActives}
-                  segmentIndex={Number(segmentIndex)}
-                />
+          <div className="row">
+            <div className="col-md-8 no-pad-left">
+              <div className='row'>
+                {enabledFilters.map((item, index) =>
+                  <div key={index.toString()}>
+                    <FlightsFilter
+                      filterName={item}
+                      segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                        (filter: Filter) => filter.type === item)}
+                      updateSegmentFilter={this.props.updateSegmentFilter}
+                      trip={trip}
+                      updateActives={this.props.updateActives}
+                      segmentIndex={Number(segmentIndex)}
+                    />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+            <div className="col-md-4">
+              <div className="row">
+                <div className='offset-6 col-md-6'>
+                  <RecalculatingFaresIndicator
+                    loading={this.props.resultsDetails.loadingResults}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row">

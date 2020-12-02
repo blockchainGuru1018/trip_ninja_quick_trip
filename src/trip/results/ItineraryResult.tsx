@@ -20,6 +20,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
 import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
 import CancellationPolicy from '../../common/CancellationPolicy';
+import RecalculatingFaresIndicator from "./RecalculatingFaresIndicator";
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -144,14 +145,23 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
               </div>
             </div>
             <div className="col-md-4">
-              <PricingRequest
-                resultsDetails={this.props.resultsDetails}
-                currency={this.props.currency}
-                totalPrice={totalPrice}
-                markup={trip.markup}
-                selectedTrip= {selectedTrip}
-                priceFlights = {this.props.priceFlights}
-              />
+              <div className="row">
+                <div className='col-md-6'>
+                  <RecalculatingFaresIndicator
+                    loading={this.props.resultsDetails.loadingResults}
+                  />
+                </div>
+                <div className='col-md-6'>
+                  <PricingRequest
+                    resultsDetails={this.props.resultsDetails}
+                    currency={this.props.currency}
+                    totalPrice={totalPrice}
+                    markup={trip.markup}
+                    selectedTrip= {selectedTrip}
+                    priceFlights = {this.props.priceFlights}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

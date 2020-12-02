@@ -211,3 +211,8 @@
 .itinerary-type-label {
   margin-bottom: 7px;
 }
+
+.recalculation-indicator-container {
+  display: grid;
+  grid-auto-flow: column;
+}

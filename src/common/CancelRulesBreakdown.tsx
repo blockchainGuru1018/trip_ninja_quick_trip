@@ -43,21 +43,29 @@ export default function CancelRulesBreakdown(props:  CancelRulesBreakdownProps) 
 
   const setItinerariesRulesDetails = () => {
     const sortedSegments = getOrderedSegmentsFromItinerary(props.itineraries!);
-    const sortedItineraries: Array<any> = sortItineraryList(sortedSegments, props.itineraries!);
-    return(<div>
-      {sortedItineraries.map((itinerary: BookingItinerary, index: number) => (
-        <div key={index.toString()}>
-          <span className="text-bold">{createItineraryPathSequenceStringBooking(itinerary)}</span>
-          <CancellationPolicy 
-            currency={props.currency}
-            price={itinerary.price_breakdown.confirmed_total_price}
-            itineraries={[itinerary]}
-            tripTotal={false}
-            tripMarkup={props.tripMarkup}
-          />
-        </div>))
-      }
-    </div>);
+    if (sortedSegments[0]) {
+      const sortedItineraries: Array<any> = sortItineraryList(sortedSegments, props.itineraries!);
+      return (<div>
+        {sortedItineraries.map((itinerary: BookingItinerary, index: number) => (
+          <div key={index.toString()}>
+            <span className="text-bold">{createItineraryPathSequenceStringBooking(itinerary)}</span>
+            <CancellationPolicy
+              currency={props.currency}
+              price={itinerary.price_breakdown.confirmed_total_price}
+              itineraries={[itinerary]}
+              tripTotal={false}
+              tripMarkup={props.tripMarkup}
+            />
+          </div>))
+        }
+      </div>);
+    } else {
+      return(
+        <div className='row cancel-policy-group'>
+          <p className='standard-text'>Cancellation information not available</p>
+        </div>
+      );
+    }
   };
 
   return (

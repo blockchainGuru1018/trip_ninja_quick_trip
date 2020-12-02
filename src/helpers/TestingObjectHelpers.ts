@@ -15,7 +15,8 @@ import {
   PricingDetails,
   SegmentPricingInfo
 } from "../trip/results/PricingInterfaces";
-import {BookingItinerary, BookingSegment} from "../bookings/BookingsInterfaces";
+import { BookingDetails, PassengerInfo } from "../trip/book/BookInterfaces";
+import { BookingItinerary, BookingSegment } from "../bookings/BookingsInterfaces";
 
 
 export const testingAuthDetails: AuthDetails = {
@@ -224,3 +225,20 @@ export const testingBookingSegment: BookingSegment = {
   itinerary_index: "1",
   plating_carrier: 'AA',
 };
+
+export const testingPassengerInfo: PassengerInfo = {
+  first_name: 'John',
+  last_name: 'Smith',
+  date_of_birth: '1990-01-01',
+  gender: 'M',
+  passenger_type: 'ADT',
+  updated: true
+};
+
+export const testingBookingDetails: BookingDetails = {
+  additional_markup: 0,
+  passengers: [testingPassengerInfo],
+  loading: false
+};
+
+

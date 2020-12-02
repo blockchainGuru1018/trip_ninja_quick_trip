@@ -8,6 +8,7 @@ import { AuthDetails } from "../auth/AuthInterfaces";
 import { FlightResultsDetails, Results, defaultResults, ResultsDetails, Segment } from "../trip/results/ResultsInterfaces";
 import FlightResultsPath from "../common/FlightResultsPath";
 import { Booking, BookingItinerary, BookingSegment } from "./BookingsInterfaces";
+import { BookingDetails, PassengerInfo } from "../trip/book/BookInterfaces";
 import { withTranslation, WithTranslation } from "react-i18next";
 import FareRulesPreview from "../common/FareRulesPreview";
 import { prepareSvgForPdf } from "../helpers/PdfHelpers";
@@ -27,6 +28,7 @@ interface  PDFItineraryDownloadProps extends WithTranslation {
   params?: any;
   resultsDetails: ResultsDetails;
   pricingDetails: PricingDetails;
+  bookingDetails: BookingDetails;
   setErrorDetails: typeof setErrorDetails;
 }
 
@@ -74,6 +76,9 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     <div className='front-page-title-container'>
       <h1 className='text-white'>{this.props.authDetails.agency.toUpperCase()}</h1>
       <h2 className='text-white'>{this.props.t("bookings.pdf.title").toUpperCase()}</h2>
+      <p className='text-white'>
+        {format(new Date(this.props.booking ? this.props.booking.booking_date+'T00:00:00.000' : new Date()), this.props.t("bookings.bookingsTable.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
+      </p>
       <div className='pdf-title-page-created-by'>
         <h2 className='text-bold text-white'>{`${this.props.t("bookings.pdf.createdBy").toUpperCase()}:`}</h2>
         <h2 className='text-white'>{`${this.props.authDetails.userFirstName.toUpperCase()} ${this.props.authDetails.userLastName.toUpperCase()}`}</h2>
@@ -109,7 +114,22 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
             flightDetailsDisplay={true}
           />
         }
+        {this.passengerInfoHtml()}
         {this.getPageNumHTML(numPages, numPages)}
+      </div>
+    );
+  }
+
+  passengerInfoHtml = () => {
+    let passengers: Array<PassengerInfo> = this.props.booking?.details?.passengers ? this.props.booking?.details?.passengers : this.props.bookingDetails.passengers;
+    return (
+      <div>
+        { (this.props.booking?.details?.passengers || this.props.bookingDetails.passengers[0].updated) &&
+          <h5 className="passenger-section-header">Passengers</h5>
+        }
+        { passengers.map((passenger: PassengerInfo) => {
+          return <p key={passenger.first_name} className="passenger-name">{passenger.first_name} {passenger.last_name}</p>;
+        })}
       </div>
     );
   }

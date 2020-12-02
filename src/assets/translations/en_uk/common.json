@@ -43,7 +43,10 @@
         "cancellationPolicy": {
             "cancellationCost": "Cancellation Cost:",
             "changeCost": "Change Cost:",
-            "fareDifferences": "+ fare differences."
+            "fareDifferences": "+ fare differences.",
+            "cancellationInfoMissing": "Cancel policy information not available.",
+            "changeInfoMissing": "Change policy information not available.",
+            "refundInfoMissing": "Cancel and Change policy information not available"
         },
         "custom404":{
             "title": "404 - The page was not found",

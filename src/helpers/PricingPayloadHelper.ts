@@ -61,7 +61,7 @@ const setSegmentsPayload = (segmentIndex: any, activeSegments: Array<Segment>, i
   }
   let flightSegment: FlightSegment  = {
     segment_id: segmentIndex,
-    flights: createFlightsPayload(flightDetails, itineraryElement),
+    flights: createFlightsPayload(flightDetails, currentSegment),
   };
   if (itineraryElement.virtual_interline) {
     flightSegment.itinerary_index = itineraryElement.itinerary_index;

@@ -1,8 +1,6 @@
 # !/usr/bin/env python
 # coding: utf-8
 
-
-
 import json
 import os
 import pprint
@@ -59,7 +57,7 @@ while not complete:
             key_list.append(deeper_key)
             missing_translations = compare_all_translations(key_list)
             for missing_translation in missing_translations:
-                missing_dict[missing_translation].append(f'{key_list}')
+                missing_dict[missing_translation].append(f'{".".join(key_list)} -> {get_from_dict(uk_data, key_list)}')
             list_number[depth] += 1
             key_list.pop()
         else:

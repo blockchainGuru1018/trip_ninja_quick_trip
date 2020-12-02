@@ -37,7 +37,7 @@ interface BookProps extends WithTranslation {
 
 class Book extends React.Component<BookProps> {
   componentDidMount() {
-    this.props.setPassengerInfo(this.props.passengers);
+    if (!this.props.bookingDetails.passengers[0].updated) this.props.setPassengerInfo(this.props.passengers);
   }
 
   render() {

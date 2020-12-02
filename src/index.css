@@ -76,10 +76,6 @@ button:focus {
   outline: none;
 }
 
-.blurred-app {
-  filter: blur(8px)
-}
-
 .container-fluid {
   padding: 0px;
 }

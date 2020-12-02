@@ -44,7 +44,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   }
 
   componentDidMount() {
-    console.log('it did mount')
     this.props.setResultsLoading(false);
   }
 

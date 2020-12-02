@@ -240,6 +240,7 @@ class App extends React.Component<IAppProps> {
                     booking={this.props.bookingsList.bookings[this.props.bookingsList.bookingDetailIndex]}
                     resultsDetails={this.props.resultsDetails}
                     pricingDetails={this.props.pricingDetails}
+                    bookingDetails={this.props.bookingDetails}
                     setErrorDetails={this.props.setErrorDetails}
                   />
                 } />

@@ -31,14 +31,13 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
     penalty.percentage == null &&
     penalty.amount == null;
 
-
   const getCancelAmount = (cancelPenalty: Penalty, price: number) => {
     if (noPenaltiesExist(cancelPenalty)) {
       setCancelInfoAvailable(false);
     }
     return cancelPenalty.percentage != null
-      ? convertPercentageToAmount(cancelPenalty.percentage, price) 
-      : cancelPenalty.amount!;
+      ? convertPercentageToAmount(Number(cancelPenalty.percentage), price)
+      : Number(cancelPenalty.amount!);
   };
 
   const getChangeAmount = (changePenalty: Penalty, price: number) => {
@@ -46,8 +45,8 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
       setChangeInfoAvailable(false);
     }
     return changePenalty.percentage != null
-      ? convertPercentageToAmount(changePenalty.percentage, price) 
-      : changePenalty.amount!;
+      ? convertPercentageToAmount(Number(changePenalty.percentage), price)
+      : Number(changePenalty.amount!);
   };
 
   const setCancellationDetails = () => {

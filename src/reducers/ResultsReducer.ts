@@ -19,6 +19,7 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
         segmentFilters: setDefaultSegmentFilters(action.results.fare_structure),
         itineraryFilters: _.cloneDeep(defaultFilters),
         segmentSortBy: action.results.fare_structure.segments.map((segmentOption: Array<Array<Segment>>) => 'best'),
+        itinerarySortBy: 'best',
         flexTripResultsPrice: 0,
         fareStructureResultsPrice: 0
       };

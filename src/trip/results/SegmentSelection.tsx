@@ -40,6 +40,11 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
     this.props.setResultsLoading(false);
   }
 
+  componentDidUpdate(prevProps: Readonly<SegmentSelectionProps & MatchProps>, prevState: Readonly<any>, snapshot?: any) {
+    if (prevProps.match.params.index !== this.props.match.params.index) {
+      this.props.setResultsLoading(false);
+    }
+  }
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -99,12 +104,10 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
               </div>
             </div>
             <div className="col-md-4">
-              <div className="row">
-                <div className='offset-6 col-md-6'>
-                  <RecalculatingFaresIndicator
-                    loading={this.props.resultsDetails.loadingResults}
-                  />
-                </div>
+              <div className="row" style={{"justifyContent": "flex-end"}}>
+                <RecalculatingFaresIndicator
+                  loading={this.props.resultsDetails.loadingResults}
+                />
               </div>
             </div>
           </div>

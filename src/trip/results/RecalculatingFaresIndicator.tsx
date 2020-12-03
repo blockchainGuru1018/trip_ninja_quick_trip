@@ -11,9 +11,11 @@ export default function RecalculatingFaresIndicator(props: recalculatingFaresInd
 
   return props.loading
     ? (
-      <div className='recalculation-indicator-container'>
-        <p className='standard-text margin-auto'>{t('results.recalculatingFaresIndicator')}</p>
-        <CircularProgress color="primary"/>
+      <div className='recalculation-indicator-container row'>
+        <p className='standard-text margin-auto' style={{"paddingRight": "20px"}}>
+          {t('results.recalculatingFaresIndicator')}
+        </p>
+        <CircularProgress color="primary" />
       </div>
     )
     : null;

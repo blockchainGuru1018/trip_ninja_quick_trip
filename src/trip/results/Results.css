@@ -213,6 +213,5 @@
 }
 
 .recalculation-indicator-container {
-  display: grid;
-  grid-auto-flow: column;
+  padding-right: 30px;;
 }

@@ -144,22 +144,18 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
               </div>
             </div>
             <div className="col-md-4">
-              <div className="row">
-                <div className='col-md-6'>
-                  <RecalculatingFaresIndicator
-                    loading={this.props.resultsDetails.loadingResults}
-                  />
-                </div>
-                <div className='col-md-6'>
-                  <PricingRequest
-                    resultsDetails={this.props.resultsDetails}
-                    currency={this.props.currency}
-                    totalPrice={totalPrice}
-                    markup={trip.markup}
-                    selectedTrip= {selectedTrip}
-                    priceFlights = {this.props.priceFlights}
-                  />
-                </div>
+              <div className='row' style={{"justifyContent": "flex-end"}}>
+                <RecalculatingFaresIndicator
+                  loading={this.props.resultsDetails.loadingResults}
+                />
+                <PricingRequest
+                  resultsDetails={this.props.resultsDetails}
+                  currency={this.props.currency}
+                  totalPrice={totalPrice}
+                  markup={trip.markup}
+                  selectedTrip= {selectedTrip}
+                  priceFlights = {this.props.priceFlights}
+                />
               </div>
             </div>
           </div>

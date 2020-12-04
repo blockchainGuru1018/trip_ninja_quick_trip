@@ -79,6 +79,9 @@ function resultsReducer(state: ResultsDetails = {} as any, action: any) {
       state[action.key] = action.value;
       return {...state};
 
+    case 'SET_RESULTS_LOADING':
+      return {...state, loadingResults: action.value};
+
     default:
       return state;
   }

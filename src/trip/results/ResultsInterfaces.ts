@@ -14,6 +14,7 @@ export interface ResultsDetails {
   itineraryFilters?: Array<Filter>;
   fareStructureResultsPrice: number;
   flexTripResultsPrice: number;
+  loadingResults: boolean;
 }
 
 export interface Filter {
@@ -87,7 +88,8 @@ export const defaultResultsDetails: ResultsDetails = {
   itinerarySortBy: 'best',
   segmentSortBy: [],
   fareStructureResultsPrice: 0,
-  flexTripResultsPrice: 0
+  flexTripResultsPrice: 0,
+  loadingResults: false
 };
 
 export interface Errors {

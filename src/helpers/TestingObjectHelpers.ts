@@ -141,7 +141,8 @@ export const testingResultsDetails: ResultsDetails = {
   segmentSortBy: [],
   fareStructureResultsPrice: 0,
   flexTripResultsPrice: 0,
-  fareStructureResults: testingResults
+  fareStructureResults: testingResults,
+  loadingResults: false
 };
 
 export const testingPricing: Pricing = {

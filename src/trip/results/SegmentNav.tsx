@@ -1,10 +1,12 @@
 import React from 'react';
 import history from '../../History';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { setResultsLoading } from "../../actions/ResultsActions";
 
 interface SegmentNavProps extends WithTranslation {
-  pathSequence: Array<string>
-  currentIndex?: number
+  pathSequence: Array<string>;
+  currentIndex?: number;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 class SegmentNav extends React.Component<SegmentNavProps> {
@@ -12,7 +14,7 @@ class SegmentNav extends React.Component<SegmentNavProps> {
     const segments = this.props.pathSequence.map((item: string, index: number) => (
       <div className="segment-nav-item" key={index.toString()}>
         <button className={'segment-nav-link ' + (this.props.currentIndex === index ? 'active' : '')}
-          onClick={() => history.push('/results/segment/'+ index)}>
+          onClick={() => this.changeUrl('/results/segment/'+ index)}>
           {item}
         </button>
       </div>
@@ -24,7 +26,7 @@ class SegmentNav extends React.Component<SegmentNavProps> {
           <div className="col-md-auto">
             <div className="segment-nav-item justify-content-start">
               <button className={'segment-nav-link ' + (typeof this.props.currentIndex === 'undefined' ? 'active' : '')}
-                onClick={() => history.push('/results/itinerary/')} 
+                onClick={() => this.changeUrl('/results/itinerary/')}
                 key="overview">
                 {this.props.t("results.segmentNav.overview")}
               </button>
@@ -34,6 +36,11 @@ class SegmentNav extends React.Component<SegmentNavProps> {
         </div>
       </div>
     );
+  }
+
+  changeUrl = (url: string) => {
+    this.props.setResultsLoading(true);
+    setTimeout(() => history.push(url), 2000);
   }
 }
 

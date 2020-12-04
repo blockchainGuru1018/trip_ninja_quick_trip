@@ -161,6 +161,9 @@
                 "title": "PDF download failed.",
                 "body": "There was an error downloading the pdf, please try again or contact support.",
                 "return": "Return to Booking"
+            },
+            "defaultResultsLoadingModal": {
+                "primaryText": "Loading the trip details."
             }
         },
         "pdf": {
@@ -291,7 +294,8 @@
                 "refundabilityNon-RefundableLabel": "Non-Refundable",
                 "refundabilityRefundableLabel": "Refundable"
             }
-        }
+        },
+        "recalculatingFaresIndicator": "Recalculating Fares"
     },
     "book":{
         "book":{

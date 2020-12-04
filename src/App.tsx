@@ -19,7 +19,7 @@ import {
 import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue
+  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue, setResultsLoading
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -86,6 +86,7 @@ interface IAppProps {
   setActiveSegments: typeof setActiveSegments;
   getPriceGraph: typeof getPriceGraph;
   updateStateValue: typeof updateStateValue;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 const theme = Theme;
@@ -114,7 +115,7 @@ class App extends React.Component<IAppProps> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
+        <div className='App'>
           <DefaultErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
@@ -191,6 +192,7 @@ class App extends React.Component<IAppProps> {
                     updateEntireTrip={this.props.updateEntireTrip}
                     markupVisible={this.props.authDetails.markupVisible}
                     viewPnrPricing={this.props.authDetails.viewPnrPricing}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -203,6 +205,7 @@ class App extends React.Component<IAppProps> {
                     updateSegmentFilter={this.props.updateSegmentFilter}
                     updateSortType={this.props.updateSortType}
                     getTravelportBrands={this.props.getTravelportBrands}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/book/" render={() =>

@@ -9,50 +9,67 @@ export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetai
   let itinerariesPayload : Array<PricingRequestItinerary> = [];
   let itinerariesCounter = 1;
   const linkedViSegments: Array<Segment> = getLinkedViSegmentsForPricing(activeSegments, trip);
-  
-  const allSegments: Array<Segment> = activeSegments.concat(linkedViSegments);
-  allSegments.forEach((itineraryElement: Segment) => {
+
+  activeSegments.forEach((itineraryElement: Segment) => {
     const itineraryStructure = JSON.parse(itineraryElement.itinerary_structure);  
     if (itineraryElement.segment_position === itineraryStructure[0]) {
-      itinerariesPayload.push({
-        itinerary_id: itineraryElement.itinerary_id,
-        itinerary_reference: itinerariesCounter,
-        traveller_list: itineraryElement.priced_passengers,
-        plating_carrier: itineraryElement.plating_carrier,
-        credentials: itineraryElement.credential_info,
-        itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
-        itinerary_markup: itineraryElement.itinerary_markup,
-        segments: createSegmentsPayload(flightDetails, itineraryElement, itineraryStructure, allSegments),
-      });
+      const itinerarySegments = createSegmentsPayload(flightDetails, itineraryElement, itineraryStructure, activeSegments);
+      itinerariesPayload.push(createPriceRequestItinerary(itineraryElement, itinerariesCounter, itinerarySegments));
+      itinerariesCounter += 1;
+    }
+    if (itineraryElement.virtual_interline) {
+      const viItineraryElement: Segment | undefined = linkedViSegments.find(
+        (linkedSegment: Segment) => linkedSegment.vi_solution_id === itineraryElement.vi_solution_id
+      );
+      const viItinerarySegment = createSegmentsPayload(flightDetails, viItineraryElement!, itineraryStructure, activeSegments);
+      itinerariesPayload.push(createPriceRequestItinerary(viItineraryElement!, itinerariesCounter, viItinerarySegment));
       itinerariesCounter += 1;
     }
   });
   return itinerariesPayload;
 };
 
-const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, itineraryElement: Segment, itineraryStructure: Array<any>, allSegments: Array<Segment>) => {
+const createPriceRequestItinerary = (itineraryElement: Segment, itinerariesCounter: number, itinerarySegments: Array<FlightSegment>) => {
+  return {
+    itinerary_id: itineraryElement.itinerary_id,
+    itinerary_reference: itinerariesCounter,
+    traveller_list: itineraryElement.priced_passengers,
+    plating_carrier: itineraryElement.plating_carrier,
+    credentials: itineraryElement.credential_info,
+    itinerary_type: itineraryElement.itinerary_type.toLowerCase(),
+    itinerary_markup: itineraryElement.itinerary_markup,
+    segments: itinerarySegments,
+  };
+};
+
+const createSegmentsPayload = (flightDetails: Array<FlightResultsDetails>, itineraryElement: Segment, itineraryStructure: Array<any>, activeSegments: Array<Segment>) => {
   let itineraryId = itineraryElement.itinerary_id;
   let matchedSegments: Array<Segment> = [];
-  matchedSegments = allSegments.filter((segment: Segment) => segment.itinerary_id === itineraryId);
-
-  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map(segmentIndex => {
-    let currentSegment = matchedSegments.find((segment: Segment) => segment.segment_position === segmentIndex);
-    if (!currentSegment) {
-      throw new Error(`Unable to find matching segment for pricing payload at segmentIndex ${segmentIndex}`);
-    }
-    let flightSegment: FlightSegment  = {
-      segment_id: segmentIndex,
-      flights: createFlightsPayload(flightDetails, currentSegment),
-    };
-    if (itineraryElement.virtual_interline) {
-      flightSegment.itinerary_index = itineraryElement.itinerary_index;
-      flightSegment.virtual_interline = itineraryElement.virtual_interline;
-      flightSegment.vi_position = itineraryElement.vi_position;
-      flightSegment.vi_solution_id = itineraryElement.vi_solution_id;
-    }
-    return flightSegment;
-  });
+  matchedSegments = activeSegments.filter((segment: Segment) => segment.itinerary_id === itineraryId);
+  let segmentsPayload: Array<FlightSegment> = itineraryStructure.map((segmentIndex: number, index: number) =>
+    setSegmentsPayload(segmentIndex, activeSegments, itineraryElement, index, matchedSegments, flightDetails));
   return segmentsPayload;
+};
+
+const setSegmentsPayload = (segmentIndex: any, activeSegments: Array<Segment>, itineraryElement: Segment, index: number,
+  matchedSegments: Array<Segment>, flightDetails: Array<FlightResultsDetails>) => {
+  let currentSegment = index > 0
+    ? matchedSegments.find((segment: Segment) => segment.segment_position === segmentIndex)
+    : itineraryElement;
+  if (!currentSegment) {
+    throw new Error(`Unable to find matching segment for pricing payload at segmentIndex ${segmentIndex}`);
+  }
+  let flightSegment: FlightSegment  = {
+    segment_id: segmentIndex,
+    flights: createFlightsPayload(flightDetails, currentSegment),
+  };
+  if (itineraryElement.virtual_interline) {
+    flightSegment.itinerary_index = itineraryElement.itinerary_index;
+    flightSegment.virtual_interline = itineraryElement.virtual_interline;
+    flightSegment.vi_position = itineraryElement.vi_position;
+    flightSegment.vi_solution_id = itineraryElement.vi_solution_id;
+  }
+  return flightSegment;
 };
 
 const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, segment: Segment) => {

@@ -10,13 +10,13 @@ from functools import reduce
 
 pp = pprint.PrettyPrinter(indent=2)
 
-with open(f'{os.getcwd()}/src/assets/translations/en_uk/common.json') as json_file:
+with open(f'{os.getcwd()}/src/assets/translations/en_uk/common.json', encoding="utf8") as json_file:
     uk_data = json.load(json_file)
-with open(f'{os.getcwd()}/src/assets/translations/es/common.json') as json_file:
+with open(f'{os.getcwd()}/src/assets/translations/es/common.json', encoding="utf8") as json_file:
     es_data = json.load(json_file)
-with open(f'{os.getcwd()}/src/assets/translations/fr/common.json') as json_file:
+with open(f'{os.getcwd()}/src/assets/translations/fr/common.json', encoding="utf8") as json_file:
     fr_data = json.load(json_file)
-with open(f'{os.getcwd()}/src/assets/translations/jp/common.json') as json_file:
+with open(f'{os.getcwd()}/src/assets/translations/jp/common.json', encoding="utf8") as json_file:
     jp_data = json.load(json_file)
 
 def get_from_dict(data_dict, map_list):

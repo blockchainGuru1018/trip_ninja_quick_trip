@@ -62,10 +62,24 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
             <div className="row">
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
+                <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>                  
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
+                  <p className="standard-text">{this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}</p>
+                </div>
+              </div>
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cabinBaggage")}</span>
                   <p className="standard-text">{this.state.carryOn > 0 ? this.props.t("common.fareRulesPreview.included") : this.props.t("common.fareRulesPreview.notIncluded")}</p>
+                </div>
+              </div>
+              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
+                <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cancellationPenalty")}</span>
+                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
@@ -95,21 +109,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.seatSelection")}</span>
                   <p className="standard-text">{this.state.seatAssignment ? this.state.seatAssignment : ''}</p>
                 </div>
-              </div>
-              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>                  
-                <div className="fare-rule">
-                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
-                  <p className="standard-text">{this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}</p>
-                </div>
-              </div>
-              <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
-                <div className="fare-rule">
-                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cancellationPenalty")}</span>
-                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</p>
-                </div>
-              </div>
+              </div>             
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <LanguageIcon color="primary"/>
                 <div className="fare-rule">

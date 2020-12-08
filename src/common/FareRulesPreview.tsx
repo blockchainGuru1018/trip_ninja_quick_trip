@@ -13,7 +13,6 @@ import { currencySymbol } from '../helpers/CurrencySymbolHelper';
 import { firstLetterCapital } from '../helpers/MiscHelpers';
 import { baggageLabel } from '../helpers/BaggageHelper';
 import { BookingSegment } from '../bookings/BookingsInterfaces';
-import Tooltip from '@material-ui/core/Tooltip';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import FlightIcon from '@material-ui/icons/Flight';
 
@@ -43,6 +42,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   render() {
+    console.log(this.state);
     return(
       <div key={this.props.index?.toString()}>
         {!this.props.itineraryDisplay && 
@@ -60,68 +60,76 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         }
         <div className="row fare-family-row">
           <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
-            <div className='row text-small'>
+            <div className="row">
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.cabinBaggage").toString()} placement="top">
-                  <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
-                </Tooltip>
-                <span className='icon-label'>{this.props.t("common.fareRulesPreview.cabinBaggage")} {this.state.carryOn > 0 ? this.props.t("common.fareRulesPreview.included") : this.props.t("common.fareRulesPreview.notIncluded")}</span>
+                <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cabinBaggage")}</span>
+                  <p className="standard-text">{this.state.carryOn > 0 ? this.props.t("common.fareRulesPreview.included") : this.props.t("common.fareRulesPreview.notIncluded")}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.changePenalty").toString()} placement="top">
-                  <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
-                </Tooltip>
-                <span className="icon-label">{this.state.changePenalty ? this.state.changePenalty : ''}</span>
+                <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.changePenalty")}</span>
+                  <p className="standard-text">{this.state.changePenalty ? this.state.changePenalty : ''}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.fareType").toString()} placement="top">
-                  <ConfirmationNumberOutlinedIcon color="primary"/>
-                </Tooltip>
-                <span className="icon-label">{this.props.segment ? this.props.segment!.fare_type: '-'}</span>
+                <ConfirmationNumberOutlinedIcon color="primary"/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.fareType")}</span>
+                  <p className="standard-text">{this.props.segment ? this.props.segment!.fare_type: '-'}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.wifiTitle").toString()} placement="top">
-                  <WifiIcon color={this.setIconColor(this.state.wifi)}/>
-                </Tooltip>
-                <span className="icon-label">{this.props.t("common.fareRulesPreview.wifi")}</span>
+                <WifiIcon color={this.setIconColor(this.state.wifi)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.wifiTitle")}</span>
+                  <p className="standard-text">{this.props.t("common.fareRulesPreview.wifi")}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.seatSelection").toString()} placement="top">
-                  <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
-                </Tooltip>
-                <span className="icon-label">{this.state.seatAssignment ? this.state.seatAssignment : ''}</span>
+                <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.seatSelection")}</span>
+                  <p className="standard-text">{this.state.seatAssignment ? this.state.seatAssignment : ''}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.checkedBags").toString()} placement="top">
-                  <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>
-                </Tooltip>
-                <span className="icon-label">
-                  {this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}
-                </span>
+                <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>                  
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
+                  <p className="standard-text">{this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.cancellationPenalty").toString()} placement="top">
-                  <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
-                </Tooltip>
-                <span className="icon-label">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</span>
+                <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cancellationPenalty")}</span>
+                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.fareSource").toString()} placement="top">
-                  <LanguageIcon color="primary"/>
-                </Tooltip>
-                <span className="icon-label">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</span>
+                <LanguageIcon color="primary"/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.fareSource")}</span>
+                  <p className="standard-text">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.bookingCode").toString()} placement="top">
-                  <ClassIcon color="primary"/>
-                </Tooltip>
-                <span className="icon-label">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</span>
+                <ClassIcon color="primary"/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.bookingCode")}</span>
+                  <p className="standard-text">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</p>
+                </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <Tooltip title={this.props.t("common.fareRulesPreview.platingCarrier").toString()} placement="top">
-                  <FlightIcon color="primary"/>
-                </Tooltip>
-                <span className="icon-label">{this.props.segment ? this.props.segment!.plating_carrier : this.props.bookingSegment!.plating_carrier}</span>
+                <FlightIcon color="primary"/>
+                <div className="fare-rule">
+                  <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.platingCarrier")}</span>
+                  <p className="standard-text">{this.props.segment ? this.props.segment!.plating_carrier : this.props.bookingSegment!.plating_carrier}</p>
+                </div>
               </div>
             </div>
           </div>

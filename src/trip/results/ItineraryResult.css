@@ -166,6 +166,16 @@
   padding: 20px 10px 10px 10px;
 }
 
+.fare-rule {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.fare-rule-label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .itinerary-sort-container {
   margin-bottom: 10px;
   padding-left: 0px;

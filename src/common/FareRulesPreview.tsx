@@ -29,7 +29,7 @@ interface FareRulesProps extends WithTranslation {
 class FareRulesPreview extends React.Component<FareRulesProps> {
 
   state = {
-    numBaggage: 0,
+    numBaggage: -1,
     changePenalty: undefined,
     cancelPenalty: undefined,
     wifi: false,
@@ -65,35 +65,35 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>                  
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
-                  <p className="standard-text">{this.state.numBaggage ? baggageLabel(this.state.numBaggage) : ''}</p>
+                  <p className="standard-text">{this.state.numBaggage >= 0 ? baggageLabel(this.state.numBaggage) : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cabinBaggage")}</span>
-                  <p className="standard-text">{this.state.carryOn > 0 ? this.props.t("common.fareRulesPreview.included") : this.props.t("common.fareRulesPreview.notIncluded")}</p>
+                  <p className="standard-text">{this.state.carryOn >= 0 ? this.props.t("common.fareRulesPreview.included") : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cancellationPenalty")}</span>
-                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : ''}</p>
+                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.changePenalty")}</span>
-                  <p className="standard-text">{this.state.changePenalty ? this.state.changePenalty : ''}</p>
+                  <p className="standard-text">{this.state.changePenalty ? this.state.changePenalty : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <ConfirmationNumberOutlinedIcon color="primary"/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.fareType")}</span>
-                  <p className="standard-text">{this.props.segment ? this.props.segment!.fare_type: '-'}</p>
+                  <p className="standard-text">{this.props.segment ? this.props.segment!.fare_type: this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
@@ -107,7 +107,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.seatSelection")}</span>
-                  <p className="standard-text">{this.state.seatAssignment ? this.state.seatAssignment : ''}</p>
+                  <p className="standard-text">{this.state.seatAssignment ? this.state.seatAssignment : this.informationNotAvailable()}</p>
                 </div>
               </div>             
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
@@ -143,6 +143,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         }
       </div>
     );
+  }
+
+  informationNotAvailable = () => {
+    return <span className="no-info">Information not available</span>;
   }
 
   getBrand = () => {

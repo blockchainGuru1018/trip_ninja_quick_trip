@@ -176,6 +176,10 @@
   font-weight: bold;
 }
 
+.no-info {
+  color:#00000042;
+}
+
 .itinerary-sort-container {
   margin-bottom: 10px;
   padding-left: 0px;

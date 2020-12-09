@@ -16,6 +16,7 @@ import { updateAdditionalMarkup } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import Ancillaries from './Ancillaries';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -96,6 +97,7 @@ class Book extends React.Component<BookProps> {
                 updatePassengerInfo={this.props.updatePassengerInfo}
                 dateFormat={this.props.dateFormat}
               />
+              <Ancillaries />
             </div>
           </div>
         </div>

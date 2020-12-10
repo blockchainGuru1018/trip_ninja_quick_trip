@@ -1,8 +1,12 @@
 import React from 'react';
 import { Segment } from '../trip/results/ResultsInterfaces';
-import Moment from 'react-moment';
+import i18n from '../i18n';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { dateLocaleMap } from '../localeMap';
+import { format } from 'date-fns';
+import { noTimeZoneOffsetDate } from '../helpers/DateHelpers';
 
-interface SegmentOriginDestinationProps {
+interface SegmentOriginDestinationProps extends WithTranslation {
   segment: Segment
   departure?: string
   itineraryDisplay?: boolean
@@ -18,7 +22,7 @@ class SegmentOriginDestination extends React.Component<SegmentOriginDestinationP
         </p>
         {this.props.departure &&
           <p className="text-small flight-preview-grey-border">
-            <Moment format="MMM DD">{this.props.departure}</Moment>
+            {format(new Date(noTimeZoneOffsetDate(this.props.departure)), this.props.t("results.resultsHeader.dateFormat"), {locale:dateLocaleMap[i18n.language]})}
           </p>
         }
       </div>
@@ -27,4 +31,4 @@ class SegmentOriginDestination extends React.Component<SegmentOriginDestinationP
 
 }
 
-export default SegmentOriginDestination;
+export default withTranslation('common')(SegmentOriginDestination);

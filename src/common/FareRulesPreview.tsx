@@ -32,7 +32,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     numBaggage: -1,
     changePenalty: undefined,
     cancelPenalty: undefined,
-    wifi: false,
+    wifi: undefined,
     carryOn: -1,
     seatAssignment: undefined
   }
@@ -59,17 +59,17 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           </div>
         }
         <div className="row fare-family-row">
-          <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
+          <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-10 offset-md-1'}>
             <div className="row">
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <CardTravelIcon color={this.setIconColor(this.state.numBaggage)}/>                  
+                <CardTravelIcon color={this.setIconColor(this.state.numBaggage >= 0)}/>                  
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
                   <p className="standard-text">{this.state.numBaggage >= 0 ? baggageLabel(this.state.numBaggage) : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <BusinessCenterIcon color={this.setIconColor(this.state.carryOn > 0)}/>
+                <BusinessCenterIcon color={this.setIconColor(this.state.carryOn >= 0)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cabinBaggage")}</span>
                   <p className="standard-text">{this.state.carryOn >= 0 ? this.props.t("common.fareRulesPreview.included") : this.informationNotAvailable()}</p>
@@ -97,10 +97,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <WifiIcon color={this.setIconColor(this.state.wifi)}/>
+                <WifiIcon color={this.setIconColor(this.state.wifi !== undefined)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.wifiTitle")}</span>
-                  <p className="standard-text">{this.props.t("common.fareRulesPreview.wifi")}</p>
+                  <p className="standard-text">{this.state.wifi ? this.props.t("common.fareRulesPreview.available") : this.props.t("common.fareRulesPreview.unavailable")}</p>
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
@@ -136,7 +136,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         </div>
         {!this.props.itineraryDisplay &&
           <div className="row">
-            <div className="col-md-10 offset-md-2">
+            <div className="col-md-10 offset-md-1">
               <p className="text-small">{this.props.t("common.fareRulesPreview.editFareFamily")}</p>
             </div>
           </div>
@@ -146,7 +146,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   informationNotAvailable = () => {
-    return <span className="no-info">Information not available</span>;
+    return <span className="no-info">{this.props.t("common.itineraryDetails.informationNotAvailable")}</span>;
   }
 
   getBrand = () => {

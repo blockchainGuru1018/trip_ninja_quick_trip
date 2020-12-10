@@ -300,7 +300,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     const pdf = new jsPDF('p', 'px', [320, 415]);
     try {
       const updatedPdf = this.setPdfPages(pdf, pdfPageList);
-      updatedPdf.save(`itinerary-${getTodaysDate()}.pdf`);
+      updatedPdf.save(`itinerary-${getTodaysDate(true)}.pdf`);
       history.goBack();
     }
     catch (e) {

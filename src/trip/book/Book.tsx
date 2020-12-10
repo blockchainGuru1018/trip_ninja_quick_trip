@@ -97,7 +97,10 @@ class Book extends React.Component<BookProps> {
                 updatePassengerInfo={this.props.updatePassengerInfo}
                 dateFormat={this.props.dateFormat}
               />
-              <Ancillaries />
+              <Ancillaries 
+                activeSegments={actives}
+                passengers={this.props.passengers}
+              />
             </div>
           </div>
         </div>

@@ -4,6 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import { Segment } from "../results/ResultsInterfaces";
+import { Passenger } from '../search/SearchInterfaces';
 import { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -36,7 +38,9 @@ const useStyles = makeStyles(() =>
 
 interface AdditionalBaggageModalProps {
   modalOpen: boolean,
-  setModalOpen: any
+  setModalOpen: any,
+  activeSegments: Array<Segment>
+  passengers: Array<Passenger>
 }
 
 export default function AdditionalBaggageModal(props: AdditionalBaggageModalProps) {
@@ -63,6 +67,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
             </IconButton>
             <h3 id="transition-modal-title">Additional Baggage</h3>
             <div className="row">
+
             </div>
             <div className="text-center">
               <Button

@@ -2,12 +2,12 @@ import React from 'react';
 import AdditionalBaggageModal from './AdditionalBaggageModal';
 import Button from '@material-ui/core/Button';
 import { Segment } from "../results/ResultsInterfaces";
-import { Passenger } from '../search/SearchInterfaces';
+import { PassengerInfo } from './BookInterfaces';
 import { useTranslation } from 'react-i18next';
 
 interface AncillariesProps {
   activeSegments: Array<Segment>,
-  passengers: Array<Passenger>;
+  passengers: Array<PassengerInfo>;
 }
 
 export default function Ancillaries(props: AncillariesProps) {

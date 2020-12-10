@@ -173,3 +173,14 @@
   width: 100%;
   text-align: center;
 }
+
+
+.add-baggage-container {
+  padding-left: 25px;
+}
+
+.baggage-option {
+  border: solid 1px var(--secondary);
+  border-radius: 5px;
+  padding: 10px;
+}

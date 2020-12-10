@@ -99,7 +99,7 @@ class Book extends React.Component<BookProps> {
               />
               <Ancillaries 
                 activeSegments={actives}
-                passengers={this.props.passengers}
+                passengers={this.props.bookingDetails.passengers}
               />
             </div>
           </div>

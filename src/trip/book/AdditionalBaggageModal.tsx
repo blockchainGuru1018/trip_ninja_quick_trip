@@ -4,8 +4,10 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { Segment } from "../results/ResultsInterfaces";
-import { Passenger } from '../search/SearchInterfaces';
+import { PassengerInfo } from './BookInterfaces';
 import { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -40,13 +42,18 @@ interface AdditionalBaggageModalProps {
   modalOpen: boolean,
   setModalOpen: any,
   activeSegments: Array<Segment>
-  passengers: Array<Passenger>
+  passengers: Array<PassengerInfo>
 }
 
 export default function AdditionalBaggageModal(props: AdditionalBaggageModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [ t ] = useTranslation('common');
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
 
   useEffect(() => setOpen(props.modalOpen), [props.modalOpen]);
 
@@ -67,7 +74,27 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
             </IconButton>
             <h3 id="transition-modal-title">Additional Baggage</h3>
             <div className="row">
-
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+              >
+                {props.passengers.map((passenger: PassengerInfo) => {
+                  return <Tab label={passenger.updated ? passenger.first_name + ' ' + passenger.last_name : t("commonWords.passengerTypes." + passenger.passenger_type)} />;
+                })}
+              </Tabs>
+              <div className="add-baggage-container">
+                {props.activeSegments.map((segment: Segment) => {
+                  return <h5>{segment.origin}-{segment.destination}</h5>;
+                })}
+                
+                <p>Checked Baggage</p>
+                <div className="baggage-option">
+                  <span>1pc</span>
+                  <span>Included</span>
+                </div>
+              </div>
             </div>
             <div className="text-center">
               <Button

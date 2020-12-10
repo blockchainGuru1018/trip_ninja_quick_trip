@@ -1,7 +1,16 @@
 import React from 'react';
+import AdditionalBaggageModal from './AdditionalBaggageModal';
 import Button from '@material-ui/core/Button';
+import { useTranslation } from 'react-i18next';
 
-export default function Ancillaries() {
+interface AncillariesProps {
+
+}
+
+export default function Ancillaries(props: AncillariesProps) {
+  const [ t ] = useTranslation('common');
+  const [modalOpen, setModalOpen] = React.useState(false);
+
   return(
     <div>
       <h5>Ancillaries</h5>
@@ -16,11 +25,15 @@ export default function Ancillaries() {
               color="secondary"
               size="small"
               className="float-right"
-              onClick={(e) => {}}
+              onClick={(e) => setModalOpen(!modalOpen)}
               disableElevation
             >
               Add 
             </Button>
+            <AdditionalBaggageModal 
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
           </div>
         </div>
       </div>

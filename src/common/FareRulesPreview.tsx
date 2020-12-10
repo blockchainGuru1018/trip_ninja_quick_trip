@@ -42,7 +42,6 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   render() {
-    console.log(this.state);
     return(
       <div key={this.props.index?.toString()}>
         {!this.props.itineraryDisplay && 

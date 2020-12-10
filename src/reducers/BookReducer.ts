@@ -1,4 +1,4 @@
-import { BookingDetails, PassengerInfo, defaultPassengerInfo } from '../trip/book/BookInterfaces';
+import {BookingDetails, PassengerInfo, defaultPassengerInfo, FrequentFlyerCard} from '../trip/book/BookInterfaces';
 
 function bookReducer(state: BookingDetails = {} as any, action: any) {
   switch(action.type) {    
@@ -10,6 +10,14 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
 
     case 'BOOKING_LOADING':
       return {...state, loading: action.value};
+
+    case 'UPDATE_FREQUENT_FLYER_CARDS':
+      const currentPassenger = state.passengers[action.passengerIndex];
+      currentPassenger.frequentFlyerCards.splice(
+        action.cardIndex, 1, action.value
+      );
+      return updatePassengersWithValue(state, {"index": action.passengerIndex,
+        "key": "frequentFlyerCards", "value": currentPassenger.frequentFlyerCards});
 
     default:
       return state;

@@ -9,11 +9,14 @@ import PassengerCountrySelect from './PassengerCountrySelect';
 import PassengerDatePicker from './PassengerDatePicker';
 import PassengerGenderSelect from './PassengerGenderSelect';
 import { PassengerInfo } from './BookInterfaces';
-import { updatePassengerInfo } from '../../actions/BookActions';
+import { updateFrequentFlyerCards, updatePassengerInfo } from '../../actions/BookActions';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { useTranslation } from 'react-i18next';
+import FrequentFlyerDetails from "./FrequentFlyerDetails";
+import {FlightResultsDetails, ResultsDetails, Segment} from "../results/ResultsInterfaces";
+import Book from "./Book";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -42,12 +45,16 @@ const useStyles = makeStyles(() =>
 );
 
 interface PassengerDetailsModalProps {
-  modalState: boolean,
-  passenger: PassengerInfo
-  currentPassengerIndex: number
-  updatePassengerInfo: typeof updatePassengerInfo
-  handleModalOpen: any
+  modalState: boolean;
+  passenger: PassengerInfo;
+  currentPassengerIndex: number;
+  updatePassengerInfo: typeof updatePassengerInfo;
+  handleModalOpen: any;
   dateFormat: string;
+  bookingSegments: Array<Segment>
+  pathSequence: Array<string>
+  flights: Array<FlightResultsDetails>
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
 }
 
 
@@ -181,6 +188,14 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <hr/>
               </div>
             }
+            <FrequentFlyerDetails
+              bookingSegments={props.bookingSegments}
+              pathSequence={props.pathSequence}
+              flights={props.flights}
+              currentPassengerIndex={props.currentPassengerIndex}
+              updateFrequentFlyerCards={props.updateFrequentFlyerCards}
+              passenger={props.passenger}
+            />
             <div className="text-center">
               <Button
                 color="secondary"

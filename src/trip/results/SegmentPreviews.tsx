@@ -9,7 +9,6 @@ import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { cloneDeep } from 'lodash';
 import { calculateDistributedMarkup } from '../../helpers/MarkupHelper';
 import CancellationPolicy from '../../common/CancellationPolicy';
-import Skeleton from "@material-ui/lab/Skeleton";
 import SkeletonPreview from "../../common/SkeletonPreview";
 
 

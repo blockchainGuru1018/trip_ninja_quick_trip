@@ -34,7 +34,8 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     cancelPenalty: undefined,
     wifi: undefined,
     carryOn: -1,
-    seatAssignment: undefined
+    seatAssignment: undefined,
+    platingCarrier: undefined
   }
 
   componentWillMount() {
@@ -58,7 +59,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
           </div>
         }
         <div className="row fare-family-row">
-          <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-10 offset-md-1'}>
+          <div className={this.props.bookingDrawer ? 'col-md-12' : 'col-md-8 offset-md-2'}>
             <div className="row">
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
                 <CardTravelIcon color={this.setIconColor(this.state.numBaggage >= 0)}/>                  
@@ -124,10 +125,10 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 </div>
               </div>
               <div className={"col-lg-3 " + (this.props.bookingDrawer ? "booking-drawer-rules" : "fare-rules-type")}>
-                <FlightIcon color="primary"/>
+                <FlightIcon color={this.setIconColor(this.state.platingCarrier)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.platingCarrier")}</span>
-                  <p className="standard-text">{this.props.segment ? this.props.segment!.plating_carrier : this.props.bookingSegment!.plating_carrier}</p>
+                  <p className="standard-text">{this.state.platingCarrier ? this.state.platingCarrier : this.informationNotAvailable()}</p>
                 </div>
               </div>
             </div>
@@ -135,7 +136,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
         </div>
         {!this.props.itineraryDisplay &&
           <div className="row">
-            <div className="col-md-10 offset-md-1">
+            <div className="col-md-8 offset-md-2">
               <p className="text-small">{this.props.t("common.fareRulesPreview.editFareFamily")}</p>
             </div>
           </div>
@@ -145,7 +146,15 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
   }
 
   informationNotAvailable = () => {
-    return <span className="no-info">{this.props.t("common.itineraryDetails.informationNotAvailable")}</span>;
+    return <span className="no-info">{this.props.t("common.fareRulesPreview.infoNotAvailable")}</span>;
+  }
+
+  getPlatingCarrier = () => {
+    if (this.props.segment) {
+      return this.props.segment.plating_carrier ? this.props.segment.plating_carrier : undefined;
+    } else if (this.props.bookingSegment) {
+      return this.props.bookingSegment.plating_carrier ? this.props.bookingSegment.plating_carrier : undefined;
+    }
   }
 
   getBrand = () => {
@@ -193,6 +202,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     let seatAssignment: string | undefined = undefined;
     let carryOn: number = -1;
     const numBaggage: any = this.setNumBaggage();
+    let platingCarrier: string | undefined = this.getPlatingCarrier();
 
     const changePenalty = additionalDetails.change_penalty.amount
       ? currencySymbol(this.props.currency)! + additionalDetails.change_penalty.amount + this.props.currency
@@ -224,7 +234,8 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
       cancelPenalty,
       wifi,
       seatAssignment,
-      carryOn
+      carryOn,
+      platingCarrier
     });
   }
 }

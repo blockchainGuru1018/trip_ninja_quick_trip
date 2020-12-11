@@ -85,7 +85,8 @@
             "atACost": "At a cost",
             "available": "Available",
             "unavailable": "Unavailable",
-            "platingCarrier": "Plating Carrier"
+            "platingCarrier": "Plating Carrier",
+            "infoNotAvailable": "Info not available"
         },
         "flightLogo": {
             "multipleAirlines": "Multiple Airlines"

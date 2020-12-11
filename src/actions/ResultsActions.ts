@@ -31,7 +31,7 @@ export function setActiveSegments(){
   };
 }
 
-export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
+function updateActivesAction(segmentOptionIndex: number, segmentItineraryRef: string,
   updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) {
   return {
     type: 'UPDATE_ACTIVES',
@@ -42,6 +42,18 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
     virtualInterline
   };
 }
+
+
+export const updateActives = (segmentOptionIndex: number, segmentItineraryRef: string,
+  updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) => (dispatch: any) => {
+
+  dispatch(setResultsLoading(true));
+  setTimeout(() => {
+    dispatch(updateActivesAction(segmentOptionIndex, segmentItineraryRef, updateActivesInitial, sortBy, virtualInterline));
+    dispatch(setResultsLoading(false));
+  }, 2000);
+};
+
 
 export const updateEntireTrip = (setActivesInitial: boolean = true, sortBy: string) => (dispatch: any) => {
   dispatch(setResultsLoading(true));

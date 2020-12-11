@@ -174,6 +174,7 @@ const segmentPreviewComponent: any = shallow(
     segmentSelect={false}
     totalPrice={500}
     trip={testResults}
+    loading={false}
   />
 );
 

@@ -14,7 +14,6 @@ import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
 import { withTranslation, WithTranslation } from 'react-i18next';
-import RecalculatingFaresIndicator from "./RecalculatingFaresIndicator";
 
 interface MatchParams{
   index: string;
@@ -103,13 +102,6 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                 )}
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="row" style={{"justifyContent": "flex-end"}}>
-                <RecalculatingFaresIndicator
-                  loading={this.props.resultsDetails.loadingResults}
-                />
-              </div>
-            </div>
           </div>
         </div>
         <div className="row">
@@ -140,6 +132,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateFareFamily={this.props.updateFareFamily}
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
+                  loading={this.props.resultsDetails.loadingResults}
                 />
                 <div className="row">
                   <div className="col-xl">
@@ -164,6 +157,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
+                      loading={this.props.resultsDetails.loadingResults}
                     />
                     <div className="row">
                       <div className="col-xl">
@@ -198,6 +192,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
+                      loading={this.props.resultsDetails.loadingResults}
                     />
                   </div>
                 }

@@ -9,6 +9,8 @@ import { getFlightDetailsBySegment } from '../../helpers/FlightDetailsHelper';
 import { cloneDeep } from 'lodash';
 import { calculateDistributedMarkup } from '../../helpers/MarkupHelper';
 import CancellationPolicy from '../../common/CancellationPolicy';
+import Skeleton from "@material-ui/lab/Skeleton";
+import SkeletonPreview from "../../common/SkeletonPreview";
 
 
 interface SegmentPreviewsProps {
@@ -27,6 +29,7 @@ interface SegmentPreviewsProps {
   totalPrice: number;
   getTravelportBrands?: typeof getTravelportBrands;
   trip: Results;
+  loading: boolean;
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
@@ -101,14 +104,19 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
 
       let markup = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(this.props.trip.markup, segment.price, this.props.totalPrice);
       let itineraryPrice: number = segment.price + markup;
-      
+
       if (segment.vi_segment_base_price) {
         itineraryPrice = segment.vi_segment_base_price + segment.vi_segment_fees! + segment.vi_segment_taxes! + markup;
       }
-      return(
-        <div key={index.toString()}>
-          {this.props.orderByPnr && firstPositionInStructure &&
-            <PnrResultHeader 
+      if (this.props.loading) {
+        return (
+          <SkeletonPreview segmentSelect={this.props.segmentSelect} orderByPnr={this.props.orderByPnr}/>
+        );
+      } else {
+        return (
+          <div key={index.toString()}>
+            {this.props.orderByPnr && firstPositionInStructure &&
+            <PnrResultHeader
               itineraryNumber={++itineraryNumber}
               price={itineraryPrice}
               currency={this.props.currency}
@@ -116,44 +124,45 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
               segmentCount={this.props.segments.length}
               structure={JSON.parse(segment.itinerary_structure)}
               segmentIsVi={segment.vi_solution_id ? true : false}
-            /> 
-          }
-          {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)
-            ? 
-            <SegmentPreview
-              segment={segment}
-              segments={this.props.segments}
-              viLinkedSegment={linkedViSegment}
-              index={index}
-              key={index}
-              segmentFlightDetails={segmentFlightDetails}
-              viLinkedSegmentFlightDetails={linkedViSegmentFlightDetails}
-              orderByPnr={this.props.orderByPnr}
-              segmentSelect={this.props.segmentSelect}
-              activeSegment={this.props.activeSegment}
-              currency={this.props.currency}
-              segmentOptionsIndex={this.props.segmentOptionsIndex}
-              updateActives={this.props.updateActives}
-              updateFareFamily={this.props.updateFareFamily}
-              pathSequence={this.props.pathSequence}
-              totalPrice={this.props.totalPrice}
-              getTravelportBrands={this.props.getTravelportBrands}
-              trip={this.props.trip}
             />
-            : ''
-          }
-          {this.props.orderByPnr && 
-          ((firstPositionInStructure && segment.itinerary_type === 'ONE_WAY') || (!firstPositionInStructure && segment.itinerary_type === 'OPEN_JAW')) &&
-          <CancellationPolicy 
-            currency={this.props.currency}
-            price={segment.vi_segment_base_price ? (segment.vi_segment_base_price + segment.vi_segment_taxes! + segment.vi_segment_fees!) : segment.price}
-            segments={[segment]}
-            tripTotal={false}
-            tripMarkup={markup}
-          />
-          }
-        </div>
-      );
+            }
+            {(!segment.filtered || segment.status === 'active') && (segment.virtual_interline ? segment.vi_position === 0 : true)
+              ?
+              <SegmentPreview
+                segment={segment}
+                segments={this.props.segments}
+                viLinkedSegment={linkedViSegment}
+                index={index}
+                key={index}
+                segmentFlightDetails={segmentFlightDetails}
+                viLinkedSegmentFlightDetails={linkedViSegmentFlightDetails}
+                orderByPnr={this.props.orderByPnr}
+                segmentSelect={this.props.segmentSelect}
+                activeSegment={this.props.activeSegment}
+                currency={this.props.currency}
+                segmentOptionsIndex={this.props.segmentOptionsIndex}
+                updateActives={this.props.updateActives}
+                updateFareFamily={this.props.updateFareFamily}
+                pathSequence={this.props.pathSequence}
+                totalPrice={this.props.totalPrice}
+                getTravelportBrands={this.props.getTravelportBrands}
+                trip={this.props.trip}
+              />
+              : ''
+            }
+            {this.props.orderByPnr &&
+            ((firstPositionInStructure && segment.itinerary_type === 'ONE_WAY') || (!firstPositionInStructure && segment.itinerary_type === 'OPEN_JAW')) &&
+              <CancellationPolicy
+                currency={this.props.currency}
+                price={segment.vi_segment_base_price ? (segment.vi_segment_base_price + segment.vi_segment_taxes! + segment.vi_segment_fees!) : segment.price}
+                segments={[segment]}
+                tripTotal={false}
+                tripMarkup={markup}
+              />
+            }
+          </div>
+        );
+      }
     });
   }
 }

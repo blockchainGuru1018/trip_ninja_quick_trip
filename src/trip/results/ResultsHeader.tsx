@@ -9,6 +9,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { dateLocaleMap } from '../../localeMap';
 import { format } from 'date-fns';
+import { noTimeZoneOffsetDate } from '../../helpers/DateHelpers';
 
 const ChangeSearchButton = styled(Button)({
   backgroundColor: '#ffffff',
@@ -79,7 +80,8 @@ class ResultsHeader extends React.Component<ResultsHeaderProps> {
 
   getDepartureDate = (flightDetailRef: string) => {
     const firstFlight: FlightResultsDetails[] = this.props.flights.filter((flight: FlightResultsDetails) => { return flight.reference === flightDetailRef; });
-    return <span>{format(new Date(firstFlight[0].departure_time), this.props.t("results.resultsHeader.dateFormat"), {locale:dateLocaleMap[i18n.language]})}</span>;
+    let departureDate = noTimeZoneOffsetDate(firstFlight[0].departure_time);
+    return <span>{format(new Date(departureDate), this.props.t("results.resultsHeader.dateFormat"), {locale:dateLocaleMap[i18n.language]})}</span>;
   }
 }
 

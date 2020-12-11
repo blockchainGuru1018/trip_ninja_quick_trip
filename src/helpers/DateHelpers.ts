@@ -53,3 +53,7 @@ export function getTodaysDate() {
   const date = new Date().toISOString();
   return date.slice(0, 10);
 }
+
+export function noTimeZoneOffsetDate(departureDate: string) {
+  return departureDate.slice(0, 10)+'T00:00:00.000';
+}

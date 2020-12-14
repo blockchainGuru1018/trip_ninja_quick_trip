@@ -13,6 +13,7 @@ import { updatePassengerInfo } from '../../actions/BookActions';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import MealPreference from './MealPreference';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() =>
@@ -181,6 +182,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <hr/>
               </div>
             }
+            <MealPreference />
             <div className="text-center">
               <Button
                 color="secondary"

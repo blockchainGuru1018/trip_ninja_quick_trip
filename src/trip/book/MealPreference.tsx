@@ -31,7 +31,7 @@ export default function MealPreference(props: MealPreferenceProps) {
       <h5>Meal Preferences</h5>
       {mealsIncluded &&
         <div>
-          <p>Preferred meal for flights ABC, XYZ</p>
+          <p>Preferred meal for flights {flightsWithMeals.join(', ')}</p>
           <div className="col-sm-3">
             <FormControl variant="outlined" fullWidth>
               <InputLabel id="meal-label">Meal Preference</InputLabel>

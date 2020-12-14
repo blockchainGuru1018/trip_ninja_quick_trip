@@ -5,6 +5,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { updatePassengerInfo } from '../../actions/BookActions';
 import { useTranslation } from 'react-i18next';
+import mealCodes from '../../assets/data/mealCodes.json';
 
 interface MealPreferenceProps {
   index: number;
@@ -13,18 +14,18 @@ interface MealPreferenceProps {
 }
 
 export default function MealPreference(props: MealPreferenceProps) {
-  const [mealsIncluded, setMealsIncluded] = React.useState(false);
+  const [mealsIncluded, setMealsIncluded] = React.useState(true);
   const [flightsWithMeals, setFlightsWithMeals] = React.useState([] as Array<string>);
   const [ t ] = useTranslation('common');
 
-  const checkMealAvailability = () => {
-    let flights: Array<string> = [];
-
-    if (flights.length > 0) {
-      setMealsIncluded(true);
-      setFlightsWithMeals(flights);
-    }
-  };
+  // const checkMealAvailability = () => {
+  //   let flights: Array<string> = [];
+  //
+  //   if (flights.length > 0) {
+  //     setMealsIncluded(true);
+  //     setFlightsWithMeals(flights);
+  //   }
+  // };
 
   return(
     <div>
@@ -46,8 +47,9 @@ export default function MealPreference(props: MealPreferenceProps) {
                   )
                 }
               >
-                <MenuItem value="F">1</MenuItem>
-                <MenuItem value="M">2</MenuItem>
+                {mealCodes.map((item, index) => (
+                  <MenuItem key={index} value={item.code}>{item.label}</MenuItem>
+                ))};
               </Select>
             </FormControl>
           </div>

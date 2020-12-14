@@ -296,7 +296,10 @@
                 "refundabilityRefundableLabel": "Refundable"
             }
         },
-        "recalculatingFaresIndicator": "Recalculating Fares"
+        "recalculatingFaresIndicator": "Recalculating Fares",
+        "resultsViewToggle": {
+            "viewBy": "View by:"
+        }
     },
     "book":{
         "book":{

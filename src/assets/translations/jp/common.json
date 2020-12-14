@@ -31,7 +31,7 @@
       "passportNumber": "パスポート番号",
       "passportExpiry": "パスポートの有効期限",
       "phone": "電話番号",
-      "ticket": "Ticket"
+      "ticket": "チケット"
 },
 "common": {
   "navBar":{
@@ -281,11 +281,11 @@
           "noOfStops1Label": "1 ストップ",
           "noOfStops2Label": "2 ストップ",
           "filterFailMessage": "このフィルターのフライトはありません",
-          "refundability": "refundability",
-          "refundabilityDescription": "Refundability",
+          "refundability": "払い戻しのできる可能性",
+          "refundabilityDescription": "払い戻しのできる可能性",
           "refundabilityAnyLabel": "任意",
-          "refundabilityNon-RefundableLabel": "Non-Refundable",
-          "refundabilityRefundableLabel": "Refundable"
+          "refundabilityNon-RefundableLabel": "返金不可",
+          "refundabilityRefundableLabel": "返金可能"
       }
     }
   },

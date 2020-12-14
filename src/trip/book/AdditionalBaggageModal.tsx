@@ -86,7 +86,9 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
               </Tabs>
               <div className="add-baggage-container">
                 {props.activeSegments.map((segment: Segment) => {
-                  return <h5>{segment.origin}-{segment.destination}</h5>;
+                  return(<div>
+                    <h5>{segment.origin}-{segment.destination}</h5>
+                  </div>);
                 })}
                 
                 <p>Checked Baggage</p>

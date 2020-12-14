@@ -32,6 +32,7 @@ export interface PassengerInfo {
   passenger_type: string;
   passenger_type_name?: string;
   email?: string;
+  meal?: string;
   updated: boolean;
 }
 

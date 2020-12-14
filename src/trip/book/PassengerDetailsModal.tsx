@@ -182,7 +182,11 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <hr/>
               </div>
             }
-            <MealPreference />
+            <MealPreference 
+              meal={props.passenger.meal}
+              index={props.currentPassengerIndex}
+              updatePassengerInfo={props.updatePassengerInfo}
+            />
             <div className="text-center">
               <Button
                 color="secondary"

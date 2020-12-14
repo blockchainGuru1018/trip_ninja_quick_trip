@@ -55,3 +55,7 @@ export function getTodaysDate(hours: boolean) {
     ? date.slice(0, 16).replace("T", " ")
     : date.slice(0, 10);
 }
+
+export function noTimeZoneOffsetDate(departureDate: string) {
+  return departureDate.slice(0, 10)+'T00:00:00.000';
+}

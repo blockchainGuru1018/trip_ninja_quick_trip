@@ -32,6 +32,7 @@ interface SegmentPreviewsProps {
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
+  static whyDidYouRender = true
 
   render() {
     return (

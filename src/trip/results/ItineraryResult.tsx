@@ -166,7 +166,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </div>
           <div className="col-md-10 segment-list">
             {selectedSegments}
-            { this.state.view === 'itinerary' && !this.props.resultsDetails.loadingResults &&
+            {this.state.view === 'itinerary' && !this.props.resultsDetails.loadingResults &&
               <div className="row">
                 <div className="col-xl-11 offset-xl-1">
                   <CancellationPolicy 

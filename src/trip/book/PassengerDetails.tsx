@@ -15,6 +15,7 @@ interface PassengerDetailsProps extends WithTranslation {
   dateFormat: string;
   resultsDetails: ResultsDetails;
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  trip: Results
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -78,6 +79,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           pathSequence={trip.path_sequence}
           flights={trip.flight_details}
           updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
+          trip={trip}
         />    
       </div>
     );

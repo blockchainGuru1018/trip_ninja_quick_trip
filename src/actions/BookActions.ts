@@ -14,7 +14,6 @@ export function updatePassengerInfo(index: number, key: string, value: string) {
 }
 
 export function updateFrequentFlyerCards(passengerIndex: number, cardIndex: number, value: FrequentFlyerCard) {
-  console.log('here too')
   return {
     type: 'UPDATE_FREQUENT_FLYER_CARDS',
     passengerIndex,

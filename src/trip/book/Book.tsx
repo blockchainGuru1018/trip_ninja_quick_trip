@@ -98,6 +98,7 @@ class Book extends React.Component<BookProps> {
                 dateFormat={this.props.dateFormat}
                 resultsDetails={this.props.resultsDetails}
                 updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
+                trip={trip}
               />
             </div>
           </div>

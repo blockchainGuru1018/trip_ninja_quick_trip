@@ -233,7 +233,7 @@ export const testingPassengerInfo: PassengerInfo = {
   gender: 'M',
   passenger_type: 'ADT',
   updated: true,
-  frequentFlyerCards: []
+  frequent_flyer_cards: []
 };
 
 export const testingBookingDetails: BookingDetails = {

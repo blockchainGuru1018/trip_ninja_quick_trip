@@ -15,8 +15,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { useTranslation } from 'react-i18next';
 import FrequentFlyerDetails from "./FrequentFlyerDetails";
-import {FlightResultsDetails, ResultsDetails, Segment} from "../results/ResultsInterfaces";
+import {FlightResultsDetails, Results, ResultsDetails, Segment} from "../results/ResultsInterfaces";
 import Book from "./Book";
+import {getFullTripWithVi} from "../../helpers/VirtualInterliningHelpers";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -55,6 +56,7 @@ interface PassengerDetailsModalProps {
   pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  trip: Results;
 }
 
 
@@ -189,7 +191,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               </div>
             }
             <FrequentFlyerDetails
-              bookingSegments={props.bookingSegments}
+              bookingSegments={getFullTripWithVi(props.bookingSegments, props.trip)}
               pathSequence={props.pathSequence}
               flights={props.flights}
               currentPassengerIndex={props.currentPassengerIndex}

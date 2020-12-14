@@ -345,7 +345,9 @@
             "save": "Save",
             "invalidPhoneNumber": "Invalid phone number",
             "invalidEmailAddress": "Invalid email address",
-            "loyaltyPrograms": "Loyalty Programs"
+            "loyaltyPrograms": "Loyalty Programs",
+            "loyaltyProgram": "Loyalty Program",
+            "loyaltyCardNumber": "Loyalty card number"
         }
     },
     "bookings": {

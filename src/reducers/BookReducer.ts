@@ -13,11 +13,11 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
 
     case 'UPDATE_FREQUENT_FLYER_CARDS':
       const currentPassenger = state.passengers[action.passengerIndex];
-      currentPassenger.frequentFlyerCards.splice(
+      currentPassenger.frequent_flyer_cards.splice(
         action.cardIndex, 1, action.value
       );
       return updatePassengersWithValue(state, {"index": action.passengerIndex,
-        "key": "frequentFlyerCards", "value": currentPassenger.frequentFlyerCards});
+        "key": "frequent_flyer_cards", "value": currentPassenger.frequent_flyer_cards});
 
     default:
       return state;

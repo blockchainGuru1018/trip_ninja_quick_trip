@@ -1,4 +1,4 @@
-import {BookingDetails, PassengerInfo, defaultPassengerInfo, FrequentFlyerCard} from '../trip/book/BookInterfaces';
+import { BookingDetails, PassengerInfo, defaultPassengerInfo } from '../trip/book/BookInterfaces';
 
 function bookReducer(state: BookingDetails = {} as any, action: any) {
   switch(action.type) {    

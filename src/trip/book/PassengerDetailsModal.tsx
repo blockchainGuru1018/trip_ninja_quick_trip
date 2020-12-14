@@ -15,9 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { useTranslation } from 'react-i18next';
 import FrequentFlyerDetails from "./FrequentFlyerDetails";
-import {FlightResultsDetails, Results, ResultsDetails, Segment} from "../results/ResultsInterfaces";
-import Book from "./Book";
-import {getFullTripWithVi} from "../../helpers/VirtualInterliningHelpers";
+import {FlightResultsDetails, Results, Segment} from "../results/ResultsInterfaces";
+import { getFullTripWithVi } from "../../helpers/VirtualInterliningHelpers";
 
 const useStyles = makeStyles(() =>
   createStyles({

@@ -29,7 +29,8 @@
         "nationality": "Nationalité",
         "passportNumber": "Numéro de passeport",
         "passportExpiry": "Date d'expiration de passeport",
-        "phone": "Numéro de téléphone"
+        "phone": "Numéro de téléphone",
+        "ticket": "Billet"
     },
     "common": {
         "navBar":{
@@ -57,6 +58,7 @@
             "title": "Les détails des tarifs",
             "altTitle": "Les coûts de réservation",
             "airTransportationCharges": "Charges du transport aérien",
+            "additionalMarkup": "Frais d’agent",
             "taxes": "Les impôts",
             "infoMissing": "L'information que vous recherchez n'est pas disponible"
         },
@@ -153,9 +155,9 @@
                 "return":"Retourner au réservation"
             },
             "pdfErrorModal": {
-                "title": "PDF download failed.",
-                "body": "There was an error downloading the pdf, please try again or contact support.",
-                "return": "Return to Booking"
+                "title": "Téléchargement du PDF a échoué.",
+                "body": "Une erreur s’est produite avec le téléchargement. Reéssayez ou contacter nous.",
+                "return": "Retourner au réservations"
             }
         },
         "pdf": {
@@ -371,7 +373,7 @@
             "cancelBookingButton": "Annuler la réservation",
             "sendToQueueButton": "Mettre en attente",
             "issueTicketButton": "émettre le billet",
-            "downloadButton": "Download Quote"
+            "downloadButton": "Télécharger la citation"
         },
         "multiPNRViewToggle": {
             "title": "Plusieurs PNRs", 
@@ -382,9 +384,9 @@
             "title": "Détails du passager"
         },
         "pdf": {
-            "title": "Travel Proposal and Flight Itinerary",
-            "modalLoadingPrimary": "Loading Itinerary PDF",
-            "createdBy": "Created By"
+            "title": "Proposition du voyage et l’itinéraire des vols",
+            "modalLoadingPrimary": "Le chargement de l’itinéraire est en cours",
+            "createdBy": "Creer par"
         }
     }
 }

@@ -65,70 +65,70 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <CardTravelIcon color={this.setIconColor(this.state.numBaggage >= 0)}/>                  
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.checkedBags")}</span>
-                  <p className="standard-text">{this.state.numBaggage >= 0 ? baggageLabel(this.state.numBaggage) : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.numBaggage >= 0 ? baggageLabel(this.state.numBaggage) : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <BusinessCenterIcon color={this.setIconColor(this.state.carryOn >= 0)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cabinBaggage")}</span>
-                  <p className="standard-text">{this.state.carryOn >= 0 ? this.props.t("common.fareRulesPreview.included") : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.carryOn >= 0 ? this.props.t("common.fareRulesPreview.included") : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <CancelOutlinedIcon color={this.setIconColor(this.state.cancelPenalty)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.cancellationPenalty")}</span>
-                  <p className="standard-text">{this.state.cancelPenalty ? this.state.cancelPenalty : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.cancelPenalty ? this.state.cancelPenalty : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <SwapHorizontalCircleIcon color={this.setIconColor(this.state.changePenalty)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.changePenalty")}</span>
-                  <p className="standard-text">{this.state.changePenalty ? this.state.changePenalty : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.changePenalty ? this.state.changePenalty : this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <ConfirmationNumberOutlinedIcon color="primary"/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.fareType")}</span>
-                  <p className="standard-text">{this.props.segment ? this.props.segment!.fare_type: this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.props.segment ? this.props.segment!.fare_type: this.informationNotAvailable()}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <WifiIcon color={this.setIconColor(this.state.wifi !== undefined)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.wifiTitle")}</span>
-                  <p className="standard-text">{this.state.wifi ? this.props.t("common.fareRulesPreview.available") : this.props.t("common.fareRulesPreview.unavailable")}</p>
+                  <p className="text-small">{this.state.wifi ? this.props.t("common.fareRulesPreview.available") : this.props.t("common.fareRulesPreview.unavailable")}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <AirlineSeatLegroomNormalOutlinedIcon color={this.setIconColor(this.state.seatAssignment)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.seatSelection")}</span>
-                  <p className="standard-text">{this.state.seatAssignment ? this.state.seatAssignment : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.seatAssignment ? this.state.seatAssignment : this.informationNotAvailable()}</p>
                 </div>
               </div>             
               <div className="col-lg-3 fare-rules-type">
                 <LanguageIcon color="primary"/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.fareSource")}</span>
-                  <p className="standard-text">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</p>
+                  <p className="text-small">{this.props.segment ? firstLetterCapital(this.props.segment!.source) : firstLetterCapital(this.props.bookingSegment!.source)}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <ClassIcon color="primary"/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.bookingCode")}</span>
-                  <p className="standard-text">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</p>
+                  <p className="text-small">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">
                 <FlightIcon color={this.setIconColor(this.state.platingCarrier)}/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.platingCarrier")}</span>
-                  <p className="standard-text">{this.state.platingCarrier ? this.state.platingCarrier : this.informationNotAvailable()}</p>
+                  <p className="text-small">{this.state.platingCarrier ? this.state.platingCarrier : this.informationNotAvailable()}</p>
                 </div>
               </div>
             </div>

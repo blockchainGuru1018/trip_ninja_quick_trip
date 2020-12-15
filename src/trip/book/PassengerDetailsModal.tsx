@@ -193,11 +193,12 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               </div>
             }
             <MealPreference 
-              meal={props.passenger.meal}
+              meals={props.passenger.meals}
               index={props.currentPassengerIndex}
               updatePassengerInfo={props.updatePassengerInfo}
               pricedItineraries={props.pricedItineraries}
             />
+            <hr/>
             <FrequentFlyerDetails
               bookingSegments={getFullTripWithVi(props.bookingSegments, props.trip)}
               pathSequence={props.pathSequence}

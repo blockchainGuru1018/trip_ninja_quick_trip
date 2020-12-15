@@ -32,7 +32,7 @@ export interface PassengerInfo {
   passenger_type: string;
   passenger_type_name?: string;
   email?: string;
-  meal?: string;
+  meals?: Array<MealPreferences>;
   updated: boolean;
   frequent_flyer_cards: Array<FrequentFlyerCard>
 }
@@ -43,6 +43,11 @@ export interface FrequentFlyerCard {
   card_supplier: string;
   program_name: string;
   card_number: string;
+}
+
+export interface MealPreferences {
+  itinerary_reference: string;
+  meal_choice: string;
 }
 
 export interface Billing {
@@ -67,7 +72,6 @@ export const defaultPassengerInfo: PassengerInfo = {
   'date_of_birth': new Date().toISOString().slice(0,10),
   'gender': '',
   'updated': false,
-  'meal': 'Any',
   'frequent_flyer_cards': []
 };
 

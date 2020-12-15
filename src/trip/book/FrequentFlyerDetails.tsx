@@ -26,7 +26,7 @@ export default function FrequentFlyerDetails(props: FrequentFlyerDetailsProps) {
 
   const setAndUpdateFFCardProgram = (values: any, cardIndex: number) => {
     const frequentFlyerCard: FrequentFlyerCard = props.passenger.frequent_flyer_cards[cardIndex];
-    let newFrequentFlyerCard: FrequentFlyerCard = {
+    const newFrequentFlyerCard: FrequentFlyerCard = {
       itinerary_reference: (cardIndex + 1).toString(),
       card_supplier: values ? values.carrier_code : '',
       card_number: frequentFlyerCard ? frequentFlyerCard.card_number : '',
@@ -37,7 +37,7 @@ export default function FrequentFlyerDetails(props: FrequentFlyerDetailsProps) {
 
   const setAndUpdateFFCardNumber = (cardNumber: string, cardIndex: number) => {
     const frequentFlyerCard: FrequentFlyerCard = props.passenger.frequent_flyer_cards[cardIndex];
-    let newFrequentFlyerCard: FrequentFlyerCard = {
+    const newFrequentFlyerCard: FrequentFlyerCard = {
       itinerary_reference: (cardIndex + 1).toString(),
       card_supplier: frequentFlyerCard ? frequentFlyerCard.card_supplier : '',
       card_number: cardNumber,

@@ -129,5 +129,5 @@ export default function FrequentFlyerDetails(props: FrequentFlyerDetailsProps) {
       }
     </div>
   );
-};
+}
 

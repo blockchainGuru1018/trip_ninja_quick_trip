@@ -40,7 +40,13 @@ export default function MealPreference(props: MealPreferenceProps) {
     setMealsIncluded(flightList.length > 0);
     setFlightsWithMeals(flightList);
     setItinerariesWithMeals([...new Set(itineraryList)]);
-  }, [props.pricedItineraries, setMealsIncluded, setFlightsWithMeals]);
+  }, [props.pricedItineraries, setMealsIncluded, setFlightsWithMeals, setItinerariesWithMeals]);
+
+  const addMealToItinerary = (value: any) => {
+    return itinerariesWithMeals.map((itinerary: number) => {
+      return {"itinerary": itinerary, "meal_choice": value};
+    });
+  };
 
   return(
     <div>

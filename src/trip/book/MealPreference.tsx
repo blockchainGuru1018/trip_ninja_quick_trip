@@ -19,23 +19,27 @@ interface MealPreferenceProps {
 export default function MealPreference(props: MealPreferenceProps) {
   const [mealsIncluded, setMealsIncluded] = React.useState(false);
   const [flightsWithMeals, setFlightsWithMeals] = React.useState([] as Array<string>);
+  const [itinerariesWithMeals, setItinerariesWithMeals] = React.useState([] as Array<number>);
   const [ t ] = useTranslation('common');
 
   useEffect(() => { 
-    let flightsList: Array<any> = [];
+    let flightList: Array<string> = [];
+    let itineraryList: Array<number> = [];
     
     props.pricedItineraries.forEach((itinerary: PricedItinerary) => {
       itinerary.segments.forEach((segment: SegmentPricingInfo) => {
         segment.flight_details.forEach((flight: PricedFlightDetails) => {
           if (flight.meals.includes("Meal")) {
-            flightsList.push(flight.flight_number);
+            flightList.push(flight.flight_number);
+            itineraryList.push(itinerary.itinerary_reference);
           }
         });
       });
     });
 
-    setMealsIncluded(flightsList.length > 0);
-    setFlightsWithMeals(flightsList);
+    setMealsIncluded(flightList.length > 0);
+    setFlightsWithMeals(flightList);
+    setItinerariesWithMeals([...new Set(itineraryList)]);
   }, [props.pricedItineraries, setMealsIncluded, setFlightsWithMeals]);
 
   return(

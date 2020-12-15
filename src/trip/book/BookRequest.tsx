@@ -42,7 +42,6 @@ export class BookRequest extends React.Component<BookRequestProps> {
     this.props.bookingDetails.ticket = ticket;
     this.props.bookingDetails.agent_email = this.props.authDetails.userEmail;
     this.props.bookingDetails.agency = this.props.authDetails.agency;
-
     const billing: Billing = {
       email: this.props.bookingDetails.passengers[0].email ? this.props.bookingDetails.passengers[0].email : ""
     };

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import { updatePassengerInfo } from '../../actions/BookActions';
 import { useTranslation } from 'react-i18next';
 import { PricedItinerary, SegmentPricingInfo, PricedFlightDetails } from '../results/PricingInterfaces';
@@ -31,7 +30,7 @@ export default function MealPreference(props: MealPreferenceProps) {
     props.pricedItineraries.forEach((itinerary: PricedItinerary) => {
       itinerary.segments.forEach((segment: SegmentPricingInfo) => {
         segment.flight_details.forEach((flight: PricedFlightDetails) => {
-          if (flight.meals.some(x => mealsOffered.includes(x))) {  //Breakfast, Dinner, Lunch
+          if (flight.meals.some(x => mealsOffered.includes(x))) {
             flightList.push(flight.flight_number);
             itineraryList.push(itinerary.itinerary_reference);
           }
@@ -49,7 +48,6 @@ export default function MealPreference(props: MealPreferenceProps) {
     itinerariesWithMeals.forEach((itinerary: number) => {
       meals.push({"itinerary_reference": itinerary.toString(), "meal_choice": value});
     });
-    console.log(meals);
     props.updatePassengerInfo(props.index, 'meals', meals);
   };
 
@@ -63,11 +61,9 @@ export default function MealPreference(props: MealPreferenceProps) {
             <p>{t('book.passengerDetailsModal.mealsForFlights')} {flightsWithMeals.join(', ')}</p>
             <div className="col-sm-3 no-pad-left">
               <FormControl variant="outlined" fullWidth>
-                <InputLabel id="meal-label">{t('book.passengerDetailsModal.mealPreferences')}</InputLabel>
                 <Select
                   id="meal-preference"
                   value={props.meals ? props.meals[0].meal_choice : 'Any'}
-                  label="{t('book.passengerDetailsModal.mealPreferences')}"
                   labelId="meal-label"
                   onChange={(event: any) => addMealToItinerary(event.target.value)}
                 >

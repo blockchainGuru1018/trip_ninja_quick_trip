@@ -21,9 +21,9 @@ export default function MealPreference(props: MealPreferenceProps) {
   const [flightsWithMeals, setFlightsWithMeals] = React.useState([] as Array<string>);
   const [ t ] = useTranslation('common');
 
-  const checkMealAvailability = () => {
-    let flightsList: Array<string> = [];
-  
+  useEffect(() => { 
+    let flightsList: Array<any> = [];
+    
     props.pricedItineraries.forEach((itinerary: PricedItinerary) => {
       itinerary.segments.forEach((segment: SegmentPricingInfo) => {
         segment.flight_details.forEach((flight: PricedFlightDetails) => {
@@ -34,13 +34,9 @@ export default function MealPreference(props: MealPreferenceProps) {
       });
     });
 
-    if (flightsList.length > 0) {
-      setMealsIncluded(true);
-      setFlightsWithMeals(flightsList);
-    }
-  };
-
-  useEffect(() => checkMealAvailability(), [setFlightsWithMeals]);
+    setMealsIncluded(flightsList.length > 0);
+    setFlightsWithMeals(flightsList);
+  }, [props.pricedItineraries, setMealsIncluded, setFlightsWithMeals]);
 
   return(
     <div>

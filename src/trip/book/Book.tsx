@@ -55,10 +55,10 @@ class Book extends React.Component<BookProps> {
               <div className='btn-back'>{this.props.t("book.book.return")}</div>
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <h1>{this.props.t("book.book.title")}</h1>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-8">
                 <BookRequest
                   resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
@@ -95,6 +95,7 @@ class Book extends React.Component<BookProps> {
                 bookingDetails={this.props.bookingDetails}
                 updatePassengerInfo={this.props.updatePassengerInfo}
                 dateFormat={this.props.dateFormat}
+                pricedItineraries={this.props.pricingDetails.itineraries!}
               />
             </div>
           </div>

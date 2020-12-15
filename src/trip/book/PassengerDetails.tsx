@@ -6,12 +6,14 @@ import { Passenger } from '../search/SearchInterfaces';
 import { PassengerInfo, BookingDetails } from './BookInterfaces';
 import { updatePassengerInfo } from '../../actions/BookActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { PricedItinerary } from '../results/PricingInterfaces';
 
 interface PassengerDetailsProps extends WithTranslation {
   passengers: Array<Passenger>;
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
   dateFormat: string;
+  pricedItineraries: Array<PricedItinerary>;
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -69,6 +71,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           currentPassengerIndex={this.state.currentPassengerIndex}
           updatePassengerInfo={this.props.updatePassengerInfo}
           dateFormat={this.props.dateFormat}
+          pricedItineraries={this.props.pricedItineraries}
         />    
       </div>
     );

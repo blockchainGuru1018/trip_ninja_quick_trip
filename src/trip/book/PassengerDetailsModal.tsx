@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MealPreference from './MealPreference';
 import { useTranslation } from 'react-i18next';
+import { PricedItinerary } from '../results/PricingInterfaces';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,6 +50,7 @@ interface PassengerDetailsModalProps {
   updatePassengerInfo: typeof updatePassengerInfo
   handleModalOpen: any
   dateFormat: string;
+  pricedItineraries: Array<PricedItinerary>;
 }
 
 
@@ -186,6 +188,7 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
               meal={props.passenger.meal}
               index={props.currentPassengerIndex}
               updatePassengerInfo={props.updatePassengerInfo}
+              pricedItineraries={props.pricedItineraries}
             />
             <div className="text-center">
               <Button

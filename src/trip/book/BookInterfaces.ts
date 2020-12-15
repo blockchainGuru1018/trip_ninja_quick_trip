@@ -57,7 +57,8 @@ export const defaultPassengerInfo: PassengerInfo = {
   'last_name': '',
   'date_of_birth': new Date().toISOString().slice(0,10),
   'gender': '',
-  'updated': false
+  'updated': false,
+  'meal': 'Any'
 };
 
 export const defaultBilling: Billing = {

@@ -348,7 +348,10 @@
             "invalidEmailAddress": "Invalid email address",
             "loyaltyPrograms": "Loyalty Programs",
             "loyaltyProgram": "Loyalty Program",
-            "loyaltyCardNumber": "Loyalty card number"
+            "loyaltyCardNumber": "Loyalty card number",
+            "mealPreferences": "Meal Preferences",
+            "mealsForFlights": "Preferred meal for flights:",
+            "noMealsAvailable": "No meals available on these flights. Food may be available for purchase."
         }
     },
     "bookings": {

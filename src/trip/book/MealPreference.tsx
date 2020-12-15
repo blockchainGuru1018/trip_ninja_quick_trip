@@ -54,12 +54,12 @@ export default function MealPreference(props: MealPreferenceProps) {
 
   return(
     <div>
-      <h5>Meal Preferences</h5>
+      <h5>{t('book.passengerDetailsModal.mealPreferences')}</h5>
       <div className="row meal-preference-container">
         <div className="col">
           {mealsIncluded &&
           <div>
-            <p>Preferred meal for flights: {flightsWithMeals.join(', ')}</p>
+            <p>{t('book.passengerDetailsModal.mealsForFlights')} {flightsWithMeals.join(', ')}</p>
             <div className="col-sm-3 no-pad-left">
               <FormControl variant="outlined" fullWidth>
                 <InputLabel id="meal-label">Meal Preference</InputLabel>
@@ -80,7 +80,7 @@ export default function MealPreference(props: MealPreferenceProps) {
           }
           {!mealsIncluded &&
           <div>
-            <p>No meals available on these flights. Food may be available for purchase.</p>
+            <p>{t('book.passengerDetailsModal.noMealsAvailable')}</p>
           </div>
           }
         </div>

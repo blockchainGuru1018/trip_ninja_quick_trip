@@ -26,11 +26,12 @@ export default function MealPreference(props: MealPreferenceProps) {
   useEffect(() => { 
     let flightList: Array<string> = [];
     let itineraryList: Array<number> = [];
+    const mealsOffered: Array<string> = ["Meal", "Dinner", "Lunch", "Breakfast"];
     
     props.pricedItineraries.forEach((itinerary: PricedItinerary) => {
       itinerary.segments.forEach((segment: SegmentPricingInfo) => {
         segment.flight_details.forEach((flight: PricedFlightDetails) => {
-          if (flight.meals.includes("Meal")) {  //Breakfast, Dinner, Lunch
+          if (flight.meals.some(x => mealsOffered.includes(x))) {  //Breakfast, Dinner, Lunch
             flightList.push(flight.flight_number);
             itineraryList.push(itinerary.itinerary_reference);
           }
@@ -62,11 +63,11 @@ export default function MealPreference(props: MealPreferenceProps) {
             <p>{t('book.passengerDetailsModal.mealsForFlights')} {flightsWithMeals.join(', ')}</p>
             <div className="col-sm-3 no-pad-left">
               <FormControl variant="outlined" fullWidth>
-                <InputLabel id="meal-label">Meal Preference</InputLabel>
+                <InputLabel id="meal-label">{t('book.passengerDetailsModal.mealPreferences')}</InputLabel>
                 <Select
                   id="meal-preference"
                   value={props.meals ? props.meals[0].meal_choice : 'Any'}
-                  label="Meal Preference"
+                  label="{t('book.passengerDetailsModal.mealPreferences')}"
                   labelId="meal-label"
                   onChange={(event: any) => addMealToItinerary(event.target.value)}
                 >

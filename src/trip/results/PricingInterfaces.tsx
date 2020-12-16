@@ -118,6 +118,13 @@ export interface PricedFlightDetails {
   special_segment: string;
 }
 
+export interface AdditionalBaggage {
+  applicable_bags: string;
+  restriction: string;
+  base_price: number;
+  total_price: number;
+}
+
 export interface BaggageDetails {
   applicable_bags: string;
   applicable_carry_on_bags: string;
@@ -127,4 +134,6 @@ export interface BaggageDetails {
   carryon_restrictions: string;
   free_allowance: string;
   quantity_description: string;
+  additional_checked_bags: Array<AdditionalBaggage>;
+  additional_carry_on_bags: Array<AdditionalBaggage>;
 }

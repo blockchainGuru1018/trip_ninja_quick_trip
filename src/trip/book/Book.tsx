@@ -11,7 +11,7 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
+import {setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards} from '../../actions/BookActions';
 import { updateAdditionalMarkup } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -30,6 +30,7 @@ interface BookProps extends WithTranslation {
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
   updateAdditionalMarkup: typeof updateAdditionalMarkup;
   bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
@@ -56,10 +57,10 @@ class Book extends React.Component<BookProps> {
               <div className='btn-back'>{this.props.t("book.book.return")}</div>
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <h1>{this.props.t("book.book.title")}</h1>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-8">
                 <BookRequest
                   resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
@@ -96,6 +97,10 @@ class Book extends React.Component<BookProps> {
                 bookingDetails={this.props.bookingDetails}
                 updatePassengerInfo={this.props.updatePassengerInfo}
                 dateFormat={this.props.dateFormat}
+                pricedItineraries={this.props.pricingDetails.itineraries!}
+                resultsDetails={this.props.resultsDetails}
+                updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
+                trip={trip}
               />
               <Ancillaries 
                 activeSegments={actives}

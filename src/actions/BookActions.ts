@@ -1,14 +1,23 @@
 import { Passenger } from '../trip/search/SearchInterfaces';
 import API from '../Api';
-import { BookingDetails } from '../trip/book/BookInterfaces';
+import { BookingDetails, FrequentFlyerCard } from '../trip/book/BookInterfaces';
 import { setErrorDetails } from './ResultsActions';
 
 
-export function updatePassengerInfo(index: number, key: string, value: string) {
+export function updatePassengerInfo(index: number, key: string, value: any) {
   return {
     type: 'UPDATE_PASSENGER_INFO',
     index,
     key,
+    value
+  };
+}
+
+export function updateFrequentFlyerCards(passengerIndex: number, cardIndex: number, value: FrequentFlyerCard) {
+  return {
+    type: 'UPDATE_FREQUENT_FLYER_CARDS',
+    passengerIndex,
+    cardIndex,
     value
   };
 }

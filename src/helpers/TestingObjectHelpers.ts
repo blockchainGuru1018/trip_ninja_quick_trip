@@ -164,7 +164,9 @@ export const testingBaggageDetails: BaggageDetails = {
   carryon_cost: 0,
   carryon_restrictions: '',
   free_allowance: '',
-  quantity_description: ''
+  quantity_description: '',
+  additional_checked_bags: [],
+  additional_carry_on_bags: []
 };
 
 export const testingPricedFlightDetails: PricedFlightDetails = {

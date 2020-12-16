@@ -12,7 +12,7 @@ import mealCodes from '../../assets/data/mealCodes.json';
 interface MealPreferenceProps {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
-  meals?: Array<MealPreferences> | undefined;
+  meals: Array<MealPreferences> | undefined;
   pricedItineraries: Array<PricedItinerary>
 }
 

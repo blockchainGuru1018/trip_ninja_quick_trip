@@ -46,7 +46,7 @@ export default function MealPreference(props: MealPreferenceProps) {
   const addMealToItinerary = (value: any) => {
     let meals: Array<MealPreferences> = [];
     itinerariesWithMeals.forEach((itinerary: number) => {
-      meals.push({"itinerary_reference": itinerary.toString(), "meal_choice": value});
+      meals.push({"itinerary_reference": itinerary, "meal_choice": value});
     });
     props.updatePassengerInfo(props.index, 'meals', meals);
   };

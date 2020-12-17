@@ -48,6 +48,7 @@ export interface FrequentFlyerCard {
 export interface MealPreferences {
   itinerary_reference: number;
   meal_choice: string;
+  flight_numbers?: string;
 }
 
 export interface Billing {

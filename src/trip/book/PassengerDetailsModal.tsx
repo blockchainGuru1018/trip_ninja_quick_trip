@@ -13,7 +13,9 @@ import { updateFrequentFlyerCards, updatePassengerInfo } from '../../actions/Boo
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import MealPreference from './MealPreference';
 import { useTranslation } from 'react-i18next';
+import { PricedItinerary } from '../results/PricingInterfaces';
 import FrequentFlyerDetails from "./FrequentFlyerDetails";
 import {FlightResultsDetails, Results, Segment} from "../results/ResultsInterfaces";
 import { getFullTripWithVi } from "../../helpers/VirtualInterliningHelpers";
@@ -51,6 +53,7 @@ interface PassengerDetailsModalProps {
   updatePassengerInfo: typeof updatePassengerInfo;
   handleModalOpen: any;
   dateFormat: string;
+  pricedItineraries: Array<PricedItinerary>;
   bookingSegments: Array<Segment>
   pathSequence: Array<string>
   flights: Array<FlightResultsDetails>
@@ -189,6 +192,13 @@ export default function PassengerDetailsModal(props: PassengerDetailsModalProps)
                 <hr/>
               </div>
             }
+            <MealPreference 
+              meals={props.passenger.meals}
+              index={props.currentPassengerIndex}
+              updatePassengerInfo={props.updatePassengerInfo}
+              pricedItineraries={props.pricedItineraries}
+            />
+            <hr/>
             <FrequentFlyerDetails
               bookingSegments={getFullTripWithVi(props.bookingSegments, props.trip)}
               pathSequence={props.pathSequence}

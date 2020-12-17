@@ -6,6 +6,7 @@ import { Passenger } from '../search/SearchInterfaces';
 import { PassengerInfo, BookingDetails } from './BookInterfaces';
 import { updateFrequentFlyerCards, updatePassengerInfo } from '../../actions/BookActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { PricedItinerary } from '../results/PricingInterfaces';
 import {Results, ResultsDetails} from "../results/ResultsInterfaces";
 
 interface PassengerDetailsProps extends WithTranslation {
@@ -13,6 +14,7 @@ interface PassengerDetailsProps extends WithTranslation {
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
   dateFormat: string;
+  pricedItineraries: Array<PricedItinerary>;
   resultsDetails: ResultsDetails;
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
   trip: Results
@@ -75,6 +77,7 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           currentPassengerIndex={this.state.currentPassengerIndex}
           updatePassengerInfo={this.props.updatePassengerInfo}
           dateFormat={this.props.dateFormat}
+          pricedItineraries={this.props.pricedItineraries}
           bookingSegments={[...this.props.resultsDetails.activeSegments.values()]}
           pathSequence={trip.path_sequence}
           flights={trip.flight_details}

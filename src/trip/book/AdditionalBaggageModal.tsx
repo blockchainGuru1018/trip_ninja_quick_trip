@@ -63,7 +63,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
 
   const displayBaggageOption = (baggageAmount: string, price: number) => {
     return(
-      <div className="col baggage-option">
+      <div className="col-xs-3 baggage-option">
         <span>{baggageAmount} bags </span>
         <span>{currencySymbol(props.currency)}{price}</span>
       </div>

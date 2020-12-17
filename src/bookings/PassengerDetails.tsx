@@ -5,7 +5,6 @@ import { FrequentFlyerCard, PassengerInfo, MealPreferences } from '../trip/book/
 import CountryList from '../assets/data/countries.json';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import mealCodes from '../assets/data/mealCodes.json';
-import MealPreference from '../trip/book/MealPreference';
 
 interface PassengerDetailsProps extends WithTranslation {
   passengers?: Array<PassengerInfo>

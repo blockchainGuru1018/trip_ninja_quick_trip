@@ -1,13 +1,16 @@
 import React from 'react';
 import AdditionalBaggageModal from './AdditionalBaggageModal';
 import Button from '@material-ui/core/Button';
+import { PricedItinerary } from '../results/PricingInterfaces';
 import { Segment } from "../results/ResultsInterfaces";
 import { PassengerInfo } from './BookInterfaces';
 import { useTranslation } from 'react-i18next';
 
 interface AncillariesProps {
   activeSegments: Array<Segment>,
-  passengers: Array<PassengerInfo>;
+  passengers: Array<PassengerInfo>,
+  pricedItineraries: Array<PricedItinerary>
+  currency: string;
 }
 
 export default function Ancillaries(props: AncillariesProps) {
@@ -38,6 +41,8 @@ export default function Ancillaries(props: AncillariesProps) {
               setModalOpen={setModalOpen}
               activeSegments={props.activeSegments}
               passengers={props.passengers}
+              pricedItineraries={props.pricedItineraries}
+              currency={props.currency}
             />
           </div>
         </div>

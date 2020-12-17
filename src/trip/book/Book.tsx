@@ -105,6 +105,8 @@ class Book extends React.Component<BookProps> {
               <Ancillaries 
                 activeSegments={actives}
                 passengers={this.props.bookingDetails.passengers}
+                pricedItineraries={this.props.pricingDetails.itineraries!}
+                currency={this.props.pricingDetails.currency}
               />
             </div>
           </div>

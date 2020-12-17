@@ -116,6 +116,8 @@ export interface PricedFlightDetails {
   on_time_performance: string;
   origin_terminal: number;
   special_segment: string;
+  origin: string;
+  destination:string;
 }
 
 export interface AdditionalBaggage {

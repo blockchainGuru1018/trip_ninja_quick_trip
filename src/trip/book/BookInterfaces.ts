@@ -35,6 +35,8 @@ export interface PassengerInfo {
   meals?: Array<MealPreferences>;
   updated: boolean;
   frequent_flyer_cards: Array<FrequentFlyerCard>
+  additional_checked_bags: Array<AdditionalBaggage>
+  additional_carry_on_bags: Array<AdditionalBaggage>
 }
 
 export interface FrequentFlyerCard {
@@ -48,6 +50,18 @@ export interface FrequentFlyerCard {
 export interface MealPreferences {
   itinerary_reference: string;
   meal_choice: string;
+}
+
+export interface ApplicableBags {
+  baggage_type: string;
+  base_price: number;
+  total_price: number;
+  restriction: string;
+}
+
+export interface AdditionalBaggage {
+  itinerary_reference: string;
+  applicable_bags: Array<ApplicableBags>
 }
 
 export interface Billing {
@@ -72,7 +86,9 @@ export const defaultPassengerInfo: PassengerInfo = {
   'date_of_birth': new Date().toISOString().slice(0,10),
   'gender': '',
   'updated': false,
-  'frequent_flyer_cards': []
+  'frequent_flyer_cards': [],
+  'additional_carry_on_bags': [],
+  'additional_checked_bags': []
 };
 
 export const defaultBilling: Billing = {

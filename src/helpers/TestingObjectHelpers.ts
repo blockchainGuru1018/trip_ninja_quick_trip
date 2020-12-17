@@ -178,6 +178,8 @@ export const testingPricedFlightDetails: PricedFlightDetails = {
   on_time_performance: '',
   origin_terminal: 1,
   special_segment: '',
+  origin: 'YHZ',
+  destination: 'YYZ'
 };
 
 export const testingSegmentPricingInfo: SegmentPricingInfo = {
@@ -235,7 +237,9 @@ export const testingPassengerInfo: PassengerInfo = {
   gender: 'M',
   passenger_type: 'ADT',
   updated: true,
-  frequent_flyer_cards: []
+  frequent_flyer_cards: [],
+  additional_checked_bags: [],
+  additional_carry_on_bags: []
 };
 
 export const testingBookingDetails: BookingDetails = {

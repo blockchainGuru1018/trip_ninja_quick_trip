@@ -7,7 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Segment } from "../results/ResultsInterfaces";
+import { PricedItinerary, SegmentPricingInfo, AdditionalBaggage } from '../results/PricingInterfaces';
 import { PassengerInfo } from './BookInterfaces';
+import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -41,8 +43,10 @@ const useStyles = makeStyles(() =>
 interface AdditionalBaggageModalProps {
   modalOpen: boolean,
   setModalOpen: any,
-  activeSegments: Array<Segment>
-  passengers: Array<PassengerInfo>
+  activeSegments: Array<Segment>,
+  passengers: Array<PassengerInfo>,
+  pricedItineraries: Array<PricedItinerary>,
+  currency: string
 }
 
 export default function AdditionalBaggageModal(props: AdditionalBaggageModalProps) {
@@ -56,6 +60,39 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
   };
 
   useEffect(() => setOpen(props.modalOpen), [props.modalOpen]);
+
+  const displayBaggageOption = (baggageAmount: string, price: number) => {
+    return(
+      <div className="col baggage-option">
+        <span>{baggageAmount} bags </span>
+        <span>{currencySymbol(props.currency)}{price}</span>
+      </div>
+    );
+  };
+
+  const segmentBaggageOptions = (itinerary: PricedItinerary) => {
+    console.log(itinerary);
+    return itinerary.segments.map((segment: SegmentPricingInfo) => {
+      return(<div>
+        <h5>{segment.flight_details[0].origin}-{segment.flight_details[segment.flight_details.length-1].destination}</h5>
+        <p className="text-bold">Checked Baggage</p>
+        <div className="row">
+          {displayBaggageOption(segment.baggage.applicable_bags, 0)}
+          {segment.baggage.additional_checked_bags.map((baggage: AdditionalBaggage) => {
+            return displayBaggageOption(baggage.applicable_bags, baggage.total_price);
+          })}
+        </div>
+        <p className="text-bold">Cabin Baggage</p>
+        <div className="row">
+          {displayBaggageOption(segment.baggage.applicable_carry_on_bags, 0)}
+          {segment.baggage.additional_carry_on_bags.map((baggage: AdditionalBaggage) => {
+            return displayBaggageOption(baggage.applicable_bags, baggage.total_price);
+          })}
+        </div>
+      </div>);
+    }
+    );
+  };
 
   return(
     <div>
@@ -85,17 +122,9 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
                 })}
               </Tabs>
               <div className="add-baggage-container">
-                {props.activeSegments.map((segment: Segment) => {
-                  return(<div>
-                    <h5>{segment.origin}-{segment.destination}</h5>
-                  </div>);
+                {props.pricedItineraries.map((itinerary: PricedItinerary, index: number) => { 
+                  return segmentBaggageOptions(itinerary);
                 })}
-                
-                <p>Checked Baggage</p>
-                <div className="baggage-option">
-                  <span>1pc</span>
-                  <span>Included</span>
-                </div>
               </div>
             </div>
             <div className="text-center">
@@ -104,7 +133,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
                 variant="contained"
                 size="large"
                 disableElevation
-                onClick={() => () => (props.setModalOpen())}
+                onClick={() => (props.setModalOpen())}
               >
                 {t('book.passengerDetailsModal.save')}
               </Button>

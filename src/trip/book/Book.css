@@ -183,6 +183,7 @@
   border: solid 1px var(--secondary);
   border-radius: 5px;
   padding: 10px;
+  margin-right: 10px;
 }
 
 .ff-flight-logo-path-container {

@@ -34,7 +34,7 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
@@ -87,6 +87,7 @@ interface IAppProps {
   getPriceGraph: typeof getPriceGraph;
   updateStateValue: typeof updateStateValue;
   setResultsLoading: typeof setResultsLoading;
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
 }
 
 const theme = Theme;
@@ -217,6 +218,7 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
+                    updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
                     updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}

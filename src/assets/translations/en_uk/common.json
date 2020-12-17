@@ -30,7 +30,8 @@
         "passportNumber": "Passport #",
         "passportExpiry": "Passport Expiry",
         "phone": "Phone",
-        "ticket": "Ticket"
+        "ticket": "Ticket",
+        "frequentFlyerCards": "Frequent Flyer Cards"
     },
     "common": {
         "navBar":{
@@ -344,7 +345,10 @@
             "invalidInputWarning": "Ensure all required fields are completed!",
             "save": "Save",
             "invalidPhoneNumber": "Invalid phone number",
-            "invalidEmailAddress": "Invalid email address"
+            "invalidEmailAddress": "Invalid email address",
+            "loyaltyPrograms": "Loyalty Programs",
+            "loyaltyProgram": "Loyalty Program",
+            "loyaltyCardNumber": "Loyalty card number"
         }
     },
     "bookings": {

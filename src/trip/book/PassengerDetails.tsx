@@ -4,14 +4,18 @@ import Button from '@material-ui/core/Button';
 import PassengerDetailsModal from './PassengerDetailsModal';
 import { Passenger } from '../search/SearchInterfaces';
 import { PassengerInfo, BookingDetails } from './BookInterfaces';
-import { updatePassengerInfo } from '../../actions/BookActions';
+import { updateFrequentFlyerCards, updatePassengerInfo } from '../../actions/BookActions';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import {Results, ResultsDetails} from "../results/ResultsInterfaces";
 
 interface PassengerDetailsProps extends WithTranslation {
   passengers: Array<Passenger>;
   bookingDetails: BookingDetails;
   updatePassengerInfo: typeof updatePassengerInfo;
   dateFormat: string;
+  resultsDetails: ResultsDetails;
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  trip: Results
 }
 
 class PassengerDetails extends React.Component<PassengerDetailsProps> {
@@ -56,6 +60,8 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         </div>
       </div>));
 
+    const trip: Results = this.props.resultsDetails[this.props.resultsDetails.tripType];
+
     return (
       <div>
         <h5>{this.props.t("book.passengerDetails.title")}</h5>
@@ -69,6 +75,11 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           currentPassengerIndex={this.state.currentPassengerIndex}
           updatePassengerInfo={this.props.updatePassengerInfo}
           dateFormat={this.props.dateFormat}
+          bookingSegments={[...this.props.resultsDetails.activeSegments.values()]}
+          pathSequence={trip.path_sequence}
+          flights={trip.flight_details}
+          updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
+          trip={trip}
         />    
       </div>
     );

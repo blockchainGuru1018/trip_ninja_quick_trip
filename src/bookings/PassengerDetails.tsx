@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Moment from 'react-moment';
-import { PassengerInfo } from '../trip/book/BookInterfaces';
+import {FrequentFlyerCard, PassengerInfo} from '../trip/book/BookInterfaces';
 import CountryList from '../assets/data/countries.json';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
@@ -18,6 +18,13 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         {this.passengersInfo()}
       </div>
     );
+  }
+
+  getFrequentFlyerCardList = (frequentFlyerCards: Array<FrequentFlyerCard>) => {
+    const frequentFlyerCardString = frequentFlyerCards.reduce(
+      (total: string, frequentFlyerCard: FrequentFlyerCard) => total + `${frequentFlyerCard.card_number} ,`, ''
+    );
+    return frequentFlyerCardString.slice(0, -2);
   }
 
   passengersInfo = () => {
@@ -48,10 +55,12 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         <div className="col-sm-1">
           <p className="passenger-field">{this.props.t("commonWords.phone")}</p>
           <p className="passenger-field">{this.props.t("commonWords.email")}</p>
+          <p className='passenger-field'>{this.props.t("commonWords.frequentFlyerCards")}</p>
         </div>
         <div className="col-sm-2 no-pad-left">
           <p>{passenger.phone_number ? passenger.phone_number : '-'}</p>
           <p>{passenger.email ? passenger.email : '-'}</p>
+          <p>{passenger.frequent_flyer_cards ? this.getFrequentFlyerCardList(passenger.frequent_flyer_cards) : '-'}</p>
         </div>
       </div>
     ));

@@ -13,6 +13,7 @@ import AdditionalMarkup from "../trip/book/AdditionalMarkup";
 import { formatPrice } from "../helpers/CurrencySymbolHelper";
 import { createItineraryPathSequenceString, createItineraryPathSequenceStringBooking } from '../helpers/PathSequenceHelper';
 import { getSegmentsFromBookingItinerary, sortItineraryList, sortSegmentList} from "../helpers/BookingsHelpers";
+import { isSecondPartOfOpenJaw } from '../helpers/SegmentHelpers';
 
 interface FareBreakdownDetailsProps extends WithTranslation {
   pricing: Pricing;
@@ -58,7 +59,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       let markup = activeSegment.itinerary_markup > 0 
         ? activeSegment.itinerary_markup 
         : calculateDistributedMarkup(this.props.pricing.markup, activeSegment.price, this.props.pricing.confirmed_total_price);
-      if (!activeSegment.virtual_interline && this.isSecondPartOfOpenJaw(activeSegment)) {
+      if (!activeSegment.virtual_interline && isSecondPartOfOpenJaw(activeSegment)) {
         return;
       } else if (activeSegment.virtual_interline) {
         const baseFare: number = activeSegment.vi_segment_base_price || 0;
@@ -101,12 +102,6 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       ];
     });
     return pricesByTicketHtml.flat();
-  }
-
-  isSecondPartOfOpenJaw = (segment: Segment) => {
-    const segment_structure: Array<number> = JSON.parse(segment.itinerary_structure);
-    return segment.itinerary_type === 'OPEN_JAW' &&
-      segment.segment_position !== segment_structure[0];
   }
 
   setSegmentHeaderHtml = (itineraryTotal: number, segment?: Segment, itinerary?: BookingItinerary) =>

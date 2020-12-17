@@ -31,7 +31,8 @@
         "passportExpiry": "Passport Expiry",
         "phone": "Phone",
         "ticket": "Ticket",
-        "frequentFlyerCards": "Frequent Flyer Cards"
+        "frequentFlyerCards": "Frequent Flyer Cards",
+        "mealPreference": "Meal Preference"
     },
     "common": {
         "navBar":{

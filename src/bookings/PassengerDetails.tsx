@@ -52,15 +52,17 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           <p>{passenger.passport_number ? passenger.passport_number : '-'}</p>
           <p>{passenger.passport_expiration ? <Moment format="DD/MM/YYYY">{passenger.passport_expiration}</Moment> : '-'}</p>
         </div>
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           <p className="passenger-field">{this.props.t("commonWords.phone")}</p>
           <p className="passenger-field">{this.props.t("commonWords.email")}</p>
           <p className='passenger-field'>{this.props.t("commonWords.frequentFlyerCards")}</p>
+          <p className='passenger-field'>{this.props.t("commonWords.mealPreference")}</p>
         </div>
         <div className="col-sm-2 no-pad-left">
           <p>{passenger.phone_number ? passenger.phone_number : '-'}</p>
           <p>{passenger.email ? passenger.email : '-'}</p>
           <p>{passenger.frequent_flyer_cards ? this.getFrequentFlyerCardList(passenger.frequent_flyer_cards) : '-'}</p>
+          <p>{passenger.meals.length > 0 ? passenger.meals[0].meal_choice : '-'}</p>
         </div>
       </div>
     ));

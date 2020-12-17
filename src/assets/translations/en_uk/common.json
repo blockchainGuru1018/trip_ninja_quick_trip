@@ -76,7 +76,7 @@
             "fareType": "Fare Type",
             "wifiTitle": "Wifi availability",
             "wifi": "Wifi",
-            "seatSelection": "Seat selection",
+            "seatSelection": "Seat Selection",
             "checkedBags": "Checked Bags",
             "cancellationPenalty": "Cancellation Penalty",
             "fareSource": "Fare Source", 
@@ -86,7 +86,8 @@
             "atACost": "At a cost",
             "available": "Available",
             "unavailable": "Unavailable",
-            "platingCarrier": "Plating Carrier"
+            "platingCarrier": "Plating Carrier",
+            "infoNotAvailable": "Info not available"
         },
         "flightLogo": {
             "multipleAirlines": "Multiple Airlines"

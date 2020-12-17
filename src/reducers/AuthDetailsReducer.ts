@@ -30,6 +30,8 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
         agency: action.parameters.agency,
       });
 
+      window.analytics.group(action.parameters.agency);
+
       return {
         ...state,
         userEmail: action.parameters.user_email,

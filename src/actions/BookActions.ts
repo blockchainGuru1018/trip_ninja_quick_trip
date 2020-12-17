@@ -4,7 +4,7 @@ import { BookingDetails, FrequentFlyerCard } from '../trip/book/BookInterfaces';
 import { setErrorDetails } from './ResultsActions';
 
 
-export function updatePassengerInfo(index: number, key: string, value: string) {
+export function updatePassengerInfo(index: number, key: string, value: any) {
   return {
     type: 'UPDATE_PASSENGER_INFO',
     index,

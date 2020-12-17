@@ -23,6 +23,7 @@ interface BookingsProps extends WithTranslation {
 export class Bookings extends React.Component<BookingsProps> {
   componentDidMount() {    
     this.props.getBookingsList(this.getUserType());
+    window.analytics.page();
   }
 
   state = {

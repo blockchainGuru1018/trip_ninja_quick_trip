@@ -19,6 +19,7 @@ interface ManageBookingProps extends WithTranslation {
 }
 
 class ManageBooking extends React.Component<ManageBookingProps> {
+
   render() {
     return (
       <div>

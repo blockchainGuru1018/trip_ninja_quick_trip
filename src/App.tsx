@@ -42,6 +42,12 @@ import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
 
+declare global {
+  interface Window { analytics: any; }
+}
+
+window.analytics.load("UtAQX5JIuQFUNMAUTazan2ziVbZHQUWl");
+
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
 };

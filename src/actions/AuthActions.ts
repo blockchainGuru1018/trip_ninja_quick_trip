@@ -2,6 +2,7 @@ import API from '../Api';
 import { setValue, resetSearch } from './SearchActions';
 import history from '../History';
 
+
 export const login = (email: string, password: string) => {
   return function(dispatch: any) {
     API.post('/token/', {'email': email, 'password': password})

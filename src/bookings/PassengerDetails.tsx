@@ -63,12 +63,9 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           <p>{passenger.phone_number ? passenger.phone_number : '-'}</p>
           <p>{passenger.email ? passenger.email : '-'}</p>
           <p>{passenger.frequent_flyer_cards ? this.getFrequentFlyerCardList(passenger.frequent_flyer_cards) : '-'}</p>
-          {passenger.meals
-            ? <p>{passenger.meals.length > 0 ? this.getMealDescription(passenger.meals[0].meal_choice) : '-'}
-              <span className="text-small meal-flights">{this.getFlightsWithMeals(passenger.meals)}</span>
-            </p>
-            : '-'
-          }
+          <p>{passenger.meals.length > 0 ? this.getMealDescription(passenger.meals[0].meal_choice) : '-'}
+            <span className="text-small meal-flights">{this.getFlightsWithMeals(passenger.meals)}</span>
+          </p>
         </div>
       </div>
     ));

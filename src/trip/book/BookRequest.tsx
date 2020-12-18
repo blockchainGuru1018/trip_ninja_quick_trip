@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { bookFlights } from '../../actions/BookActions';
-import { BookingDetails, Billing, PassengerInfo, SegmentAdditionalDetails } from './BookInterfaces';
+import {BookingDetails, Billing, PassengerInfo, SegmentAdditionalDetails, FrequentFlyerCard} from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { PricingDetails } from '../results/PricingInterfaces';
 import Alert from '@material-ui/lab/Alert';
@@ -48,9 +48,20 @@ export class BookRequest extends React.Component<BookRequestProps> {
 
     this.props.bookingDetails.billing = billing;
     this.props.bookingDetails.segment_additional_details = this.setSegmentAdditionalDetails();
-
+    this.props.bookingDetails.passengers = this.validateFrequentFlyerCards(this.props.bookingDetails.passengers);
     let bookingResult: any = this.props.bookFlights(this.props.bookingDetails);
     bookingResult.then((result: any) => this.handleBookingResult(result));
+  }
+
+  validateFrequentFlyerCards = (passengers: Array<PassengerInfo>) => {
+    passengers.forEach((passenger: PassengerInfo) => {
+      passenger.frequent_flyer_cards = passenger.frequent_flyer_cards.filter(
+        (frequentFlyerCard: FrequentFlyerCard) => frequentFlyerCard.card_number !== ''
+          && frequentFlyerCard.card_supplier !== ''
+          && frequentFlyerCard.program_name !== ''
+      );
+    });
+    return passengers;
   }
 
   handleBookingResult = (result: any) => {

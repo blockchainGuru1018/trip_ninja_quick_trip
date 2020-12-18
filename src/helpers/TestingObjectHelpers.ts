@@ -239,7 +239,8 @@ export const testingPassengerInfo: PassengerInfo = {
   updated: true,
   frequent_flyer_cards: [],
   additional_checked_bags: [],
-  additional_carry_on_bags: []
+  additional_carry_on_bags: [],
+  meals: []
 };
 
 export const testingBookingDetails: BookingDetails = {

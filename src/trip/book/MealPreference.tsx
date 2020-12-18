@@ -12,7 +12,7 @@ import mealCodes from '../../assets/data/mealCodes.json';
 interface MealPreferenceProps {
   index: number;
   updatePassengerInfo: typeof updatePassengerInfo;
-  meals: Array<MealPreferences> | undefined;
+  meals: Array<MealPreferences>;
   pricedItineraries: Array<PricedItinerary>
 }
 
@@ -30,7 +30,7 @@ export default function MealPreference(props: MealPreferenceProps) {
     props.pricedItineraries.forEach((itinerary: PricedItinerary) => {
       itinerary.segments.forEach((segment: SegmentPricingInfo) => {
         segment.flight_details.forEach((flight: PricedFlightDetails) => {
-          if (flight.meals.some(x => mealsOffered.includes(x))) {
+          if (flight.meals && flight.meals.some(x => mealsOffered.includes(x))) {
             flightList.push(flight.flight_number);
             itineraryList.push(itinerary.itinerary_reference);
           }
@@ -46,7 +46,7 @@ export default function MealPreference(props: MealPreferenceProps) {
   const addMealToItinerary = (value: any) => {
     let meals: Array<MealPreferences> = [];
     itinerariesWithMeals.forEach((itinerary: number) => {
-      meals.push({"itinerary_reference": itinerary.toString(), "meal_choice": value});
+      meals.push({"itinerary_reference": itinerary, "meal_choice": value});
     });
     props.updatePassengerInfo(props.index, 'meals', meals);
   };
@@ -63,7 +63,7 @@ export default function MealPreference(props: MealPreferenceProps) {
               <FormControl variant="outlined" fullWidth>
                 <Select
                   id="meal-preference"
-                  value={props.meals ? props.meals[0].meal_choice : 'Any'}
+                  value={props.meals.length > 0 ? props.meals[0].meal_choice : 'Any'}
                   labelId="meal-label"
                   onChange={(event: any) => addMealToItinerary(event.target.value)}
                 >

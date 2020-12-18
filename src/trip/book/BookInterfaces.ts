@@ -32,7 +32,7 @@ export interface PassengerInfo {
   passenger_type: string;
   passenger_type_name?: string;
   email?: string;
-  meals?: Array<MealPreferences>;
+  meals: Array<MealPreferences>;
   updated: boolean;
   frequent_flyer_cards: Array<FrequentFlyerCard>
   additional_checked_bags: Array<AdditionalBaggage>
@@ -48,8 +48,9 @@ export interface FrequentFlyerCard {
 }
 
 export interface MealPreferences {
-  itinerary_reference: string;
+  itinerary_reference: number;
   meal_choice: string;
+  flight_numbers?: string;
 }
 
 export interface ApplicableBags {
@@ -88,7 +89,8 @@ export const defaultPassengerInfo: PassengerInfo = {
   'updated': false,
   'frequent_flyer_cards': [],
   'additional_carry_on_bags': [],
-  'additional_checked_bags': []
+  'additional_checked_bags': [],
+  'meals': []
 };
 
 export const defaultBilling: Billing = {

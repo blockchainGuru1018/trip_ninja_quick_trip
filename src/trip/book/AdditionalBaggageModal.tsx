@@ -13,6 +13,7 @@ import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { updatePassengerInfo } from '../../actions/BookActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,52 +47,72 @@ interface AdditionalBaggageModalProps {
   activeSegments: Array<Segment>,
   passengers: Array<PassengerInfo>,
   pricedItineraries: Array<PricedItinerary>,
-  currency: string
+  currency: string,
+  updatePassengerInfo: typeof updatePassengerInfo
 }
 
 export default function AdditionalBaggageModal(props: AdditionalBaggageModalProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [ t ] = useTranslation('common');
-  const [value, setValue] = React.useState(0);
+  const [passengerIndex, setPassengerIndex] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const handlePassengerChange = (event: React.ChangeEvent<{}>, currentIndex: number) => {
+    setPassengerIndex(currentIndex);
   };
 
   useEffect(() => setOpen(props.modalOpen), [props.modalOpen]);
 
-  const displayBaggageOption = (baggageAmount: string, price: number) => {
+  const displayBaggageOption = (baggageAmount: string, price: number, selected: boolean, type: string, currentBaggageIndex: number, baggageOptions: Array<AdditionalBaggage>, itinerary: number) => {
     return(
-      <div className="col-xs-3 baggage-option">
+      <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptions.slice(0, currentBaggageIndex+1), itinerary)}>
         <span>{baggageAmount} bags </span>
-        <span>{currencySymbol(props.currency)}{price}</span>
+        <span className="text-bold">{currencySymbol(props.currency)}{price}</span>
       </div>
     );
   };
 
+  const createAdditionalBaggageObject = (itinerary: number, baggage: Array<AdditionalBaggage>) => {
+    return [{
+      "itinerary_reference": itinerary.toString(),
+      "applicable_bags": baggage
+    }];
+  };
+
+  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number) => {
+    props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
+  };
+
   const segmentBaggageOptions = (itinerary: PricedItinerary) => {
     console.log(itinerary);
-    return itinerary.segments.map((segment: SegmentPricingInfo) => {
-      return(<div>
+    console.log(props.passengers);
+    
+    return itinerary.segments.map((segment: SegmentPricingInfo, itineraryIndex: number) => {
+      let checkedBagSelections = props.passengers[passengerIndex].additional_checked_bags.length > 0
+        ? props.passengers[passengerIndex].additional_checked_bags[itinerary.itinerary_reference].applicable_bags.length
+        : 0;
+      console.log(checkedBagSelections);
+      let carryOnBagSelections = props.passengers[passengerIndex].additional_carry_on_bags.length > 0
+        ? props.passengers[passengerIndex].additional_carry_on_bags[itinerary.itinerary_reference].applicable_bags.length
+        : 0;
+      return(<div key={itineraryIndex.toString()}>
         <h5>{segment.flight_details[0].origin}-{segment.flight_details[segment.flight_details.length-1].destination}</h5>
         <p className="text-bold">Checked Baggage</p>
         <div className="row">
-          {displayBaggageOption(segment.baggage.applicable_bags, 0)}
-          {segment.baggage.additional_checked_bags.map((baggage: AdditionalBaggage) => {
-            return displayBaggageOption(baggage.applicable_bags, baggage.total_price);
+          {displayBaggageOption(segment.baggage.applicable_bags, 0, checkedBagSelections === 0, 'additional_checked_bags', 0, [], itinerary.itinerary_reference)}
+          {segment.baggage.additional_checked_bags.map((baggage: AdditionalBaggage, index: number) => {
+            return displayBaggageOption(baggage.applicable_bags, baggage.total_price, checkedBagSelections === index+1, 'additional_checked_bags', index, segment.baggage.additional_checked_bags, itinerary.itinerary_reference);
           })}
         </div>
         <p className="text-bold">Cabin Baggage</p>
         <div className="row">
-          {displayBaggageOption(segment.baggage.applicable_carry_on_bags, 0)}
-          {segment.baggage.additional_carry_on_bags.map((baggage: AdditionalBaggage) => {
-            return displayBaggageOption(baggage.applicable_bags, baggage.total_price);
+          {displayBaggageOption(segment.baggage.applicable_carry_on_bags, 0, carryOnBagSelections === 0, 'additional_carry_on_bags', 0, [], itinerary.itinerary_reference)}
+          {segment.baggage.additional_carry_on_bags.map((baggage: AdditionalBaggage, index: number) => {
+            return displayBaggageOption(baggage.applicable_bags, baggage.total_price, carryOnBagSelections === index+1, 'additional_carry_on_bags', index, segment.baggage.additional_carry_on_bags, itinerary.itinerary_reference);
           })}
         </div>
       </div>);
-    }
-    );
+    });
   };
 
   return(
@@ -114,15 +135,15 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
               <Tabs
                 orientation="vertical"
                 variant="scrollable"
-                value={value}
-                onChange={handleChange}
+                value={passengerIndex}
+                onChange={handlePassengerChange}
               >
-                {props.passengers.map((passenger: PassengerInfo) => {
-                  return <Tab label={passenger.updated ? passenger.first_name + ' ' + passenger.last_name : t("commonWords.passengerTypes." + passenger.passenger_type)} />;
+                {props.passengers.map((passenger: PassengerInfo, index: number) => {
+                  return <Tab key={index.toString()} label={passenger.updated ? passenger.first_name + ' ' + passenger.last_name : t("commonWords.passengerTypes." + passenger.passenger_type)} />;
                 })}
               </Tabs>
               <div className="add-baggage-container">
-                {props.pricedItineraries.map((itinerary: PricedItinerary, index: number) => { 
+                {props.pricedItineraries.map((itinerary: PricedItinerary) => { 
                   return segmentBaggageOptions(itinerary);
                 })}
               </div>

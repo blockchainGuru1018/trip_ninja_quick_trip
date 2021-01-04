@@ -5,12 +5,14 @@ import { PricedItinerary } from '../results/PricingInterfaces';
 import { Segment } from "../results/ResultsInterfaces";
 import { PassengerInfo } from './BookInterfaces';
 import { useTranslation } from 'react-i18next';
+import { updatePassengerInfo } from '../../actions/BookActions';
 
 interface AncillariesProps {
-  activeSegments: Array<Segment>,
-  passengers: Array<PassengerInfo>,
-  pricedItineraries: Array<PricedItinerary>
+  activeSegments: Array<Segment>;
+  passengers: Array<PassengerInfo>;
+  pricedItineraries: Array<PricedItinerary>;
   currency: string;
+  updatePassengerInfo: typeof updatePassengerInfo;
 }
 
 export default function Ancillaries(props: AncillariesProps) {
@@ -43,6 +45,7 @@ export default function Ancillaries(props: AncillariesProps) {
               passengers={props.passengers}
               pricedItineraries={props.pricedItineraries}
               currency={props.currency}
+              updatePassengerInfo={props.updatePassengerInfo}
             />
           </div>
         </div>

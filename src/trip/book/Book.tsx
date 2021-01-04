@@ -11,7 +11,7 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import {setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards} from '../../actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from '../../actions/BookActions';
 import { updateAdditionalMarkup } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
@@ -107,6 +107,7 @@ class Book extends React.Component<BookProps> {
                 passengers={this.props.bookingDetails.passengers}
                 pricedItineraries={this.props.pricingDetails.itineraries!}
                 currency={this.props.pricingDetails.currency}
+                updatePassengerInfo={this.props.updatePassengerInfo}
               />
             </div>
           </div>

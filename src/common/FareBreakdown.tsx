@@ -19,6 +19,7 @@ interface FareBreakdownProps extends WithTranslation {
     flightDetailsDisplay?: boolean;
     updateAdditionalMarkup?: typeof updateAdditionalMarkup;
     expanded?: boolean;
+    hideExpandedToggle?: boolean;
 }
 
 class FareBreakdown extends React.Component<FareBreakdownProps> {
@@ -36,7 +37,9 @@ class FareBreakdown extends React.Component<FareBreakdownProps> {
               ? <h5>{this.props.t("common.fareBreakdown.title")}</h5>
               : <h5 className="section-header">{this.props.t("common.fareBreakdown.altTitle")}</h5>
           }
-          <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-breakdown-details'>{`Show ${this.state.expanded ? 'fewer' : 'more'} details`}</div>
+          {!this.props.hideExpandedToggle &&
+            <div onClick={() => this.setState({expanded: !this.state.expanded})} className='btn-breakdown-details'>{`Show ${this.state.expanded ? 'fewer' : 'more'} details`}</div>
+          }
         </div>
         <div className={(this.props.pricingDisplay ? 'book-container' : '') +  ' standard-text'}>
           {pricing && pricing.base_fare !== 0

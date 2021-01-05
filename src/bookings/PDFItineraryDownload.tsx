@@ -102,6 +102,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
             markupVisible={this.props.authDetails.markupVisible}
             expanded={true}
             itineraries={this.props.booking!.details!.itinerary}
+            hideExpandedToggle={true}
           />
           : <FareBreakdown
             trip={trip}
@@ -112,6 +113,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
             pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
             expanded={true}
             flightDetailsDisplay={true}
+            hideExpandedToggle={true}
           />
         }
         {this.passengerInfoHtml()}

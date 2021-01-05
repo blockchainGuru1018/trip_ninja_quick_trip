@@ -11,6 +11,7 @@ import { styled } from '@material-ui/core/styles';
 import { logout } from '../actions/AuthActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { useTranslation } from 'react-i18next';
+import history from "../History";
 
 interface UserMenuProps {
   logout: typeof logout
@@ -35,6 +36,11 @@ export default function UserMenu(props: UserMenuProps) {
     border: 'solid 2px #45565E'
   });
 
+  const SettingMenuItem = styled(MenuItem)({
+    float: 'left',
+    color: '#4BAFD7'
+  });
+
   const LogoutMenuItem = styled(MenuItem)({
     float: 'right',
     color: '#4BAFD7'
@@ -55,7 +61,7 @@ export default function UserMenu(props: UserMenuProps) {
         </UserAvatar>
       </ListItemAvatar>
       <ListItemText 
-        primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
+        primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName}
         secondary={props.authDetails.userEmail} />
     </UserMenuItem>;
 
@@ -90,6 +96,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
+        <SettingMenuItem onClick={() => history.push('/admin/login')}/>
         <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>

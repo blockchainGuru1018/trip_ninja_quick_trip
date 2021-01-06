@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Radio
 } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import PropTypes from "prop-types";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -58,7 +59,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
         setTeamOptions(data.data.teams.map((el: any) => ({
           value: el.team_id,
           label: el.team_name,
-        })))
+        })));
       }).catch(console.error);
     }
     if (opened) {
@@ -66,7 +67,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
-        })))
+        })));
       }).catch(console.error);
     }
   }, [opened]);
@@ -106,7 +107,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,
         label: el.team_name,
-      })))
+      })));
     }).catch(console.error);
 
     if (isSubmitting) {
@@ -255,7 +256,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
             )}
           </Grid>
         </div>
-      )
+      );
     } else if (step === 1) {
       return (
         <div className="second-step">
@@ -278,10 +279,8 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
                 <ToolTip
                   text='These settings can be overwritten later by team leads or account administrators.'
                 >
-                  <img
+                  <ErrorOutlineIcon
                     className="icon"
-                    src={require('../../../assets/info.svg')}
-                    alt="svg"
                   />
                 </ToolTip>
                 <Switch defaultChecked={true} inputProps={{ 'aria-label': 'primary checkbox' }} className="custom-switch" />
@@ -311,7 +310,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
             </Grid>
           </Grid>
         </div>
-      )
+      );
     }
 
     return (
@@ -321,7 +320,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
           Sent them an invitation with everything they need to get started. Once new users are activated, they will be prorated and added to your next invoice.
         </Typography>
       </div>
-    )
+    );
   };
 
   return (
@@ -373,7 +372,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
         </div>
       </Stepper>
     </Modal>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

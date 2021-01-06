@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Radio,
 } from '@material-ui/core';
-
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import {
   Dropdown,
   Modal,
@@ -57,19 +57,19 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
       setAdminOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,
-      })))
+      })));
     }).catch(console.error);
     axios.get("/api/v1/users/list/").then(({ data }) => {
       setMemberOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,
-      })))
+      })));
     }).catch(console.error);
     axios.get("/api/v1/teams/agency/list/").then(({ data }) => {
       setAgencyOptions(data.data.agency.map((el: any) => ({
         value: el.agency_id,
         label: el.agency_name,
-      })))
+      })));
     }).catch(console.error);
   }, []);
 
@@ -205,7 +205,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
             )}
           </Grid>
         </div>
-      )
+      );
     } else if (step === 1) {
       return (
         <div className="second-step">
@@ -217,10 +217,8 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
                 <ToolTip
                   text='These settings can be overwritten later by team leads or account administrators.'
                 >
-                  <img
+                  <ErrorOutlineIcon
                     className="icon"
-                    src={require('../../../assets/info.svg')}
-                    alt="svg"
                   />
                 </ToolTip>
                 <Switch defaultChecked={true} inputProps={{ 'aria-label': 'primary checkbox' }} className="custom-switch" />
@@ -250,7 +248,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
             </Grid>
           </Grid>
         </div>
-      )
+      );
     } else if (step === 2) {
       return (
         <div className="third-step">
@@ -283,7 +281,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
             </Grid>
           </Grid>
         </div>
-      )
+      );
     }
     return (
       <div className="fourth-step">
@@ -292,7 +290,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
           Add users to your team immediately to get started. You can modify team or individual permissions at any time.
         </Typography>
       </div>
-    )
+    );
   };
 
   return (
@@ -346,7 +344,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
         </Stepper>
       </Modal>
     </>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

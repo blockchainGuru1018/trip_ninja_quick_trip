@@ -10,6 +10,7 @@ import {
   FormLabel,
   TextField,
 } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import PropTypes from "prop-types";
 import {bindActionCreators, Dispatch} from "redux";
 
@@ -84,10 +85,8 @@ const GeneralInfo: React.FC<Props> = ({ basic_info, fetchGeneralInfo, updateGene
             <ToolTip
               text='Your company name, as it should appear on quotes and invoices. Legal name recommended.'
             >
-              <img
+              <ErrorOutlineIcon
                 className="icon"
-                src={require('../../assets/info.svg')}
-                alt="svg"
               />
             </ToolTip>
           </FormLabel>
@@ -135,7 +134,7 @@ const GeneralInfo: React.FC<Props> = ({ basic_info, fetchGeneralInfo, updateGene
         </Grid>
       </Grid>
     </div>
-  )
+  );
 };
 
 const mapStateToProps = (state: any) => {

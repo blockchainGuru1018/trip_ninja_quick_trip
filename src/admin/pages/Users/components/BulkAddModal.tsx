@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Radio
 } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import PropTypes from "prop-types";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -58,7 +59,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
         setTeamOptions(data.data.teams.map((el: any) => ({
           value: el.team_id,
           label: el.team_name,
-        })))
+        })));
       }).catch(console.error);
     }
     if (opened) {
@@ -66,7 +67,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
-        })))
+        })));
       }).catch(console.error);
     }
   }, [opened]);
@@ -111,7 +112,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
                 email: 'This user already exists'
               });
             }
-          }).catch(console.error)
+          }).catch(console.error);
         }
       }
     }
@@ -138,7 +139,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,
         label: el.team_name,
-      })))
+      })));
     }).catch(console.error);
 
     if (isSubmitting) {
@@ -153,7 +154,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
   };
 
   const onEmailRemove = (e: string) => {
-    setEmails(emails.filter((el) => el !== e))
+    setEmails(emails.filter((el) => el !== e));
   };
 
   const onNext = () => {
@@ -215,10 +216,8 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
                   <ToolTip
                     text='Adding more than one user? Separate users with a space.'
                   >
-                    <img
+                    <ErrorOutlineIcon
                       className="icon"
-                      src={require('../../../assets/info.svg')}
-                      alt="svg"
                     />
                   </ToolTip>
                 </FormLabel>
@@ -267,7 +266,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
             </Grid>
           </div>
         </>
-      )
+      );
     } else if (step === 1) {
       return (
         <div className="second-step">
@@ -291,7 +290,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
             </Grid>
           </Grid>
         </div>
-      )
+      );
     } else if (step === 2) {
       return (
         <div className="third-step">
@@ -303,10 +302,8 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
                 <ToolTip
                   text='These settings can be overwritten later by team leads or account administrators.'
                 >
-                  <img
+                  <ErrorOutlineIcon
                     className="icon"
-                    src={require('../../../assets/info.svg')}
-                    alt="svg"
                   />
                 </ToolTip>
                 <Switch defaultChecked={true} inputProps={{ 'aria-label': 'primary checkbox' }} className="custom-switch" />
@@ -336,7 +333,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
             </Grid>
           </Grid>
         </div>
-      )
+      );
     }
 
     return (
@@ -346,7 +343,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
           Sent them an invitation with everything they need to get started. Once new users are activated, they will be prorated and added to your next invoice.
         </Typography>
       </div>
-    )
+    );
   };
 
   return (
@@ -398,7 +395,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
         </div>
       </Stepper>
     </Modal>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

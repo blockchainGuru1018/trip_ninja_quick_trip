@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Typography, TextField } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 
 import "./styles.css";
@@ -27,16 +29,22 @@ const UsernameField: React.FC<Props> = ({ first_name, last_name, onChange }) => 
           <Typography variant="h3" component="h1" className="label">{`${first_name} ${last_name}`}</Typography>
         )}
         <span>
-        <img
-          className="icon"
-          src={opened ? require('../../assets/close.svg') : require('../../assets/edit-24px.svg')}
-          onClick={() => setOpened(!opened)}
-          alt="svg"
-        />
-      </span>
+          {opened ? (
+            <CloseIcon
+              className="icon"
+              onClick={() => setOpened(!opened)}
+            />
+          ) : (
+            <EditIcon
+              className="icon"
+              onClick={() => setOpened(!opened)}
+            />
+          )
+          }
+        </span>
       </div>
     </div>
-  )
+  );
 };
 
 export default UsernameField;

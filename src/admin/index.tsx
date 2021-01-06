@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Container } from "@material-ui/core";
 
 import {
-  Login,
+  // Login,
   BasicInfo,
   GeneralInfo,
   ContentSources,
@@ -28,7 +28,7 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => (
       ) : (
         <Redirect
           to={{
-            pathname: '/admin/login',
+            pathname: '/login',
           }}
         />
       )
@@ -63,7 +63,7 @@ const index: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute path="/admin/login" exact component={Login} />
+        {/*<PublicRoute path="/admin/login" exact component={Login} />*/}
 
         <React.Fragment>
           <Header />

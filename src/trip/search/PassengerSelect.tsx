@@ -94,6 +94,7 @@ const PassengerSelect = (props: PassengerSelectProps) => {
         classes={{
           root: classes.root
         }}
+        style={{padding: '8px 10px'}}
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="outlined"

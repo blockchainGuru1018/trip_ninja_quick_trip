@@ -34,3 +34,6 @@
 .select-Component .input .Mui-disabled {
   cursor: pointer;
 }
+.MuiOutlinedInput-adornedStart {
+ padding: 6px 0;
+}

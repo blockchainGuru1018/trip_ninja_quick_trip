@@ -98,7 +98,7 @@ class App extends React.Component<IAppProps> {
   constructor(props:IAppProps) {
     super(props);
     if (!this.props.resultsDetails.fareStructureResults) {
-      // history.push('/');
+      history.push('/');
     }
   }
 

@@ -78,9 +78,6 @@ class FlightInput extends React.Component<FlightInputProps> {
                       onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
                       InputProps={{
                         ...params.InputProps,
-                        style: {
-                          padding: '2px 10px',
-                        },
                         startAdornment: (
                           <InputAdornment position="start">
                             <FlightTakeoff color="primary"/>
@@ -116,9 +113,6 @@ class FlightInput extends React.Component<FlightInputProps> {
                       onChange={(e) => this.setState({'destinationOpen': e.target.value !== ''})}
                       InputProps={{
                         ...params.InputProps,
-                        style: {
-                          padding: '2px 10px',
-                        },
                         startAdornment: (
                           <InputAdornment position="start">
                             <FlightLand color="primary"/>
@@ -149,7 +143,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                 getPriceGraph={this.props.getPriceGraph}
               />
             </div>
-            <div className="col-md-6 col-sm-10 search-input cabin-selector-container">
+            <div className="col-md-4 col-sm-10 search-input cabin-selector-container">
               <CabinSelect
                 i={this.props.i}
                 cabinClass={flight.cabinClass}

@@ -22,6 +22,7 @@ class CurrencySelect extends React.Component<CurrencySelectProps> {
       <FormControl fullWidth>
         <Select
           id="currency"
+          style={{padding: '6px 0'}}
           value={this.props.currency}
           variant="outlined"
           onChange={(e) => this.props.setValue('currency', e.target.value)}

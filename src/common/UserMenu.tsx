@@ -96,7 +96,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <SettingMenuItem onClick={() => history.push('/admin')}/>
+        <SettingMenuItem onClick={() => history.push('/admin/')}>{t('common.userMenu.settings')}</SettingMenuItem>
         <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>

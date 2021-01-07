@@ -43,7 +43,7 @@ const PublicRoute = ({ component: Component, ...rest }: any) => (
       localStorage.getItem('authInfo') ? (
         <Redirect
           to={{
-            pathname: '/admin',
+            pathname: '/admin/',
           }}
         />
       ) : (
@@ -66,7 +66,7 @@ const index: React.FC = () => {
         {/*<PublicRoute path="/admin/login" exact component={Login} />*/}
 
         <React.Fragment>
-          <Header />
+          {/*<Header />*/}
 
           <div className="main-Content">
             <div className="page-Header">

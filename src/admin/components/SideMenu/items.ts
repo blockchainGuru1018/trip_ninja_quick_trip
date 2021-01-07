@@ -4,7 +4,7 @@ export default [
     children: [
       {
         name: 'Basic Information',
-        link: '/admin',
+        link: '/admin/',
         access_level: 0,
       },
     ]

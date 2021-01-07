@@ -145,7 +145,6 @@ class App extends React.Component<IAppProps> {
           <div className="container-fluid">
             <Router history={history}>
               <Switch>
-                <Route path="/admin" component={Admin} />
                 <Route exact path="/" component={() =>
                   <Home
                     auth={this.props.authDetails}
@@ -250,6 +249,9 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     setErrorDetails={this.props.setErrorDetails}
                   />
+                } />
+                <Route path="/admin/" render={() =>
+                  <Admin/>
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

@@ -17,10 +17,10 @@ body {
   height: auto;
 }
 
-body .MuiOutlinedInput-input {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
+/*body .MuiOutlinedInput-input {*/
+/*  padding-top: 12px;*/
+/*  padding-bottom: 12px;*/
+/*}*/
 
 body .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #0DBE7C;
@@ -129,9 +129,9 @@ body .MuiButton-textSecondary {
   color: #00B4C3;
 }
 
-body .main-Content {
-  margin-top: 54px;
-}
+/*body .main-Content {*/
+/*  margin-top: 54px;*/
+/*}*/
 body .page-Header {
    display: flex;
    align-items: center;

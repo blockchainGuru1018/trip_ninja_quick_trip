@@ -232,7 +232,9 @@ export const testingPassengerInfo: PassengerInfo = {
   date_of_birth: '1990-01-01',
   gender: 'M',
   passenger_type: 'ADT',
-  updated: true
+  updated: true,
+  frequent_flyer_cards: [],
+  meals: []
 };
 
 export const testingBookingDetails: BookingDetails = {

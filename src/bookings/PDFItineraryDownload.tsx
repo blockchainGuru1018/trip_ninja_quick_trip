@@ -102,6 +102,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
             markupVisible={this.props.authDetails.markupVisible}
             expanded={true}
             itineraries={this.props.booking!.details!.itinerary}
+            hideExpandedToggle={true}
           />
           : <FareBreakdown
             trip={trip}
@@ -112,6 +113,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
             pathSequence={this.props.resultsDetails[this.props.resultsDetails.tripType].path_sequence}
             expanded={true}
             flightDetailsDisplay={true}
+            hideExpandedToggle={true}
           />
         }
         {this.passengerInfoHtml()}
@@ -271,7 +273,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
         pdf.addPage();
         pdf.setPage(index + 2);
       }
-      pdf.addImage(page, 'image/png', 0, 0, 320, 415);
+      pdf.addImage(page, 'image/png', 0, 0, 320, 415, undefined, "FAST");
     });
     return pdf;
   }
@@ -289,7 +291,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     const element: HTMLElement | null = document.getElementById(id);
     return element &&
       html2canvas(element).then(
-        (canvas: HTMLCanvasElement) => canvas.toDataURL('image/png')
+        (canvas: HTMLCanvasElement) => canvas.toDataURL('image/png', 1)
       );
   }
 
@@ -300,7 +302,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     const pdf = new jsPDF('p', 'px', [320, 415]);
     try {
       const updatedPdf = this.setPdfPages(pdf, pdfPageList);
-      updatedPdf.save(`itinerary-${getTodaysDate()}.pdf`);
+      updatedPdf.save(`itinerary-${getTodaysDate(true)}.pdf`);
       history.goBack();
     }
     catch (e) {

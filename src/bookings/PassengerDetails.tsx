@@ -1,9 +1,10 @@
 import React from 'react';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import Moment from 'react-moment';
-import { PassengerInfo } from '../trip/book/BookInterfaces';
+import { FrequentFlyerCard, PassengerInfo, MealPreferences } from '../trip/book/BookInterfaces';
 import CountryList from '../assets/data/countries.json';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import mealCodes from '../assets/data/mealCodes.json';
 
 interface PassengerDetailsProps extends WithTranslation {
   passengers?: Array<PassengerInfo>
@@ -18,6 +19,13 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
         {this.passengersInfo()}
       </div>
     );
+  }
+
+  getFrequentFlyerCardList = (frequentFlyerCards: Array<FrequentFlyerCard>) => {
+    const frequentFlyerCardString = frequentFlyerCards.reduce(
+      (total: string, frequentFlyerCard: FrequentFlyerCard) => total + `${frequentFlyerCard.card_number} ,`, ''
+    );
+    return frequentFlyerCardString.slice(0, -2);
   }
 
   passengersInfo = () => {
@@ -45,13 +53,22 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
           <p>{passenger.passport_number ? passenger.passport_number : '-'}</p>
           <p>{passenger.passport_expiration ? <Moment format="DD/MM/YYYY">{passenger.passport_expiration}</Moment> : '-'}</p>
         </div>
-        <div className="col-sm-1">
+        <div className="col-sm-2">
           <p className="passenger-field">{this.props.t("commonWords.phone")}</p>
           <p className="passenger-field">{this.props.t("commonWords.email")}</p>
+          <p className='passenger-field'>{this.props.t("commonWords.frequentFlyerCards")}</p>
+          <p className='passenger-field'>{this.props.t("commonWords.mealPreference")}</p>
         </div>
-        <div className="col-sm-2 no-pad-left">
+        <div className="col-sm-4 no-pad-left">
           <p>{passenger.phone_number ? passenger.phone_number : '-'}</p>
           <p>{passenger.email ? passenger.email : '-'}</p>
+          <p>{passenger.frequent_flyer_cards ? this.getFrequentFlyerCardList(passenger.frequent_flyer_cards) : '-'}</p>
+          {passenger.meals
+            ? <p>{passenger.meals.length > 0 ? this.getMealDescription(passenger.meals[0].meal_choice) : '-'}
+              <span className="text-small meal-flights">{this.getFlightsWithMeals(passenger.meals)}</span>
+            </p>
+            : '-'
+          }
         </div>
       </div>
     ));
@@ -59,7 +76,19 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
 
   getCountryName = (countryCode: string) => {
     let countryObject = CountryList.find((country: any) => country.code === countryCode);
-    return countryObject ? countryObject.name: '-';
+    return countryObject ? countryObject.name : '-';
+  }
+
+  getMealDescription = (mealCode: string) => {
+    let mealObject = mealCodes.find((meal: any) => meal.code === mealCode);
+    return mealObject ? mealObject.label : '-';
+  }
+
+  getFlightsWithMeals = (meals: Array<MealPreferences>) => {
+    const mealFlightsString = meals.reduce(
+      (total: string, meal: MealPreferences) => total + `${meal.flight_numbers} ,`, ''
+    );
+    return mealFlightsString.length > 0  ? "Flights: " + mealFlightsString.slice(0, -2) : '';
   }
 
   getPassengerGender = (gender: string) => {

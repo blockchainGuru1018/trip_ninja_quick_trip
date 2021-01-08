@@ -173,3 +173,21 @@
   width: 100%;
   text-align: center;
 }
+
+.ff-flight-logo-path-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ff-flight-path-text {
+  align-self: center;
+  justify-self: center;
+}
+
+.frequent-flyer-container {
+  padding-bottom: 10px;
+}
+
+.meal-preference-container {
+  padding-bottom: 15px;
+}

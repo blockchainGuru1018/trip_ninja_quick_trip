@@ -96,11 +96,12 @@
 
 .fare-rules-type {
   grid-auto-columns: 24px 1fr;
-  padding-bottom: 40px;
+  padding-bottom: 15px;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
   justify-content: center;
+  padding-right: 0px;
 }
 
 .segment-divider {
@@ -147,10 +148,6 @@
 
 .capitalize {
   text-transform: capitalize;
-}
-
-.booking-drawer-rules {
-  padding-bottom: 20px
 }
 
 .baggage-filter-container {

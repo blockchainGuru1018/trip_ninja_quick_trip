@@ -49,7 +49,13 @@ export function numberOfNightsDifference(first: string, second: string): number 
   return nDays;
 }
 
-export function getTodaysDate() {
+export function getTodaysDate(hours: boolean) {
   const date = new Date().toISOString();
-  return date.slice(0, 10);
+  return hours
+    ? date.slice(0, 16).replace("T", " ")
+    : date.slice(0, 10);
+}
+
+export function noTimeZoneOffsetDate(departureDate: string) {
+  return departureDate.slice(0, 10)+'T00:00:00.000';
 }

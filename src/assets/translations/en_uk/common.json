@@ -30,7 +30,9 @@
         "passportNumber": "Passport #",
         "passportExpiry": "Passport Expiry",
         "phone": "Phone",
-        "ticket": "Ticket"
+        "ticket": "Ticket",
+        "frequentFlyerCards": "Frequent Flyer Cards",
+        "mealPreference": "Meal Preference"
     },
     "common": {
         "navBar":{
@@ -75,7 +77,7 @@
             "fareType": "Fare Type",
             "wifiTitle": "Wifi availability",
             "wifi": "Wifi",
-            "seatSelection": "Seat selection",
+            "seatSelection": "Seat Selection",
             "checkedBags": "Checked Bags",
             "cancellationPenalty": "Cancellation Penalty",
             "fareSource": "Fare Source", 
@@ -85,7 +87,8 @@
             "atACost": "At a cost",
             "available": "Available",
             "unavailable": "Unavailable",
-            "platingCarrier": "Plating Carrier"
+            "platingCarrier": "Plating Carrier",
+            "infoNotAvailable": "Info not available"
         },
         "flightLogo": {
             "multipleAirlines": "Multiple Airlines"
@@ -295,7 +298,10 @@
                 "refundabilityRefundableLabel": "Refundable"
             }
         },
-        "recalculatingFaresIndicator": "Recalculating Fares"
+        "recalculatingFaresIndicator": "Recalculating Fares",
+        "resultsViewToggle": {
+            "viewBy": "View by:"
+        }
     },
     "book":{
         "book":{
@@ -341,7 +347,13 @@
             "invalidInputWarning": "Ensure all required fields are completed!",
             "save": "Save",
             "invalidPhoneNumber": "Invalid phone number",
-            "invalidEmailAddress": "Invalid email address"
+            "invalidEmailAddress": "Invalid email address",
+            "loyaltyPrograms": "Loyalty Programs",
+            "loyaltyProgram": "Loyalty Program",
+            "loyaltyCardNumber": "Loyalty card number",
+            "mealPreferences": "Meal Preferences",
+            "mealsForFlights": "Preferred meal for flights:",
+            "noMealsAvailable": "No meals available on these flights. Food may be available for purchase."
         }
     },
     "bookings": {

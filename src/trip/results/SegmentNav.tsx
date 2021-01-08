@@ -40,9 +40,7 @@ class SegmentNav extends React.Component<SegmentNavProps> {
 
   changeUrl = (url: string) => {
     this.props.setResultsLoading(true);
-    console.log('starting this')
     setTimeout(() => history.push(url), 2000);
-    console.log('finishing this')
   }
 }
 

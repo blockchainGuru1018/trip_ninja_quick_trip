@@ -110,7 +110,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
       }
       if (this.props.loading) {
         return (
-          <SkeletonPreview segmentSelect={this.props.segmentSelect} orderByPnr={this.props.orderByPnr}/>
+          <SkeletonPreview segmentSelect={this.props.segmentSelect} orderByPnr={this.props.orderByPnr} key={index}/>
         );
       } else {
         return (

@@ -32,7 +32,6 @@ interface SegmentPreviewsProps {
 }
 
 class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
-  static whyDidYouRender = true
 
   render() {
     return (
@@ -154,7 +153,7 @@ class SegmentPreviews extends React.Component<SegmentPreviewsProps> {
             ((firstPositionInStructure && segment.itinerary_type === 'ONE_WAY') || (!firstPositionInStructure && segment.itinerary_type === 'OPEN_JAW')) &&
               <CancellationPolicy
                 currency={this.props.currency}
-                price={segment.vi_segment_base_price ? (segment.vi_segment_base_price + segment.vi_segment_taxes! + segment.vi_segment_fees!) : segment.price}
+                price={segment.vi_segment_base_price ? (segment.vi_segment_base_price! + segment.vi_segment_taxes! + segment.vi_segment_fees!) : segment.price}
                 segments={[segment]}
                 tripTotal={false}
                 tripMarkup={markup}

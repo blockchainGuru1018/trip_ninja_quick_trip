@@ -187,14 +187,14 @@ export default function BookingDetailsDrawer(props: BookingsDetailsDrawerProps) 
                 pricing={props.booking.details!.pricing}
                 currency={props.booking.currency}
                 markupVisible={props.authDetails.markupVisible}
-                itineraries={props.booking.details?.itinerary}
+                itineraries={props.booking.details!.itinerary}
               />
             </div>
             <div className="col-sm-6">
               <CancelRulesBreakdown
                 price={props.booking.details!.pricing.confirmed_total_price}
                 currency={props.booking.currency}
-                itineraries={props.booking.details?.itinerary}
+                itineraries={props.booking.details!.itinerary}
                 tripMarkup={props.booking.details ? props.booking.details.pricing.markup : 0}
               />
             </div>

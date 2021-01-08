@@ -9,7 +9,7 @@ interface skeletonPreviewProps {
 
 export default function SkeletonPreview(props: skeletonPreviewProps) {
 
-  const rectSkeleton = <Skeleton animation="wave" variant="rect" width={'80%'} height={10} style={{ marginBottom: 6 }} />;
+  const rectangleSkeleton = <Skeleton animation="wave" variant="rect" width={'80%'} height={10} style={{ marginBottom: 6 }} />;
 
   return (
     <div className='row segment-container'>
@@ -23,25 +23,25 @@ export default function SkeletonPreview(props: skeletonPreviewProps) {
           <div className='col-sm-2'>
             <Skeleton animation="wave" variant="circle" width={60} height={60} />
           </div>
-          <div className='col-sm-2'>
-            {rectSkeleton}
-            {rectSkeleton}
+          <div className='col-sm-2 skeleton-col'>
+            {rectangleSkeleton}
+            {rectangleSkeleton}
           </div>
-          <div className='col-sm-2'>
-            {rectSkeleton}
-            {rectSkeleton}
+          <div className='col-sm-2 skeleton-col'>
+            {rectangleSkeleton}
+            {rectangleSkeleton}
           </div>
-          <div className='col-sm-2'>
-            {rectSkeleton}
-            {rectSkeleton}
+          <div className='col-sm-2 skeleton-col'>
+            {rectangleSkeleton}
+            {rectangleSkeleton}
           </div>
-          <div className='col-sm-2'>
-            {rectSkeleton}
-            {rectSkeleton}
+          <div className='col-sm-2 skeleton-col'>
+            {rectangleSkeleton}
+            {rectangleSkeleton}
           </div>
-          <div className='col-sm-2'>
-            {rectSkeleton}
-            {rectSkeleton}
+          <div className='col-sm-2 skeleton-col'>
+            {rectangleSkeleton}
+            {rectangleSkeleton}
           </div>
         </div>
       </div>

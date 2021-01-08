@@ -84,3 +84,8 @@
   display: grid;
   margin-top: 20px;
 }
+
+.skeleton-col {
+  display: grid;
+  align-content: center;
+}

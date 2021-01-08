@@ -44,7 +44,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   render() {
     return(
-      <div key={this.props.index?.toString()}>
+      <div key={this.props.index!.toString()}>
         {!this.props.itineraryDisplay && 
           <div>
             <p className="text-center text-bold">{this.props.t("common.fareRulesPreview.title")}</p>
@@ -121,7 +121,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
                 <ClassIcon color="primary"/>
                 <div className="fare-rule">
                   <span className="fare-rule-label">{this.props.t("common.fareRulesPreview.bookingCode")}</span>
-                  <p className="text-small">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment?.flight_details[0].booking_code}</p>
+                  <p className="text-small">{this.props.segment ? this.getFlightsBookingCodeString() : this.props.bookingSegment!.flight_details[0].booking_code}</p>
                 </div>
               </div>
               <div className="col-lg-3 fare-rules-type">

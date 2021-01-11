@@ -24,7 +24,6 @@ export class CabinSelect extends React.Component<CabinSelectProps> {
           id="cabin"
           value={this.getCabinClassByName()}
           variant="outlined"
-          // style={{padding: '6px 0'}}
           onChange={(event: any) =>
             this.props.updateFlightValue(
               this.props.i, 'cabinClass', event.target.value

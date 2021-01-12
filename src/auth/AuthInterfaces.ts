@@ -8,8 +8,6 @@ export interface AuthDetails {
   dateType: string;
   studentAndYouth: boolean;
   invalidAuth: boolean;
-  pcc: string;
-  provider: string;
   agency: string;
   ticketing_queue: string;
   isAgencyAdmin: boolean;
@@ -28,8 +26,6 @@ export const defaultAuth = {
   dateType: 'MMM dd yyyy',
   studentAndYouth: false,
   invalidAuth: false,
-  pcc: '',
-  provider: '',
   isAgencyAdmin: false,
   isSuperUser: false,
   bookingDisabled: false,

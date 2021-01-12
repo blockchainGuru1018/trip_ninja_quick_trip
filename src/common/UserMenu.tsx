@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,15 +13,24 @@ import { logout } from '../actions/AuthActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { useTranslation } from 'react-i18next';
 import history from "../History";
+import {bindActionCreators, Dispatch} from "redux";
+import {login} from "../admin/store/auth/actions";
 
 interface UserMenuProps {
   logout: typeof logout
-  authDetails: AuthDetails
+  authDetails: AuthDetails,
+  login: any
 }
 
-export default function UserMenu(props: UserMenuProps) {
+function UserMenu(props: UserMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [ t ] = useTranslation('common');
+
+  const gotoAdmin = () => {
+    const { login } = props;
+    login();
+    history.push('/admin/');
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -96,7 +106,7 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <SettingMenuItem onClick={() => history.push('/admin/')}>{t('common.userMenu.settings')}</SettingMenuItem>
+        <SettingMenuItem onClick={gotoAdmin}>{t('common.userMenu.settings')}</SettingMenuItem>
         <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>
@@ -110,3 +120,12 @@ const parseUserInitials = (firstName: string, lastName: string) => {
     return "TN";
   }
 };
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  login: bindActionCreators(login, dispatch),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserMenu);

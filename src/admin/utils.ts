@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_SERVER = 'http://192.168.0.103:7000';
+export const API_SERVER = 'http://127.0.0.2:8000';
 
 axios.defaults.baseURL = API_SERVER;
 axios.interceptors.request.use(function (config) {

@@ -1,4 +1,5 @@
 import { AdditionalDetails, Brand } from "../results/ResultsInterfaces";
+import { AdditionalBaggage } from "../results/PricingInterfaces";
 
 export interface BookingDetails {
   trip_id?: string;
@@ -35,8 +36,8 @@ export interface PassengerInfo {
   meals: Array<MealPreferences>;
   updated: boolean;
   frequent_flyer_cards: Array<FrequentFlyerCard>
-  additional_checked_bags: Array<AdditionalBaggage>
-  additional_carry_on_bags: Array<AdditionalBaggage>
+  additional_checked_bags: Array<ApplicableBaggage>
+  additional_carry_on_bags: Array<ApplicableBaggage>
 }
 
 export interface FrequentFlyerCard {
@@ -53,16 +54,9 @@ export interface MealPreferences {
   flight_numbers?: string;
 }
 
-export interface ApplicableBags {
-  baggage_type: string;
-  base_price: number;
-  total_price: number;
-  restriction: string;
-}
-
-export interface AdditionalBaggage {
+export interface ApplicableBaggage {
   itinerary_reference: string;
-  applicable_bags: Array<ApplicableBags>
+  applicable_bags: Array<AdditionalBaggage>
 }
 
 export interface Billing {

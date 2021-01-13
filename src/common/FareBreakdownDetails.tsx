@@ -44,7 +44,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
               {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
             : <div>
-              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees + this.props.pricing.ancillary_total + (this.props.markupVisible ? 0 : totalMarkup)), 0, totalMarkup)}
+              {this.setPricingHtml(this.props.pricing.base_fare, (this.props.pricing.taxes + this.props.pricing.fees + (this.props.markupVisible ? 0 : totalMarkup)), this.props.pricing.ancillary_total ? this.props.pricing.ancillary_total : 0, totalMarkup)}
               {this.fareBreakdownTotalHtml(totalMarkup)}
             </div>
         }
@@ -98,7 +98,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
       const taxesAndFees: number = itinerary.price_breakdown.fees + itinerary.price_breakdown.taxes;
       return [
         this.setSegmentHeaderHtml((baseFare + taxesAndFees + itinerary.itinerary_markup), undefined, itinerary),
-        this.setPricingHtml(baseFare, taxesAndFees, 0, itinerary.itinerary_markup, true)
+        this.setPricingHtml(baseFare, taxesAndFees, itinerary.price_breakdown.ancillary_total, itinerary.itinerary_markup, true)
       ];
     });
     return pricesByTicketHtml.flat();

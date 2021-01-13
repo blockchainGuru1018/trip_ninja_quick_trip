@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import { updateAncillariesAmount } from '../../actions/PricingActions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -48,7 +49,8 @@ interface AdditionalBaggageModalProps {
   passengers: Array<PassengerInfo>,
   pricedItineraries: Array<PricedItinerary>,
   currency: string,
-  updatePassengerInfo: typeof updatePassengerInfo
+  updatePassengerInfo: typeof updatePassengerInfo,
+  updateAncillariesAmount: typeof updateAncillariesAmount
 }
 
 export default function AdditionalBaggageModal(props: AdditionalBaggageModalProps) {
@@ -63,11 +65,19 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
 
   useEffect(() => setOpen(props.modalOpen), [props.modalOpen]);
 
-  const displayBaggageOption = (baggageAmount: string, price: number, selected: boolean, type: string, currentBaggageIndex: number, baggageOptions: Array<AdditionalBaggage>, itinerary: number) => {
+  const additionalBaggagePrice = (baggageOptionsList: Array<AdditionalBaggage>) => {
+    return baggageOptionsList.reduce((total: number, baggage: AdditionalBaggage) => {
+      return total + baggage.total_price;
+    }, 0);
+  };
+
+  const displayBaggageOption = (baggageAmount: string, selected: boolean, type: string, currentBaggageIndex: number, baggageOptions: Array<AdditionalBaggage>, itinerary: number) => {
+    let baggageOptionsList: Array<AdditionalBaggage> = baggageOptions.slice(0, currentBaggageIndex+1);
+    let totalBaggagePrice: number = additionalBaggagePrice(baggageOptionsList);
     return(
-      <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptions.slice(0, currentBaggageIndex+1), itinerary)}>
-        <span>{baggageAmount} bags </span>
-        <span className="text-bold">{currencySymbol(props.currency)}{price}</span>
+      <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptionsList, itinerary, totalBaggagePrice)}>
+        <span>{baggageAmount.slice(0,1)} {type === 'additional_checked_bags' ? 'Checked' : 'Cabin'} bags </span>
+        <span className="text-bold">+{currencySymbol(props.currency)}{totalBaggagePrice}</span>
       </div>
     );
   };
@@ -79,8 +89,9 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     }];
   };
 
-  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number) => {
+  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, totalPrice: number) => {
     props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
+    props.updateAncillariesAmount(totalPrice);
   };
 
   const getBaggageByItineraryReference = (itinerary: PricedItinerary) => {
@@ -89,16 +100,11 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
   };
 
   const segmentBaggageOptions = (itinerary: PricedItinerary) => {
-    console.log(itinerary.itinerary_reference);
-    console.log(props.passengers);
-    
+
     return itinerary.segments.map((segment: SegmentPricingInfo, itineraryIndex: number) => {
-      console.log(itineraryIndex);
-      console.log(props.passengers[passengerIndex]);
       let checkedBagSelections = props.passengers[passengerIndex].additional_checked_bags.length > 0
         ? getBaggageByItineraryReference(itinerary)
         : 0;
-      console.log(checkedBagSelections);
       let carryOnBagSelections = props.passengers[passengerIndex].additional_carry_on_bags.length > 0
         ? props.passengers[passengerIndex].additional_carry_on_bags[itinerary.itinerary_reference].applicable_bags.length
         : 0;
@@ -106,16 +112,17 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
         <h5>{segment.flight_details[0].origin}-{segment.flight_details[segment.flight_details.length-1].destination}</h5>
         <p className="text-bold">Checked Baggage</p>
         <div className="row">
-          {displayBaggageOption(segment.baggage.applicable_bags, 0, checkedBagSelections === 0, 'additional_checked_bags', 0, [], itinerary.itinerary_reference)}
+          {displayBaggageOption(segment.baggage.applicable_bags, checkedBagSelections === 0, 'additional_checked_bags', 0, [], itinerary.itinerary_reference)}
           {segment.baggage.additional_checked_bags.map((baggage: AdditionalBaggage, index: number) => {
-            return displayBaggageOption(baggage.applicable_bags, baggage.total_price, checkedBagSelections === index+1, 'additional_checked_bags', index, segment.baggage.additional_checked_bags, itinerary.itinerary_reference);
+            console.log(baggage);
+            return displayBaggageOption(baggage.applicable_bags, checkedBagSelections === index+1, 'additional_checked_bags', index, segment.baggage.additional_checked_bags, itinerary.itinerary_reference);
           })}
         </div>
         <p className="text-bold">Cabin Baggage</p>
         <div className="row">
-          {displayBaggageOption(segment.baggage.applicable_carry_on_bags, 0, carryOnBagSelections === 0, 'additional_carry_on_bags', 0, [], itinerary.itinerary_reference)}
+          {displayBaggageOption(segment.baggage.applicable_carry_on_bags, carryOnBagSelections === 0, 'additional_carry_on_bags', 0, [], itinerary.itinerary_reference)}
           {segment.baggage.additional_carry_on_bags.map((baggage: AdditionalBaggage, index: number) => {
-            return displayBaggageOption(baggage.applicable_bags, baggage.total_price, carryOnBagSelections === index+1, 'additional_carry_on_bags', index, segment.baggage.additional_carry_on_bags, itinerary.itinerary_reference);
+            return displayBaggageOption(baggage.applicable_bags, carryOnBagSelections === index+1, 'additional_carry_on_bags', index, segment.baggage.additional_carry_on_bags, itinerary.itinerary_reference);
           })}
         </div>
       </div>);

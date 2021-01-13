@@ -12,7 +12,7 @@ import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
 import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from '../../actions/BookActions';
-import { updateAdditionalMarkup } from '../../actions/PricingActions';
+import { updateAdditionalMarkup, updateAncillariesAmount } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -32,6 +32,7 @@ interface BookProps extends WithTranslation {
   updatePassengerInfo: typeof updatePassengerInfo;
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
   updateAdditionalMarkup: typeof updateAdditionalMarkup;
+  updateAncillariesAmount: typeof updateAncillariesAmount;
   bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
   dateFormat: string;
@@ -108,6 +109,7 @@ class Book extends React.Component<BookProps> {
                 pricedItineraries={this.props.pricingDetails.itineraries!}
                 currency={this.props.pricingDetails.currency}
                 updatePassengerInfo={this.props.updatePassengerInfo}
+                updateAncillariesAmount={this.props.updateAncillariesAmount}
               />
             </div>
           </div>

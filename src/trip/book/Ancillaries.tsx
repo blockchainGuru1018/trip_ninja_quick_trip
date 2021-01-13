@@ -6,6 +6,7 @@ import { Segment } from "../results/ResultsInterfaces";
 import { PassengerInfo } from './BookInterfaces';
 import { useTranslation } from 'react-i18next';
 import { updatePassengerInfo } from '../../actions/BookActions';
+import { updateAncillariesAmount } from '../../actions/PricingActions';
 
 interface AncillariesProps {
   activeSegments: Array<Segment>;
@@ -13,6 +14,7 @@ interface AncillariesProps {
   pricedItineraries: Array<PricedItinerary>;
   currency: string;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateAncillariesAmount: typeof updateAncillariesAmount;
 }
 
 export default function Ancillaries(props: AncillariesProps) {
@@ -46,6 +48,7 @@ export default function Ancillaries(props: AncillariesProps) {
               pricedItineraries={props.pricedItineraries}
               currency={props.currency}
               updatePassengerInfo={props.updatePassengerInfo}
+              updateAncillariesAmount={props.updateAncillariesAmount}
             />
           </div>
         </div>

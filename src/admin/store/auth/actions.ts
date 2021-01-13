@@ -26,7 +26,6 @@ export function login(data: any) {
       const resp = await axios.post('/api/v1/settings/', data);
       dispatch(loginSuccess());
       localStorage.setItem('authInfo', JSON.stringify(resp.data.data));
-      window.location.href = "/admin/";
     } catch (err) {
       dispatch(loginFailure());
     }

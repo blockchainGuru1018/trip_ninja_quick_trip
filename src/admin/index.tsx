@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Container } from "@material-ui/core";
 
 import {
-  // Login,
   BasicInfo,
   GeneralInfo,
   ContentSources,
@@ -14,7 +13,7 @@ import {
   AgencyAccounts,
   NotFound,
 } from "./pages";
-import { Header, SideMenu } from './components';
+import { SideMenu } from './components';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import "./styles.css";

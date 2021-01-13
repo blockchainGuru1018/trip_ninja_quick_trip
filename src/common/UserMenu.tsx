@@ -27,12 +27,12 @@ function UserMenu(props: UserMenuProps) {
   const [ t ] = useTranslation('common');
 
   const gotoAdmin = () => {
-    const { login } = props;
-    login();
     history.push('/admin/');
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const { login } = props;
+    login();
     setAnchorEl(event.currentTarget);
   };
 

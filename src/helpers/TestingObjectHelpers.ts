@@ -153,6 +153,7 @@ export const testingPricing: Pricing = {
   taxes: 10,
   fees: 0,
   markup: 10,
+  ancillary_total: 0,
   currency: 'USD'
 };
 

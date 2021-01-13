@@ -83,13 +83,20 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
   };
 
+  const getBaggageByItineraryReference = (itinerary: PricedItinerary) => {
+    let bagsForItinerary = props.passengers[passengerIndex].additional_checked_bags.find((bags: any) => bags.itinerary_reference === itinerary.itinerary_reference.toString());
+    return bagsForItinerary ? bagsForItinerary.applicable_bags.length : 0;
+  };
+
   const segmentBaggageOptions = (itinerary: PricedItinerary) => {
-    console.log(itinerary);
+    console.log(itinerary.itinerary_reference);
     console.log(props.passengers);
     
     return itinerary.segments.map((segment: SegmentPricingInfo, itineraryIndex: number) => {
+      console.log(itineraryIndex);
+      console.log(props.passengers[passengerIndex]);
       let checkedBagSelections = props.passengers[passengerIndex].additional_checked_bags.length > 0
-        ? props.passengers[passengerIndex].additional_checked_bags[itinerary.itinerary_reference].applicable_bags.length
+        ? getBaggageByItineraryReference(itinerary)
         : 0;
       console.log(checkedBagSelections);
       let carryOnBagSelections = props.passengers[passengerIndex].additional_carry_on_bags.length > 0

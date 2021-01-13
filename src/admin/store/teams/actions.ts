@@ -51,7 +51,7 @@ export function fetchTeams(params: {
   return async (dispatch: Dispatch) => {
     dispatch(fetchTeamsRequest());
     try {
-      const resp = await axios.get('/api/v1/teams/search/', { params });
+      const resp = await axios.get('/teams/search/', { params });
       dispatch(fetchTeamsSuccess(resp.data.data));
     } catch (err) {
       dispatch(fetchTeamsFailure());
@@ -79,7 +79,7 @@ export function addTeam(data: any, onSuccess: () => void) {
   return async (dispatch: Dispatch) => {
     dispatch(addTeamRequest());
     try {
-      await axios.post('/api/v1/teams/add/', data);
+      await axios.post('/teams/add/', data);
       dispatch(addTeamSuccess());
       onSuccess();
     } catch (err) {
@@ -109,7 +109,7 @@ export function updateTeam(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateTeamRequest());
     try {
-      const resp = await axios.put('/api/v1/teams/update/', data);
+      const resp = await axios.put('/teams/update/', data);
       dispatch(updateTeamSuccess(resp.data.data.teams));
     } catch (err) {
       dispatch(updateTeamFailure());
@@ -128,7 +128,7 @@ export function archiveTeam(id: number) {
   return async (dispatch: Dispatch) => {
     dispatch(updateTeamRequest());
     try {
-      const resp = await axios.get(`/api/v1/teams/${id}/archive/`);
+      const resp = await axios.get(`/teams/${id}/archive/`);
       if (resp.data.result) {
         dispatch(archiveTeamSuccess(id));
       }

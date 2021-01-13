@@ -51,7 +51,7 @@ export function fetchAgencies(params: {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAgenciesRequest());
     try {
-      const resp = await axios.get('/api/v1/teams/agency/search/', { params });
+      const resp = await axios.get('/teams/agency/search/', { params });
       dispatch(fetchAgenciesSuccess(resp.data.data));
     } catch (err) {
       dispatch(fetchAgenciesFailure());
@@ -79,7 +79,7 @@ export function addAgency(data: any, onSuccess: () => void) {
   return async (dispatch: Dispatch) => {
     dispatch(addAgencyRequest());
     try {
-      await axios.post('/api/v1/teams/agency/add/', data);
+      await axios.post('/teams/agency/add/', data);
       dispatch(addAgencySuccess());
       onSuccess();
     } catch (err) {
@@ -109,7 +109,7 @@ export function updateAgency(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateAgencyRequest());
     try {
-      const resp = await axios.put('/api/v1/teams/agency/update/', data);
+      const resp = await axios.put('/teams/agency/update/', data);
       dispatch(updateAgencySuccess(resp.data.data.agency));
     } catch (err) {
       dispatch(updateAgencyFailure());
@@ -128,7 +128,7 @@ export function archiveAgency(id: number) {
   return async (dispatch: Dispatch) => {
     dispatch(updateAgencyRequest());
     try {
-      const resp = await axios.get(`/api/v1/teams/agency/${id}/archive/`);
+      const resp = await axios.get(`/teams/agency/${id}/archive/`);
       if (resp.data.result) {
         dispatch(archiveAgencySuccess(id));
       }

@@ -43,14 +43,14 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
 
   useEffect(() => {
     if (opened) {
-      axios.get("/api/v1/teams/agency/list/").then(({ data }: any) => {
+      axios.get("/teams/agency/list/").then(({ data }: any) => {
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
         })));
       }).catch(console.error);
       if (user.agency_id) {
-        axios.get(`/api/v1/teams/list/${user.agency_id}/`).then(({ data }: any) => {
+        axios.get(`/teams/list/${user.agency_id}/`).then(({ data }: any) => {
           setTeamOptions(data.data.teams.map((el: any) => ({
             value: el.team_id,
             label: el.team_name,
@@ -90,7 +90,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
 
   const onAgencyChange = (val: any) => {
     setAgencyId(val);
-    axios.get(`/api/v1/teams/list/${val}/`).then(({ data }: any) => {
+    axios.get(`/teams/list/${val}/`).then(({ data }: any) => {
       console.log(data);
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,

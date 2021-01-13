@@ -56,7 +56,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
 
   useEffect(() => {
     if (opened) {
-      axios.get("/api/v1/teams/list/").then(({ data }: any) => {
+      axios.get("/teams/list/").then(({ data }: any) => {
         setTeamOptions(data.data.teams.map((el: any) => ({
           value: el.team_id,
           label: el.team_name,
@@ -64,7 +64,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
       }).catch(console.error);
     }
     if (opened) {
-      axios.get("/api/v1/teams/agency/list/").then(({ data }: any) => {
+      axios.get("/teams/agency/list/").then(({ data }: any) => {
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
@@ -103,7 +103,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
 
   const onAgencyChange = (val: any) => {
     setAgencyId(val);
-    axios.get(`/api/v1/teams/list/${val}/`).then(({ data }: any) => {
+    axios.get(`/teams/list/${val}/`).then(({ data }: any) => {
       console.log(data);
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,
@@ -128,7 +128,7 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
 
       if (email) {
         try {
-          const resp = await axios.get('/api/v1/users/email-check/', {
+          const resp = await axios.get('/users/email-check/', {
             params: {email}
           });
 

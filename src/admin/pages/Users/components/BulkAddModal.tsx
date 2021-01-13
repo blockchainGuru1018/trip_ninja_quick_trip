@@ -56,7 +56,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
 
   useEffect(() => {
     if (opened) {
-      axios.get("/api/v1/teams/list/").then(({ data }: any) => {
+      axios.get("/teams/list/").then(({ data }: any) => {
         setTeamOptions(data.data.teams.map((el: any) => ({
           value: el.team_id,
           label: el.team_name,
@@ -64,7 +64,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
       }).catch(console.error);
     }
     if (opened) {
-      axios.get("/api/v1/teams/agency/list/").then(({ data }: any) => {
+      axios.get("/teams/agency/list/").then(({ data }: any) => {
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
@@ -100,7 +100,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
             email: 'Email already taken'
           });
         } else {
-          axios.get('/api/v1/users/email-check/', {
+          axios.get('/users/email-check/', {
             params: { email }
           }).then(({ data }: any) => {
             if (data.result) {
@@ -135,7 +135,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
 
   const onAgencyChange = (val: any) => {
     setAgencyId(val);
-    axios.get(`/api/v1/teams/list/${val}/`).then(({ data }: any) => {
+    axios.get(`/teams/list/${val}/`).then(({ data }: any) => {
       console.log(data);
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,

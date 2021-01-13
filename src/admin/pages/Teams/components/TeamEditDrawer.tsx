@@ -37,13 +37,13 @@ const TeamEditDrawer: React.FC<Props> = ({ opened, team, onClose, updateTeam }) 
 
   useEffect(() => {
     if (opened) {
-      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }: any) => {
+      axios.get(`/users/list/${team.team_id}/`).then(({ data }: any) => {
         setAdminOptions(data.data.users.map((el: any) => ({
           value: el.user_id,
           label: el.username,
         })));
       }).catch(console.error);
-      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }: any) => {
+      axios.get(`/users/list/${team.team_id}/`).then(({ data }: any) => {
         setMemberOptions(data.data.users.map((el: any) => ({
           value: el.user_id,
           label: el.username,

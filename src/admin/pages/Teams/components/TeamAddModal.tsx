@@ -53,19 +53,19 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
   const [isActive, setIsActive] = useState("enabled");
 
   useEffect(() => {
-    axios.get("/api/v1/users/list/").then(({ data }: any) => {
+    axios.get("/users/list/").then(({ data }: any) => {
       setAdminOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,
       })));
     }).catch(console.error);
-    axios.get("/api/v1/users/list/").then(({ data }: any) => {
+    axios.get("/users/list/").then(({ data }: any) => {
       setMemberOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,
       })));
     }).catch(console.error);
-    axios.get("/api/v1/teams/agency/list/").then(({ data }: any) => {
+    axios.get("/teams/agency/list/").then(({ data }: any) => {
       setAgencyOptions(data.data.agency.map((el: any) => ({
         value: el.agency_id,
         label: el.agency_name,
@@ -117,7 +117,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
 
       if (teamName) {
         try {
-          const resp = await axios.get('/api/v1/teams/name-check/', {
+          const resp = await axios.get('/teams/name-check/', {
             params: { 'team_name': teamName }
           });
 

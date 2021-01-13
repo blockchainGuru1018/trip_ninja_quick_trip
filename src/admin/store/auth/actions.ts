@@ -23,7 +23,7 @@ export function login(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(loginRequest());
     try {
-      const resp = await axios.post('/api/v1/settings/', data);
+      const resp = await axios.post('/settings/', data);
       dispatch(loginSuccess());
       localStorage.setItem('authInfo', JSON.stringify(resp.data.data));
     } catch (err) {

@@ -69,7 +69,7 @@ export function fetchUsers(params: {
   return async (dispatch: Dispatch) => {
     dispatch(fetchUsersRequest());
     try {
-      const resp = await axios.get('/api/v1/users/search/', { params });
+      const resp = await axios.get('/users/search/', { params });
       dispatch(fetchUsersSuccess(resp.data.data));
     } catch (err) {
       dispatch(fetchUsersFailure());
@@ -97,7 +97,7 @@ export function addUser(data: any, onSuccess: () => void) {
   return async (dispatch: Dispatch) => {
     dispatch(addUserRequest());
     try {
-      await axios.post('/api/v1/users/single-add/', data);
+      await axios.post('/users/single-add/', data);
       dispatch(addUserSuccess());
       onSuccess();
     } catch (err) {
@@ -110,7 +110,7 @@ export function addBulkUsers(data: any, onSuccess: () => void) {
   return async (dispatch: Dispatch) => {
     dispatch(addUserRequest());
     try {
-      await axios.post('/api/v1/users/bulk-add/', data);
+      await axios.post('/users/bulk-add/', data);
       dispatch(addUserSuccess());
       onSuccess();
     } catch (err) {
@@ -140,7 +140,7 @@ export function updateUser(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateUserRequest());
     try {
-      const resp = await axios.put('/api/v1/users/update/', data);
+      const resp = await axios.put('/users/update/', data);
       dispatch(updateUserSuccess(resp.data.data.user));
     } catch (err) {
       dispatch(updateUserFailure());
@@ -159,7 +159,7 @@ export function archiveUser(id: number) {
   return async (dispatch: Dispatch) => {
     dispatch(updateUserRequest());
     try {
-      const resp = await axios.get(`/api/v1/users/${id}/archive/`);
+      const resp = await axios.get(`/users/${id}/archive/`);
       if (resp.data.result) {
         dispatch(archiveUserSuccess(id));
       }
@@ -192,7 +192,7 @@ export function fetchBasicInfo() {
   return async (dispatch: Dispatch) => {
     dispatch(fetchBasicInfoRequest());
     try {
-      const resp = await axios.get('/api/v1/users/basic/');
+      const resp = await axios.get('/users/basic/');
       dispatch(fetchBasicInfoSuccess(resp.data.data));
     } catch (err) {
       dispatch(fetchBasicInfoFailure());
@@ -223,7 +223,7 @@ export function updateBasicInfo(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateBasicInfoRequest());
     try {
-      const resp = await axios.put('/api/v1/users/basic/', data);
+      const resp = await axios.put('/users/basic/', data);
       dispatch(updateBasicInfoSuccess(resp.data.data));
     } catch (err) {
       dispatch(updateBasicInfoFailure());
@@ -254,7 +254,7 @@ export function fetchGeneralInfo() {
   return async (dispatch: Dispatch) => {
     dispatch(fetchGeneralInfoRequest());
     try {
-      const resp = await axios.get('/api/v1/users/general/');
+      const resp = await axios.get('/users/general/');
       dispatch(fetchGeneralInfoSuccess(resp.data.data));
     } catch (err) {
       dispatch(fetchGeneralInfoFailure());
@@ -285,7 +285,7 @@ export function updateGeneralInfo(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updateGeneralInfoRequest());
     try {
-      const resp = await axios.put('/api/v1/users/general/', data);
+      const resp = await axios.put('/users/general/', data);
       dispatch(updateGeneralInfoSuccess(resp.data.data));
     } catch (err) {
       dispatch(updateGeneralInfoFailure());
@@ -314,7 +314,7 @@ export function changePassword(data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(changePasswordRequest());
     try {
-      await axios.post('/api/v1/change-password/', data);
+      await axios.post('/change-password/', data);
       dispatch(changePasswordSuccess());
     } catch (err) {
       dispatch(changePasswordFailure());

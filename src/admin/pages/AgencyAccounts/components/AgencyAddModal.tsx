@@ -51,13 +51,13 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
   const [DataSourceOptions, setDataSourceOptions] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/v1/teams/data_source/").then(({ data }: any) => {
+    axios.get("/teams/data_source/").then(({ data }: any) => {
       setDataSourceOptions(data.data.data_source.map((el: any) => ({
         value: el.id,
         label: el.provider,
       })));
     }).catch(console.error);
-    axios.get("/api/v1/users/list/").then(({ data }: any) => {
+    axios.get("/users/list/").then(({ data }: any) => {
       setAdminOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,

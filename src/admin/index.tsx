@@ -35,23 +35,6 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => (
   />
 );
 
-const PublicRoute = ({ component: Component, ...rest }: any) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      localStorage.getItem('authInfo') ? (
-        <Redirect
-          to={{
-            pathname: '/admin/',
-          }}
-        />
-      ) : (
-        <Component {...props} />
-      )
-    }
-  />
-);
-
 const index: React.FC = () => {
   const authInfo = localStorage.getItem('authInfo');
   let user = null;

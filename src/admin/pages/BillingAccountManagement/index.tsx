@@ -18,7 +18,7 @@ const BillingAccountManagement: React.FC = () => {
         Email support@tripninja.io with questions about your subscription or to change your subscription type.
       </Typography>
     </div>
-  )
+  );
 };
 
-export default BillingAccountManagement
+export default BillingAccountManagement;

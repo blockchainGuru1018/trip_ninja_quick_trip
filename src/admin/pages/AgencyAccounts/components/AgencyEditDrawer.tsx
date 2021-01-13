@@ -16,7 +16,7 @@ import {useState} from "react";
 import {updateAgency} from "../../../store/agencies/actions";
 import {connect} from "react-redux";
 import {useEffect} from "react";
-import {axios} from "../../../utils";
+import axios from "../../../../Api";
 
 const propTypes = {
   opened: PropTypes.bool.isRequired,
@@ -44,17 +44,17 @@ const AgencyEditDrawer: React.FC<Props> = ({opened, agency, onClose, updateAgenc
 
   useEffect(() => {
     if (opened) {
-        axios.get(`/api/v1/users/list/agency/${agency.agency_id}/`).then(({ data }) => {
-          setAdminOptions(data.data.users.map((el: any) => ({
-            value: el.user_id,
-            label: el.username,
-          })))
-        }).catch(console.error);
-      axios.get(`/api/v1/teams/data_source/${agency.agency_id}/`).then(({data}) => {
+      axios.get(`/api/v1/users/list/agency/${agency.agency_id}/`).then(({ data }: any) => {
+        setAdminOptions(data.data.users.map((el: any) => ({
+          value: el.user_id,
+          label: el.username,
+        })));
+      }).catch(console.error);
+      axios.get(`/api/v1/teams/data_source/${agency.agency_id}/`).then(({data}: any) => {
         setDataSourceOptions(data.data.data_source.map((el: any) => ({
           value: el.id,
           label: el.provider,
-        })))
+        })));
       }).catch(console.error);
     }
   }, [opened, agency]);
@@ -83,7 +83,7 @@ const AgencyEditDrawer: React.FC<Props> = ({opened, agency, onClose, updateAgenc
     setSuppliers([
       ...suppliers,
       {id: undefined, pcc: ''}
-    ])
+    ]);
   };
 
   const onChangeSupplier = (i: number, attr: 'id' | 'pcc', value: string) => {
@@ -211,7 +211,7 @@ const AgencyEditDrawer: React.FC<Props> = ({opened, agency, onClose, updateAgenc
         )}
       </Drawer>
     </>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

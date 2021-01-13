@@ -16,7 +16,7 @@ const ContentSources: React.FC = () => {
         Email support@tripninja.io with questions or concerns about data sources.
       </Typography>
     </div>
-  )
+  );
 };
 
-export default ContentSources
+export default ContentSources;

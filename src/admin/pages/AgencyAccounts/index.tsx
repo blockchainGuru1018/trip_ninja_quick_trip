@@ -167,7 +167,7 @@ const AgencyAccounts: React.FC<Props> = ({ agencies, total, fetchAgencies }) => 
         }}
       />
     </div>
-  )
+  );
 };
 
 const mapStateToProps = (state: any) => {

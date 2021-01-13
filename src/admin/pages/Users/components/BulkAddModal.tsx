@@ -28,7 +28,8 @@ import {
 
 import { addBulkUsers } from "../../../store/users/actions";
 
-import { axios, validateEmail } from "../../../utils";
+import { validateEmail } from "../../../utils";
+import axios from "../../../../Api";
 
 const propTypes = {
   opened: PropTypes.bool.isRequired,
@@ -55,7 +56,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
 
   useEffect(() => {
     if (opened) {
-      axios.get("/api/v1/teams/list/").then(({ data }) => {
+      axios.get("/api/v1/teams/list/").then(({ data }: any) => {
         setTeamOptions(data.data.teams.map((el: any) => ({
           value: el.team_id,
           label: el.team_name,
@@ -63,7 +64,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
       }).catch(console.error);
     }
     if (opened) {
-      axios.get("/api/v1/teams/agency/list/").then(({ data }) => {
+      axios.get("/api/v1/teams/agency/list/").then(({ data }: any) => {
         setAgencyOptions(data.data.agency.map((el: any) => ({
           value: el.agency_id,
           label: el.agency_name,
@@ -101,7 +102,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
         } else {
           axios.get('/api/v1/users/email-check/', {
             params: { email }
-          }).then(({ data }) => {
+          }).then(({ data }: any) => {
             if (data.result) {
               setEmails([ ...emails, email ]);
               setIsSubmitting(false);
@@ -134,7 +135,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
 
   const onAgencyChange = (val: any) => {
     setAgencyId(val);
-    axios.get(`/api/v1/teams/list/${val}/`).then(({ data }) => {
+    axios.get(`/api/v1/teams/list/${val}/`).then(({ data }: any) => {
       console.log(data);
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,

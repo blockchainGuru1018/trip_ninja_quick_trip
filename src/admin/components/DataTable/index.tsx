@@ -42,7 +42,7 @@ const DataTable:React.FC<Props> = ({ className, columns, rows, total, page, page
   };
 
   const handlePageSizeChange = (size: number) => {
-    onPageSizeChange && onPageSizeChange(size)
+    onPageSizeChange && onPageSizeChange(size);
   };
 
   return (

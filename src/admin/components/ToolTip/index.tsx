@@ -20,7 +20,7 @@ const ToolTip: React.FC<Props> = ({ text, children }) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default ToolTip;

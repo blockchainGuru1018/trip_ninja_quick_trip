@@ -55,7 +55,7 @@ export default (state = teamsInitialState, action: any) => {
             return {
               ...el,
               ...action.payload
-            }
+            };
           }
 
           return el;
@@ -75,7 +75,7 @@ export default (state = teamsInitialState, action: any) => {
             return {
               ...el,
               is_active: !el.is_active,
-            }
+            };
           }
 
           return el;

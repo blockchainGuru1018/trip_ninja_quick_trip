@@ -55,7 +55,7 @@ export default (state = agenciesInitialState, action: any) => {
             return {
               ...el,
               ...action.payload
-            }
+            };
           }
 
           return el;
@@ -75,7 +75,7 @@ export default (state = agenciesInitialState, action: any) => {
             return {
               ...el,
               status: !el.status,
-            }
+            };
           }
 
           return el;

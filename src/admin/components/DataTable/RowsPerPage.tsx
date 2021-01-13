@@ -25,7 +25,7 @@ const DataTable:React.FC<Props> = ({ className, value, onChange }) => {
       if (isOpened) {
         document.removeEventListener('click', closeList);
       }
-    }
+    };
   }, [isOpened]);
 
   const closeList = () => {

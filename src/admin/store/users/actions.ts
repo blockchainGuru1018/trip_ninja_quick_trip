@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import { axios } from "../../utils";
+import axios from "../../../Api";
 import {
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,

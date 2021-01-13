@@ -130,12 +130,12 @@ const BasicInfo: React.FC<Props> = ({ basic_info, fetchBasicInfo, updateBasicInf
       setNewPassword('');
       setConfirmPassword('');
       setCurrentPassword('');
-      setErrors({})
+      setErrors({});
     }
     else {
       setErrors({
         password: 'Does not match password'
-      })
+      });
     }
   };
 
@@ -285,7 +285,7 @@ const BasicInfo: React.FC<Props> = ({ basic_info, fetchBasicInfo, updateBasicInf
         </Button>
       </div>
     </div>
-  )
+  );
 };
 
 const mapStateToProps = (state: any) => {

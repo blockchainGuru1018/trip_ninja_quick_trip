@@ -66,9 +66,9 @@ const Teams: React.FC<Props> = ({ teams, total, fetchTeams }) => {
 
   if (user.user.is_superuser) {
     columns.splice(2, 0, {
-        field: 'agency_name',
-        headerName: 'Agency Name',
-        sortable: true
+      field: 'agency_name',
+      headerName: 'Agency Name',
+      sortable: true
     });
   }
 
@@ -165,7 +165,7 @@ const Teams: React.FC<Props> = ({ teams, total, fetchTeams }) => {
         }}
       />
     </div>
-  )
+  );
 };
 
 const mapStateToProps = (state: any) => {

@@ -14,7 +14,7 @@ const Header: React.FC = () => {
         <div className="navItem">Bookings</div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Header;

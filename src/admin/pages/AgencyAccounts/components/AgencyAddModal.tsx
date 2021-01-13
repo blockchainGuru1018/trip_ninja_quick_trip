@@ -20,7 +20,7 @@ import {bindActionCreators, Dispatch} from "redux";
 
 import {connect} from "react-redux";
 import {addAgency} from "../../../store/agencies/actions";
-import {axios} from "../../../utils";
+import axios from "../../../../Api";
 
 const propTypes = {
   opened: PropTypes.bool.isRequired,
@@ -51,17 +51,17 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
   const [DataSourceOptions, setDataSourceOptions] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/v1/teams/data_source/").then(({ data }) => {
+    axios.get("/api/v1/teams/data_source/").then(({ data }: any) => {
       setDataSourceOptions(data.data.data_source.map((el: any) => ({
         value: el.id,
         label: el.provider,
-      })))
+      })));
     }).catch(console.error);
-    axios.get("/api/v1/users/list/").then(({ data }) => {
+    axios.get("/api/v1/users/list/").then(({ data }: any) => {
       setAdminOptions(data.data.users.map((el: any) => ({
         value: el.user_id,
         label: el.username,
-      })))
+      })));
     }).catch(console.error);
   }, []);
 
@@ -81,7 +81,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
       if (!apiPassword) {
         setErrors({
           password: 'Empty APIPassword'
-        })
+        });
       }
     }
   };
@@ -93,7 +93,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
       if (!apiUserName) {
         setErrors({
           username: 'Empty APIUserName'
-        })
+        });
       }
     }
   };
@@ -111,19 +111,19 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
           username: 'Empty APIUserName',
           password: 'Empty APIPassword'
         });
-        return setStep(1)
+        return setStep(1);
       }
       else if (!apiPassword) {
         setErrors({
           password: 'Empty APIPassword'
         });
-        return setStep(1)
+        return setStep(1);
       }
       else if (!apiUserName) {
         setErrors({
           username: 'Empty APIUserName'
         });
-        return setStep(1)
+        return setStep(1);
       }
     }
     setStep(Math.min(step + 1, 3));
@@ -148,7 +148,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
     setSuppliers([
       ...suppliers,
       { id: undefined, pcc: undefined }
-    ])
+    ]);
   };
 
   const onChangeSupplier = (i: number, attr: 'id' | 'pcc', value: string) => {
@@ -189,7 +189,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
             </Grid>
           </Grid>
         </div>
-      )
+      );
     } else if (step === 1) {
       return (
         <div className="second-step">
@@ -222,7 +222,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
             </Grid>
           </Grid>
         </div>
-      )
+      );
     } else if (step === 2) {
       return (
         <div className="third-step">
@@ -259,7 +259,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
             </Grid>
           </Grid>
         </div>
-      )
+      );
     }
     return (
       <div className="fourth-step">
@@ -268,7 +268,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
           Once your agency is created it can be edited or archived anytime from the overview panel.
         </Typography>
       </div>
-    )
+    );
   };
 
   return (
@@ -322,7 +322,7 @@ const AgencyAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addAgency
         </Stepper>
       </Modal>
     </>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

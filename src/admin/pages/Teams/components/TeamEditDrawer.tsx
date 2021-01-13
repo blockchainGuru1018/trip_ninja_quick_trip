@@ -16,7 +16,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import { useState, useEffect } from "react";
 import {updateTeam} from "../../../store/teams/actions";
 import {connect} from "react-redux";
-import {axios} from "../../../utils";
+import axios from "../../../../Api";
 
 const propTypes = {
   opened: PropTypes.bool.isRequired,
@@ -37,17 +37,17 @@ const TeamEditDrawer: React.FC<Props> = ({ opened, team, onClose, updateTeam }) 
 
   useEffect(() => {
     if (opened) {
-      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }) => {
+      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }: any) => {
         setAdminOptions(data.data.users.map((el: any) => ({
           value: el.user_id,
           label: el.username,
-        })))
+        })));
       }).catch(console.error);
-      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }) => {
+      axios.get(`/api/v1/users/list/${team.team_id}/`).then(({ data }: any) => {
         setMemberOptions(data.data.users.map((el: any) => ({
           value: el.user_id,
           label: el.username,
-        })))
+        })));
       }).catch(console.error);
     }
   }, [opened, team]);
@@ -151,7 +151,7 @@ const TeamEditDrawer: React.FC<Props> = ({ opened, team, onClose, updateTeam }) 
         </>
       )}
     </Drawer>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -40,7 +40,7 @@ const Select:React.FC<Props> = ({ className, value, options, multiple, placehold
       if (isOpened) {
         document.removeEventListener('click', onClose);
       }
-    }
+    };
   }, [isOpened]);
 
   const getValue = () => {
@@ -67,7 +67,7 @@ const Select:React.FC<Props> = ({ className, value, options, multiple, placehold
   };
 
   const onClose = () => {
-    setIsOpened(false)
+    setIsOpened(false);
   };
 
   const handleChange = (opt: any) => {
@@ -78,7 +78,7 @@ const Select:React.FC<Props> = ({ className, value, options, multiple, placehold
       if (value === opt.value) {
         onChange(undefined);
       } else {
-        onChange(opt.value)
+        onChange(opt.value);
       }
     } else {
       const isSelected = selectedOptions.find((el: any) => el.value === opt.value);
@@ -87,9 +87,9 @@ const Select:React.FC<Props> = ({ className, value, options, multiple, placehold
         onChange([
           ...selectedOptions.map((el: any) => el.value),
           opt.value
-        ])
+        ]);
       } else {
-        onChange(selectedOptions.filter((el: any) => el.value !== opt.value).map((el: any) => el.value))
+        onChange(selectedOptions.filter((el: any) => el.value !== opt.value).map((el: any) => el.value));
       }
     }
   };
@@ -162,18 +162,18 @@ const Select:React.FC<Props> = ({ className, value, options, multiple, placehold
               }),
               option: (provided, state) => {
                 return {
-                ...provided,
-                fontFamily: 'NeuzitGrotesk',
-                fontSize: 14,
-                color: '#45565E',
-                backgroundColor: state.isSelected ? '#F8F8F9' : 'transparent',
-                fontWeight: state.isSelected || state.isFocused ? 'bold' : provided.fontWeight,
-                cursor: 'pointer',
+                  ...provided,
+                  fontFamily: 'NeuzitGrotesk',
+                  fontSize: 14,
+                  color: '#45565E',
+                  backgroundColor: state.isSelected ? '#F8F8F9' : 'transparent',
+                  fontWeight: state.isSelected || state.isFocused ? 'bold' : provided.fontWeight,
+                  cursor: 'pointer',
 
-                '&:active': {
-                  backgroundColor: '#F8F8F9'
-                }
-              }},
+                  '&:active': {
+                    backgroundColor: '#F8F8F9'
+                  }
+                };},
             }}
             value={selectedOptions}
           />

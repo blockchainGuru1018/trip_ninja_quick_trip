@@ -52,7 +52,7 @@ const ArchiveModal: React.FC<Props> = ({ opened, onClose, agency, archiveAgency 
         </Button>
       </div>
     </Modal>
-  )
+  );
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

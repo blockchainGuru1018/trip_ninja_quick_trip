@@ -63,7 +63,7 @@ const SearchBookingDetail: React.FC = () => {
         </Grid>
       </Grid>
     </div>
-  )
+  );
 };
 
-export default SearchBookingDetail
+export default SearchBookingDetail;

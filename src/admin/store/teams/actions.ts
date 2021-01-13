@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import { axios } from "../../utils";
+import axios from "../../../Api";
 import {
   FETCH_TEAMS_REQUEST,
   FETCH_TEAMS_SUCCESS,

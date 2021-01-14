@@ -3,6 +3,7 @@
 }
 .team-Page-modal .tab-content {
   margin-top: 30px;
+  display: block;
 }
 .team-Page-modal .stepper-content {
   display: flex;
@@ -51,10 +52,7 @@
   font-weight: bolder;
   margin-bottom: 12px;
 }
-.team-Page-modal .tab-content {
-  margin-top: 30px;
-  display: block;
-}
+
 .team-Page-modal .first-step {
   max-width: 350px;
   width: 100%;

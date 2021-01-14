@@ -122,12 +122,7 @@ const TeamAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addTeam }) 
           });
 
           if (resp.data.result) {
-            if (user.user.is_superuser && agencyId) {
-              setIsSubmitting(false);
-              setErrors({});
-              return setStep(1);
-            }
-            else if (!user.user.is_superuser && !agencyId) {
+            if ((user.user.is_superuser && agencyId) || (!user.user.is_superuser && !agencyId)) {
               setIsSubmitting(false);
               setErrors({});
               return setStep(1);

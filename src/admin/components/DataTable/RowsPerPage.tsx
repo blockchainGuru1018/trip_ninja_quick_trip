@@ -11,7 +11,7 @@ const propTypes = {
 
 type Props = PropTypes.InferProps<typeof propTypes>
 
-const DataTable:React.FC<Props> = ({ className, value, onChange }) => {
+const RowsPerPage:React.FC<Props> = ({ className, value, onChange }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
@@ -61,4 +61,4 @@ const DataTable:React.FC<Props> = ({ className, value, onChange }) => {
   );
 };
 
-export default DataTable;
+export default RowsPerPage;

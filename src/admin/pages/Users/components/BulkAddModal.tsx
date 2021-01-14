@@ -131,12 +131,7 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
     if (step === 0) {
       setIsSubmitting(true);
       if (emails.length) {
-        if (user.user.is_superuser && agencyId) {
-          setIsSubmitting(false);
-          setErrors({});
-          return setStep(1);
-        }
-        else if (!user.user.is_superuser && !agencyId) {
+        if ((user.user.is_superuser && agencyId) || (!user.user.is_superuser && !agencyId)) {
           setIsSubmitting(false);
           setErrors({});
           return setStep(1);

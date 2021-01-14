@@ -9,7 +9,6 @@ import {
   FormLabel,
 } from '@material-ui/core';
 
-import "./styles.css";
 
 const SearchBookingDetail: React.FC = () => {
   return (

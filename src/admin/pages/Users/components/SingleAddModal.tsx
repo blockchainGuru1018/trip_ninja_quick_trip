@@ -29,6 +29,7 @@ import { addUser } from "../../../store/users/actions";
 
 import {validateEmail} from "../../../utils";
 import axios from "../../../../Api";
+import { getAgencyOptions, getTeamOptions } from "../../../../helpers/AdminHelper";
 
 const propTypes = {
   opened: PropTypes.bool.isRequired,
@@ -56,20 +57,8 @@ const SingleAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addUser }
 
   useEffect(() => {
     if (opened) {
-      axios.get("/teams/list/").then(({ data }: any) => {
-        setTeamOptions(data.data.teams.map((el: any) => ({
-          value: el.team_id,
-          label: el.team_name,
-        })));
-      }).catch(console.error);
-    }
-    if (opened) {
-      axios.get("/teams/agency/list/").then(({ data }: any) => {
-        setAgencyOptions(data.data.agency.map((el: any) => ({
-          value: el.agency_id,
-          label: el.agency_name,
-        })));
-      }).catch(console.error);
+      getTeamOptions().then((teamOptions: any) => setTeamOptions(teamOptions));
+      getAgencyOptions().then((agencyOptions: any) => setAgencyOptions(agencyOptions));
     }
   }, [opened]);
 

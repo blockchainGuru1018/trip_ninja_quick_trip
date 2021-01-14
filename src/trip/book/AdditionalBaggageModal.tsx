@@ -72,6 +72,16 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     }, 0);
   };
 
+  const totalAdditionalBaggagePrice = (type: string) => {
+    let totalPrice: number = 0;
+    props.passengers.forEach((passenger: PassengerInfo) => {
+      passenger[type].forEach((bag: ApplicableBaggage) => {
+        totalPrice += additionalBaggagePrice(bag.applicable_bags);
+      });
+    });
+    return totalPrice;
+  };
+
   const displayBaggageOption = (baggageAmount: string, selected: boolean, type: string, currentBaggageIndex: number, baggageOptions: Array<AdditionalBaggage>, itinerary: number) => {
     let baggageOptionsList: Array<AdditionalBaggage> = baggageOptions.slice(0, currentBaggageIndex+1);
     let totalBaggagePrice: number = additionalBaggagePrice(baggageOptionsList);
@@ -92,12 +102,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
 
   const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, price: number) => {
     props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
-    let totalPrice: number = 0;
-    props.passengers.forEach((passenger: PassengerInfo) => {
-      passenger[type].forEach((bag: ApplicableBaggage) => {
-        totalPrice += additionalBaggagePrice(bag.applicable_bags);
-      });
-    });
+    let totalPrice: number = totalAdditionalBaggagePrice(type);
     props.updateAncillariesAmount(totalPrice);
   };
 

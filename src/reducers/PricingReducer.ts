@@ -22,7 +22,7 @@ function pricingReducer(state: PricingDetails = {} as any, action: any) {
 
     case 'UPDATE_ANCILLARIES_AMOUNT':
       let ancillariesAmount = action.amount === '' ? 0 : parseFloat(action.amount);
-      state.pricing!.ancillary_total += ancillariesAmount;
+      state.pricing!.ancillary_total = ancillariesAmount;
       return {...state};
 
     default:

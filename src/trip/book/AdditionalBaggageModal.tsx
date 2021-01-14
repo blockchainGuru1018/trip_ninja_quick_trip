@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Segment } from "../results/ResultsInterfaces";
 import { PricedItinerary, SegmentPricingInfo, AdditionalBaggage } from '../results/PricingInterfaces';
+import { ApplicableBaggage } from '../book/BookInterfaces';
 import { PassengerInfo } from './BookInterfaces';
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
 import { useEffect } from 'react';
@@ -89,8 +90,14 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     }];
   };
 
-  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, totalPrice: number) => {
+  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, price: number) => {
     props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
+    let totalPrice: number = 0;
+    props.passengers.forEach((passenger: PassengerInfo) => {
+      passenger[type].forEach((bag: ApplicableBaggage) => {
+        totalPrice += additionalBaggagePrice(bag.applicable_bags);
+      });
+    });
     props.updateAncillariesAmount(totalPrice);
   };
 

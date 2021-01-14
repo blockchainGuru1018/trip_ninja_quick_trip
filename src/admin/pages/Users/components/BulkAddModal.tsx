@@ -37,8 +37,8 @@ const BulkAddModal: React.FC<Props> = ({ opened, onClose, onSuccess, addBulkUser
 
   useEffect(() => {
     if (opened) {
-      getTeamOptions().then((teamOptions: any) => setTeamOptions(teamOptions));
-      getAgencyOptions().then((agencyOptions: any) => setAgencyOptions(agencyOptions));
+      getTeamOptions().then((teamOptionsApiResponse: any) => setTeamOptions(teamOptionsApiResponse));
+      getAgencyOptions().then((agencyOptionsApiResponse: any) => setAgencyOptions(agencyOptionsApiResponse));
     }
   }, [opened]);
 

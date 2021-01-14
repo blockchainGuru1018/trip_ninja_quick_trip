@@ -87,7 +87,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     let totalBaggagePrice: number = additionalBaggagePrice(baggageOptionsList);
     return(
       <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptionsList, itinerary, totalBaggagePrice)}>
-        <span>{baggageAmount.slice(0,1)} {type === 'additional_checked_bags' ? 'Checked' : 'Cabin'} bags </span>
+        <span>{baggageAmount.slice(0,1)} {type === 'additional_checked_bags' ? 'Checked' : 'Cabin'} {t('book.ancillaries.bags')} </span>
         <span className="text-bold">+{currencySymbol(props.currency)}{totalBaggagePrice}</span>
       </div>
     );
@@ -123,15 +123,14 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
         : 0;
       return(<div key={itineraryIndex.toString()}>
         <h5>{segment.flight_details[0].origin}-{segment.flight_details[segment.flight_details.length-1].destination}</h5>
-        <p className="text-bold">Checked Baggage</p>
+        <p className="text-bold">{t('book.ancillaries.checkedBaggage')}</p>
         <div className="row">
           {displayBaggageOption(segment.baggage.applicable_bags, checkedBagSelections === 0, 'additional_checked_bags', 0, [], itinerary.itinerary_reference)}
           {segment.baggage.additional_checked_bags.map((baggage: AdditionalBaggage, index: number) => {
-            console.log(baggage);
             return displayBaggageOption(baggage.applicable_bags, checkedBagSelections === index+1, 'additional_checked_bags', index, segment.baggage.additional_checked_bags, itinerary.itinerary_reference);
           })}
         </div>
-        <p className="text-bold">Cabin Baggage</p>
+        <p className="text-bold">{t('book.ancillaries.cabinBaggage')}</p>
         <div className="row">
           {displayBaggageOption(segment.baggage.applicable_carry_on_bags, carryOnBagSelections === 0, 'additional_carry_on_bags', 0, [], itinerary.itinerary_reference)}
           {segment.baggage.additional_carry_on_bags.map((baggage: AdditionalBaggage, index: number) => {
@@ -157,7 +156,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
             <IconButton aria-label="close-passenger-modal" className="float-right" onClick={() => (props.setModalOpen())}>
               <CloseIcon />
             </IconButton>
-            <h3 id="transition-modal-title">Additional Baggage</h3>
+            <h3 id="transition-modal-title">{t('book.ancillaries.additionalBaggage')}</h3>
             <div className="row">
               <Tabs
                 orientation="vertical"

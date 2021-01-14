@@ -23,11 +23,11 @@ export default function Ancillaries(props: AncillariesProps) {
 
   return(
     <div>
-      <h5>Ancillaries</h5>
+      <h5>{t('book.ancillaries.ancillaries')}</h5>
       <div className="book-container">
         <div className="row">
           <div className="col-sm-8 my-auto">
-            <p className="text-bold">Additional Baggage</p>
+            <p className="text-bold">{t('book.ancillaries.additionalBaggage')}</p>
           </div>
           <div className="col-sm-4">
             <Button 
@@ -38,7 +38,7 @@ export default function Ancillaries(props: AncillariesProps) {
               onClick={(e) => setModalOpen(!modalOpen)}
               disableElevation
             >
-              Add 
+              {t('book.ancillaries.modify')}
             </Button>
             <AdditionalBaggageModal 
               modalOpen={modalOpen}

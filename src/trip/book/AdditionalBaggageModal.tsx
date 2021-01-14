@@ -86,8 +86,8 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     let baggageOptionsList: Array<AdditionalBaggage> = baggageOptions.slice(0, currentBaggageIndex+1);
     let totalBaggagePrice: number = additionalBaggagePrice(baggageOptionsList);
     return(
-      <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptionsList, itinerary, totalBaggagePrice)}>
-        <span>{baggageAmount.slice(0,1)} {type === 'additional_checked_bags' ? 'Checked' : 'Cabin'} {t('book.ancillaries.bags')} </span>
+      <div className={'col-xs-3 baggage-option ' + (selected ? 'active-baggage' : '')} onClick={() => handleBaggageChange(type, baggageOptionsList, itinerary, baggageAmount)}>
+        <span>{baggageAmount} </span>
         <span className="text-bold">+{currencySymbol(props.currency)}{totalBaggagePrice}</span>
       </div>
     );
@@ -100,7 +100,7 @@ export default function AdditionalBaggageModal(props: AdditionalBaggageModalProp
     }];
   };
 
-  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, price: number) => {
+  const handleBaggageChange = (type: string, baggage: Array<AdditionalBaggage>, itinerary: number, baggageAmount: string) => {
     props.updatePassengerInfo(passengerIndex, type, createAdditionalBaggageObject(itinerary, baggage));
     let totalPrice: number = totalAdditionalBaggagePrice(type);
     props.updateAncillariesAmount(totalPrice);

@@ -26,7 +26,7 @@ function UserMenu(props: UserMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [ t ] = useTranslation('common');
 
-  const gotoAdmin = () => {
+  const goToAdmin = () => {
     history.push('/admin/');
   };
 
@@ -106,7 +106,10 @@ function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
-        <SettingMenuItem onClick={gotoAdmin}>{t('common.userMenu.settings')}</SettingMenuItem>
+        {
+          props.authDetails.isSuperUser &&
+          <SettingMenuItem onClick={goToAdmin}>{t('common.userMenu.settings')}</SettingMenuItem>
+        }
         <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>

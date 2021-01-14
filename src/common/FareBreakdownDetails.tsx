@@ -154,6 +154,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{formatPrice(taxesAndFees, this.props.currency)}</p>
       </div>
     </div>
+    {!expanded &&
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
         <p>{this.props.t("common.fareBreakdown.ancillaries")}</p>
@@ -162,6 +163,7 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         <p>{formatPrice(ancillaries, this.props.currency)}</p>
       </div>
     </div>
+    }
     {this.props.markupVisible && this.props.pricing.markup === 0 &&
     <div className="row charges-row">
       <div className={`col-sm-8 ${expanded ? '' : 'fare-breakdown-text'}`}>
@@ -203,6 +205,16 @@ class FareBreakdownDetails extends React.Component<FareBreakdownDetailsProps> {
         updateAdditionalMarkup={this.props.updateAdditionalMarkup!}
         pricingDisplay={this.props.pricingDisplay}
       />
+      }
+      {this.props.expanded &&
+      <div className="row charges-row">
+        <div className="col-sm-8">
+          <p>{this.props.t("common.fareBreakdown.ancillaries")}</p>
+        </div>
+        <div className="col-sm-4 fare-breakdown-price">
+          <p>{formatPrice(this.props.pricing.ancillary_total, this.props.currency)}</p>
+        </div>
+      </div>
       }
       <div className="row">
         <div className="col-sm-8 fare-breakdown-text">

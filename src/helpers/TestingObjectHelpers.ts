@@ -28,8 +28,6 @@ export const testingAuthDetails: AuthDetails = {
   dateType: 'US',
   studentAndYouth: false,
   invalidAuth: false,
-  pcc: '2G3C',
-  provider: 'travelport',
   agency: 'tripninja',
   ticketing_queue: '01',
   isAgencyAdmin: true,

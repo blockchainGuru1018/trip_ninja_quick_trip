@@ -16,7 +16,7 @@ import {
   setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
   searchFlights, getPriceGraph
 } from './actions/SearchActions';
-import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
+import { priceFlights, updateAdditionalMarkup, updateAncillariesAmount } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
   updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue, setResultsLoading
@@ -34,7 +34,8 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards, resetAppropriateBookingDetails }
+  from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
@@ -72,6 +73,7 @@ interface IAppProps {
   updateFareFamily: typeof updateFareFamily;
   updatePassengerInfo: typeof updatePassengerInfo;
   updateAdditionalMarkup: typeof updateAdditionalMarkup;
+  updateAncillariesAmount: typeof updateAncillariesAmount;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
@@ -89,6 +91,7 @@ interface IAppProps {
   updateStateValue: typeof updateStateValue;
   setResultsLoading: typeof setResultsLoading;
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  resetAppropriateBookingDetails: typeof resetAppropriateBookingDetails;
 }
 
 const theme = Theme;
@@ -170,6 +173,7 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                     virtualInterliningAccess={this.props.authDetails.virtualInterliningAccess}
                     getPriceGraph={this.props.getPriceGraph}
+                    resetAppropriateBookingDetails={this.props.resetAppropriateBookingDetails}
                   />
                 } />
                 <Route exact path="/results/pre-results/" render={() =>
@@ -221,6 +225,7 @@ class App extends React.Component<IAppProps> {
                     updatePassengerInfo={this.props.updatePassengerInfo}
                     updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
                     updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
+                    updateAncillariesAmount = {this.props.updateAncillariesAmount}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}

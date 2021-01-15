@@ -39,6 +39,7 @@ import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyer
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
+import Admin from './admin/index';
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
@@ -231,11 +232,11 @@ class App extends React.Component<IAppProps> {
                   />
                 } />
                 <Route exact path="/bookings/" render={() =>
-                  <Bookings 
+                  <Bookings
                     authDetails={this.props.authDetails}
                     bookingsList={this.props.bookingsList}
                     getBookingsList={this.props.getBookingsList}
-                    getBookingDetails={this.props.getBookingDetails}  
+                    getBookingDetails={this.props.getBookingDetails}
                     cancelBooking={this.props.cancelBooking}
                     queueBooking={this.props.queueBooking}
                     ticketBooking={this.props.ticketBooking}
@@ -253,6 +254,9 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     setErrorDetails={this.props.setErrorDetails}
                   />
+                } />
+                <Route path="/admin/" render={() =>
+                  <Admin/>
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

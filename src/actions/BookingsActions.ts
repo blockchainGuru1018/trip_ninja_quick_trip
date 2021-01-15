@@ -98,7 +98,7 @@ export const cancelBooking = (booking: Booking) => (dispatch: any) => {
 
   return API.post(url, {trip_id: booking.trip_id})
     .then((response: any) => {
-      if (response.data.status) {
+      if (response.data.status !== 'Success') {
         throw Error;
       } else {
         booking.status = "cancelled";

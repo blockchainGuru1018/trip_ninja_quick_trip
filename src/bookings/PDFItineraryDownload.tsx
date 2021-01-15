@@ -43,8 +43,7 @@ export class PDFItineraryDownload extends React.Component<PDFItineraryDownloadPr
     trip: defaultResults,
   }
 
-  constructor(props: PDFItineraryDownloadProps) {
-    super(props);
+  componentWillMount() {
     this.setState(
       {
         ...this.state,

@@ -38,7 +38,8 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
     platingCarrier: undefined
   }
 
-  componentWillMount() {
+  constructor(props: FareRulesProps) {
+    super(props);
     this.setBaseFareRulesDetails();
   }
 

@@ -9,11 +9,11 @@ interface HomeProps {
 class Home extends React.Component<HomeProps> {
   state = {
     loggedIn: true
-  }
+  };
   render() {
     return this.props.auth.authenticated
       ? <Redirect to='/search/' />
-      : <Redirect to='/login/' />
+      : <Redirect to='/login/' />;
   }
 }
 

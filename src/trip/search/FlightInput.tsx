@@ -35,7 +35,7 @@ class FlightInput extends React.Component<FlightInputProps> {
     destinations: DestinationList,
     originOpen: false,
     destinationOpen: false
-  }
+  };
 
 
   FlightInputPopper = function (props: any) {
@@ -168,7 +168,7 @@ class FlightInput extends React.Component<FlightInputProps> {
       (destination: any) => destination.name === name
     );
     return destinationsList[index];
-  }
+  };
 
   updateFlightType = (values: any, flightType: string) => {
     return values

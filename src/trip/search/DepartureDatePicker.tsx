@@ -40,7 +40,7 @@ export default function DepartureDatePicker(props: DepartureDatePickerProps) {
     return dateEvent
       ? isNaN(dateEvent.valueOf())
         ? ''
-        : props.updateFlightValue(props.i, 'departureDate', dateEvent!.toISOString()!)
+        : props.updateFlightValue(props.i, 'departureDate', dateEvent.toISOString()!)
       : '';
   };
 

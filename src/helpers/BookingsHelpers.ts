@@ -22,7 +22,7 @@ export const sortSegmentList = (segments: Array<BookingSegment>) => {
       (potentialSegment: BookingSegment) => potentialSegment.segment_id === viCount
     );
     let nextSegmentInLine: BookingSegment | undefined;
-    if(segmentsAtNthPosition!.length > 1) {
+    if(segmentsAtNthPosition.length > 1) {
       if(viSegments.includes(segmentsAtNthPosition[0].vi_solution_id)) {
         nextSegmentInLine = segmentsAtNthPosition.find((viSegment: BookingSegment) => viSegment.vi_position === 1);
         viCount += 1;

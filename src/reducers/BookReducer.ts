@@ -19,6 +19,10 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
       return updatePassengersWithValue(state, {"index": action.passengerIndex,
         "key": "frequent_flyer_cards", "value": currentPassenger.frequent_flyer_cards});
 
+    case 'RESET_BOOKING_DETAILS':
+      state.passengers = [defaultPassengerInfo];
+      return {...state};
+
     default:
       return state;
   }

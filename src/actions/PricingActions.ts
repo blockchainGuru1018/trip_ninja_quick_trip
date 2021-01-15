@@ -25,6 +25,13 @@ export function updateAdditionalMarkup(additionalMarkup: number) {
   };
 }
 
+export function updateAncillariesAmount(amount: number) {
+  return {
+    type: 'UPDATE_ANCILLARIES_AMOUNT',
+    amount
+  };
+}
+
 export const priceFlights = (pricingPayload: PricingRequestInterface) => (dispatch: any) => {
   const url: string = '/price/';
   dispatch(pricingLoading(true));

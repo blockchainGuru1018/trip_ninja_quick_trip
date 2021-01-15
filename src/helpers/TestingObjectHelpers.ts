@@ -151,6 +151,7 @@ export const testingPricing: Pricing = {
   taxes: 10,
   fees: 0,
   markup: 10,
+  ancillary_total: 0,
   currency: 'USD'
 };
 
@@ -162,7 +163,9 @@ export const testingBaggageDetails: BaggageDetails = {
   carryon_cost: 0,
   carryon_restrictions: '',
   free_allowance: '',
-  quantity_description: ''
+  quantity_description: '',
+  additional_checked_bags: [],
+  additional_carry_on_bags: []
 };
 
 export const testingPricedFlightDetails: PricedFlightDetails = {
@@ -174,6 +177,8 @@ export const testingPricedFlightDetails: PricedFlightDetails = {
   on_time_performance: '',
   origin_terminal: 1,
   special_segment: '',
+  origin: 'YHZ',
+  destination: 'YYZ'
 };
 
 export const testingSegmentPricingInfo: SegmentPricingInfo = {
@@ -232,6 +237,8 @@ export const testingPassengerInfo: PassengerInfo = {
   passenger_type: 'ADT',
   updated: true,
   frequent_flyer_cards: [],
+  additional_checked_bags: [],
+  additional_carry_on_bags: [],
   meals: []
 };
 

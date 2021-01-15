@@ -30,7 +30,6 @@
     "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.5.0",
     "browserslist": "^4.12.0",
-    "cross-env": "^7.0.3",
     "date-fns": "^2.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -67,7 +66,7 @@
     "typescript": "3.5.x"
   },
   "scripts": {
-    "start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest --watchAll",
     "eject": "react-scripts eject"

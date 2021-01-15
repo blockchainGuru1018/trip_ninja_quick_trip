@@ -2,7 +2,6 @@
 import { Segment, FlightResult, FlightResultsDetails, Results } from '../trip/results/ResultsInterfaces';
 import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
 import { getLinkedViSegmentsForPricing } from "./VirtualInterliningHelpers";
-import moment from 'moment';
 
 
 export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, trip: Results) => {

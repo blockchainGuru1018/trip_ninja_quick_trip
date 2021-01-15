@@ -305,7 +305,15 @@
         }
     },
     "book":{
-        "book":{
+        "ancillaries": {
+            "ancillaries": "Ancillaries",
+            "additionalBaggage": "Additional Baggage",
+            "modify": "Modify" ,
+            "checkedBaggage": "Checked Baggage",
+            "cabinBaggage": "Cabin Baggage",
+            "bags": "bags"
+        },
+        "book": {
             "return": "Back to Results",
             "title": "Itinerary Summary"
         },

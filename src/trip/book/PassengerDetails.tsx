@@ -28,7 +28,6 @@ class PassengerDetails extends React.Component<PassengerDetailsProps> {
  
   render() {
     let passengerInfo: Array<PassengerInfo> = this.props.bookingDetails.passengers;
-
     const passengers = passengerInfo.map((passenger: PassengerInfo, index: number) => (
       <div className={'row' + ((passengerInfo.length-1 !== index) ? ' passenger-row': '')} key={index.toString()}>
         <div className="col-sm-8 my-auto">

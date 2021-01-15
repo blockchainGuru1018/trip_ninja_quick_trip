@@ -57,3 +57,9 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
     });
 };
 
+export function resetAppropriateBookingDetails() {
+  return {
+    type: 'RESET_BOOKING_DETAILS',
+  };
+}
+

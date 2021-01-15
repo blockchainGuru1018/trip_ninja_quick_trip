@@ -34,7 +34,8 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards, resetAppropriateBookingDetails }
+  from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
@@ -89,6 +90,7 @@ interface IAppProps {
   updateStateValue: typeof updateStateValue;
   setResultsLoading: typeof setResultsLoading;
   updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  resetAppropriateBookingDetails: typeof resetAppropriateBookingDetails;
 }
 
 const theme = Theme;
@@ -170,6 +172,7 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                     virtualInterliningAccess={this.props.authDetails.virtualInterliningAccess}
                     getPriceGraph={this.props.getPriceGraph}
+                    resetAppropriateBookingDetails={this.props.resetAppropriateBookingDetails}
                   />
                 } />
                 <Route exact path="/results/pre-results/" render={() =>

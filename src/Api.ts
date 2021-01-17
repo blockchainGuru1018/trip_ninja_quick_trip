@@ -7,11 +7,11 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development' || process.e
   });
 } else if (window.location.origin.includes('quicktrip-dev')) {
   endpoint = axios.create({
-    baseURL: 'https://quicktrip-dev-1.us-east-1.elasticbeanstalk.com/api/v1/'
+    baseURL: 'http://auth-server-dev.us-east-1.elasticbeanstalk.com//api/v1/'
   });
 } else if (window.location.origin.includes('app.tripninja.io')) {
   endpoint = axios.create({
-    baseURL: 'https://quicktrip.us-west-2.elasticbeanstalk.com/api/v1/'
+    baseURL: 'http://tn-auth-server-prod.us-west-2.elasticbeanstalk.com//api/v1/'
   });
 }
 

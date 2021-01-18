@@ -1,6 +1,7 @@
 import { setValue, addFlight, updateFlightValue, updatePassengers,
   removeFlight, searchFlights, getPriceGraph }
   from '../../actions/SearchActions';
+import { resetAppropriateBookingDetails } from '../../actions/BookActions';
 import { WithTranslation } from 'react-i18next';
 
 export interface SearchDetails {
@@ -44,6 +45,7 @@ export interface SearchProps extends WithTranslation {
   dateFormat: string;
   virtualInterliningAccess: boolean;
   getPriceGraph: typeof getPriceGraph;
+  resetAppropriateBookingDetails: typeof resetAppropriateBookingDetails;
 }
 
 export interface Passenger {

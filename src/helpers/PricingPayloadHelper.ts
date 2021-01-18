@@ -2,7 +2,6 @@
 import { Segment, FlightResult, FlightResultsDetails, Results } from '../trip/results/ResultsInterfaces';
 import { PricingRequestItinerary, FlightSegment, Flight } from '../trip/results/PricingInterfaces';
 import { getLinkedViSegmentsForPricing } from "./VirtualInterliningHelpers";
-import moment from 'moment';
 
 
 export const createItinerariesPayload = (flightDetails: Array<FlightResultsDetails>, activeSegments: Array<Segment>, trip: Results) => {
@@ -89,8 +88,8 @@ const createFlightsPayload = (flightDetails: Array<FlightResultsDetails>, segmen
         carrier: flightDetail.carrier,
         flight_time: flightDetail.flight_time,
         flight_number: flightDetail.flight_number,
-        departure_time: moment(flightDetail.departure_time).format('YYYY-MM-DDTHH:mm:ssZ'),
-        arrival_time: moment(flightDetail.arrival_time).format('YYYY-MM-DDTHH:mm:ssZ'),
+        departure_time: flightDetail.departure_time,
+        arrival_time: flightDetail.arrival_time,
         brand_identifier: flightResult.brand_identifier,
       });
     }

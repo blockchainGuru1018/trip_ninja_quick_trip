@@ -51,6 +51,8 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
 
   const setCancellationDetails = () => {
     if (props.segments) {
+      let cancelTotal: number = 0;
+      let changeTotal: number = 0;
       props.segments.forEach((segment: Segment) => {
         let price: number = 0;
         if (props.tripTotal) {
@@ -61,12 +63,14 @@ export default function CancellationPolicy(props: CancellationPolicyProps) {
         let markup: number = segment.itinerary_markup > 0 ? segment.itinerary_markup : calculateDistributedMarkup(props.tripMarkup, price, props.price);
         if ((props.tripTotal && isFirstPositionInStructure(segment)) || !props.tripTotal) {
           if (segment.additional_details) {
-            setCancelAmount(cancelAmount + getCancelAmount(segment.additional_details.cancel_penalty, price + markup));
-            setChangeAmount(changeAmount + getChangeAmount(segment.additional_details.change_penalty, price + markup));
+            cancelTotal += getCancelAmount(segment.additional_details.cancel_penalty, price + markup);
+            changeTotal += getChangeAmount(segment.additional_details.change_penalty, price + markup);
           } else {
             setChangeInfoAvailable(false);
             setCancelInfoAvailable(false);
           }
+          setCancelAmount(cancelTotal);
+          setChangeAmount(changeTotal);
         }
       });
     }

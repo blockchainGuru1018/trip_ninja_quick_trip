@@ -38,7 +38,7 @@ export function bookingLoading(value: boolean) {
 
 export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) => {
   dispatch(bookingLoading(true));
-  const url: string = '/create_pnr/';
+  const url: string = '/book/';
 
   return API.post(url, bookingPayload)
     .then((response: any) => {
@@ -56,4 +56,10 @@ export const bookFlights = (bookingPayload: BookingDetails) => (dispatch: any) =
       return {'success': false};
     });
 };
+
+export function resetAppropriateBookingDetails() {
+  return {
+    type: 'RESET_BOOKING_DETAILS',
+  };
+}
 

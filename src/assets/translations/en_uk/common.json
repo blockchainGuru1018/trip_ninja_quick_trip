@@ -40,6 +40,7 @@
             "bookings": "Bookings"
         },
         "userMenu": {
+            "settings": "Settings",
             "signOut": "Sign out"
         },
         "cancellationPolicy": {
@@ -65,6 +66,7 @@
             "airTransportationCharges": "Air Transportation Charges",
             "additionalMarkup": "Agent Fee",
             "taxes": "Taxes and Fees",
+            "ancillaries": "Ancillaries",
             "infoMissing": "Information is not available."
         },
         "fareRulesPreview": {
@@ -304,7 +306,15 @@
         }
     },
     "book":{
-        "book":{
+        "ancillaries": {
+            "ancillaries": "Ancillaries",
+            "additionalBaggage": "Additional Baggage",
+            "modify": "Modify" ,
+            "checkedBaggage": "Checked Baggage",
+            "cabinBaggage": "Cabin Baggage",
+            "bags": "bags"
+        },
+        "book": {
             "return": "Back to Results",
             "title": "Itinerary Summary"
         },

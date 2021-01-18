@@ -28,6 +28,10 @@ class Search extends React.Component<SearchProps> {
     window.analytics.page();
   }
 
+  componentDidMount() {
+    this.props.resetAppropriateBookingDetails();
+}
+
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) => {

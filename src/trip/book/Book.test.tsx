@@ -36,8 +36,6 @@ const testAuthDetails: AuthDetails = {
   dateType: "MM/dd/yyyy",
   invalidAuth: false,
   currency: "USD",
-  pcc: "MIA1S38BL",
-  provider: "1A",
   studentAndYouth: false,
   ticketing_queue: "01",
   userEmail: "testing_amadeus@tripninja.io",

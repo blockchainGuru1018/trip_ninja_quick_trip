@@ -34,7 +34,7 @@ export const logout: any = () => {
 
 export const fetchUserParameters = () => (dispatch: any) => {
   dispatch(authenticateUser(true));
-  API.get('/get_user_details/')
+  API.get('/user-details/')
     .then((response: any) => {
       dispatch({
         type: 'SET_USER_PARAMETERS',

@@ -74,7 +74,7 @@ export function searchLoading(value: boolean) {
 
 export const searchFlights = (searchPayload: SearchPayload) => (dispatch: Dispatch<any>) => {
   dispatch(searchLoading(true));
-  const url: string = '/multicitysearch/';
+  const url: string = '/search/';
   return API.post(url, searchPayload)
     .then((response: any) => {
       if (response.status === 200 && response.data.fare_structure) {

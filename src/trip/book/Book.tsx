@@ -46,7 +46,7 @@ class Book extends React.Component<BookProps> {
 
   render() {
     const trip: Results = this.props.resultsDetails![this.props.resultsDetails!.tripType];
-    const actives: Array<Segment> = [...this.props.resultsDetails?.activeSegments.values()];
+    const actives: Array<Segment> = [...this.props.resultsDetails!.activeSegments.values()];
 
     return (
       <div className="row" id="book-itinerary">

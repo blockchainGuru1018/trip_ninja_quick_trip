@@ -32,7 +32,7 @@ export class PreResults extends React.Component<PreResultsProps> {
           this.props.resultsDetails.fareStructureResults.segments[0]
         ),
         flexTripPassengersString: createPassengersString(
-          this.props.resultsDetails.flexTripResults?.segments[0]
+          this.props.resultsDetails.flexTripResults!.segments[0]
         )
       })
       : '';

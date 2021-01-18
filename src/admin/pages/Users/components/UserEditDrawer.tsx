@@ -28,7 +28,7 @@ const propTypes = {
 type Props = PropTypes.InferProps<typeof propTypes>
 
 const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) => {
-  const logged_user = JSON.parse(localStorage.getItem('authInfo')!);
+  const loggedUser = JSON.parse(localStorage.getItem('authInfo')!);
   const [activeTab, setActiveTab] = useState(0);
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
@@ -60,7 +60,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
     } else {
       setActiveTab(0);
     }
-  }, [opened]);
+  }, [opened, user]);
 
   useEffect(() => {
     setFirstName(user ? user.first_name : '');
@@ -91,7 +91,6 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
   const onAgencyChange = (val: any) => {
     setAgencyId(val);
     axios.get(`/teams/list/${val}/`).then(({ data }: any) => {
-      console.log(data);
       setTeamOptions(data.data.teams.map((el: any) => ({
         value: el.team_id,
         label: el.team_name,
@@ -132,9 +131,9 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
               last_name={last_name}
               onChange={onUsernameChange}
             />
-            {(logged_user.user.is_superuser || logged_user.user.is_agency_admin) &&(
+            {(loggedUser.user.is_superuser || loggedUser.user.is_agency_admin) &&(
               <div className='group-box'>
-                {logged_user.user.is_superuser && (
+                {loggedUser.user.is_superuser && (
                   <div className="group-selector">
                     <label>Agency: </label>
                     <Dropdown
@@ -145,7 +144,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
                     />
                   </div>
                 )}
-                {(agencyId || logged_user.user.is_agency_admin) && (
+                {(agencyId || loggedUser.user.is_agency_admin) && (
                   <div className="group-selector">
                     <label>Team: </label>
                     <Dropdown

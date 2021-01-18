@@ -34,6 +34,7 @@ export const defaultPricing: Pricing = {
   taxes: 25,
   fees: 0,
   markup: 0,
+  ancillary_total: 0,
   currency: 'USD'
 };
 
@@ -97,6 +98,7 @@ export interface Pricing {
   base_fare: number;
   taxes: number;
   fees: number;
+  ancillary_total: number;
   markup: number;
   currency: string;
 }
@@ -116,6 +118,16 @@ export interface PricedFlightDetails {
   on_time_performance: string;
   origin_terminal: number;
   special_segment: string;
+  origin: string;
+  destination:string;
+}
+
+export interface AdditionalBaggage {
+  applicable_bags: string;
+  restriction: string;
+  base_price: number;
+  total_price: number;
+  additional_service_reference: string;
 }
 
 export interface BaggageDetails {
@@ -127,4 +139,6 @@ export interface BaggageDetails {
   carryon_restrictions: string;
   free_allowance: string;
   quantity_description: string;
+  additional_checked_bags: Array<AdditionalBaggage>;
+  additional_carry_on_bags: Array<AdditionalBaggage>;
 }

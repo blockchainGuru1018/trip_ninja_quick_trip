@@ -24,10 +24,10 @@ const AddFlightButton = styled(Button)({
 
 
 class Search extends React.Component<SearchProps> {
-
   componentDidMount() {
+    window.analytics.page();
     this.props.resetAppropriateBookingDetails();
-}
+  }
 
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(

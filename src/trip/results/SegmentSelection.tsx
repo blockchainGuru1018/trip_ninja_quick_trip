@@ -37,6 +37,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
 
   componentDidMount() {
     this.props.setResultsLoading(false);
+    window.analytics.page();
   }
 
   componentDidUpdate(prevProps: Readonly<SegmentSelectionProps & MatchProps>, prevState: Readonly<any>, snapshot?: any) {

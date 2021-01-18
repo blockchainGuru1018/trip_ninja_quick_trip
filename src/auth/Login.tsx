@@ -7,12 +7,17 @@ import { login } from '../actions/AuthActions';
 import logo from '../assets/images/trip_ninja_logo.png';
 import LanguageSelector from '../common/LanguageSelector';
 
+
 interface LoginProps{
   authDetails: AuthDetails
   login: typeof login
 }
 
 class Login extends React.Component<LoginProps> {
+  componentDidMount() {
+    window.analytics.page();
+  }
+  
   render() {
     return (
       <div className="row">
@@ -31,6 +36,7 @@ class Login extends React.Component<LoginProps> {
             login={this.props.login}
             authenticated={this.props.authDetails.authenticated}
             invalidAuth={this.props.authDetails.invalidAuth}
+            authDetails={this.props.authDetails}
           />
         </div>
         <div className="col-xl-8 col-lg-6 marketing-panel">

@@ -44,6 +44,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   componentDidMount() {
     this.props.setResultsLoading(false);
+    window.analytics.page();
   }
 
   handleViewChange = (newValue: string | null) => {

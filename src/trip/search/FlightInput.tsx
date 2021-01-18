@@ -27,6 +27,7 @@ interface FlightInputProps extends WithTranslation {
   currency: string;
   priceGraph: any;
   getPriceGraph: typeof getPriceGraph;
+  focusInput: boolean;
 }
 
 class FlightInput extends React.Component<FlightInputProps> {
@@ -34,7 +35,8 @@ class FlightInput extends React.Component<FlightInputProps> {
     destinations: DestinationList,
     originOpen: false,
     destinationOpen: false
-  }
+  };
+
 
   FlightInputPopper = function (props: any) {
     return (<Popper {...props} style={{ width: 'fit-content' }} placement='bottom-start' />);
@@ -51,7 +53,7 @@ class FlightInput extends React.Component<FlightInputProps> {
       <div className="row flight-input">
         <div className="col-md-7 no-padding">
           <div className="row">
-            <div className="col-md-6 search-input" ref={"flightInputRef"}>
+            <div className="col-md-6 search-input">
               <FormControl fullWidth>
                 <Autocomplete 
                   PopperComponent={this.FlightInputPopper}
@@ -71,6 +73,7 @@ class FlightInput extends React.Component<FlightInputProps> {
                   renderInput={(params) =>
                     <TextField {...params}
                       variant="outlined"
+                      autoFocus={this.props.focusInput}
                       placeholder={this.props.t("search.flightInput.origin")}
                       onChange={(e) => this.setState({'originOpen': e.target.value !== ''})}
                       InputProps={{
@@ -165,7 +168,7 @@ class FlightInput extends React.Component<FlightInputProps> {
       (destination: any) => destination.name === name
     );
     return destinationsList[index];
-  }
+  };
 
   updateFlightType = (values: any, flightType: string) => {
     return values

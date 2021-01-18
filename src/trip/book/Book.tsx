@@ -11,11 +11,12 @@ import history from '../../History';
 import { PricingDetails } from '../results/PricingInterfaces';
 import { Results, ResultsDetails, Segment } from '../results/ResultsInterfaces';
 import { Passenger } from '../search/SearchInterfaces';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from '../../actions/BookActions';
-import { updateAdditionalMarkup } from '../../actions/PricingActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards } from '../../actions/BookActions';
+import { updateAdditionalMarkup, updateAncillariesAmount } from '../../actions/PricingActions';
 import { BookingDetails } from './BookInterfaces';
 import { AuthDetails } from '../../auth/AuthInterfaces';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import Ancillaries from './Ancillaries';
 
 const BackButton = styled(Button)({
   color: 'var(--tertiary)',
@@ -29,7 +30,9 @@ interface BookProps extends WithTranslation {
   bookingDetails: BookingDetails;
   passengers: Array<Passenger>;
   updatePassengerInfo: typeof updatePassengerInfo;
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
   updateAdditionalMarkup: typeof updateAdditionalMarkup;
+  updateAncillariesAmount: typeof updateAncillariesAmount;
   bookFlights: typeof bookFlights;
   setPassengerInfo: typeof setPassengerInfo;
   dateFormat: string;
@@ -37,12 +40,13 @@ interface BookProps extends WithTranslation {
 
 class Book extends React.Component<BookProps> {
   componentDidMount() {
-    this.props.setPassengerInfo(this.props.passengers);
+    if (!this.props.bookingDetails.passengers[0].updated) this.props.setPassengerInfo(this.props.passengers);
+    window.analytics.page();
   }
 
   render() {
     const trip: Results = this.props.resultsDetails![this.props.resultsDetails!.tripType];
-    const actives: Array<Segment> = [...this.props.resultsDetails?.activeSegments.values()];
+    const actives: Array<Segment> = [...this.props.resultsDetails!.activeSegments.values()];
 
     return (
       <div className="row" id="book-itinerary">
@@ -55,10 +59,10 @@ class Book extends React.Component<BookProps> {
               <div className='btn-back'>{this.props.t("book.book.return")}</div>
             </BackButton>
             <div className="row itinerary-summary">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <h1>{this.props.t("book.book.title")}</h1>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-8">
                 <BookRequest
                   resultsDetails={this.props.resultsDetails}
                   bookingDetails={this.props.bookingDetails}
@@ -95,6 +99,18 @@ class Book extends React.Component<BookProps> {
                 bookingDetails={this.props.bookingDetails}
                 updatePassengerInfo={this.props.updatePassengerInfo}
                 dateFormat={this.props.dateFormat}
+                pricedItineraries={this.props.pricingDetails.itineraries!}
+                resultsDetails={this.props.resultsDetails}
+                updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
+                trip={trip}
+              />
+              <Ancillaries 
+                activeSegments={actives}
+                passengers={this.props.bookingDetails.passengers}
+                pricedItineraries={this.props.pricingDetails.itineraries!}
+                currency={this.props.pricingDetails.currency}
+                updatePassengerInfo={this.props.updatePassengerInfo}
+                updateAncillariesAmount={this.props.updateAncillariesAmount}
               />
             </div>
           </div>

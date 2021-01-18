@@ -9,7 +9,7 @@ export const dateLocaleMap = {
 
 export const countryLocaleMap = [
   {"languageCode": "en_uk", "countryCode": "gb"},
-  {"languageCode": "es", "countryCode": "es"},
-  {"languageCode": "jp", "countryCode": "jp"},
   {"languageCode": "fr", "countryCode": "fr"},
+  {"languageCode": "es", "countryCode": "es"},
+  {"languageCode": "jp", "countryCode": "jp"}  
 ];

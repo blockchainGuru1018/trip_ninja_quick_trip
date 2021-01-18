@@ -6,6 +6,10 @@ import resultsReducer from './ResultsReducer';
 import pricingReducer from './PricingReducer';
 import bookReducer from './BookReducer';
 import bookingsReducer from './BookingsReducer';
+import auth from "../admin/store/auth/reducer";
+import users from "../admin/store/users/reducer";
+import teams from "../admin/store/teams/reducer";
+import agencies from "../admin/store/agencies/reducer";
 
 const rootReducer = combineReducers({
   searchDetails: searchDetailsReducer,
@@ -14,7 +18,11 @@ const rootReducer = combineReducers({
   pricingDetails: pricingReducer,
   bookingDetails: bookReducer,
   bookingsList: bookingsReducer,
-  routing: routerReducer
+  routing: routerReducer,
+  auth,
+  users,
+  teams,
+  agencies,
 });
 
 export default rootReducer;

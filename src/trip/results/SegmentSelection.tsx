@@ -9,7 +9,7 @@ import './Results.css';
 import SortOption from "./SortOption";
 import { updateSortType } from "../../actions/ResultsActions";
 import { currencySymbol } from '../../helpers/CurrencySymbolHelper';
-import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands } from '../../actions/ResultsActions';
+import { updateActives, updateFareFamily, updateSegmentFilter, getTravelportBrands, setResultsLoading } from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from "./filters/FlightsFilter";
 import { filterSegments } from "../../helpers/Filters";
@@ -30,9 +30,21 @@ interface SegmentSelectionProps extends WithTranslation {
   updateSegmentFilter: typeof updateSegmentFilter;
   updateSortType: typeof updateSortType;
   getTravelportBrands: typeof getTravelportBrands;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProps> {
+
+  componentDidMount() {
+    this.props.setResultsLoading(false);
+    window.analytics.page();
+  }
+
+  componentDidUpdate(prevProps: Readonly<SegmentSelectionProps & MatchProps>, prevState: Readonly<any>, snapshot?: any) {
+    if (prevProps.match.params.index !== this.props.match.params.index) {
+      this.props.setResultsLoading(false);
+    }
+  }
 
   render() {
     const trip = this.props.resultsDetails.tripType === 'flexTripResults'
@@ -73,25 +85,32 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
             sortBy={this.props.resultsDetails.segmentSortBy[parseInt(segmentIndex)]}
             updateSortType={this.props.updateSortType}
           />
-          <div className='row'>
-            {enabledFilters.map((item, index) =>
-              <div key={index.toString()}>
-                <FlightsFilter
-                  filterName={item}
-                  segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
-                    (filter: Filter) => filter.type === item)}
-                  updateSegmentFilter={this.props.updateSegmentFilter}
-                  trip={trip}
-                  updateActives={this.props.updateActives}
-                  segmentIndex={Number(segmentIndex)}
-                />
+          <div className="row">
+            <div className="col-md-8 no-pad-left">
+              <div className='row'>
+                {enabledFilters.map((item, index) =>
+                  <div key={index.toString()}>
+                    <FlightsFilter
+                      filterName={item}
+                      segmentFilters={this.props.resultsDetails.segmentFilters![segmentIndex].find(
+                        (filter: Filter) => filter.type === item)}
+                      updateSegmentFilter={this.props.updateSegmentFilter}
+                      trip={trip}
+                      updateActives={this.props.updateActives}
+                      segmentIndex={Number(segmentIndex)}
+                    />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence} currentIndex={parseInt(segmentIndex)} />
+            <SegmentNav
+              pathSequence={trip.path_sequence}
+              currentIndex={parseInt(segmentIndex)}
+              setResultsLoading={this.props.setResultsLoading}/>
           </div>
           <div className="col-md-10 select-segment-list">
             <div className="row">
@@ -114,6 +133,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                   updateFareFamily={this.props.updateFareFamily}
                   getTravelportBrands={this.props.getTravelportBrands}
                   trip={trip}
+                  loading={this.props.resultsDetails.loadingResults}
                 />
                 <div className="row">
                   <div className="col-xl">
@@ -138,6 +158,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
+                      loading={this.props.resultsDetails.loadingResults}
                     />
                     <div className="row">
                       <div className="col-xl">
@@ -172,6 +193,7 @@ class SegmentSelection extends React.Component<SegmentSelectionProps & MatchProp
                       sortOrder={this.props.resultsDetails.segmentSortBy[segmentIndex]}
                       getTravelportBrands={this.props.getTravelportBrands}
                       trip={trip}
+                      loading={this.props.resultsDetails.loadingResults}
                     />
                   </div>
                 }

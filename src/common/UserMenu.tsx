@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,17 +12,27 @@ import { styled } from '@material-ui/core/styles';
 import { logout } from '../actions/AuthActions';
 import { AuthDetails } from '../auth/AuthInterfaces';
 import { useTranslation } from 'react-i18next';
+import history from "../History";
+import {bindActionCreators, Dispatch} from "redux";
+import {login} from "../admin/store/auth/actions";
 
 interface UserMenuProps {
   logout: typeof logout
-  authDetails: AuthDetails
+  authDetails: AuthDetails,
+  login: any
 }
 
-export default function UserMenu(props: UserMenuProps) {
+function UserMenu(props: UserMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [ t ] = useTranslation('common');
 
+  const goToAdmin = () => {
+    history.push('/admin/');
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const { login } = props;
+    login();
     setAnchorEl(event.currentTarget);
   };
 
@@ -33,6 +44,11 @@ export default function UserMenu(props: UserMenuProps) {
     backgroundColor: '#ffffff',
     color: '#45565E',
     border: 'solid 2px #45565E'
+  });
+
+  const SettingMenuItem = styled(MenuItem)({
+    float: 'left',
+    color: '#4BAFD7'
   });
 
   const LogoutMenuItem = styled(MenuItem)({
@@ -55,7 +71,7 @@ export default function UserMenu(props: UserMenuProps) {
         </UserAvatar>
       </ListItemAvatar>
       <ListItemText 
-        primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName} 
+        primary={props.authDetails.userFirstName + ' ' + props.authDetails.userLastName}
         secondary={props.authDetails.userEmail} />
     </UserMenuItem>;
 
@@ -90,6 +106,10 @@ export default function UserMenu(props: UserMenuProps) {
       >
         {userDetails}
         <Divider variant="middle" />
+        {
+          props.authDetails.isSuperUser &&
+          <SettingMenuItem onClick={goToAdmin}>{t('common.userMenu.settings')}</SettingMenuItem>
+        }
         <LogoutMenuItem onClick={() => props.logout()}>{t('common.userMenu.signOut')}</LogoutMenuItem>
       </Menu>
     </div>
@@ -103,3 +123,12 @@ const parseUserInitials = (firstName: string, lastName: string) => {
     return "TN";
   }
 };
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  login: bindActionCreators(login, dispatch),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserMenu);

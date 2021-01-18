@@ -24,15 +24,16 @@ const AddFlightButton = styled(Button)({
 
 
 class Search extends React.Component<SearchProps> {
-
   componentDidMount() {
-    this.setInputFocus();
+    window.analytics.page();
+    this.props.resetAppropriateBookingDetails();
   }
 
   render() {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) => {
         return <FlightInput
+          key={index.toString()}
           i={index}
           updateFlightValue={this.props.updateFlightValue}
           flights={this.props.searchDetails.flights}
@@ -41,6 +42,7 @@ class Search extends React.Component<SearchProps> {
           currency={this.props.searchDetails.currency}
           priceGraph={this.props.searchDetails.priceGraph}
           getPriceGraph={this.props.getPriceGraph}
+          focusInput={index === (this.props.searchDetails.flights.length - 1)}
         />;
       }
     );
@@ -122,17 +124,7 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<Flight> = this.props.searchDetails.flights;
     const origin: string = flights[flights.length - 1].destination || '';
     const departureDate: string = flights[flights.length - 1].departureDate; 
-    const addFlight: any = this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
-    addFlight.then(() => this.setInputFocus());
-  }
-
-  setInputFocus = () => {
-    if(this.refs) {
-      let ref: any = this.refs['flightInput' + (this.props.searchDetails.flights.length - 1)];
-      return ref
-        ? ref.refs.flightInputRef.firstElementChild.firstElementChild.click()
-        : '';
-    }
+    this.props.addFlight({...defaultFlight, origin: origin, departureDate: departureDate});
   }
 }
 

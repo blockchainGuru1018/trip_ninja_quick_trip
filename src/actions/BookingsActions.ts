@@ -94,11 +94,11 @@ export const getBookingDetails = (trip_id: string, agency: string) => (dispatch:
 
 export const cancelBooking = (booking: Booking) => (dispatch: any) => {
   dispatch(cancelLoading(true));
-  const url: string = '/cancel_booking/';
+  const url: string = '/cancel/';
 
   return API.post(url, {trip_id: booking.trip_id})
     .then((response: any) => {
-      if (response.data.status) {
+      if (response.data.status !== 'Success') {
         throw Error;
       } else {
         booking.status = "cancelled";

@@ -9,7 +9,7 @@ import { createPassengerStringFromPayload } from '../../helpers/PassengersListHe
 import {ResultsDetails, Segment, Filter} from './ResultsInterfaces';
 import { priceFlights } from '../../actions/PricingActions';
 import { Passenger } from '../search/SearchInterfaces';
-import {updateActives, updateItineraryFilter, updateSortType, updateEntireTrip}
+import { updateActives, updateItineraryFilter, updateSortType, updateEntireTrip, setResultsLoading }
   from '../../actions/ResultsActions';
 import { getTotal } from '../../helpers/MiscHelpers';
 import FlightsFilter from './filters/FlightsFilter';
@@ -33,6 +33,7 @@ interface ItineraryResultsProps extends WithTranslation {
   updateEntireTrip: typeof updateEntireTrip;
   markupVisible: boolean;
   viewPnrPricing: boolean;
+  setResultsLoading: typeof setResultsLoading;
 }
 
 class ItineraryResult extends React.Component<ItineraryResultsProps> {
@@ -40,7 +41,12 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
   state = {
     view: 'itinerary'
   }
-  
+
+  componentDidMount() {
+    this.props.setResultsLoading(false);
+    window.analytics.page();
+  }
+
   handleViewChange = (newValue: string | null) => {
     this.setState({view: newValue});
   };
@@ -65,6 +71,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             currency={this.props.currency}
             segmentSelect={false}
             trip={trip}
+            loading={this.props.resultsDetails.loadingResults}
           />
         </div>
       </div>;
@@ -138,24 +145,29 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
               </div>
             </div>
             <div className="col-md-4">
-              <PricingRequest
-                resultsDetails={this.props.resultsDetails}
-                currency={this.props.currency}
-                totalPrice={totalPrice}
-                markup={trip.markup}
-                selectedTrip= {selectedTrip}
-                priceFlights = {this.props.priceFlights}
-              />
+              <div className='row' style={{"justifyContent": "flex-end"}}>
+                <PricingRequest
+                  resultsDetails={this.props.resultsDetails}
+                  currency={this.props.currency}
+                  totalPrice={totalPrice}
+                  markup={trip.markup}
+                  selectedTrip= {selectedTrip}
+                  priceFlights = {this.props.priceFlights}
+                />
+              </div>
             </div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-2 no-padding">
-            <SegmentNav pathSequence={trip.path_sequence}/>
+            <SegmentNav
+              pathSequence={trip.path_sequence}
+              setResultsLoading={this.props.setResultsLoading}
+            />
           </div>
           <div className="col-md-10 segment-list">
             {selectedSegments}
-            { this.state.view === 'itinerary' &&
+            {this.state.view === 'itinerary' && !this.props.resultsDetails.loadingResults &&
               <div className="row">
                 <div className="col-xl-11 offset-xl-1">
                   <CancellationPolicy 

@@ -31,7 +31,7 @@ export function setActiveSegments(){
   };
 }
 
-export function updateActives(segmentOptionIndex: number, segmentItineraryRef: string,
+function updateActivesAction(segmentOptionIndex: number, segmentItineraryRef: string,
   updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) {
   return {
     type: 'UPDATE_ACTIVES',
@@ -43,7 +43,28 @@ export function updateActives(segmentOptionIndex: number, segmentItineraryRef: s
   };
 }
 
-export function updateEntireTrip(setActivesInitial: boolean = true, sortBy: string) {
+
+export const updateActives = (segmentOptionIndex: number, segmentItineraryRef: string,
+  updateActivesInitial: boolean = false, sortBy: string = 'best', virtualInterline: boolean = false) => (dispatch: any) => {
+
+  dispatch(setResultsLoading(true));
+  setTimeout(() => {
+    dispatch(updateActivesAction(segmentOptionIndex, segmentItineraryRef, updateActivesInitial, sortBy, virtualInterline));
+    dispatch(setResultsLoading(false));
+  }, 2000);
+};
+
+
+export const updateEntireTrip = (setActivesInitial: boolean = true, sortBy: string) => (dispatch: any) => {
+  dispatch(setResultsLoading(true));
+  setTimeout(() => {
+    dispatch(updateEntireTripAction(setActivesInitial, sortBy));
+    dispatch(setResultsLoading(false));
+  }, 2000);
+
+};
+
+export function updateEntireTripAction(setActivesInitial: boolean = true, sortBy: string) {
   return {
     type: 'UPDATE_ENTIRE_TRIP',
     setActivesInitial,
@@ -98,6 +119,13 @@ export function updateStateValue(key: string, value: any) {
   return {
     type: 'UPDATE_STATE_VALUE',
     key,
+    value
+  };
+}
+
+export function setResultsLoading(value: boolean) {
+  return {
+    type: "SET_RESULTS_LOADING",
     value
   };
 }

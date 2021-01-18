@@ -16,10 +16,10 @@ import {
   setValue, addFlight, updateFlightValue, updatePassengers, removeFlight,
   searchFlights, getPriceGraph
 } from './actions/SearchActions';
-import { priceFlights, updateAdditionalMarkup } from './actions/PricingActions';
+import { priceFlights, updateAdditionalMarkup, updateAncillariesAmount } from './actions/PricingActions';
 import {
   setErrorDetails, setTripType, updateActives, updateFareFamily, updateItineraryFilter, updateSegmentFilter,
-  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue
+  updateSortType, updateEntireTrip, getTravelportBrands, setActiveSegments, updateStateValue, setResultsLoading
 } from './actions/ResultsActions';
 import { SearchDetails } from './trip/search/SearchInterfaces';
 import { AuthDetails } from './auth/AuthInterfaces';
@@ -34,13 +34,21 @@ import DefaultErrorModal from './common/modals/DefaultErrorModal';
 import TravelRestrictions from './common/TravelRestrictions';
 import Theme from './Theme';
 import history from './History';
-import { setPassengerInfo, updatePassengerInfo, bookFlights } from './actions/BookActions';
+import { setPassengerInfo, updatePassengerInfo, bookFlights, updateFrequentFlyerCards, resetAppropriateBookingDetails }
+  from './actions/BookActions';
 import { BookingDetails } from './trip/book/BookInterfaces';
 import { BookingsList } from './bookings/BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking, ticketBooking } from './actions/BookingsActions';
+import Admin from './admin/index';
 import TagManager from 'react-gtm-module';
 import i18n from './i18n';
 import PDFItineraryDownload from "./bookings/PDFItineraryDownload";
+
+declare global {
+  interface Window { analytics: any; }
+}
+
+window.analytics.load("UtAQX5JIuQFUNMAUTazan2ziVbZHQUWl");
 
 const tagManagerArgs = {
   gtmId: "GTM-KRXRHFP",
@@ -71,6 +79,7 @@ interface IAppProps {
   updateFareFamily: typeof updateFareFamily;
   updatePassengerInfo: typeof updatePassengerInfo;
   updateAdditionalMarkup: typeof updateAdditionalMarkup;
+  updateAncillariesAmount: typeof updateAncillariesAmount;
   setPassengerInfo: typeof setPassengerInfo;
   bookFlights: typeof bookFlights;
   getBookingsList: typeof getBookingsList;
@@ -86,6 +95,9 @@ interface IAppProps {
   setActiveSegments: typeof setActiveSegments;
   getPriceGraph: typeof getPriceGraph;
   updateStateValue: typeof updateStateValue;
+  setResultsLoading: typeof setResultsLoading;
+  updateFrequentFlyerCards: typeof updateFrequentFlyerCards;
+  resetAppropriateBookingDetails: typeof resetAppropriateBookingDetails;
 }
 
 const theme = Theme;
@@ -114,7 +126,7 @@ class App extends React.Component<IAppProps> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
+        <div className='App'>
           <DefaultErrorModal
             errors={this.props.resultsDetails.errors}
             setErrorDetails={this.props.setErrorDetails}
@@ -167,6 +179,7 @@ class App extends React.Component<IAppProps> {
                     searchFlights={this.props.searchFlights}
                     virtualInterliningAccess={this.props.authDetails.virtualInterliningAccess}
                     getPriceGraph={this.props.getPriceGraph}
+                    resetAppropriateBookingDetails={this.props.resetAppropriateBookingDetails}
                   />
                 } />
                 <Route exact path="/results/pre-results/" render={() =>
@@ -191,6 +204,7 @@ class App extends React.Component<IAppProps> {
                     updateEntireTrip={this.props.updateEntireTrip}
                     markupVisible={this.props.authDetails.markupVisible}
                     viewPnrPricing={this.props.authDetails.viewPnrPricing}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/results/segment/:index" render={(routeProps) =>
@@ -203,6 +217,7 @@ class App extends React.Component<IAppProps> {
                     updateSegmentFilter={this.props.updateSegmentFilter}
                     updateSortType={this.props.updateSortType}
                     getTravelportBrands={this.props.getTravelportBrands}
+                    setResultsLoading={this.props.setResultsLoading}
                   />
                 } />
                 <Route exact path="/book/" render={() =>
@@ -214,18 +229,20 @@ class App extends React.Component<IAppProps> {
                     bookingDetails={this.props.bookingDetails}
                     passengers={this.props.searchDetails.passengers}
                     updatePassengerInfo={this.props.updatePassengerInfo}
+                    updateFrequentFlyerCards={this.props.updateFrequentFlyerCards}
                     updateAdditionalMarkup = {this.props.updateAdditionalMarkup}
+                    updateAncillariesAmount = {this.props.updateAncillariesAmount}
                     setPassengerInfo={this.props.setPassengerInfo}
                     dateFormat={this.props.authDetails.dateType}
                     bookFlights={this.props.bookFlights}
                   />
                 } />
                 <Route exact path="/bookings/" render={() =>
-                  <Bookings 
+                  <Bookings
                     authDetails={this.props.authDetails}
                     bookingsList={this.props.bookingsList}
                     getBookingsList={this.props.getBookingsList}
-                    getBookingDetails={this.props.getBookingDetails}  
+                    getBookingDetails={this.props.getBookingDetails}
                     cancelBooking={this.props.cancelBooking}
                     queueBooking={this.props.queueBooking}
                     ticketBooking={this.props.ticketBooking}
@@ -240,8 +257,12 @@ class App extends React.Component<IAppProps> {
                     booking={this.props.bookingsList.bookings[this.props.bookingsList.bookingDetailIndex]}
                     resultsDetails={this.props.resultsDetails}
                     pricingDetails={this.props.pricingDetails}
+                    bookingDetails={this.props.bookingDetails}
                     setErrorDetails={this.props.setErrorDetails}
                   />
+                } />
+                <Route path="/admin/" render={() =>
+                  <Admin/>
                 } />
                 <Route exact path="/404/" render={() => <Custom404 />} />
                 <Redirect to="/404/" />

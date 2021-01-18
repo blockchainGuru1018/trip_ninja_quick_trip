@@ -2,6 +2,7 @@ import API from '../Api';
 import { setValue, resetSearch } from './SearchActions';
 import history from '../History';
 
+
 export const login = (email: string, password: string) => {
   return function(dispatch: any) {
     API.post('/token/', {'email': email, 'password': password})
@@ -33,7 +34,7 @@ export const logout: any = () => {
 
 export const fetchUserParameters = () => (dispatch: any) => {
   dispatch(authenticateUser(true));
-  API.get('/get_user_details/')
+  API.get('/user-details/')
     .then((response: any) => {
       dispatch({
         type: 'SET_USER_PARAMETERS',

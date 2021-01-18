@@ -30,7 +30,9 @@
         "passportNumber": "Passport #",
         "passportExpiry": "Passport Expiry",
         "phone": "Phone",
-        "ticket": "Ticket"
+        "ticket": "Ticket",
+        "frequentFlyerCards": "Frequent Flyer Cards",
+        "mealPreference": "Meal Preference"
     },
     "common": {
         "navBar":{
@@ -38,6 +40,7 @@
             "bookings": "Bookings"
         },
         "userMenu": {
+            "settings": "Settings",
             "signOut": "Sign out"
         },
         "cancellationPolicy": {
@@ -63,6 +66,7 @@
             "airTransportationCharges": "Air Transportation Charges",
             "additionalMarkup": "Agent Fee",
             "taxes": "Taxes and Fees",
+            "ancillaries": "Ancillaries",
             "infoMissing": "Information is not available."
         },
         "fareRulesPreview": {
@@ -75,7 +79,7 @@
             "fareType": "Fare Type",
             "wifiTitle": "Wifi availability",
             "wifi": "Wifi",
-            "seatSelection": "Seat selection",
+            "seatSelection": "Seat Selection",
             "checkedBags": "Checked Bags",
             "cancellationPenalty": "Cancellation Penalty",
             "fareSource": "Fare Source", 
@@ -85,7 +89,8 @@
             "atACost": "At a cost",
             "available": "Available",
             "unavailable": "Unavailable",
-            "platingCarrier": "Plating Carrier"
+            "platingCarrier": "Plating Carrier",
+            "infoNotAvailable": "Info not available"
         },
         "flightLogo": {
             "multipleAirlines": "Multiple Airlines"
@@ -161,6 +166,9 @@
                 "title": "PDF download failed.",
                 "body": "There was an error downloading the pdf, please try again or contact support.",
                 "return": "Return to Booking"
+            },
+            "defaultResultsLoadingModal": {
+                "primaryText": "Loading the trip details."
             }
         },
         "pdf": {
@@ -291,10 +299,22 @@
                 "refundabilityNon-RefundableLabel": "Non-Refundable",
                 "refundabilityRefundableLabel": "Refundable"
             }
+        },
+        "recalculatingFaresIndicator": "Recalculating Fares",
+        "resultsViewToggle": {
+            "viewBy": "View by:"
         }
     },
     "book":{
-        "book":{
+        "ancillaries": {
+            "ancillaries": "Ancillaries",
+            "additionalBaggage": "Additional Baggage",
+            "modify": "Modify" ,
+            "checkedBaggage": "Checked Baggage",
+            "cabinBaggage": "Cabin Baggage",
+            "bags": "bags"
+        },
+        "book": {
             "return": "Back to Results",
             "title": "Itinerary Summary"
         },
@@ -337,7 +357,13 @@
             "invalidInputWarning": "Ensure all required fields are completed!",
             "save": "Save",
             "invalidPhoneNumber": "Invalid phone number",
-            "invalidEmailAddress": "Invalid email address"
+            "invalidEmailAddress": "Invalid email address",
+            "loyaltyPrograms": "Loyalty Programs",
+            "loyaltyProgram": "Loyalty Program",
+            "loyaltyCardNumber": "Loyalty card number",
+            "mealPreferences": "Meal Preferences",
+            "mealsForFlights": "Preferred meal for flights:",
+            "noMealsAvailable": "No meals available on these flights. Food may be available for purchase."
         }
     },
     "bookings": {

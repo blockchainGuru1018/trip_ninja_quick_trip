@@ -15,7 +15,8 @@ import {
   PricingDetails,
   SegmentPricingInfo
 } from "../trip/results/PricingInterfaces";
-import {BookingItinerary, BookingSegment} from "../bookings/BookingsInterfaces";
+import { BookingDetails, PassengerInfo } from "../trip/book/BookInterfaces";
+import { BookingItinerary, BookingSegment } from "../bookings/BookingsInterfaces";
 
 
 export const testingAuthDetails: AuthDetails = {
@@ -27,8 +28,6 @@ export const testingAuthDetails: AuthDetails = {
   dateType: 'US',
   studentAndYouth: false,
   invalidAuth: false,
-  pcc: '2G3C',
-  provider: 'travelport',
   agency: 'tripninja',
   ticketing_queue: '01',
   isAgencyAdmin: true,
@@ -140,7 +139,8 @@ export const testingResultsDetails: ResultsDetails = {
   segmentSortBy: [],
   fareStructureResultsPrice: 0,
   flexTripResultsPrice: 0,
-  fareStructureResults: testingResults
+  fareStructureResults: testingResults,
+  loadingResults: false
 };
 
 export const testingPricing: Pricing = {
@@ -151,6 +151,7 @@ export const testingPricing: Pricing = {
   taxes: 10,
   fees: 0,
   markup: 10,
+  ancillary_total: 0,
   currency: 'USD'
 };
 
@@ -162,7 +163,9 @@ export const testingBaggageDetails: BaggageDetails = {
   carryon_cost: 0,
   carryon_restrictions: '',
   free_allowance: '',
-  quantity_description: ''
+  quantity_description: '',
+  additional_checked_bags: [],
+  additional_carry_on_bags: []
 };
 
 export const testingPricedFlightDetails: PricedFlightDetails = {
@@ -174,6 +177,8 @@ export const testingPricedFlightDetails: PricedFlightDetails = {
   on_time_performance: '',
   origin_terminal: 1,
   special_segment: '',
+  origin: 'YHZ',
+  destination: 'YYZ'
 };
 
 export const testingSegmentPricingInfo: SegmentPricingInfo = {
@@ -223,3 +228,24 @@ export const testingBookingSegment: BookingSegment = {
   itinerary_index: "1",
   plating_carrier: 'AA',
 };
+
+export const testingPassengerInfo: PassengerInfo = {
+  first_name: 'John',
+  last_name: 'Smith',
+  date_of_birth: '1990-01-01',
+  gender: 'M',
+  passenger_type: 'ADT',
+  updated: true,
+  frequent_flyer_cards: [],
+  additional_checked_bags: [],
+  additional_carry_on_bags: [],
+  meals: []
+};
+
+export const testingBookingDetails: BookingDetails = {
+  additional_markup: 0,
+  passengers: [testingPassengerInfo],
+  loading: false
+};
+
+

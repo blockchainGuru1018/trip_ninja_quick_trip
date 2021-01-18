@@ -11,6 +11,18 @@ function bookReducer(state: BookingDetails = {} as any, action: any) {
     case 'BOOKING_LOADING':
       return {...state, loading: action.value};
 
+    case 'UPDATE_FREQUENT_FLYER_CARDS':
+      const currentPassenger = state.passengers[action.passengerIndex];
+      currentPassenger.frequent_flyer_cards.splice(
+        action.cardIndex, 1, action.value
+      );
+      return updatePassengersWithValue(state, {"index": action.passengerIndex,
+        "key": "frequent_flyer_cards", "value": currentPassenger.frequent_flyer_cards});
+
+    case 'RESET_BOOKING_DETAILS':
+      state.passengers = [defaultPassengerInfo];
+      return {...state};
+
     default:
       return state;
   }
@@ -21,7 +33,7 @@ function setNewPassengerInfo(state: any, action: any) {
   for (let i = 0; i < action.passengers.length; i++) {
     if (action.passengers[i].count > 0) {
       for (let j = 0; j < action.passengers[i].count; j++) {
-        let newPassenger: PassengerInfo = {...defaultPassengerInfo};
+        let newPassenger: PassengerInfo = JSON.parse(JSON.stringify(defaultPassengerInfo));
         newPassenger.passenger_type = action.passengers[i].code;
         newPassenger.passenger_type_name = action.passengers[i].type;
         passengerInfo.push(newPassenger);

@@ -234,7 +234,7 @@ function linkedViSegmentIsOpenJaw(selectedSegment: Segment, currentSegments: Arr
     segment.vi_solution_id === selectedSegment.vi_solution_id &&
     segment.vi_position !== selectedSegment.vi_position
   );
-  return linkedViSegment?.itinerary_type === 'OPEN_JAW';
+  return linkedViSegment!.itinerary_type === 'OPEN_JAW';
 }
 
 function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: Array<Segment>, virtual_interline: boolean) {
@@ -243,9 +243,9 @@ function findSegmentByItineraryId(segmentItineraryRef: string, segmentOptions: A
       ? segment.vi_solution_id === segmentItineraryRef
       : segment.itinerary_id === segmentItineraryRef
   );
-  if (selectedSegment?.virtual_interline && selectedSegment.vi_position === 1){
+  if (selectedSegment!.virtual_interline && selectedSegment!.vi_position === 1){
     selectedSegment = segmentOptions.find((segment: Segment) =>
-      segment.vi_solution_id === selectedSegment?.vi_solution_id &&
+      segment.vi_solution_id === selectedSegment!.vi_solution_id &&
       segment.vi_position === 0
     );
   }

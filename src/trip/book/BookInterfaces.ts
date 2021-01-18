@@ -1,4 +1,5 @@
 import { AdditionalDetails, Brand } from "../results/ResultsInterfaces";
+import { AdditionalBaggage } from "../results/PricingInterfaces";
 
 export interface BookingDetails {
   trip_id?: string;
@@ -32,7 +33,30 @@ export interface PassengerInfo {
   passenger_type: string;
   passenger_type_name?: string;
   email?: string;
+  meals: Array<MealPreferences>;
   updated: boolean;
+  frequent_flyer_cards: Array<FrequentFlyerCard>
+  additional_checked_bags: Array<ApplicableBaggage>
+  additional_carry_on_bags: Array<ApplicableBaggage>
+}
+
+export interface FrequentFlyerCard {
+  itinerary_reference?: string;
+  segment_id?: string;
+  card_supplier: string;
+  program_name: string;
+  card_number: string;
+}
+
+export interface MealPreferences {
+  itinerary_reference: number;
+  meal_choice: string;
+  flight_numbers?: string;
+}
+
+export interface ApplicableBaggage {
+  itinerary_reference: string;
+  applicable_bags: Array<AdditionalBaggage>
 }
 
 export interface Billing {
@@ -56,7 +80,11 @@ export const defaultPassengerInfo: PassengerInfo = {
   'last_name': '',
   'date_of_birth': new Date().toISOString().slice(0,10),
   'gender': '',
-  'updated': false
+  'updated': false,
+  'frequent_flyer_cards': [],
+  'additional_carry_on_bags': [],
+  'additional_checked_bags': [],
+  'meals': []
 };
 
 export const defaultBilling: Billing = {

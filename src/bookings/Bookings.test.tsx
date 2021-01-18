@@ -5,7 +5,7 @@ import { AuthDetails, defaultAuth } from '../auth/AuthInterfaces';
 import { BookingsList } from './BookingsInterfaces';
 import { getBookingsList, getBookingDetails, cancelBooking, queueBooking } from '../actions/BookingsActions';
 import { PDFItineraryDownload } from "./PDFItineraryDownload";
-import { testingAuthDetails, testingResultsDetails, testingPricingDetails} from "../helpers/TestingObjectHelpers";
+import { testingAuthDetails, testingResultsDetails, testingPricingDetails, testingBookingDetails } from "../helpers/TestingObjectHelpers";
 import { setErrorDetails } from "../actions/ResultsActions";
 
 let testBookingsList: BookingsList = {
@@ -58,6 +58,7 @@ test('pdfItineraryDownload', () => {
       authDetails={testingAuthDetails}
       resultsDetails={testingResultsDetails}
       pricingDetails={testingPricingDetails}
+      bookingDetails={testingBookingDetails}
       setErrorDetails={setErrorDetails}
       t={() => 'MMM do, Y'}
     />

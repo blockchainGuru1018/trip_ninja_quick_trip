@@ -20,7 +20,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import ResultsViewToggle from './ResultsViewToggle';
 import { invalidFlexTripResult } from '../../helpers/FlexTripResultHelper';
 import CancellationPolicy from '../../common/CancellationPolicy';
-import RecalculatingFaresIndicator from "./RecalculatingFaresIndicator";
 
 interface ItineraryResultsProps extends WithTranslation {
   resultsDetails: ResultsDetails;
@@ -45,6 +44,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
 
   componentDidMount() {
     this.props.setResultsLoading(false);
+    window.analytics.page();
   }
 
   handleViewChange = (newValue: string | null) => {
@@ -71,6 +71,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             currency={this.props.currency}
             segmentSelect={false}
             trip={trip}
+            loading={this.props.resultsDetails.loadingResults}
           />
         </div>
       </div>;
@@ -145,9 +146,6 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
             </div>
             <div className="col-md-4">
               <div className='row' style={{"justifyContent": "flex-end"}}>
-                <RecalculatingFaresIndicator
-                  loading={this.props.resultsDetails.loadingResults}
-                />
                 <PricingRequest
                   resultsDetails={this.props.resultsDetails}
                   currency={this.props.currency}
@@ -169,7 +167,7 @@ class ItineraryResult extends React.Component<ItineraryResultsProps> {
           </div>
           <div className="col-md-10 segment-list">
             {selectedSegments}
-            { this.state.view === 'itinerary' &&
+            {this.state.view === 'itinerary' && !this.props.resultsDetails.loadingResults &&
               <div className="row">
                 <div className="col-xl-11 offset-xl-1">
                   <CancellationPolicy 

@@ -77,3 +77,15 @@
 .cancel-policy-group {
   padding: 10px 0px;
 }
+
+.skeleton-mini-circle-container {
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  margin-top: 20px;
+}
+
+.skeleton-col {
+  display: grid;
+  align-content: center;
+}

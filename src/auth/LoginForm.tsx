@@ -7,11 +7,13 @@ import  { Redirect } from 'react-router-dom';
 import { getAdminUrl } from '../helpers/AdminUrlHelper';
 import Alert from '@material-ui/lab/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { AuthDetails } from './AuthInterfaces';
 
 interface LoginFormProps extends WithTranslation {
   login: typeof login;
   authenticated: boolean;
   invalidAuth: boolean;
+  authDetails: AuthDetails;
 }
 
 const LoginTextField = styled(TextField)({
@@ -30,7 +32,6 @@ class LoginForm extends React.Component<LoginFormProps> {
   }
 
   render() {
-
     return (
       <div>
         {this.props.authenticated

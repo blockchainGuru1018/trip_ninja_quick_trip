@@ -41,11 +41,12 @@ interface BookProps extends WithTranslation {
 class Book extends React.Component<BookProps> {
   componentDidMount() {
     if (!this.props.bookingDetails.passengers[0].updated) this.props.setPassengerInfo(this.props.passengers);
+    window.analytics.page();
   }
 
   render() {
     const trip: Results = this.props.resultsDetails![this.props.resultsDetails!.tripType];
-    const actives: Array<Segment> = [...this.props.resultsDetails?.activeSegments.values()];
+    const actives: Array<Segment> = [...this.props.resultsDetails!.activeSegments.values()];
 
     return (
       <div className="row" id="book-itinerary">

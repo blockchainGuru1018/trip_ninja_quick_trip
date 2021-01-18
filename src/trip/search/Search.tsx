@@ -33,6 +33,7 @@ class Search extends React.Component<SearchProps> {
     const flights: Array<any> = this.props.searchDetails.flights.map(
       (_, index: number) => {
         return <FlightInput
+          key={index.toString()}
           i={index}
           updateFlightValue={this.props.updateFlightValue}
           flights={this.props.searchDetails.flights}

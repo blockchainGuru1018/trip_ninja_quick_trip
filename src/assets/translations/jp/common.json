@@ -42,9 +42,9 @@
       "signOut": "サインアウト"
   },
   "cancellationPolicy": {
-    "cancellationCost": "Cancellation Cost:",
-    "changeCost": "Change Cost:",
-    "fareDifferences": "+ fare differences."
+    "cancellationCost": "キャンセル料",
+    "changeCost": "変更料金",
+    "fareDifferences": "+ 運賃の差額"
 },
   "custom404":{
       "title": "404 - ページが見つかりませんでした",
@@ -83,7 +83,7 @@
       "atACost": "コストで",
       "available": "利用可能",
       "unavailable": "利用不可",
-      "platingCarrier": "Plating Carrier"
+      "platingCarrier": "プレイティングキャリア"
   },
   "flightLogo": {
       "multipleAirlines": "複数の航空会社"
@@ -155,8 +155,8 @@
           "return":"予約概要に戻る"
       },
     "pdfErrorModal": {
-      "title": "PDF download failed.",
-      "body": "There was an error downloading the pdf, please try again or contact support.",
+      "title": "PDFのダウンロードに失敗しました",
+      "body": "PDFのダウンロードに問題が生じました。再度お試し頂くか、カスタマーサポートまでお問い合わせください",
       "return": "Return to Booking"
     }
   },
@@ -370,7 +370,7 @@
         "cancelBookingButton": "予約をキャンセル",
         "sendToQueueButton": "キューに送信",
         "issueTicketButton": "チケットを発行",
-        "downloadButton": "Download Quote"
+        "downloadButton": "見積もりをダウンロード"
 
     },
     "multiPNRViewToggle": {
@@ -382,9 +382,9 @@
         "title": "乗客の詳細"
     },
     "pdf": {
-      "title": "Travel Proposal and Flight Itinerary",
-      "modalLoadingPrimary": "Loading Itinerary PDF",
-      "createdBy": "Created By"
+      "title": "旅行の提案とフライトの旅程",
+      "modalLoadingPrimary": "旅行日程PDFデータの読み込み中",
+      "createdBy": "によって制作されました"
     }
   }
 }

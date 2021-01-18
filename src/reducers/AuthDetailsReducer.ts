@@ -24,6 +24,14 @@ function authDetailsReducer(state: AuthDetails = {} as any, action: any) {
       };
 
     case 'SET_USER_PARAMETERS':
+      window.analytics.identify(action.parameters.user_email, {
+        userEmail: action.parameters.user_email,
+        userFirstName: action.parameters.first_name,
+        agency: action.parameters.agency,
+      });
+
+      window.analytics.group(action.parameters.agency);
+
       return {
         ...state,
         userEmail: action.parameters.user_email,

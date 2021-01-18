@@ -44,7 +44,7 @@ class FareRulesPreview extends React.Component<FareRulesProps> {
 
   render() {
     return(
-      <div key={this.props.index!.toString()}>
+      <div key={this.props.index ? this.props.index!.toString() : '0'}>
         {!this.props.itineraryDisplay && 
           <div>
             <p className="text-center text-bold">{this.props.t("common.fareRulesPreview.title")}</p>

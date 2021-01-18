@@ -174,6 +174,24 @@
   text-align: center;
 }
 
+
+.add-baggage-container {
+  padding-left: 25px;
+}
+
+.baggage-option {
+  border: solid 1px var(--secondary);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.active-baggage {
+  border: solid 2px var(--primary);
+  color: var(--primary);
+}
+
 .ff-flight-logo-path-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

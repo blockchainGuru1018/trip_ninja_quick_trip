@@ -39,7 +39,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
   const [email, setEmail] = useState('');
   const [countryCode, setCountryCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isActive, setIsActive] = useState("enabled");
+  const [booking_enabled, setBookingEnable] = useState("enabled");
 
   useEffect(() => {
     if (opened) {
@@ -77,7 +77,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
       setCountryCode('');
       setPhoneNumber('');
     }
-    setIsActive(user ? user.is_active ? 'enabled' : 'disabled' : 'enabled');
+    setBookingEnable(user ? user.booking_enabled ? 'enabled' : 'disabled' : 'enabled');
   }, [user]);
 
   const onUsernameChange = (ev: React.ChangeEvent<HTMLInputElement>, attr: string) => {
@@ -111,8 +111,8 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
       email,
       team_id: teamId,
       agency_id: agencyId,
-      phone_number, 
-      is_active: isActive === "enabled"
+      phone_number,
+      booking_enabled: booking_enabled === "enabled"
     });
     onClose();
   };
@@ -201,7 +201,7 @@ const UserEditDrawer: React.FC<Props> = ({ opened, user, onClose, updateUser }) 
                 <div className="tab-content" style={{ display:"block" }}>
                   <FormLabel className="radio-label">Agents can create PNRs?</FormLabel>
                   <FormControl>
-                    <RadioGroup row value={isActive} onChange={(ev) => setIsActive(ev.target.value)}>
+                    <RadioGroup row value={booking_enabled} onChange={(ev) => setBookingEnable(ev.target.value)}>
                       <FormControlLabel
                         className="radio-radio"
                         value="enabled"
